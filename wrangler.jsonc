@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ohmyho-public-production",
+  "account_id": "9e753b729403274e3c62ea1ffd4fddd7",
+  "main": "src/worker-main.ts",
+  "compatibility_date": "2026-09-05",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    { "pattern": "ohmyho.st", "custom_domain": true },
+    { "pattern": "check.omh.st", "custom_domain": true },
+    { "pattern": "dev.check.omh.st", "custom_domain": true },
+  ],
+  "observability": { "enabled": true, "logs": { "invocation_logs": false } },
+}
