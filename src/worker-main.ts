@@ -55,8 +55,20 @@ export default {
     if (url.pathname !== "/" && url.pathname !== "/favicon.svg")
       return new Response(null, { status: 404, headers });
     const icon = url.pathname === "/favicon.svg";
+    const sources = url.searchParams.getAll("r");
+    const source =
+      !icon && sources.length === 1 && /^[a-z0-9][a-z0-9_-]{0,63}$/u.test(sources[0] ?? "")
+        ? sources[0]
+        : undefined;
+    const page =
+      source === undefined
+        ? PAGE
+        : PAGE.replace(
+            "</head>",
+            `<meta name="ohmyhost-signup-source" content="${source}">\n</head>`,
+          );
     headers.set("content-type", icon ? "image/svg+xml" : "text/html; charset=utf-8");
-    return new Response(request.method === "HEAD" ? null : icon ? ICON : PAGE, {
+    return new Response(request.method === "HEAD" ? null : icon ? ICON : page, {
       status: 200,
       headers,
     });
