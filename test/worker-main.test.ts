@@ -40,6 +40,19 @@ describe("public entry and unassigned Free-host fallback", () => {
         expect(response.headers.get("cache-control")).toBe("no-store");
         expect(response.headers.get("referrer-policy")).toBe("no-referrer");
         expect(await response.text()).toBe("");
+        const referred = worker.fetch(
+          new Request(
+            `https://${host}/private?r=hostmebaby&ticket=private-ticket&next=https://foreign.example`,
+            { method },
+          ),
+        );
+        expect(referred.headers.get("location")).toBe(
+          host === "omh.st" || host === "check.omh.st"
+            ? "https://ohmyho.st/?r=hostmebaby"
+            : "https://ohmyho.st/",
+        );
+        const ambiguous = worker.fetch(new Request(`https://${host}/?r=one&r=two`, { method }));
+        expect(ambiguous.headers.get("location")).toBe("https://ohmyho.st/");
       }
     }
   });
