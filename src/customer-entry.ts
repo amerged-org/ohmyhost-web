@@ -73,7 +73,17 @@ Report a bug, suspected issue or feature gap with ohmyhost feedback submit or MC
 
 ## Billing
 
-Discover credits balance, credits usage, budget and billing commands through CLI help. Checkout and account management use Stripe-hosted pages. A returned checkout link is not payment confirmation; complete a purchase only with the customer's explicit authorization.
+Discover credits balance, credits usage and budget through CLI help. An organization Owner starts a Paid subscription or a one-time top-up through the same public API:
+
+    ohmyhost billing checkout --organization "$ORGANIZATION_ID" --offer paid --idempotency-key "$PURCHASE_REQUEST_KEY" --json
+
+For a one-time purchase of 1,000 credits, use --offer topup --packs 1 with its own request key. Complete the returned Stripe-hosted checkout only with the customer's explicit payment authorization. Then read the original purchase; the browser return alone does not confirm payment:
+
+    ohmyhost billing status --organization "$ORGANIZATION_ID" --checkout "$CHECKOUT_ID" --json
+    ohmyhost credits balance --organization "$ORGANIZATION_ID" --json
+    ohmyhost billing portal --organization "$ORGANIZATION_ID" --json
+
+Every successful purchase has a Stripe invoice, including one-time credits. The owner-only portal opens invoice history and invoice downloads, payment methods and subscription management; request a fresh portal link when needed. A top-up does not extend a Paid subscription. Automatic recharges are not available in this release and are never enabled by login or an ordinary purchase.
 `;
 
 const GUIDE_HTML = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Deploy with ohmyho.st</title><style>:root{color-scheme:dark;font-family:system-ui;background:#080808;color:#eee}body{max-width:900px;margin:48px auto;padding:24px}a{color:#ddd}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:16px/1.6 ui-monospace,monospace}</style><nav><a href="/">ohmyho.st</a> · <a href="/docs.md">Markdown</a> · <a href="/llms.txt">Agent index</a></nav><pre>${CUSTOMER_GUIDE.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")}</pre></html>`;
