@@ -8,7 +8,8 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(home.status).toBe(200);
     expect(home.headers.get("content-type")).toContain("text/html");
     const html = await home.text();
-    expect(html).toContain("ohmyhost");
+    expect(html).toContain("<title>ohmyho.st</title>");
+    expect(html).toContain("<h1>ohmyho.st</h1>");
     expect(html).not.toContain("private-ticket");
     expect(home.headers.get("content-security-policy")).toContain("default-src 'none'");
     expect(await worker.fetch(new Request("https://ohmyho.st/", { method: "HEAD" })).text()).toBe(

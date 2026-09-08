@@ -4,9 +4,9 @@ const PAGE = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="ohmyhost — hosting for applications and agents.">
+<meta name="description" content="ohmyho.st — hosting for applications and agents.">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<title>ohmyhost</title>
+<title>ohmyho.st</title>
 <style>
 :root{color-scheme:dark;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#080808;color:#f5f5f5}
 *{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;padding:32px}
@@ -18,7 +18,7 @@ footer{margin-top:72px;border-top:1px solid #262626;padding-top:24px;font-size:1
 </head>
 <body><main>
 <p class="label">Your code. Your agent. Your host.</p>
-<h1>ohmyhost<span aria-hidden="true">.</span></h1>
+<h1>ohmyho.st</h1>
 <p class="intro">Hosting for applications and agents.</p>
 <footer>Currently in private testing.</footer>
 </main></body>
