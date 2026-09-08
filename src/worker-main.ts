@@ -1,3 +1,4 @@
+import { customerDocument, isClientDownload } from "./customer-entry.js";
 const HOME = "https://ohmyho.st/";
 const PAGE = `<!doctype html>
 <html lang="en">
@@ -13,21 +14,25 @@ const PAGE = `<!doctype html>
 main{width:min(100%,760px)}.label{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#a3a3a3}
 h1{font-size:clamp(56px,12vw,112px);line-height:1;letter-spacing:-.075em;font-weight:650;margin:24px 0 32px}
 .intro{font-size:clamp(20px,3vw,28px);line-height:1.5;max-width:520px;color:#d4d4d4}
-footer{margin-top:72px;border-top:1px solid #262626;padding-top:24px;font-size:14px;line-height:1.6;color:#a3a3a3}
+a{color:#fafafa}nav{display:flex;gap:24px;margin-top:32px}footer{margin-top:72px;border-top:1px solid #262626;padding-top:24px;font-size:14px;line-height:1.6;color:#a3a3a3}
 </style>
 </head>
 <body><main>
 <p class="label">Your code. Your agent. Your host.</p>
 <h1>ohmyho.st</h1>
 <p class="intro">Hosting for applications and agents.</p>
-<footer>Currently in private testing.</footer>
+<nav><a href="/docs">Install &amp; deploy</a><a href="/llms.txt">For agents</a></nav>
+<footer>Invite-only beta. Use the signup source from your invitation.</footer>
 </main></body>
 </html>`;
 const ICON =
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#080808"/><text x="12" y="47" fill="#f5f5f5" font-family="sans-serif" font-size="48" font-weight="700">o</text></svg>';
 
 export default {
-  fetch(request: Request): Response {
+  async fetch(
+    request: Request,
+    env?: { ASSETS: { fetch(request: Request): Promise<Response> } },
+  ): Promise<Response> {
     const url = new URL(request.url);
     const host = url.hostname;
     const ownHost =
@@ -57,6 +62,25 @@ export default {
       const referralHost = host === "omh.st" || host === "check.omh.st";
       headers.set("location", referralHost && source !== undefined ? `${HOME}?r=${source}` : HOME);
       return new Response(null, { status: 302, headers });
+    }
+    const document = customerDocument(url.pathname);
+    if (document) {
+      headers.set("content-type", document.type);
+      return new Response(request.method === "HEAD" ? null : document.text, {
+        status: 200,
+        headers,
+      });
+    }
+    if (isClientDownload(url.pathname)) {
+      if (!env?.ASSETS)
+        return new Response("Client release is unavailable.", { status: 503, headers });
+      const asset = await env.ASSETS.fetch(
+        new Request(`${HOME.slice(0, -1)}${url.pathname}`, { method: request.method }),
+      );
+      const response = new Response(asset.body, asset);
+      for (const [name, value] of headers) response.headers.set(name, value);
+      if (response.ok) response.headers.set("cache-control", "public, max-age=31536000, immutable");
+      return response;
     }
     if (url.pathname !== "/" && url.pathname !== "/favicon.svg")
       return new Response(null, { status: 404, headers });

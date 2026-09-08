@@ -26,5 +26,8 @@
   },
   "devDependencies": {
     "wrangler": "4.125.0"
+  },
+  "dependencies": {
+    "@ohmyhost/agent-skills": "workspace:*"
   }
 }

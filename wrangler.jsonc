@@ -14,5 +14,6 @@
     { "pattern": "*.check.omh.st/*", "zone_id": "af22d02e7d8b515634aa58d6fa5d7256" },
     { "pattern": "*.dev.check.omh.st/*", "zone_id": "af22d02e7d8b515634aa58d6fa5d7256" },
   ],
+  "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": true },
   "observability": { "enabled": true, "logs": { "invocation_logs": false } },
 }
