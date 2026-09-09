@@ -136,13 +136,13 @@ it("serves only pinned public client assets and strips credentials before the as
   ).json();
   expect(index.skills).toHaveLength(2);
   const currentUrl =
-    "https://ohmyho.st/releases/0.1.0-beta.4/ohmyhost-product-cli-0.1.0-beta.4.tgz";
+    "https://ohmyho.st/releases/0.1.0-beta.5/ohmyhost-product-cli-0.1.0-beta.5.tgz";
   expect((await worker.fetch(new Request(currentUrl), { ASSETS: fixture })).status).toBe(200);
   expect(fixture.requests).toHaveLength(2);
   for (const invalid of [
-    "https://ohmyho.st/releases/0.1.0-beta.4/ohmyhost-product-cli-0.1.0-beta.1.tgz",
+    "https://ohmyho.st/releases/0.1.0-beta.5/ohmyhost-product-cli-0.1.0-beta.1.tgz",
     "https://ohmyho.st/releases/0.1.0-beta.99/manifest.json",
-    "https://ohmyho.st/releases/0.1.0-beta.4/.env.local",
+    "https://ohmyho.st/releases/0.1.0-beta.5/.env.local",
   ])
     expect((await worker.fetch(new Request(invalid), { ASSETS: fixture })).status).toBe(404);
   expect(fixture.requests).toHaveLength(2);
