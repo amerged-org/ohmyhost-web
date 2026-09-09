@@ -6,6 +6,9 @@ import worker from "../src/worker-main.js";
 
 describe("public entry and unassigned Free-host fallback", () => {
   it("serves the public home and favicon without reflecting request data", async () => {
+    const assetRules = await readFile(new URL("../public/.assetsignore", import.meta.url), "utf8");
+    expect(assetRules).toContain("!pages/**");
+    expect(assetRules).toContain("!logos/**");
     const assets = new SiteAssetFixture();
     const home = await worker.fetch(new Request("https://ohmyho.st/?ticket=private-ticket"), {
       ASSETS: assets,
