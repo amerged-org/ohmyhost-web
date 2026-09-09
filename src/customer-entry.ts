@@ -1,6 +1,6 @@
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.2";
+export const CLIENT_RELEASE = "0.1.0-beta.3";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -9,7 +9,7 @@ const CLIENT_PACKAGES = [
   "customer-runtime",
   "customer-auth-better-auth",
 ];
-const RETAINED_CLIENT_RELEASES = new Set(["0.1.0-beta.1", CLIENT_RELEASE]);
+const RETAINED_CLIENT_RELEASES = new Set(["0.1.0-beta.1", "0.1.0-beta.2", CLIENT_RELEASE]);
 
 const skills = listOhmyhostSkillResources();
 export const CUSTOMER_GUIDE = `# Deploy with ohmyho.st
