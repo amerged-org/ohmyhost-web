@@ -1,3 +1,4 @@
+import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
 export const CLIENT_RELEASE = "0.1.0-beta.7";
@@ -114,7 +115,57 @@ For a one-time purchase of 1,000 credits, use --offer topup --packs 1 with its o
 Every successful purchase has a Stripe invoice, including one-time credits. The owner-only portal opens invoice history and invoice downloads, payment methods and subscription management; request a fresh portal link when needed. A top-up does not extend a Paid subscription. Automatic recharges are not available in this release and are never enabled by login or an ordinary purchase.
 `;
 
-const GUIDE_HTML = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Deploy with ohmyho.st</title><style>:root{color-scheme:dark;font-family:system-ui;background:#080808;color:#eee}body{max-width:900px;margin:48px auto;padding:24px}a{color:#ddd}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:16px/1.6 ui-monospace,monospace}</style><nav><a href="/">ohmyho.st</a> · <a href="/docs.md">Markdown</a> · <a href="/llms.txt">Agent index</a></nav><pre>${CUSTOMER_GUIDE.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")}</pre></html>`;
+const DOCUMENTATION: Record<string, string> = {
+  "/docs": CUSTOMER_GUIDE,
+  "/docs/cli": `# CLI
+
+${CUSTOMER_GUIDE}`,
+  "/docs/mcp": `# MCP server
+
+Use the installable local stdio server with Codex, Claude Code, Cursor, Hermes or OpenClaw. Native Windows uses Node.js; Bash and WSL are not required for the MCP executable.
+
+${CUSTOMER_GUIDE}`,
+  "/docs/skills": `# Agent Skills
+
+Read these instructions before preparing or deploying an application. They are also embedded MCP resources.
+
+- [Build a portable app](/skills/ohmyhost-build-portable-app/SKILL.md)
+- [Migrate an existing Supabase app](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md)
+- [Machine-readable Skill catalog](/.well-known/skills/index.json)
+
+Bring your application's own authentication. Better Auth, WorkOS and Auth0 are distinct from the ohmyho.st login. Report suspected bugs through feedback_submit; never include credentials.`,
+  "/docs/usage": `# Status, usage and credits
+
+Ask your agent. ohmyho.st has no customer dashboard; your agent reads the same API through CLI or MCP.
+
+## CLI
+
+\`\`\`sh
+ohmyhost project status --help
+ohmyhost operation get --help
+ohmyhost credits balance --organization "$ORGANIZATION_ID" --json
+ohmyhost credits usage --organization "$ORGANIZATION_ID" --month YYYY-MM --json
+\`\`\`
+
+## MCP
+
+Use organization_credits_get and organization_usage_get for the organization you own. Use operation_get to poll an accepted operation. Discover the tool schema before calling it.
+
+## API
+
+GET /v1/organizations/{organization_id}/credit-usage?month=YYYY-MM returns measured usage by project, environment and meter. Follow its cursor for all projects. GET /v1/organizations/{organization_id}/credits returns the wallet, reservations, published rates and active meters.
+
+Reporting is available at zero credits. It reads posted measurements; absent or delayed provider observations are not proof of zero usage. Current R2 measurement activation and additional meters are still being completed.
+
+A submitted deployment is not automatically ready. Poll its original operation and inspect its status, error and next action; do not submit another build while the existing operation runs.`,
+  "/login": `# Log in to ohmyho.st
+
+[Continue to login](https://app.ohmyho.st/login). The login page supplies your CLI/MCP entry command. Ask your agent for project status, usage and other operational data.
+
+There is no customer dashboard. New deployment tokens default to 90 days and are available only once at issuance. Keep the saved token private; token listing and revocation use CLI/API/MCP.
+
+[CLI installation](/docs/cli.md) · [MCP installation](/docs/mcp.md)`,
+};
 
 export const AGENT_INDEX = `# ohmyho.st
 
@@ -122,6 +173,14 @@ Invite-only, API-first hosting for applications and agents.
 
 - [Customer guide](https://ohmyho.st/docs): client installation, login, GitHub deployment, verification, promotion and recovery.
 - [Guide as Markdown](https://ohmyho.st/docs.md)
+- [CLI guide](https://ohmyho.st/docs/cli.md)
+- [MCP server](https://ohmyho.st/docs/mcp.md)
+- [Usage and status](https://ohmyho.st/docs/usage.md)
+- [API reference](https://ohmyho.st/api.md)
+- [OpenAPI YAML](https://ohmyho.st/api/openapi.yaml)
+- [Design system](https://ohmyho.st/brand.md)
+- [Homepage Markdown](https://ohmyho.st/index.md)
+- [Login](https://ohmyho.st/login.md)
 - [Release manifest](https://ohmyho.st${RELEASE_PATH}/manifest.json)
 - [OpenAPI contract](https://ohmyho.st${RELEASE_PATH}/openapi.json)
 - [Skill catalog](https://ohmyho.st/.well-known/skills/index.json)
@@ -133,8 +192,15 @@ Use the production platform with OHMYHOST_ENVIRONMENT=production. Read the custo
 
 export function customerDocument(path: string): { text: string; type: string } | null {
   if (path === "/llms.txt") return { text: AGENT_INDEX, type: "text/plain; charset=utf-8" };
-  if (path === "/docs.md") return { text: CUSTOMER_GUIDE, type: "text/markdown; charset=utf-8" };
-  if (path === "/docs") return { text: GUIDE_HTML, type: "text/html; charset=utf-8" };
+  const documentPath = path.endsWith(".md") ? path.slice(0, -3) : path;
+  const markdown = DOCUMENTATION[documentPath];
+  if (markdown) {
+    if (path.endsWith(".md")) return { text: markdown, type: "text/markdown; charset=utf-8" };
+    return {
+      type: "text/html; charset=utf-8",
+      text: `<!doctype html><html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ohmyho.st — documentation</title><link rel="alternate" type="text/markdown" href="${documentPath}.md"><style>:root{color-scheme:dark;font-family:'Space Grotesk',system-ui,sans-serif;background:#000;color:#F0F1F2}*{box-sizing:border-box}body{max-width:1000px;margin:0 auto;padding:32px 22px 80px}nav{display:flex;gap:20px;flex-wrap:wrap;padding:0 0 24px;border-bottom:1px solid #26282C}nav a{font-size:14px}main{max-width:78ch}h1{font-size:clamp(36px,7vw,58px);letter-spacing:-.04em}h2{margin-top:48px;letter-spacing:-.03em}p,li{line-height:1.7;color:#b5b9bf}a{color:#F0F1F2;text-underline-offset:4px}pre{background:#0C0D10;border:1px solid #26282C;border-radius:12px;padding:20px;overflow:auto;line-height:1.65}code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.9em}:focus-visible{outline:2px solid #F0F1F2;outline-offset:4px}</style></head><body><nav><a href="/">ohmyho.st</a><a href="/docs">Docs</a><a href="/docs/cli">CLI</a><a href="/docs/mcp">MCP</a><a href="/api">API</a><a href="/brand">Brand</a><a href="${documentPath}.md">Markdown</a><a href="/login">Login</a></nav><main>${marked.parse(markdown, { async: false })}</main></body></html>`,
+    };
+  }
   if (path === "/.well-known/skills/index.json")
     return {
       text: JSON.stringify({

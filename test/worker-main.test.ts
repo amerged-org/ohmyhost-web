@@ -1,15 +1,53 @@
+import { readFile } from "node:fs/promises";
+
 import { describe, expect, it } from "vitest";
 
 import worker from "../src/worker-main.js";
 
 describe("public entry and unassigned Free-host fallback", () => {
   it("serves the public home and favicon without reflecting request data", async () => {
-    const home = await worker.fetch(new Request("https://ohmyho.st/?ticket=private-ticket"));
+    const assets = new SiteAssetFixture();
+    const home = await worker.fetch(new Request("https://ohmyho.st/?ticket=private-ticket"), {
+      ASSETS: assets,
+    });
     expect(home.status).toBe(200);
     expect(home.headers.get("content-type")).toContain("text/html");
     const html = await home.text();
-    expect(html).toContain("<title>ohmyho.st</title>");
-    expect(html).toContain("<h1>ohmyho.st</h1>");
+    expect(html).toContain("<title>ohmyho.st — hosting for agents</title>");
+    expect(html).toContain("All your projects.");
+    expect(html).toContain("via your favorite automation tool");
+    const installer = await worker.fetch(
+      new Request("https://omh.st/0.sh?r=hostmebaby&token=private"),
+      { ASSETS: assets },
+    );
+    expect(installer.status).toBe(200);
+    const installerText = await installer.text();
+    expect(installerText).toContain("OHMYHOST_SIGNUP_SOURCE='hostmebaby'");
+    expect(installerText).toContain("0.1.0-beta.7");
+    expect(installerText).not.toContain("private");
+    expect(installerText).not.toContain("@CLIENT_RELEASE@");
+    expect((await worker.fetch(new Request("http://omh.st/0.sh"))).status).toBe(308);
+    expect(html).toContain("curl -fsSL https://omh.st/0.sh | bash");
+    const brand = await worker.fetch(new Request("https://ohmyho.st/brand"), { ASSETS: assets });
+    expect(await brand.text()).toBe(
+      await readFile(new URL("../site/brand.html", import.meta.url), "utf8"),
+    );
+    for (const path of ["/index.md", "/brand.md", "/api", "/api.md", "/api/openapi.yaml"]) {
+      const response = await worker.fetch(new Request(`https://ohmyho.st${path}`), {
+        ASSETS: assets,
+      });
+      expect(response.status).toBe(200);
+      expect((await response.text()).length).toBeGreaterThan(30);
+    }
+    for (const path of ["/docs", "/docs/cli", "/docs/mcp", "/docs/skills"]) {
+      expect((await worker.fetch(new Request(`https://ohmyho.st${path}.md`))).status).toBe(200);
+    }
+    const login = await worker.fetch(
+      new Request("https://ohmyho.st/login?r=hostmebaby&next=https://foreign.example&token=secret"),
+    );
+    expect(login.headers.get("location")).toBe("https://app.ohmyho.st/login?r=hostmebaby");
+    expect(home.headers.get("link")).toContain("/index.md");
+    expect(home.headers.get("content-security-policy")).toContain("fonts.googleapis.com");
     expect(html).toContain('href="/docs"');
     const docs = await worker.fetch(new Request("https://ohmyho.st/docs"));
     expect(docs.status).toBe(200);
@@ -153,5 +191,26 @@ class PublicAssetFixture {
   async fetch(request: Request) {
     this.requests.push(request);
     return new Response("test-client-archive", { headers: { "content-type": "application/gzip" } });
+  }
+}
+
+class SiteAssetFixture {
+  async fetch(request: Request) {
+    const path = new URL(request.url).pathname;
+    if (
+      ![
+        "/pages/home.html",
+        "/pages/brand.html",
+        "/pages/index.md",
+        "/pages/brand.md",
+        "/pages/api.html",
+        "/pages/api.md",
+        "/pages/openapi.yaml",
+        "/pages/0.sh",
+      ].includes(path)
+    )
+      return new Response(null, { status: 404 });
+    const text = await readFile(new URL(`../public${path}`, import.meta.url), "utf8");
+    return new Response(text);
   }
 }

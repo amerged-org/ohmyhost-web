@@ -1,30 +1,5 @@
 import { customerDocument, isClientDownload } from "./customer-entry.js";
 const HOME = "https://ohmyho.st/";
-const PAGE = `<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="ohmyho.st — hosting for applications and agents.">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<title>ohmyho.st</title>
-<style>
-:root{color-scheme:dark;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#080808;color:#f5f5f5}
-*{box-sizing:border-box}body{margin:0;min-height:100svh;display:grid;place-items:center;padding:32px}
-main{width:min(100%,760px)}.label{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#a3a3a3}
-h1{font-size:clamp(56px,12vw,112px);line-height:1;letter-spacing:-.075em;font-weight:650;margin:24px 0 32px}
-.intro{font-size:clamp(20px,3vw,28px);line-height:1.5;max-width:520px;color:#d4d4d4}
-a{color:#fafafa}nav{display:flex;gap:24px;margin-top:32px}footer{margin-top:72px;border-top:1px solid #262626;padding-top:24px;font-size:14px;line-height:1.6;color:#a3a3a3}
-</style>
-</head>
-<body><main>
-<p class="label">Your code. Your agent. Your host.</p>
-<h1>ohmyho.st</h1>
-<p class="intro">Hosting for applications and agents.</p>
-<nav><a href="/docs">Install &amp; deploy</a><a href="/llms.txt">For agents</a></nav>
-<footer>Invite-only beta. Use the signup source from your invitation.</footer>
-</main></body>
-</html>`;
 const ICON =
   '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#080808"/><text x="12" y="47" fill="#f5f5f5" font-family="sans-serif" font-size="48" font-weight="700">o</text></svg>';
 
@@ -58,14 +33,45 @@ export default {
       sources.length === 1 && /^[a-z0-9][a-z0-9_-]{0,63}$/u.test(sources[0] ?? "")
         ? sources[0]
         : undefined;
+    if (url.pathname === "/0.sh" && (host === "omh.st" || host === "ohmyho.st")) {
+      if (url.protocol !== "https:") {
+        headers.set("location", "https://omh.st/0.sh");
+        return new Response(null, { status: 308, headers });
+      }
+      headers.set("content-type", "text/x-shellscript; charset=utf-8");
+      if (!env?.ASSETS)
+        return new Response(request.method === "HEAD" ? null : "Installer unavailable.", {
+          status: 503,
+          headers,
+        });
+      const script = await env.ASSETS.fetch(new Request(`${HOME}pages/0.sh`));
+      if (!script.ok) return new Response(null, { status: script.status, headers });
+      const text = (await script.text()).replace(
+        "set -euo pipefail",
+        `set -euo pipefail\nOHMYHOST_SIGNUP_SOURCE='${source ?? ""}'`,
+      );
+      return new Response(request.method === "HEAD" ? null : text, { headers });
+    }
     if (host !== "ohmyho.st" || url.protocol !== "https:") {
       const referralHost = host === "omh.st" || host === "check.omh.st";
       headers.set("location", referralHost && source !== undefined ? `${HOME}?r=${source}` : HOME);
       return new Response(null, { status: 302, headers });
     }
-    const document = customerDocument(url.pathname);
+    if (url.pathname === "/login") {
+      headers.set("location", `https://app.ohmyho.st/login${source ? `?r=${source}` : ""}`);
+      return new Response(null, { status: 302, headers });
+    }
+    const wantsMarkdown = request.headers.get("accept")?.includes("text/markdown") === true;
+    const documentPath =
+      wantsMarkdown && url.pathname.startsWith("/docs") && !url.pathname.endsWith(".md")
+        ? `${url.pathname}.md`
+        : url.pathname;
+    const document = customerDocument(documentPath);
     if (document) {
       headers.set("content-type", document.type);
+      headers.set("vary", "Accept");
+      if (document.type.startsWith("text/html"))
+        headers.set("link", `<${url.pathname}.md>; rel="alternate"; type="text/markdown"`);
       return new Response(request.method === "HEAD" ? null : document.text, {
         status: 200,
         headers,
@@ -82,20 +88,68 @@ export default {
       if (response.ok) response.headers.set("cache-control", "public, max-age=31536000, immutable");
       return response;
     }
-    if (url.pathname !== "/" && url.pathname !== "/favicon.svg")
-      return new Response(null, { status: 404, headers });
-    const icon = url.pathname === "/favicon.svg";
-    const page =
-      source === undefined || icon
-        ? PAGE
-        : PAGE.replace(
-            "</head>",
-            `<meta name="ohmyhost-signup-source" content="${source}">\n</head>`,
-          );
-    headers.set("content-type", icon ? "image/svg+xml" : "text/html; charset=utf-8");
-    return new Response(request.method === "HEAD" ? null : icon ? ICON : page, {
-      status: 200,
-      headers,
-    });
+    if (url.pathname === "/favicon.svg") {
+      headers.set("content-type", "image/svg+xml");
+      return new Response(request.method === "HEAD" ? null : ICON, { headers });
+    }
+    const pages: Record<string, string> = {
+      "/": "home.html",
+      "/index.md": "index.md",
+      "/brand": "brand.html",
+      "/brand.md": "brand.md",
+      "/api": "api.html",
+      "/api.md": "api.md",
+      "/api/openapi.yaml": "openapi.yaml",
+      "/api/openapi.json": "openapi.json",
+    };
+    const markdownPath = url.pathname === "/" ? "/index.md" : `${url.pathname}.md`;
+    const selected = wantsMarkdown && pages[markdownPath] ? markdownPath : url.pathname;
+    const page = pages[selected];
+    const logo =
+      /^\/logos\/(?:composio|github|make|n8n|nextjs|postgres|react|tanstack|vite|zapier)\.svg$/u.test(
+        url.pathname,
+      );
+    if (!page && !logo) return new Response(null, { status: 404, headers });
+    if (!env?.ASSETS)
+      return new Response(request.method === "HEAD" ? null : "Page is unavailable.", {
+        status: 503,
+        headers,
+      });
+    const asset = await env.ASSETS.fetch(
+      new Request(`${HOME.slice(0, -1)}${logo ? url.pathname : `/pages/${page}`}`),
+    );
+    if (!asset.ok) return new Response(null, { status: asset.status, headers });
+    let body = await asset.text();
+    const type = logo
+      ? "image/svg+xml"
+      : page?.endsWith(".md")
+        ? "text/markdown; charset=utf-8"
+        : page?.endsWith(".yaml")
+          ? "application/yaml; charset=utf-8"
+          : page?.endsWith(".json")
+            ? "application/json; charset=utf-8"
+            : "text/html; charset=utf-8";
+    if (type.startsWith("text/html")) {
+      const hashes: string[] = [];
+      for (const script of body.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gu)) {
+        const hash = new Uint8Array(
+          await crypto.subtle.digest("SHA-256", new TextEncoder().encode(script[1] ?? "")),
+        );
+        hashes.push(`'sha256-${btoa(String.fromCharCode(...hash))}'`);
+      }
+      headers.set(
+        "content-security-policy",
+        `default-src 'none'; script-src 'self' ${hashes.join(" ")}; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; worker-src blob:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'`,
+      );
+      headers.set("link", `<${markdownPath}>; rel="alternate"; type="text/markdown"`);
+      if (page === "home.html" && source)
+        body = body.replace(
+          "</head>",
+          `<meta name="ohmyhost-signup-source" content="${source}"></head>`,
+        );
+    }
+    headers.set("content-type", type);
+    headers.set("vary", "Accept");
+    return new Response(request.method === "HEAD" ? null : body, { headers });
   },
 };

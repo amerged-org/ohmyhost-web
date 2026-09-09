@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>ohmyho.st — hosting for agents</title>
+<meta name="description" content="Hosting, Postgres, email, a domain, AI and backups behind one command. $10 a month for every project you build.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------- shadcn-style tokens: light is the default ---------- */
+  :root{
+    --background:#FFFFFF;
+    --foreground:#09090B;
+    --card:#FFFFFF;
+    --muted:#F4F4F5;
+    --muted-foreground:#71717A;
+    --subtle:#A1A1AA;
+    --border:#E4E4E7;
+    --border-strong:#D4D4D8;
+    --primary:#18181B;
+    --primary-foreground:#FAFAFA;
+    --accent:#09090B;
+    --accent-soft:rgba(9,9,11,.04);
+    --ok:#16A34A;
+    --r:22px;
+    --r-sm:12px;
+    --noise:.030;
+    --noise-blend:multiply;
+
+    --sans:'Space Grotesk',-apple-system,BlinkMacSystemFont,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sec:112px;
+  }
+  :root[data-theme="dark"]{
+    --background:#000000;
+    --foreground:#F0F1F2;
+    --card:#0A0B0D;
+    --muted:#0C0D10;
+    --muted-foreground:#83878D;
+    --subtle:#3E4247;
+    --border:#17181A;
+    --border-strong:#26282C;
+    --primary:#F0F1F2;
+    --primary-foreground:#000000;
+    --accent:#F0F1F2;
+    --accent-soft:rgba(240,241,242,.045);
+    --ok:#4CAF8F;
+    --r:22px;
+    --r-sm:12px;
+    --noise:.035;
+    --noise-blend:normal;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;background:var(--background)}
+  body{background:var(--background);color:var(--foreground);font-family:var(--sans);
+    letter-spacing:-.012em;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+    transition:background .3s ease,color .3s ease}
+  body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;
+    opacity:var(--noise);mix-blend-mode:var(--noise-blend);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+  ::selection{background:var(--muted-foreground);color:var(--background)}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:1px solid var(--muted-foreground);outline-offset:4px;border-radius:3px}
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px}
+
+  /* ---------- header ---------- */
+  .top{position:sticky;top:0;z-index:40;
+    background:color-mix(in srgb, var(--background) 72%, transparent);
+    backdrop-filter:blur(16px) saturate(140%);
+    border-bottom:1px solid transparent;transition:border-color .3s ease,background .3s ease}
+  .top.stuck{border-bottom-color:var(--border);
+    background:color-mix(in srgb, var(--background) 88%, transparent)}
+  nav{height:66px;display:flex;align-items:center;gap:26px}
+  .mark{font-family:var(--mono);font-size:14.5px;letter-spacing:-.02em}
+  .mark i{font-style:normal;color:var(--subtle)}
+  .links{display:flex;gap:24px;margin-left:8px;font-size:13.5px;color:var(--muted-foreground)}
+  .links a{transition:color .2s}
+  .links a:hover{color:var(--foreground)}
+  nav .r{margin-left:auto;display:flex;gap:14px;align-items:center;font-size:13.5px;
+    color:var(--muted-foreground)}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--muted);
+    color:var(--foreground);border:1px solid var(--border-strong);
+    padding:11px 20px;border-radius:999px;font-size:14px;font-weight:500;
+    transition:background .2s ease,border-color .2s ease}
+  .btn::after{content:"›";font-size:15px;color:var(--muted-foreground);line-height:1}
+  .btn:hover{background:var(--background);border-color:var(--muted-foreground)}
+  .btn.g{background:transparent}
+  .btn.g:hover{background:var(--muted)}
+  nav .btn{padding:9px 17px;font-size:13.5px}
+  .btn.nochev{cursor:pointer;font-family:inherit;padding:13px 24px;font-size:15px;
+    white-space:nowrap;justify-content:center;min-width:172px}
+  .btn.navcopy{min-width:126px}
+  .btn.navcopy{padding:9px 16px;font-size:13.5px}
+  .btn.navcopy svg{width:14px;height:14px}
+  .btn.nochev::after{content:none}
+  .btn.nochev svg{width:16px;height:16px;color:var(--muted-foreground)}
+  .btn.nochev.done svg{color:var(--ok)}
+
+  .themer{display:flex;align-items:center;justify-content:center;width:34px;height:34px;
+    border:1px solid var(--border);border-radius:var(--r-sm);background:transparent;cursor:pointer;
+    color:var(--muted-foreground);transition:color .2s,border-color .2s,background .2s}
+  .themer:hover{color:var(--foreground);border-color:var(--border-strong);background:var(--muted)}
+  .themer svg{width:15px;height:15px}
+  .themer .sun{display:none}
+  .themer .moon{display:block}
+  :root[data-theme="light"] .themer .sun{display:block}
+  :root[data-theme="light"] .themer .moon{display:none}
+
+  /* ---------- hero ---------- */
+  header{text-align:center;padding:80px 0 0}
+  h1{font-size:clamp(44px,9vw,80px);font-weight:700;line-height:1.06;letter-spacing:-.04em;
+    padding-bottom:.14em;
+    background:linear-gradient(180deg,var(--foreground) 42%,var(--muted-foreground) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  h1 .thin{font-weight:400}
+  .lede{margin:24px auto 0;max-width:42ch;color:var(--muted-foreground);font-size:17px;line-height:1.5}
+  .next{display:none;margin:26px auto 0;max-width:420px}
+  .next.on{display:block;animation:heroIn .5s cubic-bezier(.2,.7,.3,1) both}
+  .next .step{display:flex;align-items:center;gap:10px;justify-content:center;
+    font-size:15px;font-weight:500;color:var(--foreground);margin-bottom:14px}
+  .next .step i{width:20px;height:20px;border-radius:50%;background:var(--ok);
+    display:flex;align-items:center;justify-content:center;flex:0 0 20px}
+  .next .step i svg{width:11px;height:11px;color:#000}
+  .next .win{border:1px solid var(--border-strong);border-radius:14px;background:var(--muted);
+    overflow:hidden;text-align:left}
+  .next .win .top{display:flex;gap:6px;padding:11px 15px;border-bottom:1px solid var(--border)}
+  .next .win .top i{width:7px;height:7px;border-radius:50%;background:var(--border-strong)}
+  .next .win .body{padding:16px 18px;font-family:var(--mono);font-size:13px;
+    color:var(--muted-foreground);display:flex;align-items:center;gap:9px}
+  .next .win .body s{color:var(--subtle);text-decoration:none}
+  .next .win .body b{font-weight:400;color:var(--foreground)}
+  .next .cur{display:inline-block;width:7px;height:14px;background:var(--foreground);
+    animation:blink 1s step-end infinite}
+  @keyframes blink{50%{opacity:0}}
+  .next .hint{margin-top:12px;font-size:12.5px;color:var(--subtle);text-align:center}
+
+  .under{margin-top:18px;font-size:13.5px;color:var(--muted-foreground)}
+  .under b{color:var(--foreground);font-weight:500}
+
+  .repo{display:flex;align-items:center;gap:10px}
+  .repo .ghi{display:flex;align-items:center;justify-content:center;width:16px;height:16px;flex:0 0 16px}
+  .repo .ghi img{width:16px;height:16px;object-fit:contain}
+  .repo em{font-style:normal;margin-left:auto;font-size:11px;color:var(--ok);
+    border:1px solid color-mix(in srgb, var(--ok) 35%, transparent);border-radius:5px;padding:2px 7px}
+
+  .art{margin:34px auto 30px;max-width:720px}
+  .art svg{width:100%;height:auto;display:block}
+  .lbl{font-family:var(--mono);font-size:11.5px;fill:var(--muted-foreground)}
+  .lbl-hi{fill:var(--foreground);opacity:.75}
+  .hubtxt{font-family:var(--mono);font-size:13px;fill:var(--foreground)}
+  .wire{fill:none;stroke:var(--border-strong);stroke-width:1}
+  .node{fill:var(--subtle)}
+  .box{fill:var(--card);stroke:var(--border-strong)}
+  .dot{fill:var(--muted-foreground)}
+
+  /* ---------- sections ---------- */
+  section{padding:var(--sec) 0 0}
+  h2{font-size:clamp(27px,4.6vw,40px);letter-spacing:-.042em;font-weight:600;
+    text-align:center;line-height:1.22;padding-bottom:.12em;
+    background:linear-gradient(180deg,var(--foreground) 40%,var(--muted-foreground) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{text-align:center;color:var(--muted-foreground);margin-top:13px;font-size:16.5px;
+    max-width:52ch;margin-left:auto;margin-right:auto}
+
+  .wwh{margin-top:48px;display:grid;grid-template-columns:1fr 1fr;
+    border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .wwh div{padding:32px 34px 34px}
+  .wwh div + div{border-left:1px solid var(--border)}
+  .wwh h3{font-family:var(--mono);font-size:11.5px;font-weight:400;color:var(--subtle);
+    margin-bottom:15px}
+  .wwh p{font-size:21px;line-height:1.32;letter-spacing:-.025em;max-width:20ch}
+
+  .term{margin:44px auto 0;border:1px solid var(--border);border-radius:var(--r);background:var(--muted);
+    font-family:var(--mono);font-size:13px;max-width:470px;text-align:left;overflow:hidden;
+    }
+  .term .bar2{display:flex;gap:6px;padding:12px 18px;border-bottom:1px solid var(--border)}
+  .term .bar2 i{width:7px;height:7px;border-radius:50%;background:var(--border-strong);display:block}
+  .shcopy{margin-left:auto;display:flex;align-items:center;gap:7px;background:transparent;
+    border:none;cursor:pointer;font-family:var(--mono);font-size:11px;
+    color:var(--subtle);padding:2px 4px;border-radius:6px;transition:color .18s}
+  .shcopy:hover{color:var(--foreground)}
+  .shcopy svg{width:13px;height:13px}
+  .shcopy.done{color:var(--ok)}
+
+  .term .zone{padding:17px 20px}
+  .term .zone + .zone{border-top:1px solid var(--border)}
+  .term .tag{font-size:10px;color:var(--subtle);letter-spacing:.07em;margin-bottom:10px}
+  .term .ln{color:var(--muted-foreground);line-height:1.95;opacity:0;transform:translateY(3px);
+    transition:opacity .3s ease,transform .3s ease}
+  .term .ln.on{opacity:1;transform:none}
+  .term .ln s{color:var(--subtle);text-decoration:none;margin-right:9px}
+  .term .live{color:var(--foreground);font-size:14px}
+  .term .live s{color:var(--ok);text-decoration:none;margin-right:9px}
+
+  .feat{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 36px;margin-top:52px;text-align:left}
+  .feat svg{width:19px;height:19px;color:var(--foreground);margin-bottom:14px;display:block}
+  .feat h3{font-size:16px;font-weight:500;margin-bottom:10px}
+  .feat p{font-size:14.5px;color:var(--muted-foreground);line-height:1.6}
+
+  .cells{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);
+    border-radius:var(--r);overflow:hidden;margin-top:42px}
+  .cells > *{background:var(--background);transition:background .22s ease}
+  .cells > *:hover{background:var(--muted)}
+  .stackrow{grid-template-columns:repeat(5,1fr)}
+  .st{display:flex;flex-direction:column;align-items:center;gap:13px;padding:26px 10px;font-size:13.5px}
+  .tile{display:flex;align-items:center;justify-content:center;width:30px;height:30px;
+    border-radius:8px;background:var(--muted);overflow:hidden;flex:0 0 30px}
+  .cells > *:hover .tile{background:var(--background)}
+  .tile img{width:18px;height:18px;object-fit:contain}
+  .only{text-align:center;margin-top:26px;font-size:14.5px;color:var(--muted-foreground)}
+  .only b{color:var(--foreground);font-weight:500}
+
+  .vs,.plans{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:44px}
+  .card,.plan{border:1px solid var(--border);border-radius:var(--r);padding:26px;
+    background:var(--card);transition:border-color .25s ease}
+  .card.on,.plan.on{border-color:var(--border-strong);background:var(--muted)}
+  .plan.on,.card.on{border-color:var(--foreground);box-shadow:0 0 0 3px var(--muted)}
+  .card:hover,.plan:hover{border-color:var(--border-strong)}
+  .card.on:hover{border-color:var(--foreground)}
+  .card h3,.plan h3{font-size:13.5px;font-weight:500;color:var(--muted-foreground);margin-bottom:6px}
+  .card.on h3,.plan.on h3{color:var(--foreground)}
+  .li{display:flex;justify-content:space-between;gap:12px;padding:11px 0;
+    border-bottom:1px solid var(--border);font-size:14.5px;color:var(--muted-foreground)}
+  .li b{font-weight:400}
+  .li span{font-family:var(--mono);font-size:12.5px;color:var(--subtle);white-space:nowrap}
+  .card.on .li{color:var(--foreground)}
+  .card.on .li span{color:var(--foreground)}
+  .tot{margin-top:20px;padding-top:17px;border-top:1px solid var(--border);
+    display:flex;justify-content:space-between;align-items:baseline}
+  .tot em{font-style:normal;font-size:13.5px;color:var(--muted-foreground)}
+  .tot strong{font-size:32px;letter-spacing:-.045em;font-weight:600;font-variant-numeric:tabular-nums}
+  .tot strong u{text-decoration:none;font-size:14px;font-weight:400;
+    color:var(--muted-foreground);letter-spacing:0}
+  
+
+  .plan h3{margin-bottom:10px}
+  .price{font-size:35px;letter-spacing:-.045em;font-weight:600}
+  .price u{text-decoration:none;font-size:14px;color:var(--muted-foreground);font-weight:400;letter-spacing:0}
+  .plan ul{list-style:none;margin:22px 0 0;font-size:14.5px;color:var(--muted-foreground)}
+  .plan.on ul{color:var(--foreground)}
+  .plan li{padding:7px 0}
+  .plan li::before{content:"+";color:var(--foreground);font-family:var(--mono);margin-right:11px;font-size:12px}
+  .plan li.no{color:var(--subtle)}
+  .plan li.no::before{content:"–";color:var(--subtle)}
+  .plan .btn{display:inline-block;margin-top:26px}
+  .note{text-align:center;color:var(--subtle);font-size:12.5px;margin-top:22px;
+    max-width:58ch;margin-left:auto;margin-right:auto}
+
+  .slid{margin-top:16px;border:1px solid var(--border);border-radius:var(--r);padding:26px;
+    background:var(--card)}
+  .slid .row{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .slid .amount{font-size:32px;font-weight:600;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+  .slid .amount u{text-decoration:none;font-size:14px;font-weight:400;color:var(--muted-foreground);letter-spacing:0}
+  .slid .cred{font-family:var(--mono);font-size:14px;color:var(--foreground);font-variant-numeric:tabular-nums}
+  .slid .rate{font-size:12px;color:var(--subtle);margin-top:6px;font-family:var(--mono)}
+  .slid input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:26px;
+    background:transparent;cursor:grab;margin-top:16px;display:block}
+  .slid input[type=range]:active{cursor:grabbing}
+  .slid input[type=range]::-webkit-slider-runnable-track{height:3px;background:var(--border-strong);border-radius:2px}
+  .slid input[type=range]::-moz-range-track{height:3px;background:var(--border-strong);border-radius:2px}
+  .slid input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;
+    border-radius:50%;background:var(--foreground);margin-top:-7px;border:none}
+  .slid input[type=range]::-moz-range-thumb{width:17px;height:17px;border-radius:50%;
+    background:var(--foreground);border:none}
+  .ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;
+    color:var(--subtle);margin-top:2px}
+  .autorow{display:flex;align-items:center;gap:12px;margin-top:24px;padding-top:20px;
+    border-top:1px solid var(--border);font-size:14px}
+  .autorow p{color:var(--muted-foreground);font-size:12.5px;margin-top:3px}
+  .sw{position:relative;width:40px;height:23px;border-radius:14px;background:var(--border-strong);
+    border:none;cursor:pointer;flex:0 0 40px;transition:background .22s ease}
+  .sw::after{content:"";position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;
+    background:var(--background);transition:transform .22s cubic-bezier(.3,.7,.3,1)}
+  .sw[aria-checked="true"]{background:var(--ok)}
+  .sw[aria-checked="true"]::after{transform:translateX(17px)}
+  .sales{color:var(--foreground)}
+  .off{display:none;margin-left:9px;font-family:var(--mono);font-size:11px;
+    color:var(--foreground);border:1px solid var(--border-strong);border-radius:5px;padding:2px 7px}
+  .off.show{display:inline-block}
+
+  .logos{grid-template-columns:repeat(4,1fr)}
+  .logo{display:flex;align-items:center;gap:12px;padding:20px 18px;font-size:14.5px}
+  .dest{grid-template-columns:repeat(3,1fr)}
+  .dest span{padding:28px 18px;text-align:center;font-size:15px}
+  .dest span u{display:block;text-decoration:none;font-family:var(--mono);
+    font-size:11.5px;color:var(--subtle);margin-top:8px}
+  .free{text-align:center;margin-top:28px;font-size:15px;color:var(--muted-foreground)}
+  .free b{color:var(--foreground);font-weight:500}
+
+  .philo{max-width:58ch;margin:46px auto 0;text-align:left}
+  .philo p{color:var(--muted-foreground);font-size:16px;line-height:1.7;margin-top:20px}
+  .philo p.lead{color:var(--foreground);font-size:20px;line-height:1.45;
+    letter-spacing:-.022em;margin-top:0}
+  .philo b{color:var(--foreground);font-weight:500}
+  .sig{margin-top:30px;padding-top:22px;border-top:1px solid var(--border);
+    font-family:var(--mono);font-size:12px;color:var(--subtle)}
+
+  .end{text-align:center;padding:120px 0 0}
+  .cta{margin-top:30px;display:flex;gap:10px;justify-content:center}
+  .trust{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:80px}
+  .badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);
+    border-radius:22px;padding:8px 15px;font-size:12.5px;color:var(--muted-foreground)}
+  .badge svg{display:block;border-radius:2px}
+  .badge b{font-weight:500;color:var(--foreground)}
+  .badge.soon{color:var(--subtle);border-color:var(--border)}
+  .badge.soon b{color:var(--subtle)}
+  .badge.soon em{font-style:normal;font-family:var(--mono);font-size:10.5px;
+    color:var(--subtle);border:1px solid var(--border);border-radius:5px;padding:1px 5px}
+
+  footer{margin-top:96px;border-top:1px solid var(--border);padding:52px 0 60px}
+  .fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:30px}
+  .fslogan{margin-top:9px;font-size:13.5px;color:var(--muted-foreground)}
+  .status{display:inline-flex;align-items:center;gap:8px;margin-top:20px;
+    font-size:12.5px;color:var(--muted-foreground)}
+  .pulse{width:7px;height:7px;border-radius:50%;background:var(--ok);
+    box-shadow:0 0 0 0 rgba(22,163,74,.5);animation:pulse 2.4s ease-out infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 7px rgba(22,163,74,0)}100%{box-shadow:0 0 0 0 rgba(22,163,74,0)}}
+  .fcol h4{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--subtle);margin-bottom:14px}
+  .fcol a{display:block;font-size:13.5px;color:var(--muted-foreground);padding:5px 0;transition:color .18s}
+  .fcol a:hover{color:var(--foreground)}
+  .fbot{margin-top:46px;padding-top:22px;border-top:1px solid var(--border);
+    display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--subtle)}
+  .fbot .sp{margin-left:auto}
+
+  /* ---------- motion ---------- */
+  .bar{position:fixed;top:0;left:0;height:2px;width:0;z-index:50;background:var(--foreground);opacity:.6}
+  .up{opacity:0;transform:translateY(18px);
+    transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
+  .up.in{opacity:1;transform:none}
+  .hero-a{opacity:0;animation:heroIn .95s cubic-bezier(.2,.7,.3,1) forwards}
+  @keyframes heroIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+  .wire{stroke-dasharray:340;stroke-dashoffset:340;animation:draw 1.05s cubic-bezier(.35,.6,.2,1) forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .dot{opacity:0;animation:dotIn .7s ease 1.55s forwards}
+  @keyframes dotIn{to{opacity:1}}
+  .fadein{opacity:0;animation:fadeIn .75s ease forwards}
+  @keyframes fadeIn{to{opacity:1}}
+  #halostop{animation:breathe 6s ease-in-out 1.6s infinite}
+  @keyframes breathe{0%,100%{stop-opacity:.05}50%{stop-opacity:.11}}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .up{opacity:1;transform:none;transition:none}
+    .hero-a,.fadein{opacity:1;animation:none}
+    .wire{stroke-dashoffset:0;animation:none}
+    .dot{opacity:1;animation:none}
+    #halostop,.pulse{animation:none}
+    .bar{display:none}
+  }
+
+  @media (max-width:760px){
+    :root{--sec:80px}
+    .links{display:none}
+    header{padding-top:46px}
+    .wwh{grid-template-columns:1fr}
+    .wwh div{padding:24px 20px 26px}
+    .wwh div + div{border-left:none;border-top:1px solid var(--border)}
+    .wwh p{font-size:19px}
+    .stackrow{grid-template-columns:repeat(3,1fr)}
+    .st{padding:17px 8px;font-size:12.5px}
+    .vs,.plans{grid-template-columns:1fr}
+    .dest{grid-template-columns:1fr}
+    .logos{grid-template-columns:repeat(2,1fr)}
+    .fgrid{grid-template-columns:1fr 1fr;gap:26px}
+    .feat{grid-template-columns:1fr;gap:26px}
+    .fbrand{grid-column:1 / -1}
+    .end{padding-top:88px}
+    .term{font-size:12px}
+  }
+</style>
+</head>
+<body>
+
+<div class="top" id="top">
+  <div class="wrap">
+    <nav>
+      <span class="mark">ohmyho<i>.st</i></span>
+      <div class="links">
+        <a href="#stack">Stack</a>
+        <a href="#price">Pricing</a>
+        <a href="#backups">Backups</a>
+      </div>
+      <div class="r">
+        <a href="#">Docs</a>
+        <button class="themer" id="themer" aria-label="Switch theme">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+          </svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/>
+          </svg>
+        </button>
+        <button class="btn nochev navcopy" id="navcopy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+               stroke-linecap="round" stroke-linejoin="round" id="navicon">
+            <rect x="9" y="9" width="11" height="11" rx="2.5"/>
+            <path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"/>
+          </svg>
+          <span id="navlabel">Start free</span>
+        </button>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+
+<header>
+  <h1 class="hero-a" style="animation-delay:.05s"><span class="thin">Ten dollars.</span><br>All your projects.</h1>
+  <p class="lede hero-a" style="animation-delay:.16s">Hosting, Postgres, email and a domain. They charge per project. We don't.</p>
+
+<div class="art">
+<svg viewBox="-6 0 724 320" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Codex, Claude, Cursor or any other harness connects through one MCP to ohmyho.st, which runs hosting, domain, database, email, AI and backups">
+  <defs>
+    <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+      <stop id="halostop" offset="0%" stop-color="currentColor" stop-opacity=".08"/>
+      <stop offset="100%" stop-color="currentColor" stop-opacity="0"/>
+    </radialGradient>
+    <path id="a1" d="M96 52 C 150 52, 154 160, 196 160"/>
+    <path id="a2" d="M96 106 C 154 106, 160 160, 196 160"/>
+    <path id="a3" d="M96 160 L 196 160"/>
+    <path id="a4" d="M96 214 C 154 214, 160 160, 196 160"/>
+    <path id="a5" d="M96 268 C 150 268, 154 160, 196 160"/>
+    <path id="i1" d="M242 160 L 352 160"/>
+    <path id="o1" d="M468 160 C 540 160, 545 45, 612 45"/>
+    <path id="o2" d="M468 160 C 540 160, 545 91, 612 91"/>
+    <path id="o3" d="M468 160 C 545 160, 550 137, 612 137"/>
+    <path id="o4" d="M468 160 C 545 160, 550 183, 612 183"/>
+    <path id="o5" d="M468 160 C 540 160, 545 229, 612 229"/>
+    <path id="o6" d="M468 160 C 540 160, 545 275, 612 275"/>
+  </defs>
+
+  <g style="color:var(--accent)">
+    <ellipse cx="410" cy="160" rx="175" ry="92" fill="url(#halo)"/>
+  </g>
+
+  <use href="#a1" class="wire" style="animation-delay:.25s"/>
+  <use href="#a2" class="wire" style="animation-delay:.31s"/>
+  <use href="#a3" class="wire" style="animation-delay:.37s"/>
+  <use href="#a4" class="wire" style="animation-delay:.43s"/>
+  <use href="#a5" class="wire" style="animation-delay:.49s"/>
+  <use href="#i1" class="wire" style="animation-delay:.72s"/>
+  <use href="#o1" class="wire" style="animation-delay:.98s"/>
+  <use href="#o2" class="wire" style="animation-delay:1.04s"/>
+  <use href="#o3" class="wire" style="animation-delay:1.10s"/>
+  <use href="#o4" class="wire" style="animation-delay:1.16s"/>
+  <use href="#o5" class="wire" style="animation-delay:1.22s"/>
+  <use href="#o6" class="wire" style="animation-delay:1.28s"/>
+
+  <g class="lbl fadein" text-anchor="end" style="animation-delay:.2s">
+    <text x="80" y="56">codex</text>
+    <text x="80" y="110">claude</text>
+    <text x="80" y="164">cursor</text>
+    <text x="80" y="218">hermes</text>
+    <text x="80" y="272" class="lbl lbl-hi">any harness</text>
+  </g>
+  <g class="node fadein" style="animation-delay:.2s">
+    <circle cx="92" cy="52" r="2.5"/><circle cx="92" cy="106" r="2.5"/>
+    <circle cx="92" cy="160" r="2.5"/><circle cx="92" cy="214" r="2.5"/>
+    <circle cx="92" cy="268" r="2.5"/>
+  </g>
+
+  <g class="fadein" style="animation-delay:.66s">
+    <rect class="box" x="196" y="146" width="46" height="28" rx="8"/>
+    <text class="lbl" x="219" y="164" text-anchor="middle">mcp</text>
+  </g>
+
+  <g class="fadein" style="animation-delay:.92s">
+    <rect class="box" x="352" y="139" width="116" height="42" rx="10"/>
+    <text class="hubtxt" x="410" y="165" text-anchor="middle">ohmyho.st</text>
+  </g>
+
+  <g class="node fadein" style="animation-delay:1.35s">
+    <circle cx="616" cy="45" r="2.5"/><circle cx="616" cy="91" r="2.5"/>
+    <circle cx="616" cy="137" r="2.5"/><circle cx="616" cy="183" r="2.5"/>
+    <circle cx="616" cy="229" r="2.5"/><circle cx="616" cy="275" r="2.5"/>
+  </g>
+  <g class="lbl fadein" style="animation-delay:1.35s">
+    <text x="632" y="49">hosting</text>
+    <text x="632" y="95">your domain</text>
+    <text x="632" y="141">postgres</text>
+    <text x="632" y="187">email</text>
+    <text x="632" y="233">ai models</text>
+    <text x="632" y="279">backups</text>
+  </g>
+
+  <circle class="dot" r="2.4"><animateMotion dur="3.2s" repeatCount="indefinite"><mpath href="#a1"/></animateMotion></circle>
+  <circle class="dot" r="2.4"><animateMotion dur="3.2s" repeatCount="indefinite" begin=".8s"><mpath href="#a2"/></animateMotion></circle>
+  <circle class="dot" r="2.4"><animateMotion dur="3.2s" repeatCount="indefinite" begin="1.6s"><mpath href="#a3"/></animateMotion></circle>
+  <circle class="dot" r="2.4"><animateMotion dur="3.2s" repeatCount="indefinite" begin="2.4s"><mpath href="#a4"/></animateMotion></circle>
+  <circle class="dot" r="2.4"><animateMotion dur="3.2s" repeatCount="indefinite" begin="1.2s"><mpath href="#a5"/></animateMotion></circle>
+  <circle class="dot" r="2.6"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#i1"/></animateMotion></circle>
+  <circle class="dot" r="2.6"><animateMotion dur="1.6s" repeatCount="indefinite" begin=".8s"><mpath href="#i1"/></animateMotion></circle>
+  <circle class="dot" r="2.4"><animateMotion dur="3.4s" repeatCount="indefinite" begin=".1s"><mpath href="#o1"/></animateMotion></circle>
+  <circle class="dot" r="2.4"><animateMotion dur="3.4s" repeatCount="indefinite" begin="1.7s"><mpath href="#o2"/></animateMotion></circle>
+  <circle class="dot" r="2.4"><animateMotion dur="3.4s" repeatCount="indefinite" begin=".9s"><mpath href="#o3"/></animateMotion></circle>
+  <circle class="dot" r="2.4"><animateMotion dur="3.4s" repeatCount="indefinite" begin="2.4s"><mpath href="#o4"/></animateMotion></circle>
+  <circle class="dot" r="2.4"><animateMotion dur="3.4s" repeatCount="indefinite" begin=".5s"><mpath href="#o5"/></animateMotion></circle>
+  <circle class="dot" r="2.4"><animateMotion dur="3.4s" repeatCount="indefinite" begin="2.9s"><mpath href="#o6"/></animateMotion></circle>
+</svg>
+</div>
+
+  <div class="cta hero-a" id="hero-cta" style="animation-delay:1.15s">
+    <button class="btn nochev" id="copy">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
+           stroke-linecap="round" stroke-linejoin="round" id="icon">
+        <rect x="9" y="9" width="11" height="11" rx="2.5"/>
+        <path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"/>
+      </svg>
+      <span id="btnlabel">Get started</span>
+    </button>
+  </div>
+
+  <div class="next" id="next">
+    <div class="step">
+      <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4"
+              stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9 17.5 20 6.5"/></svg></i>
+      Copied. Now open your terminal and paste.
+    </div>
+    <div class="win">
+      <div class="top"><i></i><i></i><i></i>
+        <button class="shcopy" id="shcopy2" aria-label="Copy command"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"/></svg><span>copy</span></button>
+      </div>
+      <div class="body"><s>$</s><b>curl omh.st/0.sh | bash</b><span class="cur"></span></div>
+    </div>
+    <p class="hint">Takes about 40 seconds. Then your agent takes over.</p>
+  </div>
+
+  <p class="under hero-a" style="animation-delay:1.25s" id="under"><b>Start hosting in less than a minute.</b> That's it.</p>
+</header>
+
+
+<section>
+  <h2 class="up">Hosting for agents.</h2>
+  <p class="sub up">Simpler. Safer. Bring your Next.js or Vite app and go.</p>
+
+  <div class="wwh stag">
+    <div><h3>why</h3><p>We love it when agents can just build and host.</p></div>
+    <div><h3>how</h3><p>One provider, simple pricing. Not five.</p></div>
+  </div>
+  <div class="term up" id="term">
+    <div class="bar2"><i></i><i></i><i></i>
+      <button class="shcopy" id="shcopy" aria-label="Copy commands"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"/></svg><span>copy</span></button>
+    </div>
+    <div class="zone">
+      <div class="tag">your repo</div>
+      <div class="ln repo">
+        <span class="ghi"><img src="logos/github.svg" alt="" onerror="this.parentNode.remove()"></span>
+        github.com/you/lovable<em>connected</em>
+      </div>
+    </div>
+    <div class="zone">
+      <div class="tag">your agent</div>
+      <div class="ln"><s>$</s>omh create lovable</div>
+      <div class="ln"><s>$</s>omh db up</div>
+      <div class="ln"><s>$</s>omh domain add lovable</div>
+      <div class="ln"><s>$</s>omh deploy</div>
+    </div>
+    <div class="zone">
+      <div class="tag">live</div>
+      <div class="ln live"><s>&check;</s>https://lovable.ohm.st</div>
+    </div>
+  </div>
+  <p class="only up">Dev and prod both included. <b>Our MCP walks your agent through the split.</b></p>
+</section>
+
+<section id="stack">
+  <h2 class="up">We host the stack agents love.</h2>
+  <p class="sub up">It's what most of them build with anyway.</p>
+
+  <div class="cells stackrow stag">
+    <span class="st"><span class="tile" data-c="#E6E6E6"><img src="logos/nextjs.svg" alt="" onerror="this.style.display='none';this.parentNode.style.background=this.parentNode.dataset.c;this.parentNode.style.borderColor=this.parentNode.dataset.c"></span>Next.js</span>
+    <span class="st"><span class="tile" data-c="#646CFF"><img src="logos/vite.svg" alt="" onerror="this.style.display='none';this.parentNode.style.background=this.parentNode.dataset.c;this.parentNode.style.borderColor=this.parentNode.dataset.c"></span>Vite</span>
+    <span class="st"><span class="tile" data-c="#F97316"><img src="logos/tanstack.svg" alt="" onerror="this.style.display='none';this.parentNode.style.background=this.parentNode.dataset.c;this.parentNode.style.borderColor=this.parentNode.dataset.c"></span>TanStack</span>
+    <span class="st"><span class="tile" data-c="#61DAFB"><img src="logos/react.svg" alt="" onerror="this.style.display='none';this.parentNode.style.background=this.parentNode.dataset.c;this.parentNode.style.borderColor=this.parentNode.dataset.c"></span>React</span>
+    <span class="st"><span class="tile" data-c="#336791"><img src="logos/postgres.svg" alt="" onerror="this.style.display='none';this.parentNode.style.background=this.parentNode.dataset.c;this.parentNode.style.borderColor=this.parentNode.dataset.c"></span>Postgres</span>
+  </div>
+  <p class="only up">More runtimes later. <b>Right now: pick one of these and deploy.</b></p>
+</section>
+
+<section>
+  <h2 class="up">Skip Vercel, Supabase, Resend.</h2>
+  <p class="sub up">One stack for your agent. Easy to use, easy to understand.</p>
+
+  <div class="vs stag">
+    <div class="card">
+      <h3>Buy it separately</h3>
+      <div class="li"><b>Vercel Pro</b><span>$20</span></div>
+      <div class="li"><b>Supabase Pro</b><span>$25</span></div>
+      <div class="li"><b>Resend</b><span>$20</span></div>
+      <div class="li"><b>Domain</b><span>$1</span></div>
+      <div class="li"><b>AI credits</b><span>$5</span></div>
+      <div class="li"><b>Backups</b><span>add-on</span></div>
+      <div class="li"><b>Dev + prod</b><span>pay twice</span></div>
+      <div class="tot"><em>5 accounts, one project</em><strong><span class="count" data-to="71">$0</span><u>/mo</u></strong></div>
+    </div>
+    <div class="card on">
+      <h3>ohmyho.st</h3>
+      <div class="li"><b>Hosting</b><span>in</span></div>
+      <div class="li"><b>Database</b><span>in</span></div>
+      <div class="li"><b>Email</b><span>in</span></div>
+      <div class="li"><b>Domain</b><span>in</span></div>
+      <div class="li"><b>AI models</b><span>in</span></div>
+      <div class="li"><b>Backups</b><span>in</span></div>
+      <div class="li"><b>Dev + prod</b><span>in</span></div>
+      <div class="tot"><em>1 command, every project</em><strong><span class="count" data-to="10">$0</span><u>/mo</u></strong></div>
+    </div>
+  </div>
+</section>
+
+<section id="price">
+  <h2 class="up">$10 a month = 1000 credits.</h2>
+  <p class="sub up">Spend them on any project. Fresh 1000 every month. Top up whenever.</p>
+
+  <div class="plans stag">
+    <div class="plan">
+      <h3>Free</h3>
+      <p class="price">200 <u>credits</u></p>
+      <ul>
+        <li>Hosting</li>
+        <li>A database</li>
+        <li>you.ohmyho.st</li>
+        <li class="no">Your own domain</li>
+        <li class="no">Email</li>
+        <li class="no">AI models</li>
+        <li class="no">Backups</li>
+      </ul>
+      <a class="btn g" href="#">Start free</a>
+    </div>
+    <div class="plan on">
+      <h3>Credits</h3>
+      <p class="price">$10<u>/mo — 1000 credits</u></p>
+      <ul>
+        <li>All of that</li>
+        <li>Your own domain</li>
+        <li>Email that sends</li>
+        <li>AI models, any of them</li>
+        <li>Daily backups</li>
+        <li>Dev and prod, both included</li>
+        <li>Every project on one balance</li>
+        <li>1000 fresh credits each month</li>
+        <li>Scales up on its own</li>
+      </ul>
+      <a class="btn" href="#">Get credits</a>
+    </div>
+  </div>
+  <div class="slid up">
+    <div class="row">
+      <div>
+        <div class="amount"><span id="s-amt">$10</span><u>/mo</u></div>
+        <div class="rate" id="s-rate">100 credits per dollar</div>
+      </div>
+      <div class="cred" id="s-cred">1,000 credits</div>
+    </div>
+
+    <input id="s-dial" type="range" min="0" max="18" value="0" step="1" aria-label="Monthly credits">
+    <div class="ticks"><span>$10</span><span>$100</span><span>$1000</span></div>
+
+    <div class="autorow">
+      <button class="sw" id="s-auto" role="switch" aria-checked="false" aria-label="Auto top-up"></button>
+      <div>
+        <span>Auto top-up</span><span class="off" id="s-off">10% off</span>
+        <p id="s-autotext">Off. If you run out, the site stays up and read-only.</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="note">Credits reset on your billing day. Quiet projects burn almost nothing. Busy ones take credits as they go — top up any time.</p>
+</section>
+
+<section>
+  <h2 class="up">Integrate with thousands of tools.</h2>
+  <p class="sub up">Your users connect ohmyho.st to whatever they already run.</p>
+
+  <div class="cells logos stag">
+    <span class="logo"><span class="tile" data-c="#FF4F00"><img src="logos/zapier.svg" alt="" onerror="this.style.display='none';this.parentNode.style.background=this.parentNode.dataset.c;this.parentNode.style.borderColor=this.parentNode.dataset.c"></span>Zapier</span>
+    <span class="logo"><span class="tile" data-c="#EA4B71"><img src="logos/n8n.svg" alt="" onerror="this.style.display='none';this.parentNode.style.background=this.parentNode.dataset.c;this.parentNode.style.borderColor=this.parentNode.dataset.c"></span>n8n</span>
+    <span class="logo"><span class="tile" data-c="#6D00CC"><img src="logos/make.svg" alt="" onerror="this.style.display='none';this.parentNode.style.background=this.parentNode.dataset.c;this.parentNode.style.borderColor=this.parentNode.dataset.c"></span>Make</span>
+    <span class="logo"><span class="tile" data-c="#3B82F6"><img src="logos/composio.svg" alt="" onerror="this.style.display='none';this.parentNode.style.background=this.parentNode.dataset.c;this.parentNode.style.borderColor=this.parentNode.dataset.c"></span>Composio</span>
+  </div>
+</section>
+
+<section>
+  <h2 class="up">Things you don't have to ask for.</h2>
+  <p class="sub up">They're on from the first deploy.</p>
+
+  <div class="feat stag">
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="12" r="2.5"/><path d="M6 8.5v7M8.5 6h4a3 3 0 0 1 3 3v1M8.5 18h4a3 3 0 0 0 3-3v-1"/></svg><h3>Preview per branch</h3><p>Every push gets its own URL. Share it, break it, throw it away.</p></div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="8" rx="2"/><rect x="3" y="13" width="18" height="8" rx="2"/></svg><h3>Dev and prod</h3><p>Two environments, one balance. Our MCP sets the split up for your agent.</p></div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg><h3>Nightly backups</h3><p>Plain Postgres dumps into a bucket you own. Restore anywhere.</p></div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.4 8.2-8 9-4.6-.8-8-4-8-9V6z"/><path d="M9 12h6"/></svg><h3>Spend cap</h3><p>Set a ceiling yourself. A runaway loop can't cost you a rent payment.</p></div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><h3>Certificates and DNS</h3><p>Domains, HTTPS and sender verification handled. You never touch a record.</p></div>
+    <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg><h3>Data in the EU</h3><p>Built and billed in Europe, GDPR handled, no transfer paperwork.</p></div>
+</div>
+</section>
+
+<section id="backups">
+  <h2 class="up">Backups you can walk away with.</h2>
+  <p class="sub up">Plain Postgres dumps, sent to a place you own.</p>
+
+  <div class="cells dest stag">
+    <span>Google Drive<u>yours</u></span>
+    <span>Amazon S3<u>your bucket</u></span>
+    <span>Cloudflare R2<u>your bucket</u></span>
+  </div>
+  <p class="free up">Nightly. Restore anywhere. Leave whenever — <b>we'd rather you stay because it's amazing.</b></p>
+</section>
+
+<section>
+  <h2 class="up">Why this exists.</h2>
+  <p class="sub up">Short version: I got tired of paying five bills.</p>
+
+  <div class="philo up">
+    <p class="lead">SaaS got expensive, and every month you pay a surcharge for — what, exactly?</p>
+    <p>Nobody was doing the obvious thing: buy the good services in bulk, bundle them, sell them at Aldi prices. So I did that. We add a small margin on what the services underneath cost us. That's the whole business model.</p>
+    <p>No lock-in, because I care whether this is actually good. <b>Unhappy? Take your database and go.</b> Happy? Stay and pay for what you use. Your credits work on every project you have, not one.</p>
+    <p>And you don't get a dashboard. Ask Codex, Claude, whatever you run — <b>our MCP hands back your usage and your data.</b> No UI. This was built for agents.</p>
+    <div class="sig">— the person who got the bill</div>
+  </div>
+</section>
+
+<div class="end">
+  <h2 class="up">200 credits. No card.</h2>
+  <div class="cta up"><a class="btn" href="#">Start free</a><a class="btn g" href="#">Docs</a></div>
+
+  <div class="trust stag">
+    <span class="badge">
+      <svg width="24" height="16" viewBox="0 0 30 20" aria-hidden="true">
+        <rect width="30" height="20" fill="#003399"/>
+        <g fill="#FFCC00"><circle cx="15" cy="3.5" r="1"/><circle cx="18.25" cy="4.37" r="1"/><circle cx="20.63" cy="6.75" r="1"/><circle cx="21.5" cy="10" r="1"/><circle cx="20.63" cy="13.25" r="1"/><circle cx="18.25" cy="15.63" r="1"/><circle cx="15" cy="16.5" r="1"/><circle cx="11.75" cy="15.63" r="1"/><circle cx="9.37" cy="13.25" r="1"/><circle cx="8.5" cy="10" r="1"/><circle cx="9.37" cy="6.75" r="1"/><circle cx="11.75" cy="4.37" r="1"/></g>
+      </svg>
+      Built in the <b>EU</b>
+    </span>
+    <span class="badge"><b>GDPR</b> compliant</span>
+    <span class="badge soon"><em>soon</em><b>ISO 27001</b></span>
+    <span class="badge soon"><em>soon</em><b>SOC 2</b> Type II</span>
+  </div>
+</div>
+
+<footer>
+  <div class="fgrid">
+    <div class="fbrand">
+      <span class="mark">ohmyho<i>.st</i></span>
+      <p class="fslogan">Hosting for agents.</p>
+      <p class="fslogan" style="opacity:.7">Berlin, Germany</p>
+      <span class="status"><i class="pulse"></i>All systems normal</span>
+    </div>
+    <div class="fcol">
+      <h4>product</h4>
+      <a href="#stack">Stack</a>
+      <a href="#price">Pricing</a>
+      <a href="#backups">Backups</a>
+      <a href="#">Changelog</a>
+    </div>
+    <div class="fcol">
+      <h4>developers</h4>
+      <a href="#">Docs</a>
+      <a href="#">MCP server</a>
+      <a href="#">CLI</a>
+      <a href="#">Status</a>
+    </div>
+    <div class="fcol">
+      <h4>company</h4>
+      <a href="#">About</a>
+      <a href="#">Philosophy</a>
+      <a href="#">Blog</a>
+      <a href="#">Open source</a>
+    </div>
+    <div class="fcol">
+      <h4>legal</h4>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">GDPR</a>
+      <a href="#">Imprint</a>
+    </div>
+  </div>
+  <div class="fbot">
+    <span>© 2026 ohmyho.st</span>
+    <span>Made in the EU</span>
+    <span class="sp">Built on Supabase, Vercel and Resend. Not affiliated with them.</span>
+  </div>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+
+  /* theme toggle: starts on the system setting */
+  document.getElementById('themer').addEventListener('click', function(){
+    root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+  });
+  /* On your own domain you can follow the OS instead, and remember the choice:
+     root.dataset.theme = localStorage.theme
+       || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+     ...and inside the click handler: localStorage.theme = root.dataset.theme; */
+
+  /* sticky header + scroll progress */
+  var bar=document.createElement('div'); bar.className='bar'; document.body.appendChild(bar);
+  var top=document.getElementById('top'), tick=false;
+  function onScroll(){
+    var h=document.documentElement, y=h.scrollTop||document.body.scrollTop;
+    var max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?y/max*100:0)+'%';
+    top.classList.toggle('stuck', y>8);
+    tick=false;
+  }
+  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(onScroll);}},{passive:true});
+  onScroll();
+
+  /* both buttons copy the install command */
+  var under=document.getElementById('under'), cmd='curl omh.st/0.sh | bash';
+  var check='<path d="M4 12.5 9 17.5 20 6.5"/>';
+  function wire(btnId, iconId, labelId){
+    var btn=document.getElementById(btnId), icon=document.getElementById(iconId),
+        label=document.getElementById(labelId);
+    var clip=icon.innerHTML, was=label.textContent;
+    function done(){
+      icon.innerHTML=check; btn.classList.add('done'); label.textContent='Copied';
+      document.getElementById('next').classList.add('on');
+      document.getElementById('hero-cta').style.display='none';
+      document.getElementById('under').style.display='none';
+      if(btnId==='navcopy') scrollTo({top:0,behavior:'smooth'});
+      clearTimeout(btn.__r); btn.__r=setTimeout(function(){
+        icon.innerHTML=clip; btn.classList.remove('done'); label.textContent=was;
+      },2500);
+    }
+    btn.addEventListener('click',function(){
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(cmd).then(done).catch(done);
+      } else {
+        var t=document.createElement('textarea');t.value=cmd;document.body.appendChild(t);
+        t.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(t);done();
+      }
+    });
+  }
+  wire('copy','icon','btnlabel');
+  wire('navcopy','navicon','navlabel');
+
+  var termLines=document.querySelectorAll('#term .ln');
+  if(reduce){
+    document.querySelectorAll('.count').forEach(function(n){n.textContent='$'+n.dataset.to;});
+    termLines.forEach(function(l){l.classList.add('on');});
+    return;
+  }
+
+  document.querySelectorAll('.stag').forEach(function(g){
+    Array.prototype.forEach.call(g.children,function(c,i){
+      c.classList.add('up'); c.style.transitionDelay=(i*85)+'ms';
+    });
+  });
+
+  function count(scope){
+    scope.querySelectorAll('.count').forEach(function(n){
+      var to=+n.dataset.to, t0=null, dur=950;
+      requestAnimationFrame(function step(t){
+        if(!t0) t0=t;
+        var k=Math.min((t-t0)/dur,1), e=1-Math.pow(1-k,3);
+        n.textContent='$'+Math.round(to*e);
+        if(k<1) requestAnimationFrame(step);
+      });
+    });
+  }
+  function runTerm(){
+    termLines.forEach(function(l,k){
+      setTimeout(function(){ l.classList.add('on'); }, 220 + k*380 + (k>3 ? 280 : 0));
+    });
+  }
+
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+      if(e.target.classList.contains('tot')) count(e.target);
+      if(e.target.id==='term') runTerm();
+    });
+  },{threshold:.18,rootMargin:'0px 0px -8% 0px'});
+
+  document.querySelectorAll('.up, .tot').forEach(function(el){io.observe(el);});
+})();
+</script>
+
+<script>
+(function(){
+  var steps=[10,20,30,40,50,60,70,80,90,100,200,300,400,500,600,700,800,900,1000];
+  var dial=document.getElementById('s-dial'), amt=document.getElementById('s-amt'),
+      cred=document.getElementById('s-cred'), rate=document.getElementById('s-rate'),
+      sw=document.getElementById('s-auto'), autotext=document.getElementById('s-autotext');
+  var f=function(n){return n.toLocaleString('en-US');};
+
+  function draw(){
+    var v=steps[+dial.value];
+    var credits = v<=100 ? v*100 : 10000 + (v-100)*125;
+    amt.textContent='$'+f(v);
+    if(v>=1000){
+      cred.textContent=f(credits)+' credits';
+      rate.innerHTML='<span class="sales">Bigger than this? Talk to us.</span>';
+    } else {
+      cred.textContent=f(credits)+' credits';
+      rate.textContent = v<=100 ? '100 credits per dollar'
+                                : '20% off above $100 — 125 credits per dollar';
+    }
+    if(sw.getAttribute('aria-checked')==='true'){
+      autotext.textContent='On. Every $10 of credits after this costs 10% less. Refills $'+f(v)+' when you drop below 10%.';
+    }
+  }
+  dial.addEventListener('input',draw);
+  sw.addEventListener('click',function(){
+    var on=sw.getAttribute('aria-checked')==='true';
+    sw.setAttribute('aria-checked', on?'false':'true');
+    document.getElementById('s-off').classList.toggle('show', !on);
+    autotext.textContent = on
+      ? 'Off. If you run out, the site stays up and read-only.'
+      : 'On. Every $10 of credits after this costs 10% less. Refills $'+f(steps[+dial.value])+' when you drop below 10%.';
+  });
+  draw();
+})();
+</script>
+
+<script>
+(function(){
+  var check='<path d="M4 12.5 9 17.5 20 6.5"/>';
+  function copy(text, btn){
+    var svg=btn.querySelector('svg'), keep=svg.innerHTML, lbl=btn.querySelector('span');
+    function ok(){
+      svg.innerHTML=check; btn.classList.add('done'); lbl.textContent='copied';
+      setTimeout(function(){svg.innerHTML=keep;btn.classList.remove('done');lbl.textContent='copy';},2000);
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(ok).catch(ok);
+    } else {
+      var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);
+      t.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(t);ok();
+    }
+  }
+  var a=document.getElementById('shcopy');
+  if(a) a.addEventListener('click',function(){
+    copy('omh create lovable\nomh db up\nomh domain add lovable\nomh deploy', a);
+  });
+  var b=document.getElementById('shcopy2');
+  if(b) b.addEventListener('click',function(){ copy('curl omh.st/0.sh | bash', b); });
+})();
+</script>
+</body>
+</html>
