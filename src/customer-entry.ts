@@ -40,7 +40,20 @@ Follow the displayed WorkOS device authorization. If an organization is missing,
     ohmyhost login --json
     ohmyhost whoami --json
 
-Never invent an invitation source or reuse someone else's token. Interactive clients keep their own hosting login credential in the native credential store. An already issued and permitted ohmyho.st user key can instead be supplied through OHMYHOST_TOKEN in your local environment; this bypasses native credential reads. Self-service issuance with the planned 90-day default is not yet available. This hosting token never authenticates your application's end users.
+Never invent an invitation source or reuse someone else's token. Interactive clients keep their own hosting login credential in the native credential store. An already issued and permitted ohmyho.st user key can instead be supplied through OHMYHOST_TOKEN in your local environment; this bypasses native credential reads. Discover ohmyhost token create --help before using self-service issuance; older installed clients may lack it. This hosting token never authenticates your application's end users.
+
+## Save a deployment token
+
+When your installed client provides token create, use your interactive login and returned organization ID:
+
+    ohmyhost token create --organization "$ORGANIZATION_ID" --name "Deployment agent" --idempotency-key "$TOKEN_REQUEST_KEY" --out .env.local --json
+    ohmyhost token list --organization "$ORGANIZATION_ID" --json
+
+The token defaults to 90 days and is saved to the selected private env file. Existing variables remain intact; existing tokens are never overwritten. Inside a Git repository the file must be ignored. CLI and MCP responses show metadata and the file path, not the full value. Load the file into the agent's CLI/MCP process using Node's --env-file option. Never paste its value into chat or copy the entire file into application secrets.
+
+Manage tokens through the interactive login, outside a process supplying OHMYHOST_TOKEN. Revoke an explicitly selected token with ohmyhost token revoke --organization "$ORGANIZATION_ID" --key "$TOKEN_ID" --yes --json. This preserves your login session and local files.
+
+After uncertain creation, reuse the original name and Idempotency-Key. A recovered request returns metadata without revealing the full value again. If the value was not saved, explicitly revoke that key before creating its replacement. A user-key permission configuration error must be reported through feedback; repeated login or token creation will not repair it.
 
 ## Create and deploy a project
 
