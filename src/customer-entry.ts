@@ -1,14 +1,15 @@
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.1";
+export const CLIENT_RELEASE = "0.1.0-beta.2";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
-export const CLIENT_ARCHIVES = [
+const CLIENT_PACKAGES = [
   "product-cli",
   "mcp",
   "sdk-ts",
   "customer-runtime",
   "customer-auth-better-auth",
-].map((name) => `ohmyhost-${name}-${CLIENT_RELEASE}.tgz`);
+];
+const RETAINED_CLIENT_RELEASES = new Set(["0.1.0-beta.1", CLIENT_RELEASE]);
 
 const skills = listOhmyhostSkillResources();
 export const CUSTOMER_GUIDE = `# Deploy with ohmyho.st
@@ -127,7 +128,18 @@ export function customerDocument(path: string): { text: string; type: string } |
 }
 
 export function isClientDownload(path: string): boolean {
-  return ["manifest.json", "SHA256SUMS", "openapi.json", ...CLIENT_ARCHIVES].some(
-    (file) => path === `${RELEASE_PATH}/${file}`,
+  const parts = path.split("/");
+  const version = parts[2] ?? "";
+  const file = parts[3] ?? "";
+  if (
+    parts.length !== 4 ||
+    parts[0] !== "" ||
+    parts[1] !== "releases" ||
+    !RETAINED_CLIENT_RELEASES.has(version)
+  )
+    return false;
+  return (
+    ["manifest.json", "SHA256SUMS", "openapi.json"].includes(file) ||
+    CLIENT_PACKAGES.some((name) => file === `ohmyhost-${name}-${version}.tgz`)
   );
 }
