@@ -1,6 +1,6 @@
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.3";
+export const CLIENT_RELEASE = "0.1.0-beta.4";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -9,12 +9,17 @@ const CLIENT_PACKAGES = [
   "customer-runtime",
   "customer-auth-better-auth",
 ];
-const RETAINED_CLIENT_RELEASES = new Set(["0.1.0-beta.1", "0.1.0-beta.2", CLIENT_RELEASE]);
+const RETAINED_CLIENT_RELEASES = new Set([
+  "0.1.0-beta.1",
+  "0.1.0-beta.2",
+  "0.1.0-beta.3",
+  CLIENT_RELEASE,
+]);
 
 const skills = listOhmyhostSkillResources();
 export const CUSTOMER_GUIDE = `# Deploy with ohmyho.st
 
-ohmyho.st (omh / omh.st) is an invite-only hosting beta. You need your invitation and authorized access to your GitHub repository. Customer tools never need AWS, Neon, Cloudflare, Stripe or WorkOS management credentials.
+ohmyho.st (omh / omh.st) is an invite-only hosting beta. You need your invitation and authorized access to your GitHub repository. The hosting CLI/MCP never need ohmyho.st's AWS, Neon, Cloudflare, Stripe or WorkOS management credentials.
 
 ## Install the clients
 
@@ -32,7 +37,7 @@ Follow the displayed WorkOS device authorization. If an organization is missing,
     ohmyhost login --json
     ohmyhost whoami --json
 
-Never invent an invitation source or reuse someone else's token. Current interactive clients keep their own login credential in the native credential store. A separate 90-day environment-token flow is not available in this release.
+Never invent an invitation source or reuse someone else's token. Interactive clients keep their own hosting login credential in the native credential store. An already issued and permitted ohmyho.st user key can instead be supplied through OHMYHOST_TOKEN in your local environment; this bypasses native credential reads. Self-service issuance with the planned 90-day default is not yet available. This hosting token never authenticates your application's end users.
 
 ## Create and deploy a project
 
@@ -54,7 +59,11 @@ Reuse the same idempotency key for the same request. After acceptance, observe t
 
 ## Authentication, mail and DNS
 
-Applications use managed PostgreSQL and Better Auth through the application Skill. Paid transactional mail uses an explicitly configured customer sender domain. Discover mail domain set/status in CLI help. Follow the exact DNS records returned by the service, or the optional Cloudflare authorization flow. Never replace mailbox MX records. Domain verification is a separate provider step and can take longer than the build; report its actual status. Do not remove mail/Auth capabilities just to make deployment pass, bypass email verification or claim pending mail is ready.
+Bring the authentication system your application needs. You or your agent choose and integrate it; a public app can work without login. Your ohmyho.st account/agent token is separate from the accounts of your application's users. Our WorkOS login does not provision an AuthKit tenant or end-user login for your app.
+
+Better Auth is the currently verified managed integration. WorkOS AuthKit, Clerk, Auth0, Firebase Authentication, Cognito or an externally operated identity provider are customer choices whose exact SDK/runtime, callbacks, secrets and deployed login flow must be checked. We do not claim every integration is already tested, and agents must not replace your existing auth without your decision. See the application Skill for the current init/admission limits and required feedback. Private keys for your own auth integration belong in server runtime secrets; ohmyho.st platform-management credentials never belong in your app.
+
+Paid transactional mail uses an explicitly configured customer sender domain. Discover mail domain set/status in CLI help. Follow the exact DNS records returned by the service, or the optional Cloudflare authorization flow. Never replace mailbox MX records. An external authentication provider may handle its own verification/reset mail; this does not automatically require ohmyho.st mail or DKIM. The current managed Better Auth integration uses its declared database/mail path. Domain verification is a separate provider step and can take longer than the build; report its actual status. Do not remove mail/Auth capabilities just to make deployment pass, bypass email verification or claim pending mail is ready.
 
 ## Verify and promote
 
