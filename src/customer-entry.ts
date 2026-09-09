@@ -73,6 +73,8 @@ Report a bug, suspected issue or feature gap with ohmyhost feedback submit or MC
 
 ## Billing
 
+Paid purchases are currently enabled on the development test platform. Production subscription and top-up purchases are not yet enabled. Deployment trials use the credits available to the invited organization; check its balance before planning a build.
+
 Discover credits balance, credits usage and budget through CLI help. An organization Owner starts a Paid subscription or a one-time top-up through the same public API:
 
     ohmyhost billing checkout --organization "$ORGANIZATION_ID" --offer paid --idempotency-key "$PURCHASE_REQUEST_KEY" --json
