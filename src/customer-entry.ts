@@ -1,6 +1,6 @@
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.5";
+export const CLIENT_RELEASE = "0.1.0-beta.6";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -14,6 +14,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.2",
   "0.1.0-beta.3",
   "0.1.0-beta.4",
+  "0.1.0-beta.5",
   CLIENT_RELEASE,
 ]);
 
@@ -62,7 +63,7 @@ Reuse the same idempotency key for the same request. After acceptance, observe t
 
 Bring the authentication system your application needs. You or your agent choose and integrate it; a public app can work without login. Your ohmyho.st account/agent token is separate from the accounts of your application's users. Our WorkOS login does not provision an AuthKit tenant or end-user login for your app.
 
-Better Auth is the currently verified managed integration. WorkOS AuthKit, Clerk, Auth0, Firebase Authentication, Cognito or an externally operated identity provider are customer choices whose exact SDK/runtime, callbacks, secrets and deployed login flow must be checked. We do not claim every integration is already tested, and agents must not replace your existing auth without your decision. See the application Skill for the current init/admission limits and required feedback. Private keys for your own auth integration belong in server runtime secrets; ohmyho.st platform-management credentials never belong in your app.
+The required application-auth support set is Better Auth, customer-owned WorkOS AuthKit and Auth0 across Next.js, Vite (including TanStack Router/Query) and TanStack Start. Better Auth has retained managed-integration proof; complete WorkOS/Auth0 application-flow acceptance is still in progress. Customer SDK declarations follow the same hosting contract and do not select a managed database or auth service. We do not claim every integration is already tested, and agents must not replace your existing auth without your decision. See the application Skill for the current init/admission limits and required feedback. Private keys for your own auth integration belong in server runtime secrets; ohmyho.st platform-management credentials never belong in your app.
 
 Paid transactional mail uses an explicitly configured customer sender domain. Discover mail domain set/status in CLI help. Follow the exact DNS records returned by the service, or the optional Cloudflare authorization flow. Never replace mailbox MX records. An external authentication provider may handle its own verification/reset mail; this does not automatically require ohmyho.st mail or DKIM. The current managed Better Auth integration uses its declared database/mail path. Domain verification is a separate provider step and can take longer than the build; report its actual status. Do not remove mail/Auth capabilities just to make deployment pass, bypass email verification or claim pending mail is ready.
 
