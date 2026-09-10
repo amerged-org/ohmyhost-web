@@ -1,7 +1,7 @@
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.10";
+export const CLIENT_RELEASE = "0.1.0-beta.11";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -20,6 +20,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.7",
   "0.1.0-beta.8",
   "0.1.0-beta.9",
+  "0.1.0-beta.10",
   CLIENT_RELEASE,
 ]);
 
@@ -151,6 +152,7 @@ New managed databases use fixed 0.25 CU / 1 GB on Free and 0.5 CU / 2 GB on Paid
 ## CLI
 
 \`\`\`sh
+ohmyhost database compute get --project "$PROJECT_ID" --environment prod --json
 ohmyhost project context --project "$PROJECT_ID" --json
 ohmyhost project status --help
 ohmyhost operation get --help
@@ -160,7 +162,7 @@ ohmyhost credits usage --organization "$ORGANIZATION_ID" --month YYYY-MM --json
 
 ## MCP
 
-Read project_context_get (or its linked Markdown resource) when resuming a project; it includes DNS/mail next actions and only the credit data you may read. Use organization_credits_get and organization_usage_get for the organization you own. Use operation_get to poll an accepted operation. Discover the tool schema before calling it.
+Read project_context_get (or its linked Markdown resource) when resuming a project; it includes DNS/mail next actions and only the credit data you may read. Use database_compute_get for current database size and state without waking customer compute. Shared environments show the same database; suspend_timeout_seconds=0 means the provider default, and -1 means never suspend. Use organization_credits_get and organization_usage_get for the organization you own. Use operation_get to poll an accepted operation. Discover the tool schema before calling it.
 
 ## API
 
