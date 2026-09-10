@@ -143,6 +143,11 @@ Bring your application's own authentication. Better Auth, WorkOS and Auth0 are d
 
 Ask your agent. ohmyho.st has no customer dashboard; your agent reads the same API through CLI or MCP.
 
+## Database defaults
+
+New managed databases use fixed 0.25 CU / 1 GB on Free and 0.5 CU / 2 GB on Paid, with a configured 60-second idle timeout before scale to zero. The first query after suspension can need a cold start. These are ohmyho.st plan defaults; customers do not need their own Neon account. The initial choice is saved when each physical database is provisioned. Existing databases keep their settings until an explicit supported change. Isolated Dev/Prod provisions two databases and meters each one; shared data uses one. Actual compute consumption is measured in CU-seconds; storage and retained history are separate usage. Read the published rates and your measured usage through the commands below.
+
+
 ## CLI
 
 \`\`\`sh
