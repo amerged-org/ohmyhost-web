@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 
 import { describe, expect, it } from "vitest";
 
@@ -197,6 +197,18 @@ it("serves only pinned public client assets and strips credentials before the as
   ])
     expect((await worker.fetch(new Request(invalid), { ASSETS: fixture })).status).toBe(404);
   expect(fixture.requests).toHaveLength(3);
+  const retained = (await readdir(new URL("../public/releases/", import.meta.url))).filter((name) =>
+    /^0\.1\.0-beta\.[1-9][0-9]*$/u.test(name),
+  );
+  for (const version of retained)
+    expect(
+      (
+        await worker.fetch(new Request(`https://ohmyho.st/releases/${version}/manifest.json`), {
+          ASSETS: fixture,
+        })
+      ).status,
+    ).toBe(200);
+  expect(fixture.requests).toHaveLength(3 + retained.length);
 });
 
 class PublicAssetFixture {

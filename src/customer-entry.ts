@@ -18,6 +18,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.5",
   "0.1.0-beta.6",
   "0.1.0-beta.7",
+  "0.1.0-beta.8",
   CLIENT_RELEASE,
 ]);
 
