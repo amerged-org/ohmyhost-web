@@ -26,7 +26,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(installer.status).toBe(200);
     const installerText = await installer.text();
     expect(installerText).toContain("OHMYHOST_SIGNUP_SOURCE='hostmebaby'");
-    expect(installerText).toContain("0.1.0-beta.9");
+    expect(installerText).toContain("0.1.0-beta.10");
     expect(installerText).not.toContain("private");
     expect(installerText).not.toContain("@CLIENT_RELEASE@");
     expect((await worker.fetch(new Request("http://omh.st/0.sh"))).status).toBe(308);
@@ -184,7 +184,7 @@ it("serves only pinned public client assets and strips credentials before the as
     (
       await worker.fetch(
         new Request(
-          "https://ohmyho.st/releases/0.1.0-beta.9/ohmyhost-product-cli-0.1.0-beta.9.tgz",
+          "https://ohmyho.st/releases/0.1.0-beta.10/ohmyhost-product-cli-0.1.0-beta.10.tgz",
         ),
         { ASSETS: fixture },
       )
@@ -192,7 +192,7 @@ it("serves only pinned public client assets and strips credentials before the as
   ).toBe(200);
   for (const invalid of [
     "https://ohmyho.st/releases/0.1.0-beta.7/ohmyhost-product-cli-0.1.0-beta.1.tgz",
-    "https://ohmyho.st/releases/0.1.0-beta.99/manifest.json",
+    "https://ohmyho.st/releases/0.1.0-beta.109/manifest.json",
     "https://ohmyho.st/releases/0.1.0-beta.7/.env.local",
   ])
     expect((await worker.fetch(new Request(invalid), { ASSETS: fixture })).status).toBe(404);
