@@ -91,7 +91,7 @@ Paid transactional mail uses an explicitly configured customer sender domain. Di
 
 ## Verify and promote
 
-Use project status to discover Dev/Prod URLs. Protected Dev access is obtained through project dev-access create; keep its ticket private. Verify real application writes and reads, authentication and declared capabilities. A landing-page 200 is insufficient. Then discover deployment promote plan and deployment promote in CLI help. Promotion transfers the verified artifact without rebuilding; isolated Prod applies versioned schema migrations without copying Dev records. Preserve production data.
+Use project status to discover Dev/Prod URLs and the environments array of IDs and names. Select the entry named prod for Prod secret commands; default_environment is Dev and must not be reused for Prod. Protected Dev access is obtained through project dev-access create; keep its ticket private. Verify real application writes and reads, authentication and declared capabilities. A landing-page 200 is insufficient. Then discover deployment promote plan and deployment promote in CLI help. Promotion transfers the verified artifact without rebuilding; isolated Prod applies versioned schema migrations without copying Dev records. Preserve production data.
 
 ## MCP and application libraries
 
