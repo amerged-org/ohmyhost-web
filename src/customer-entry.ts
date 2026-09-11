@@ -1,7 +1,7 @@
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.13";
+export const CLIENT_RELEASE = "0.1.0-beta.14";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -23,6 +23,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.10",
   "0.1.0-beta.11",
   "0.1.0-beta.12",
+  "0.1.0-beta.13",
   CLIENT_RELEASE,
 ]);
 
@@ -170,7 +171,9 @@ Read project_context_get (or its linked Markdown resource) when resuming a proje
 
 GET /v1/organizations/{organization_id}/credit-usage?month=YYYY-MM returns measured usage by project, environment and meter. Follow its cursor for all projects. GET /v1/organizations/{organization_id}/credits returns the wallet, reservations, published rates and active meters.
 
-Reporting is available at zero credits. It reads posted measurements; absent or delayed provider observations are not proof of zero usage. Current R2 measurement activation and additional meters are still being completed.
+Reporting is available at zero credits. It reads posted measurements; absent or delayed provider observations are not proof of zero usage. CodeBuild, Neon, worker execution, R2 storage/operations and activated regional mail charges use the same organization wallet.
+
+Existing funded services have one seven-day grace period when available credits run out; credits balance returns its start and expiry. New work still needs its quoted reservation. An active Paid subscription does not override an expired exhaustion grace. On insufficient_organization_credits, ask the owner to top up, then create a fresh plan for a terminal deployment. Do not buy a second subscription or keep reconciling a terminal credit denial. A refill restores eligible Paid access without changing the subscription period. Status, usage, credit purchase, cancellation and SQL export remain available; exhaustion does not delete application data.
 
 A submitted deployment is not automatically ready. Poll its original operation and inspect its status, error and next action; do not submit another build while the existing operation runs.`,
   "/login": `# Log in to ohmyho.st
