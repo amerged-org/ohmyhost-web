@@ -34,7 +34,7 @@ for (const [name, digest] of Object.entries(templates)) {
       );
     html = html.replace(
       '<div class="slid up">',
-      '<p class="note">Database compute: Free 0.25 CU / 1 GB, sleep after 1 idle minute. Paid 0.5 CU / 2 GB, sleep after 2 idle minutes. Storage and retained history are metered separately. Ask your agent for current settings and measured credits.</p>\n  <div class="slid up">',
+      '<p class="note">Database compute: Free 0.25 CU / 1 GB, sleep after 1 idle minute. Paid 0.5 CU / 2 GB, sleep after 2 idle minutes. Optional Paid performance: 1 CU / 4 GB, sleep after 5 idle minutes, 2.5× database compute credits per equal active minute. A longer idle window also uses more active minutes. Storage and retained history are metered separately. Ask your agent to select a size and show measured credits.</p>\n  <div class="slid up">',
     );
     const tools = original.match(/<div class="cells logos stag">[\s\S]*?<\/div>/u)?.[0];
     if (!tools) throw new Error("The supplied automation tools are missing");

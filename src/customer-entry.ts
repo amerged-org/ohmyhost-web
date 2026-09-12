@@ -1,7 +1,7 @@
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.16";
+export const CLIENT_RELEASE = "0.1.0-beta.17";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -26,6 +26,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.13",
   "0.1.0-beta.14",
   "0.1.0-beta.15",
+  "0.1.0-beta.16",
   CLIENT_RELEASE,
 ]);
 
@@ -155,7 +156,7 @@ Ask your agent. ohmyho.st has no customer dashboard; your agent reads the same A
 
 ## Database defaults
 
-Managed databases use fixed 0.25 CU / 1 GB on Free with a 60-second idle timeout, or 0.5 CU / 2 GB on Paid with a 120-second idle timeout before scale to zero. The first query after suspension can need a cold start. Avoid periodic SQL health checks that keep unused databases awake. Storage and retained history still accrue while compute is suspended. These are ohmyho.st plan defaults; customers do not need their own Neon account. The initial choice is saved when each physical database is provisioned. Standard-managed databases follow the effective Free/Paid plan automatically: the existing maintenance check runs every 15 minutes and creates a visible operation when a size change is needed. Paid credit exhaustion keeps its seven-day grace before selecting Free. Top-ups restore the Paid standard only while a Paid service period remains active. The same check updates earlier databases to the current standard size and idle timeout. A client that advertises database compute set can request the current plan's standard size with an explicit environment and confirmation. Shared data changes both environments; a short connection interruption is possible. The SQL data stays in place. Poll the accepted operation every 60 seconds, then read actual compute. Never reset a database to change its size. The larger performance choice is not enabled. Isolated Dev/Prod provisions two databases and meters each one; shared data uses one. Actual compute consumption is measured in CU-seconds; storage and retained history are separate usage. Read the published rates and your measured usage through the commands below.
+Managed databases use fixed 0.25 CU / 1 GB on Free with a 60-second idle timeout, or 0.5 CU / 2 GB on Paid with a 120-second idle timeout before scale to zero. The first query after suspension can need a cold start. Avoid periodic SQL health checks that keep unused databases awake. Storage and retained history still accrue while compute is suspended. These are ohmyho.st plan defaults; customers do not need their own Neon account. The initial choice is saved when each physical database is provisioned. Managed databases follow the effective Free/Paid plan automatically: the existing maintenance check runs every 15 minutes and creates a visible operation when a size change is needed. Paid credit exhaustion keeps its seven-day grace before selecting Free. Top-ups restore the Paid standard only while a Paid service period remains active. The same check updates earlier databases to the current standard size and idle timeout. A client that advertises database compute set can request the current plan's standard size with an explicit environment and confirmation. Shared data changes both environments; a short connection interruption is possible. The SQL data stays in place. Poll the accepted operation every 60 seconds, then read actual compute. Never reset a database to change its size. Paid users can ask their agent for performance: 1 CU / 4 GB and 5-minute idle suspension, at 2.5 times Paid-standard database compute credits per equal active minute. Longer idle time also adds active minutes. Other services keep their own rates. The choice is remembered through automatic Free downgrades and restored when Paid access and credits permit; explicitly select standard to clear it. Shared environments use the same choice. The server applies the price to actual CU-seconds, waives the premium for mixed/uncertain transition hours and preserves the original price for later quantity corrections. Read active meters and published rates before selecting performance. Isolated Dev/Prod provisions two databases and meters each one; shared data uses one. Actual compute consumption is measured in CU-seconds; storage and retained history are separate usage. Read the published rates and your measured usage through the commands below.
 
 
 ## CLI
