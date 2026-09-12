@@ -1,7 +1,7 @@
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.18";
+export const CLIENT_RELEASE = "0.1.0-beta.19";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -28,6 +28,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.15",
   "0.1.0-beta.16",
   "0.1.0-beta.17",
+  "0.1.0-beta.18",
   CLIENT_RELEASE,
 ]);
 
