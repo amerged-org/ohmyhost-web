@@ -1,7 +1,7 @@
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.17";
+export const CLIENT_RELEASE = "0.1.0-beta.18";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -27,6 +27,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.14",
   "0.1.0-beta.15",
   "0.1.0-beta.16",
+  "0.1.0-beta.17",
   CLIENT_RELEASE,
 ]);
 
@@ -59,7 +60,7 @@ Never invent an invitation source or reuse someone else's token. Interactive cli
 
 ## Save a deployment token
 
-Self-service API-key creation/list/revocation is not activated in this beta and is omitted from the default CLI/MCP command catalog. Continue with ohmyhost login or an already issued token. Once the platform activates token create, use your interactive login and returned organization ID:
+Create, list and revoke your own deployment tokens through CLI, API or MCP. Start with your interactive login and returned organization ID:
 
     ohmyhost token create --organization "$ORGANIZATION_ID" --name "Deployment agent" --idempotency-key "$TOKEN_REQUEST_KEY" --out .env.local --json
     ohmyhost token list --organization "$ORGANIZATION_ID" --json
