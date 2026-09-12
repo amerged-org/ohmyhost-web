@@ -1,7 +1,7 @@
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.14";
+export const CLIENT_RELEASE = "0.1.0-beta.15";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -24,6 +24,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.11",
   "0.1.0-beta.12",
   "0.1.0-beta.13",
+  "0.1.0-beta.14",
   CLIENT_RELEASE,
 ]);
 
@@ -149,7 +150,7 @@ Ask your agent. ohmyho.st has no customer dashboard; your agent reads the same A
 
 ## Database defaults
 
-New managed databases use fixed 0.25 CU / 1 GB on Free and 0.5 CU / 2 GB on Paid, with a configured 60-second idle timeout before scale to zero. The first query after suspension can need a cold start. These are ohmyho.st plan defaults; customers do not need their own Neon account. The initial choice is saved when each physical database is provisioned. Existing databases keep their settings until an explicit supported change. Isolated Dev/Prod provisions two databases and meters each one; shared data uses one. Actual compute consumption is measured in CU-seconds; storage and retained history are separate usage. Read the published rates and your measured usage through the commands below.
+New managed databases use fixed 0.25 CU / 1 GB on Free and 0.5 CU / 2 GB on Paid, with a configured 60-second idle timeout before scale to zero. The first query after suspension can need a cold start. These are ohmyho.st plan defaults; customers do not need their own Neon account. The initial choice is saved when each physical database is provisioned. Existing databases keep their settings until an explicit supported change. A client that advertises database compute set can request the current plan's standard size with an explicit environment and confirmation. Shared data changes both environments; a short connection interruption is possible. The SQL data stays in place. Poll the accepted operation every 60 seconds, then read actual compute. Never reset a database to change its size. The larger performance choice is not enabled. Isolated Dev/Prod provisions two databases and meters each one; shared data uses one. Actual compute consumption is measured in CU-seconds; storage and retained history are separate usage. Read the published rates and your measured usage through the commands below.
 
 
 ## CLI

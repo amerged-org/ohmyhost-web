@@ -26,7 +26,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(installer.status).toBe(200);
     const installerText = await installer.text();
     expect(installerText).toContain("OHMYHOST_SIGNUP_SOURCE='hostmebaby'");
-    expect(installerText).toContain("0.1.0-beta.14");
+    expect(installerText).toContain("0.1.0-beta.15");
     expect(installerText).not.toContain("private");
     expect(installerText).not.toContain("@CLIENT_RELEASE@");
     expect((await worker.fetch(new Request("http://omh.st/0.sh"))).status).toBe(308);
