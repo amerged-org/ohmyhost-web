@@ -1,7 +1,7 @@
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.20";
+export const CLIENT_RELEASE = "0.1.0-beta.21";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -30,6 +30,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.17",
   "0.1.0-beta.18",
   "0.1.0-beta.19",
+  "0.1.0-beta.20",
   CLIENT_RELEASE,
 ]);
 
@@ -112,6 +113,10 @@ Use project status to discover Dev/Prod URLs and the environments array of IDs a
 Configure your agent's stdio MCP client with command ohmyhost-mcp and environment OHMYHOST_ENVIRONMENT=production. It uses the same customer login and public REST API as the CLI. Discover tools/list and resources/list; Skills are also available as MCP resources. Never pass provider management keys to an agent or application.
 
 The same release supplies @ohmyhost/sdk-ts, @ohmyhost/customer-runtime and @ohmyhost/customer-auth-better-auth as pinned archives listed in manifest.json. Install application libraries as dependencies of the application. The generated SDK uses https://app.ohmyho.st; every product mutation goes through REST /v1.
+
+## Customer DNS
+
+Cloudflare-hosted customer DNS is optional. Declare the requested Paid hostname or mail sender first, then use MCP domain_cloudflare_authorize with project_id, zone and idempotency_key, or CLI domain cloudflare authorize. The customer completes the returned private link in their own Cloudflare account. Read domain_cloudflare_status afterward and verify the zone and expiry; authorization alone does not mean DNS or HTTPS is ready. For a Paid hostname, repeat domain_paid_apply with the original hostname/key, then poll domain_paid_status. Other DNS providers use the exact manual records returned by the API. Preserve existing mailbox MX; ask your agent to recheck pending DNS/DKIM/TLS after 60 minutes. No provider API token is supplied to the agent.
 
 ## Feedback and recovery
 
