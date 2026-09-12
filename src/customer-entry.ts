@@ -33,6 +33,10 @@ export const CUSTOMER_GUIDE = `# Deploy with ohmyho.st
 
 ohmyho.st (omh / omh.st) is an invite-only hosting beta. You need your invitation and authorized access to your GitHub repository. The hosting CLI/MCP never need ohmyho.st's AWS, Neon, Cloudflare, Stripe or WorkOS management credentials.
 
+## Terminal agents
+
+The Bash installer starts your installed Codex, Claude Code, Cursor, Hermes or OpenClaw with an initial deployment instruction. It preserves your model and permission settings. Hermes requires 0.21 or newer: earlier chat -q exits after one response and cannot keep this onboarding conversation open. Check hermes chat --help for its interactive-query/--oneshot contract before updating. The installer does not update your agent automatically. Your exact selected directory is included as data; a remote OpenClaw agent must have access to it before deploying. Do not substitute another workspace. Actual MCP registration/tool discovery, login and application verification are required; a started process alone is not a completed deployment.
+
 ## Install the clients
 
 Use Node.js 22 or newer and npm. These public, pinned archives require no access to the platform repository. Release metadata and SHA-256 checksums: https://ohmyho.st${RELEASE_PATH}/manifest.json and https://ohmyho.st${RELEASE_PATH}/SHA256SUMS.

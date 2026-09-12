@@ -29,6 +29,12 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(installerText).toContain("0.1.0-beta.15");
     expect(installerText).toContain("using only my explicitly authorized GitHub repository");
     expect(installerText).not.toMatch(/upload source path|source uploads/u);
+    expect(installerText).toContain("Hermes 0.21 or newer is required for interactive onboarding.");
+    expect(installerText.indexOf("Hermes 0.21 or newer")).toBeLessThan(
+      installerText.indexOf("npm install --global"),
+    );
+    expect(installerText).toContain("Project directory (JSON string): $omh_project_json");
+    expect(installerText).toContain("do not deploy a different workspace");
     expect(installerText).not.toContain("private");
     expect(installerText).not.toContain("@CLIENT_RELEASE@");
     expect((await worker.fetch(new Request("http://omh.st/0.sh"))).status).toBe(308);
