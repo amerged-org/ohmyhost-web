@@ -1,7 +1,7 @@
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.19";
+export const CLIENT_RELEASE = "0.1.0-beta.20";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -29,6 +29,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.16",
   "0.1.0-beta.17",
   "0.1.0-beta.18",
+  "0.1.0-beta.19",
   CLIENT_RELEASE,
 ]);
 
@@ -102,7 +103,7 @@ Paid transactional mail uses an explicitly configured customer sender domain. Di
 
 ## Verify and promote
 
-Use project status to discover Dev/Prod URLs and the environments array of IDs and names. Select the entry named prod for Prod secret commands; default_environment is Dev and must not be reused for Prod. Protected Dev access is obtained through project dev-access create; keep its ticket private. Verify real application writes and reads, authentication and declared capabilities. A landing-page 200 is insufficient. Then discover deployment promote plan and deployment promote in CLI help. Promotion transfers the verified artifact without rebuilding; isolated Prod applies versioned schema migrations without copying Dev records. Preserve production data.
+Use project status to discover Dev/Prod URLs and the environments array of IDs and names. Select the entry named prod for Prod secret commands; default_environment is Dev and must not be reused for Prod. An anonymous Dev HTTP 404 is expected. Obtain a private ten-minute single-use link through CLI project dev-access create or MCP project_dev_access_create. Redeem it once in the intended browser or cookie jar, then use the clean origin; keep the link and cookie private. Verify real application writes and reads, authentication and declared capabilities. A landing-page 200 is insufficient. Then discover deployment promote plan and deployment promote in CLI help. Promotion transfers the verified artifact without rebuilding; isolated Prod applies versioned schema migrations without copying Dev records. Preserve production data.
 
 ## MCP and application libraries
 
