@@ -12,7 +12,7 @@ await mkdir(output, { recursive: true });
 const markdown = new TurndownService({ headingStyle: "atx", codeBlockStyle: "fenced" });
 markdown.remove(["script", "style", "svg", "head", "button", "input"]);
 const templates = {
-  home: "c8705820768cba0b07d67acc476bed015ef3c978a8fc9ea44f5203050cfb2bc7",
+  home: "39e356828872241b0eb53293b8b1d1a19c82a7a9200d4ee195bf6f81a72bb9ca",
   brand: "d2a49d8a4b9d979c72958eebb2f2db4b7637405ccacd27100ce77e405a01bebe",
 };
 const approvedHome = await readFile(`${directory}site/home.html`, "utf8");
