@@ -26,7 +26,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(installer.status).toBe(200);
     const installerText = await installer.text();
     expect(installerText).toContain("OHMYHOST_SIGNUP_SOURCE='hostmebaby'");
-    expect(installerText).toContain("0.1.0-beta.23");
+    expect(installerText).toContain("0.1.0-beta.24");
     expect(installerText).toContain("using only my explicitly authorized GitHub repository");
     expect(installerText).not.toMatch(/upload source path|source uploads/u);
     expect(installerText).toContain("Hermes 0.21 or newer is required for interactive onboarding.");
@@ -50,7 +50,15 @@ describe("public entry and unassigned Free-host fallback", () => {
       expect(response.status).toBe(200);
       expect((await response.text()).length).toBeGreaterThan(30);
     }
-    for (const path of ["/docs", "/docs/cli", "/docs/mcp", "/docs/skills"]) {
+    for (const path of [
+      "/docs",
+      "/docs/cli",
+      "/docs/mcp",
+      "/docs/skills",
+      "/docs/domains",
+      "/docs/usage",
+      "/docs/backups",
+    ]) {
       expect((await worker.fetch(new Request(`https://ohmyho.st${path}.md`))).status).toBe(200);
     }
     const login = await worker.fetch(
@@ -183,7 +191,12 @@ it("serves only pinned public client assets and strips credentials before the as
   const index = await (
     await worker.fetch(new Request("https://ohmyho.st/.well-known/skills/index.json"))
   ).json();
-  expect(index.skills).toHaveLength(2);
+  expect(index.skills).toHaveLength(8);
+  for (const entry of index.skills) {
+    const document = await worker.fetch(new Request(entry.url));
+    expect(document.status).toBe(200);
+    expect(await document.text()).toContain(`name: ${entry.name}`);
+  }
   const currentUrl =
     "https://ohmyho.st/releases/0.1.0-beta.7/ohmyhost-product-cli-0.1.0-beta.7.tgz";
   expect((await worker.fetch(new Request(currentUrl), { ASSETS: fixture })).status).toBe(200);
