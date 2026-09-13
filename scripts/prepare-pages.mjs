@@ -15,6 +15,8 @@ const templates = {
   home: "39e356828872241b0eb53293b8b1d1a19c82a7a9200d4ee195bf6f81a72bb9ca",
   brand: "d2a49d8a4b9d979c72958eebb2f2db4b7637405ccacd27100ce77e405a01bebe",
 };
+const fontCss = await readFile(`${directory}site/fonts.css`, "utf8");
+const privacyUi = `${await readFile(`${directory}site/privacy-ui.html`, "utf8")}<script>${await readFile(`${directory}site/privacy-ui.js`, "utf8")}</script>`;
 const approvedHome = await readFile(`${directory}site/home.html`, "utf8");
 const sharedCss = approvedHome.match(/<style>([\s\S]*?)<\/style>/u)?.[1];
 if (!sharedCss) throw new Error("The approved design stylesheet is missing");
@@ -22,7 +24,8 @@ await writeFile(
   `${directory}src/generated-site-frame.ts`,
   await format(
     "// Generated from the approved template and beta entry assets.\n" +
-      `export const SITE_CSS = ${JSON.stringify(sharedCss)};\n` +
+      `export const SITE_CSS = ${JSON.stringify(fontCss + sharedCss)};\n` +
+      `export const PRIVACY_UI = ${JSON.stringify(privacyUi)};\n` +
       `export const BETA_MODAL = ${JSON.stringify(await readFile(`${directory}site/beta-modal.html`, "utf8"))};\n` +
       `export const BETA_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/beta-entry.js`, "utf8"))};\n`,
     { parser: "typescript", printWidth: 100 },
@@ -32,7 +35,9 @@ for (const [name, digest] of Object.entries(templates)) {
   const original = await readFile(`${directory}site/${name}.html`, "utf8");
   if (createHash("sha256").update(original).digest("hex") !== digest)
     throw new Error(`The supplied ${name} template was changed`);
-  let html = original;
+  let html = original
+    .replace(/<link[^>]+href="https:\/\/fonts\.(?:googleapis|gstatic)\.com[^>]*>/gu, "")
+    .replace("</head>", `<style>${fontCss}</style></head>`);
   if (name === "home") {
     const destinations = {
       Docs: "/docs",
@@ -87,6 +92,12 @@ for (const [name, digest] of Object.entries(templates)) {
       `${await readFile(`${directory}site/beta-modal.html`, "utf8")}<script>${await readFile(`${directory}site/beta-entry.js`, "utf8")}</script></body>`,
     );
   }
+  html = html.replace("</body>", `${privacyUi}</body>`);
+  if (name === "home")
+    html = html.replace(
+      '<a href="/privacy">Privacy</a>',
+      '<a href="/privacy">Privacy</a><a href="/cookies">Cookies</a><a href="/dpa">DPA</a><a href="/dpa/toms">TOMs</a><a href="/contact">Contact</a>',
+    );
   await writeFile(`${output}/${name}.html`, html);
   await writeFile(
     `${output}/${name === "home" ? "index" : name}.md`,
@@ -139,10 +150,12 @@ execFileSync(
 const renderedApi = await readFile(`${output}/api.html`, "utf8");
 await writeFile(
   `${output}/api.html`,
-  renderedApi.replace(
-    "<body>",
-    '<body><nav style="padding:16px 24px;background:#000;color:#F0F1F2;font:14px system-ui;display:flex;gap:24px;flex-wrap:wrap"><a style="color:inherit" href="/">ohmyho.st</a><a style="color:inherit" href="/docs">Docs</a><a style="color:inherit" href="/api/openapi.yaml">OpenAPI YAML</a><a style="color:inherit" href="/api/openapi.json">JSON</a><a style="color:inherit" href="/api.md">Markdown</a></nav>',
-  ),
+  renderedApi
+    .replace("</body>", `${privacyUi}</body>`)
+    .replace(
+      "<body>",
+      '<body><nav style="padding:16px 24px;background:#000;color:#F0F1F2;font:14px system-ui;display:flex;gap:24px;flex-wrap:wrap"><a style="color:inherit" href="/">ohmyho.st</a><a style="color:inherit" href="/docs">Docs</a><a style="color:inherit" href="/api/openapi.yaml">OpenAPI YAML</a><a style="color:inherit" href="/api/openapi.json">JSON</a><a style="color:inherit" href="/api.md">Markdown</a></nav>',
+    ),
 );
 await writeFile(`${output}/openapi.json`, `${JSON.stringify(contract, null, 2)}\n`);
 const api = [

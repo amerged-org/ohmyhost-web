@@ -1,11 +1,12 @@
+import { LEGAL_DOCUMENTS } from "./legal-documents.js";
 import MCP_REFERENCE from "./generated-mcp-tools.json" with { type: "json" };
-import { SITE_CSS, BETA_MODAL, BETA_SCRIPT } from "./generated-site-frame.js";
+import { SITE_CSS, BETA_MODAL, BETA_SCRIPT, PRIVACY_UI } from "./generated-site-frame.js";
 import { LAUNCH_DOCUMENTS } from "./launch-pages.js";
 import { PRODUCT_DOCUMENTS } from "./product-docs.js";
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.25";
+export const CLIENT_RELEASE = "0.1.0-beta.26";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -39,6 +40,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.22",
   "0.1.0-beta.23",
   "0.1.0-beta.24",
+  "0.1.0-beta.25",
   CLIENT_RELEASE,
 ]);
 
@@ -83,6 +85,7 @@ Ask your agent for status and changes: “Is my domain ready?” or “Which pro
 
 export const DOCUMENTATION: Record<string, string> = {
   ...LAUNCH_DOCUMENTS,
+  ...LEGAL_DOCUMENTS,
   ...PRODUCT_DOCUMENTS,
   "/docs": CUSTOMER_GUIDE,
   "/docs/cli": `# CLI
@@ -290,6 +293,13 @@ Hosting for agents. Deploy GitHub apps and manage projects through CLI, MCP or A
 - [Design system](https://ohmyho.st/brand.md)
 - [Homepage](https://ohmyho.st/index.md)
 - [Login](https://ohmyho.st/login.md)
+- [Privacy](https://ohmyho.st/privacy.md)
+- [Cookie notice](https://ohmyho.st/cookies.md)
+- [DPA](https://ohmyho.st/dpa.md)
+- [TOMs](https://ohmyho.st/dpa/toms.md)
+- [Providers](https://ohmyho.st/dpa/subprocessors.md)
+- [Transfer safeguards](https://ohmyho.st/dpa/transfers.md)
+- [Contact](https://ohmyho.st/contact)
 - [Release manifest](https://ohmyho.st${RELEASE_PATH}/manifest.json)
 - [Skill catalog](https://ohmyho.st/.well-known/skills/index.json)
 ${Object.keys(PRODUCT_DOCUMENTS)
@@ -317,8 +327,8 @@ export function customerDocument(path: string): { text: string; type: string } |
           .split("\n")
           .find((line) => line.trim() && !line.startsWith("#"))
           ?.replaceAll('"', "&quot;") ?? "Hosting for agents"
-      }"><link rel="canonical" href="https://ohmyho.st${documentPath}"><link rel="alternate" type="text/markdown" href="${documentPath}.md"><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><style>${SITE_CSS}
-.docs-content{max-width:76ch;margin:64px auto 90px}.docs-content h1{font-size:clamp(36px,6vw,58px);margin-bottom:28px}.docs-content h2{font-size:26px;text-align:left;margin:36px 0 14px}.docs-content p,.docs-content li{color:var(--muted-foreground);line-height:1.75;margin:14px 0}.docs-content ul,.docs-content ol{padding-left:24px}.docs-content a{text-decoration:underline;text-underline-offset:4px;color:var(--foreground)}.docs-content pre{padding:20px;background:var(--muted);border:1px solid var(--border);border-radius:12px;overflow:auto;line-height:1.7}.docs-content code{font:13px var(--mono)}.docs-content table{display:block;overflow:auto;width:100%;border-collapse:collapse;font-size:14px;margin:24px 0}.docs-content th,.docs-content td{padding:12px;text-align:left;border-bottom:1px solid var(--border)}.docs-content blockquote{border-left:2px solid var(--border-strong);padding-left:20px}.docs-content strong{color:var(--foreground)}nav{gap:18px}@media(max-width:760px){nav a.secondary{display:none}.docs-content{margin-top:38px}}</style></head><body><div class="wrap"><nav><a class="mark" href="/">ohmyho.st</a><a href="/docs">Docs</a><a class="secondary" href="/docs/skills">Skills</a><a class="secondary" href="/api">API</a><a class="secondary" href="${documentPath}.md">Markdown</a><div class="r"><a href="/login">Log in</a><button class="btn nochev" data-beta-access><span>Get beta access</span></button></div></nav><main class="docs-content">${marked.parse(markdown, { async: false })}</main><footer><a href="/">ohmyho.st</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/docs">Docs</a></footer></div>${BETA_MODAL}<script>${BETA_SCRIPT}</script></body></html>`,
+      }"><link rel="canonical" href="https://ohmyho.st${documentPath}"><link rel="alternate" type="text/markdown" href="${documentPath}.md"><style>${SITE_CSS}
+.docs-content{max-width:76ch;margin:64px auto 90px}.docs-content h1{font-size:clamp(36px,6vw,58px);margin-bottom:28px}.docs-content h2{font-size:26px;text-align:left;margin:36px 0 14px}.docs-content p,.docs-content li{color:var(--muted-foreground);line-height:1.75;margin:14px 0}.docs-content ul,.docs-content ol{padding-left:24px}.docs-content a{text-decoration:underline;text-underline-offset:4px;color:var(--foreground)}.docs-content pre{padding:20px;background:var(--muted);border:1px solid var(--border);border-radius:12px;overflow:auto;line-height:1.7}.docs-content code{font:13px var(--mono)}.docs-content table{display:block;overflow:auto;width:100%;border-collapse:collapse;font-size:14px;margin:24px 0}.docs-content th,.docs-content td{padding:12px;text-align:left;border-bottom:1px solid var(--border)}.docs-content blockquote{border-left:2px solid var(--border-strong);padding-left:20px}.docs-content strong{color:var(--foreground)}nav{gap:18px}@media(max-width:760px){nav a.secondary{display:none}.docs-content{margin-top:38px}}</style></head><body><div class="wrap"><nav><a class="mark" href="/">ohmyho.st</a><a href="/docs">Docs</a><a class="secondary" href="/docs/skills">Skills</a><a class="secondary" href="/api">API</a><a class="secondary" href="${documentPath}.md">Markdown</a><div class="r"><a href="/login">Log in</a><button class="btn nochev" data-beta-access><span>Get beta access</span></button></div></nav><main class="docs-content">${marked.parse(markdown, { async: false })}</main><footer><a href="/">ohmyho.st</a> · <a href="/privacy">Privacy</a> · <a href="/cookies">Cookies</a> · <a href="/dpa">DPA</a> · <a href="/dpa/toms">TOMs</a> · <a href="/contact">Contact</a> · <a href="/terms">Terms</a> · <a href="/docs">Docs</a></footer></div>${BETA_MODAL}<script>${BETA_SCRIPT}</script>${PRIVACY_UI}</body></html>`,
     };
   }
   if (path === "/.well-known/skills/index.json")

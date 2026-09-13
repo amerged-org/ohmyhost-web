@@ -28,7 +28,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(installer.status).toBe(200);
     const installerText = await installer.text();
     expect(installerText).toContain("OHMYHOST_SIGNUP_SOURCE=''");
-    expect(installerText).toContain("0.1.0-beta.25");
+    expect(installerText).toContain("0.1.0-beta.26");
     expect(installerText).toContain("using only my explicitly authorized GitHub repository");
     expect(installerText).not.toMatch(/upload source path|source uploads/u);
     expect(installerText).toContain("Hermes 0.21 or newer is required for interactive onboarding.");
@@ -52,7 +52,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     }
     const brand = await worker.fetch(new Request("https://ohmyho.st/brand"), { ASSETS: assets });
     expect(await brand.text()).toBe(
-      await readFile(new URL("../site/brand.html", import.meta.url), "utf8"),
+      await readFile(new URL("../public/pages/brand.html", import.meta.url), "utf8"),
     );
     for (const path of [
       "/index.md",
@@ -86,7 +86,19 @@ describe("public entry and unassigned Free-host fallback", () => {
     );
     expect(login.headers.get("location")).toBe("https://app.ohmyho.st/login");
     expect(home.headers.get("link")).toContain("/index.md");
-    expect(home.headers.get("content-security-policy")).toContain("fonts.googleapis.com");
+    expect(home.headers.get("content-security-policy")).toContain("font-src 'self'");
+    expect(html).not.toMatch(/fonts\.googleapis|fonts\.gstatic/u);
+    expect(html).toContain('id="cookie-notice"');
+    const font = (await readdir(new URL("../public/fonts", import.meta.url))).find((name) =>
+      name.endsWith(".ttf"),
+    );
+    const fontResponse = await worker.fetch(new Request(`https://ohmyho.st/fonts/${font}`), {
+      ASSETS: assets,
+    });
+    expect(fontResponse.headers.get("content-type")).toBe("font/ttf");
+    expect(Array.from(new Uint8Array(await fontResponse.arrayBuffer()).slice(0, 4))).toEqual([
+      0, 1, 0, 0,
+    ]);
     expect(html).toContain('href="/docs"');
     const docs = await worker.fetch(new Request("https://ohmyho.st/docs"));
     expect(docs.status).toBe(200);
@@ -275,10 +287,11 @@ class SiteAssetFixture {
         "/pages/api.md",
         "/pages/openapi.yaml",
         "/pages/0.sh",
-      ].includes(path)
+      ].includes(path) &&
+      !/^\/fonts\/[a-f0-9]{16}\.ttf$/u.test(path)
     )
       return new Response(null, { status: 404 });
     const text = await readFile(new URL(`../public${path}`, import.meta.url));
-    return new Response(text);
+    return new Response(new Uint8Array(text));
   }
 }

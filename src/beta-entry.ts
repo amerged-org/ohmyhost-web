@@ -3,6 +3,7 @@ import {
   getBetaEligibility,
   getPublicDeploymentStats,
   registerBetaInterest,
+  submitContactRequest,
   registerFeatureInterest,
 } from "@ohmyhost/sdk-ts";
 export interface PublicControlBinding {
@@ -46,7 +47,16 @@ export async function siteBetaResponse(
   binding?: PublicControlBinding,
 ): Promise<Response | null> {
   const path = new URL(request.url).pathname;
-  if (!["/v1/beta/interests", "/want", "/stats.json", "/status.json"].includes(path)) return null;
+  if (
+    ![
+      "/v1/beta/interests",
+      "/v1/contact-requests",
+      "/want",
+      "/stats.json",
+      "/status.json",
+    ].includes(path)
+  )
+    return null;
   const json = (body: unknown, status = 200) =>
     Response.json(body, { status, headers: { "cache-control": "no-store" } });
   if (
@@ -81,6 +91,7 @@ export async function siteBetaResponse(
       return json({ code: "forbidden" }, 403);
     if (request.headers.get("content-type")?.split(";", 1)[0]?.trim() !== "application/json")
       return json({ code: "invalid_request" }, 400);
+    const maxBytes = path === "/v1/contact-requests" ? 32768 : 2048;
     const reader = request.body?.getReader();
     if (!reader) return json({ code: "invalid_request" }, 400);
     const chunks: Uint8Array[] = [];
@@ -90,7 +101,7 @@ export async function siteBetaResponse(
         const next = await reader.read();
         if (next.done) break;
         size += next.value.length;
-        if (size > 2048) {
+        if (size > maxBytes) {
           await reader.cancel();
           return json({ code: "payload_too_large" }, 413);
         }
@@ -114,6 +125,18 @@ export async function siteBetaResponse(
     if (!body || typeof body !== "object" || Array.isArray(body))
       return json({ code: "invalid_request" }, 400);
     const input = body as Record<string, unknown>;
+    if (path === "/v1/contact-requests") {
+      if (Object.keys(input).sort().join(",") !== "company,email,idempotency_key,message,name")
+        return json({ code: "invalid_request" }, 400);
+      return json(
+        validateAcceptance(
+          await submitContactRequest(input as Parameters<typeof submitContactRequest>[0], {
+            client,
+          }),
+        ),
+        202,
+      );
+    }
     if (path === "/want") {
       if (Object.keys(input).sort().join(",") !== "feature,idempotency_key")
         return json({ code: "invalid_request" }, 400);

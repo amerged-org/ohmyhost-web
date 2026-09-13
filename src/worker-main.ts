@@ -130,7 +130,7 @@ export default {
         }
         headers.set(
           "content-security-policy",
-          `default-src 'none'; script-src 'self' ${hashes.join(" ")}; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'`,
+          `default-src 'none'; script-src 'self' ${hashes.join(" ")}; style-src 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'`,
         );
         if (invitation)
           documentText = documentText.replace(
@@ -181,18 +181,19 @@ export default {
       /^\/logos\/(?:composio|github|make|n8n|nextjs|postgres|react|tanstack|vite|zapier|auth0|betterauth|workos|gdrive|s3|r2)\.svg$/u.test(
         url.pathname,
       );
-    if (!page && !logo) return new Response(null, { status: 404, headers });
+    const font = /^\/fonts\/[a-f0-9]{16}\.ttf$/u.test(url.pathname);
+    if (!page && !logo && !font) return new Response(null, { status: 404, headers });
     if (!env?.ASSETS)
       return new Response(request.method === "HEAD" ? null : "Page is unavailable.", {
         status: 503,
         headers,
       });
     const asset = await env.ASSETS.fetch(
-      new Request(`${HOME.slice(0, -1)}${logo ? url.pathname : `/pages/${page}`}`),
+      new Request(`${HOME.slice(0, -1)}${logo || font ? url.pathname : `/pages/${page}`}`),
     );
     if (!asset.ok) return new Response(null, { status: asset.status, headers });
-    if (page?.endsWith(".png")) {
-      headers.set("content-type", "image/png");
+    if (page?.endsWith(".png") || font) {
+      headers.set("content-type", font ? "font/ttf" : "image/png");
       return new Response(request.method === "HEAD" ? null : asset.body, { headers });
     }
     let body = await asset.text();
@@ -215,7 +216,7 @@ export default {
       }
       headers.set(
         "content-security-policy",
-        `default-src 'none'; script-src 'self' ${hashes.join(" ")}; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; worker-src blob:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'`,
+        `default-src 'none'; script-src 'self' ${hashes.join(" ")}; style-src 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; worker-src blob:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'`,
       );
       headers.set("link", `<${markdownPath}>; rel="alternate"; type="text/markdown"`);
       if (page === "home.html" && invitation)

@@ -117,6 +117,56 @@ it("connects the public page and consent form through the generated SDK to real 
     );
     expect(vote?.status).toBe(202);
     expect((await siteBetaResponse(new Request("https://ohmyho.st/stats.json")))?.status).toBe(503);
+    const contact = {
+      name: "Website visitor",
+      email: "visitor@example.invalid",
+      company: "",
+      message: "Please explain data retention.",
+      idempotency_key: "00000000-0000-4000-8000-000000000020",
+    };
+    for (const [payload, expected] of [
+      [contact, 202],
+      [contact, 202],
+      [{ ...contact, message: "changed" }, 409],
+      [{ ...contact, name: "" }, 400],
+      [{ ...contact, message: "invalid\0message" }, 400],
+    ] as const) {
+      const response = await worker.fetch(
+        new Request("https://ohmyho.st/v1/contact-requests", {
+          method: "POST",
+          headers: { origin: "https://ohmyho.st", "content-type": "application/json" },
+          body: JSON.stringify(payload),
+        }),
+        { ASSETS, CONTROL_API: binding },
+      );
+      expect(response.status).toBe(expected);
+      expect(await response.text()).not.toContain(contact.email);
+    }
+    for (const path of [
+      "/privacy",
+      "/cookies",
+      "/dpa",
+      "/dpa/toms",
+      "/dpa/subprocessors",
+      "/dpa/transfers",
+      "/contact",
+    ]) {
+      const page = await worker.fetch(new Request(`https://ohmyho.st${path}`), {
+        ASSETS,
+        CONTROL_API: binding,
+      });
+      expect(page.status).toBe(200);
+      const html = await page.text();
+      expect(html).toContain('id="cookie-notice"');
+      expect(html).not.toMatch(/fonts\.googleapis|fonts\.gstatic|mailto:|smertens@/u);
+      expect(page.headers.get("content-security-policy")).toContain("font-src 'self'");
+      const md = await worker.fetch(new Request(`https://ohmyho.st${path}.md`), {
+        ASSETS,
+        CONTROL_API: binding,
+      });
+      expect(md.status).toBe(200);
+      expect(md.headers.get("content-type")).toContain("text/markdown");
+    }
     const snapshot = await h.snapshot();
     expect(snapshot.projects).toEqual([]);
     expect(snapshot.operations).toEqual([]);

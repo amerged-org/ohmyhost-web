@@ -1,37 +1,8 @@
 /** Launch prose is exported as the reviewed Mintlify snapshot; runtime contracts stay in the platform. */
 export const LAUNCH_DOCUMENTS: Record<string, string> = {
-  "/privacy": `# Privacy
-
-Last updated: September 13, 2026.
-
-## Who operates ohmyho.st
-
-amerged B.V., Netherlands, operates ohmyho.st. Contact [smertens@amerged.com](mailto:smertens@amerged.com) for privacy questions, access, correction, withdrawal or deletion requests.
-
-## Registering interest in the beta
-
-When you submit the beta form with the consent box checked, we store your email address, the submission time and the version of the consent you accepted. We use this information to record your interest in the beta. Registration does not create a hosting account, subscribe you to a newsletter or send an automated email.
-
-We retain this interest record for twelve months, or delete it earlier when you withdraw your consent. Repeating the form does not create another record or silently extend its retention. Contact us from the registered address to request deletion; we may verify your request before changing someone else's data.
-
-## Using the service
-
-When you sign in and use hosting, we process account and organization identifiers, your authorized GitHub repository and deployment metadata, project settings, operational diagnostics and usage needed to provide the service. Your authentication session is managed through WorkOS. GitHub authorization determines which repository the hosting service may use. Payment details for an authorized purchase are handled by Stripe; ohmyho.st receives the transaction and entitlement records it needs.
-
-Hosting infrastructure uses Cloudflare, Neon and AWS. They process the data needed for their roles. Customer application placement and control-service storage are different: the current customer default is US East; this is not an EU-only residency promise. Data may be processed outside the Netherlands. Service providers' applicable data-processing terms govern their processing and transfer arrangements.
-
-## Website requests
-
-Cloudflare processes requests and necessary security information, including network addresses, to deliver the site and limit abuse. The beta application does not store raw IP addresses with your interest record or include submitted email addresses in application logs. Feature-interest buttons store the selected feature, a request identifier and time; no email is attached. The site uses temporary browser storage to avoid repeating the same feature request. Logos are served from this site. The supplied design loads fonts from Google Fonts, which receives those font requests.
-
-## Your choices
-
-You can decline the beta checkbox and still read the site and docs. You may request access, correction or deletion, withdraw consent, and raise a complaint with the [Dutch Autoriteit Persoonsgegevens](https://autoriteitpersoonsgegevens.nl/en). Account, billing and operational records follow their separate service purposes and applicable retention obligations; deleting a beta-interest record does not delete an existing hosting account.
-
-[Back to ohmyho.st](/)`,
   "/terms": `# Beta terms
 
-Last updated: September 13, 2026. ohmyho.st is provided by amerged B.V., Netherlands. Contact [smertens@amerged.com](mailto:smertens@amerged.com).
+Last updated: September 13, 2026. ohmyho.st is provided by amerged B.V., Netherlands. Use [our contact form](/contact).
 
 ## Access and your projects
 
@@ -47,6 +18,8 @@ Deployment plans and the service's published rate cards describe resource consum
 
 This is a beta and has no uptime SLA. Features, limits and availability can change. Use the current product documentation and returned operation status to determine whether a requested capability is ready. Maintain a recovery plan for important data. Available database exports are requested through the API, CLI or MCP using a password you retain.
 
+For personal data processed on your behalf, the [Data Processing Agreement](/dpa), including its annexes, forms part of these terms.
+
 These terms do not remove rights that applicable law makes mandatory. Our [Privacy notice](/privacy) explains personal-data processing. [Read the docs](/docs) or [return home](/).`,
   "/about": `# Hosting for agents
 
@@ -54,7 +27,7 @@ ohmyho.st brings supported application hosting, Postgres, domains and transactio
 
 Projects share an organization credit balance. You choose which services each application needs and whether Dev and Prod share data or keep it separate.
 
-The operator is amerged B.V., Netherlands. Contact [smertens@amerged.com](mailto:smertens@amerged.com).
+The operator is amerged B.V., Netherlands. Use [our contact form](/contact).
 
 [How to start](/docs/quickstart) · [Where credits go](/pricing/breakdown) · [Our approach](/#philosophy)`,
   "/pricing": `# One balance for your projects
