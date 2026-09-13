@@ -1,7 +1,7 @@
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.22";
+export const CLIENT_RELEASE = "0.1.0-beta.23";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -32,6 +32,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.19",
   "0.1.0-beta.20",
   "0.1.0-beta.21",
+  "0.1.0-beta.22",
   CLIENT_RELEASE,
 ]);
 
@@ -181,7 +182,7 @@ ohmyhost credits usage --organization "$ORGANIZATION_ID" --month YYYY-MM --json
 
 ## MCP
 
-Read project_context_get (or its linked Markdown resource) when resuming a project; it includes DNS/mail next actions and only the credit data you may read. Use database_compute_get for current database size and state without waking customer compute. Shared environments show the same database; suspend_timeout_seconds=0 means the provider default, and -1 means never suspend. Use organization_credits_get and organization_usage_get for the organization you own. Use operation_get to poll an accepted operation. Follow progress.phase and progress.suggested_action; waiting_for_mail directs you to mail_domain_status immediately. publishing is not activation. Poll after progress.next_poll_after_seconds. If reconciliation.state is required, use one confirmed operation_reconcile with the original operation ID and a saved idempotency key. If pending, poll that same operation after 60 seconds. A completed reconciliation attempt alone is not a successful deployment; preserve the existing build and verify the original operation and app. On reconciliation_exhausted, stop retries and submit feedback with the original operation ID; another deployment or deletion must not be used to bypass the recovery limit. Discover the tool schema before calling it.
+Read project_context_get (or its linked Markdown resource) when resuming a project; it includes DNS/mail next actions and only the credit data you may read. Use database_compute_get for current database size and state without waking customer compute. Shared environments show the same database; suspend_timeout_seconds=0 means the provider default, and -1 means never suspend. Use organization_credits_get and organization_usage_get for the organization you own. Use operation_get to poll an accepted operation. operation_logs returns an available event prefix within a ten-second collection window; it does not wait for deployment completion. operation_events_unavailable means inspect operation_get and retry the same log read, never create another deployment. Follow progress.phase and progress.suggested_action; waiting_for_mail directs you to mail_domain_status immediately. publishing is not activation. Poll after progress.next_poll_after_seconds. If reconciliation.state is required, use one confirmed operation_reconcile with the original operation ID and a saved idempotency key. If pending, poll that same operation after 60 seconds. A completed reconciliation attempt alone is not a successful deployment; preserve the existing build and verify the original operation and app. On reconciliation_exhausted, stop retries and submit feedback with the original operation ID; another deployment or deletion must not be used to bypass the recovery limit. Discover the tool schema before calling it.
 
 ## API
 
