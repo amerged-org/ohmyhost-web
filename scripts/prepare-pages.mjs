@@ -166,7 +166,7 @@ await writeFile(
   renderedApi
     .replace(
       "</head>",
-      `<style>${fontCss}html,body{background:#000;color:#F0F1F2;font-family:'Space Grotesk',sans-serif}nav a{text-decoration:none}nav a:hover{text-decoration:underline}</style></head>`,
+      `<style>${fontCss}html,body{background:#000;color:#F0F1F2;font-family:'Space Grotesk',sans-serif}nav a{text-decoration:none}nav a:hover{text-decoration:underline}h5{color:#83878D!important}[role=tab]{background:#17181A!important;color:#83878D!important;border-color:#26282C!important;border-radius:6px}[role=tab][aria-selected=true]{background:#F0F1F2!important;color:#09090B!important}</style></head>`,
     )
     .replace("</body>", `${privacyUi}</body>`)
     .replace(
