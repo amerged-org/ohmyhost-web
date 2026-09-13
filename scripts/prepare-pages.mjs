@@ -1,3 +1,4 @@
+import { format } from "prettier";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
@@ -11,51 +12,90 @@ await mkdir(output, { recursive: true });
 const markdown = new TurndownService({ headingStyle: "atx", codeBlockStyle: "fenced" });
 markdown.remove(["script", "style", "svg", "head", "button", "input"]);
 const templates = {
-  home: "c6056fe92026043e3a6b982fc0220612b92be91c17cdcc1ea26699b3516894bf",
+  home: "c8705820768cba0b07d67acc476bed015ef3c978a8fc9ea44f5203050cfb2bc7",
   brand: "d2a49d8a4b9d979c72958eebb2f2db4b7637405ccacd27100ce77e405a01bebe",
 };
+const approvedHome = await readFile(`${directory}site/home.html`, "utf8");
+const sharedCss = approvedHome.match(/<style>([\s\S]*?)<\/style>/u)?.[1];
+if (!sharedCss) throw new Error("The approved design stylesheet is missing");
+await writeFile(
+  `${directory}src/generated-site-frame.ts`,
+  await format(
+    "// Generated from the approved template and beta entry assets.\n" +
+      `export const SITE_CSS = ${JSON.stringify(sharedCss)};\n` +
+      `export const BETA_MODAL = ${JSON.stringify(await readFile(`${directory}site/beta-modal.html`, "utf8"))};\n` +
+      `export const BETA_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/beta-entry.js`, "utf8"))};\n`,
+    { parser: "typescript", printWidth: 100 },
+  ),
+);
 for (const [name, digest] of Object.entries(templates)) {
   const original = await readFile(`${directory}site/${name}.html`, "utf8");
   if (createHash("sha256").update(original).digest("hex") !== digest)
     throw new Error(`The supplied ${name} template was changed`);
   let html = original;
   if (name === "home") {
-    html = html
-      .replaceAll('<a href="#">Docs</a>', '<a href="/docs">Docs</a>')
-      .replaceAll('<a class="btn g" href="#">Docs</a>', '<a class="btn g" href="/docs">Docs</a>')
-      .replaceAll('href="#">Start free</a>', 'href="/login">Start free</a>')
-      .replaceAll('href="#">Get credits</a>', 'href="/login">Get credits</a>')
-      .replace('<a href="#">MCP server</a>', '<a href="/docs/mcp">MCP server</a>')
-      .replace('<a href="#">CLI</a>', '<a href="/docs/cli">CLI</a>')
-      .replace('<a href="#">Status</a>', '<a href="/docs/usage">Status</a>')
-      .replace(
-        "<h4>developers</h4>",
-        '<h4>developers</h4>\n      <a href="/api">API reference</a>\n      <a href="/brand">Brand</a>\n      <a href="/llms.txt">For agents</a>',
+    const destinations = {
+      Docs: "/docs",
+      "MCP server": "/docs/mcp",
+      CLI: "/docs/cli",
+      Status: "/status",
+      Changelog: "/changelog",
+      About: "/about",
+      Philosophy: "/#philosophy",
+      Blog: "/blog",
+      "Open source": "https://github.com/amerged/docs",
+      Privacy: "/privacy",
+      Terms: "/terms",
+      GDPR: "/privacy",
+      Imprint: "/privacy",
+    };
+    for (const [label, href] of Object.entries(destinations))
+      html = html.replaceAll(
+        `<a href="#">${label}</a>`,
+        label === "Imprint" ? "" : `<a href="${href}">${label}</a>`,
       );
     html = html.replace(
-      '<div class="slid up">',
-      '<p class="note">Database compute: Free 0.25 CU / 1 GB, sleep after 1 idle minute. Paid 0.5 CU / 2 GB, sleep after 2 idle minutes. Optional Paid performance: 1 CU / 4 GB, sleep after 5 idle minutes, 2.5× database compute credits per equal active minute. A longer idle window also uses more active minutes. Storage and retained history are metered separately. Ask your agent to select a size and show measured credits.</p>\n  <div class="slid up">',
+      '<h2 class="up">Why one balance instead of five subscriptions.</h2>',
+      '<h2 class="up" id="philosophy">Why one balance instead of five subscriptions.</h2>',
     );
-    const tools = original.match(/<div class="cells logos stag">[\s\S]*?<\/div>/u)?.[0];
-    if (!tools) throw new Error("The supplied automation tools are missing");
+    html = html
+      .replace(
+        "12 tools found",
+        `${JSON.parse(await readFile(`${directory}src/generated-mcp-tools.json`, "utf8")).tools.length} tools found`,
+      )
+      .replaceAll("create_project", "project_create")
+      .replaceAll("provision_postgres", "deployment_plan")
+      .replaceAll("set_env", "secret_set_command")
+      .replaceAll("verify_email_sender", "mail_domain_status")
+      .replaceAll("add_domain", "domain_paid_apply")
+      .replaceAll("https://lovable.ohm.st", "https://calm-river-builds.check.omh.st");
+    html = html.replaceAll(
+      "omh create lovable\\nomh db up\\nomh domain add lovable\\nomh deploy",
+      'ohmyhost init --dry-run --json\\nohmyhost project context --project "$PROJECT_ID" --json',
+    );
+    html = html
+      .replaceAll("omh create lovable", "ohmyhost init --dry-run --json")
+      .replaceAll("omh db up", "ohmyhost plan --help")
+      .replaceAll("omh domain add lovable", "ohmyhost deploy --help")
+      .replaceAll("omh deploy", "ohmyhost project status --help");
+    html = html.replaceAll(
+      "Read https://ohmyho.st/llms.txt and set up hosting for this repo on ohmyho.st: create the project, provision Postgres, add the domain and deploy. Ask me only if you need a decision.",
+      "Read https://ohmyho.st/llms.txt and the ohmyhost-get-started Skill. Connect this agent, sign in with my invitation and deploy this GitHub project using only the capabilities it needs. Follow the deployment Skill and verify the app.",
+    );
     html = html.replace(
-      "<footer>\n",
-      `<footer>\n  <p class="free">Export to Google Drive, Amazon S3 or Cloudflare R2<br><b>via your favorite automation tool</b></p>\n  ${tools}\n  <div style="height:48px" aria-hidden="true"></div>\n`,
+      "</body>",
+      `${await readFile(`${directory}site/beta-modal.html`, "utf8")}<script>${await readFile(`${directory}site/beta-entry.js`, "utf8")}</script></body>`,
     );
   }
-  if (name === "home")
-    html = html
-      .replace("cmd='curl omh.st/0.sh | bash'", "cmd='curl -fsSL https://omh.st/0.sh | bash'")
-      .replace(
-        "copy('curl omh.st/0.sh | bash', b)",
-        "copy('curl -fsSL https://omh.st/0.sh | bash', b)",
-      );
   await writeFile(`${output}/${name}.html`, html);
   await writeFile(
     `${output}/${name === "home" ? "index" : name}.md`,
     `${markdown.turndown(html)}\n`,
   );
 }
+
+for (const image of ["og", "logo"])
+  await writeFile(`${output}/${image}.png`, await readFile(`${directory}site/${image}.png`));
 
 const entry = await readFile(`${directory}src/customer-entry.ts`, "utf8");
 const version = entry.match(/export const CLIENT_RELEASE = "([^"]+)"/u)?.[1];

@@ -1,7 +1,11 @@
+import MCP_REFERENCE from "./generated-mcp-tools.json" with { type: "json" };
+import { SITE_CSS, BETA_MODAL, BETA_SCRIPT } from "./generated-site-frame.js";
+import { LAUNCH_DOCUMENTS } from "./launch-pages.js";
+import { PRODUCT_DOCUMENTS } from "./product-docs.js";
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.24";
+export const CLIENT_RELEASE = "0.1.0-beta.25";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -34,6 +38,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.21",
   "0.1.0-beta.22",
   "0.1.0-beta.23",
+  "0.1.0-beta.24",
   CLIENT_RELEASE,
 ]);
 
@@ -76,7 +81,9 @@ Continue with the [CLI guide](/docs/cli). For native Windows, use the [MCP setup
 Ask your agent for status and changes: “Is my domain ready?” or “Which project used the most credits this month?”
 `;
 
-const DOCUMENTATION: Record<string, string> = {
+export const DOCUMENTATION: Record<string, string> = {
+  ...LAUNCH_DOCUMENTS,
+  ...PRODUCT_DOCUMENTS,
   "/docs": CUSTOMER_GUIDE,
   "/docs/cli": `# CLI
 
@@ -169,7 +176,7 @@ The current server runs locally and uses your CLI login. A hosted URL-only conne
 
 Skills teach your agent how to complete a specific task with ohmyho.st. Install the ones you need:
 
-    npx skills add amerged/ohmyho -s ohmyhost-deploy-github
+    npx skills add amerged/docs -s ohmyhost-deploy-github
 
 Replace the Skill name to install another. Current MCP releases also expose these instructions as readable resources.
 
@@ -238,6 +245,33 @@ Exports require the organization Owner and remain available at zero credits. Dir
 Ask your agent for project status, usage and changes.`,
 };
 
+DOCUMENTATION["/docs/mcp-tools"] = `# MCP tools
+
+These tools are discovered from the shipped local MCP server. Read a tool's current schema before calling it. Project and billing permissions are checked by the API; a listed tool does not grant access.
+
+| Tool | Required arguments | Action |
+| --- | --- | --- |
+${MCP_REFERENCE.tools.map((tool) => `| \`${tool.name}\` | ${(tool.inputSchema.required ?? []).map((name) => `\`${name}\``).join(", ") || "None"} | ${tool.annotations?.readOnlyHint === true ? "Read" : "Change or prepare a change"} |`).join("\n")}
+
+[Download the complete tool schemas](https://ohmyho.st/mcp-tools.json) · [Connect MCP](/docs/mcp) · [Task Skills](/docs/skills)
+`;
+
+for (const [alias, target] of Object.entries({
+  "/docs/agents/mcp": "/docs/mcp",
+  "/docs/nextjs": "/docs/frameworks/nextjs",
+  "/docs/vite": "/docs/frameworks/vite",
+  "/docs/react": "/docs/frameworks/vite",
+  "/docs/tanstack": "/docs/frameworks/tanstack",
+  "/docs/postgres": "/docs/database",
+  "/docs/credits": "/docs/usage",
+  "/docs/spend-cap": "/docs/budgets",
+  "/docs/dev-and-prod": "/docs/environments",
+  "/docs/changelog": "/changelog",
+})) {
+  const document = DOCUMENTATION[target];
+  if (document) DOCUMENTATION[alias] = document;
+}
+
 export const AGENT_INDEX = `# ohmyho.st
 
 Hosting for agents. Deploy GitHub apps and manage projects through CLI, MCP or API.
@@ -245,6 +279,8 @@ Hosting for agents. Deploy GitHub apps and manage projects through CLI, MCP or A
 - [Start here](https://ohmyho.st/docs.md)
 - [CLI](https://ohmyho.st/docs/cli.md)
 - [MCP setup](https://ohmyho.st/docs/mcp.md)
+- [MCP tool reference](https://ohmyho.st/docs/mcp-tools.md)
+- [MCP tool schemas](https://ohmyho.st/mcp-tools.json)
 - [Agent Skills](https://ohmyho.st/docs/skills.md)
 - [Domains and email](https://ohmyho.st/docs/domains.md)
 - [Usage and database size](https://ohmyho.st/docs/usage.md)
@@ -256,6 +292,10 @@ Hosting for agents. Deploy GitHub apps and manage projects through CLI, MCP or A
 - [Login](https://ohmyho.st/login.md)
 - [Release manifest](https://ohmyho.st${RELEASE_PATH}/manifest.json)
 - [Skill catalog](https://ohmyho.st/.well-known/skills/index.json)
+${Object.keys(PRODUCT_DOCUMENTS)
+  .filter((path) => path.startsWith("/docs/"))
+  .map((path) => `- [${path.slice(6)}](https://ohmyho.st${path}.md)`)
+  .join("\n")}
 ${skills
   .filter((skill) => skill.relativePath === "SKILL.md")
   .map((skill) => `- [${skill.skillName}](https://ohmyho.st/skills/${skill.skillName}/SKILL.md)`)
@@ -263,14 +303,22 @@ ${skills
 `;
 
 export function customerDocument(path: string): { text: string; type: string } | null {
+  if (path === "/mcp-tools.json")
+    return { text: JSON.stringify(MCP_REFERENCE), type: "application/json" };
   if (path === "/llms.txt") return { text: AGENT_INDEX, type: "text/plain; charset=utf-8" };
-  const documentPath = path.endsWith(".md") ? path.slice(0, -3) : path;
+  const documentPath = path === "/auth.md" ? path : path.endsWith(".md") ? path.slice(0, -3) : path;
   const markdown = DOCUMENTATION[documentPath];
   if (markdown) {
     if (path.endsWith(".md")) return { text: markdown, type: "text/markdown; charset=utf-8" };
     return {
       type: "text/html; charset=utf-8",
-      text: `<!doctype html><html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ohmyho.st — documentation</title><link rel="alternate" type="text/markdown" href="${documentPath}.md"><style>:root{color-scheme:dark;font-family:'Space Grotesk',system-ui,sans-serif;background:#000;color:#F0F1F2}*{box-sizing:border-box}body{max-width:1000px;margin:0 auto;padding:32px 22px 80px}nav{display:flex;gap:20px;flex-wrap:wrap;padding:0 0 24px;border-bottom:1px solid #26282C}nav a{font-size:14px}main{max-width:78ch}h1{font-size:clamp(36px,7vw,58px);letter-spacing:-.04em}h2{margin-top:48px;letter-spacing:-.03em}p,li{line-height:1.7;color:#b5b9bf}a{color:#F0F1F2;text-underline-offset:4px}pre{background:#0C0D10;border:1px solid #26282C;border-radius:12px;padding:20px;overflow:auto;line-height:1.65}code{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.9em}:focus-visible{outline:2px solid #F0F1F2;outline-offset:4px}</style></head><body><nav><a href="/">ohmyho.st</a><a href="/docs">Docs</a><a href="/docs/cli">CLI</a><a href="/docs/mcp">MCP</a><a href="/docs/skills">Skills</a><a href="/api">API</a><a href="/brand">Brand</a><a href="${documentPath}.md">Markdown</a><a href="/login">Login</a></nav><main>${marked.parse(markdown, { async: false })}</main></body></html>`,
+      text: `<!doctype html><html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${markdown.split("\n")[0]?.replace(/^# /u, "")} — ohmyho.st</title><meta name="description" content="${
+        markdown
+          .split("\n")
+          .find((line) => line.trim() && !line.startsWith("#"))
+          ?.replaceAll('"', "&quot;") ?? "Hosting for agents"
+      }"><link rel="canonical" href="https://ohmyho.st${documentPath}"><link rel="alternate" type="text/markdown" href="${documentPath}.md"><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><style>${SITE_CSS}
+.docs-content{max-width:76ch;margin:64px auto 90px}.docs-content h1{font-size:clamp(36px,6vw,58px);margin-bottom:28px}.docs-content h2{font-size:26px;text-align:left;margin:36px 0 14px}.docs-content p,.docs-content li{color:var(--muted-foreground);line-height:1.75;margin:14px 0}.docs-content ul,.docs-content ol{padding-left:24px}.docs-content a{text-decoration:underline;text-underline-offset:4px;color:var(--foreground)}.docs-content pre{padding:20px;background:var(--muted);border:1px solid var(--border);border-radius:12px;overflow:auto;line-height:1.7}.docs-content code{font:13px var(--mono)}.docs-content table{display:block;overflow:auto;width:100%;border-collapse:collapse;font-size:14px;margin:24px 0}.docs-content th,.docs-content td{padding:12px;text-align:left;border-bottom:1px solid var(--border)}.docs-content blockquote{border-left:2px solid var(--border-strong);padding-left:20px}.docs-content strong{color:var(--foreground)}nav{gap:18px}@media(max-width:760px){nav a.secondary{display:none}.docs-content{margin-top:38px}}</style></head><body><div class="wrap"><nav><a class="mark" href="/">ohmyho.st</a><a href="/docs">Docs</a><a class="secondary" href="/docs/skills">Skills</a><a class="secondary" href="/api">API</a><a class="secondary" href="${documentPath}.md">Markdown</a><div class="r"><a href="/login">Log in</a><button class="btn nochev" data-beta-access><span>Get beta access</span></button></div></nav><main class="docs-content">${marked.parse(markdown, { async: false })}</main><footer><a href="/">ohmyho.st</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/docs">Docs</a></footer></div>${BETA_MODAL}<script>${BETA_SCRIPT}</script></body></html>`,
     };
   }
   if (path === "/.well-known/skills/index.json")

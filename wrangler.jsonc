@@ -14,6 +14,7 @@
     { "pattern": "*.check.omh.st/*", "zone_id": "af22d02e7d8b515634aa58d6fa5d7256" },
     { "pattern": "*.dev.check.omh.st/*", "zone_id": "af22d02e7d8b515634aa58d6fa5d7256" },
   ],
+  "services": [{ "binding": "CONTROL_API", "service": "ohmyho-control-api-production" }],
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",

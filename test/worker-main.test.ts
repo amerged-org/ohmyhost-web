@@ -16,17 +16,19 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(home.status).toBe(200);
     expect(home.headers.get("content-type")).toContain("text/html");
     const html = await home.text();
-    expect(html).toContain("<title>ohmyho.st — hosting for agents</title>");
-    expect(html).toContain("All your projects.");
-    expect(html).toContain("via your favorite automation tool");
+    expect(html).toContain(
+      "<title>Hosting for vibe-coded apps — $10/mo for all your projects, not per project | ohmyho.st</title>",
+    );
+    expect(html).toContain("Copy prompt for your agent");
+    expect(html).toContain("Get beta access");
     const installer = await worker.fetch(
       new Request("https://omh.st/0.sh?r=hostmebaby&token=private"),
       { ASSETS: assets },
     );
     expect(installer.status).toBe(200);
     const installerText = await installer.text();
-    expect(installerText).toContain("OHMYHOST_SIGNUP_SOURCE='hostmebaby'");
-    expect(installerText).toContain("0.1.0-beta.24");
+    expect(installerText).toContain("OHMYHOST_SIGNUP_SOURCE=''");
+    expect(installerText).toContain("0.1.0-beta.25");
     expect(installerText).toContain("using only my explicitly authorized GitHub repository");
     expect(installerText).not.toMatch(/upload source path|source uploads/u);
     expect(installerText).toContain("Hermes 0.21 or newer is required for interactive onboarding.");
@@ -38,12 +40,30 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(installerText).not.toContain("private");
     expect(installerText).not.toContain("@CLIENT_RELEASE@");
     expect((await worker.fetch(new Request("http://omh.st/0.sh"))).status).toBe(308);
-    expect(html).toContain("curl -fsSL https://omh.st/0.sh | bash");
+    expect(html).toContain("ohmyhost-get-started");
+    for (const image of ["/og.png", "/logo.png"]) {
+      const response = await worker.fetch(new Request(`https://ohmyho.st${image}`), {
+        ASSETS: assets,
+      });
+      expect(response.headers.get("content-type")).toBe("image/png");
+      expect(Array.from(new Uint8Array(await response.arrayBuffer()).slice(0, 4))).toEqual([
+        137, 80, 78, 71,
+      ]);
+    }
     const brand = await worker.fetch(new Request("https://ohmyho.st/brand"), { ASSETS: assets });
     expect(await brand.text()).toBe(
       await readFile(new URL("../site/brand.html", import.meta.url), "utf8"),
     );
-    for (const path of ["/index.md", "/brand.md", "/api", "/api.md", "/api/openapi.yaml"]) {
+    for (const path of [
+      "/index.md",
+      "/brand.md",
+      "/api",
+      "/api.md",
+      "/api/openapi.yaml",
+      "/robots.txt",
+      "/sitemap.xml",
+      "/mcp-tools.json",
+    ]) {
       const response = await worker.fetch(new Request(`https://ohmyho.st${path}`), {
         ASSETS: assets,
       });
@@ -64,7 +84,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     const login = await worker.fetch(
       new Request("https://ohmyho.st/login?r=hostmebaby&next=https://foreign.example&token=secret"),
     );
-    expect(login.headers.get("location")).toBe("https://app.ohmyho.st/login?r=hostmebaby");
+    expect(login.headers.get("location")).toBe("https://app.ohmyho.st/login");
     expect(home.headers.get("link")).toContain("/index.md");
     expect(home.headers.get("content-security-policy")).toContain("fonts.googleapis.com");
     expect(html).toContain('href="/docs"');
@@ -191,7 +211,7 @@ it("serves only pinned public client assets and strips credentials before the as
   const index = await (
     await worker.fetch(new Request("https://ohmyho.st/.well-known/skills/index.json"))
   ).json();
-  expect(index.skills).toHaveLength(8);
+  expect(index.skills).toHaveLength(9);
   for (const entry of index.skills) {
     const document = await worker.fetch(new Request(entry.url));
     expect(document.status).toBe(200);
@@ -246,6 +266,8 @@ class SiteAssetFixture {
     if (
       ![
         "/pages/home.html",
+        "/pages/og.png",
+        "/pages/logo.png",
         "/pages/brand.html",
         "/pages/index.md",
         "/pages/brand.md",
@@ -256,7 +278,7 @@ class SiteAssetFixture {
       ].includes(path)
     )
       return new Response(null, { status: 404 });
-    const text = await readFile(new URL(`../public${path}`, import.meta.url), "utf8");
+    const text = await readFile(new URL(`../public${path}`, import.meta.url));
     return new Response(text);
   }
 }

@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@ohmyhost/agent-skills": "workspace:*",
-    "marked": "18.0.12"
+    "marked": "18.0.12",
+    "@ohmyhost/sdk-ts": "workspace:*"
   }
 }
