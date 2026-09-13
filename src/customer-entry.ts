@@ -6,7 +6,7 @@ import { PRODUCT_DOCUMENTS } from "./product-docs.js";
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.26";
+export const CLIENT_RELEASE = "0.1.0-beta.27";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -41,6 +41,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.23",
   "0.1.0-beta.24",
   "0.1.0-beta.25",
+  "0.1.0-beta.26",
   CLIENT_RELEASE,
 ]);
 
@@ -113,6 +114,7 @@ Isolated data gives Dev and Prod separate databases; each uses credits. Shared d
 
 ## Check progress
 
+    ohmyhost credits account --organization "$ORGANIZATION_ID" --json
     ohmyhost project context --project "$PROJECT_ID" --json
     ohmyhost project status --help
     ohmyhost operation get --help
@@ -274,44 +276,93 @@ for (const [alias, target] of Object.entries({
 
 export const AGENT_INDEX = `# ohmyho.st
 
-Hosting for agents. Deploy GitHub apps and manage projects through CLI, MCP or API.
+> Hosting for agents. Deploy GitHub-connected Next.js, Vite/React and TanStack apps, then manage databases, domains, email, credits and SQL exports through the CLI, MCP or REST API.
 
-- [Start here](https://ohmyho.st/docs.md)
-- [CLI](https://ohmyho.st/docs/cli.md)
-- [MCP setup](https://ohmyho.st/docs/mcp.md)
-- [MCP tool reference](https://ohmyho.st/docs/mcp-tools.md)
-- [MCP tool schemas](https://ohmyho.st/mcp-tools.json)
-- [Agent Skills](https://ohmyho.st/docs/skills.md)
-- [Domains and email](https://ohmyho.st/docs/domains.md)
-- [Usage and database size](https://ohmyho.st/docs/usage.md)
-- [SQL exports](https://ohmyho.st/docs/backups.md)
-- [API reference](https://ohmyho.st/api.md)
-- [OpenAPI YAML](https://ohmyho.st/api/openapi.yaml)
-- [Design system](https://ohmyho.st/brand.md)
-- [Homepage](https://ohmyho.st/index.md)
-- [Login](https://ohmyho.st/login.md)
-- [Privacy](https://ohmyho.st/privacy.md)
-- [Cookie notice](https://ohmyho.st/cookies.md)
-- [DPA](https://ohmyho.st/dpa.md)
-- [TOMs](https://ohmyho.st/dpa/toms.md)
-- [Providers](https://ohmyho.st/dpa/subprocessors.md)
-- [Transfer safeguards](https://ohmyho.st/dpa/transfers.md)
-- [Contact](https://ohmyho.st/contact)
-- [Release manifest](https://ohmyho.st${RELEASE_PATH}/manifest.json)
-- [Skill catalog](https://ohmyho.st/.well-known/skills/index.json)
-${Object.keys(PRODUCT_DOCUMENTS)
-  .filter((path) => path.startsWith("/docs/"))
-  .map((path) => `- [${path.slice(6)}](https://ohmyho.st${path}.md)`)
-  .join("\n")}
+## When to use ohmyho.st
+
+- Deploy or update an app from a GitHub repository the customer authorizes.
+- Resume a project: authenticate, identify its organization and read project context before acting.
+- Connect a domain or sender, follow DNS/TLS/DKIM readiness, or diagnose a failed deployment.
+- Check measured consumption, change a monthly project budget, or request an encrypted SQL export.
+- Keep the app's existing authentication provider; enable only the hosting capabilities it needs.
+
+## Get started
+
+- [Agent setup playbook](https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md): Install clients, connect MCP, sign in and reuse the customer's workspace.
+- [Quickstart](https://ohmyho.st/docs/quickstart.md): Deploy the selected GitHub app.
+- [Authentication](https://ohmyho.st/auth.md): Browser login, local CLI sessions and user-owned API tokens.
+- [Account portal](https://app.ohmyho.st/login): Projects, profile, credits and billing after sign-in.
+
+## CLI, MCP and REST
+
+- [CLI installation and commands](https://ohmyho.st/docs/cli.md): Install the published npm archive and run ohmyhost login.
+- [MCP setup](https://ohmyho.st/docs/mcp.md): Connect the local stdio npm server to your harness.
+- [MCP tool reference](https://ohmyho.st/docs/mcp-tools.md): Actual tool names and input schemas.
+- [MCP machine-readable catalog](https://ohmyho.st/mcp-tools.json): Discover the current tools; this is not an authenticated remote endpoint.
+- [OpenAPI JSON](https://ohmyho.st/api/openapi.json): Canonical REST /v1 schemas; production API base https://app.ohmyho.st.
+- [OpenAPI YAML](https://ohmyho.st/api/openapi.yaml): The same contract in YAML.
+- [API errors and limits](https://ohmyho.st/docs/limits.md): Typed errors, authorization and polling.
+- [Release manifest](https://ohmyho.st${RELEASE_PATH}/manifest.json): Exact CLI, MCP and SDK archives with integrity hashes.
+
+Use Bearer authentication for private REST requests. Public discovery and project/user IDs grant no authority. Product access is checked for the current user, organization, project and action. Read the operation's returned polling guidance and reuse mutation idempotency keys after uncertainty.
+
+## Task Skills
+
+- [Skill catalog](https://ohmyho.st/.well-known/agent-skills/index.json): Installable Skills and their descriptions.
 ${skills
   .filter((skill) => skill.relativePath === "SKILL.md")
   .map((skill) => `- [${skill.skillName}](https://ohmyho.st/skills/${skill.skillName}/SKILL.md)`)
   .join("\n")}
+
+## Documentation by task
+
+- [Documentation index](https://ohmyho.st/docs/index.md): All product guides with titles.
+- [Full product documentation](https://ohmyho.st/llms-full.txt): Combined guides and Skills from this same release.
+- [Frameworks and GitHub](https://ohmyho.st/docs/github.md): Repository consent and deployment.
+- [Databases and compute](https://ohmyho.st/docs/database.md): Profiles, Dev/Prod choices and migrations.
+- [Domains and mail](https://ohmyho.st/docs/domains.md): Setup and follow-up checks.
+- [Usage and budgets](https://ohmyho.st/docs/usage.md): Shared credits, measured costs and project limits.
+- [Billing](https://ohmyho.st/docs/billing.md): Plan access, monthly and non-expiring credits, Stripe when enabled.
+- [SQL exports](https://ohmyho.st/docs/backups.md): Asynchronous password-encrypted ZIP exports and downloads.
+- [Troubleshooting](https://ohmyho.st/docs/troubleshooting.md): Actionable errors and customer-agent feedback.
+
+## Product and legal
+
+- [Pricing](https://ohmyho.st/pricing.md)
+- [Brand](https://ohmyho.st/brand.md)
+- [Privacy](https://ohmyho.st/privacy.md)
+- [DPA](https://ohmyho.st/dpa.md)
+- [Contact](https://ohmyho.st/contact)
 `;
+
+const GUIDE_INDEX =
+  "# ohmyho.st documentation\n\n" +
+  Object.entries(DOCUMENTATION)
+    .filter(([path]) => path === "/docs" || path.startsWith("/docs/"))
+    .map(
+      ([path, text]) =>
+        `- [${text.split("\n")[0]?.replace(/^# /u, "")}](https://ohmyho.st${path}.md)`,
+    )
+    .join("\n");
+const FULL_GUIDES =
+  AGENT_INDEX +
+  "\n\n" +
+  [
+    ...new Set(
+      Object.entries(DOCUMENTATION)
+        .filter(([path]) => path.startsWith("/docs"))
+        .map(([, text]) => text),
+    ),
+  ].join("\n\n---\n\n") +
+  "\n\n" +
+  skills.map((skill) => skill.text).join("\n\n---\n\n");
 
 export function customerDocument(path: string): { text: string; type: string } | null {
   if (path === "/mcp-tools.json")
     return { text: JSON.stringify(MCP_REFERENCE), type: "application/json" };
+  if (path === "/docs/index.md") return { text: GUIDE_INDEX, type: "text/markdown; charset=utf-8" };
+  if (path === "/llms-full.txt") return { text: FULL_GUIDES, type: "text/plain; charset=utf-8" };
+  if (path === "/.well-known/agent-skills/index.json") path = "/.well-known/skills/index.json";
   if (path === "/llms.txt") return { text: AGENT_INDEX, type: "text/plain; charset=utf-8" };
   const documentPath = path === "/auth.md" ? path : path.endsWith(".md") ? path.slice(0, -3) : path;
   const markdown = DOCUMENTATION[documentPath];

@@ -155,6 +155,8 @@ Check both reserved credits and posted consumption when a new operation cannot s
 [Usage and budgets Skill](/skills/ohmyhost-usage-and-budgets/SKILL.md) · [Usage](/docs/usage) · [Pricing](/pricing)`,
   "/docs/billing": `# Purchases and invoices
 
+The [account portal](https://app.ohmyho.st/billing) shows Free/Paid, the source of Paid access, monthly expiring credits and remaining one-time credits. Reservations remain available through the API/CLI/MCP. Beta and manual grants provide Paid features without a Stripe subscription or extra monthly Paid allowance. Signup/referral and top-up credits never expire; the existing Free monthly base allowance is separate.
+
 An organization Owner can request checkout for a Paid subscription or a one-time credit top-up where billing is enabled. A top-up adds credits; it does not extend a subscription. Every successful purchase has an invoice.
 
 Your agent opens billing_checkout_create only for an authorized purchase, then reads billing_checkout_get and the organization balance to confirm its result. Returning from the checkout browser page alone is not payment confirmation. billing_portal_create opens invoices, payment methods and subscription management.
@@ -181,6 +183,8 @@ The returned feedback ID and timestamp confirm submission. They do not promise a
 
 [Troubleshooting Skill](/skills/ohmyhost-troubleshoot-deployment/SKILL.md) · [Status](/docs/status) · [API](/api)`,
   "/docs/limits": `# Current limits
+
+The API uses REST /v1 and Bearer authentication. Private endpoints return application/problem+json with code, detail and suggested_action; retry rate-limited requests after Retry-After. The current beta has no general stability or deprecation-window promise. Published client archives are immutable; follow release notes when upgrading. Future breaking version changes will be documented before a public stability commitment is introduced.
 
 Use the operation plan and active rate cards for the selected account. The published clients support GitHub deployment, the documented framework/capability contracts and customer-chosen application authentication.
 

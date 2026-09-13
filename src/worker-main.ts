@@ -128,7 +128,10 @@ export default {
       );
     }
     if (url.pathname === "/login") {
-      headers.set("location", `https://app.ohmyho.st/login${invitation ? `?r=${invitation}` : ""}`);
+      headers.set(
+        "location",
+        `https://app.ohmyho.st/login${source ? `?r=${encodeURIComponent(source)}` : ""}`,
+      );
       return new Response(null, { status: 302, headers });
     }
     const wantsMarkdown = request.headers.get("accept")?.includes("text/markdown") === true;
@@ -208,7 +211,24 @@ export default {
         url.pathname,
       );
     const font = /^\/fonts\/[a-f0-9]{16}\.ttf$/u.test(url.pathname);
-    if (!page && !logo && !font) return new Response(null, { status: 404, headers });
+    if (!page && !logo && !font) {
+      const apiRequest = url.pathname.startsWith("/v1/");
+      headers.set(
+        "content-type",
+        apiRequest ? "application/problem+json" : "text/markdown; charset=utf-8",
+      );
+      const body = apiRequest
+        ? JSON.stringify({
+            type: "https://ohmyho.st/api/errors/resource-not-found",
+            title: "Resource not found",
+            status: 404,
+            code: "resource_not_found",
+            detail:
+              "The product API base is https://app.ohmyho.st/v1. Read https://ohmyho.st/api/openapi.json.",
+          })
+        : "# Page not found\n\nRead [llms.txt](https://ohmyho.st/llms.txt), the [documentation index](https://ohmyho.st/docs/index.md), or [OpenAPI](https://ohmyho.st/api/openapi.json).\n";
+      return new Response(request.method === "HEAD" ? null : body, { status: 404, headers });
+    }
     if (!env?.ASSETS)
       return new Response(request.method === "HEAD" ? null : "Page is unavailable.", {
         status: 503,
