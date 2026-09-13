@@ -84,7 +84,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     const login = await worker.fetch(
       new Request("https://ohmyho.st/login?r=hostmebaby&next=https://foreign.example&token=secret"),
     );
-    expect(login.headers.get("location")).toBe("https://app.ohmyho.st/login");
+    expect(login.headers.get("location")).toBe("https://app.ohmyho.st/login?r=hostmebaby");
     expect(home.headers.get("link")).toContain("/index.md");
     expect(home.headers.get("content-security-policy")).toContain("font-src 'self'");
     expect(html).not.toMatch(/fonts\.googleapis|fonts\.gstatic/u);

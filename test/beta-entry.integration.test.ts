@@ -40,6 +40,37 @@ it("connects the public page and consent form through the generated SDK to real 
       );
       expect(response.headers.get("content-security-policy")).toContain("sha256-");
     }
+    const remembered = await worker.fetch(
+      new Request("https://ohmyho.st/docs", { headers: { cookie: "omh_referral=hostmebaby" } }),
+      { ASSETS, CONTROL_API: binding },
+    );
+    expect(await remembered.text()).toContain('href="/login?r=hostmebaby"');
+    const directLogin = await worker.fetch(new Request("https://ohmyho.st/login"), {
+      ASSETS,
+      CONTROL_API: binding,
+    });
+    expect(directLogin.status).toBe(302);
+    expect(directLogin.headers.get("location")).toBe("https://app.ohmyho.st/login");
+    const overridden = await worker.fetch(
+      new Request("https://ohmyho.st/docs?r=other", {
+        headers: { cookie: "omh_referral=hostmebaby" },
+      }),
+      { ASSETS, CONTROL_API: binding },
+    );
+    expect(await overridden.text()).not.toContain('href="/login');
+    const campaign = await worker.fetch(new Request("https://ohmyho.st/?r=Summer%20Launch"), {
+      ASSETS,
+      CONTROL_API: binding,
+    });
+    expect(campaign.headers.get("set-cookie")).toContain("omh_referral=Summer%20Launch;");
+    expect(await campaign.text()).not.toMatch(
+      /<a[^>]+href="(?:https:\/\/ohmyho.st)?\/login[^>]*>/u,
+    );
+    const anonymous = await worker.fetch(new Request("https://ohmyho.st/docs"), {
+      ASSETS,
+      CONTROL_API: binding,
+    });
+    expect(await anonymous.text()).not.toContain('href="/login"');
     for (const path of ["/docs", "/for/codex"]) {
       const page = await worker.fetch(new Request(`https://ohmyho.st${path}?r=hostmebaby`), {
         ASSETS,

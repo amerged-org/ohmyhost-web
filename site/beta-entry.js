@@ -2,7 +2,7 @@
 (() => {
   const source=document.querySelector('meta[name="ohmyhost-signup-source"]')?.content;
   const prompt='Read https://ohmyho.st/llms.txt and https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md. Connect this agent to ohmyho.st and deploy this GitHub project using only the capabilities it needs. '+(source?'My invitation is https://ohmyho.st/?r='+encodeURIComponent(source)+'. ':'')+'Follow the deployment Skill, keep my existing project decisions and verify the app.';
-  if(source)document.querySelectorAll('a[href]').forEach(link=>{const url=new URL(link.href,location.href);if(url.origin===location.origin && !url.pathname.endsWith('.md') && !url.pathname.startsWith('/releases/')){url.searchParams.set('r',source);link.href=url.href;}});
+
   const buttons='[data-copy], #copy, #shcopy2, #shcopy, [data-wincopy], [data-beta-access]';
   document.querySelectorAll(buttons).forEach(button=>{const label=button.querySelector('span');if(label)label.textContent=source?'Copy prompt for your agent':'Get beta access';else if(button.matches('[data-beta-access]'))button.textContent=source?'Copy prompt for your agent':'Get beta access';});
   document.querySelectorAll('.body.prompt').forEach(node=>node.textContent=prompt);

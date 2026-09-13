@@ -41,23 +41,36 @@ export default {
       return new Response(null, { status: 405, headers });
     }
     const sources = url.searchParams.getAll("r");
-    const source =
-      sources.length === 1 && /^[a-z0-9][a-z0-9_-]{0,63}$/u.test(sources[0] ?? "")
-        ? sources[0]
-        : undefined;
-    let invitation: string | undefined;
-    if (
-      source &&
-      (["/", "/0.sh", "/login"].includes(url.pathname) ||
-        customerDocument(url.pathname)?.type.startsWith("text/html"))
-    ) {
+    const querySource =
+      sources.length === 1 && /^[^\p{Cc}]{1,64}$/u.test(sources[0] ?? "") ? sources[0] : undefined;
+    let cookieSource: string | undefined;
+    try {
+      const value = request.headers
+        .get("cookie")
+        ?.split(";")
+        .map((item) => item.trim())
+        .find((item) => item.startsWith("omh_referral="));
+      if (value) {
+        const decoded = decodeURIComponent(value.slice("omh_referral=".length));
+        if (/^[^\p{Cc}]{1,64}$/u.test(decoded)) cookieSource = decoded;
+      }
+    } catch {
+      /* Ignore malformed optional attribution cookies. */
+    }
+    const source = sources.length ? querySource : cookieSource;
+    const invitation = source === "hostmebaby" ? source : undefined;
+    const contentPage =
+      ["/", "/brand", "/api", "/login"].includes(url.pathname) ||
+      customerDocument(url.pathname)?.type.startsWith("text/html");
+    if (host === "ohmyho.st" && url.protocol === "https:" && contentPage && querySource) {
+      headers.set(
+        "set-cookie",
+        `omh_referral=${encodeURIComponent(querySource)}; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=2592000`,
+      );
       try {
-        invitation = await eligibleSource(source, env?.CONTROL_API, request);
+        await eligibleSource(querySource, env?.CONTROL_API, request);
       } catch {
-        return new Response(
-          request.method === "HEAD" ? null : "Invitation check unavailable. Please retry.",
-          { status: 503, headers },
-        );
+        /* Attribution availability does not block public pages. */
       }
     }
     if (url.pathname === "/0.sh" && (host === "omh.st" || host === "ohmyho.st")) {
@@ -73,15 +86,21 @@ export default {
         });
       const script = await env.ASSETS.fetch(new Request(`${HOME}pages/0.sh`));
       if (!script.ok) return new Response(null, { status: script.status, headers });
+      const installerSource = invitation
+        ? await eligibleSource(invitation, env.CONTROL_API, request)
+        : undefined;
       const text = (await script.text()).replace(
         "set -euo pipefail",
-        `set -euo pipefail\nOHMYHOST_SIGNUP_SOURCE='${invitation ?? ""}'`,
+        `set -euo pipefail\nOHMYHOST_SIGNUP_SOURCE='${installerSource ?? ""}'`,
       );
       return new Response(request.method === "HEAD" ? null : text, { headers });
     }
     if (host !== "ohmyho.st" || url.protocol !== "https:") {
       const referralHost = host === "omh.st" || host === "check.omh.st";
-      headers.set("location", referralHost && source !== undefined ? `${HOME}?r=${source}` : HOME);
+      headers.set(
+        "location",
+        referralHost && source !== undefined ? `${HOME}?r=${encodeURIComponent(source)}` : HOME,
+      );
       return new Response(null, { status: 302, headers });
     }
     if (url.pathname === "/robots.txt") {
@@ -120,6 +139,13 @@ export default {
     const document = customerDocument(documentPath);
     if (document) {
       let documentText = document.text;
+      if (!invitation && document.type.startsWith("text/html"))
+        documentText = documentText.replace(
+          /<a\b[^>]*href="(?:https:\/\/ohmyho\.st)?\/login(?:\?[^" ]*)?"[^>]*>[\s\S]*?<\/a>/gu,
+          "",
+        );
+      if (invitation)
+        documentText = documentText.replaceAll('href="/login"', 'href="/login?r=hostmebaby"');
       if (document.type.startsWith("text/html")) {
         const hashes = [];
         for (const script of documentText.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gu)) {
@@ -208,6 +234,16 @@ export default {
             ? "application/json; charset=utf-8"
             : "text/html; charset=utf-8";
     if (type.startsWith("text/html")) {
+      if (!invitation)
+        body = body.replace(
+          /<a\b[^>]*href="(?:https:\/\/ohmyho\.st)?\/login(?:\?[^" ]*)?"[^>]*>[\s\S]*?<\/a>/gu,
+          "",
+        );
+      else
+        body = body.replaceAll(
+          'href="https://ohmyho.st/login"',
+          'href="https://ohmyho.st/login?r=hostmebaby"',
+        );
       const hashes: string[] = [];
       for (const script of body.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gu)) {
         const hash = new Uint8Array(
