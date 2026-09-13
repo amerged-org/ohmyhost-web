@@ -194,6 +194,7 @@ export default {
     if (!asset.ok) return new Response(null, { status: asset.status, headers });
     if (page?.endsWith(".png") || font) {
       headers.set("content-type", font ? "font/ttf" : "image/png");
+      if (font) headers.set("access-control-allow-origin", "*");
       return new Response(request.method === "HEAD" ? null : asset.body, { headers });
     }
     let body = await asset.text();

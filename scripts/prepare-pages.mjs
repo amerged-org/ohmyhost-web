@@ -144,6 +144,19 @@ execFileSync(
     "--title",
     "ohmyho.st API",
     "--disableGoogleFont",
+    "--theme.openapi.theme.colors.primary.main=#F0F1F2",
+    "--theme.openapi.theme.colors.text.primary=#F0F1F2",
+    "--theme.openapi.theme.colors.text.secondary=#83878D",
+    "--theme.openapi.theme.sidebar.backgroundColor=#0A0B0D",
+    "--theme.openapi.theme.sidebar.textColor=#83878D",
+    "--theme.openapi.theme.sidebar.activeTextColor=#F0F1F2",
+    "--theme.openapi.theme.rightPanel.backgroundColor=#0C0D10",
+    "--theme.openapi.theme.rightPanel.textColor=#F0F1F2",
+    "--theme.openapi.theme.typography.fontFamily=Space Grotesk, sans-serif",
+    "--theme.openapi.theme.typography.headings.fontFamily=Space Grotesk, sans-serif",
+    "--theme.openapi.theme.typography.code.fontFamily=JetBrains Mono, monospace",
+    "--theme.openapi.theme.typography.code.color=#F0F1F2",
+    "--theme.openapi.theme.typography.code.backgroundColor=#17181A",
   ],
   { cwd: root, stdio: "inherit" },
 );
@@ -151,6 +164,10 @@ const renderedApi = await readFile(`${output}/api.html`, "utf8");
 await writeFile(
   `${output}/api.html`,
   renderedApi
+    .replace(
+      "</head>",
+      `<style>${fontCss}html,body{background:#000;color:#F0F1F2;font-family:'Space Grotesk',sans-serif}nav a{text-decoration:none}nav a:hover{text-decoration:underline}</style></head>`,
+    )
     .replace("</body>", `${privacyUi}</body>`)
     .replace(
       "<body>",
