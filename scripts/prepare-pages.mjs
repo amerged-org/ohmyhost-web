@@ -8,6 +8,7 @@ import TurndownService from "turndown";
 const directory = fileURLToPath(new URL("../", import.meta.url));
 const root = fileURLToPath(new URL("../../", new URL("../", import.meta.url)));
 const output = `${directory}public/pages`;
+const brandAssets = `${root}brand/assets`;
 await mkdir(output, { recursive: true });
 const markdown = new TurndownService({ headingStyle: "atx", codeBlockStyle: "fenced" });
 markdown.remove(["script", "style", "svg", "head", "button", "input"]);
@@ -25,6 +26,7 @@ await writeFile(
   await format(
     "// Generated from the approved template and beta entry assets.\n" +
       `export const SITE_CSS = ${JSON.stringify(fontCss + sharedCss)};\n` +
+      `export const SITE_ICON = ${JSON.stringify(await readFile(`${brandAssets}/favicon.svg`, "utf8"))};\n` +
       `export const PRIVACY_UI = ${JSON.stringify(privacyUi)};\n` +
       `export const BETA_MODAL = ${JSON.stringify(await readFile(`${directory}site/beta-modal.html`, "utf8"))};\n` +
       `export const BETA_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/beta-entry.js`, "utf8"))};\n`,
@@ -37,8 +39,12 @@ for (const [name, digest] of Object.entries(templates)) {
     throw new Error(`The supplied ${name} template was changed`);
   let html = original
     .replace(/<link[^>]+href="https:\/\/fonts\.(?:googleapis|gstatic)\.com[^>]*>/gu, "")
-    .replace("</head>", `<style>${fontCss}</style></head>`);
+    .replace(
+      "</head>",
+      `<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style>${fontCss}</style></head>`,
+    );
   if (name === "home") {
+    html = applyApprovedHomepageChanges(html);
     const destinations = {
       Docs: "/docs",
       "MCP server": "/docs/mcp",
@@ -92,6 +98,29 @@ for (const [name, digest] of Object.entries(templates)) {
       `${await readFile(`${directory}site/beta-modal.html`, "utf8")}<script>${await readFile(`${directory}site/beta-entry.js`, "utf8")}</script></body>`,
     );
   }
+  if (name === "brand") {
+    html = html.replace(
+      /<!-- ---------------- LOGO ---------------- -->[\s\S]*?(?=<!-- ---------------- COLOR ---------------- -->)/u,
+      await readFile(`${directory}site/brand-logo-section.html`, "utf8"),
+    );
+    const mark = (await readFile(`${brandAssets}/omega-light.svg`, "utf8"))
+      .replace("<svg ", '<svg width="24" height="24" aria-hidden="true" ')
+      .replace('stroke="#F0F1F2"', 'stroke="currentColor"');
+    html = html
+      .replace(
+        '<span class="mark">ohmyho<i>.st</i></span>',
+        `<a class="mark" href="/" style="display:flex;align-items:center;gap:9px">${mark}<span>ohmyho<i>.st</i></span></a>`,
+      )
+      .replace(
+        "<h5>foundations</h5>",
+        '<nav class="brand-toc" aria-label="Design system sections"><h5>foundations</h5>',
+      )
+      .replace("</aside>", "</nav></aside>")
+      .replace(
+        "</head>",
+        "<style>.side,.main{min-width:0}.shell{grid-template-columns:236px minmax(0,1fr)}@media(max-width:900px){.shell{grid-template-columns:minmax(0,1fr)}.side{padding:20px}.side .tag{margin-bottom:14px}.brand-toc{display:flex;gap:18px;overflow-x:auto;white-space:nowrap;padding-bottom:8px}.brand-toc h5{display:none}.brand-toc a{flex:none}.side .mark{margin-right:48px}}</style></head>",
+      );
+  }
   html = html.replace("</body>", `${privacyUi}</body>`);
   if (name === "home")
     html = html.replace(
@@ -105,8 +134,21 @@ for (const [name, digest] of Object.entries(templates)) {
   );
 }
 
-for (const image of ["og", "logo"])
-  await writeFile(`${output}/${image}.png`, await readFile(`${directory}site/${image}.png`));
+for (const [file, source] of Object.entries({ "og.png": "og.png", "logo.png": "omega-dark.png" }))
+  await writeFile(`${output}/${file}`, await readFile(`${brandAssets}/${source}`));
+await mkdir(`${output}/brand-assets`, { recursive: true });
+for (const file of [
+  "omega-light.svg",
+  "omega-dark.svg",
+  "omega-light.png",
+  "omega-dark.png",
+  "favicon.svg",
+  "favicon.ico",
+  "apple-touch-icon.png",
+  "founder.png",
+  "og.png",
+])
+  await writeFile(`${output}/brand-assets/${file}`, await readFile(`${brandAssets}/${file}`));
 
 const entry = await readFile(`${directory}src/customer-entry.ts`, "utf8");
 const version = entry.match(/export const CLIENT_RELEASE = "([^"]+)"/u)?.[1];
@@ -204,3 +246,70 @@ for (const [path, item] of Object.entries(contract.paths)) {
   }
 }
 await writeFile(`${output}/api.md`, `${api.join("\n")}\n`);
+
+/** P30: approved changes are applied without rewriting the supplied v97 source. */
+function applyApprovedHomepageChanges(html) {
+  const exportAnswer =
+    "Request a portable SQL dump in a password-encrypted ZIP through your agent, CLI or API. Exports run asynchronously, with one accepted request per project every 24 hours and a signed download link valid for 24 hours. Keep your password and restore on another Postgres host, or let your automation tool copy the encrypted file to your own storage.";
+  const euAnswer =
+    "Not yet. New projects use US hosting, with application compute and Postgres placed together. An EU hosting option is on the roadmap. Vote below to help us prioritize it.";
+  for (const [before, after] of Object.entries({
+    'class="cta hero-a" id="hero-cta" style="animation-delay:2.4s"': 'class="cta" id="hero-cta"',
+    'class="under hero-a" style="animation-delay:2.55s" id="under"': 'class="under" id="under"',
+    '  <p class="proof" id="proof" hidden></p>': "",
+    "Export to GitHub, paste one prompt. The parts that break by hand come across with it.":
+      "Export your Next.js or Vite app to GitHub, then deploy its hosting, database, domains and email with one agent prompt.",
+    "Your database, exported. Nightly.": "Your database, exported &amp; connected.",
+    "Plain Postgres dumps to Google Drive, Amazon S3 or Cloudflare R2 — sent through Zapier, Make, n8n or Composio. No lock-in, no export button to find.":
+      "Request a portable SQL dump in a password-encrypted ZIP. Download it when ready, or use your automation tool to save it to Google Drive, Amazon S3 or Cloudflare R2.",
+    "Postgres exports nightly through a connector to Google Drive, Amazon S3 or Cloudflare R2":
+      "A customer automation tool transfers an encrypted Postgres export to Google Drive, Amazon S3 or Cloudflare R2",
+    "Yes, any time. Your Postgres database is exported nightly as a plain dump to your own Google Drive, Amazon S3 or Cloudflare R2, sent through Zapier, Make, n8n or Composio. Restore it on any Postgres host. No export button to find, nothing to request.":
+      exportAnswer,
+    "Not yet. ohmyho.st is based in Palo Alto, CA, and an EU hosting region is the next thing on the roadmap — press + on the badge below to vote for it. Until then, we say so plainly rather than claim it.":
+      euAnswer,
+    '"addressLocality": "Palo Alto"': '"addressLocality": "Venray"',
+    '"addressRegion": "CA"': '"addressRegion": "Limburg"',
+    '"addressCountry": "US"': '"addressCountry": "NL"',
+    "From Amsterdam, Netherlands to Palo Alto, CA, US — deploy with ohmyho.st":
+      "Amerged B.V. · Venray, Limburg, NL",
+    '<span class="avatar" aria-hidden="true"></span>':
+      '<img src="/brand/assets/founder.png" width="96" height="96" loading="lazy" alt="Founder of ohmyho.st" style="border-radius:50%;flex:0 0 96px;object-fit:cover">',
+  })) {
+    if (!html.includes(before))
+      throw new Error(`Approved homepage boundary missing: ${before.slice(0, 65)}`);
+    html = html.replaceAll(before, after);
+  }
+  html = html.replace(
+    / {2}\/\* proof: a real number or nothing \*\/[\s\S]*?\n {2}\}\)\.catch\(function\(\)\{\}\);/u,
+    "",
+  );
+  if (html.includes("fetch('/stats.json'")) throw new Error("Obsolete homepage statistics remain");
+  html = html
+    .replaceAll("Nightly export to your bucket", "Encrypted database exports")
+    .replaceAll(
+      "Nightly Postgres exports to your own bucket.",
+      "Encrypted Postgres exports on request.",
+    )
+    .replaceAll("Nightly export", "Database export")
+    .replaceAll("nightly exports", "on-demand database exports");
+  const start = html.indexOf('<section id="price">'),
+    end = html.indexOf('<div class="slid up">', start);
+  if (start < 0 || end < 0) throw new Error("Pricing comparison missing");
+  const pricing = html.slice(start, end);
+  const buttons = pricing.match(
+    /<button class="btn nochev startfree" data-copy>[\s\S]*?<\/button>/gu,
+  );
+  if (buttons?.length !== 2) throw new Error("Expected the two original pricing actions");
+  html =
+    html.slice(0, start) +
+    pricing.replace(/<button class="btn nochev startfree" data-copy>[\s\S]*?<\/button>/gu, "") +
+    '<div class="cta up" id="pricing-cta"><button class="btn nochev primary" data-copy><svg class="ohm" viewBox="0 0 100 100" aria-hidden="true"><path d="M30 87 H14 L27 63 A31 31 0 1 1 73 63 L86 87 H70"/></svg><span>Copy prompt for your agent</span></button></div>\n' +
+    html.slice(end);
+  const intro = `<style>header.intro-pending #hero-cta,header.intro-pending #under{visibility:hidden}</style><script>(()=>{const header=document.querySelector('header'),art=header?.querySelector('.art > svg');if(!header||!art?.getAnimations||matchMedia('(prefers-reduced-motion: reduce)').matches)return;header.classList.add('intro-pending');try{const animations=art.getAnimations({subtree:true}).filter(a=>a.effect&&Number.isFinite(a.effect.getComputedTiming().endTime));animations.forEach(a=>a.updatePlaybackRate(1.25));Promise.allSettled(animations.map(a=>a.finished)).finally(()=>header.classList.remove('intro-pending'));}catch{header.classList.remove('intro-pending');}})();</script>`;
+  return html.replace(
+    "</header>",
+    '<noscript><p class="under"><a href="/docs/quickstart">Read the getting-started guide for your agent →</a></p></noscript></header>' +
+      intro,
+  );
+}

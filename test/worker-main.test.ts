@@ -21,6 +21,38 @@ describe("public entry and unassigned Free-host fallback", () => {
     );
     expect(html).toContain("Copy prompt for your agent");
     expect(html).toContain("Get beta access");
+    expect(html).not.toContain("fetch('/stats.json'");
+    expect(html).not.toContain('id="proof"');
+    expect(html).toContain("updatePlaybackRate(1.25)");
+    expect(html).toContain("Your database, exported &amp; connected.");
+    expect(html).toContain('width="96" height="96" loading="lazy"');
+    const pricing = html.slice(
+      html.indexOf('<section id="price">'),
+      html.indexOf('<div class="slid up">'),
+    );
+    expect(pricing.match(/data-copy/gu)).toHaveLength(1);
+    const icon = await worker.fetch(new Request("https://ohmyho.st/favicon.svg"));
+    expect(await icon.text()).toContain("M30 86 H15 L27 63");
+    for (const [path, mime] of [
+      ["/favicon.ico", "image/x-icon"],
+      ["/apple-touch-icon.png", "image/png"],
+      ["/brand/assets/founder.png", "image/png"],
+      ["/brand/assets/omega-light.svg", "image/svg+xml"],
+    ]) {
+      const response = await worker.fetch(new Request(`https://ohmyho.st${path}`), {
+        ASSETS: assets,
+      });
+      expect(response.status).toBe(200);
+      expect(response.headers.get("content-type")).toBe(mime);
+    }
+    expect(
+      (
+        await worker.fetch(
+          new Request("https://ohmyho.st/brand/reference/2026-09-14/manifest.json"),
+          { ASSETS: assets },
+        )
+      ).status,
+    ).toBe(404);
     const installer = await worker.fetch(
       new Request("https://omh.st/0.sh?r=hostmebaby&token=private"),
       { ASSETS: assets },
@@ -291,6 +323,9 @@ class SiteAssetFixture {
         "/pages/openapi.yaml",
         "/pages/0.sh",
       ].includes(path) &&
+      !/^\/pages\/brand-assets\/(?:omega-(?:light|dark)\.(?:svg|png)|favicon\.(?:svg|ico)|apple-touch-icon\.png|founder\.png|og\.png)$/u.test(
+        path,
+      ) &&
       !/^\/fonts\/[a-f0-9]{16}\.ttf$/u.test(path)
     )
       return new Response(null, { status: 404 });

@@ -18,16 +18,18 @@ Deployment plans and the service's published rate cards describe resource consum
 
 This is a beta and has no uptime SLA. Features, limits and availability can change. Use the current product documentation and returned operation status to determine whether a requested capability is ready. Maintain a recovery plan for important data. Available database exports are requested through the API, CLI or MCP using a password you retain.
 
-For personal data processed on your behalf, the [Data Processing Agreement](/dpa), including its annexes, forms part of these terms.
+By accepting these Terms of Service, you also accept the [Data Processing Agreement (DPA)](/dpa), including its annexes, which is incorporated into these terms by reference. The DPA applies to personal data we process on your behalf.
 
 These terms do not remove rights that applicable law makes mandatory. Our [Privacy notice](/privacy) explains personal-data processing. [Read the docs](/docs) or [return home](/).`,
   "/about": `# Hosting for agents
+
+<img src="/brand/assets/founder.png" width="96" height="96" loading="lazy" alt="Founder of ohmyho.st" style="border-radius:50%">
 
 ohmyho.st brings supported application hosting, Postgres, domains and transactional mail into an agent-operated workflow. You use your existing coding agent to plan changes, deploy, check usage and export a database.
 
 Projects share an organization credit balance. You choose which services each application needs and whether Dev and Prod share data or keep it separate.
 
-The operator is amerged B.V., Netherlands. Use [our contact form](/contact).
+The operator is Amerged B.V., KVK 42154221, Venray, Limburg, NL. Use [our contact form](/contact).
 
 [How to start](/docs/quickstart) · [Where credits go](/pricing/breakdown) · [Our approach](/#philosophy)`,
   "/pricing": `# One balance for your projects

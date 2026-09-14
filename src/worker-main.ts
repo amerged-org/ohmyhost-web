@@ -1,8 +1,7 @@
 import { eligibleSource, siteBetaResponse, type PublicControlBinding } from "./beta-entry.js";
 import { customerDocument, isClientDownload, DOCUMENTATION } from "./customer-entry.js";
+import { SITE_ICON } from "./generated-site-frame.js";
 const HOME = "https://ohmyho.st/";
-const ICON =
-  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#080808"/><text x="12" y="47" fill="#f5f5f5" font-family="sans-serif" font-size="48" font-weight="700">o</text></svg>';
 
 export default {
   async fetch(
@@ -189,12 +188,27 @@ export default {
     }
     if (url.pathname === "/favicon.svg") {
       headers.set("content-type", "image/svg+xml");
-      return new Response(request.method === "HEAD" ? null : ICON, { headers });
+      return new Response(request.method === "HEAD" ? null : SITE_ICON, { headers });
     }
     const pages: Record<string, string> = {
       "/": "home.html",
       "/og.png": "og.png",
       "/logo.png": "logo.png",
+      "/favicon.ico": "brand-assets/favicon.ico",
+      "/apple-touch-icon.png": "brand-assets/apple-touch-icon.png",
+      ...Object.fromEntries(
+        [
+          "omega-light.svg",
+          "omega-dark.svg",
+          "omega-light.png",
+          "omega-dark.png",
+          "favicon.svg",
+          "favicon.ico",
+          "apple-touch-icon.png",
+          "founder.png",
+          "og.png",
+        ].map((file) => [`/brand/assets/${file}`, `brand-assets/${file}`]),
+      ),
       "/index.md": "index.md",
       "/brand": "brand.html",
       "/brand.md": "brand.md",
@@ -238,21 +252,25 @@ export default {
       new Request(`${HOME.slice(0, -1)}${logo || font ? url.pathname : `/pages/${page}`}`),
     );
     if (!asset.ok) return new Response(null, { status: asset.status, headers });
-    if (page?.endsWith(".png") || font) {
-      headers.set("content-type", font ? "font/ttf" : "image/png");
+    if (page?.endsWith(".png") || page?.endsWith(".ico") || font) {
+      headers.set(
+        "content-type",
+        font ? "font/ttf" : page?.endsWith(".ico") ? "image/x-icon" : "image/png",
+      );
       if (font) headers.set("access-control-allow-origin", "*");
       return new Response(request.method === "HEAD" ? null : asset.body, { headers });
     }
     let body = await asset.text();
-    const type = logo
-      ? "image/svg+xml"
-      : page?.endsWith(".md")
-        ? "text/markdown; charset=utf-8"
-        : page?.endsWith(".yaml")
-          ? "application/yaml; charset=utf-8"
-          : page?.endsWith(".json")
-            ? "application/json; charset=utf-8"
-            : "text/html; charset=utf-8";
+    const type =
+      logo || page?.endsWith(".svg")
+        ? "image/svg+xml"
+        : page?.endsWith(".md")
+          ? "text/markdown; charset=utf-8"
+          : page?.endsWith(".yaml")
+            ? "application/yaml; charset=utf-8"
+            : page?.endsWith(".json")
+              ? "application/json; charset=utf-8"
+              : "text/html; charset=utf-8";
     if (type.startsWith("text/html")) {
       if (!invitation)
         body = body.replace(
