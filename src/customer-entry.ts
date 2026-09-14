@@ -6,7 +6,7 @@ import { PRODUCT_DOCUMENTS } from "./product-docs.js";
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.28";
+export const CLIENT_RELEASE = "0.1.0-beta.29";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
