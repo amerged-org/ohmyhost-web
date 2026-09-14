@@ -1,12 +1,12 @@
 /** Launch prose is exported as the reviewed Mintlify snapshot; runtime contracts stay in the platform. */
 export const LAUNCH_DOCUMENTS: Record<string, string> = {
-  "/terms": `# Terms of Service
+  "/terms": `# Terms of Service — Master Services Agreement
 
-Version: September 14, 2026.
+Version: September 14, 2026 — MSA revision 2.
 
 ## 1. Your agreement
 
-These terms govern ohmyho.st, operated by Amerged B.V., KVK 42154221, Venray, Limburg, NL (we, us). The customer is the person or organisation for whom you create the account or place an order (you). You must have capacity to enter this agreement and authority to bind an organisation you represent. Use our [contact form](/contact) for service, billing and legal enquiries.
+These Terms of Service are also called the Master Services Agreement (MSA); “Terms”, “MSA” and “Agreement” refer to this same document. They govern ohmyho.st, operated by Amerged B.V., KVK 42154221, Venray, Limburg, NL (we, us). The customer is the person or organisation for whom you create the account or place an order (you). You must have capacity to enter this agreement and authority to bind an organisation you represent. Use our [contact form](/contact) for service, billing and legal enquiries.
 
 By signing up, you accept these Terms of Service and the [Data Processing Agreement](/dpa), including its [processing description](/dpa), [TOMs](/dpa/toms), [provider register](/dpa/subprocessors) and [transfer annex](/dpa/transfers). The DPA applies to personal data we process on your behalf. You acknowledge our [Privacy notice](/privacy); that acknowledgement is not consent to every processing activity, marketing or a payment.
 
@@ -56,7 +56,7 @@ Turn recharge off in Billing or through the supported API, CLI or MCP to prevent
 
 ## 7. Cancellation, refunds and data return
 
-You may stop using the service, cancel future subscription renewals and turn recharge off using the controls above. Delete projects through the supported client workflow, or use the contact form for account closure and assistance. Deleting an application does not itself cancel a separate subscription or payment already initiated. Charges already incurred remain payable, subject to any correction or refund owed.
+You may stop using the service, cancel future subscription renewals and turn recharge off using the controls above. Delete projects through the supported client workflow, or use the contact form for account closure and assistance. Deleting an application does not itself cancel a separate subscription or payment already initiated. Charges already incurred remain payable, subject to any correction or refund owed. For business customers, purchases are otherwise non-refundable and cancelling a renewal does not refund the current period; express remedies and mandatory rights below still apply.
 
 Use the contact form to report an incorrect charge or request a refund. Mandatory refund, withdrawal and conformity rights remain available. Where consumer law gives a distance-service withdrawal right, it is generally fourteen days from contract formation; send an unambiguous withdrawal request identifying your account and purchase through the contact form. Any lawful exception or proportionate charge for service supplied during that period applies only when its statutory conditions and required prior request or acknowledgement are met. Signup alone does not waive those rights.
 
@@ -64,21 +64,71 @@ We may suspend the affected service for a material breach, credible security ris
 
 Retrieve the data you need before deletion or closure. Supported exports are asynchronous password-encrypted ZIP archives containing portable SQL only: no source code, application files or configuration. At most one request per project is accepted per rolling 24 hours. You supply and retain the password, poll for completion and request an authorised download link valid for 24 hours. The hosted archive expires after seven days. Retain and retrieve application files separately. Downloaded copies are your responsibility; the DPA governs personal-data return/deletion assistance beyond the SQL archive.
 
-## 8. Availability, responsibility and changes
+## 8. Service standard, warranties and support
 
-We provide the service with reasonable care and skill. The beta has no agreed uptime SLA or universal recovery-time/recovery-point guarantee. External identity, repository, DNS, mail and payment providers can affect timing and availability. Check the actual operation state; a successful build alone does not establish that a domain or email identity is ready.
+We provide the agreed service with reasonable care and skill. For a purchased service, our express service commitment is substantial conformity with its applicable documentation and accepted order. For business customers, the remedy for a material failure of that commitment is correction or an equivalent working service within a reasonable time after you give us sufficient details. If neither remedy is reasonably practicable, you may end the affected service and receive the unused prepaid fees for its remaining term. This remedy does not reduce mandatory rights or the exceptions in section 10.
 
-We maintain the DPA security measures and address faults according to their impact. You are responsible for choices within your application and your recovery arrangements. Neither an “as available” beta description nor your agent’s involvement removes our obligations under applicable law.
+Except for an express commitment in this MSA, an accepted order or mandatory law, the service, beta features, sample applications, documentation and agent instructions are supplied **as available and as is**. To the extent legally permitted for business customers, we exclude implied warranties of merchantability, satisfactory quality, fitness for a particular purpose and non-infringement. We do not warrant uninterrupted or error-free operation, complete security against every threat, or that generated code, agent output or an integration meets your particular requirements.
 
-For business customers, to the extent permitted by law, we are not liable for loss that was not reasonably foreseeable at contract formation or for indirect loss of profit, opportunity or goodwill. We do not exclude liability that cannot lawfully be excluded, including intentional misconduct, fraud, or mandatory data-protection and consumer rights. Consumers retain the liability standards and remedies required by their applicable law.
+The beta includes no uptime SLA, guaranteed support response time, universal recovery deadline or guarantee that every feature will remain available. Dedicated support, maintenance of your application, legal defence and indemnification are not included unless we expressly agree to them in writing. You may still report problems through our contact form. Our express service obligations, DPA assistance and security duties, and mandatory remedies remain applicable.
 
-We may update the service and terms. Material commercial changes apply prospectively after appropriate notice and any consent required by law; a change to recurring charges is not authorised by silence. You may end the affected service before a material change takes effect. Urgent legal or security changes can take effect sooner, with an explanation where permitted. A later website edit does not rewrite an issued invoice or retrospectively establish consent.
+You assess suitability before relying on the service for important workloads. Review and test code, migrations, agent actions and restoration procedures, retain the data and credentials you need, and arrange independent copies where appropriate. Hosting an application does not make us its developer or the operator of your relationship with its end users.
 
-## 9. Law, disputes and contact
+## 9. Customer-selected services and dependencies
 
-Dutch law governs this agreement. Consumers retain mandatory protection under the law of their habitual residence where applicable, including applicable US state rights; this choice does not remove statutory rights to bring a claim in a competent court. Business disputes may be brought before the competent courts in the Netherlands. These terms impose no mandatory arbitration or class-action waiver.
+You arrange the licences, permissions, notices and accounts needed for agents, authentication systems, APIs and other external services you choose. Their suppliers control their availability, pricing and changes. A recommendation, example or supported connector does not make us the supplier of that separate service or promise indefinite compatibility. We may adapt or discontinue an affected integration when an external service changes or becomes unavailable, with reasonable notice where practicable and the cancellation/refund protections in this MSA where applicable.
 
-First describe a service or billing complaint through our contact form so we can investigate and respond. This does not prevent urgent relief, regulatory complaints or other available remedies. If one provision is unenforceable, the remaining provisions continue to the extent legally possible; a replacement may not reduce mandatory rights.
+Responsibility for a loss is allocated according to its cause. We are not responsible to the extent a failure results from your code, instructions, compromised credentials within your control, unauthorised modifications or a separately contracted service outside our control, except to the extent our own breach contributed to it. This allocation does not remove responsibility for subcontractors we engage to perform our obligations, or their obligations under the DPA. Infrastructure used to supply an agreed managed capability is not reclassified as your separate purchase to avoid those obligations.
+
+## 10. Business liability limits and preserved rights
+
+**This section's contractual exclusions and cap apply only when you use the service for business or professional purposes. They do not limit a consumer's mandatory rights.**
+
+To the extent permitted by applicable law, we exclude liability for indirect, consequential, special, exemplary or punitive damages and for lost profit, revenue, anticipated savings, goodwill or business opportunities. For business customers, we also exclude losses caused by relying on unreviewed agent output, failing to keep an export password, or failing to take reasonable steps to avoid or reduce loss, but only to the extent those acts caused the loss and the exclusions are legally permitted. An export feature is not an assurance that every backup or recovery will succeed.
+
+**Subject to the exceptions below, our total aggregate liability to a business customer arising from or connected with this MSA and the service is limited to USD 1,000.** This is one combined cap for all related claims, not a separate amount per incident, project, organisation, user, defendant or legal theory; related events are treated together. The cap applies to contractual, tortious (including negligence) and other claims, whether or not the possibility of a loss was known. It does not reduce a refund expressly owed under section 7 or 8, or a correction of an incorrectly collected payment. A court finding one particular exclusion inapplicable does not by itself disapply an otherwise lawful cap.
+
+**Nothing in this MSA excludes or limits liability for fraud, intentional misconduct, gross negligence or deliberate recklessness, death or personal injury where exclusion is prohibited, or any other liability that cannot lawfully be excluded or limited.** Mandatory data-protection duties, data-subject compensation and statutory recourse rights, applicable transfer clauses, and non-excludable consumer remedies remain unaffected. We do not rely on these terms to make an unlawful exclusion effective. You retain the right to contest whether a limitation is enforceable.
+
+For business customers, these limitations allocate the risks of an agent-operated, metered beta service and are reflected in its price; purchasing credits does not buy unlimited loss coverage or an unstated service guarantee.
+
+## 11. Business customer indemnity
+
+If you use the service for business, you will defend us and reimburse reasonable defence costs and amounts finally awarded or agreed in a settlement for a third-party claim that results from your unlawful customer content, infringement by your application or materials, or your material breach of the permitted-use obligations. This indemnity applies only to the extent the claim is attributable to you; it does not cover our breach, negligence or misconduct, or a modification or use by us outside your instructions that caused the claim. It does not apply to consumers.
+
+We will notify you promptly, provide reasonable cooperation at your expense and let you control the defence with suitably qualified counsel, subject to conflicts of interest and applicable law. A delay in notice reduces your obligation only to the extent it materially prejudices the defence. You may not admit fault for us, impose a non-monetary obligation on us or settle without releasing us from the relevant claim unless we consent in writing; consent will not be unreasonably withheld. We may participate at our own expense. Neither party may recover the same loss twice.
+
+## 12. Confidentiality, intellectual property and feedback
+
+Each party will protect non-public information received from the other that is marked confidential or would reasonably be understood as confidential, including private source code, credentials, security details and commercial information. Use is limited to performing this agreement or another authorised purpose. Disclosure is limited to people who need it and are subject to appropriate confidentiality duties, or to legally required disclosure. Where lawful, the receiving party will give notice of required disclosure and limit it to what is required.
+
+This obligation does not cover information the recipient can show was already lawfully known, independently developed, lawfully obtained without restriction, or made public without a breach. Personal data remains subject to the DPA and Privacy notice regardless of whether it is confidential. Confidentiality continues for as long as the information warrants protection; return, deletion and legally required retention follow the DPA and section 7.
+
+You may operate your applications for your own users and customers within the agreed service limits. You do not receive ownership of our platform or a right to sell access to our accounts, copy protected platform components, remove ownership notices or bypass access controls. Mandatory interoperability rights, applicable open-source licences and authorised security research are not restricted by this paragraph. Your application's source and data remain yours; we obtain no right to take ownership of an application because you stop maintaining it.
+
+You may voluntarily offer ideas and suggestions about the service. You allow us to use those ideas to improve our products without paying a fee or having to implement them. This permission does not transfer ownership of your application, license unrelated private code or authorise disclosure of confidential information or personal data. We will seek your permission before using your name or logo as a public customer endorsement.
+
+## 13. Changes, events outside control and general terms
+
+Material service or commercial changes apply prospectively after appropriate notice and any consent required by law. You may end an affected service before a material change takes effect under section 7. Urgent legal or security changes may take effect sooner, with an explanation where permitted. A later website edit does not rewrite an invoice, an accepted order or a historical signup record, and silence does not authorise a new recurring charge.
+
+A party is excused from a delay only to the extent caused by an event beyond its reasonable control that it could not reasonably prevent or overcome, such as a natural disaster, war, binding government restriction or widespread network disruption. The affected party must take reasonable steps to mitigate the impact and inform the other where practicable. This does not excuse already incurred payment obligations, an ordinary preventable fault, or mandatory security and data-protection duties. If a substantial interruption continues for more than thirty days, either party may end the affected service; unused prepaid service value is handled under section 7.
+
+**No implied waiver.** Not enforcing a right immediately, allowing extra time or overlooking one breach does not surrender that right for another occasion. A waiver must be clearly given by the party entitled to the right and applies only to its stated scope. Nothing here prevents a waiver, agreement or remedy that mandatory law recognises.
+
+This MSA, its incorporated DPA and annexes, and your accepted order form the agreement on the service; their precedence is set out in section 1. Purchase-order boilerplate does not amend it without our express agreement. The parties are independent contractors: neither can bind the other, and no employment, partnership or agency relationship is created. An agent you choose acts under your authority, not as our employee or representative.
+
+You may not transfer this agreement without our written consent, except through a transfer expressly supported by the service or permitted by mandatory law. We may transfer it as part of a business reorganisation or sale only with its obligations, without reducing your contractual or statutory protection; applicable notices and data-protection requirements still apply. No unrelated third party acquires contractual enforcement rights, while rights expressly given by the DPA, applicable transfer clauses or mandatory law are preserved.
+
+If a provision cannot be enforced, the rest continues so far as legally possible; no replacement may remove mandatory rights. Payment obligations already incurred, ownership, confidentiality, lawful liability limitations and provisions needed to resolve existing disputes survive termination, together with applicable data-return, deletion and retention obligations. The English version is the controlling version to the extent permitted by mandatory law.
+
+## 14. Law, disputes and notices
+
+Dutch law governs this MSA. For business customers, the competent courts of Limburg, Netherlands have exclusive jurisdiction, subject to mandatory jurisdiction rules and rights to seek urgent interim relief. Consumers retain applicable mandatory protection and competent forums, including protection under their habitual-residence law and applicable US state law. This MSA imposes no mandatory arbitration or class-action waiver. The UN Convention on Contracts for the International Sale of Goods does not apply to the extent its exclusion is legally effective.
+
+Comply with applicable export controls and sanctions when using or making the service available. We may restrict access where legally required; no statement here changes applicable law or authorises prohibited use.
+
+Send service complaints, billing disputes and legal notices through [our contact form](/contact), identifying the relevant account and matter, or by another legally effective written method. Keep the confirmation of receipt. We may send notices through the service or to your registered contact address; keep that address current. These arrangements do not replace mandatory rules for court documents, regulatory complaints, withdrawal or other statutory notices.
 
 [Contact](/contact) · [Privacy](/privacy) · [Cookies](/cookies) · [DPA and annexes](/dpa) · [Documentation](https://docs.ohmyho.st/)`,
   "/about": `# Hosting for agents
