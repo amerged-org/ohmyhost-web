@@ -9,9 +9,12 @@
   const buttons = "[data-copy], #copy, #shcopy2, #shcopy, [data-wincopy], [data-beta-access]";
   document.querySelectorAll(buttons).forEach((button) => {
     const label = button.querySelector("span");
-    if (label) label.textContent = source ? "Copy prompt for your agent" : "Get beta access";
-    else if (button.matches("[data-beta-access]"))
-      button.textContent = source ? "Copy prompt for your agent" : "Get beta access";
+    const compact = button.closest("nav");
+    const text = source
+      ? compact ? "Copy prompt" : "Copy prompt for your agent"
+      : compact ? "Beta access" : "Get beta access";
+    if (label) label.textContent = text;
+    else if (button.matches("[data-beta-access]")) button.textContent = text;
   });
   document.querySelectorAll(".body.prompt").forEach((node) => (node.textContent = prompt));
   const modal = document.getElementById("beta-modal");
@@ -47,11 +50,11 @@
         const under = document.getElementById("under");
         if (under) under.style.display = "none";
         setTimeout(() => {
-          label.textContent = "Copy prompt for your agent";
+          label.textContent = button.closest("nav") ? "Copy prompt" : "Copy prompt for your agent";
           button.classList.remove("done");
         }, 2500);
       } catch {
-        label.textContent = "Copy failed — select the prompt";
+        label.textContent = button.closest("nav") ? "Copy failed" : "Copy failed — select the prompt";
         document.getElementById("next")?.classList.add("on");
       }
     },

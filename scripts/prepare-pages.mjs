@@ -21,12 +21,14 @@ const fontCss = await readFile(`${directory}site/fonts.css`, "utf8");
 const privacyUi = `${await readFile(`${directory}site/privacy-ui.html`, "utf8")}<script>${await readFile(`${directory}site/privacy-ui.js`, "utf8")}</script>`;
 const approvedHome = await readFile(`${directory}site/home.html`, "utf8");
 const sharedCss = approvedHome.match(/<style>([\s\S]*?)<\/style>/u)?.[1];
+const navigationCss =
+  '@media(max-width:760px){nav{gap:10px}nav .r{gap:8px}nav .btn.nochev{min-width:0;padding:9px 10px;font-size:13px}}@media(max-width:360px){nav a[href="https://docs.ohmyho.st/"]{display:none}}';
 if (!sharedCss) throw new Error("The approved design stylesheet is missing");
 await writeFile(
   `${directory}src/generated-site-frame.ts`,
   await format(
     "// Generated from the approved template and beta entry assets.\n" +
-      `export const SITE_CSS = ${JSON.stringify(fontCss + sharedCss)};\n` +
+      `export const SITE_CSS = ${JSON.stringify(fontCss + sharedCss + navigationCss)};\n` +
       `export const SITE_ICON = ${JSON.stringify(await readFile(`${brandAssets}/favicon.svg`, "utf8"))};\n` +
       `export const PRIVACY_UI = ${JSON.stringify(privacyUi)};\n` +
       `export const BETA_MODAL = ${JSON.stringify(await readFile(`${directory}site/beta-modal.html`, "utf8"))};\n` +
@@ -43,10 +45,13 @@ for (const [name, digest] of Object.entries(templates)) {
     .replace(/<link\b[^>]*\brel="(?:icon|alternate icon|apple-touch-icon)"[^>]*>/gu, "")
     .replace(
       "</head>",
-      `<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style>${fontCss}</style></head>`,
+      `<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style>${fontCss}${navigationCss}</style></head>`,
     );
   if (name === "home") {
-    html = applyApprovedHomepageChanges(html);
+    html = applyApprovedHomepageChanges(html).replace(
+      /(<button[^>]*id="navcopy"[^>]*>[\s\S]*?<span>)Start free/u,
+      "$1Beta access",
+    );
     const destinations = {
       Docs: "https://docs.ohmyho.st/",
       "MCP server": "https://docs.ohmyho.st/agents/mcp",
