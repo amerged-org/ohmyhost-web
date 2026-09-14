@@ -129,7 +129,7 @@ From your interactive login:
     ohmyhost token create --organization "$ORGANIZATION_ID" --name "Deployment agent" --idempotency-key "$TOKEN_REQUEST_KEY" --out .env.local --json
     ohmyhost token list --organization "$ORGANIZATION_ID" --json
 
-Tokens default to 90 days. The command saves the newly issued value to the private file; it cannot be retrieved again later. Ignore the file in Git. Existing credentials are not overwritten. Load it into your agent process using Node's --env-file option. Use token revoke --help to revoke a selected key from your interactive login.
+New user API tokens remain valid until revoked. The command saves the newly issued value to the private file; it cannot be retrieved again later. Ignore the file in Git. Existing credentials are not overwritten. Load it into your agent process using Node's --env-file option. Use token revoke --help to revoke a selected key from your interactive login.
 
 [Release manifest and checksums](https://ohmyho.st${RELEASE_PATH}/manifest.json) · [MCP setup](/docs/mcp) · [API reference](/api)`,
   "/docs/mcp": `# Connect your agent

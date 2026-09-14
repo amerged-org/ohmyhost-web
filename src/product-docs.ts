@@ -23,7 +23,7 @@ Use ohmyhost login for the browser sign-in and whoami to read the selected organ
 
 An invitation supplies the r value for first organization creation. Sign in again after creation to select the new organization. Existing users can return through /login without creating another organization.
 
-You can create a user-owned deployment token with a default 90-day lifetime and save it once to an owner-only, Git-ignored env file. Its full value cannot be retrieved later. Token listing returns metadata; revocation targets the selected token. Use an interactive-login process without OHMYHOST_TOKEN for organization creation or token management.
+You can create a user-owned deployment token that remains valid until revoked and save it once to an owner-only, Git-ignored env file. Its full value cannot be retrieved later. Token listing returns metadata; revocation targets the selected token. Use an interactive-login process without OHMYHOST_TOKEN for organization creation or token management.
 
 [CLI token commands](/docs/cli) · [Get-started Skill](/skills/ohmyhost-get-started/SKILL.md) · [Application auth](/docs/application-auth)`,
   "/docs/sdk": `# TypeScript SDK
@@ -194,7 +194,7 @@ Use the operation plan and active rate cards for the selected account. The publi
 
 | Capability | Current contract |
 | --- | --- |
-| New user API token | 90-day default; full value available once |
+| New user API token | No expiry until revoked; full value available once |
 | Project context | 500 lines / 32 KiB |
 | Shared notes | 250 lines / 16 KiB |
 | SQL export requests | One accepted export per project per rolling 24 hours |
@@ -210,7 +210,7 @@ Hosted URL-only product MCP, managed AI, customer Drive/S3/R2 export destination
 
 Read https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md. Install the public CLI/MCP packages from the current release and run ohmyhost login. Complete the displayed WorkOS sign-in. First organization creation uses the invitation URL's r value, followed by another login to select the new organization.
 
-The local MCP server uses the same CLI login. A user-owned 90-day API token can instead be loaded through OHMYHOST_TOKEN from the chosen private env file. Token and organization management use the interactive session. No token belongs in an agent prompt.
+The local MCP server uses the same CLI login. A user-owned non-expiring API token can instead be loaded through OHMYHOST_TOKEN from the chosen private env file. Token and organization management use the interactive session. No token belongs in an agent prompt.
 
 [CLI](/docs/cli) · [MCP](/docs/mcp) · [Login](/login)`,
 };
