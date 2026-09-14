@@ -16,9 +16,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(home.status).toBe(200);
     expect(home.headers.get("content-type")).toContain("text/html");
     const html = await home.text();
-    expect(html).toContain(
-      "<title>Hosting for vibe-coded apps — $10/mo for all your projects, not per project | ohmyho.st</title>",
-    );
+    expect(html).toContain("<title>ohmyho.st — Hosting for agents, from $10/month</title>");
     expect(html).toContain("Copy prompt for your agent");
     expect(html).toContain("Get beta access");
     expect(html.match(/rel="icon"/gu)).toHaveLength(1);
