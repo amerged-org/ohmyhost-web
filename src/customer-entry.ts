@@ -6,7 +6,7 @@ import { PRODUCT_DOCUMENTS } from "./product-docs.js";
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.0-beta.27";
+export const CLIENT_RELEASE = "0.1.0-beta.28";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -42,6 +42,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.24",
   "0.1.0-beta.25",
   "0.1.0-beta.26",
+  "0.1.0-beta.27",
   CLIENT_RELEASE,
 ]);
 
@@ -226,7 +227,7 @@ Ask your agent to select standard or performance and show the cost before changi
 
 ## Billing
 
-Your agent can show invoices and open the billing portal. Each successful purchase has an invoice, including top-ups. A top-up adds credits; it does not extend a subscription. Automatic recharge is not currently available. Production purchases are not yet enabled; existing organizations can inspect their available balance.
+Your agent can show invoices and open the billing portal. Each successful purchase has an invoice, including top-ups. A top-up adds credits; it does not extend a subscription. Where billing is enabled, opt-in auto-recharge adds 1,000 credits for USD 9 plus tax below 100 credits, with an explicitly approved gross monthly cap. Read billing_recharge_get; enable only after recurring-payment consent using billing_recharge_configure. [Billing](/docs/billing) explains card setup, invoices and turning it off. Production purchases are not yet enabled; existing organizations can inspect their available balance.
 
 [Usage and budgets Skill](/skills/ohmyhost-usage-and-budgets/SKILL.md) · [Database Skill](/skills/ohmyhost-manage-database/SKILL.md)`,
   "/docs/backups": `# Export your database

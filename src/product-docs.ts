@@ -161,7 +161,11 @@ An organization Owner can request checkout for a Paid subscription or a one-time
 
 Your agent opens billing_checkout_create only for an authorized purchase, then reads billing_checkout_get and the organization balance to confirm its result. Returning from the checkout browser page alone is not payment confirmation. billing_portal_create opens invoices, payment methods and subscription management.
 
-Production purchases are not enabled in the current beta. Existing organizations can inspect their available balance and usage. Automatic recharge and calculator discounts are not active account settings.
+Production purchases are not enabled in the current beta. Existing organizations can inspect their available balance and usage. Where billing is enabled, auto-recharge is off by default. Enable it in Billing or ask your agent to read billing_recharge_get and configure billing_recharge_configure after your explicit approval. Each refill adds 1,000 non-expiring credits for USD 9 plus tax below a 100-credit balance, with your chosen monthly limit including tax. Save your card using the returned Stripe setup link. Every refill has an invoice. Turn it off at any time; payments already initiated may finish. Declines and refunds pause further attempts, and the monthly cap resets in UTC. Other calculator amount/volume discounts are not account settings.
+
+    ohmyhost billing recharge get --organization "$ORGANIZATION_ID" --json
+
+Your agent must confirm the recurring charge and monthly cap with you before enabling it. Follow the [usage and budgets Skill](/skills/ohmyhost-usage-and-budgets/SKILL.md) for the exact change command. Production payment activation remains pending.
 
 [Usage](/docs/usage) · [Budgets](/docs/budgets) · [Pricing](/pricing)`,
   "/docs/project-context": `# Shared project context
@@ -199,7 +203,7 @@ Use the operation plan and active rate cards for the selected account. The publi
 | Export archive retention | Seven days |
 | Pending DNS/mail follow-up | Follow the returned interval, typically 60 minutes |
 
-Hosted URL-only product MCP, automatic recharge, managed AI, customer Drive/S3/R2 export destinations and optional EU placement are not available in this release. The local npm MCP client is available.
+Hosted URL-only product MCP, managed AI, customer Drive/S3/R2 export destinations and optional EU placement are not available in this release. The local npm MCP client is available.
 
 [API contract](/api) · [Compute profiles](/docs/database) · [Export guide](/docs/backups)`,
   "/auth.md": `# Authenticate an ohmyho.st agent
