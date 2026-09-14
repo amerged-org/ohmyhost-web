@@ -9,6 +9,7 @@
   "routes": [
     { "pattern": "omh.st/*", "zone_id": "af22d02e7d8b515634aa58d6fa5d7256" },
     { "pattern": "ohmyho.st", "custom_domain": true },
+    { "pattern": "www.ohmyho.st", "custom_domain": true },
     { "pattern": "check.omh.st", "custom_domain": true },
     { "pattern": "dev.check.omh.st", "custom_domain": true },
     { "pattern": "*.check.omh.st/*", "zone_id": "af22d02e7d8b515634aa58d6fa5d7256" },

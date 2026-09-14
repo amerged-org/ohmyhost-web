@@ -1,7 +1,7 @@
 import { format } from "prettier";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile, rm } from "node:fs/promises";
 import { fileURLToPath, URL } from "node:url";
 import TurndownService from "turndown";
 
@@ -10,6 +10,7 @@ const root = fileURLToPath(new URL("../../", new URL("../", import.meta.url)));
 const output = `${directory}public/pages`;
 const brandAssets = `${root}brand/assets`;
 await mkdir(output, { recursive: true });
+await Promise.all(["api.html", "api.md"].map((file) => rm(`${output}/${file}`, { force: true })));
 const markdown = new TurndownService({ headingStyle: "atx", codeBlockStyle: "fenced" });
 markdown.remove(["script", "style", "svg", "head", "button", "input"]);
 const templates = {
@@ -39,6 +40,7 @@ for (const [name, digest] of Object.entries(templates)) {
     throw new Error(`The supplied ${name} template was changed`);
   let html = original
     .replace(/<link[^>]+href="https:\/\/fonts\.(?:googleapis|gstatic)\.com[^>]*>/gu, "")
+    .replace(/<link\b[^>]*\brel="(?:icon|alternate icon|apple-touch-icon)"[^>]*>/gu, "")
     .replace(
       "</head>",
       `<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style>${fontCss}</style></head>`,
@@ -46,9 +48,9 @@ for (const [name, digest] of Object.entries(templates)) {
   if (name === "home") {
     html = applyApprovedHomepageChanges(html);
     const destinations = {
-      Docs: "/docs",
-      "MCP server": "/docs/mcp",
-      CLI: "/docs/cli",
+      Docs: "https://docs.ohmyho.st/",
+      "MCP server": "https://docs.ohmyho.st/agents/mcp",
+      CLI: "https://docs.ohmyho.st/cli",
       Status: "/status",
       Changelog: "/changelog",
       About: "/about",
@@ -121,6 +123,10 @@ for (const [name, digest] of Object.entries(templates)) {
         "<style>.side,.main{min-width:0}.shell{grid-template-columns:236px minmax(0,1fr)}@media(max-width:900px){.shell{grid-template-columns:minmax(0,1fr)}.side{padding:20px}.side .tag{margin-bottom:14px}.brand-toc{display:flex;gap:18px;overflow-x:auto;white-space:nowrap;padding-bottom:8px}.brand-toc h5{display:none}.brand-toc a{flex:none}.side .mark{margin-right:48px}}</style></head>",
       );
   }
+  html = html
+    .replaceAll('href="/docs/mcp"', 'href="https://docs.ohmyho.st/agents/mcp"')
+    .replaceAll('href="/docs/cli"', 'href="https://docs.ohmyho.st/cli"')
+    .replaceAll('href="/docs"', 'href="https://docs.ohmyho.st/"');
   html = html.replace("</body>", `${privacyUi}</body>`);
   if (name === "home")
     html = html.replace(
@@ -174,78 +180,7 @@ execFileSync(
   ],
   { cwd: root, stdio: "inherit" },
 );
-execFileSync(
-  "pnpm",
-  [
-    "exec",
-    "redocly",
-    "build-docs",
-    `${output}/openapi.yaml`,
-    "--output",
-    `${output}/api.html`,
-    "--title",
-    "ohmyho.st API",
-    "--disableGoogleFont",
-    "--theme.openapi.theme.colors.primary.main=#F0F1F2",
-    "--theme.openapi.theme.colors.text.primary=#F0F1F2",
-    "--theme.openapi.theme.colors.text.secondary=#83878D",
-    "--theme.openapi.theme.sidebar.backgroundColor=#0A0B0D",
-    "--theme.openapi.theme.sidebar.textColor=#83878D",
-    "--theme.openapi.theme.sidebar.activeTextColor=#F0F1F2",
-    "--theme.openapi.theme.rightPanel.backgroundColor=#0C0D10",
-    "--theme.openapi.theme.rightPanel.textColor=#F0F1F2",
-    "--theme.openapi.theme.typography.fontFamily=Space Grotesk, sans-serif",
-    "--theme.openapi.theme.typography.headings.fontFamily=Space Grotesk, sans-serif",
-    "--theme.openapi.theme.typography.code.fontFamily=JetBrains Mono, monospace",
-    "--theme.openapi.theme.typography.code.color=#F0F1F2",
-    "--theme.openapi.theme.typography.code.backgroundColor=#17181A",
-  ],
-  { cwd: root, stdio: "inherit" },
-);
-const renderedApi = await readFile(`${output}/api.html`, "utf8");
-await writeFile(
-  `${output}/api.html`,
-  renderedApi
-    .replace(
-      "</head>",
-      `<style>${fontCss}html,body{background:#000;color:#F0F1F2;font-family:'Space Grotesk',sans-serif}nav a{text-decoration:none}nav a:hover{text-decoration:underline}h5{color:#83878D!important}[role=tab]{background:#17181A!important;color:#83878D!important;border-color:#26282C!important;border-radius:6px}[role=tab][aria-selected=true]{background:#F0F1F2!important;color:#09090B!important}</style></head>`,
-    )
-    .replace("</body>", `${privacyUi}</body>`)
-    .replace(
-      "<body>",
-      '<body><nav style="padding:16px 24px;background:#000;color:#F0F1F2;font:14px system-ui;display:flex;gap:24px;flex-wrap:wrap"><a style="color:inherit" href="/">ohmyho.st</a><a style="color:inherit" href="/docs">Docs</a><a style="color:inherit" href="/api/openapi.yaml">OpenAPI YAML</a><a style="color:inherit" href="/api/openapi.json">JSON</a><a style="color:inherit" href="/api.md">Markdown</a></nav>',
-    ),
-);
 await writeFile(`${output}/openapi.json`, `${JSON.stringify(contract, null, 2)}\n`);
-const api = [
-  "# ohmyho.st API",
-  "",
-  `Published client release: ${version}.`,
-  "",
-  "Base URL: https://app.ohmyho.st",
-  "",
-  "- [OpenAPI YAML](https://ohmyho.st/api/openapi.yaml)",
-  "- [OpenAPI JSON](https://ohmyho.st/api/openapi.json)",
-  "- [CLI](https://ohmyho.st/docs/cli.md)",
-  "- [MCP](https://ohmyho.st/docs/mcp.md)",
-  "",
-];
-for (const [path, item] of Object.entries(contract.paths)) {
-  for (const [method, operation] of Object.entries(item)) {
-    if (!["get", "post", "put", "patch", "delete", "head", "options"].includes(method)) continue;
-    api.push(
-      `## ${method.toUpperCase()} ${path}`,
-      "",
-      operation.summary ?? operation.operationId ?? "",
-      "",
-      operation.description ?? "",
-      "",
-      `Operation: ${operation.operationId ?? method}`,
-      "",
-    );
-  }
-}
-await writeFile(`${output}/api.md`, `${api.join("\n")}\n`);
 
 /** P30: approved changes are applied without rewriting the supplied v97 source. */
 function applyApprovedHomepageChanges(html) {
@@ -257,6 +192,8 @@ function applyApprovedHomepageChanges(html) {
     'class="cta hero-a" id="hero-cta" style="animation-delay:2.4s"': 'class="cta" id="hero-cta"',
     'class="under hero-a" style="animation-delay:2.55s" id="under"': 'class="under" id="under"',
     '  <p class="proof" id="proof" hidden></p>': "",
+    "Hosting, Postgres, email, a domain, AI and backups in one command. An alternative to Vercel, Supabase and Resend — $10 a month for every project you build, not per project.":
+      "Hosting, Postgres, domains, email and encrypted SQL exports. Deploy GitHub apps with your agent and share credits across projects.",
     "Export to GitHub, paste one prompt. The parts that break by hand come across with it.":
       "Export your Next.js or Vite app to GitHub, then deploy its hosting, database, domains and email with one agent prompt.",
     "Your database, exported. Nightly.": "Your database, exported &amp; connected.",
@@ -293,6 +230,26 @@ function applyApprovedHomepageChanges(html) {
     )
     .replaceAll("Nightly export", "Database export")
     .replaceAll("nightly exports", "on-demand database exports");
+  const badgePattern = /<span class="badge soon">[^\n]*<button class="want"[^\n]*?<\/span>/gu;
+  const badges = html.match(badgePattern);
+  if (badges?.length !== 3) throw new Error("Expected the three roadmap interest badges");
+  html = html.replace(badgePattern, "");
+  html = html.replace(
+    /<script>\s*\(function\(\)\{\s*document\.querySelectorAll\('\.want'\)[\s\S]*?<\/script>/u,
+    "",
+  );
+  if (html.includes("navigator.sendBeacon('/want'"))
+    throw new Error("Obsolete optimistic feature handler remains");
+  const topics = [
+    ["eu", "Hosting in the EU"],
+    ["iso27001", "ISO 27001"],
+    ["soc2", "SOC 2 Type II"],
+  ];
+  const roadmap = `<section id="roadmap" aria-labelledby="roadmap-title"><h2 id="roadmap-title">Vote on the roadmap</h2><p class="sub">Press thumbs up or down to vote.</p><div class="roadmap-topics">${topics.map(([feature, name]) => `<div class="roadmap-topic"><span class="badge soon"><em>planned</em><b>${name}</b></span><div role="group" aria-label="Vote for ${name}"><button type="button" class="roadmap-vote" data-f="${feature}" data-vote="up" aria-label="Vote for ${name}" aria-pressed="false" disabled>👍</button><button type="button" class="roadmap-vote" data-f="${feature}" data-vote="down" aria-label="Vote against ${name}" aria-pressed="false" disabled>👎</button></div></div>`).join("")}</div><p class="roadmap-message" role="status" aria-live="polite"></p><button type="button" class="btn g" data-vote-retry hidden>Retry</button><noscript><p class="sub">Enable JavaScript to save your vote.</p></noscript></section><style>.roadmap-topics{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:30px}.roadmap-topic{display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:14px;padding:12px}.roadmap-topic .badge{border:0;padding:0}.roadmap-vote{font:inherit;font-size:18px;min-width:44px;min-height:44px;border:1px solid var(--border);border-radius:10px;background:var(--card);cursor:pointer}.roadmap-vote[aria-pressed=true]{border-color:var(--ok);background:var(--accent-soft)}.roadmap-vote:disabled{cursor:wait;opacity:.5}.roadmap-message{text-align:center;min-height:1.6em;color:var(--muted-foreground);margin-top:16px}#roadmap>[data-vote-retry]{display:block;margin:8px auto}#roadmap>[data-vote-retry][hidden]{display:none}</style>`;
+  const faqStart = html.indexOf('<section id="faq">');
+  const faqEnd = html.indexOf("</section>", faqStart);
+  if (faqStart < 0 || faqEnd < 0) throw new Error("FAQ boundary missing for roadmap");
+  html = html.slice(0, faqEnd + 10) + roadmap + html.slice(faqEnd + 10);
   const start = html.indexOf('<section id="price">'),
     end = html.indexOf('<div class="slid up">', start);
   if (start < 0 || end < 0) throw new Error("Pricing comparison missing");

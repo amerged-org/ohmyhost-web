@@ -41,7 +41,7 @@ it("connects the public page and consent form through the generated SDK to real 
       expect(response.headers.get("content-security-policy")).toContain("sha256-");
     }
     const remembered = await worker.fetch(
-      new Request("https://ohmyho.st/docs", { headers: { cookie: "omh_referral=hostmebaby" } }),
+      new Request("https://ohmyho.st/about", { headers: { cookie: "omh_referral=hostmebaby" } }),
       { ASSETS, CONTROL_API: binding },
     );
     expect(await remembered.text()).toContain('href="/login?r=hostmebaby"');
@@ -52,12 +52,19 @@ it("connects the public page and consent form through the generated SDK to real 
     expect(directLogin.status).toBe(302);
     expect(directLogin.headers.get("location")).toBe("https://app.ohmyho.st/login");
     const overridden = await worker.fetch(
-      new Request("https://ohmyho.st/docs?r=other", {
+      new Request("https://ohmyho.st/about?r=other", {
         headers: { cookie: "omh_referral=hostmebaby" },
       }),
       { ASSETS, CONTROL_API: binding },
     );
     expect(await overridden.text()).not.toContain('href="/login');
+    const docsReferral = await worker.fetch(new Request("https://ohmyho.st/docs/cli?r=other"), {
+      ASSETS,
+      CONTROL_API: binding,
+    });
+    expect(docsReferral.status).toBe(308);
+    expect(docsReferral.headers.get("set-cookie")).toContain("omh_referral=other;");
+    expect(docsReferral.headers.get("location")).toBe("https://docs.ohmyho.st/cli");
     const campaign = await worker.fetch(new Request("https://ohmyho.st/?r=Summer%20Launch"), {
       ASSETS,
       CONTROL_API: binding,
@@ -66,12 +73,12 @@ it("connects the public page and consent form through the generated SDK to real 
     expect(await campaign.text()).not.toMatch(
       /<a[^>]+href="(?:https:\/\/ohmyho.st)?\/login[^>]*>/u,
     );
-    const anonymous = await worker.fetch(new Request("https://ohmyho.st/docs"), {
+    const anonymous = await worker.fetch(new Request("https://ohmyho.st/about"), {
       ASSETS,
       CONTROL_API: binding,
     });
     expect(await anonymous.text()).not.toContain('href="/login"');
-    for (const path of ["/docs", "/for/codex"]) {
+    for (const path of ["/about", "/for/codex"]) {
       const page = await worker.fetch(new Request(`https://ohmyho.st${path}?r=hostmebaby`), {
         ASSETS,
         CONTROL_API: binding,
@@ -135,18 +142,95 @@ it("connects the public page and consent form through the generated SDK to real 
       ok: false,
       components: expect.arrayContaining([{ name: "API and reporting", status: "operational" }]),
     });
-    const vote = await siteBetaResponse(
+    const initialVotes = await siteBetaResponse(new Request("https://ohmyho.st/want"), binding);
+    expect(initialVotes?.status).toBe(200);
+    expect(initialVotes?.headers.get("set-cookie")).toMatch(
+      /^__Host-omh_voter=[0-9a-f-]+; Path=\/; Secure; HttpOnly; SameSite=Lax; Max-Age=31536000$/u,
+    );
+    const voterCookie = initialVotes?.headers.get("set-cookie")?.split(";", 1)[0] ?? "";
+    const voteBody = {
+      feature: "eu",
+      choice: "up",
+      idempotency_key: "00000000-0000-4000-8000-000000000010",
+    };
+    const voteRequest = (
+      body: unknown = voteBody,
+      cookie = voterCookie,
+      origin = "https://ohmyho.st",
+    ) =>
       new Request("https://ohmyho.st/want", {
         method: "POST",
-        headers: { origin: "https://ohmyho.st", "content-type": "application/json" },
-        body: JSON.stringify({
-          feature: "eu",
-          idempotency_key: "00000000-0000-4000-8000-000000000010",
-        }),
-      }),
+        headers: {
+          origin,
+          "content-type": "application/json",
+          cookie,
+          "x-ohmyho-voter": "ffffffff-ffff-4fff-8fff-ffffffffffff",
+        },
+        body: JSON.stringify(body),
+      });
+    const vote = await siteBetaResponse(voteRequest(), binding);
+    expect(vote?.status).toBe(202);
+    const expectedVotes = {
+      votes: [
+        { feature: "eu", choice: "up" },
+        { feature: "iso27001", choice: null },
+        { feature: "soc2", choice: null },
+      ],
+    };
+    expect(await vote?.json()).toEqual({ accepted: true, ...expectedVotes });
+    const restored = await siteBetaResponse(
+      new Request("https://ohmyho.st/want", { headers: { cookie: voterCookie } }),
       binding,
     );
-    expect(vote?.status).toBe(202);
+    expect(await restored?.json()).toEqual(expectedVotes);
+    const another = await siteBetaResponse(new Request("https://ohmyho.st/want"), binding);
+    expect(await another?.json()).toEqual({
+      votes: expectedVotes.votes.map((item) => ({ ...item, choice: null })),
+    });
+    for (const cookie of ["", "__Host-omh_voter=bad", voterCookie + "; " + voterCookie]) {
+      const denied = await siteBetaResponse(voteRequest(voteBody, cookie), binding);
+      expect(denied?.status).toBe(409);
+      expect(await denied?.json()).toEqual({ code: "voter_cookie_required" });
+    }
+    expect(
+      (await siteBetaResponse(voteRequest({ ...voteBody, voter_id: "forged" }), binding))?.status,
+    ).toBe(400);
+    expect(
+      (
+        await siteBetaResponse(
+          voteRequest(voteBody, voterCookie, "https://foreign.example"),
+          binding,
+        )
+      )?.status,
+    ).toBe(403);
+    expect(
+      (await siteBetaResponse(voteRequest({ ...voteBody, choice: "invalid" }), binding))?.status,
+    ).toBe(400);
+    expect(
+      (await siteBetaResponse(voteRequest({ ...voteBody, feature: "x".repeat(2100) }), binding))
+        ?.status,
+    ).toBe(413);
+    const limited = await siteBetaResponse(voteRequest(), new LimitedPublicApi());
+    expect(limited?.status).toBe(429);
+    expect(limited?.headers.get("retry-after")).toBe("37");
+    const unavailableVote = await siteBetaResponse(voteRequest(), new UnexpectedApiResponse());
+    expect(unavailableVote?.status).toBe(503);
+    expect(await unavailableVote?.json()).toEqual({ code: "service_unavailable" });
+    const finalRestored = await siteBetaResponse(
+      new Request("https://ohmyho.st/want", { headers: { cookie: voterCookie } }),
+      binding,
+    );
+    expect(await finalRestored?.json()).toEqual(expectedVotes);
+    const roadmapHtml = await (
+      await worker.fetch(new Request("https://ohmyho.st/"), { ASSETS, CONTROL_API: binding })
+    ).text();
+    expect(roadmapHtml.match(/class="roadmap-vote"/gu)).toHaveLength(6);
+    expect(roadmapHtml.indexOf('id="roadmap"')).toBeGreaterThan(roadmapHtml.indexOf('id="faq"'));
+    expect(roadmapHtml.indexOf('id="roadmap"')).toBeLessThan(
+      roadmapHtml.indexOf('<div class="end">'),
+    );
+    expect(roadmapHtml).not.toContain("navigator.sendBeacon('/want'");
+    expect(roadmapHtml).not.toContain('class="want"');
     expect((await siteBetaResponse(new Request("https://ohmyho.st/stats.json")))?.status).toBe(503);
     const contact = {
       name: "Website visitor",
@@ -209,5 +293,14 @@ it("connects the public page and consent form through the generated SDK to real 
 class UnexpectedApiResponse {
   async fetch(): Promise<Response> {
     return Response.json({ deploys_7d: "invalid", observed_at: "invalid", extra: "unexpected" });
+  }
+}
+
+class LimitedPublicApi {
+  async fetch(): Promise<Response> {
+    return Response.json(
+      { status: 429, code: "rate_limited" },
+      { status: 429, headers: { "retry-after": "37" } },
+    );
   }
 }

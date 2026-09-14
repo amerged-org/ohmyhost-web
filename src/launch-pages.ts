@@ -1,26 +1,86 @@
 /** Launch prose is exported as the reviewed Mintlify snapshot; runtime contracts stay in the platform. */
 export const LAUNCH_DOCUMENTS: Record<string, string> = {
-  "/terms": `# Beta terms
+  "/terms": `# Terms of Service
 
-Last updated: September 13, 2026. ohmyho.st is provided by amerged B.V., Netherlands. Use [our contact form](/contact).
+Version: September 14, 2026.
 
-## Access and your projects
+## 1. Your agreement
 
-Hosting access requires an accepted invitation and an authorized account. You must have permission to deploy the GitHub repository and use the content, domains and services you connect. Keep your account credentials private and review the actions you authorize your agent to perform.
+These terms govern ohmyho.st, operated by Amerged B.V., KVK 42154221, Venray, Limburg, NL (we, us). The customer is the person or organisation for whom you create the account or place an order (you). You must have capacity to enter this agreement and authority to bind an organisation you represent. Use our [contact form](/contact) for service, billing and legal enquiries.
 
-You retain ownership of your application and data. The service processes them to build, host and operate the capabilities you request. Use the service lawfully; do not use it to send spam, distribute malware, attack other systems or access another customer's resources.
+By signing up, you accept these Terms of Service and the [Data Processing Agreement](/dpa), including its [processing description](/dpa), [TOMs](/dpa/toms), [provider register](/dpa/subprocessors) and [transfer annex](/dpa/transfers). The DPA applies to personal data we process on your behalf. You acknowledge our [Privacy notice](/privacy); that acknowledgement is not consent to every processing activity, marketing or a payment.
 
-## Credits and purchases
+The order or checkout you expressly accept states the purchased service, price, tax and any recurring payment terms. That order prevails for its specific commercial terms; the DPA and any applicable mandatory transfer clauses prevail for their subject matter. You can retain these documents using their Markdown versions or your browser’s print/save function.
 
-Deployment plans and the service's published rate cards describe resource consumption. Organization credits are shared across projects; optional project budgets limit a project's use. Review the quote before authorizing work. Purchases, where enabled, take place through the displayed checkout and applicable price. A top-up is not a subscription renewal. The website's pricing calculator does not authorize a payment.
+## 2. Beta and supported hosting
 
-## Availability and leaving
+ohmyho.st is an invite-only beta. An invitation grants only its configured access and promotional benefits. Beta or manual Paid-feature access is not a paid subscription and does not authorise a charge. A beta entitlement can be withdrawn; we give reasonable notice where practicable, while urgent security or legal restrictions can take effect immediately.
 
-This is a beta and has no uptime SLA. Features, limits and availability can change. Use the current product documentation and returned operation status to determine whether a requested capability is ready. Maintain a recovery plan for important data. Available database exports are requested through the API, CLI or MCP using a password you retain.
+The service hosts supported GitHub applications and requested database, domain, transactional-mail, file and runtime capabilities. Your agent uses the API, CLI or MCP to plan and operate them; the portal exposes supported account, project, credit and budget controls. Current [documentation](https://docs.ohmyho.st/), returned plans and service status describe availability and limits. A roadmap vote or marketing calculator is not an order for an unimplemented feature.
 
-By accepting these Terms of Service, you also accept the [Data Processing Agreement (DPA)](/dpa), including its annexes, which is incorporated into these terms by reference. The DPA applies to personal data we process on your behalf.
+You choose shared or isolated Dev/Prod data and the resources each application needs. New customer application/database placements are in US East. Control databases, edge delivery and provider operations have distinct locations described in the Privacy notice and DPA; the workload setting is not a promise that every category of service data stays exclusively in that region.
 
-These terms do not remove rights that applicable law makes mandatory. Our [Privacy notice](/privacy) explains personal-data processing. [Read the docs](/docs) or [return home](/).`,
+## 3. Accounts, credentials and agents
+
+Provide accurate account/billing details and keep them current. Protect your account, tokens, repository permissions, application secrets and export passwords. New API keys have no scheduled expiry and remain usable until revoked, subject to current membership and permissions. The full value is shown once; retain it securely and revoke a key when it is no longer needed or may have been exposed. Browser-session expiry is separate.
+
+You control which people and agents act for your organisation. A project ID or user ID in a prompt is context, not access authority. Review material changes, spending and destructive operations before authorising your agent. Tell us promptly through the contact form if you suspect unauthorised access. We remain responsible for our own contractual and statutory security duties.
+
+Your application’s end-user authentication remains your responsibility. Our hosting login does not supply your application’s users or replace the auth provider you choose. Customer-selected agents, authentication services and external integrations operate under your separate agreements with them.
+
+## 4. Your content and permitted use
+
+You retain your rights in your source code, application data and content. You grant us and the providers engaged for the service only the rights needed to access authorised GitHub source, build, store, host, transmit, troubleshoot, export and delete that material according to your instructions. We do not acquire ownership of it or use application content to train a general-purpose AI model. We retain our rights in the platform, documentation and branding; applicable open-source licences govern their components.
+
+You must have the rights and lawful basis needed for the content and processing you submit. Do not use the service for unlawful content, spam, phishing, malware, unauthorised access or attacks, infringement of rights, evasion of service limits or conduct that materially harms other customers or the infrastructure. Special-category, criminal-offence or other regulated data requiring additional safeguards needs an agreed arrangement that supports that use before submission.
+
+You are responsible for your application code, dependencies, user notices and authorised messages. We may investigate credible abuse, restrict the affected activity and comply with binding legal obligations. We do not promise to review every application or guarantee that an agent-generated application is correct or secure.
+
+## 5. Credits, measurement and budgets
+
+Projects use their organisation’s shared credit balance. The current rate card and deployment plan describe measured charges. Prices, tax and credit consumption are different quantities. Retained database or file storage can use credits while compute is idle.
+
+Monthly allowance credits expire on their recorded allowance date. One-time credits, including purchased top-ups, configured signup/referral bonuses and manual grants, have no scheduled expiry. Credits are service-use units, not money, a deposit or an investment. They are not transferable between customers or redeemable for cash except where law or an expressly agreed refund requires it. Corrections, refunds and disputes can adjust associated credit entries; one payment does not earn credit twice.
+
+Project budgets use UTC calendar months. You may select no limit or a credit limit with the supported Continue/Stop behaviour. Measurements can arrive after work starts: a budget does not erase already incurred, reserved or delayed usage. Insufficient credits or a Stop limit can restrict affected capabilities under the documented rules. Keep monitoring and a recovery plan for important workloads.
+
+## 6. Purchases, subscriptions and recharge
+
+Where purchases are enabled, Stripe processes checkout and invoices. Checkout shows the amount, currency, applicable tax and recurring terms before payment. Provide a correct billing address and a valid business tax ID if relevant. We calculate applicable taxes through Stripe Tax; any business status or tax treatment you claim must be accurate. Each completed purchase receives an invoice.
+
+A subscription renews on its stated billing cycle until cancelled. Cancel future renewals using the Stripe management link in Billing; the subscription ends at the period end displayed there unless an applicable right requires otherwise. Contact us for assistance. A top-up does not renew a subscription. Turning recharge off does not cancel a subscription.
+
+Automatic recharge is a separate opt-in. Saving a payment method, signing up, accepting these terms or moving a marketing calculator does not enable it. When you explicitly enable the current policy, you authorise 1,000 one-time credits for USD 9 plus applicable tax when available credits fall below 100, subject to your displayed gross monthly limit. The limit uses UTC calendar months and includes tax. There is at most one unresolved recharge attempt at a time.
+
+Turn recharge off in Billing or through the supported API, CLI or MCP to prevent new attempts. An invoice or payment already initiated can still complete and is reconciled to your balance. A tax-address problem, failed payment or unresolved result can pause recharge; the status identifies the required action. We do not silently disable tax or create another charge to hide an uncertain result.
+
+## 7. Cancellation, refunds and data return
+
+You may stop using the service, cancel future subscription renewals and turn recharge off using the controls above. Delete projects through the supported client workflow, or use the contact form for account closure and assistance. Deleting an application does not itself cancel a separate subscription or payment already initiated. Charges already incurred remain payable, subject to any correction or refund owed.
+
+Use the contact form to report an incorrect charge or request a refund. Mandatory refund, withdrawal and conformity rights remain available. Where consumer law gives a distance-service withdrawal right, it is generally fourteen days from contract formation; send an unambiguous withdrawal request identifying your account and purchase through the contact form. Any lawful exception or proportionate charge for service supplied during that period applies only when its statutory conditions and required prior request or acknowledgement are met. Signup alone does not waive those rights.
+
+We may suspend the affected service for a material breach, credible security risk, unlawful activity, payment failure or binding legal requirement. Where safe and lawful, we explain the reason and provide a reasonable opportunity to resolve it. Suspension does not itself erase credit history or mandatory rights. If we permanently discontinue a paid service for our convenience, we provide reasonable notice and an appropriate return of unused purchased service value; promotional credits do not acquire a cash value as a result.
+
+Retrieve the data you need before deletion or closure. Supported exports are asynchronous password-encrypted ZIP archives containing portable SQL only: no source code, application files or configuration. At most one request per project is accepted per rolling 24 hours. You supply and retain the password, poll for completion and request an authorised download link valid for 24 hours. The hosted archive expires after seven days. Retain and retrieve application files separately. Downloaded copies are your responsibility; the DPA governs personal-data return/deletion assistance beyond the SQL archive.
+
+## 8. Availability, responsibility and changes
+
+We provide the service with reasonable care and skill. The beta has no agreed uptime SLA or universal recovery-time/recovery-point guarantee. External identity, repository, DNS, mail and payment providers can affect timing and availability. Check the actual operation state; a successful build alone does not establish that a domain or email identity is ready.
+
+We maintain the DPA security measures and address faults according to their impact. You are responsible for choices within your application and your recovery arrangements. Neither an “as available” beta description nor your agent’s involvement removes our obligations under applicable law.
+
+For business customers, to the extent permitted by law, we are not liable for loss that was not reasonably foreseeable at contract formation or for indirect loss of profit, opportunity or goodwill. We do not exclude liability that cannot lawfully be excluded, including intentional misconduct, fraud, or mandatory data-protection and consumer rights. Consumers retain the liability standards and remedies required by their applicable law.
+
+We may update the service and terms. Material commercial changes apply prospectively after appropriate notice and any consent required by law; a change to recurring charges is not authorised by silence. You may end the affected service before a material change takes effect. Urgent legal or security changes can take effect sooner, with an explanation where permitted. A later website edit does not rewrite an issued invoice or retrospectively establish consent.
+
+## 9. Law, disputes and contact
+
+Dutch law governs this agreement. Consumers retain mandatory protection under the law of their habitual residence where applicable, including applicable US state rights; this choice does not remove statutory rights to bring a claim in a competent court. Business disputes may be brought before the competent courts in the Netherlands. These terms impose no mandatory arbitration or class-action waiver.
+
+First describe a service or billing complaint through our contact form so we can investigate and respond. This does not prevent urgent relief, regulatory complaints or other available remedies. If one provision is unenforceable, the remaining provisions continue to the extent legally possible; a replacement may not reduce mandatory rights.
+
+[Contact](/contact) · [Privacy](/privacy) · [Cookies](/cookies) · [DPA and annexes](/dpa) · [Documentation](https://docs.ohmyho.st/)`,
   "/about": `# Hosting for agents
 
 <img src="/brand/assets/founder.png" width="96" height="96" loading="lazy" alt="Founder of ohmyho.st" style="border-radius:50%">

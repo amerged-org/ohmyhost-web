@@ -1,5 +1,10 @@
 import { eligibleSource, siteBetaResponse, type PublicControlBinding } from "./beta-entry.js";
-import { customerDocument, isClientDownload, DOCUMENTATION } from "./customer-entry.js";
+import {
+  customerDocument,
+  isClientDownload,
+  DOCUMENTATION,
+  documentationRedirect,
+} from "./customer-entry.js";
 import { SITE_ICON } from "./generated-site-frame.js";
 const HOME = "https://ohmyho.st/";
 
@@ -15,6 +20,7 @@ export default {
     const host = url.hostname;
     const ownHost =
       host === "ohmyho.st" ||
+      host === "www.ohmyho.st" ||
       host === "omh.st" ||
       host === "check.omh.st" ||
       host.endsWith(".check.omh.st");
@@ -42,6 +48,13 @@ export default {
     const sources = url.searchParams.getAll("r");
     const querySource =
       sources.length === 1 && /^[^\p{Cc}]{1,64}$/u.test(sources[0] ?? "") ? sources[0] : undefined;
+    if (host === "www.ohmyho.st") {
+      const target = new URL(HOME);
+      target.pathname = url.pathname;
+      if (querySource) target.searchParams.set("r", querySource);
+      headers.set("location", target.href);
+      return new Response(null, { status: 308, headers });
+    }
     let cookieSource: string | undefined;
     try {
       const value = request.headers
@@ -60,6 +73,9 @@ export default {
     const invitation = source === "hostmebaby" ? source : undefined;
     const contentPage =
       ["/", "/brand", "/api", "/login"].includes(url.pathname) ||
+      url.pathname === "/docs.md" ||
+      url.pathname === "/docs" ||
+      url.pathname.startsWith("/docs/") ||
       customerDocument(url.pathname)?.type.startsWith("text/html");
     if (host === "ohmyho.st" && url.protocol === "https:" && contentPage && querySource) {
       headers.set(
@@ -116,7 +132,6 @@ export default {
       const paths = [
         "/",
         "/brand",
-        "/api",
         ...Object.keys(DOCUMENTATION).filter((path) => path !== "/login" && !path.endsWith(".md")),
       ];
       return new Response(
@@ -134,10 +149,13 @@ export default {
       return new Response(null, { status: 302, headers });
     }
     const wantsMarkdown = request.headers.get("accept")?.includes("text/markdown") === true;
-    const documentPath =
-      wantsMarkdown && url.pathname.startsWith("/docs") && !url.pathname.endsWith(".md")
-        ? `${url.pathname}.md`
-        : url.pathname;
+    const redirect = documentationRedirect(url.pathname, wantsMarkdown);
+    if (redirect) {
+      headers.set("location", redirect);
+      headers.set("vary", "Accept");
+      return new Response(null, { status: 308, headers });
+    }
+    const documentPath = url.pathname;
     const document = customerDocument(documentPath);
     if (document) {
       let documentText = document.text;
@@ -212,8 +230,6 @@ export default {
       "/index.md": "index.md",
       "/brand": "brand.html",
       "/brand.md": "brand.md",
-      "/api": "api.html",
-      "/api.md": "api.md",
       "/api/openapi.yaml": "openapi.yaml",
       "/api/openapi.json": "openapi.json",
     };
@@ -240,7 +256,7 @@ export default {
             detail:
               "The product API base is https://app.ohmyho.st/v1. Read https://ohmyho.st/api/openapi.json.",
           })
-        : "# Page not found\n\nRead [llms.txt](https://ohmyho.st/llms.txt), the [documentation index](https://ohmyho.st/docs/index.md), or [OpenAPI](https://ohmyho.st/api/openapi.json).\n";
+        : "# Page not found\n\nRead [llms.txt](https://ohmyho.st/llms.txt), the [documentation index](https://docs.ohmyho.st/llms.txt), or [OpenAPI](https://ohmyho.st/api/openapi.json).\n";
       return new Response(request.method === "HEAD" ? null : body, { status: 404, headers });
     }
     if (!env?.ASSETS)

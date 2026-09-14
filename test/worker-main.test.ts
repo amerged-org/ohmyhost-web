@@ -21,6 +21,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     );
     expect(html).toContain("Copy prompt for your agent");
     expect(html).toContain("Get beta access");
+    expect(html.match(/rel="icon"/gu)).toHaveLength(1);
     expect(html).not.toContain("fetch('/stats.json'");
     expect(html).not.toContain('id="proof"');
     expect(html).toContain("updatePlaybackRate(1.25)");
@@ -60,7 +61,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(installer.status).toBe(200);
     const installerText = await installer.text();
     expect(installerText).toContain("OHMYHOST_SIGNUP_SOURCE=''");
-    expect(installerText).toContain("0.1.0-beta.29");
+    expect(installerText).toContain("0.1.0-beta.30");
     expect(installerText).toContain("using only my explicitly authorized GitHub repository");
     expect(installerText).not.toMatch(/upload source path|source uploads/u);
     expect(installerText).toContain("Hermes 0.21 or newer is required for interactive onboarding.");
@@ -89,14 +90,12 @@ describe("public entry and unassigned Free-host fallback", () => {
     for (const path of [
       "/index.md",
       "/brand.md",
-      "/api",
-      "/api.md",
       "/api/openapi.yaml",
       "/robots.txt",
       "/sitemap.xml",
       "/mcp-tools.json",
-      "/llms-full.txt",
-      "/docs/index.md",
+      "/mcp.json",
+      "/client-release.json",
       "/.well-known/agent-skills/index.json",
     ]) {
       const response = await worker.fetch(new Request(`https://ohmyho.st${path}`), {
@@ -114,7 +113,7 @@ describe("public entry and unassigned Free-host fallback", () => {
       "/docs/usage",
       "/docs/backups",
     ]) {
-      expect((await worker.fetch(new Request(`https://ohmyho.st${path}.md`))).status).toBe(200);
+      expect((await worker.fetch(new Request(`https://ohmyho.st${path}.md`))).status).toBe(308);
     }
     const login = await worker.fetch(
       new Request("https://ohmyho.st/login?r=hostmebaby&next=https://foreign.example&token=secret"),
@@ -134,13 +133,10 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(Array.from(new Uint8Array(await fontResponse.arrayBuffer()).slice(0, 4))).toEqual([
       0, 1, 0, 0,
     ]);
-    expect(html).toContain('href="/docs"');
+    expect(html).toContain('href="https://docs.ohmyho.st/"');
     const docs = await worker.fetch(new Request("https://ohmyho.st/docs"));
-    expect(docs.status).toBe(200);
-    const documentation = await docs.text();
-    expect(documentation).toContain("OHMYHOST_ENVIRONMENT=production");
-    expect(documentation).toContain("npm install");
-    expect(documentation).toContain("/releases/");
+    expect(docs.status).toBe(308);
+    expect(docs.headers.get("location")).toBe("https://docs.ohmyho.st/");
     const llms = await worker.fetch(new Request("https://ohmyho.st/llms.txt"));
     expect(llms.status).toBe(200);
     expect(await llms.text()).toContain("/skills/ohmyhost-build-portable-app/SKILL.md");
@@ -162,7 +158,91 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect((await worker.fetch(new Request("https://ohmyho.st/missing"))).status).toBe(404);
   });
 
+  it("moves legacy documentation directly to its canonical HTML or Markdown page", async () => {
+    const routes: Record<string, string> = {
+      "/docs": "/",
+      "/docs/": "/",
+      "/docs.md": "/index.md",
+      "/docs/index.md": "/llms.txt",
+      "/docs/mcp": "/agents/mcp",
+      "/docs/agents/mcp.md": "/agents/mcp.md",
+      "/docs/mcp.md": "/agents/mcp.md",
+      "/docs/nextjs": "/frameworks/nextjs",
+      "/docs/vite": "/frameworks/vite",
+      "/docs/react.md": "/frameworks/vite.md",
+      "/docs/tanstack": "/frameworks/tanstack",
+      "/docs/postgres": "/database",
+      "/docs/credits": "/usage",
+      "/docs/spend-cap": "/budgets",
+      "/docs/dev-and-prod": "/environments",
+      "/docs/changelog": "/changelog",
+      "/docs/cli/": "/cli",
+      "/docs/missing.md": "/missing.md",
+      "/api": "/api",
+      "/api.md": "/api.md",
+      "/llms-full.txt": "/llms-full.txt",
+    };
+    for (const [path, target] of Object.entries(routes))
+      for (const method of ["GET", "HEAD"]) {
+        const response = await worker.fetch(
+          new Request(`https://ohmyho.st${path}?token=private&next=https://foreign.example`, {
+            method,
+          }),
+        );
+        expect(response.status).toBe(308);
+        expect(response.headers.get("location")).toBe(`https://docs.ohmyho.st${target}`);
+        expect(response.headers.get("vary")).toBe("Accept");
+        expect(await response.text()).toBe("");
+      }
+    for (const path of ["/docs", "/docs/cli", "/api"]) {
+      const response = await worker.fetch(
+        new Request(`https://ohmyho.st${path}`, { headers: { accept: "text/markdown" } }),
+      );
+      expect(response.headers.get("location")).toBe(
+        `https://docs.ohmyho.st${path === "/docs" ? "/index" : path.replace("/docs", "")}.md`,
+      );
+      expect(
+        (await worker.fetch(new Request(`https://ohmyho.st${path}`, { method: "POST" }))).status,
+      ).toBe(405);
+    }
+    const config = await worker.fetch(new Request("https://ohmyho.st/mcp.json"));
+    expect(await config.json()).toEqual({
+      mcpServers: {
+        ohmyho: { command: "ohmyhost-mcp", env: { OHMYHOST_ENVIRONMENT: "production" } },
+      },
+    });
+    const release = await worker.fetch(new Request("https://ohmyho.st/client-release.json"));
+    expect(await release.json()).toEqual({
+      version: "0.1.0-beta.30",
+      manifest_url: "https://ohmyho.st/releases/0.1.0-beta.30/manifest.json",
+    });
+    const index = await worker.fetch(new Request("https://ohmyho.st/llms.txt"));
+    const text = await index.text();
+    expect(text).toContain("https://docs.ohmyho.st/quickstart.md");
+    expect(text).not.toContain("https://ohmyho.st/docs/");
+    expect(text).toContain("https://ohmyho.st/mcp.json");
+    const sitemap = await worker.fetch(new Request("https://ohmyho.st/sitemap.xml"));
+    expect(await sitemap.text()).not.toContain("https://ohmyho.st/docs");
+    const unsafe = await worker.fetch(
+      new Request("https://ohmyho.st/docs//foreign.example/path.md"),
+    );
+    expect(new URL(unsafe.headers.get("location") ?? "").origin).toBe("https://docs.ohmyho.st");
+  });
+
   it("redirects bare and unassigned Free hosts to the fixed home without ticket or query", async () => {
+    for (const method of ["GET", "HEAD"]) {
+      const response = await worker.fetch(
+        new Request("https://www.ohmyho.st/pricing?r=hostmebaby&token=private", { method }),
+      );
+      expect(response.status).toBe(308);
+      expect(response.headers.get("location")).toBe("https://ohmyho.st/pricing?r=hostmebaby");
+      expect(await response.text()).toBe("");
+      expect(
+        (await worker.fetch(new Request("http://www.ohmyho.st/docs/mcp?r=one&r=two"))).headers.get(
+          "location",
+        ),
+      ).toBe("https://ohmyho.st/docs/mcp");
+    }
     for (const host of [
       "omh.st",
       "check.omh.st",
@@ -318,8 +398,6 @@ class SiteAssetFixture {
         "/pages/brand.html",
         "/pages/index.md",
         "/pages/brand.md",
-        "/pages/api.html",
-        "/pages/api.md",
         "/pages/openapi.yaml",
         "/pages/0.sh",
       ].includes(path) &&

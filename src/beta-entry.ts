@@ -5,6 +5,7 @@ import {
   registerBetaInterest,
   submitContactRequest,
   registerFeatureInterest,
+  getFeatureInterests,
 } from "@ohmyhost/sdk-ts";
 export interface PublicControlBinding {
   fetch(request: Request): Promise<Response>;
@@ -19,11 +20,23 @@ export function betaClient(binding: PublicControlBinding, request: Request) {
       const ip = request.headers.get("cf-connecting-ip");
       if (ip) forwarded.headers.set("cf-connecting-ip", ip);
       forwarded.headers.set("origin", "https://ohmyho.st");
-      return binding.fetch(
+      const response = await binding.fetch(
         new Request(forwarded, {
           signal: AbortSignal.any([forwarded.signal, AbortSignal.timeout(15000)]),
         }),
       );
+      if (response.status === 429) {
+        const value = response.headers.get("retry-after");
+        const retryAfterSeconds =
+          value !== null && /^\d{1,5}$/u.test(value) && Number(value) > 0 && Number(value) <= 86400
+            ? Number(value)
+            : 60;
+        throw Object.assign(new Error("Public request rate limited"), {
+          status: 429,
+          retryAfterSeconds,
+        });
+      }
+      return response;
     },
   });
 }
@@ -67,6 +80,18 @@ export async function siteBetaResponse(
   if (!binding) return json({ code: "service_unavailable" }, 503);
   try {
     const client = betaClient(binding, request);
+    const voteCookie = readVoteCookie(request);
+    if (path === "/want" && request.method === "GET") {
+      const origin = request.headers.get("origin");
+      if (origin !== null && origin !== "https://ohmyho.st")
+        return json({ code: "forbidden" }, 403);
+      const voter = voteCookie ?? crypto.randomUUID();
+      const response = json(
+        validateVoteState(await getFeatureInterests({ "X-Ohmyho-Voter": voter }, { client })),
+      );
+      response.headers.set("set-cookie", voteCookieHeader(voter));
+      return response;
+    }
     if (path === "/stats.json" && ["GET", "HEAD"].includes(request.method))
       return json(validateStats(await getPublicDeploymentStats({ client })));
     if (path === "/status.json" && ["GET", "HEAD"].includes(request.method)) {
@@ -138,16 +163,25 @@ export async function siteBetaResponse(
       );
     }
     if (path === "/want") {
-      if (Object.keys(input).sort().join(",") !== "feature,idempotency_key")
+      if (Object.keys(input).sort().join(",") !== "choice,feature,idempotency_key")
         return json({ code: "invalid_request" }, 400);
-      return json(
-        validateAcceptance(
-          await registerFeatureInterest(input as Parameters<typeof registerFeatureInterest>[0], {
-            client,
-          }),
-        ),
-        202,
+      if (voteCookie === null) return json({ code: "voter_cookie_required" }, 409);
+      const result = await registerFeatureInterest(
+        {
+          ...(input as Omit<Parameters<typeof registerFeatureInterest>[0], "X-Ohmyho-Voter">),
+          "X-Ohmyho-Voter": voteCookie,
+        },
+        { client },
       );
+      if (
+        !result ||
+        Object.keys(result).sort().join(",") !== "accepted,votes" ||
+        result.accepted !== true
+      )
+        throw new Error("Invalid vote receipt");
+      const response = json({ accepted: true, ...validateVoteState({ votes: result.votes }) }, 202);
+      response.headers.set("set-cookie", voteCookieHeader(voteCookie));
+      return response;
     }
     if (Object.keys(input).sort().join(",") !== "consent,consent_version,email")
       return json({ code: "invalid_request" }, 400);
@@ -166,7 +200,7 @@ export async function siteBetaResponse(
       [400, 403, 409, 413, 429].includes(error.status)
         ? error.status
         : 503;
-    return json(
+    const response = json(
       {
         code:
           status === 503
@@ -177,7 +211,65 @@ export async function siteBetaResponse(
       },
       status,
     );
+    if (status === 429) {
+      const seconds =
+        error &&
+        typeof error === "object" &&
+        "retryAfterSeconds" in error &&
+        typeof error.retryAfterSeconds === "number"
+          ? error.retryAfterSeconds
+          : 60;
+      response.headers.set("retry-after", String(seconds));
+    }
+    return response;
   }
+}
+
+function readVoteCookie(request: Request): string | null {
+  const values = (request.headers.get("cookie") ?? "")
+    .split(";")
+    .map((part) => part.trim())
+    .filter((part) => part.startsWith("__Host-omh_voter="));
+  if (values.length !== 1) return null;
+  const value = values[0]?.slice("__Host-omh_voter=".length);
+  return value !== undefined &&
+    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu.test(value)
+    ? value.toLowerCase()
+    : null;
+}
+function voteCookieHeader(voter: string): string {
+  return `__Host-omh_voter=${voter}; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=31536000`;
+}
+function validateVoteState(value: unknown): {
+  votes: { feature: string; choice: "up" | "down" | null }[];
+} {
+  if (
+    !value ||
+    typeof value !== "object" ||
+    Object.keys(value).join(",") !== "votes" ||
+    !("votes" in value) ||
+    !Array.isArray(value.votes) ||
+    value.votes.length !== 3
+  )
+    throw new Error("Invalid vote state");
+  const seen = new Set<string>();
+  const votes = value.votes.map((vote: unknown) => {
+    if (
+      !vote ||
+      typeof vote !== "object" ||
+      Object.keys(vote).sort().join(",") !== "choice,feature" ||
+      !("feature" in vote) ||
+      typeof vote.feature !== "string" ||
+      !["eu", "iso27001", "soc2"].includes(vote.feature) ||
+      seen.has(vote.feature) ||
+      !("choice" in vote) ||
+      ![null, "up", "down"].includes(vote.choice as null | string)
+    )
+      throw new Error("Invalid vote choice");
+    seen.add(vote.feature);
+    return { feature: vote.feature, choice: vote.choice as "up" | "down" | null };
+  });
+  return { votes };
 }
 
 function validateAcceptance(value: unknown): { accepted: true } {
