@@ -221,6 +221,8 @@ function applyApprovedHomepageChanges(html) {
     '"addressCountry": "US"': '"addressCountry": "NL"',
     "From Amsterdam, Netherlands to Palo Alto, CA, US — deploy with ohmyho.st":
       "Amerged B.V. · Venray, Limburg, NL",
+    'WorkOS, Better Auth, Auth0 or anything else that speaks OAuth or SAML — wire it in, we don\'t lock you into ours.</p>\n  <div class="cells logos stag" style="grid-template-columns:repeat(4,1fr)">':
+      'Better Auth, WorkOS or anything else that speaks OAuth, OIDC or SAML — wire it in, we don\'t lock you into ours.</p>\n  <div class="cells logos stag" id="auth-logos" style="grid-template-columns:repeat(3,1fr)">',
     '<span class="avatar" aria-hidden="true"></span>':
       '<img src="/brand/assets/founder.png" width="96" height="96" loading="lazy" alt="Founder of ohmyho.st" style="border-radius:50%;flex:0 0 96px;object-fit:cover">',
   })) {
@@ -232,6 +234,9 @@ function applyApprovedHomepageChanges(html) {
     / {2}\/\* proof: a real number or nothing \*\/[\s\S]*?\n {2}\}\)\.catch\(function\(\)\{\}\);/u,
     "",
   );
+  const auth0Tile = / *<span class="logo">[^\n]*logos\/auth0\.svg[^\n]*<\/span>\n/gu;
+  if (html.match(auth0Tile)?.length !== 1) throw new Error("Expected the single Auth0 logo tile");
+  html = html.replace(auth0Tile, "");
   if (html.includes("fetch('/stats.json'")) throw new Error("Obsolete homepage statistics remain");
   html = html
     .replaceAll("Nightly export to your bucket", "Encrypted database exports")
@@ -261,6 +266,26 @@ function applyApprovedHomepageChanges(html) {
   const faqEnd = html.indexOf("</section>", faqStart);
   if (faqStart < 0 || faqEnd < 0) throw new Error("FAQ boundary missing for roadmap");
   html = html.slice(0, faqEnd + 10) + roadmap + html.slice(faqEnd + 10);
+  const vsStart = html.indexOf('<div class="vs stag">'),
+    vsEnd = html.indexOf("</section>", vsStart);
+  if (vsStart < 0 || vsEnd < 0) throw new Error("Pricing comparison cards missing");
+  const comparison = html.slice(vsStart, vsEnd);
+  const bill = /(<p class="scen">[^\n]*<\/p>\n)((?: {6}<div class="li">[^\n]*\n)+)/gu;
+  if (comparison.match(bill)?.length !== 2)
+    throw new Error("Expected the two itemized pricing bills");
+  const billStyle =
+    '<style>.bill{margin:0}.bill>summary{display:none;list-style:none;cursor:pointer}.bill>summary::-webkit-details-marker{display:none}.bill[open] .bill-show,.bill:not([open]) .bill-hide{display:none}@media(max-width:760px){.vs .card{display:flex;flex-direction:column}.vs .card h3{order:-3}.vs .card .scen{order:-2}.vs .card .tot{order:-1;margin-top:4px;padding-top:0;border-top:0}.vs .card .fill{order:-1}.vs .card .bill{margin-top:18px;border-top:1px solid var(--border)}.vs .card .bill>summary{display:flex;justify-content:space-between;align-items:center;min-height:44px;padding:6px 0;font-size:13.5px;color:var(--muted-foreground)}.vs .card .bill>summary::after{content:"+";font-family:var(--mono);font-size:16px}.vs .card .bill[open]>summary::after{content:"\\2212"}.vs .card .src{order:1}}</style>';
+  const billScript =
+    "<script>(()=>{const q=matchMedia('(max-width:760px)'),bills=document.querySelectorAll('details.bill'),sync=()=>bills.forEach(b=>{b.open=!q.matches;});sync();q.addEventListener('change',sync);})()</script>";
+  html =
+    html.slice(0, vsStart) +
+    billStyle +
+    comparison.replace(
+      bill,
+      '$1      <details class="bill" open><summary><span class="bill-show">Show the bill</span><span class="bill-hide">Hide the bill</span></summary>\n$2      </details>\n',
+    ) +
+    billScript +
+    html.slice(vsEnd);
   const start = html.indexOf('<section id="price">'),
     end = html.indexOf('<div class="slid up">', start);
   if (start < 0 || end < 0) throw new Error("Pricing comparison missing");

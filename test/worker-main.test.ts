@@ -30,6 +30,35 @@ describe("public entry and unassigned Free-host fallback", () => {
       html.indexOf('<div class="slid up">'),
     );
     expect(pricing.match(/data-copy/gu)).toHaveLength(1);
+    const comparisonStart = html.indexOf('<div class="vs stag">');
+    const comparison = html.slice(comparisonStart, html.indexOf("</section>", comparisonStart));
+    expect(comparison.match(/<details class="bill" open><summary>/gu)).toHaveLength(2);
+    expect(comparison.match(/class="li"/gu)).toHaveLength(13);
+    for (const card of comparison.split('<div class="card').slice(1)) {
+      const bill = card.indexOf('<details class="bill" open>');
+      const billEnd = card.indexOf("</details>");
+      expect(bill).toBeGreaterThan(card.indexOf('<p class="scen">'));
+      expect(billEnd).toBeLessThan(card.indexOf('<div class="tot">'));
+      expect(card.slice(bill, billEnd).match(/class="li"/gu)?.length).toBeGreaterThanOrEqual(6);
+      expect(card.slice(billEnd)).not.toContain('class="li"');
+    }
+    const comparisonEnd = html.indexOf("</section>", comparisonStart);
+    expect(html.indexOf("details.bill")).toBeGreaterThan(html.lastIndexOf("</details>", comparisonEnd));
+    expect(html.indexOf("details.bill")).toBeLessThan(comparisonEnd);
+    expect(html).toContain(".vs .card .tot{order:-1");
+    expect(html).toContain("details.bill");
+    expect(html).not.toContain("Auth0");
+    expect(html).not.toContain("logos/auth0.svg");
+    expect(html).toContain("Better Auth, WorkOS or anything else that speaks OAuth, OIDC or SAML");
+    expect(html).toContain('id="auth-logos" style="grid-template-columns:repeat(3,1fr)"');
+    expect(
+      (await worker.fetch(new Request("https://ohmyho.st/logos/auth0.svg"), { ASSETS: assets }))
+        .status,
+    ).toBe(404);
+    expect(
+      (await worker.fetch(new Request("https://ohmyho.st/logos/workos.svg"), { ASSETS: assets }))
+        .status,
+    ).toBe(200);
     const icon = await worker.fetch(new Request("https://ohmyho.st/favicon.svg"));
     expect(await icon.text()).toContain("M30 86 H15 L27 63");
     for (const [path, mime] of [
@@ -398,6 +427,7 @@ class SiteAssetFixture {
         "/pages/brand.md",
         "/pages/openapi.yaml",
         "/pages/0.sh",
+        "/logos/workos.svg",
       ].includes(path) &&
       !/^\/pages\/brand-assets\/(?:omega-(?:light|dark)\.(?:svg|png)|favicon\.(?:svg|ico)|apple-touch-icon\.png|founder\.png|og\.png)$/u.test(
         path,

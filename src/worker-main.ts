@@ -237,7 +237,7 @@ export default {
     const selected = wantsMarkdown && pages[markdownPath] ? markdownPath : url.pathname;
     const page = pages[selected];
     const logo =
-      /^\/logos\/(?:composio|github|make|n8n|nextjs|postgres|react|tanstack|vite|zapier|auth0|betterauth|workos|gdrive|s3|r2)\.svg$/u.test(
+      /^\/logos\/(?:composio|github|make|n8n|nextjs|postgres|react|tanstack|vite|zapier|betterauth|workos|gdrive|s3|r2)\.svg$/u.test(
         url.pathname,
       );
     const font = /^\/fonts\/[a-f0-9]{16}\.ttf$/u.test(url.pathname);
