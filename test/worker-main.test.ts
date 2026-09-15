@@ -91,7 +91,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(installer.status).toBe(200);
     const installerText = await installer.text();
     expect(installerText).toContain("OHMYHOST_SIGNUP_SOURCE=''");
-    expect(installerText).toContain("0.1.0-beta.34");
+    expect(installerText).toContain("0.1.0-beta.35");
     expect(installerText).toContain("using only my explicitly authorized GitHub repository");
     expect(installerText).not.toMatch(/upload source path|source uploads/u);
     expect(installerText).toContain("Hermes 0.21 or newer is required for interactive onboarding.");
@@ -243,8 +243,8 @@ describe("public entry and unassigned Free-host fallback", () => {
     });
     const release = await worker.fetch(new Request("https://ohmyho.st/client-release.json"));
     expect(await release.json()).toEqual({
-      version: "0.1.0-beta.34",
-      manifest_url: "https://ohmyho.st/releases/0.1.0-beta.34/manifest.json",
+      version: "0.1.0-beta.35",
+      manifest_url: "https://ohmyho.st/releases/0.1.0-beta.35/manifest.json",
     });
     const index = await worker.fetch(new Request("https://ohmyho.st/llms.txt"));
     const text = await index.text();
