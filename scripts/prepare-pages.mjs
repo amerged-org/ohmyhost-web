@@ -14,7 +14,7 @@ await Promise.all(["api.html", "api.md"].map((file) => rm(`${output}/${file}`, {
 const markdown = new TurndownService({ headingStyle: "atx", codeBlockStyle: "fenced" });
 markdown.remove(["script", "style", "svg", "head", "button", "input"]);
 const templates = {
-  home: "39e356828872241b0eb53293b8b1d1a19c82a7a9200d4ee195bf6f81a72bb9ca",
+  home: "99c3d2701c82c3ae9936ffa6c142169fd6fc136caa5ae33fbdacf36f6d93a2ac",
   brand: "d2a49d8a4b9d979c72958eebb2f2db4b7637405ccacd27100ce77e405a01bebe",
 };
 const fontCss = await readFile(`${directory}site/fonts.css`, "utf8");

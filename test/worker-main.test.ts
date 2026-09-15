@@ -33,7 +33,8 @@ describe("public entry and unassigned Free-host fallback", () => {
     const comparisonStart = html.indexOf('<div class="vs stag">');
     const comparison = html.slice(comparisonStart, html.indexOf("</section>", comparisonStart));
     expect(comparison.match(/<details class="bill" open><summary>/gu)).toHaveLength(2);
-    expect(comparison.match(/class="li"/gu)).toHaveLength(13);
+    expect(comparison.match(/class="li"/gu)).toHaveLength(15);
+    expect(comparison.match(/Functions &amp; cron/gu)).toHaveLength(2);
     for (const card of comparison.split('<div class="card').slice(1)) {
       const bill = card.indexOf('<details class="bill" open>');
       const billEnd = card.indexOf("</details>");
@@ -43,7 +44,9 @@ describe("public entry and unassigned Free-host fallback", () => {
       expect(card.slice(billEnd)).not.toContain('class="li"');
     }
     const comparisonEnd = html.indexOf("</section>", comparisonStart);
-    expect(html.indexOf("details.bill")).toBeGreaterThan(html.lastIndexOf("</details>", comparisonEnd));
+    expect(html.indexOf("details.bill")).toBeGreaterThan(
+      html.lastIndexOf("</details>", comparisonEnd),
+    );
     expect(html.indexOf("details.bill")).toBeLessThan(comparisonEnd);
     expect(html).toContain(".vs .card .tot{order:-1");
     expect(html).toContain("details.bill");
