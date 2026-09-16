@@ -18,7 +18,12 @@ describe("public entry and unassigned Free-host fallback", () => {
     const html = await home.text();
     expect(html).toContain("<title>ohmyho.st — Hosting for agents, from $10/month</title>");
     expect(html).toContain("Copy prompt for your agent");
-    expect(html).toContain("Get beta access");
+    expect(html).toContain("<span>Copy prompt</span>");
+    expect(html).not.toContain("Get beta access");
+    expect(html).not.toContain("Beta access");
+    expect(html).not.toContain('id="beta-modal"');
+    expect(html).not.toContain('id="beta-form"');
+    expect(html).not.toContain("showModal");
     expect(html.match(/rel="icon"/gu)).toHaveLength(1);
     expect(html).not.toContain("fetch('/stats.json'");
     expect(html).not.toContain('id="proof"');
@@ -90,8 +95,11 @@ describe("public entry and unassigned Free-host fallback", () => {
     );
     expect(installer.status).toBe(200);
     const installerText = await installer.text();
-    expect(installerText).toContain("OHMYHOST_SIGNUP_SOURCE=''");
-    expect(installerText).toContain("0.1.0-beta.38");
+    expect(installerText).toContain("OHMYHOST_SIGNUP_SOURCE='hostmebaby'");
+    expect(
+      await (await worker.fetch(new Request("https://omh.st/0.sh"), { ASSETS: assets })).text(),
+    ).toContain("OHMYHOST_SIGNUP_SOURCE=''");
+    expect(installerText).toContain("0.1.0-beta.39");
     expect(installerText).toContain("using only my explicitly authorized GitHub repository");
     expect(installerText).not.toMatch(/upload source path|source uploads/u);
     expect(installerText).toContain("Hermes 0.21 or newer is required for interactive onboarding.");
@@ -243,8 +251,8 @@ describe("public entry and unassigned Free-host fallback", () => {
     });
     const release = await worker.fetch(new Request("https://ohmyho.st/client-release.json"));
     expect(await release.json()).toEqual({
-      version: "0.1.0-beta.38",
-      manifest_url: "https://ohmyho.st/releases/0.1.0-beta.38/manifest.json",
+      version: "0.1.0-beta.39",
+      manifest_url: "https://ohmyho.st/releases/0.1.0-beta.39/manifest.json",
     });
     const index = await worker.fetch(new Request("https://ohmyho.st/llms.txt"));
     const text = await index.text();

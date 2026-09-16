@@ -31,7 +31,6 @@ await writeFile(
       `export const SITE_CSS = ${JSON.stringify(fontCss + sharedCss + navigationCss)};\n` +
       `export const SITE_ICON = ${JSON.stringify(await readFile(`${brandAssets}/favicon.svg`, "utf8"))};\n` +
       `export const PRIVACY_UI = ${JSON.stringify(privacyUi)};\n` +
-      `export const BETA_MODAL = ${JSON.stringify(await readFile(`${directory}site/beta-modal.html`, "utf8"))};\n` +
       `export const BETA_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/beta-entry.js`, "utf8"))};\n`,
     { parser: "typescript", printWidth: 100 },
   ),
@@ -50,7 +49,7 @@ for (const [name, digest] of Object.entries(templates)) {
   if (name === "home") {
     html = applyApprovedHomepageChanges(html).replace(
       /(<button[^>]*id="navcopy"[^>]*>[\s\S]*?<span>)Start free/u,
-      "$1Beta access",
+      "$1Copy prompt",
     );
     const destinations = {
       Docs: "https://docs.ohmyho.st/",
@@ -98,11 +97,11 @@ for (const [name, digest] of Object.entries(templates)) {
       .replaceAll("omh deploy", "ohmyhost project status --help");
     html = html.replaceAll(
       "Read https://ohmyho.st/llms.txt and set up hosting for this repo on ohmyho.st: create the project, provision Postgres, add the domain and deploy. Ask me only if you need a decision.",
-      "Read https://ohmyho.st/llms.txt and the ohmyhost-get-started Skill. Connect this agent, sign in with my invitation and deploy this GitHub project using only the capabilities it needs. Follow the deployment Skill and verify the app.",
+      "Read https://ohmyho.st/llms.txt and https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md. Connect this agent to ohmyho.st and deploy this GitHub project using only the capabilities it needs. Follow the deployment Skill, keep my existing project decisions and verify the app.",
     );
     html = html.replace(
       "</body>",
-      `${await readFile(`${directory}site/beta-modal.html`, "utf8")}<script>${await readFile(`${directory}site/beta-entry.js`, "utf8")}</script></body>`,
+      `<script>${await readFile(`${directory}site/beta-entry.js`, "utf8")}</script></body>`,
     );
   }
   if (name === "brand") {

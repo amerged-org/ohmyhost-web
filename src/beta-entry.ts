@@ -1,8 +1,6 @@
 import {
   createClient,
-  getBetaEligibility,
   getPublicDeploymentStats,
-  registerBetaInterest,
   submitContactRequest,
   registerFeatureInterest,
   getFeatureInterests,
@@ -40,36 +38,16 @@ export function betaClient(binding: PublicControlBinding, request: Request) {
     },
   });
 }
-export async function eligibleSource(
-  source: string | undefined,
-  binding: PublicControlBinding | undefined,
-  request: Request,
-): Promise<string | undefined> {
-  if (!source || !binding) return undefined;
-  const result = await getBetaEligibility({ r: source }, { client: betaClient(binding, request) });
-  if (
-    !result ||
-    Object.keys(result).join(",") !== "eligible" ||
-    typeof result.eligible !== "boolean"
-  )
-    throw new Error("Invalid eligibility response");
-  return result.eligible === true ? source : undefined;
+/** Signup is open; a single bounded r value is acquisition attribution, never an access gate. */
+export function signupSource(source: string | undefined): string | undefined {
+  return source !== undefined && /^[^\p{Cc}]{1,64}$/u.test(source) ? source : undefined;
 }
 export async function siteBetaResponse(
   request: Request,
   binding?: PublicControlBinding,
 ): Promise<Response | null> {
   const path = new URL(request.url).pathname;
-  if (
-    ![
-      "/v1/beta/interests",
-      "/v1/contact-requests",
-      "/want",
-      "/stats.json",
-      "/status.json",
-    ].includes(path)
-  )
-    return null;
+  if (!["/v1/contact-requests", "/want", "/stats.json", "/status.json"].includes(path)) return null;
   const json = (body: unknown, status = 200) =>
     Response.json(body, { status, headers: { "cache-control": "no-store" } });
   if (
@@ -162,35 +140,25 @@ export async function siteBetaResponse(
         202,
       );
     }
-    if (path === "/want") {
-      if (Object.keys(input).sort().join(",") !== "choice,feature,idempotency_key")
-        return json({ code: "invalid_request" }, 400);
-      if (voteCookie === null) return json({ code: "voter_cookie_required" }, 409);
-      const result = await registerFeatureInterest(
-        {
-          ...(input as Omit<Parameters<typeof registerFeatureInterest>[0], "X-Ohmyho-Voter">),
-          "X-Ohmyho-Voter": voteCookie,
-        },
-        { client },
-      );
-      if (
-        !result ||
-        Object.keys(result).sort().join(",") !== "accepted,votes" ||
-        result.accepted !== true
-      )
-        throw new Error("Invalid vote receipt");
-      const response = json({ accepted: true, ...validateVoteState({ votes: result.votes }) }, 202);
-      response.headers.set("set-cookie", voteCookieHeader(voteCookie));
-      return response;
-    }
-    if (Object.keys(input).sort().join(",") !== "consent,consent_version,email")
+    if (Object.keys(input).sort().join(",") !== "choice,feature,idempotency_key")
       return json({ code: "invalid_request" }, 400);
-    return json(
-      validateAcceptance(
-        await registerBetaInterest(input as Parameters<typeof registerBetaInterest>[0], { client }),
-      ),
-      202,
+    if (voteCookie === null) return json({ code: "voter_cookie_required" }, 409);
+    const result = await registerFeatureInterest(
+      {
+        ...(input as Omit<Parameters<typeof registerFeatureInterest>[0], "X-Ohmyho-Voter">),
+        "X-Ohmyho-Voter": voteCookie,
+      },
+      { client },
     );
+    if (
+      !result ||
+      Object.keys(result).sort().join(",") !== "accepted,votes" ||
+      result.accepted !== true
+    )
+      throw new Error("Invalid vote receipt");
+    const response = json({ accepted: true, ...validateVoteState({ votes: result.votes }) }, 202);
+    response.headers.set("set-cookie", voteCookieHeader(voteCookie));
+    return response;
   } catch (error) {
     const status =
       error &&

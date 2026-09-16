@@ -1,23 +1,19 @@
-/* The server supplies an eligible source; the existing backend rechecks it at signup. */
+/* Signup is open; the server supplies any r attribution as signup_source only. */
 (() => {
   const source = document.querySelector('meta[name="ohmyhost-signup-source"]')?.content;
   const prompt =
     "Read https://ohmyho.st/llms.txt and https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md. Connect this agent to ohmyho.st and deploy this GitHub project using only the capabilities it needs. " +
-    (source ? "My invitation is https://ohmyho.st/?r=" + encodeURIComponent(source) + ". " : "") +
+    (source ? "I came from https://ohmyho.st/?r=" + encodeURIComponent(source) + ". " : "") +
     "Follow the deployment Skill, keep my existing project decisions and verify the app.";
 
   const buttons = "[data-copy], #copy, #shcopy2, #shcopy, [data-wincopy], [data-beta-access]";
   document.querySelectorAll(buttons).forEach((button) => {
     const label = button.querySelector("span");
-    const compact = button.closest("nav");
-    const text = source
-      ? compact ? "Copy prompt" : "Copy prompt for your agent"
-      : compact ? "Beta access" : "Get beta access";
+    const text = button.closest("nav") ? "Copy prompt" : "Copy prompt for your agent";
     if (label) label.textContent = text;
     else if (button.matches("[data-beta-access]")) button.textContent = text;
   });
   document.querySelectorAll(".body.prompt").forEach((node) => (node.textContent = prompt));
-  const modal = document.getElementById("beta-modal");
   document.addEventListener(
     "click",
     async (event) => {
@@ -25,11 +21,6 @@
       if (!button) return;
       event.preventDefault();
       event.stopImmediatePropagation();
-      if (!source) {
-        modal.showModal();
-        document.getElementById("beta-email").focus();
-        return;
-      }
       const label = button.querySelector("span") || button;
       try {
         if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(prompt);
@@ -60,51 +51,6 @@
     },
     true,
   );
-  document.getElementById("beta-close").addEventListener("click", () => modal.close());
-  modal.addEventListener("click", (event) => {
-    if (event.target === modal) {
-      const bounds = modal.getBoundingClientRect();
-      if (
-        event.clientX < bounds.left ||
-        event.clientX > bounds.right ||
-        event.clientY < bounds.top ||
-        event.clientY > bounds.bottom
-      )
-        modal.close();
-    }
-  });
-  const form = document.getElementById("beta-form"),
-    message = document.getElementById("beta-message"),
-    submit = document.getElementById("beta-submit");
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    if (!form.reportValidity()) return;
-    submit.disabled = true;
-    message.textContent = "Saving…";
-    try {
-      const response = await fetch("/v1/beta/interests", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          email: document.getElementById("beta-email").value,
-          consent: document.getElementById("beta-consent").checked,
-          consent_version: "beta-interest-2026-09-13",
-        }),
-      });
-      if (!response.ok) throw Error(response.status === 429 ? "rate" : "save");
-      const result = await response.json();
-      if (result.accepted !== true) throw Error("save");
-      form.hidden = true;
-      message.textContent = "You’re on the list. Thanks for your interest.";
-    } catch (error) {
-      message.textContent =
-        error.message === "rate"
-          ? "Please wait a minute and try again."
-          : "We couldn’t save your email. Please try again.";
-    } finally {
-      submit.disabled = false;
-    }
-  });
   const roadmap = document.getElementById("roadmap");
   if (roadmap) {
     const buttons = [...roadmap.querySelectorAll("[data-vote]")],

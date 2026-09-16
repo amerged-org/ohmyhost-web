@@ -1,4 +1,4 @@
-import { eligibleSource, siteBetaResponse, type PublicControlBinding } from "./beta-entry.js";
+import { signupSource, siteBetaResponse, type PublicControlBinding } from "./beta-entry.js";
 import {
   customerDocument,
   isClientDownload,
@@ -6,7 +6,20 @@ import {
   documentationRedirect,
 } from "./customer-entry.js";
 import { SITE_ICON } from "./generated-site-frame.js";
+// A shell-single-quoted assignment carries this value into the installer script.
+const SHELL_SAFE_SOURCE = /^[a-z0-9][a-z0-9_-]{0,63}$/u;
 const HOME = "https://ohmyho.st/";
+const ATTRIBUTE_ESCAPES: Record<string, string> = {
+  "&": "&amp;",
+  '"': "&quot;",
+  "'": "&#39;",
+  "<": "&lt;",
+  ">": "&gt;",
+};
+function signupSourceMeta(source: string): string {
+  const escaped = source.replaceAll(/["&'<>]/gu, (character) => ATTRIBUTE_ESCAPES[character] ?? "");
+  return `<meta name="ohmyhost-signup-source" content="${escaped}"></head>`;
+}
 
 export default {
   async fetch(
@@ -46,8 +59,7 @@ export default {
       return new Response(null, { status: 405, headers });
     }
     const sources = url.searchParams.getAll("r");
-    const querySource =
-      sources.length === 1 && /^[^\p{Cc}]{1,64}$/u.test(sources[0] ?? "") ? sources[0] : undefined;
+    const querySource = sources.length === 1 ? signupSource(sources[0]) : undefined;
     if (host === "www.ohmyho.st") {
       const target = new URL(HOME);
       target.pathname = url.pathname;
@@ -62,15 +74,15 @@ export default {
         ?.split(";")
         .map((item) => item.trim())
         .find((item) => item.startsWith("omh_referral="));
-      if (value) {
-        const decoded = decodeURIComponent(value.slice("omh_referral=".length));
-        if (/^[^\p{Cc}]{1,64}$/u.test(decoded)) cookieSource = decoded;
-      }
+      if (value)
+        cookieSource = signupSource(decodeURIComponent(value.slice("omh_referral=".length)));
     } catch {
       /* Ignore malformed optional attribution cookies. */
     }
     const source = sources.length ? querySource : cookieSource;
-    const invitation = source === "hostmebaby" ? source : undefined;
+    // Signup is open: the source is attribution only, so it never hides or unlocks anything.
+    const attribution = source !== undefined && SHELL_SAFE_SOURCE.test(source) ? source : undefined;
+    const loginHref = attribution === undefined ? "/login" : `/login?r=${attribution}`;
     const contentPage =
       ["/", "/brand", "/api", "/login"].includes(url.pathname) ||
       url.pathname === "/docs.md" ||
@@ -82,11 +94,6 @@ export default {
         "set-cookie",
         `omh_referral=${encodeURIComponent(querySource)}; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=2592000`,
       );
-      try {
-        await eligibleSource(querySource, env?.CONTROL_API, request);
-      } catch {
-        /* Attribution availability does not block public pages. */
-      }
     }
     if (url.pathname === "/0.sh" && (host === "omh.st" || host === "ohmyho.st")) {
       if (url.protocol !== "https:") {
@@ -101,12 +108,9 @@ export default {
         });
       const script = await env.ASSETS.fetch(new Request(`${HOME}pages/0.sh`));
       if (!script.ok) return new Response(null, { status: script.status, headers });
-      const installerSource = invitation
-        ? await eligibleSource(invitation, env.CONTROL_API, request)
-        : undefined;
       const text = (await script.text()).replace(
         "set -euo pipefail",
-        `set -euo pipefail\nOHMYHOST_SIGNUP_SOURCE='${installerSource ?? ""}'`,
+        `set -euo pipefail\nOHMYHOST_SIGNUP_SOURCE='${attribution ?? ""}'`,
       );
       return new Response(request.method === "HEAD" ? null : text, { headers });
     }
@@ -159,13 +163,8 @@ export default {
     const document = customerDocument(documentPath);
     if (document) {
       let documentText = document.text;
-      if (!invitation && document.type.startsWith("text/html"))
-        documentText = documentText.replace(
-          /<a\b[^>]*href="(?:https:\/\/ohmyho\.st)?\/login(?:\?[^" ]*)?"[^>]*>[\s\S]*?<\/a>/gu,
-          "",
-        );
-      if (invitation)
-        documentText = documentText.replaceAll('href="/login"', 'href="/login?r=hostmebaby"');
+      if (attribution)
+        documentText = documentText.replaceAll('href="/login"', `href="${loginHref}"`);
       if (document.type.startsWith("text/html")) {
         const hashes = [];
         for (const script of documentText.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gu)) {
@@ -178,11 +177,7 @@ export default {
           "content-security-policy",
           `default-src 'none'; script-src 'self' ${hashes.join(" ")}; style-src 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'`,
         );
-        if (invitation)
-          documentText = documentText.replace(
-            "</head>",
-            `<meta name="ohmyhost-signup-source" content="${invitation}"></head>`,
-          );
+        if (source) documentText = documentText.replace("</head>", () => signupSourceMeta(source));
       }
       headers.set("content-type", document.type);
       headers.set("vary", "Accept");
@@ -288,15 +283,10 @@ export default {
               ? "application/json; charset=utf-8"
               : "text/html; charset=utf-8";
     if (type.startsWith("text/html")) {
-      if (!invitation)
-        body = body.replace(
-          /<a\b[^>]*href="(?:https:\/\/ohmyho\.st)?\/login(?:\?[^" ]*)?"[^>]*>[\s\S]*?<\/a>/gu,
-          "",
-        );
-      else
+      if (attribution)
         body = body.replaceAll(
           'href="https://ohmyho.st/login"',
-          'href="https://ohmyho.st/login?r=hostmebaby"',
+          `href="https://ohmyho.st${loginHref}"`,
         );
       const hashes: string[] = [];
       for (const script of body.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gu)) {
@@ -310,11 +300,8 @@ export default {
         `default-src 'none'; script-src 'self' ${hashes.join(" ")}; style-src 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; worker-src blob:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'`,
       );
       headers.set("link", `<${markdownPath}>; rel="alternate"; type="text/markdown"`);
-      if (page === "home.html" && invitation)
-        body = body.replace(
-          "</head>",
-          `<meta name="ohmyhost-signup-source" content="${invitation}"></head>`,
-        );
+      if (page === "home.html" && source)
+        body = body.replace("</head>", () => signupSourceMeta(source));
     }
     headers.set("content-type", type);
     headers.set("vary", "Accept");

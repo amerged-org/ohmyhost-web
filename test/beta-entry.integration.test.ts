@@ -28,18 +28,33 @@ it("connects the public page and consent form through the generated SDK to real 
           ),
         ),
     };
-    for (const query of ["?r=hostmebaby", "?r=unknown", "?r=hostmebaby&r=unknown", ""]) {
+    for (const [query, expected] of [
+      ["?r=hostmebaby", "hostmebaby"],
+      ["?r=unknown", "unknown"],
+      ["?r=Summer%20Launch", "Summer Launch"],
+      ["?r=hostmebaby&r=unknown", undefined],
+      ["", undefined],
+    ] as const) {
       const response = await worker.fetch(new Request("https://ohmyho.st/" + query), {
         ASSETS,
         CONTROL_API: binding,
       });
       expect(response.status).toBe(200);
       const html = await response.text();
-      expect(html.includes('<meta name="ohmyhost-signup-source" content="hostmebaby">')).toBe(
-        query === "?r=hostmebaby",
-      );
+      expect(html.includes('<meta name="ohmyhost-signup-source"')).toBe(expected !== undefined);
+      if (expected !== undefined)
+        expect(html).toContain(`<meta name="ohmyhost-signup-source" content="${expected}">`);
       expect(response.headers.get("content-security-policy")).toContain("sha256-");
     }
+    const injected = await worker.fetch(
+      new Request(`https://ohmyho.st/?r=${encodeURIComponent('"><script>alert(1)</script>&')}`),
+      { ASSETS, CONTROL_API: binding },
+    );
+    const injectedHtml = await injected.text();
+    expect(injectedHtml).toContain(
+      '<meta name="ohmyhost-signup-source" content="&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;&amp;">',
+    );
+    expect(injectedHtml).not.toContain("<script>alert(1)</script>");
     const remembered = await worker.fetch(
       new Request("https://ohmyho.st/about", { headers: { cookie: "omh_referral=hostmebaby" } }),
       { ASSETS, CONTROL_API: binding },
@@ -57,7 +72,8 @@ it("connects the public page and consent form through the generated SDK to real 
       }),
       { ASSETS, CONTROL_API: binding },
     );
-    expect(await overridden.text()).not.toContain('href="/login');
+    // An unknown source is attribution only; the login link stays reachable for everyone.
+    expect(await overridden.text()).toContain('href="/login?r=other"');
     const docsReferral = await worker.fetch(new Request("https://ohmyho.st/docs/cli?r=other"), {
       ASSETS,
       CONTROL_API: binding,
@@ -70,33 +86,29 @@ it("connects the public page and consent form through the generated SDK to real 
       CONTROL_API: binding,
     });
     expect(campaign.headers.get("set-cookie")).toContain("omh_referral=Summer%20Launch;");
-    expect(await campaign.text()).not.toMatch(
-      /<a[^>]+href="(?:https:\/\/ohmyho.st)?\/login[^>]*>/u,
-    );
+    // A source that cannot be carried into the installer shell falls back to the plain link.
+    expect(await campaign.text()).toMatch(/<a[^>]+href="(?:https:\/\/ohmyho.st)?\/login"[^>]*>/u);
     const anonymous = await worker.fetch(new Request("https://ohmyho.st/about"), {
       ASSETS,
       CONTROL_API: binding,
     });
-    expect(await anonymous.text()).not.toContain('href="/login"');
-    for (const path of ["/about", "/for/codex"]) {
-      const page = await worker.fetch(new Request(`https://ohmyho.st${path}?r=hostmebaby`), {
-        ASSETS,
-        CONTROL_API: binding,
-      });
-      expect(await page.text()).toContain(
-        '<meta name="ohmyhost-signup-source" content="hostmebaby">',
-      );
-    }
+    expect(await anonymous.text()).toContain('href="/login"');
+    for (const path of ["/about", "/for/codex"])
+      for (const value of ["hostmebaby", "Summer Launch"]) {
+        const page = await worker.fetch(
+          new Request(`https://ohmyho.st${path}?r=${encodeURIComponent(value)}`),
+          { ASSETS, CONTROL_API: binding },
+        );
+        expect(await page.text()).toContain(
+          `<meta name="ohmyhost-signup-source" content="${value}">`,
+        );
+      }
     for (const path of ["/status.json", "/stats.json"]) {
       const response = await siteBetaResponse(
         new Request(`https://ohmyho.st${path}`, {
           method: "POST",
           headers: { origin: "https://ohmyho.st", "content-type": "application/json" },
-          body: JSON.stringify({
-            email: "should-not-save@example.com",
-            consent: true,
-            consent_version: "beta-interest-2026-09-13",
-          }),
+          body: JSON.stringify({ feature: "eu", choice: "up" }),
         }),
         binding,
       );
@@ -106,37 +118,38 @@ it("connects the public page and consent form through the generated SDK to real 
     expect(
       (await siteBetaResponse(new Request("https://ohmyho.st/stats.json"), malformed))?.status,
     ).toBe(503);
-    const body = {
+    const interest = {
       email: "site-test@example.com",
       consent: true,
       consent_version: "beta-interest-2026-09-13",
     };
-    for (let n = 0; n < 2; n++) {
-      const result = await worker.fetch(
-        new Request("https://ohmyho.st/v1/beta/interests", {
-          method: "POST",
-          headers: { origin: "https://ohmyho.st", "content-type": "application/json" },
-          body: JSON.stringify(body),
-        }),
-        { ASSETS, CONTROL_API: binding },
-      );
-      expect(result.status).toBe(202);
-      expect(await result.json()).toEqual({ accepted: true });
-    }
-    const invalid = await siteBetaResponse(
+    const retired = await worker.fetch(
       new Request("https://ohmyho.st/v1/beta/interests", {
         method: "POST",
         headers: { origin: "https://ohmyho.st", "content-type": "application/json" },
-        body: JSON.stringify({ ...body, consent: false }),
+        body: JSON.stringify(interest),
       }),
-      binding,
+      { ASSETS, CONTROL_API: binding },
     );
-    const direct = await h.request("/v1/beta/interests", {
-      method: "POST",
-      headers: { "content-type": "application/json", origin: "https://ohmyho.st" },
-      body: JSON.stringify({ ...body, consent: false }),
-    });
-    expect(invalid?.status, await direct.text()).toBe(400);
+    expect(retired.status).toBe(405);
+    expect(
+      await siteBetaResponse(
+        new Request("https://ohmyho.st/v1/beta/interests", {
+          method: "POST",
+          headers: { origin: "https://ohmyho.st", "content-type": "application/json" },
+          body: JSON.stringify(interest),
+        }),
+        binding,
+      ),
+    ).toBeNull();
+    for (const path of ["/v1/beta/interests", "/v1/beta/eligibility?r=hostmebaby"]) {
+      const direct = await h.request(path, {
+        method: path.startsWith("/v1/beta/interests") ? "POST" : "GET",
+        headers: { "content-type": "application/json", origin: "https://ohmyho.st" },
+        ...(path.startsWith("/v1/beta/interests") ? { body: JSON.stringify(interest) } : {}),
+      });
+      expect(direct.status).toBe(404);
+    }
     const status = await siteBetaResponse(new Request("https://ohmyho.st/status.json"), binding);
     expect(await status?.json()).toMatchObject({
       ok: false,
@@ -231,6 +244,13 @@ it("connects the public page and consent form through the generated SDK to real 
     );
     expect(roadmapHtml).not.toContain("navigator.sendBeacon('/want'");
     expect(roadmapHtml).not.toContain('class="want"');
+    expect(roadmapHtml).not.toContain('id="beta-modal"');
+    expect(roadmapHtml).not.toContain('id="beta-form"');
+    expect(roadmapHtml).not.toContain("/v1/beta/interests");
+    expect(roadmapHtml).not.toContain("My invitation is");
+    expect(roadmapHtml).toContain(
+      '"I came from https://ohmyho.st/?r=" + encodeURIComponent(source)',
+    );
     expect((await siteBetaResponse(new Request("https://ohmyho.st/stats.json")))?.status).toBe(503);
     const contact = {
       name: "Website visitor",
@@ -273,6 +293,8 @@ it("connects the public page and consent form through the generated SDK to real 
       expect(page.status).toBe(200);
       const html = await page.text();
       expect(html).toContain('id="cookie-notice"');
+      expect(html).not.toContain('id="beta-modal"');
+      expect(html).not.toContain("Get beta access");
       expect(html).not.toMatch(/fonts\.googleapis|fonts\.gstatic|mailto:|smertens@/u);
       expect(page.headers.get("content-security-policy")).toContain("font-src 'self'");
       const md = await worker.fetch(new Request(`https://ohmyho.st${path}.md`), {
