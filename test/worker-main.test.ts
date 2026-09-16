@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { readdir, readFile } from "node:fs/promises";
 
 import { describe, expect, it } from "vitest";
@@ -403,7 +404,9 @@ it("serves only pinned public client assets and strips credentials before the as
   ])
     expect((await worker.fetch(new Request(invalid), { ASSETS: fixture })).status).toBe(404);
   expect(fixture.requests).toHaveLength(3);
-  const retained = (await readdir(new URL("../public/releases/", import.meta.url))).filter((name) =>
+  // Prepared release directories are a local artifact; a clean checkout simply has none.
+  const releases = new URL("../public/releases/", import.meta.url);
+  const retained = (existsSync(releases) ? await readdir(releases) : []).filter((name) =>
     /^0\.1\.0-beta\.[1-9][0-9]*$/u.test(name),
   );
   for (const version of retained)
