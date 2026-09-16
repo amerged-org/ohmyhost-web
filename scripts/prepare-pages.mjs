@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { format } from "prettier";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
@@ -168,7 +169,12 @@ await writeFile(
   `${output}/0.sh`,
   (await readFile(`${directory}site/0.sh`, "utf8")).replace("@CLIENT_RELEASE@", version),
 );
-const contractPath = `${directory}public/releases/${version}/openapi.json`;
+// The published release carries the same bundled contract the repository generates, so a
+// checkout without the prepared release directory still builds an identical site.
+const releaseContractPath = `${directory}public/releases/${version}/openapi.json`;
+const contractPath = existsSync(releaseContractPath)
+  ? releaseContractPath
+  : `${root}packages/contracts/generated/openapi.json`;
 const contract = JSON.parse(await readFile(contractPath, "utf8"));
 execFileSync(
   "pnpm",
