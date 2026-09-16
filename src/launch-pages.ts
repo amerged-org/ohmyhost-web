@@ -14,7 +14,7 @@ The order or checkout you expressly accept states the purchased service, price, 
 
 ## 2. Beta and supported hosting
 
-ohmyho.st is an invite-only beta. An invitation grants only its configured access and promotional benefits. Beta or manual Paid-feature access is not a paid subscription and does not authorise a charge. A beta entitlement can be withdrawn; we give reasonable notice where practicable, while urgent security or legal restrictions can take effect immediately.
+ohmyho.st is an open beta: you can create an account without an invitation. A signup source recorded from a link is attribution only; it grants no access and adds only the promotional benefit configured for that source, if any. Beta or manual Paid-feature access is not a paid subscription and does not authorise a charge. A beta entitlement can be withdrawn; we give reasonable notice where practicable, while urgent security or legal restrictions can take effect immediately.
 
 The service hosts supported GitHub applications and requested database, domain, transactional-mail, file and runtime capabilities. Your agent uses the API, CLI or MCP to plan and operate them; the portal exposes supported account, project, credit and budget controls. Current [documentation](https://docs.ohmyho.st/), returned plans and service status describe availability and limits. A roadmap vote or marketing calculator is not an order for an unimplemented feature.
 
@@ -160,7 +160,7 @@ Performance uses 2.5 times standard database-compute credits for equal active ti
 
 ## Control your spending
 
-Ask your agent for remaining credits, measured usage and optional project budgets. A top-up adds credits but does not extend a subscription. Automatic recharge and promotional calculator discounts are not enabled in the current beta. Production purchases are not yet enabled; invited organizations can use their available balance.
+Ask your agent for remaining credits, measured usage and optional project budgets. A top-up adds credits but does not extend a subscription. Automatic recharge and promotional calculator discounts are not enabled in the current beta. Production purchases are not yet enabled; your organization can use its available balance.
 
 [Worked cost example](/pricing/breakdown) · [Usage guide](/docs/usage) · [Compare Vercel](/vs/vercel)`,
   "/pricing/breakdown": `# Where your credits go
@@ -276,9 +276,13 @@ For your application's deployment, domain, database or mail status, ask your age
 [Project status](/docs/status) · [Troubleshooting](/docs/troubleshooting) · [Home](/)`,
   "/changelog": `# Changelog
 
+## September 16, 2026
+
+Signup is open to everyone: there is no invitation, waitlist or access code. Every visitor gets the agent prompt and the login link, and a link's r value is kept only as signup attribution that may carry its configured promotional credit.
+
 ## September 13, 2026
 
-The beta website now distinguishes invited signup from registering interest. Task Skills cover initial connection, GitHub deployment, database sizing, DNS and email, usage and budgets, troubleshooting and encrypted SQL export.
+The beta website then distinguished invited signup from registering interest. Task Skills cover initial connection, GitHub deployment, database sizing, DNS and email, usage and budgets, troubleshooting and encrypted SQL export.
 
 Public CLI/MCP releases provide project context, operation diagnostics, usage reports and user-owned deployment tokens. See the current [release manifest](/docs/cli) for the exact published version.
 
@@ -298,7 +302,7 @@ Your projects share an organization balance. You can ask which project used cred
 
 Start with the capabilities your app needs. A public Vite app can be public without a database or auth provider. A database-backed application needs its migrations and real data flows checked. Production promotion should preserve existing production records.
 
-The beta is invitation-only. Open your invitation link to get the agent prompt, or use Get beta access on the homepage to register interest. The docs describe the currently available paths; upcoming features remain separate.
+Signup is open, with no invitation or access code. Copy the agent prompt from the homepage; your agent sends back a sign-in link where you sign in or create your account. The docs describe the currently available paths; upcoming features remain separate.
 
 [Start with your agent](/docs/quickstart) · [Explore the Skills](/docs/skills) · [Home](/)`,
 };
@@ -318,7 +322,7 @@ Keep working in ${name} and let the ohmyho.st Skills guide the hosting steps.
 
 ## Connect
 
-Open your project and your invitation link. Copy the agent prompt, or follow the [CLI/MCP installation guide](/docs/mcp) first. The current MCP server runs locally with Node.js.
+Open your project and [ohmyho.st](/). Copy the agent prompt, or follow the [CLI/MCP installation guide](/docs/mcp) first. The current MCP server runs locally with Node.js.
 
 ${command}
 

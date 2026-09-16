@@ -15,7 +15,7 @@ When a customer uses ohmyho.st to process personal data in an application, the c
 | Activity | Data | Purpose and legal basis |
 | --- | --- | --- |
 | Website delivery and security | Network address, request time, requested resource, browser/protocol information and necessary security events | Deliver pages, prevent abuse and diagnose faults; our legitimate interests in a secure, available service, Article 6(1)(f) GDPR |
-| Beta-interest registration | Email address, submission time and the consent version you accepted | Record your interest in the beta; consent, Article 6(1)(a) |
+| Earlier beta-interest registrations (closed) | Email address, submission time and the consent version accepted at the time | Registration closed when public signup opened: we collect no new registrations and only keep existing records until they expire; consent, Article 6(1)(a) |
 | Referral and signup source | The entry link’s r value, aggregate campaign observations, and the source associated with a verified signup | Remember the selected entry and administer configured referral eligibility; Article 6(1)(b) for requested benefits, and Article 6(1)(f) for proportionate acquisition analysis |
 | Roadmap votes | Selected topic and positive, negative or removed choice, hashed random browser identifier, request identifier and submission time | Save and restore your requested vote and prevent duplicate retries; legitimate interests, Article 6(1)(f); this is not proof of a unique person |
 | Contact and privacy requests | Name, email, optional company, message, request identifier and timestamps | Answer your request; Article 6(1)(b) for contract-related enquiries, Article 6(1)(f) for other correspondence, and Article 6(1)(c) for statutory requests |
@@ -25,7 +25,7 @@ When a customer uses ohmyho.st to process personal data in an application, the c
 
 We receive these data from you and your authorised agents, your requests to the service, and the identity, repository, infrastructure or payment provider involved in your selected workflow. Project and user identifiers in a prompt do not themselves authorise access.
 
-Providing contact details is necessary for us to respond. Company is optional for individuals. Do not include passwords, access tokens or unnecessary sensitive information in a message. We do not use the beta-interest form to create a hosting account or enrol you in a marketing newsletter.
+Providing contact details is necessary for us to respond. Company is optional for individuals. Do not include passwords, access tokens or unnecessary sensitive information in a message. We do not use the contact form to create a hosting account or enrol you in a marketing newsletter.
 
 ## 3. Customer applications and agents
 
@@ -51,7 +51,7 @@ Restricted transfers require an applicable adequacy decision or another valid Ch
 
 Roadmap vote changes and request identifiers are deleted twelve months after each submission; repeating a request does not extend its retention. Removed choices are retained for that period only to prevent an earlier retry from restoring them. The browser cookie lasts up to twelve months after use. Earlier feature-interest records are retained only until their own twelve-month expiry and are not assigned an invented browser identity.
 
-Aggregate referral counts expire after thirty days without a new observation. At successful signup, the selected entry source is also associated with the authenticated user for acquisition analysis and eligibility for configured referral credits; later sign-ins do not overwrite that attribution. This account attribution is retained with the account and necessary grant records. Beta-interest records are deleted twelve months after submission, or earlier on withdrawal. Repeated submissions do not silently extend that period. Contact-form records are retained for no longer than twelve months from submission as contact-request records and may be deleted earlier when no longer needed. Records separately required to fulfil a statutory obligation or establish, exercise or defend a claim are limited to that purpose and the applicable period.
+Aggregate referral counts expire after thirty days without a new observation. At successful signup, the selected entry source is also associated with the authenticated user for acquisition analysis and eligibility for configured referral credits; later sign-ins do not overwrite that attribution. This account attribution is retained with the account and necessary grant records. Beta-interest records from the closed registration are deleted twelve months after their submission, or earlier on withdrawal; registration closed when public signup opened, so no new record is collected and none can extend that period. Contact-form records are retained for no longer than twelve months from submission as contact-request records and may be deleted earlier when no longer needed. Records separately required to fulfil a statutory obligation or establish, exercise or defend a claim are limited to that purpose and the applicable period.
 
 New API keys have no scheduled expiry: they remain usable until revoked, while access always depends on current membership and permissions. This is separate from the seven-day browser-session lifetime. Key identifiers, masked values, creation/last-use information and revocation/security records are retained as needed to administer access; the full issued token is shown once and is not retrievable from the portal.
 
@@ -82,7 +82,7 @@ The main website at ohmyho.st and account portal at app.ohmyho.st use technical 
 
 | Technology | Purpose | Duration / scope |
 | --- | --- | --- |
-| omh_referral | Remember the entry link’s r value and whether to show the beta login link; no unique visitor identifier | Up to 30 days; first-party, Secure, HttpOnly, SameSite=Lax |
+| omh_referral | Remember the entry link’s r value and pass it to the login link and install command as signup attribution; no unique visitor identifier | Up to 30 days; first-party, Secure, HttpOnly, SameSite=Lax |
 | omh_cookie_notice | Remember that you dismissed the technical-cookie notice | Up to 180 days; first-party website preference, no unique visitor identifier |
 | __Host-omh-session | Keep the authenticated account portal session, protect form actions and renew WorkOS access server-side | Up to seven days; encrypted and authenticated, host-only, Secure, HttpOnly, SameSite=Lax; cleared on logout or invalidation |
 | __Host-omh-login | Protect the browser login handoff using state and PKCE | Up to ten minutes; Secure, HttpOnly, SameSite=Lax; cleared after the handoff |

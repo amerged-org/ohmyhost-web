@@ -163,7 +163,7 @@ for (const file of [
 
 const entry = await readFile(`${directory}src/customer-entry.ts`, "utf8");
 const version = entry.match(/export const CLIENT_RELEASE = "([^"]+)"/u)?.[1];
-if (!version || !/^\d+\.\d+\.\d+-beta\.\d+$/u.test(version))
+if (!version || !/^\d+\.\d+\.\d+(?:-beta\.\d+)?$/u.test(version))
   throw new Error("The public client release is invalid");
 await writeFile(
   `${output}/0.sh`,
