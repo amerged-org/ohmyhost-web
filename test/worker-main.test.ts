@@ -39,7 +39,9 @@ describe("public entry and unassigned Free-host fallback", () => {
     const comparisonStart = html.indexOf('<div class="vs stag">');
     const comparison = html.slice(comparisonStart, html.indexOf("</section>", comparisonStart));
     expect(comparison.match(/<details class="bill" open><summary>/gu)).toHaveLength(2);
-    expect(comparison.match(/class="li"/gu)).toHaveLength(15);
+    expect(comparison.match(/class="li"/gu)).toHaveLength(13);
+    expect(html).not.toMatch(/AI (models|credits)/u);
+    expect(html).toContain("<span><h3>1,000 emails</h3><u>53 credits</u></span>");
     expect(comparison.match(/Functions &amp; cron/gu)).toHaveLength(2);
     for (const card of comparison.split('<div class="card').slice(1)) {
       const bill = card.indexOf('<details class="bill" open>');

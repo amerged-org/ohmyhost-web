@@ -230,6 +230,37 @@ function applyApprovedHomepageChanges(html) {
       'Better Auth, WorkOS or anything else that speaks OAuth, OIDC or SAML — wire it in, we don\'t lock you into ours.</p>\n  <div class="cells logos stag" id="auth-logos" style="grid-template-columns:repeat(3,1fr)">',
     '<span class="avatar" aria-hidden="true"></span>':
       '<img src="/brand/assets/founder.png" width="96" height="96" loading="lazy" alt="Founder of ohmyho.st" style="border-radius:50%;flex:0 0 96px;object-fit:cover">',
+    // PRICING.md is the only price source: no AI product, and every example equals the rate card.
+    '<text x="748" y="234">ai models</text>': '<text x="748" y="234">functions &amp; cron</text>',
+    "which runs hosting, domain, database, email, AI and backups":
+      "which runs hosting, domain, database, email, functions and backups",
+    '      <div class="li"><b>AI models</b><span>uses credits</span></div>\n': "",
+    '        <li class="no">AI models</li>\n': "",
+    '      <div class="li"><b>AI credits</b><span>≈ $5</span></div>\n': "",
+    '<span class="count" data-to="70">$70</span>': '<span class="count" data-to="65">$65</span>',
+    "Resend Pro $20 — around $70 for one project": "Resend Pro $20 — around $65 for one project",
+    "        <li>AI models, any of them <em>uses credits</em></li>\n": "",
+    "plus a linked domain, AI models and nightly exports":
+      "plus a linked domain, functions and database exports",
+    "Custom domains, email, AI models and backups come with the $10 plan.":
+      "Custom domains, email and database exports come with the $10 plan.",
+    "(2,000 emails ≈ $7 from your balance vs a $20 Resend Pro plan) and more expensive at high volume (50,000 emails ≈ $175 vs $20)":
+      "(2,000 emails ≈ $1 from your balance vs a $20 Resend Pro plan) and more expensive at high volume (50,000 emails ≈ $26 vs $20)",
+    "1,000 credits. 2,000 emails ≈ 700 credits, a small app's":
+      "1,000 credits. 2,000 emails ≈ 105 credits, a small app's",
+    "<span><h3>10,000 db reads</h3><u>8 credits</u></span>":
+      "<span><h3>1 active database hour</h3><u>36 credits</u></span>",
+    "<span><h3>1,000 emails</h3><u>350 credits</u></span>":
+      "<span><h3>1,000 emails</h3><u>53 credits</u></span>",
+    "<span><h3>1 GB served</h3><u>40 credits</u></span>":
+      "<span><h3>1M requests</h3><u>99 credits</u></span>",
+    // The volume bonus returns with its implementation (PLAN.md P36); until then a purchase grants 100 credits per dollar.
+    "var credits = v<=100 ? v*100 : 10000 + (v-100)*125;": "var credits = v*100;",
+    ": '20% off above $100 — 125 credits per dollar';": ": '100 credits per dollar';",
+    "autotext.textContent='On. Every $10 of credits after this costs 10% less. Refills $'+f(v)+' when you drop below 10%.';":
+      "autotext.textContent='On. Refills 1,000 credits for $9 when you drop below 100 credits.';",
+    ": 'On. Every $10 of credits after this costs 10% less. Refills $'+f(steps[+dial.value])+' when you drop below 10%.';":
+      ": 'On. Refills 1,000 credits for $9 when you drop below 100 credits.';",
   })) {
     if (!html.includes(before))
       throw new Error(`Approved homepage boundary missing: ${before.slice(0, 65)}`);
