@@ -254,9 +254,8 @@ function applyApprovedHomepageChanges(html) {
       "<span><h3>1,000 emails</h3><u>53 credits</u></span>",
     "<span><h3>1 GB served</h3><u>40 credits</u></span>":
       "<span><h3>1M requests</h3><u>99 credits</u></span>",
-    // The volume bonus returns with its implementation (PLAN.md P36); until then a purchase grants 100 credits per dollar.
-    "var credits = v<=100 ? v*100 : 10000 + (v-100)*125;": "var credits = v*100;",
-    ": '20% off above $100 — 125 credits per dollar';": ": '100 credits per dollar';",
+    // The slider states the purchase rule of PRICING.md: more credits above USD 100, never a cheaper consumption rate.
+    ": '20% off above $100 — 125 credits per dollar';": ": '125 credits per dollar above $100';",
     "autotext.textContent='On. Every $10 of credits after this costs 10% less. Refills $'+f(v)+' when you drop below 10%.';":
       "autotext.textContent='On. Refills 1,000 credits for $9 when you drop below 100 credits.';",
     ": 'On. Every $10 of credits after this costs 10% less. Refills $'+f(steps[+dial.value])+' when you drop below 10%.';":

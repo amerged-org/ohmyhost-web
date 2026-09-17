@@ -289,7 +289,7 @@
     },
     {
       "name": "billing_checkout_create",
-      "description": "Owner-only: create or resume a hosted Checkout. Paid is USD 10/month; each topup pack is USD 10 for 1000 non-expiring credits, before tax. Return the URL to the human to review/pay; never auto-pay or treat browser return as confirmation. Preserve the same offer/packs/idempotency key after uncertainty. An existing active, overdue, unpaid or paused subscription must be managed through billing_portal_create, not replaced with another Paid purchase. Then read checkout status and organization credits. Works at zero credit.",
+      "description": "Owner-only: create or resume a hosted Checkout. Paid is USD 10/month; each top-up pack is USD 10 before tax; a purchase grants 100 credits per dollar up to USD 100 and 125 credits per dollar for the part above, so 10 packs grant 10000 and 20 packs grant 22500 non-expiring credits. Return the URL to the human to review/pay; never auto-pay or treat browser return as confirmation. Preserve the same offer/packs/idempotency key after uncertainty. An existing active, overdue, unpaid or paused subscription must be managed through billing_portal_create, not replaced with another Paid purchase. Then read checkout status and organization credits. Works at zero credit.",
       "inputSchema": {
         "type": "object",
         "$schema": "https://json-schema.org/draft/2020-12/schema",
