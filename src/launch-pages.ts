@@ -18,7 +18,7 @@ ohmyho.st is an open beta: you can create an account without an invitation. A si
 
 The service hosts supported GitHub applications and requested database, domain, transactional-mail, file and runtime capabilities. Your agent uses the API, CLI or MCP to plan and operate them; the portal exposes supported account, project, credit and budget controls. Current [documentation](https://docs.ohmyho.st/), returned plans and service status describe availability and limits. A roadmap vote or marketing calculator is not an order for an unimplemented feature.
 
-You choose shared or isolated Dev/Prod data and the resources each application needs. New customer application/database placements are in US East. Control databases, edge delivery and provider operations have distinct locations described in the Privacy notice and DPA; the workload setting is not a promise that every category of service data stays exclusively in that region.
+You choose shared or isolated Dev/Prod data and the resources each application needs. A project chooses its hosting region when it is created: US by default, or EU. That choice places the project's database, files, build sandbox and build objects in the chosen region, its application runs next to its database, and the choice cannot be changed later; transactional mail is sent from the platform's mail region regardless of it. Control databases, edge delivery and provider operations have distinct locations described in the Privacy notice and DPA; the workload setting is not a promise that every category of service data stays exclusively in that region.
 
 ## 3. Accounts, credentials and agents
 
@@ -156,7 +156,7 @@ Measured builds, worker requests and CPU time, database compute and storage, fil
 | Paid standard | 0.5 CU / 2 GB | 2 minutes |
 | Paid performance | 1 CU / 4 GB | 5 minutes |
 
-Performance uses 2.5 times standard database-compute credits for equal active time. Shared Dev/Prod uses one database; isolated data uses two independently metered databases.
+Performance uses 2.5 times standard database-compute credits for equal active time. Shared Dev/Prod uses one database; isolated data uses two independently metered databases. Prices are identical in the US and EU hosting regions.
 
 ## Control your spending
 

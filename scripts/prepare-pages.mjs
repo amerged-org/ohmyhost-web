@@ -197,7 +197,7 @@ function applyApprovedHomepageChanges(html) {
   const exportAnswer =
     "Request a portable SQL dump in a password-encrypted ZIP through your agent, CLI or API. Exports run asynchronously, with one accepted request per project every 24 hours and a signed download link valid for 24 hours. Keep your password and restore on another Postgres host, or let your automation tool copy the encrypted file to your own storage.";
   const euAnswer =
-    "Not yet. New projects use US hosting, with application compute and Postgres placed together. An EU hosting option is on the roadmap. Vote below to help us prioritize it.";
+    "Yes. Choose EU when you create the project; the default is US. An EU project keeps its Postgres database, its files and its builds in the EU, and the application runs next to its database. The region cannot be changed later, and prices are identical in both regions. Transactional mail is sent from the platform's mail region in either case.";
   for (const [before, after] of Object.entries({
     "<title>Hosting for vibe-coded apps — $10/mo for all your projects, not per project | ohmyho.st</title>":
       '<title>ohmyho.st — Hosting for agents, from $10/month</title><meta name="description" content="Deploy GitHub apps with your agent. Hosting, Postgres, domains, email and encrypted SQL exports, with one credit balance across projects.">',
@@ -221,6 +221,9 @@ function applyApprovedHomepageChanges(html) {
       exportAnswer,
     "Not yet. ohmyho.st is based in Palo Alto, CA, and an EU hosting region is the next thing on the roadmap — press + on the badge below to vote for it. Until then, we say so plainly rather than claim it.":
       euAnswer,
+    // EU hosting is a per-project choice since 2026-09-18: a plain trust badge replaces the roadmap vote.
+    '<span class="badge soon"><em>soon</em><b>Hosting in the EU</b><button class="want" data-f="eu" data-tip="Want this? Press +" aria-label="I want EU hosting">+</button></span>':
+      '<span class="badge">Hosting in the <b>US</b> or <b>EU</b></span>',
     '"addressLocality": "Palo Alto"': '"addressLocality": "Venray"',
     '"addressRegion": "CA"': '"addressRegion": "Limburg"',
     '"addressCountry": "US"': '"addressCountry": "NL"',
@@ -283,7 +286,7 @@ function applyApprovedHomepageChanges(html) {
     .replaceAll("nightly exports", "on-demand database exports");
   const badgePattern = /<span class="badge soon">[^\n]*<button class="want"[^\n]*?<\/span>/gu;
   const badges = html.match(badgePattern);
-  if (badges?.length !== 3) throw new Error("Expected the three roadmap interest badges");
+  if (badges?.length !== 2) throw new Error("Expected the two remaining roadmap interest badges");
   html = html.replace(badgePattern, "");
   html = html.replace(
     /<script>\s*\(function\(\)\{\s*document\.querySelectorAll\('\.want'\)[\s\S]*?<\/script>/u,
@@ -291,8 +294,8 @@ function applyApprovedHomepageChanges(html) {
   );
   if (html.includes("navigator.sendBeacon('/want'"))
     throw new Error("Obsolete optimistic feature handler remains");
+  // EU hosting shipped as a per-project choice on 2026-09-18, so it is no longer a roadmap vote.
   const topics = [
-    ["eu", "Hosting in the EU"],
     ["iso27001", "ISO 27001"],
     ["soc2", "SOC 2 Type II"],
   ];

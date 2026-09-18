@@ -1176,7 +1176,7 @@
     },
     {
       "name": "project_create",
-      "description": "Create an ohmyho.st project. Recommend isolated Dev/Prod data, but respect the customer's choice and added database consumption. shared is the default and uses one database/file namespace; isolated separates database/Auth records and files. Choose before provisioning; changing the established mode requires a data migration.",
+      "description": "Create an ohmyho.st project. Recommend isolated Dev/Prod data, but respect the customer's choice and added database consumption. shared is the default and uses one database/file namespace; isolated separates database/Auth records and files. Choose before provisioning; changing the established mode requires a data migration. region defaults to us; eu places the project's database, files and builds in the EU at the same prices. The region cannot be changed later, and ohmyhost.yaml storage.jurisdiction must equal it.",
       "inputSchema": {
         "type": "object",
         "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -1194,6 +1194,10 @@
           "data_mode": {
             "type": "string",
             "enum": ["shared", "isolated"]
+          },
+          "region": {
+            "type": "string",
+            "enum": ["us", "eu"]
           },
           "idempotency_key": {
             "type": "string",

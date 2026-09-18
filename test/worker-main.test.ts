@@ -186,6 +186,14 @@ describe("public entry and unassigned Free-host fallback", () => {
     );
     expect(skill.status).toBe(200);
     expect(await skill.text()).toContain("feedback");
+    const terms = await (await worker.fetch(new Request("https://ohmyho.st/terms"))).text();
+    expect(terms).toContain(
+      "A project chooses its hosting region when it is created: US by default, or EU.",
+    );
+    expect(terms).not.toContain("placements are in US East");
+    expect(await (await worker.fetch(new Request("https://ohmyho.st/pricing"))).text()).toContain(
+      "Prices are identical in the US and EU hosting regions.",
+    );
     expect(html).not.toContain("private-ticket");
     expect(home.headers.get("content-security-policy")).toContain("default-src 'none'");
     expect(

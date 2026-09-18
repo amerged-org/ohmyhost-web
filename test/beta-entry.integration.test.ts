@@ -237,7 +237,14 @@ it("connects the public page and consent form through the generated SDK to real 
     const roadmapHtml = await (
       await worker.fetch(new Request("https://ohmyho.st/"), { ASSETS, CONTROL_API: binding })
     ).text();
-    expect(roadmapHtml.match(/class="roadmap-vote"/gu)).toHaveLength(6);
+    expect(roadmapHtml.match(/class="roadmap-vote"/gu)).toHaveLength(4);
+    expect(roadmapHtml).not.toContain('data-f="eu"');
+    expect(roadmapHtml).not.toContain("Vote for Hosting in the EU");
+    expect(roadmapHtml).toContain(
+      '<span class="badge">Hosting in the <b>US</b> or <b>EU</b></span>',
+    );
+    expect(roadmapHtml).toContain("Yes. Choose EU when you create the project; the default is US.");
+    expect(roadmapHtml).not.toContain("An EU hosting option is on the roadmap");
     expect(roadmapHtml.indexOf('id="roadmap"')).toBeGreaterThan(roadmapHtml.indexOf('id="faq"'));
     expect(roadmapHtml.indexOf('id="roadmap"')).toBeLessThan(
       roadmapHtml.indexOf('<div class="end">'),
