@@ -1,8 +1,8 @@
-import { existsSync } from "node:fs";
 import { readdir, readFile } from "node:fs/promises";
 
 import { describe, expect, it } from "vitest";
 
+import { CLIENT_RELEASE } from "../src/customer-entry.js";
 import worker from "../src/worker-main.js";
 
 describe("public entry and unassigned Free-host fallback", () => {
@@ -358,7 +358,7 @@ describe("public entry and unassigned Free-host fallback", () => {
 
 it("serves only pinned public client assets and strips credentials before the asset binding", async () => {
   const fixture = new PublicAssetFixture();
-  const url = "https://ohmyho.st/releases/0.1.0-beta.1/ohmyhost-product-cli-0.1.0-beta.1.tgz";
+  const url = `https://ohmyho.st/releases/${CLIENT_RELEASE}/ohmyhost-product-cli-${CLIENT_RELEASE}.tgz`;
   const response = await worker.fetch(
     new Request(url + "?token=private", {
       headers: { authorization: "Bearer private", cookie: "private" },
@@ -393,41 +393,20 @@ it("serves only pinned public client assets and strips credentials before the as
     expect(document.status).toBe(200);
     expect(await document.text()).toContain(`name: ${entry.name}`);
   }
-  const currentUrl =
-    "https://ohmyho.st/releases/0.1.0-beta.7/ohmyhost-product-cli-0.1.0-beta.7.tgz";
+  // Only the current release is served. Superseded versions are gone, not deprecated.
+  const currentUrl = `https://ohmyho.st/releases/${CLIENT_RELEASE}/ohmyhost-product-cli-${CLIENT_RELEASE}.tgz`;
   expect((await worker.fetch(new Request(currentUrl), { ASSETS: fixture })).status).toBe(200);
   expect(fixture.requests).toHaveLength(2);
-  expect(
-    (
-      await worker.fetch(
-        new Request(
-          "https://ohmyho.st/releases/0.1.0-beta.11/ohmyhost-product-cli-0.1.0-beta.11.tgz",
-        ),
-        { ASSETS: fixture },
-      )
-    ).status,
-  ).toBe(200);
   for (const invalid of [
-    "https://ohmyho.st/releases/0.1.0-beta.7/ohmyhost-product-cli-0.1.0-beta.1.tgz",
+    "https://ohmyho.st/releases/0.1.1/ohmyhost-product-cli-0.1.1.tgz",
+    "https://ohmyho.st/releases/0.1.0/manifest.json",
+    "https://ohmyho.st/releases/0.1.0-beta.40/ohmyhost-product-cli-0.1.0-beta.40.tgz",
+    `https://ohmyho.st/releases/${CLIENT_RELEASE}/ohmyhost-product-cli-0.1.1.tgz`,
     "https://ohmyho.st/releases/0.1.0-beta.119/manifest.json",
-    "https://ohmyho.st/releases/0.1.0-beta.7/.env.local",
+    `https://ohmyho.st/releases/${CLIENT_RELEASE}/.env.local`,
   ])
     expect((await worker.fetch(new Request(invalid), { ASSETS: fixture })).status).toBe(404);
-  expect(fixture.requests).toHaveLength(3);
-  // Prepared release directories are a local artifact; a clean checkout simply has none.
-  const releases = new URL("../public/releases/", import.meta.url);
-  const retained = (existsSync(releases) ? await readdir(releases) : []).filter((name) =>
-    /^0\.1\.[0-9]+(?:-beta\.[1-9][0-9]*)?$/u.test(name),
-  );
-  for (const version of retained)
-    expect(
-      (
-        await worker.fetch(new Request(`https://ohmyho.st/releases/${version}/manifest.json`), {
-          ASSETS: fixture,
-        })
-      ).status,
-    ).toBe(200);
-  expect(fixture.requests).toHaveLength(3 + retained.length);
+  expect(fixture.requests).toHaveLength(2);
 });
 
 class PublicAssetFixture {

@@ -14,51 +14,6 @@ const CLIENT_PACKAGES = [
   "customer-runtime",
   "customer-auth-better-auth",
 ];
-const RETAINED_CLIENT_RELEASES = new Set([
-  "0.1.0-beta.1",
-  "0.1.0-beta.2",
-  "0.1.0-beta.3",
-  "0.1.0-beta.4",
-  "0.1.0-beta.5",
-  "0.1.0-beta.6",
-  "0.1.0-beta.7",
-  "0.1.0-beta.8",
-  "0.1.0-beta.9",
-  "0.1.0-beta.10",
-  "0.1.0-beta.11",
-  "0.1.0-beta.12",
-  "0.1.0-beta.13",
-  "0.1.0-beta.14",
-  "0.1.0-beta.15",
-  "0.1.0-beta.16",
-  "0.1.0-beta.17",
-  "0.1.0-beta.18",
-  "0.1.0-beta.19",
-  "0.1.0-beta.20",
-  "0.1.0-beta.21",
-  "0.1.0-beta.22",
-  "0.1.0-beta.23",
-  "0.1.0-beta.24",
-  "0.1.0-beta.25",
-  "0.1.0-beta.26",
-  "0.1.0-beta.27",
-  "0.1.0-beta.28",
-  "0.1.0-beta.29",
-  "0.1.0-beta.30",
-  "0.1.0-beta.31",
-  "0.1.0-beta.32",
-  "0.1.0-beta.33",
-  "0.1.0-beta.34",
-  "0.1.0-beta.35",
-  "0.1.0-beta.36",
-  "0.1.0-beta.37",
-  "0.1.0-beta.38",
-  "0.1.0-beta.39",
-  "0.1.0-beta.40",
-  "0.1.0",
-  "0.1.1",
-  CLIENT_RELEASE,
-]);
 
 const skills = listOhmyhostSkillResources();
 export const DOCS_ORIGIN = "https://docs.ohmyho.st";
@@ -232,11 +187,13 @@ export function isClientDownload(path: string): boolean {
   const parts = path.split("/");
   const version = parts[2] ?? "";
   const file = parts[3] ?? "";
+  // Only the current release is served. Nothing is backwards compatible during the beta, so a
+  // superseded version is gone rather than deprecated.
   if (
     parts.length !== 4 ||
     parts[0] !== "" ||
     parts[1] !== "releases" ||
-    !RETAINED_CLIENT_RELEASES.has(version)
+    version !== CLIENT_RELEASE
   )
     return false;
   return (
