@@ -36,6 +36,13 @@ describe("public entry and unassigned Free-host fallback", () => {
       html.indexOf('<div class="slid up">'),
     );
     expect(pricing.match(/data-copy/gu)).toHaveLength(1);
+    expect(pricing).toContain("More database capacity when you need it <em>uses credits</em>");
+    expect(html.slice(html.indexOf("<nav>"), html.indexOf("</nav>"))).not.toContain(
+      'href="#export"',
+    );
+    expect(html).toContain('powered by <a href="https://amerged.com">amerged.com</a>');
+    expect(html).toContain('<a class="sales" href="/contact">Bigger than this? Talk to us.</a>');
+    expect(html).toContain('href="https://docs.ohmyho.st/pricing">See all usage rates</a>');
     const comparisonStart = html.indexOf('<div class="vs stag">');
     const comparison = html.slice(comparisonStart, html.indexOf("</section>", comparisonStart));
     expect(comparison.match(/<details class="bill" open><summary>/gu)).toHaveLength(2);
@@ -102,7 +109,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(
       await (await worker.fetch(new Request("https://omh.st/0.sh"), { ASSETS: assets })).text(),
     ).toContain("OHMYHOST_SIGNUP_SOURCE=''");
-    expect(installerText).toContain("0.1.5");
+    expect(installerText).toContain("0.1.6");
     expect(installerText).toContain("using only my explicitly authorized GitHub repository");
     expect(installerText).not.toMatch(/upload source path|source uploads/u);
     expect(installerText).toContain("Hermes 0.21 or newer is required for interactive onboarding.");
@@ -194,6 +201,15 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(await (await worker.fetch(new Request("https://ohmyho.st/pricing"))).text()).toContain(
       "Prices are identical in the US and EU hosting regions.",
     );
+    const breakdown = await (
+      await worker.fetch(new Request("https://ohmyho.st/pricing/breakdown.md"))
+    ).text();
+    expect(breakdown).toContain("| `build.sandbox.standard-3` | 60 build seconds | 1.204938 |");
+    expect(breakdown).toContain("24.098743 credits");
+    expect(breakdown).not.toContain("1.642857");
+    const privacy = await (await worker.fetch(new Request("https://ohmyho.st/privacy"))).text();
+    expect(privacy).toContain("US East or the EU");
+    expect(privacy).not.toContain("New customer application/database placements are in US East.");
     expect(html).not.toContain("private-ticket");
     expect(home.headers.get("content-security-policy")).toContain("default-src 'none'");
     expect(
@@ -262,8 +278,8 @@ describe("public entry and unassigned Free-host fallback", () => {
     });
     const release = await worker.fetch(new Request("https://ohmyho.st/client-release.json"));
     expect(await release.json()).toEqual({
-      version: "0.1.5",
-      manifest_url: "https://ohmyho.st/releases/0.1.5/manifest.json",
+      version: "0.1.6",
+      manifest_url: "https://ohmyho.st/releases/0.1.6/manifest.json",
     });
     const index = await worker.fetch(new Request("https://ohmyho.st/llms.txt"));
     const text = await index.text();
@@ -393,10 +409,18 @@ it("serves only pinned public client assets and strips credentials before the as
     expect(document.status).toBe(200);
     expect(await document.text()).toContain(`name: ${entry.name}`);
   }
-  // Only the current release is served. Superseded versions are gone, not deprecated.
+  // Both current and retained pinned downloads stay available during the migration.
   const currentUrl = `https://ohmyho.st/releases/${CLIENT_RELEASE}/ohmyhost-product-cli-${CLIENT_RELEASE}.tgz`;
   expect((await worker.fetch(new Request(currentUrl), { ASSETS: fixture })).status).toBe(200);
   expect(fixture.requests).toHaveLength(2);
+  expect(
+    (
+      await worker.fetch(
+        new Request("https://ohmyho.st/releases/0.1.5/ohmyhost-customer-runtime-0.1.5.tgz"),
+        { ASSETS: fixture },
+      )
+    ).status,
+  ).toBe(200);
   for (const invalid of [
     "https://ohmyho.st/releases/0.1.3/ohmyhost-product-cli-0.1.3.tgz",
     "https://ohmyho.st/releases/0.1.0/manifest.json",
@@ -406,7 +430,7 @@ it("serves only pinned public client assets and strips credentials before the as
     `https://ohmyho.st/releases/${CLIENT_RELEASE}/.env.local`,
   ])
     expect((await worker.fetch(new Request(invalid), { ASSETS: fixture })).status).toBe(404);
-  expect(fixture.requests).toHaveLength(2);
+  expect(fixture.requests).toHaveLength(3);
 });
 
 class PublicAssetFixture {

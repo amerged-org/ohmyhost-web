@@ -5,12 +5,21 @@ import { execFileSync } from "node:child_process";
 import { mkdir, readFile, writeFile, rm } from "node:fs/promises";
 import { fileURLToPath, URL } from "node:url";
 import TurndownService from "turndown";
+import { creditPricingTable } from "../../../scripts/credit-pricing-document.mjs";
 
 const directory = fileURLToPath(new URL("../", import.meta.url));
 const root = fileURLToPath(new URL("../../", new URL("../", import.meta.url)));
 const output = `${directory}public/pages`;
 const brandAssets = `${root}brand/assets`;
 await mkdir(output, { recursive: true });
+await writeFile(
+  `${directory}src/generated-pricing.ts`,
+  await format(
+    "// Generated from PRICING.md by pages:prepare.\n" +
+      `export const CREDIT_PRICING_TABLE = ${JSON.stringify(await creditPricingTable(root))};\n`,
+    { parser: "typescript", printWidth: 100 },
+  ),
+);
 await Promise.all(["api.html", "api.md"].map((file) => rm(`${output}/${file}`, { force: true })));
 const markdown = new TurndownService({ headingStyle: "atx", codeBlockStyle: "fenced" });
 markdown.remove(["script", "style", "svg", "head", "button", "input"]);
@@ -228,7 +237,22 @@ function applyApprovedHomepageChanges(html) {
     '"addressRegion": "CA"': '"addressRegion": "Limburg"',
     '"addressCountry": "US"': '"addressCountry": "NL"',
     "From Amsterdam, Netherlands to Palo Alto, CA, US — deploy with ohmyho.st":
-      "Amerged B.V. · Venray, Limburg, NL",
+      'powered by <a href="https://amerged.com">amerged.com</a>',
+    "<li>Scales up on its own</li>":
+      "<li>More database capacity when you need it <em>uses credits</em></li>",
+    '<span class="sales">Bigger than this? Talk to us.</span>':
+      '<a class="sales" href="/contact">Bigger than this? Talk to us.</a>',
+    "Dev and prod, both included": "Dev and prod for every project",
+    "Dev and prod environments are included for each project, not billed as two. Quiet projects use close to zero credits.":
+      "Every project has Dev and Prod. Isolated data uses two independently metered databases; retained resources use credits even when traffic is quiet.",
+    "Quiet projects burn almost nothing. Busy ones take credits as they go — top up any time.":
+      "Idle database compute can suspend. Retained storage and deployed resources still use credits — top up any time.",
+    "<span><h3>a quiet month</h3><u>≈ 0 credits</u></span>":
+      "<span><h3>1 database GB-month</h3><u>115 credits</u></span>",
+    "Off. If you run out, the site stays up and read-only.":
+      "Off. A zero balance starts a seven-day grace period. Refill to keep funded services running.",
+    "ohmyho.st bills nothing while a project is idle, and email and domain are in the $10 base price.":
+      "Idle database compute can suspend on ohmyho.st, while retained resources still use credits. Paid access enables email and custom domains; their usage is metered.",
     'WorkOS, Better Auth, Auth0 or anything else that speaks OAuth or SAML — wire it in, we don\'t lock you into ours.</p>\n  <div class="cells logos stag" style="grid-template-columns:repeat(4,1fr)">':
       'Better Auth, WorkOS or anything else that speaks OAuth, OIDC or SAML — wire it in, we don\'t lock you into ours.</p>\n  <div class="cells logos stag" id="auth-logos" style="grid-template-columns:repeat(3,1fr)">',
     '<span class="avatar" aria-hidden="true"></span>':
@@ -268,6 +292,14 @@ function applyApprovedHomepageChanges(html) {
       throw new Error(`Approved homepage boundary missing: ${before.slice(0, 65)}`);
     html = html.replaceAll(before, after);
   }
+  // Keep the export section and footer link; the top navigation stays compact.
+  html = html.replace('        <a href="#export">Export</a>\n', "");
+  const priceEnd = html.indexOf("</section>", html.indexOf('<section id="price">'));
+  if (priceEnd < 0) throw new Error("Pricing section missing for usage-rate link");
+  html =
+    html.slice(0, priceEnd) +
+    '<p class="note"><a href="https://docs.ohmyho.st/pricing">See all usage rates</a></p>\n' +
+    html.slice(priceEnd);
   html = html.replace(
     / {2}\/\* proof: a real number or nothing \*\/[\s\S]*?\n {2}\}\)\.catch\(function\(\)\{\}\);/u,
     "",

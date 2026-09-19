@@ -43,7 +43,7 @@ We disclose data where required by applicable law or a binding request, and asse
 
 ## 5. International processing
 
-Amerged B.V. is established in the Netherlands. New customer application/database placements are in US East. The separate control databases currently have EU placement, while edge delivery, provider support and some operational processing can occur globally. This workload placement does not localise every provider’s processing. We therefore do not describe the service as EU-only storage. Access and processing outside the EEA can occur through the providers used for the selected services.
+Amerged B.V. is established in the Netherlands. Customer projects choose US East or the EU when they are created, with US East as the default. This choice places the project's database, files and builds; the application runs next to its database. The separate control databases currently have EU placement, while transactional mail, edge delivery, provider support and some operational processing have their own locations. This workload placement does not localise every provider’s processing. We therefore do not describe the service as EU-only storage. Access and processing outside the EEA can occur through the providers used for the selected services.
 
 Restricted transfers require an applicable adequacy decision or another valid Chapter V safeguard, including the European Commission's Standard Contractual Clauses where needed. An adequacy mechanism, such as the EU–US Data Privacy Framework, is relied on only when the recipient's current certification and the particular transfer are covered. Our [transfer annex](/dpa/transfers) explains the applicable roles and safeguards. You can request information about the safeguards through the contact form.
 

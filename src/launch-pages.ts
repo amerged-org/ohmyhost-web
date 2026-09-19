@@ -1,4 +1,6 @@
-/** Launch prose is exported as the reviewed Mintlify snapshot; runtime contracts stay in the platform. */
+import { CREDIT_PRICING_TABLE } from "./generated-pricing.js";
+
+/** Public editorial pages; the price table is generated from the reviewed price contract. */
 export const LAUNCH_DOCUMENTS: Record<string, string> = {
   "/terms": `# Terms of Service — Master Services Agreement
 
@@ -162,29 +164,20 @@ Performance uses 2.5 times standard database-compute credits for equal active ti
 
 Ask your agent for remaining credits, measured usage and optional project budgets. A top-up adds credits but does not extend a subscription. A top-up above $100 adds 125 credits per dollar for the part above $100; consumption prices stay the same. Automatic recharge is not enabled in the current beta. Production purchases are not yet enabled; your organization can use its available balance.
 
-[Worked cost example](/pricing/breakdown) · [Usage guide](/docs/usage) · [Compare Vercel](/vs/vercel)`,
+[All usage rates](https://docs.ohmyho.st/pricing) · [Worked cost example](/pricing/breakdown) · [Usage guide](/docs/usage) · [Compare Vercel](/vs/vercel)`,
   "/pricing/breakdown": `# Where your credits go
 
-Published rate basis checked September 13, 2026. At the standard purchase rate, 100 credits represent $1 of credit value. Credit consumption and the amount of a subscription payment are different.
+At the standard purchase rate, 100 credits represent $1 of credit value. Credit consumption and the amount of a subscription payment are different. The table below and the [pricing reference](https://docs.ohmyho.st/pricing) use the same published price contract.
 
-| Measured quantity | Credits |
-| --- | ---: |
-| Build minute | 1.642857 |
-| One million Worker requests | 98.571429 |
-| One million Worker CPU milliseconds | 6.571429 |
-| Standard database CU-hour | 72.942857 |
-| Performance database CU-hour | 91.178571 |
-| Database GB-month | 115 |
-| File-storage GB for 30 days | 4.928571 |
-| 1,000 mail recipients, published Essentials example | 52.571429 |
+${CREDIT_PRICING_TABLE}
 
 Actual charges use the active rate card, measured quantities and microcredit rounding. Your agent can read those cards and usage through the [usage API](/docs/usage). Storage, history and other operations may add consumption; different mail configurations can have different rates.
 
 ## An example workload
 
-Twenty build minutes (32.857143 credits), 100,000 worker requests (9.857143), one million CPU milliseconds (6.571429), four standard database CU-hours (291.771429), one database GB-month (115), and 2,000 Essentials mail recipients (105.142857) total **561.2 credits**: $5.612 in credit value.
+Twenty build minutes (24.098743 credits), 100,000 worker requests (9.857143), one million CPU milliseconds (6.571429), four standard database CU-hours (291.771429), one database GB-month (115), and 2,000 Essentials mail recipients (105.142857) total **about 552.44 credits**: about $5.5244 in credit value.
 
-Five identical workloads total **2,806 credits**. At the standard pack rate, 3,000 credits would cover these selected quantities. This is arithmetic, not a benchmark, a guaranteed bill or a complete estimate for an unspecified app.
+Five identical workloads total **about 2,762.21 credits**. At the standard pack rate, 3,000 credits would cover these selected quantities. This is arithmetic, not a benchmark, a guaranteed bill or a complete estimate for an unspecified app.
 
 ## A separate subscription scenario
 
