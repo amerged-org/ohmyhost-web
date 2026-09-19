@@ -239,7 +239,7 @@ function applyApprovedHomepageChanges(html) {
     "From Amsterdam, Netherlands to Palo Alto, CA, US — deploy with ohmyho.st":
       'powered by <a href="https://amerged.com">amerged.com</a>',
     "<li>Scales up on its own</li>":
-      "<li>More database capacity when you need it <em>uses credits</em></li>",
+      "<li>More capacity when you need it <em>uses credits</em></li>",
     '<span class="sales">Bigger than this? Talk to us.</span>':
       '<a class="sales" href="/contact">Bigger than this? Talk to us.</a>',
     "Dev and prod, both included": "Dev and prod for every project",

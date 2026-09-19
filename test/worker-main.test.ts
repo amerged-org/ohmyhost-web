@@ -36,7 +36,7 @@ describe("public entry and unassigned Free-host fallback", () => {
       html.indexOf('<div class="slid up">'),
     );
     expect(pricing.match(/data-copy/gu)).toHaveLength(1);
-    expect(pricing).toContain("More database capacity when you need it <em>uses credits</em>");
+    expect(pricing).toContain("More capacity when you need it <em>uses credits</em>");
     expect(html.slice(html.indexOf("<nav>"), html.indexOf("</nav>"))).not.toContain(
       'href="#export"',
     );
