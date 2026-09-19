@@ -102,7 +102,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(
       await (await worker.fetch(new Request("https://omh.st/0.sh"), { ASSETS: assets })).text(),
     ).toContain("OHMYHOST_SIGNUP_SOURCE=''");
-    expect(installerText).toContain("0.1.3");
+    expect(installerText).toContain("0.1.4");
     expect(installerText).toContain("using only my explicitly authorized GitHub repository");
     expect(installerText).not.toMatch(/upload source path|source uploads/u);
     expect(installerText).toContain("Hermes 0.21 or newer is required for interactive onboarding.");
@@ -262,8 +262,8 @@ describe("public entry and unassigned Free-host fallback", () => {
     });
     const release = await worker.fetch(new Request("https://ohmyho.st/client-release.json"));
     expect(await release.json()).toEqual({
-      version: "0.1.3",
-      manifest_url: "https://ohmyho.st/releases/0.1.3/manifest.json",
+      version: "0.1.4",
+      manifest_url: "https://ohmyho.st/releases/0.1.4/manifest.json",
     });
     const index = await worker.fetch(new Request("https://ohmyho.st/llms.txt"));
     const text = await index.text();
@@ -398,10 +398,10 @@ it("serves only pinned public client assets and strips credentials before the as
   expect((await worker.fetch(new Request(currentUrl), { ASSETS: fixture })).status).toBe(200);
   expect(fixture.requests).toHaveLength(2);
   for (const invalid of [
-    "https://ohmyho.st/releases/0.1.2/ohmyhost-product-cli-0.1.2.tgz",
+    "https://ohmyho.st/releases/0.1.3/ohmyhost-product-cli-0.1.3.tgz",
     "https://ohmyho.st/releases/0.1.0/manifest.json",
     "https://ohmyho.st/releases/0.1.0-beta.40/ohmyhost-product-cli-0.1.0-beta.40.tgz",
-    `https://ohmyho.st/releases/${CLIENT_RELEASE}/ohmyhost-product-cli-0.1.2.tgz`,
+    `https://ohmyho.st/releases/${CLIENT_RELEASE}/ohmyhost-product-cli-0.1.3.tgz`,
     "https://ohmyho.st/releases/0.1.0-beta.119/manifest.json",
     `https://ohmyho.st/releases/${CLIENT_RELEASE}/.env.local`,
   ])
