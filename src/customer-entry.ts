@@ -5,7 +5,7 @@ import { LAUNCH_DOCUMENTS } from "./launch-pages.js";
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.1";
+export const CLIENT_RELEASE = "0.1.2";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -56,6 +56,7 @@ const RETAINED_CLIENT_RELEASES = new Set([
   "0.1.0-beta.39",
   "0.1.0-beta.40",
   "0.1.0",
+  "0.1.1",
   CLIENT_RELEASE,
 ]);
 
