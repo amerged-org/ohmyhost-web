@@ -280,24 +280,6 @@ The beta website then distinguished invited signup from registering interest. Ta
 Public CLI/MCP releases provide project context, operation diagnostics, usage reports and user-owned deployment tokens. See the current [release manifest](/docs/cli) for the exact published version.
 
 [Documentation](/docs) · [Skills](/docs/skills) · [Beta introduction](/blog/introducing-ohmyho-st)`,
-  "/blog": `# From the build
-
-[Introducing the ohmyho.st beta](/blog/introducing-ohmyho-st): the agent workflow, GitHub deployment and what to try first.
-
-[Read the docs](/docs) · [Home](/)`,
-  "/blog/introducing-ohmyho-st": `# Introducing the ohmyho.st beta
-
-September 13, 2026.
-
-The first thing to try is simple: bring a GitHub app and ask your coding agent to deploy it. ohmyho.st provides the CLI, MCP tools and task Skills to plan the work, connect the repository and check the result.
-
-Your projects share an organization balance. You can ask which project used credits, whether a domain is ready or what a deployment is waiting for. Shared project notes keep the next action available when an agent session changes.
-
-Start with the capabilities your app needs. A public Vite app can be public without a database or auth provider. A database-backed application needs its migrations and real data flows checked. Production promotion should preserve existing production records.
-
-Signup is open, with no invitation or access code. Copy the agent prompt from the homepage; your agent sends back a sign-in link where you sign in or create your account. The docs describe the currently available paths; upcoming features remain separate.
-
-[Start with your agent](/docs/quickstart) · [Explore the Skills](/docs/skills) · [Home](/)`,
 };
 
 const agentPages = {
@@ -313,23 +295,13 @@ for (const [slug, [name, command]] of Object.entries(agentPages))
 
 Keep working in ${name} and let the ohmyho.st Skills guide the hosting steps.
 
-## Connect
+## How to deploy with ${name}
 
-Open your project and [ohmyho.st](/). Copy the agent prompt, or follow the [CLI/MCP installation guide](/docs/mcp) first. The current MCP server runs locally with Node.js.
+1. Connect: open your project and [ohmyho.st](/). Copy the agent prompt, or follow the [CLI and MCP installation guide](https://docs.ohmyho.st/agents/mcp) first. The current MCP server runs locally with Node.js. ${command} Use the installed tool's help when a version has different setup syntax, preserve your other MCP servers and reload the connection if required. Ask the agent to list the ohmyho.st tools and read the get-started Skill.
+2. Deploy: your agent signs in, selects your organization, gets authorized GitHub access and reviews a plan for the selected commit. It follows the accepted operation and verifies the actual application before reporting a working URL.
+3. Continue later: ask "Read this project's context and finish its next action." The agent can check usage, DNS and email readiness and deployment errors through the same tools.
 
-${command}
-
-Use the installed tool's help when a version has different setup syntax. Preserve your other MCP servers and reload the connection if required. Ask the agent to list the ohmyho.st tools and read the get-started Skill.
-
-## Deploy
-
-Your agent signs in, selects your organization, gets authorized GitHub access and reviews a plan for the selected commit. It follows the accepted operation and verifies the actual application before reporting a working URL.
-
-## Continue later
-
-Ask “Read this project's context and finish its next action.” The agent can check usage, DNS/email readiness and deployment errors through the same tools.
-
-[Get-started Skill](/skills/ohmyhost-get-started/SKILL.md) · [GitHub guide](/docs/github) · [Pricing](/pricing)`;
+[Get-started Skill](/skills/ohmyhost-get-started/SKILL.md) · [GitHub guide](https://docs.ohmyho.st/github) · [Pricing](/pricing)`;
 
 const sourcePages = {
   lovable: "Lovable",
@@ -342,16 +314,10 @@ for (const [slug, name] of Object.entries(sourcePages))
 
 Start with your application's GitHub repository. Keep the application working while your agent checks what it uses and plans the move.
 
-## Inventory the app
+## How to move your app from ${name}
 
-Identify the framework, application directory, package manager, auth provider, database, files, functions and external services. Exported source does not automatically include database rows, uploaded files or runtime secrets.
+1. Inventory the app: identify the framework, application directory, package manager, auth provider, database, files, functions and external services. Exported source does not automatically include database rows, uploaded files or runtime secrets.
+2. Choose what moves: preserve your existing authentication choice unless you request a change. If the repository uses Supabase-specific services, the migration Skill inventories each capability; a package name alone is not a reason to replace it. Some capabilities require source changes or may not fit the supported runtime.
+3. Deploy and verify: push the chosen source to GitHub and use the [deployment Skill](/skills/ohmyhost-deploy-github/SKILL.md). Configure the correct environment's secrets, callback URLs and migrations. Test login, protected routes, data reads and writes, and any files or email your app needs. Promote after Dev verification without copying Dev records over Prod data.
 
-## Choose what moves
-
-Preserve your existing authentication choice unless you request a change. If the repository uses Supabase-specific services, the migration Skill inventories each capability; a package name alone is not a reason to replace it. Some capabilities require source changes or may not fit the supported runtime.
-
-## Deploy and verify
-
-Push the chosen source to GitHub and use the [deployment Skill](/skills/ohmyhost-deploy-github/SKILL.md). Configure the correct environment's secrets, callback URLs and migrations. Test login, protected routes, data reads/writes and any files or email your app needs. Promote after Dev verification without copying Dev records over Prod data.
-
-[Supabase migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md) · [Framework guides](/docs/frameworks/vite) · [Application auth](/docs/application-auth) · [Home](/)`;
+[Supabase migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md) · [Framework guides](https://docs.ohmyho.st/frameworks/vite) · [Application auth](https://docs.ohmyho.st/application-auth) · [Home](/)`;

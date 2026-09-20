@@ -2,6 +2,10 @@ import { LEGAL_DOCUMENTS } from "./legal-documents.js";
 import MCP_REFERENCE from "./generated-mcp-tools.json" with { type: "json" };
 import { SITE_CSS, BETA_SCRIPT, PRIVACY_UI } from "./generated-site-frame.js";
 import { LAUNCH_DOCUMENTS } from "./launch-pages.js";
+import { pageMeta } from "./page-meta.js";
+import { CONTENT_PAGES } from "./pages/index.js";
+import { externalLinkRel, footerColumnsHtml } from "./site-links.js";
+import { breadcrumbHtml, headTags } from "./structured-data.js";
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
@@ -57,6 +61,7 @@ export function documentationRedirect(path: string, markdown = false): string | 
 export const DOCUMENTATION: Record<string, string> = {
   ...LAUNCH_DOCUMENTS,
   ...LEGAL_DOCUMENTS,
+  ...CONTENT_PAGES,
   "/auth.md": `# Authenticate an ohmyho.st agent
 
 Run ohmyhost login --json, open its sign-in link and use ohmyhost whoami --json to confirm the selected organization. The local MCP server uses that CLI login.
@@ -155,16 +160,16 @@ export function customerDocument(path: string): { text: string; type: string } |
   const documentPath = path === "/auth.md" ? path : path.endsWith(".md") ? path.slice(0, -3) : path;
   const markdown = DOCUMENTATION[documentPath];
   if (markdown) {
-    if (path.endsWith(".md")) return { text: markdown, type: "text/markdown; charset=utf-8" };
+    if (path.endsWith(".md"))
+      return {
+        text: markdown.replaceAll(/<svg[\s\S]*?<\/svg>/gu, ""),
+        type: "text/markdown; charset=utf-8",
+      };
+    const meta = pageMeta(documentPath);
     return {
       type: "text/html; charset=utf-8",
-      text: `<!doctype html><html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="https://ohmyho.st/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="https://ohmyho.st/favicon.ico"><link rel="apple-touch-icon" href="https://ohmyho.st/apple-touch-icon.png"><title>${markdown.split("\n")[0]?.replace(/^# /u, "")} — ohmyho.st</title><meta name="description" content="${
-        markdown
-          .split("\n")
-          .find((line) => line.trim() && !line.startsWith("#"))
-          ?.replaceAll('"', "&quot;") ?? "Hosting for agents"
-      }"><link rel="canonical" href="https://ohmyho.st${documentPath}"><link rel="alternate" type="text/markdown" href="${documentPath}.md"><style>${SITE_CSS}
-.docs-content{max-width:76ch;margin:64px auto 90px}.docs-content h1{font-size:clamp(36px,6vw,58px);margin-bottom:28px}.docs-content h2{font-size:26px;text-align:left;margin:36px 0 14px}.docs-content p,.docs-content li{color:var(--muted-foreground);line-height:1.75;margin:14px 0}.docs-content ul,.docs-content ol{padding-left:24px}.docs-content a{text-decoration:underline;text-underline-offset:4px;color:var(--foreground)}.docs-content pre{padding:20px;background:var(--muted);border:1px solid var(--border);border-radius:12px;overflow:auto;line-height:1.7}.docs-content code{font:13px var(--mono)}.docs-content table{display:block;overflow:auto;width:100%;border-collapse:collapse;font-size:14px;margin:24px 0}.docs-content th,.docs-content td{padding:12px;text-align:left;border-bottom:1px solid var(--border)}.docs-content blockquote{border-left:2px solid var(--border-strong);padding-left:20px}.docs-content strong{color:var(--foreground)}nav{gap:18px}@media(max-width:760px){nav a.secondary{display:none}.docs-content{margin-top:38px}}</style></head><body><div class="wrap"><nav><a class="mark" href="/" style="display:flex;align-items:center;gap:9px"><img src="/brand/assets/omega-light.svg" width="23" height="23" alt="">ohmyho.st</a><a href="https://docs.ohmyho.st/">Docs</a><a class="secondary" href="https://docs.ohmyho.st/skills">Skills</a><a class="secondary" href="/api">API</a><a class="secondary" href="${documentPath}.md">Markdown</a><div class="r"><a href="/login">Log in</a><button class="btn nochev" data-beta-access><span>Copy prompt</span></button></div></nav><main class="docs-content">${marked.parse(markdown, { async: false })}</main><footer><a href="/">ohmyho.st</a> · <a href="/privacy">Privacy</a> · <a href="/cookies">Cookies</a> · <a href="/dpa">DPA</a> · <a href="/dpa/toms">TOMs</a> · <a href="/contact">Contact</a> · <a href="/terms">Terms</a> · <a href="https://docs.ohmyho.st/">Docs</a></footer></div><script>${BETA_SCRIPT}</script>${PRIVACY_UI}</body></html>`,
+      text: `<!doctype html><html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="https://ohmyho.st/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="https://ohmyho.st/favicon.ico"><link rel="apple-touch-icon" href="https://ohmyho.st/apple-touch-icon.png">${headTags(documentPath, meta, markdown)}<style>${SITE_CSS}
+.docs-content{max-width:76ch;margin:64px auto 90px}.docs-content h1{font-size:clamp(36px,6vw,58px);margin-bottom:28px}.docs-content h2{font-size:26px;text-align:left;margin:36px 0 14px}.docs-content p,.docs-content li{color:var(--muted-foreground);line-height:1.75;margin:14px 0}.docs-content ul,.docs-content ol{padding-left:24px}.docs-content a{text-decoration:underline;text-underline-offset:4px;color:var(--foreground)}.docs-content pre{padding:20px;background:var(--muted);border:1px solid var(--border);border-radius:12px;overflow:auto;line-height:1.7}.docs-content code{font:13px var(--mono)}.docs-content table{display:block;overflow:auto;width:100%;border-collapse:collapse;font-size:14px;margin:24px 0}.docs-content th,.docs-content td{padding:12px;text-align:left;border-bottom:1px solid var(--border)}.docs-content blockquote{border-left:2px solid var(--border-strong);padding-left:20px}.docs-content strong{color:var(--foreground)}.docs-content .crumbs{font:12.5px var(--mono);color:var(--muted-foreground);margin:0 0 20px;display:flex;flex-wrap:wrap;gap:6px}.docs-content .crumbs a{color:var(--muted-foreground);text-decoration:none}.docs-content .crumbs a:hover{color:var(--foreground)}.docs-content img{max-width:100%;height:auto}.docs-content .fig{margin:36px 0}.docs-content .fig svg{width:100%;height:auto;display:block}.docs-content figcaption{font:11.5px var(--mono);color:var(--subtle);margin-top:10px;line-height:1.6}.docs-content figcaption a{color:var(--muted-foreground)}nav{gap:18px}@media(max-width:760px){nav a.secondary{display:none}.docs-content{margin-top:38px}}</style></head><body><div class="wrap"><nav><a class="mark" href="/" style="display:flex;align-items:center;gap:9px"><img src="/brand/assets/omega-light.svg" width="23" height="23" alt="">ohmyho.st</a><a href="https://docs.ohmyho.st/">Docs</a><a class="secondary" href="https://docs.ohmyho.st/skills">Skills</a><a class="secondary" href="https://docs.ohmyho.st/api">API</a><a class="secondary" href="${documentPath}.md">Markdown</a><div class="r"><a href="/login">Log in</a><button class="btn nochev" data-beta-access><span>Copy prompt</span></button></div></nav><main class="docs-content">${breadcrumbHtml(documentPath, meta)}${externalLinkRel(marked.parse(markdown, { async: false }))}</main>${documentFooter()}</div><script>${BETA_SCRIPT}</script>${PRIVACY_UI}</body></html>`,
     };
   }
   if (path === "/.well-known/skills/index.json")
@@ -182,6 +187,11 @@ export function customerDocument(path: string): { text: string; type: string } |
     };
   const skill = skills.find((item) => path === `/skills/${item.skillName}/${item.relativePath}`);
   return skill ? { text: skill.text, type: "text/markdown; charset=utf-8" } : null;
+}
+
+/** The homepage footer on every document page: brand block, the shared columns and the legal line. */
+function documentFooter(): string {
+  return `<footer><div class="fgrid"><div class="fbrand"><div class="fbrandrow"><svg class="ohm" viewBox="0 0 100 100" aria-hidden="true"><path d="M30 87 H14 L27 63 A31 31 0 1 1 73 63 L86 87 H70"/></svg><span class="mark">ohmyho<i>.st</i></span></div><p class="fslogan">Hosting for vibe-coded apps.</p><a class="status" href="/status">Status</a></div>${footerColumnsHtml()}</div><div class="fbot"><span>© 2026 ohmyho.st</span><span>Amerged B.V. · Venray, NL</span></div></footer>`;
 }
 
 export function isClientDownload(path: string): boolean {

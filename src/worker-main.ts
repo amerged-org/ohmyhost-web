@@ -1,14 +1,32 @@
 import { signupSource, siteBetaResponse, type PublicControlBinding } from "./beta-entry.js";
-import {
-  customerDocument,
-  isClientDownload,
-  DOCUMENTATION,
-  documentationRedirect,
-} from "./customer-entry.js";
+import { customerDocument, isClientDownload, documentationRedirect } from "./customer-entry.js";
 import { SITE_ICON } from "./generated-site-frame.js";
+import { sitemapEntries } from "./page-meta.js";
 // A shell-single-quoted assignment carries this value into the installer script.
 const SHELL_SAFE_SOURCE = /^[a-z0-9][a-z0-9_-]{0,63}$/u;
 const HOME = "https://ohmyho.st/";
+/** Search and answer engines are welcome; the login and referral variants stay out of the index. */
+const ROBOTS = [
+  "User-agent: *",
+  "Allow: /",
+  "Disallow: /login",
+  "Disallow: /*?r=",
+  "",
+  ...[
+    "GPTBot",
+    "OAI-SearchBot",
+    "ChatGPT-User",
+    "ClaudeBot",
+    "anthropic-ai",
+    "Claude-SearchBot",
+    "PerplexityBot",
+    "Google-Extended",
+  ].map((agent) => `User-agent: ${agent}`),
+  "Allow: /",
+  "",
+  "Sitemap: https://ohmyho.st/sitemap.xml",
+  "",
+].join("\n");
 const ATTRIBUTE_ESCAPES: Record<string, string> = {
   "&": "&amp;",
   '"': "&quot;",
@@ -56,6 +74,7 @@ export default {
       host.endsWith(".check.omh.st");
     const headers = new Headers({
       "cache-control": "no-store",
+      "strict-transport-security": "max-age=31536000; includeSubDomains",
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "content-security-policy":
@@ -141,24 +160,21 @@ export default {
     }
     if (url.pathname === "/robots.txt") {
       headers.set("content-type", "text/plain; charset=utf-8");
-      return new Response(
-        request.method === "HEAD"
-          ? null
-          : "User-agent: *\nAllow: /\nDisallow: /login\nDisallow: /*?r=\nSitemap: https://ohmyho.st/sitemap.xml\n",
-        { headers },
-      );
+      headers.set("cache-control", "public, max-age=3600");
+      return new Response(request.method === "HEAD" ? null : ROBOTS, { headers });
     }
     if (url.pathname === "/sitemap.xml") {
       headers.set("content-type", "application/xml; charset=utf-8");
-      const paths = [
-        "/",
-        "/brand",
-        ...Object.keys(DOCUMENTATION).filter((path) => path !== "/login" && !path.endsWith(".md")),
-      ];
+      headers.set("cache-control", "public, max-age=3600");
       return new Response(
         request.method === "HEAD"
           ? null
-          : `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${[...new Set(paths)].map((path) => `<url><loc>https://ohmyho.st${path}</loc></url>`).join("")}</urlset>`,
+          : `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${sitemapEntries()
+              .map(
+                ({ path, lastmod }) =>
+                  `<url><loc>https://ohmyho.st${path}</loc><lastmod>${lastmod}</lastmod></url>`,
+              )
+              .join("")}</urlset>`,
         { headers },
       );
     }
@@ -219,6 +235,7 @@ export default {
     }
     if (url.pathname === "/favicon.svg") {
       headers.set("content-type", "image/svg+xml");
+      headers.set("cache-control", "public, max-age=86400");
       return new Response(request.method === "HEAD" ? null : SITE_ICON, { headers });
     }
     const pages: Record<string, string> = {
@@ -287,6 +304,10 @@ export default {
         font ? "font/ttf" : page?.endsWith(".ico") ? "image/x-icon" : "image/png",
       );
       if (font) headers.set("access-control-allow-origin", "*");
+      headers.set(
+        "cache-control",
+        font ? "public, max-age=31536000, immutable" : "public, max-age=86400",
+      );
       return new Response(request.method === "HEAD" ? null : asset.body, { headers });
     }
     let body = await asset.text();
@@ -300,12 +321,12 @@ export default {
             : page?.endsWith(".json")
               ? "application/json; charset=utf-8"
               : "text/html; charset=utf-8";
+    if (type === "image/svg+xml") headers.set("cache-control", "public, max-age=86400");
     if (type.startsWith("text/html")) {
       if (attribution)
-        body = body.replaceAll(
-          'href="https://ohmyho.st/login"',
-          `href="https://ohmyho.st${loginHref}"`,
-        );
+        body = body
+          .replaceAll('href="https://ohmyho.st/login"', `href="https://ohmyho.st${loginHref}"`)
+          .replaceAll('href="/login"', `href="${loginHref}"`);
       const hashes: string[] = [];
       for (const script of body.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gu)) {
         const hash = new Uint8Array(

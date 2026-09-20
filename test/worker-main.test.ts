@@ -41,9 +41,13 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html.slice(html.indexOf("<nav>"), html.indexOf("</nav>"))).not.toContain(
       'href="#export"',
     );
-    expect(html).toContain('powered by <a href="https://amerged.com">amerged.com</a>');
+    expect(html).toContain(
+      'powered by <a href="https://amerged.com" rel="noopener">amerged.com</a>',
+    );
     expect(html).toContain('<a class="sales" href="/contact">Bigger than this? Talk to us.</a>');
-    expect(html).toContain('href="https://docs.ohmyho.st/pricing">See all usage rates</a>');
+    expect(html).toContain(
+      'href="https://docs.ohmyho.st/pricing" rel="noopener">See all usage rates</a>',
+    );
     const comparisonStart = html.indexOf('<div class="vs stag">');
     const comparison = html.slice(comparisonStart, html.indexOf("</section>", comparisonStart));
     expect(comparison.match(/<details class="bill" open><summary>/gu)).toHaveLength(2);

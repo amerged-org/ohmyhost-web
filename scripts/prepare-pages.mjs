@@ -6,6 +6,7 @@ import { mkdir, readFile, writeFile, rm } from "node:fs/promises";
 import { fileURLToPath, URL } from "node:url";
 import TurndownService from "turndown";
 import { creditPricingTable } from "../../../scripts/credit-pricing-document.mjs";
+import { externalLinkRel, footerColumnsHtml } from "../src/site-links.ts";
 
 const directory = fileURLToPath(new URL("../", import.meta.url));
 const root = fileURLToPath(new URL("../../", new URL("../", import.meta.url)));
@@ -61,26 +62,7 @@ for (const [name, digest] of Object.entries(templates)) {
       /(<button[^>]*id="navcopy"[^>]*>[\s\S]*?<span>)Start free/u,
       "$1Copy prompt",
     );
-    const destinations = {
-      Docs: "https://docs.ohmyho.st/",
-      "MCP server": "https://docs.ohmyho.st/agents/mcp",
-      CLI: "https://docs.ohmyho.st/cli",
-      Status: "/status",
-      Changelog: "/changelog",
-      About: "/about",
-      Philosophy: "/#philosophy",
-      Blog: "/blog",
-      "Open source": "https://github.com/amerged/docs",
-      Privacy: "/privacy",
-      Terms: "/terms",
-      GDPR: "/privacy",
-      Imprint: "/privacy",
-    };
-    for (const [label, href] of Object.entries(destinations))
-      html = html.replaceAll(
-        `<a href="#">${label}</a>`,
-        label === "Imprint" ? "" : `<a href="${href}">${label}</a>`,
-      );
+    html = hardenHomepageMarkup(html);
     html = html.replace(
       '<h2 class="up">Why one balance instead of five subscriptions.</h2>',
       '<h2 class="up" id="philosophy">Why one balance instead of five subscriptions.</h2>',
@@ -134,7 +116,8 @@ for (const [name, digest] of Object.entries(templates)) {
       .replace("</aside>", "</nav></aside>")
       .replace(
         "</head>",
-        "<style>.side,.main{min-width:0}.shell{grid-template-columns:236px minmax(0,1fr)}@media(max-width:900px){.shell{grid-template-columns:minmax(0,1fr)}.side{padding:20px}.side .tag{margin-bottom:14px}.brand-toc{display:flex;gap:18px;overflow-x:auto;white-space:nowrap;padding-bottom:8px}.brand-toc h5{display:none}.brand-toc a{flex:none}.side .mark{margin-right:48px}}</style></head>",
+        '<meta name="description" content="The ohmyho.st design system: colour tokens, type, the Ω mark, components and the drawing rules behind every page and figure."><meta property="og:title" content="ohmyho.st — Design System"><meta property="og:description" content="The ohmyho.st design system: colour tokens, type, the Ω mark, components and the drawing rules behind every page and figure."><meta property="og:image" content="https://ohmyho.st/og.png"><meta name="twitter:card" content="summary_large_image">' +
+          "<style>.side,.main{min-width:0}.shell{grid-template-columns:236px minmax(0,1fr)}@media(max-width:900px){.shell{grid-template-columns:minmax(0,1fr)}.side{padding:20px}.side .tag{margin-bottom:14px}.brand-toc{display:flex;gap:18px;overflow-x:auto;white-space:nowrap;padding-bottom:8px}.brand-toc h5{display:none}.brand-toc a{flex:none}.side .mark{margin-right:48px}}</style></head>",
       );
   }
   html = html
@@ -142,11 +125,6 @@ for (const [name, digest] of Object.entries(templates)) {
     .replaceAll('href="/docs/cli"', 'href="https://docs.ohmyho.st/cli"')
     .replaceAll('href="/docs"', 'href="https://docs.ohmyho.st/"');
   html = html.replace("</body>", `${privacyUi}</body>`);
-  if (name === "home")
-    html = html.replace(
-      '<a href="/privacy">Privacy</a>',
-      '<a href="/privacy">Privacy</a><a href="/cookies">Cookies</a><a href="/dpa">DPA</a><a href="/dpa/toms">TOMs</a><a href="/contact">Contact</a>',
-    );
   await writeFile(`${output}/${name}.html`, html);
   await writeFile(
     `${output}/${name === "home" ? "index" : name}.md`,
@@ -375,4 +353,36 @@ function applyApprovedHomepageChanges(html) {
     '<noscript><p class="under"><a href="/docs/quickstart">Read the getting-started guide for your agent →</a></p></noscript></header>' +
       intro,
   );
+}
+
+/** Search and social hardening of the approved homepage: landmark, one description, shared footer, image sizes. */
+function hardenHomepageMarkup(html) {
+  const description =
+    "Deploy GitHub apps with your agent. Hosting, Postgres, domains, email and encrypted SQL exports, with one credit balance across projects.";
+  for (const [before, after] of Object.entries({
+    '\n<div class="wrap">\n': '\n<main class="wrap">\n',
+    '<meta name="description" content="Hosting, Postgres, email and a domain for every app you build with Claude Code, Cursor, Codex or Lovable. One prompt to deploy, one balance for the services you run here — no per-project base fee. One prepaid balance instead of Vercel, Supabase and Resend subscriptions. From $10/month.">\n':
+      "",
+    '<meta property="og:description" content="Hosting, Postgres, domains, email and encrypted SQL exports. Deploy GitHub apps with your agent and share credits across projects.">': `<meta property="og:description" content="${description}">`,
+    '<meta name="twitter:description" content="Vercel, Supabase and Resend in one host. $10/mo for every project. Built for agents.">': `<meta name="twitter:description" content="${description}">`,
+    '<span class="ghi"><img src="logos/github.svg" alt="GitHub logo" loading="lazy"':
+      '<span class="ghi"><img src="logos/github.svg" alt="GitHub logo" width="16" height="16" loading="lazy"',
+    '<a href="#">Docs</a>': '<a href="https://docs.ohmyho.st/">Docs</a>',
+  })) {
+    if (!html.includes(before))
+      throw new Error(`Homepage hardening boundary missing: ${before.slice(0, 65)}`);
+    html = html.replaceAll(before, after);
+  }
+  const columnsStart = html.indexOf('    <div class="fcol">');
+  const columnsEnd = html.indexOf('  <div class="fbot">');
+  if (columnsStart < 0 || columnsEnd < columnsStart) throw new Error("Footer columns missing");
+  html = html.slice(0, columnsStart) + `    ${footerColumnsHtml()}\n` + html.slice(columnsEnd);
+  html = externalLinkRel(
+    html.replaceAll(
+      /<img src="logos\/([a-z0-9]+)\.svg" alt="([^"]+)" loading="lazy"/gu,
+      '<img src="logos/$1.svg" alt="$2" width="18" height="18" loading="lazy"',
+    ),
+  );
+  if (html.includes('href="#"')) throw new Error("Homepage placeholder link remains");
+  return html;
 }
