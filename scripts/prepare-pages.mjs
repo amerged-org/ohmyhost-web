@@ -5,7 +5,10 @@ import { execFileSync } from "node:child_process";
 import { mkdir, readFile, writeFile, rm } from "node:fs/promises";
 import { fileURLToPath, URL } from "node:url";
 import TurndownService from "turndown";
-import { creditPricingTable } from "../../../scripts/credit-pricing-document.mjs";
+import {
+  creditPricingRates,
+  creditPricingTable,
+} from "../../../scripts/credit-pricing-document.mjs";
 import { externalLinkRel, footerColumnsHtml } from "../src/site-links.ts";
 
 const directory = fileURLToPath(new URL("../", import.meta.url));
@@ -17,7 +20,8 @@ await writeFile(
   `${directory}src/generated-pricing.ts`,
   await format(
     "// Generated from PRICING.md by pages:prepare.\n" +
-      `export const CREDIT_PRICING_TABLE = ${JSON.stringify(await creditPricingTable(root))};\n`,
+      `export const CREDIT_PRICING_TABLE = ${JSON.stringify(await creditPricingTable(root))};\n` +
+      `export const CREDIT_RATES = ${JSON.stringify(await creditPricingRates(root))} as const;\n`,
     { parser: "typescript", printWidth: 100 },
   ),
 );
@@ -42,7 +46,8 @@ await writeFile(
       `export const SITE_CSS = ${JSON.stringify(fontCss + sharedCss + navigationCss)};\n` +
       `export const SITE_ICON = ${JSON.stringify(await readFile(`${brandAssets}/favicon.svg`, "utf8"))};\n` +
       `export const PRIVACY_UI = ${JSON.stringify(privacyUi)};\n` +
-      `export const BETA_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/beta-entry.js`, "utf8"))};\n`,
+      `export const BETA_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/beta-entry.js`, "utf8"))};\n` +
+      `export const FIGURE_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/figure-count.js`, "utf8"))};\n`,
     { parser: "typescript", printWidth: 100 },
   ),
 );
