@@ -203,7 +203,7 @@ await writeFile(`${output}/openapi.json`, `${JSON.stringify(contract, null, 2)}\
 
 /** P30: approved changes are applied without rewriting the supplied v97 source. */
 function applyApprovedHomepageChanges(html) {
-  const socialPreview = "Supabase Vercel Resend - all in one from 10$.";
+  const socialPreview = "Supabase Vercel Resend Alternative - all in one from 10$.";
   html = html.replace(
     /(<meta (?:property="og:(?:title|description)"|name="twitter:(?:title|description)") content=")[^"]*(">)/gu,
     `$1${socialPreview}$2`,
@@ -213,6 +213,8 @@ function applyApprovedHomepageChanges(html) {
   const euAnswer =
     "Yes. Choose EU when you create the project; the default is US. An EU project keeps its Postgres database, its files and its builds in the EU, and the application runs next to its database. The region cannot be changed later, and prices are identical in both regions. Transactional mail is sent from the platform's mail region in either case.";
   for (const [before, after] of Object.entries({
+    '<span class="thin">Ten dollars.</span><br>Host your vibe-coded apps.':
+      '<span class="thin">Host your app.</span><br>Supabase Vercel Resend alternative',
     "<title>Hosting for vibe-coded apps — $10/mo for all your projects, not per project | ohmyho.st</title>":
       '<title>ohmyho.st — Hosting for agents, from $10/month</title><meta name="description" content="Deploy GitHub apps with your agent. Hosting, Postgres, domains, email and encrypted SQL exports, with one credit balance across projects.">',
     '"logo": "https://ohmyho.st/logo.png",':

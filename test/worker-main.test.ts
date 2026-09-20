@@ -18,6 +18,9 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(home.status).toBe(200);
     expect(home.headers.get("content-type")).toContain("text/html");
     const html = await home.text();
+    expect(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/u)?.[1]).toBe(
+      '<span class="thin">Host your app.</span><br>Supabase Vercel Resend alternative',
+    );
     for (const [attribute, name] of [
       ["property", "og:title"],
       ["property", "og:description"],
@@ -25,7 +28,7 @@ describe("public entry and unassigned Free-host fallback", () => {
       ["name", "twitter:description"],
     ])
       expect(html).toContain(
-        `<meta ${attribute}="${name}" content="Supabase Vercel Resend - all in one from 10$.">`,
+        `<meta ${attribute}="${name}" content="Supabase Vercel Resend Alternative - all in one from 10$.">`,
       );
     expect(html).toContain("<title>ohmyho.st — Hosting for agents, from $10/month</title>");
     expect(html).toContain("Copy prompt for your agent");
