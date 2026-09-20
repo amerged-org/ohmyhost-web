@@ -18,6 +18,18 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(home.status).toBe(200);
     expect(home.headers.get("content-type")).toContain("text/html");
     const html = await home.text();
+    expect(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/u)?.[1]).toBe(
+      '<span class="thin">Host your app.</span><br>Supabase Vercel Resend alternative',
+    );
+    for (const [attribute, name] of [
+      ["property", "og:title"],
+      ["property", "og:description"],
+      ["name", "twitter:title"],
+      ["name", "twitter:description"],
+    ])
+      expect(html).toContain(
+        `<meta ${attribute}="${name}" content="Supabase Vercel Resend Alternative - all in one from 10$.">`,
+      );
     expect(html).toContain("<title>ohmyho.st — Hosting for agents, from $10/month</title>");
     expect(html).toContain("Copy prompt for your agent");
     expect(html).toContain("<span>Copy prompt</span>");
@@ -467,21 +479,21 @@ it("serves only pinned public client assets and strips credentials before the as
     expect(document.status).toBe(200);
     expect(await document.text()).toContain(`name: ${entry.name}`);
   }
-  // Both current and retained pinned downloads stay available during the migration.
+  // Only the current release is downloadable; superseded versions never reach assets.
   const currentUrl = `https://ohmyho.st/releases/${CLIENT_RELEASE}/ohmyhost-product-cli-${CLIENT_RELEASE}.tgz`;
   expect((await worker.fetch(new Request(currentUrl), { ASSETS: fixture })).status).toBe(200);
   expect(fixture.requests).toHaveLength(2);
-  for (const retained of ["0.1.7", "0.1.6", "0.1.5"])
+  for (const retired of ["0.1.9", "0.1.8", "0.1.7", "0.1.6", "0.1.5"])
     expect(
       (
         await worker.fetch(
           new Request(
-            `https://ohmyho.st/releases/${retained}/ohmyhost-customer-runtime-${retained}.tgz`,
+            `https://ohmyho.st/releases/${retired}/ohmyhost-customer-runtime-${retired}.tgz`,
           ),
           { ASSETS: fixture },
         )
       ).status,
-    ).toBe(200);
+    ).toBe(404);
   for (const invalid of [
     "https://ohmyho.st/releases/0.1.3/ohmyhost-product-cli-0.1.3.tgz",
     "https://ohmyho.st/releases/0.1.0/manifest.json",
@@ -491,7 +503,7 @@ it("serves only pinned public client assets and strips credentials before the as
     `https://ohmyho.st/releases/${CLIENT_RELEASE}/.env.local`,
   ])
     expect((await worker.fetch(new Request(invalid), { ASSETS: fixture })).status).toBe(404);
-  expect(fixture.requests).toHaveLength(5);
+  expect(fixture.requests).toHaveLength(2);
 });
 
 class PublicAssetFixture {

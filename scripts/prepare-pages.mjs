@@ -187,11 +187,18 @@ await writeFile(`${output}/openapi.json`, `${JSON.stringify(contract, null, 2)}\
 
 /** P30: approved changes are applied without rewriting the supplied v97 source. */
 function applyApprovedHomepageChanges(html) {
+  const socialPreview = "Supabase Vercel Resend Alternative - all in one from 10$.";
+  html = html.replace(
+    /(<meta (?:property="og:(?:title|description)"|name="twitter:(?:title|description)") content=")[^"]*(">)/gu,
+    `$1${socialPreview}$2`,
+  );
   const exportAnswer =
     "Request a portable SQL dump in a password-encrypted ZIP through your agent, CLI or API. Exports run asynchronously, with one accepted request per project every 24 hours and a signed download link valid for 24 hours. Keep your password and restore on another Postgres host, or let your automation tool copy the encrypted file to your own storage.";
   const euAnswer =
     "Yes. Choose EU when you create the project; the default is US. An EU project keeps its Postgres database, its files and its builds in the EU, and the application runs next to its database. The region cannot be changed later, and prices are identical in both regions. Transactional mail is sent from the platform's mail region in either case.";
   for (const [before, after] of Object.entries({
+    '<span class="thin">Ten dollars.</span><br>Host your vibe-coded apps.':
+      '<span class="thin">Host your app.</span><br>Supabase Vercel Resend alternative',
     "<title>Hosting for vibe-coded apps — $10/mo for all your projects, not per project | ohmyho.st</title>":
       '<title>ohmyho.st — Hosting for agents, from $10/month</title><meta name="description" content="Deploy GitHub apps with your agent. Hosting, Postgres, domains, email and encrypted SQL exports, with one credit balance across projects.">',
     '"logo": "https://ohmyho.st/logo.png",':
@@ -201,8 +208,6 @@ function applyApprovedHomepageChanges(html) {
     'class="cta hero-a" id="hero-cta" style="animation-delay:2.4s"': 'class="cta" id="hero-cta"',
     'class="under hero-a" style="animation-delay:2.55s" id="under"': 'class="under" id="under"',
     '  <p class="proof" id="proof" hidden></p>': "",
-    "Hosting, Postgres, email, a domain, AI and backups in one command. An alternative to Vercel, Supabase and Resend — $10 a month for every project you build, not per project.":
-      "Hosting, Postgres, domains, email and encrypted SQL exports. Deploy GitHub apps with your agent and share credits across projects.",
     "Export to GitHub, paste one prompt. The parts that break by hand come across with it.":
       "Export your Next.js or Vite app to GitHub, then deploy its hosting, database, domains and email with one agent prompt.",
     "Your database, exported. Nightly.": "Your database, exported &amp; connected.",
@@ -221,7 +226,7 @@ function applyApprovedHomepageChanges(html) {
     '"addressRegion": "CA"': '"addressRegion": "Limburg"',
     '"addressCountry": "US"': '"addressCountry": "NL"',
     "From Amsterdam, Netherlands to Palo Alto, CA, US — deploy with ohmyho.st":
-      'powered by <a href="https://amerged.com">amerged.com</a>',
+      'powered by <a href="https://amerged.com">amerged.com</a> · <a href="/open-source">Open source</a>',
     "<li>Scales up on its own</li>":
       "<li>More capacity when you need it <em>uses credits</em></li>",
     '<span class="sales">Bigger than this? Talk to us.</span>':
@@ -363,14 +368,11 @@ function applyApprovedHomepageChanges(html) {
 
 /** Search and social hardening of the approved homepage: landmark, one description, shared footer, image sizes. */
 function hardenHomepageMarkup(html) {
-  const description =
-    "Deploy GitHub apps with your agent. Hosting, Postgres, domains, email and encrypted SQL exports, with one credit balance across projects.";
+  // The owner's approved social copy is applied earlier in preparation; hardening leaves it alone.
   for (const [before, after] of Object.entries({
     '\n<div class="wrap">\n': '\n<main class="wrap">\n',
     '<meta name="description" content="Hosting, Postgres, email and a domain for every app you build with Claude Code, Cursor, Codex or Lovable. One prompt to deploy, one balance for the services you run here — no per-project base fee. One prepaid balance instead of Vercel, Supabase and Resend subscriptions. From $10/month.">\n':
       "",
-    '<meta property="og:description" content="Hosting, Postgres, domains, email and encrypted SQL exports. Deploy GitHub apps with your agent and share credits across projects.">': `<meta property="og:description" content="${description}">`,
-    '<meta name="twitter:description" content="Vercel, Supabase and Resend in one host. $10/mo for every project. Built for agents.">': `<meta name="twitter:description" content="${description}">`,
     '<span class="ghi"><img src="logos/github.svg" alt="GitHub logo" loading="lazy"':
       '<span class="ghi"><img src="logos/github.svg" alt="GitHub logo" width="16" height="16" loading="lazy"',
     '<a href="#">Docs</a>': '<a href="https://docs.ohmyho.st/">Docs</a>',

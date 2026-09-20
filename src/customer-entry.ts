@@ -9,8 +9,7 @@ import { breadcrumbHtml, headTags } from "./structured-data.js";
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.8";
-export const RETAINED_CLIENT_RELEASES = [CLIENT_RELEASE, "0.1.7", "0.1.6", "0.1.5"] as const;
+export const CLIENT_RELEASE = "0.1.10";
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -236,12 +235,12 @@ export function isClientDownload(path: string): boolean {
   const parts = path.split("/");
   const version = parts[2] ?? "";
   const file = parts[3] ?? "";
-  // Keep the previous pinned packages available while existing repositories move to this release.
+  // Early releases have no backwards-support window: serve the current version only.
   if (
     parts.length !== 4 ||
     parts[0] !== "" ||
     parts[1] !== "releases" ||
-    !RETAINED_CLIENT_RELEASES.some((retained) => retained === version)
+    version !== CLIENT_RELEASE
   )
     return false;
   return (
