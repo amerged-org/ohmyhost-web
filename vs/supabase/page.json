@@ -1,0 +1,12 @@
+{
+  "title": "Supabase alternative: Postgres by usage on ohmyho.st",
+  "description": "Supabase Pro is $25 a month plus $10 per extra Micro project. ohmyho.st meters Postgres per active hour and GB-month from one balance shared by every project.",
+  "kind": "page",
+  "status": "published",
+  "crumb": "vs Supabase",
+  "social": {
+    "image": null,
+    "alt": null
+  },
+  "modified": "2026-09-20"
+}

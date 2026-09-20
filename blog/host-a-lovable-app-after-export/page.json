@@ -1,0 +1,15 @@
+{
+  "title": "Hosting a Lovable app after export: the exact path",
+  "description": "What Lovable's own docs make you redo by hand after exporting to GitHub, what a coding agent does instead, and what the first month of hosting actually costs.",
+  "kind": "article",
+  "status": "published",
+  "crumb": "Host a Lovable app",
+  "social": {
+    "image": null,
+    "alt": null
+  },
+  "parent": "/blog",
+  "author": "Sebastian Mertens",
+  "published": "2026-09-20",
+  "modified": "2026-09-20"
+}

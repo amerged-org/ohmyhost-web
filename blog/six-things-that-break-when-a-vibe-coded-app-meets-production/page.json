@@ -1,0 +1,15 @@
+{
+  "title": "Six things that break when a vibe-coded app meets production",
+  "description": "What breaks when you deploy a vibe-coded app: localhost URLs, CORS, SQLite, committed secrets, build-time config and mail, and how the agent fixes each.",
+  "kind": "article",
+  "status": "published",
+  "crumb": "Six things that break",
+  "social": {
+    "image": null,
+    "alt": null
+  },
+  "parent": "/blog",
+  "author": "Sebastian Mertens",
+  "published": "2026-09-20",
+  "modified": "2026-09-20"
+}

@@ -1,0 +1,12 @@
+{
+  "title": "ohmyho.st service status: hosting, Postgres, mail, MCP",
+  "description": "How to check whether ohmyho.st hosting, Postgres, transactional mail and the MCP server are operating, and where your agent reads a project's live state.",
+  "kind": "page",
+  "status": "published",
+  "crumb": "Status",
+  "social": {
+    "image": null,
+    "alt": null
+  },
+  "modified": "2026-09-20"
+}
