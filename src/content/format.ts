@@ -90,3 +90,8 @@ export function workloadTable(workload: Workload): string {
     `About ${creditValueUsd(priced.microcredits)} of credit value at the standard rate.`,
   ].join("\n");
 }
+
+/** A per-second list price for a 30-day month, in USD rounded to cents: 0.00000772 → 20.01. */
+export function perSecondMonthly(usdPerSecond: number): number {
+  return Math.round(usdPerSecond * 2_592_000 * 100) / 100;
+}

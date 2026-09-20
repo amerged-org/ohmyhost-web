@@ -68,7 +68,7 @@ const STATIC_PAGES: Record<string, PageMeta> = {
   "/vs/vercel": {
     title: "ohmyho.st vs Vercel: one balance, with the database",
     description:
-      "Vercel Pro is $20 a month plus $20 per extra seat, with database and mail elsewhere. Compare it with ohmyho.st credits from $10 a month across every project.",
+      "Vercel Pro is $20 a month plus $20 per developer seat; database and mail sit elsewhere. Compare it with ohmyho.st credits from $10 a month across every project.",
     kind: "page",
     modified: "2026-09-20",
     crumb: "vs Vercel",
@@ -76,7 +76,7 @@ const STATIC_PAGES: Record<string, PageMeta> = {
   "/vs/supabase": {
     title: "ohmyho.st vs Supabase: Postgres priced by usage",
     description:
-      "Supabase Pro is $25 per organization plus compute per extra project. ohmyho.st meters Postgres compute and storage in credits from one balance across projects.",
+      "Supabase Pro starts at $25 a month plus compute per extra project. ohmyho.st meters Postgres compute and storage in credits from one balance across projects.",
     kind: "page",
     modified: "2026-09-20",
     crumb: "vs Supabase",
