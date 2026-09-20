@@ -2,6 +2,27 @@ import { CREDIT_PRICING_TABLE } from "./generated-pricing.js";
 
 /** Public editorial pages; the price table is generated from the reviewed price contract. */
 export const LAUNCH_DOCUMENTS: Record<string, string> = {
+  "/open-source": `# Open-source clients
+
+The ohmyho.st client packages are published by Amerged under Apache-2.0. Their source, licence and third-party notices are included in the npm packages. The hosted platform and its private server code are not part of this licence grant.
+
+| Package | Purpose |
+| --- | --- |
+| [@amerged/ohmyhost-cli](https://www.npmjs.com/package/@amerged/ohmyhost-cli) | Command-line client |
+| [@amerged/ohmyhost-mcp](https://www.npmjs.com/package/@amerged/ohmyhost-mcp) | Local MCP server |
+| [@amerged/ohmyhost-sdk](https://www.npmjs.com/package/@amerged/ohmyhost-sdk) | TypeScript API client |
+| [@amerged/ohmyhost-runtime](https://www.npmjs.com/package/@amerged/ohmyhost-runtime) | Database, mail and storage clients for applications |
+| [@amerged/ohmyhost-auth](https://www.npmjs.com/package/@amerged/ohmyhost-auth) | Better Auth integration |
+
+Requires Node.js 22 or newer for the CLI and MCP server.
+
+\`\`\`sh
+npm install --global @amerged/ohmyhost-cli @amerged/ohmyhost-mcp
+npm install @amerged/ohmyhost-sdk @amerged/ohmyhost-runtime @amerged/ohmyhost-auth
+\`\`\`
+
+[Documentation](https://docs.ohmyho.st/) · [Apache-2.0 licence](https://www.apache.org/licenses/LICENSE-2.0) · [Contact](/contact)
+`,
   "/terms": `# Terms of Service — Master Services Agreement
 
 Version: September 14, 2026 — MSA revision 2.

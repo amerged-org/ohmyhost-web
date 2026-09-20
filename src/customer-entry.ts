@@ -5,9 +5,10 @@ import { LAUNCH_DOCUMENTS } from "./launch-pages.js";
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.9";
+export const CLIENT_RELEASE = "0.1.10";
 export const RETAINED_CLIENT_RELEASES = [
   CLIENT_RELEASE,
+  "0.1.9",
   "0.1.8",
   "0.1.7",
   "0.1.6",

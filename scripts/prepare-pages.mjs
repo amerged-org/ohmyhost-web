@@ -237,7 +237,7 @@ function applyApprovedHomepageChanges(html) {
     '"addressRegion": "CA"': '"addressRegion": "Limburg"',
     '"addressCountry": "US"': '"addressCountry": "NL"',
     "From Amsterdam, Netherlands to Palo Alto, CA, US — deploy with ohmyho.st":
-      'powered by <a href="https://amerged.com">amerged.com</a>',
+      'powered by <a href="https://amerged.com">amerged.com</a> · <a href="/open-source">Open source</a>',
     "<li>Scales up on its own</li>":
       "<li>More capacity when you need it <em>uses credits</em></li>",
     '<span class="sales">Bigger than this? Talk to us.</span>':

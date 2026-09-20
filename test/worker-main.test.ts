@@ -467,7 +467,7 @@ it("serves only pinned public client assets and strips credentials before the as
   const currentUrl = `https://ohmyho.st/releases/${CLIENT_RELEASE}/ohmyhost-product-cli-${CLIENT_RELEASE}.tgz`;
   expect((await worker.fetch(new Request(currentUrl), { ASSETS: fixture })).status).toBe(200);
   expect(fixture.requests).toHaveLength(2);
-  for (const retained of ["0.1.8", "0.1.7", "0.1.6", "0.1.5"])
+  for (const retained of ["0.1.9", "0.1.8", "0.1.7", "0.1.6", "0.1.5"])
     expect(
       (
         await worker.fetch(
@@ -487,7 +487,7 @@ it("serves only pinned public client assets and strips credentials before the as
     `https://ohmyho.st/releases/${CLIENT_RELEASE}/.env.local`,
   ])
     expect((await worker.fetch(new Request(invalid), { ASSETS: fixture })).status).toBe(404);
-  expect(fixture.requests).toHaveLength(6);
+  expect(fixture.requests).toHaveLength(7);
 });
 
 class PublicAssetFixture {
