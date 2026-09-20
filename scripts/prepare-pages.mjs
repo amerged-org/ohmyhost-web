@@ -203,6 +203,11 @@ await writeFile(`${output}/openapi.json`, `${JSON.stringify(contract, null, 2)}\
 
 /** P30: approved changes are applied without rewriting the supplied v97 source. */
 function applyApprovedHomepageChanges(html) {
+  const socialPreview = "Supabase Vercel Resend - all in one from 10$.";
+  html = html.replace(
+    /(<meta (?:property="og:(?:title|description)"|name="twitter:(?:title|description)") content=")[^"]*(">)/gu,
+    `$1${socialPreview}$2`,
+  );
   const exportAnswer =
     "Request a portable SQL dump in a password-encrypted ZIP through your agent, CLI or API. Exports run asynchronously, with one accepted request per project every 24 hours and a signed download link valid for 24 hours. Keep your password and restore on another Postgres host, or let your automation tool copy the encrypted file to your own storage.";
   const euAnswer =
@@ -217,8 +222,6 @@ function applyApprovedHomepageChanges(html) {
     'class="cta hero-a" id="hero-cta" style="animation-delay:2.4s"': 'class="cta" id="hero-cta"',
     'class="under hero-a" style="animation-delay:2.55s" id="under"': 'class="under" id="under"',
     '  <p class="proof" id="proof" hidden></p>': "",
-    "Hosting, Postgres, email, a domain, AI and backups in one command. An alternative to Vercel, Supabase and Resend — $10 a month for every project you build, not per project.":
-      "Hosting, Postgres, domains, email and encrypted SQL exports. Deploy GitHub apps with your agent and share credits across projects.",
     "Export to GitHub, paste one prompt. The parts that break by hand come across with it.":
       "Export your Next.js or Vite app to GitHub, then deploy its hosting, database, domains and email with one agent prompt.",
     "Your database, exported. Nightly.": "Your database, exported &amp; connected.",
