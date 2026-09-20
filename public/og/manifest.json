@@ -1,0 +1,114 @@
+{
+  "about": {
+    "templateSha256": "4d49d5d863d437af187052d2043b81ec6c7438013824436316bc8e14c802d94c",
+    "renderedAt": "2026-09-20T05:42:29.050Z"
+  },
+  "blog": {
+    "templateSha256": "77a17b3ce0b1744107e554b9e42eda105c943fb87eb342dd784de1a423bbb1e2",
+    "renderedAt": "2026-09-20T05:42:30.132Z"
+  },
+  "blog-introducing-ohmyho-st": {
+    "templateSha256": "c0a1db13a93017c75ed3dcdf6e0582f7e55e3b3235fa71883356db584d0652b8",
+    "renderedAt": "2026-09-20T05:42:30.258Z"
+  },
+  "changelog": {
+    "templateSha256": "f0d1ac779c34943dbbc055b9796252f39054149581d5d869ca6ce0d00bbd1ede",
+    "renderedAt": "2026-09-20T05:42:29.416Z"
+  },
+  "contact": {
+    "templateSha256": "7445835a8ff4a1aee8d8adfad40936322d0f751eb9178a0e8965472479872e1a",
+    "renderedAt": "2026-09-20T05:42:30.083Z"
+  },
+  "cookies": {
+    "templateSha256": "4b8e45191a89abb44e5d897a9cba0aab54b6b86f2f8384512b1024e4e54bbffb",
+    "renderedAt": "2026-09-20T05:42:29.849Z"
+  },
+  "dpa": {
+    "templateSha256": "0cf99d61f89aa49e9196235ca180cf9f772e8372b1182249ed2f19235c88e090",
+    "renderedAt": "2026-09-20T05:42:29.891Z"
+  },
+  "dpa-subprocessors": {
+    "templateSha256": "7a7d9e0af61b444086f34c3d14dab9a55aac667544ae5eaa95dd44cc72192b40",
+    "renderedAt": "2026-09-20T05:42:29.991Z"
+  },
+  "dpa-toms": {
+    "templateSha256": "f483c2e706c1b011e7e8f9c06f88b80fdb85d78173257821c043cb1b99955b74",
+    "renderedAt": "2026-09-20T05:42:29.941Z"
+  },
+  "dpa-transfers": {
+    "templateSha256": "def0a9188c4719a6dd1bf9b138b799b3a7396b88d750f6c610fee00dc5daa0c0",
+    "renderedAt": "2026-09-20T05:42:30.039Z"
+  },
+  "for-claude-code": {
+    "templateSha256": "4f0c49b43365a3948c54b69e5ba4d7e8d7b8d5a574d4468edd0d5cd3f162ed02",
+    "renderedAt": "2026-09-20T05:42:29.459Z"
+  },
+  "for-codex": {
+    "templateSha256": "1806abbc6f9849aaf0212dabf28013d144d95f18e8ba3a7df68d39cd926fc8a1",
+    "renderedAt": "2026-09-20T05:42:29.557Z"
+  },
+  "for-cursor": {
+    "templateSha256": "313cc5297c002b1e422af88dc43164b3e24171786a258b3f25e23171e42f4dda",
+    "renderedAt": "2026-09-20T05:42:29.509Z"
+  },
+  "from-bolt": {
+    "templateSha256": "d3eae67080e5928de47066ed75bdf8125197b46b2736d78808ae90a5996a1c26",
+    "renderedAt": "2026-09-20T05:42:29.650Z"
+  },
+  "from-lovable": {
+    "templateSha256": "cb0edcebfe196bb2f721d7abdbc76e397e8cdc23e31987f86dac2e06c800e1e5",
+    "renderedAt": "2026-09-20T05:42:29.601Z"
+  },
+  "from-replit": {
+    "templateSha256": "9abccd7bf3ea0645d294b06ee3b021e3b5f758501c103864c15e9b1bf136055f",
+    "renderedAt": "2026-09-20T05:42:29.701Z"
+  },
+  "from-vercel-supabase": {
+    "templateSha256": "5e052b50635daf0f4df670f584a427168a6062a33033178ffbb9f35d5df80d3c",
+    "renderedAt": "2026-09-20T05:42:29.751Z"
+  },
+  "open-source": {
+    "templateSha256": "6319ad2ec714eb80e1cdf959bd39d56b30fb90946f4a9ac4438cc14ac954f98b",
+    "renderedAt": "2026-09-20T05:42:30.215Z"
+  },
+  "philosophy": {
+    "templateSha256": "1396318a0a7eeb4513973d3e91c9c788fda045218679b623b2480279dcf172e7",
+    "renderedAt": "2026-09-20T05:42:30.174Z"
+  },
+  "pricing": {
+    "templateSha256": "dcb249a7f4845f183a6eb3e3b5bc376b1caa8ad73bca32f9f3b9f23d5641e5f1",
+    "renderedAt": "2026-09-20T05:42:29.098Z"
+  },
+  "pricing-breakdown": {
+    "templateSha256": "5a2395a91bd4688e33e549d41833ae86b18453618b4efb0976e3b674aa81917e",
+    "renderedAt": "2026-09-20T05:42:29.148Z"
+  },
+  "privacy": {
+    "templateSha256": "af7e50cca244764054753dfae5584273ae263c92b0beb9559aafe8aeb3154b7c",
+    "renderedAt": "2026-09-20T05:42:29.800Z"
+  },
+  "status": {
+    "templateSha256": "afcd6cad33ad1aa3436c2a8174071a83d71125cbad4c83414c3d9cb68f894976",
+    "renderedAt": "2026-09-20T05:42:29.373Z"
+  },
+  "terms": {
+    "templateSha256": "ede6b9af9ad80e5943b3eacd080f469553cc0e618180f4cdaf18a1405a8ff4ca",
+    "renderedAt": "2026-09-20T05:42:28.999Z"
+  },
+  "vs-railway": {
+    "templateSha256": "61a3e5eed5aa23fb5556023eb24f31910466a8a1feabdfa494b9e469d30cecf7",
+    "renderedAt": "2026-09-20T05:42:29.326Z"
+  },
+  "vs-resend": {
+    "templateSha256": "e4e6a581fc1a30bd4b8e40a9cd654e6604b42221afac07819322581ab2198a79",
+    "renderedAt": "2026-09-20T05:42:29.282Z"
+  },
+  "vs-supabase": {
+    "templateSha256": "c14da45922785610b1142722dbeaa08e232f15b8b6d39f6865046b52cfe422dc",
+    "renderedAt": "2026-09-20T05:42:29.234Z"
+  },
+  "vs-vercel": {
+    "templateSha256": "c5b49685972c8d18a3fef73b3ae18e1e8617275ab952b2732022e0f045d0eece",
+    "renderedAt": "2026-09-20T05:42:29.189Z"
+  }
+}

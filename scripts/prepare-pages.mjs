@@ -47,7 +47,8 @@ await writeFile(
       `export const SITE_ICON = ${JSON.stringify(await readFile(`${brandAssets}/favicon.svg`, "utf8"))};\n` +
       `export const PRIVACY_UI = ${JSON.stringify(privacyUi)};\n` +
       `export const BETA_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/beta-entry.js`, "utf8"))};\n` +
-      `export const FIGURE_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/figure-count.js`, "utf8"))};\n`,
+      `export const FIGURE_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/figure-count.js`, "utf8"))};\n` +
+      `export const OG_IMAGES: readonly string[] = ${JSON.stringify(await renderedOgSlugs())};\n`,
     { parser: "typescript", printWidth: 100 },
   ),
 );
@@ -390,4 +391,11 @@ function hardenHomepageMarkup(html) {
   );
   if (html.includes('href="#"')) throw new Error("Homepage placeholder link remains");
   return html;
+}
+
+/** Slugs of the committed 1200×630 social cards; a page without one falls back to the site image. */
+async function renderedOgSlugs() {
+  const manifest = `${directory}public/og/manifest.json`;
+  if (!existsSync(manifest)) return [];
+  return Object.keys(JSON.parse(await readFile(manifest, "utf8"))).sort();
 }

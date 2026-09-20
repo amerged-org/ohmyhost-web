@@ -271,7 +271,8 @@ export default {
         url.pathname,
       );
     const font = /^\/fonts\/[a-f0-9]{16}\.ttf$/u.test(url.pathname);
-    if (!page && !logo && !font) {
+    const social = /^\/og\/[a-z0-9-]+\.png$/u.test(url.pathname);
+    if (!page && !logo && !font && !social) {
       const apiRequest = url.pathname.startsWith("/v1/");
       headers.set(
         "content-type",
@@ -295,10 +296,12 @@ export default {
         headers,
       });
     const asset = await env.ASSETS.fetch(
-      new Request(`${HOME.slice(0, -1)}${logo || font ? url.pathname : `/pages/${page}`}`),
+      new Request(
+        `${HOME.slice(0, -1)}${logo || font || social ? url.pathname : `/pages/${page}`}`,
+      ),
     );
     if (!asset.ok) return new Response(null, { status: asset.status, headers });
-    if (page?.endsWith(".png") || page?.endsWith(".ico") || font) {
+    if (page?.endsWith(".png") || page?.endsWith(".ico") || font || social) {
       headers.set(
         "content-type",
         font ? "font/ttf" : page?.endsWith(".ico") ? "image/x-icon" : "image/png",

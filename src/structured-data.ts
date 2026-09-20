@@ -1,7 +1,14 @@
 import { marked, type Token } from "marked";
 
 import { FOUNDER, SITE_ORIGIN, crumbLabel, pageMeta, type PageMeta } from "./page-meta.js";
+import { OG_IMAGES } from "./generated-site-frame.js";
 import { BLOG_POSTS } from "./pages/index.js";
+
+/** The page's rendered social card when one exists, else the declared or site-wide image. */
+export function ogImagePath(path: string, meta: PageMeta): string {
+  const slug = path.slice(1).replaceAll("/", "-");
+  return OG_IMAGES.includes(slug) ? `/og/${slug}.png` : (meta.ogImage ?? "/og.png");
+}
 
 const ORGANIZATION_ID = `${SITE_ORIGIN}/#org`;
 const FOUNDER_ID = `${SITE_ORIGIN}${FOUNDER.path}#founder`;
@@ -83,7 +90,7 @@ function breadcrumbItems(path: string, meta: PageMeta): Array<{ name: string; pa
 /** The schema.org graph for one page: organization, page node, breadcrumb and the kind's nodes. */
 export function jsonLdGraph(path: string, meta: PageMeta, markdown: string): object[] {
   const url = `${SITE_ORIGIN}${path}`;
-  const image = `${SITE_ORIGIN}${meta.ogImage ?? "/og.png"}`;
+  const image = `${SITE_ORIGIN}${ogImagePath(path, meta)}`;
   const pageType =
     meta.kind === "about" ? "AboutPage" : meta.kind === "collection" ? "CollectionPage" : "WebPage";
   const graph: object[] = [
@@ -185,7 +192,7 @@ export function jsonLdGraph(path: string, meta: PageMeta, markdown: string): obj
 /** Title, description, canonical, social tags and JSON-LD for one page's `<head>`. */
 export function headTags(path: string, meta: PageMeta, markdown: string): string {
   const url = `${SITE_ORIGIN}${path}`;
-  const image = `${SITE_ORIGIN}${meta.ogImage ?? "/og.png"}`;
+  const image = `${SITE_ORIGIN}${ogImagePath(path, meta)}`;
   const title = attribute(meta.title);
   const description = attribute(meta.description);
   const tags = [
