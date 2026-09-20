@@ -1,4 +1,5 @@
 import { readdir, readFile } from "node:fs/promises";
+import { runInNewContext } from "node:vm";
 
 import { describe, expect, it } from "vitest";
 
@@ -66,6 +67,59 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html).toContain(".vs .card .tot{order:-1");
     expect(html).toContain("details.bill");
     expect(html).not.toContain("Auth0");
+    const navigation = { "sec-fetch-mode": "navigate", "sec-fetch-dest": "document" };
+    for (const [cf, requestHeaders, expectedRegion] of [
+      [{ country: "NL", continent: "EU" }, navigation, "eu"],
+      [{ country: "US", continent: "NA" }, navigation, "us"],
+      [undefined, { ...navigation, "cf-ipcountry": "NL" }, ""],
+      [{ country: "NL", continent: "EU" }, {}, ""],
+    ] as const) {
+      const request = new Request("https://ohmyho.st/", { headers: requestHeaders });
+      Object.defineProperty(request, "cf", { value: cf });
+      const response = await worker.fetch(request, { ASSETS: assets });
+      const page = await response.text();
+      expect(page).toContain(`<meta name="ohmyhost-region-hint" content="${expectedRegion}">`);
+      expect(response.headers.get("cache-control")).toBe("no-store");
+      const script = [...page.matchAll(/<script>([\s\S]*?)<\/script>/gu)]
+        .map((match) => match[1] ?? "")
+        .find((text) => text.includes('meta[name="ohmyhost-region-hint"]'));
+      expect(script).toBeDefined();
+      let copied = "";
+      let click: ((event: unknown) => Promise<void>) | undefined;
+      const label = { textContent: "" };
+      const button = { querySelector: () => label, closest: () => null, classList: { add() {} } };
+      runInNewContext(script ?? "", {
+        document: {
+          querySelector: (selector: string) =>
+            selector.includes("ohmyhost-region-hint") ? { content: expectedRegion } : null,
+          querySelectorAll: () => [],
+          getElementById: () => null,
+          addEventListener: (_name: string, handler: (event: unknown) => Promise<void>) => {
+            click = handler;
+          },
+        },
+        navigator: {
+          clipboard: {
+            writeText: async (text: string) => {
+              copied = text;
+            },
+          },
+        },
+        setTimeout: () => undefined,
+      });
+      if (!click) throw Error("Homepage copy handler missing");
+      await click({
+        target: { closest: () => button },
+        preventDefault() {},
+        stopImmediatePropagation() {},
+      });
+      expect(copied).toContain(
+        expectedRegion
+          ? `use ${expectedRegion.toUpperCase()} based on this browser's region unless I specify another region`
+          : "ask me once whether to use EU or US unless I already specified a region",
+      );
+      expect(copied).toContain("Keep existing projects in their current region.");
+    }
     expect(html).not.toContain("logos/auth0.svg");
     expect(html).toContain("Better Auth, WorkOS or anything else that speaks OAuth, OIDC or SAML");
     expect(html).toContain('id="auth-logos" style="grid-template-columns:repeat(3,1fr)"');
@@ -109,7 +163,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(
       await (await worker.fetch(new Request("https://omh.st/0.sh"), { ASSETS: assets })).text(),
     ).toContain("OHMYHOST_SIGNUP_SOURCE=''");
-    expect(installerText).toContain("0.1.6");
+    expect(installerText).toContain(`omh_release='${CLIENT_RELEASE}'`);
     expect(installerText).toContain("using only my explicitly authorized GitHub repository");
     expect(installerText).not.toMatch(/upload source path|source uploads/u);
     expect(installerText).toContain("Hermes 0.21 or newer is required for interactive onboarding.");
@@ -278,8 +332,8 @@ describe("public entry and unassigned Free-host fallback", () => {
     });
     const release = await worker.fetch(new Request("https://ohmyho.st/client-release.json"));
     expect(await release.json()).toEqual({
-      version: "0.1.6",
-      manifest_url: "https://ohmyho.st/releases/0.1.6/manifest.json",
+      version: CLIENT_RELEASE,
+      manifest_url: `https://ohmyho.st/releases/${CLIENT_RELEASE}/manifest.json`,
     });
     const index = await worker.fetch(new Request("https://ohmyho.st/llms.txt"));
     const text = await index.text();
@@ -413,14 +467,17 @@ it("serves only pinned public client assets and strips credentials before the as
   const currentUrl = `https://ohmyho.st/releases/${CLIENT_RELEASE}/ohmyhost-product-cli-${CLIENT_RELEASE}.tgz`;
   expect((await worker.fetch(new Request(currentUrl), { ASSETS: fixture })).status).toBe(200);
   expect(fixture.requests).toHaveLength(2);
-  expect(
-    (
-      await worker.fetch(
-        new Request("https://ohmyho.st/releases/0.1.5/ohmyhost-customer-runtime-0.1.5.tgz"),
-        { ASSETS: fixture },
-      )
-    ).status,
-  ).toBe(200);
+  for (const retained of ["0.1.6", "0.1.5"])
+    expect(
+      (
+        await worker.fetch(
+          new Request(
+            `https://ohmyho.st/releases/${retained}/ohmyhost-customer-runtime-${retained}.tgz`,
+          ),
+          { ASSETS: fixture },
+        )
+      ).status,
+    ).toBe(200);
   for (const invalid of [
     "https://ohmyho.st/releases/0.1.3/ohmyhost-product-cli-0.1.3.tgz",
     "https://ohmyho.st/releases/0.1.0/manifest.json",
@@ -430,7 +487,7 @@ it("serves only pinned public client assets and strips credentials before the as
     `https://ohmyho.st/releases/${CLIENT_RELEASE}/.env.local`,
   ])
     expect((await worker.fetch(new Request(invalid), { ASSETS: fixture })).status).toBe(404);
-  expect(fixture.requests).toHaveLength(3);
+  expect(fixture.requests).toHaveLength(4);
 });
 
 class PublicAssetFixture {

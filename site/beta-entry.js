@@ -1,9 +1,14 @@
 /* Signup is open; the server supplies any r attribution as signup_source only. */
 (() => {
   const source = document.querySelector('meta[name="ohmyhost-signup-source"]')?.content;
+  const region = document.querySelector('meta[name="ohmyhost-region-hint"]')?.content;
   const prompt =
     "Read https://ohmyho.st/llms.txt and https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md. Connect this agent to ohmyho.st and deploy this GitHub project using only the capabilities it needs. " +
     (source ? "I came from https://ohmyho.st/?r=" + encodeURIComponent(source) + ". " : "") +
+    (region === "eu" || region === "us"
+      ? "For a new project, use " + region.toUpperCase() + " based on this browser's region unless I specify another region. "
+      : "For a new project, ask me once whether to use EU or US unless I already specified a region. ") +
+    "Keep existing projects in their current region. " +
     "Follow the deployment Skill, keep my existing project decisions and verify the app.";
 
   const buttons = "[data-copy], #copy, #shcopy2, #shcopy, [data-wincopy], [data-beta-access]";

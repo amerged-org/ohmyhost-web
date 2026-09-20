@@ -21,6 +21,23 @@ function signupSourceMeta(source: string): string {
   return `<meta name="ohmyhost-signup-source" content="${escaped}"></head>`;
 }
 
+function browserRegionMeta(request: Request): string {
+  const cf = (request as Request & { cf?: { country?: unknown; continent?: unknown } }).cf;
+  let region = "";
+  if (
+    request.headers.get("sec-fetch-mode") === "navigate" &&
+    request.headers.get("sec-fetch-dest") === "document" &&
+    typeof cf?.country === "string" &&
+    /^[A-Z]{2}$/u.test(cf.country) &&
+    cf.country !== "XX"
+  ) {
+    if (cf.country === "CY" || cf.continent === "EU") region = "eu";
+    else if (typeof cf.continent === "string" && /^(AF|AN|AS|NA|OC|SA)$/u.test(cf.continent))
+      region = "us";
+  }
+  return `<meta name="ohmyhost-region-hint" content="${region}"></head>`;
+}
+
 export default {
   async fetch(
     request: Request,
@@ -178,6 +195,7 @@ export default {
           `default-src 'none'; script-src 'self' ${hashes.join(" ")}; style-src 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'`,
         );
         if (source) documentText = documentText.replace("</head>", () => signupSourceMeta(source));
+        documentText = documentText.replace("</head>", () => browserRegionMeta(request));
       }
       headers.set("content-type", document.type);
       headers.set("vary", "Accept");
@@ -302,6 +320,7 @@ export default {
       headers.set("link", `<${markdownPath}>; rel="alternate"; type="text/markdown"`);
       if (page === "home.html" && source)
         body = body.replace("</head>", () => signupSourceMeta(source));
+      if (page === "home.html") body = body.replace("</head>", () => browserRegionMeta(request));
     }
     headers.set("content-type", type);
     headers.set("vary", "Accept");
