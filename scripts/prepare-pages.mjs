@@ -374,6 +374,15 @@ function hardenHomepageMarkup(html) {
     '<span class="ghi"><img src="logos/github.svg" alt="GitHub logo" loading="lazy"':
       '<span class="ghi"><img src="logos/github.svg" alt="GitHub logo" width="16" height="16" loading="lazy"',
     '<a href="#">Docs</a>': '<a href="https://docs.ohmyho.st/">Docs</a>',
+    "It includes hosting, a Postgres database and a you.ohmyho.st subdomain. Custom domains, email and database exports come with the $10 plan.":
+      "It includes hosting, a Postgres database and Dev and Prod hosts on check.omh.st. Encrypted SQL exports are on every plan; linking your own domain and sending mail need the $10 plan and use credits.",
+    "<li>you.ohmyho.st</li>": "<li>Dev and Prod hosts</li>",
+    "Worked example: six quiet projects plus one with real users ≈ 600 credits a month. Ten dollars covers it.":
+      "Worked example: a small app with a database, some traffic and 2,000 mail recipients ≈ 552 credits a month. Ten dollars covers it.",
+    "When usage reaches it, ohmyho.st stops the project before it costs more; the site stays up and read-only.":
+      "When usage reaches it, ohmyho.st stops new spending on the project before it costs more.",
+    "There is no web console to learn.":
+      "The portal shows your projects, credits, budgets and API tokens; there is no deploy console to learn.",
     '<a href="/docs/quickstart">Read the getting-started guide for your agent →</a>':
       '<a href="https://docs.ohmyho.st/quickstart">Read the getting-started guide for your agent →</a>',
     ".fcol h4{": ".fcol h4,.fcol .fh{",

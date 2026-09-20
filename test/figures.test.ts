@@ -101,4 +101,9 @@ it("keeps the pinned homepage's bill and credit examples equal to the data modul
   );
   expect(credits(priceLine("ses.{region}.recipients (Essentials)", 2000), 0)).toBe("105 credits");
   expect(home).toContain("2,000 emails ≈ 105 credits");
+  const example = Math.round(priceWorkload(WORKLOADS.smallApp).microcredits / MICROCREDITS);
+  expect(home).toContain(`≈ ${example} credits a month`);
+  expect(home).not.toContain("you.ohmyho.st");
+  expect(home).not.toContain("stays up and read-only");
+  expect(home).not.toContain("no web console");
 });
