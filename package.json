@@ -20,10 +20,11 @@
     }
   },
   "scripts": {
-    "build": "node scripts/prepare-pages.mjs && tsc --project tsconfig.build.json && wrangler deploy --dry-run --outdir dist/worker-bundle --metafile dist/worker-bundle/metafile.json --config wrangler.jsonc",
+    "build": "node scripts/prepare-pages.mjs && tsc --project tsconfig.build.json && node ../../scripts/prepare-content.mjs && tsc --project tsconfig.build.json && wrangler deploy --dry-run --outdir dist/worker-bundle --metafile dist/worker-bundle/metafile.json --config wrangler.jsonc",
     "typecheck": "tsc --project tsconfig.json --noEmit",
-    "test": "node scripts/prepare-pages.mjs && vitest run --root ../.. apps/public-site/test",
-    "pages:prepare": "node scripts/prepare-pages.mjs"
+    "test": "node scripts/prepare-pages.mjs && node ../../scripts/prepare-content.mjs && vitest run --root ../.. apps/public-site/test",
+    "pages:prepare": "node scripts/prepare-pages.mjs",
+    "content:prepare": "node ../../scripts/prepare-content.mjs"
   },
   "devDependencies": {
     "wrangler": "4.125.0"

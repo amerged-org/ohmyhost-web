@@ -21,6 +21,10 @@ export interface ContentPage {
   readonly ogImage?: string;
   /** Short breadcrumb label; the title's first clause when absent. */
   readonly crumb?: string;
+  /** Article byline; articles only. */
+  readonly author?: string;
+  /** Alternative text for the social card. */
+  readonly ogImageAlt?: string;
   readonly markdown: string;
 }
 

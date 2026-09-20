@@ -2,6 +2,7 @@ import checkedOn from "../../../../content/data/checked-on.json" with { type: "j
 import databaseProfiles from "../../../../content/data/database-profiles.json" with { type: "json" };
 import plans from "../../../../content/data/plans.json" with { type: "json" };
 import scenarioData from "../../../../content/data/scenarios.json" with { type: "json" };
+import units from "../../../../content/data/units.json" with { type: "json" };
 import vendors from "../../../../content/data/vendors.json" with { type: "json" };
 import workloads from "../../../../content/data/workloads.json" with { type: "json" };
 import type { PriceFact, Scenario, Vendor, Workload } from "./types.js";
@@ -54,3 +55,8 @@ export const SCENARIOS = Object.fromEntries(
     },
   ]),
 ) as unknown as { [Name in keyof typeof scenarioData]: Scenario };
+
+/** Named metered units the pages cite, each priced from the generated rate card. */
+export const UNITS = units as unknown as {
+  [Name in keyof typeof units]: { meter: string; quantity: number; label: string };
+};

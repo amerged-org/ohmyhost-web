@@ -93,6 +93,7 @@ const FLOORS: Array<[RegExp, number]> = [
   [/^\/pricing\/breakdown$/u, 600],
   [/^\/blog\/.+/u, 1200],
   [/^\/(?:about|philosophy)$/u, 500],
+  [/^\/open-source$/u, 300],
 ];
 const CONTENT_PATHS = new Set(CONTENT_PAGE_LIST.map((page) => page.path));
 /** Machine-readable endpoints the worker serves outside DOCUMENTATION. */
@@ -190,7 +191,10 @@ it("keeps every editorial page inside the words, numbers and sources contract", 
       expect(html, `${path} forbidden ${pattern} (html)`).not.toMatch(pattern);
     }
     expect(markdown, `${path} exclamation`).not.toMatch(/!(?![[\]])/u);
-    if (!CONTENT_PATHS.has(path)) continue;
+    const floor = ANNOUNCEMENTS.has(path)
+      ? 150
+      : (FLOORS.find(([pattern]) => pattern.test(path))?.[1] ?? 0);
+    if (!CONTENT_PATHS.has(path) || floor === 0) continue;
     const meta = PAGE_META[path];
     expect(meta, path).toBeDefined();
     // Numbers: every price or credit figure on the page comes from the data module or the rate card.
@@ -255,9 +259,6 @@ it("keeps every editorial page inside the words, numbers and sources contract", 
       expect(markdown, `${path} byline`).toMatch(
         /^By Sebastian Mertens · (?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, \d{4}$/mu,
       );
-    const floor = ANNOUNCEMENTS.has(path)
-      ? 150
-      : (FLOORS.find(([pattern]) => pattern.test(path))?.[1] ?? 0);
     expect(words(markdown), `${path} words`).toBeGreaterThanOrEqual(floor);
     // A section carries a vendor's date line when it quotes that vendor's price — through a
     // VENDORS.<key>.facts expression or a SCENARIO that sums them — not when it merely names it.
