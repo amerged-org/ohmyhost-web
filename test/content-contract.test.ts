@@ -147,7 +147,7 @@ function knownNumbers(): number[] {
   for (const scenario of Object.values(SCENARIOS)) known.add(scenarioUsd(scenario));
   for (const profile of Object.values(DATABASE_PROFILES)) {
     known.add(profile.cu);
-    addCredits(priceLine(profile.meter, profile.cu));
+    addCredits(priceLine(profile.meter as keyof typeof CREDIT_RATES, profile.cu));
   }
   for (const meter of Object.keys(CREDIT_RATES) as Array<keyof typeof CREDIT_RATES>)
     for (const quantity of [
