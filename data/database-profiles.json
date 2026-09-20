@@ -1,0 +1,14 @@
+{
+  "free": {
+    "cu": 0.25,
+    "meter": "neon.compute.scale"
+  },
+  "standard": {
+    "cu": 0.5,
+    "meter": "neon.compute.scale"
+  },
+  "performance": {
+    "cu": 1,
+    "meter": "neon.compute.performance"
+  }
+}
