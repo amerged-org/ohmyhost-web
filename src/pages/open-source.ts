@@ -10,7 +10,7 @@ export const page: ContentPage = {
   crumb: "Open source",
   markdown: `# What is open at ohmyho.st
 
-The documentation is open source, the agent-facing contracts are public, and the platform itself is not. This page lists exactly what you can read, fork or build against, so nobody has to guess.
+The documentation is open source under the MIT licence, every contract an agent reads is public, and the platform that runs your projects is not. This page lists exactly what you can read, fork, build against or send a pull request to, so nobody has to guess which part is which.
 
 ## Open source: the documentation
 
@@ -28,9 +28,15 @@ The documentation is open source, the agent-facing contracts are public, and the
 
 The platform that runs the Workers, provisions Postgres and sends mail is a private repository. The CLI and MCP client packages are published as pinned tarballs from this site without an open-source licence. If you need it otherwise, say so through the [contact form](/contact).
 
+## Why these parts and not others
+
+An agent cannot work against a product it has to guess at. The index, the Skills, the tool catalog and the OpenAPI contract are the interface, so they are published, versioned and served from the site itself rather than described second-hand. The documentation is open source because the people most likely to spot a wrong command are the people who just ran it.
+
+The platform is private for the ordinary reason: it holds provider credentials, tenant isolation and the billing ledger, and it is a small team's product rather than a community project. Saying so plainly is better than a half-open repository that cannot be run.
+
 ## How to contribute
 
-Open a pull request on the docs repository, or send a bug or feature request through your agent's \`feedback_submit\` tool. Roadmap votes live on the [homepage](/).
+Open a pull request on the docs repository, or send a bug or feature request through your agent's \`feedback_submit\` tool. Both reach the same place. Roadmap votes live on the [homepage](/).
 
 [Docs](https://docs.ohmyho.st/) · [Philosophy](/philosophy) · [About](/about)`,
 };

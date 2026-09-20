@@ -12,7 +12,12 @@ export const FIGURE_SCRIPT =
 export const OG_IMAGES: readonly string[] = [
   "about",
   "blog",
+  "blog-host-a-lovable-app-after-export",
   "blog-introducing-ohmyho-st",
+  "blog-railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026",
+  "blog-six-things-that-break-when-a-vibe-coded-app-meets-production",
+  "blog-supabase-vs-vercel-do-you-need-both",
+  "blog-what-vercel-supabase-resend-cost-for-five-side-projects",
   "changelog",
   "contact",
   "cookies",

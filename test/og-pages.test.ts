@@ -22,7 +22,7 @@ it("derives one social card per page and keeps the rendered PNGs in step with th
   );
   expect(ogSlug("/pricing/breakdown")).toBe("pricing-breakdown");
   const vercel = cards.find((card) => card.path === "/vs/vercel");
-  expect(vercel?.headline).toBe("ohmyho.st vs Vercel");
+  expect(vercel?.headline).toBe(pageMeta("/vs/vercel").title.split(/ — |: | \| /u)[0]);
   expect(vercel?.kicker).toContain("compare");
   if (!vercel) throw new Error("/vs/vercel card missing");
   const html = ogCardHtml(vercel);

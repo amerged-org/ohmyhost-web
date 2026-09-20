@@ -1,5 +1,3 @@
-import { CREDIT_PRICING_TABLE } from "./generated-pricing.js";
-
 /** Public editorial pages; the price table is generated from the reviewed price contract. */
 export const LAUNCH_DOCUMENTS: Record<string, string> = {
   "/terms": `# Terms of Service — Master Services Agreement
@@ -133,17 +131,6 @@ Comply with applicable export controls and sanctions when using or making the se
 Send service complaints, billing disputes and legal notices through [our contact form](/contact), identifying the relevant account and matter, or by another legally effective written method. Keep the confirmation of receipt. We may send notices through the service or to your registered contact address; keep that address current. These arrangements do not replace mandatory rules for court documents, regulatory complaints, withdrawal or other statutory notices.
 
 [Contact](/contact) · [Privacy](/privacy) · [Cookies](/cookies) · [DPA and annexes](/dpa) · [Documentation](https://docs.ohmyho.st/)`,
-  "/about": `# Hosting for agents
-
-<img src="/brand/assets/founder.png" width="96" height="96" loading="lazy" alt="Founder of ohmyho.st" style="border-radius:50%">
-
-ohmyho.st brings supported application hosting, Postgres, domains and transactional mail into an agent-operated workflow. You use your existing coding agent to plan changes, deploy, check usage and export a database.
-
-Projects share an organization credit balance. You choose which services each application needs and whether Dev and Prod share data or keep it separate.
-
-The operator is Amerged B.V., KVK 42154221, Venray, Limburg, NL. Use [our contact form](/contact).
-
-[How to start](https://docs.ohmyho.st/quickstart) · [Where credits go](/pricing/breakdown) · [Our approach](/#philosophy)`,
   "/pricing": `# One balance for your projects
 
 Free starts with 200 credits. Paid starts at $10 for 1,000 monthly credits. Projects use the same organization balance; there is no separate project base subscription.
@@ -165,99 +152,6 @@ Performance uses 2.5 times standard database-compute credits for equal active ti
 Ask your agent for remaining credits, measured usage and optional project budgets. A top-up adds credits but does not extend a subscription. A top-up above $100 adds 125 credits per dollar for the part above $100; consumption prices stay the same. Automatic recharge is not enabled in the current beta. Production purchases are not yet enabled; your organization can use its available balance.
 
 [All usage rates](https://docs.ohmyho.st/pricing) · [Worked cost example](/pricing/breakdown) · [Usage guide](https://docs.ohmyho.st/usage) · [Compare Vercel](/vs/vercel)`,
-  "/pricing/breakdown": `# Where your credits go
-
-At the standard purchase rate, 100 credits represent $1 of credit value. Credit consumption and the amount of a subscription payment are different. The table below and the [pricing reference](https://docs.ohmyho.st/pricing) use the same published price contract.
-
-${CREDIT_PRICING_TABLE}
-
-Actual charges use the active rate card, measured quantities and microcredit rounding. Your agent can read those cards and usage through the [usage API](https://docs.ohmyho.st/usage). Storage, history and other operations may add consumption; different mail configurations can have different rates.
-
-## An example workload
-
-Twenty build minutes (24.098743 credits), 100,000 worker requests (9.857143), one million CPU milliseconds (6.571429), four standard database CU-hours (291.771429), one database GB-month (115), and 2,000 Essentials mail recipients (105.142857) total **about 552.44 credits**: about $5.5244 in credit value.
-
-Five identical workloads total **about 2,762.21 credits**. At the standard pack rate, 3,000 credits would cover these selected quantities. This is arithmetic, not a benchmark, a guaranteed bill or a complete estimate for an unspecified app.
-
-## A separate subscription scenario
-
-One developer on Vercel Pro ($20), one Supabase Micro project on Pro ($25 total) and Resend Pro ($20) totals $65/month before extras and taxes. With five Supabase Micro projects, that scenario totals about $105/month. Vercel and Resend base plans are not charged again for each project. Free allowances can reduce the alternative cost, and the services do not offer identical capacity or features.
-
-Sources: [Vercel](https://vercel.com/docs/plans/pro-plan), [Supabase billing](https://supabase.com/docs/guides/platform/billing-on-supabase), [Resend](https://resend.com/pricing).
-
-[Pricing](/pricing) · [Read your usage](https://docs.ohmyho.st/usage) · [Compare services](/vs/vercel)`,
-  "/vs/vercel": `# ohmyho.st and Vercel
-
-Choose the hosting workflow that fits your application. Vercel provides an extensive deployment platform; ohmyho.st combines supported application hosting and optional managed services with an agent-operated organization balance.
-
-## Price model
-
-Vercel Pro starts at $20/month with one deploying seat and $20 usage credit; additional deploying seats cost $20/month. Its current lowest Flat Rate CDN tier includes one million requests and 1 TB transfer. Hobby is for personal, non-commercial use. These are service allowances, not prices to multiply by your app count.
-
-## What your app needs
-
-ohmyho.st focuses on supported Next.js, Vite and TanStack applications. Database, auth, mail, secrets and migrations depend on the capabilities your application actually uses. Your agent plans the deployment and checks the resulting app.
-
-Vercel can be a better fit when its deployment ecosystem, integrations or supported features are requirements. Compare a concrete workload and framework behavior; a lower starting balance does not imply equal capacity.
-
-## Move with your agent
-
-Keep your application in GitHub, inventory its services and use the [deployment Skill](/skills/ohmyhost-deploy-github/SKILL.md). Changing hosts does not require replacing your auth provider by default.
-
-Checked September 13, 2026: [Vercel Pro](https://vercel.com/docs/plans/pro-plan), [Vercel pricing](https://vercel.com/pricing).
-
-[Cost breakdown](/pricing/breakdown) · [GitHub guide](https://docs.ohmyho.st/github) · [From Vercel and Supabase](/from/vercel-supabase)`,
-  "/vs/supabase": `# ohmyho.st and Supabase
-
-Supabase combines Postgres with Auth, Realtime and database tooling. ohmyho.st hosts supported applications with optional managed Postgres while you choose your application's authentication.
-
-## Price model
-
-Supabase Pro costs $25/month per organization and includes $10 compute credit. Micro compute is approximately $10/month per project: one Micro project is $25 total, while five continuously running Micro projects are approximately $65 before extras. A Free plan is available.
-
-## Keep the capabilities you use
-
-An exported repository may use Supabase Auth, Storage, Realtime or Functions as well as Postgres. Inventory actual usage before planning a move. A package name alone does not establish which services need migration, and a plain database dump does not migrate every Supabase feature.
-
-Supabase may fit best when those integrated services are central to your app. If you choose a migration, your agent should verify login, protected routes, reads and writes after the change.
-
-Checked September 13, 2026: [Supabase pricing](https://supabase.com/pricing), [billing guide](https://supabase.com/docs/guides/platform/billing-on-supabase).
-
-[Migration guide](/from/vercel-supabase) · [Application auth](https://docs.ohmyho.st/application-auth) · [Cost breakdown](/pricing/breakdown)`,
-  "/vs/resend": `# ohmyho.st and Resend
-
-ohmyho.st provides transactional mail alongside supported application hosting. Resend is a dedicated email product with its own tooling and allowances.
-
-## Compare the quantities
-
-Resend Free includes 3,000 emails/month, up to 100/day, and three domains. Pro costs $20/month for 50,000 emails, with additional usage at $0.90 per 1,000, ten domains and no daily quota. Recipients in To, CC and BCC count separately.
-
-The published ohmyho.st Essentials mail example uses about 52.571429 credits per 1,000 recipients: $0.525714 of credit value at the base purchase rate. Two thousand recipients are about $1.051429; 50,000 are about $26.285714. Resend Free can cover the smaller example if its daily limit fits, while Resend Pro includes the larger volume for $20. Read your active rate card before comparing costs.
-
-## Connect and verify
-
-Managed mail requires Paid access and verified sender DNS. A verified sender is distinct from successful delivery and account sending availability. Ask your agent to check the sender, the original deployment operation and a real application send.
-
-Checked September 13, 2026: [Resend pricing](https://resend.com/pricing), [pricing details](https://resend.com/docs/knowledge-base/what-is-resend-pricing).
-
-[Email guide](https://docs.ohmyho.st/email) · [DNS guide](https://docs.ohmyho.st/domains) · [Cost breakdown](/pricing/breakdown)`,
-  "/vs/railway": `# ohmyho.st and Railway
-
-Railway runs a broad range of services and containers. ohmyho.st focuses on supported application frameworks and an agent workflow for hosting, Postgres, domains, mail and usage.
-
-## Price model
-
-Railway provides a $5 trial credit for 30 days, followed by a Free plan with $1 monthly credit. Hobby has a $5 minimum including $5 usage; Pro has a $20 minimum including $20 usage. Usage beyond the included amount adds to the bill. These are not a base fee plus every dollar of usage again.
-
-## Runtime fit
-
-Railway supports Docker and many runtimes, with optional Serverless sleeping for inactive services. It may be a better fit for applications needing arbitrary containers or services outside ohmyho.st's supported contracts.
-
-For Next.js, Vite or TanStack, start with a real framework/capability check and a workload estimate. Both products meter resource usage; compare what your app needs and how you want to operate it.
-
-Checked September 13, 2026: [Railway pricing](https://railway.com/pricing), [Serverless](https://docs.railway.com/deployments/serverless).
-
-[Supported frameworks](https://docs.ohmyho.st/frameworks/vite) · [Usage](https://docs.ohmyho.st/usage) · [Pricing](/pricing)`,
   "/status": `# Service status
 
 This page reports the scope of the current observation. An available API does not establish that every customer application or provider is healthy.
@@ -282,30 +176,7 @@ Public CLI/MCP releases provide project context, operation diagnostics, usage re
 [Documentation](https://docs.ohmyho.st/) · [Skills](https://docs.ohmyho.st/skills) · [Beta introduction](/blog/introducing-ohmyho-st)`,
 };
 
-const agentPages = {
-  "claude-code": ["Claude Code", "claude mcp add ohmyho -- ohmyhost-mcp"],
-  cursor: [
-    "Cursor",
-    "Add a local stdio MCP server with command ohmyhost-mcp in Cursor's MCP settings.",
-  ],
-  codex: ["Codex", "codex mcp add ohmyho -- ohmyhost-mcp"],
-};
-for (const [slug, [name, command]] of Object.entries(agentPages))
-  LAUNCH_DOCUMENTS[`/for/${slug}`] = `# Deploy with ${name}
-
-Keep working in ${name} and let the ohmyho.st Skills guide the hosting steps.
-
-## How to deploy with ${name}
-
-1. Connect: open your project and [ohmyho.st](/). Copy the agent prompt, or follow the [CLI and MCP installation guide](https://docs.ohmyho.st/agents/mcp) first. The current MCP server runs locally with Node.js. ${command} Use the installed tool's help when a version has different setup syntax, preserve your other MCP servers and reload the connection if required. Ask the agent to list the ohmyho.st tools and read the get-started Skill.
-2. Deploy: your agent signs in, selects your organization, gets authorized GitHub access and reviews a plan for the selected commit. It follows the accepted operation and verifies the actual application before reporting a working URL.
-3. Continue later: ask "Read this project's context and finish its next action." The agent can check usage, DNS and email readiness and deployment errors through the same tools.
-
-[Get-started Skill](/skills/ohmyhost-get-started/SKILL.md) · [GitHub guide](https://docs.ohmyho.st/github) · [Pricing](/pricing)`;
-
 const sourcePages = {
-  lovable: "Lovable",
-  bolt: "Bolt",
   replit: "Replit",
   "vercel-supabase": "Vercel and Supabase",
 };

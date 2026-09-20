@@ -40,14 +40,6 @@ const STATIC_PAGES: Record<string, PageMeta> = {
     modified: LEGAL_MODIFIED,
     crumb: "Terms",
   },
-  "/about": {
-    title: "About ohmyho.st — hosting for agents by Amerged B.V.",
-    description:
-      "Who runs ohmyho.st: Amerged B.V. in Venray, Netherlands, founded by Sebastian Mertens. What the service is, where projects run and how to reach us.",
-    kind: "about",
-    modified: "2026-09-20",
-    crumb: "About",
-  },
   "/pricing": {
     title: "Pricing: one balance for your projects, from $10 — ohmyho.st",
     description:
@@ -55,47 +47,6 @@ const STATIC_PAGES: Record<string, PageMeta> = {
     kind: "page",
     modified: "2026-09-20",
     crumb: "Pricing",
-  },
-  "/pricing/breakdown": {
-    title: "Where your credits go: the ohmyho.st cost breakdown",
-    description:
-      "Every published rate from the price contract, a worked example workload in credits, and the same workload priced as separate Vercel, Supabase and Resend plans.",
-    kind: "page",
-    modified: "2026-09-20",
-    parent: "/pricing",
-    crumb: "Cost breakdown",
-  },
-  "/vs/vercel": {
-    title: "ohmyho.st vs Vercel: one balance, with the database",
-    description:
-      "Vercel Pro is $20 a month plus $20 per developer seat; database and mail sit elsewhere. Compare it with ohmyho.st credits from $10 a month across every project.",
-    kind: "page",
-    modified: "2026-09-20",
-    crumb: "vs Vercel",
-  },
-  "/vs/supabase": {
-    title: "ohmyho.st vs Supabase: Postgres priced by usage",
-    description:
-      "Supabase Pro starts at $25 a month plus compute per extra project. ohmyho.st meters Postgres compute and storage in credits from one balance across projects.",
-    kind: "page",
-    modified: "2026-09-20",
-    crumb: "vs Supabase",
-  },
-  "/vs/resend": {
-    title: "ohmyho.st vs Resend: transactional mail by usage",
-    description:
-      "Resend Pro is $20 a month for 50,000 emails. ohmyho.st meters mail per recipient plus a sender zone per month: cheaper at low volume, dearer at high volume.",
-    kind: "page",
-    modified: "2026-09-20",
-    crumb: "vs Resend",
-  },
-  "/vs/railway": {
-    title: "ohmyho.st vs Railway: credits instead of resource rent",
-    description:
-      "Railway bills vCPU, memory and volumes per second. ohmyho.st meters requests, CPU time and database use in credits from one shared balance for every project.",
-    kind: "page",
-    modified: "2026-09-20",
-    crumb: "vs Railway",
   },
   "/status": {
     title: "ohmyho.st service status: hosting, Postgres, mail, MCP",
@@ -112,46 +63,6 @@ const STATIC_PAGES: Record<string, PageMeta> = {
     kind: "page",
     modified: "2026-09-20",
     crumb: "Changelog",
-  },
-  "/for/claude-code": {
-    title: "Deploy a Claude Code app in one prompt — ohmyho.st",
-    description:
-      "Paste one prompt into Claude Code: it connects to ohmyho.st over MCP, links your GitHub repo, plans the deployment, sets secrets and verifies the live app.",
-    kind: "howto",
-    modified: "2026-09-20",
-    crumb: "Claude Code",
-  },
-  "/for/cursor": {
-    title: "Deploy from Cursor with MCP, no dashboard — ohmyho.st",
-    description:
-      "Add the ohmyho.st MCP server to Cursor, paste one prompt, and the agent links your GitHub repository, plans the deployment, sets secrets and verifies the app.",
-    kind: "howto",
-    modified: "2026-09-20",
-    crumb: "Cursor",
-  },
-  "/for/codex": {
-    title: "Deploy from OpenAI Codex with MCP — ohmyho.st",
-    description:
-      "Register the ohmyho.st MCP server in Codex, paste one prompt, and the agent links your GitHub repo, plans the deployment, sets secrets and verifies the app.",
-    kind: "howto",
-    modified: "2026-09-20",
-    crumb: "Codex",
-  },
-  "/from/lovable": {
-    title: "Host your Lovable app after export to GitHub — ohmyho.st",
-    description:
-      "Exported from Lovable to GitHub? Your agent inventories the app, keeps or migrates Supabase, sets secrets and callback URLs, then deploys and verifies it.",
-    kind: "howto",
-    modified: "2026-09-20",
-    crumb: "From Lovable",
-  },
-  "/from/bolt": {
-    title: "Host your Bolt.new app after export — ohmyho.st",
-    description:
-      "Exported from Bolt.new? Push the source to GitHub; your agent inventories the app, sets secrets and callback URLs, deploys to Dev and promotes to Prod.",
-    kind: "howto",
-    modified: "2026-09-20",
-    crumb: "From Bolt",
   },
   "/from/replit": {
     title: "Move your Replit app to ohmyho.st hosting",
