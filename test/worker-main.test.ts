@@ -463,21 +463,21 @@ it("serves only pinned public client assets and strips credentials before the as
     expect(document.status).toBe(200);
     expect(await document.text()).toContain(`name: ${entry.name}`);
   }
-  // Both current and retained pinned downloads stay available during the migration.
+  // Only the current release is downloadable; superseded versions never reach assets.
   const currentUrl = `https://ohmyho.st/releases/${CLIENT_RELEASE}/ohmyhost-product-cli-${CLIENT_RELEASE}.tgz`;
   expect((await worker.fetch(new Request(currentUrl), { ASSETS: fixture })).status).toBe(200);
   expect(fixture.requests).toHaveLength(2);
-  for (const retained of ["0.1.9", "0.1.8", "0.1.7", "0.1.6", "0.1.5"])
+  for (const retired of ["0.1.9", "0.1.8", "0.1.7", "0.1.6", "0.1.5"])
     expect(
       (
         await worker.fetch(
           new Request(
-            `https://ohmyho.st/releases/${retained}/ohmyhost-customer-runtime-${retained}.tgz`,
+            `https://ohmyho.st/releases/${retired}/ohmyhost-customer-runtime-${retired}.tgz`,
           ),
           { ASSETS: fixture },
         )
       ).status,
-    ).toBe(200);
+    ).toBe(404);
   for (const invalid of [
     "https://ohmyho.st/releases/0.1.3/ohmyhost-product-cli-0.1.3.tgz",
     "https://ohmyho.st/releases/0.1.0/manifest.json",
@@ -487,7 +487,7 @@ it("serves only pinned public client assets and strips credentials before the as
     `https://ohmyho.st/releases/${CLIENT_RELEASE}/.env.local`,
   ])
     expect((await worker.fetch(new Request(invalid), { ASSETS: fixture })).status).toBe(404);
-  expect(fixture.requests).toHaveLength(7);
+  expect(fixture.requests).toHaveLength(2);
 });
 
 class PublicAssetFixture {
