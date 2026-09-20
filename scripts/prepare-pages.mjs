@@ -374,6 +374,9 @@ function hardenHomepageMarkup(html) {
     '<span class="ghi"><img src="logos/github.svg" alt="GitHub logo" loading="lazy"':
       '<span class="ghi"><img src="logos/github.svg" alt="GitHub logo" width="16" height="16" loading="lazy"',
     '<a href="#">Docs</a>': '<a href="https://docs.ohmyho.st/">Docs</a>',
+    '<a href="/docs/quickstart">Read the getting-started guide for your agent →</a>':
+      '<a href="https://docs.ohmyho.st/quickstart">Read the getting-started guide for your agent →</a>',
+    ".fcol h4{": ".fcol h4,.fcol .fh{",
   })) {
     if (!html.includes(before))
       throw new Error(`Homepage hardening boundary missing: ${before.slice(0, 65)}`);

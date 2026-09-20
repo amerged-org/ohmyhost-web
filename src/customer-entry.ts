@@ -80,6 +80,20 @@ Ask your agent for project status, usage and changes.
 `,
 };
 
+/** Instructions for a coding agent that meets ohmyho.st in a repository or a prompt. */
+export const PUBLIC_AGENTS = `# AGENTS.md — working with ohmyho.st
+
+ohmyho.st hosts Next.js, Vite/React and TanStack apps from a GitHub repository the customer authorizes, with Postgres, domains, transactional mail and credits on one organization balance. You operate it through the ohmyhost CLI, the local MCP server or the REST /v1 API.
+
+1. Read https://ohmyho.st/llms.txt first, then the get-started Skill at https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md.
+2. Install the published clients and register the MCP server in your harness; sign in through the link and confirmation code returned by \`ohmyhost login --json\`. Never paste credentials into chat.
+3. Read the project's context before acting, plan before you deploy (deployment_plan, then deployment_create), and verify the live application before reporting a URL.
+4. Keep the customer's decisions: their authentication provider, their region choice, their data. Set secrets only through the stdin-only command from secret_set_command.
+5. Read the tool catalog at https://ohmyho.st/mcp-tools.json and the API errors at https://docs.ohmyho.st/limits.md; reuse idempotency keys after an uncertain outcome.
+
+Pricing and limits: https://ohmyho.st/pricing.md · https://docs.ohmyho.st/limits.md · Report a defect: the feedback_submit tool.
+`;
+
 export const AGENT_INDEX = `# ohmyho.st
 
 > Hosting for agents. Deploy GitHub-connected Next.js, Vite/React and TanStack apps, then manage databases, domains, email, credits and SQL exports through the CLI, MCP or REST API.
@@ -94,6 +108,7 @@ export const AGENT_INDEX = `# ohmyho.st
 
 ## Get started
 
+- [AGENTS.md](https://ohmyho.st/AGENTS.md): Five rules for a coding agent that operates ohmyho.st.
 - [Agent setup playbook](https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md): Install clients, connect MCP, sign in and reuse the customer's workspace.
 - [Quickstart](https://docs.ohmyho.st/quickstart.md): Deploy the selected GitHub app.
 - [Authentication](https://ohmyho.st/auth.md): Browser login, local CLI sessions and user-owned API tokens.
@@ -179,6 +194,7 @@ export function customerDocument(path: string): { text: string; type: string } |
     return { text: JSON.stringify(MCP_REFERENCE), type: "application/json" };
   if (path === "/.well-known/agent-skills/index.json") path = "/.well-known/skills/index.json";
   if (path === "/llms.txt") return { text: AGENT_INDEX, type: "text/plain; charset=utf-8" };
+  if (path === "/AGENTS.md") return { text: PUBLIC_AGENTS, type: "text/markdown; charset=utf-8" };
   const documentPath = path === "/auth.md" ? path : path.endsWith(".md") ? path.slice(0, -3) : path;
   const markdown = DOCUMENTATION[documentPath];
   if (markdown) {
@@ -191,7 +207,7 @@ export function customerDocument(path: string): { text: string; type: string } |
     return {
       type: "text/html; charset=utf-8",
       text: `<!doctype html><html lang="en" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="https://ohmyho.st/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="https://ohmyho.st/favicon.ico"><link rel="apple-touch-icon" href="https://ohmyho.st/apple-touch-icon.png">${headTags(documentPath, meta, markdown)}<style>${SITE_CSS}
-.docs-content{max-width:76ch;margin:64px auto 90px}.docs-content h1{font-size:clamp(36px,6vw,58px);margin-bottom:28px}.docs-content h2{font-size:26px;text-align:left;margin:36px 0 14px}.docs-content p,.docs-content li{color:var(--muted-foreground);line-height:1.75;margin:14px 0}.docs-content ul,.docs-content ol{padding-left:24px}.docs-content a{text-decoration:underline;text-underline-offset:4px;color:var(--foreground)}.docs-content pre{padding:20px;background:var(--muted);border:1px solid var(--border);border-radius:12px;overflow:auto;line-height:1.7}.docs-content code{font:13px var(--mono)}.docs-content table{display:block;overflow:auto;width:100%;border-collapse:collapse;font-size:14px;margin:24px 0}.docs-content th,.docs-content td{padding:12px;text-align:left;border-bottom:1px solid var(--border)}.docs-content blockquote{border-left:2px solid var(--border-strong);padding-left:20px}.docs-content strong{color:var(--foreground)}.docs-content .crumbs{font:12.5px var(--mono);color:var(--muted-foreground);margin:0 0 20px;display:flex;flex-wrap:wrap;gap:6px}.docs-content .crumbs a{color:var(--muted-foreground);text-decoration:none}.docs-content .crumbs a:hover{color:var(--foreground)}.docs-content img{max-width:100%;height:auto}.docs-content .fig{margin:36px 0}.docs-content .fig svg{width:100%;height:auto;display:block}.docs-content figcaption{font:11.5px var(--mono);color:var(--subtle);margin-top:10px;line-height:1.6}.docs-content figcaption a{color:var(--muted-foreground)}nav{gap:18px}@media(max-width:760px){nav a.secondary{display:none}.docs-content{margin-top:38px}}</style></head><body><div class="wrap"><nav><a class="mark" href="/" style="display:flex;align-items:center;gap:9px"><img src="/brand/assets/omega-light.svg" width="23" height="23" alt="">ohmyho.st</a><a href="https://docs.ohmyho.st/">Docs</a><a class="secondary" href="https://docs.ohmyho.st/skills">Skills</a><a class="secondary" href="https://docs.ohmyho.st/api">API</a><a class="secondary" href="${documentPath}.md">Markdown</a><div class="r"><a href="/login">Log in</a><button class="btn nochev" data-beta-access><span>Copy prompt</span></button></div></nav><main class="docs-content">${breadcrumbHtml(documentPath, meta)}${externalLinkRel(marked.parse(markdown, { async: false }))}</main>${documentFooter()}</div><script>${BETA_SCRIPT}</script>${markdown.includes('class="fig"') ? `<script>${FIGURE_SCRIPT}</script>` : ""}${PRIVACY_UI}</body></html>`,
+.docs-content{max-width:76ch;margin:64px auto 90px}.docs-content h1{font-size:clamp(36px,6vw,58px);margin-bottom:28px}.docs-content h2{font-size:26px;text-align:left;margin:36px 0 14px}.docs-content p,.docs-content li{color:var(--muted-foreground);line-height:1.75;margin:14px 0}.docs-content ul,.docs-content ol{padding-left:24px}.docs-content a{text-decoration:underline;text-underline-offset:4px;color:var(--foreground)}.docs-content pre{padding:20px;background:var(--muted);border:1px solid var(--border);border-radius:12px;overflow:auto;line-height:1.7}.docs-content code{font:13px var(--mono)}.docs-content table{display:block;overflow:auto;width:100%;border-collapse:collapse;font-size:14px;margin:24px 0}.docs-content th,.docs-content td{padding:12px;text-align:left;border-bottom:1px solid var(--border)}.docs-content blockquote{border-left:2px solid var(--border-strong);padding-left:20px}.docs-content strong{color:var(--foreground)}.fcol .fh{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--subtle);margin:0 0 14px}.docs-content .crumbs{font:12.5px var(--mono);color:var(--muted-foreground);margin:0 0 20px;display:flex;flex-wrap:wrap;gap:6px}.docs-content .crumbs a{color:var(--muted-foreground);text-decoration:none}.docs-content .crumbs a:hover{color:var(--foreground)}.docs-content img{max-width:100%;height:auto}.docs-content .fig{margin:36px 0}.docs-content .fig svg{width:100%;height:auto;display:block}.docs-content figcaption{font:11.5px var(--mono);color:var(--subtle);margin-top:10px;line-height:1.6}.docs-content figcaption a{color:var(--muted-foreground)}nav{gap:18px}@media(max-width:760px){nav a.secondary{display:none}.docs-content{margin-top:38px}}</style></head><body><div class="wrap"><nav><a class="mark" href="/" style="display:flex;align-items:center;gap:9px"><img src="/brand/assets/omega-light.svg" width="23" height="23" alt="ohmyho.st mark">ohmyho.st</a><a href="https://docs.ohmyho.st/">Docs</a><a class="secondary" href="https://docs.ohmyho.st/skills">Skills</a><a class="secondary" href="https://docs.ohmyho.st/api">API</a><a class="secondary" href="${documentPath}.md">Markdown</a><div class="r"><a href="/login">Log in</a><button class="btn nochev" data-beta-access><span>Copy prompt</span></button></div></nav><main class="docs-content">${breadcrumbHtml(documentPath, meta)}${externalLinkRel(marked.parse(markdown, { async: false }))}</main>${documentFooter()}</div><script>${BETA_SCRIPT}</script>${markdown.includes('class="fig"') ? `<script>${FIGURE_SCRIPT}</script>` : ""}${PRIVACY_UI}</body></html>`,
     };
   }
   if (path === "/.well-known/skills/index.json")

@@ -73,7 +73,7 @@ export const SITE_LINKS: readonly SiteLinkGroup[] = [
 export function footerColumnsHtml(): string {
   return SITE_LINKS.map(
     ({ heading, links }) =>
-      `<div class="fcol"><h4>${heading}</h4>${links
+      `<div class="fcol"><p class="fh">${heading}</p>${links
         .map(
           ([label, href]) =>
             `<a href="${href}"${href.startsWith("https://") ? ' rel="noopener"' : ""}>${label}</a>`,
