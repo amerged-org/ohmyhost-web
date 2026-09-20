@@ -134,9 +134,31 @@ ${skills
 - [SQL exports](https://docs.ohmyho.st/backups.md): Asynchronous password-encrypted ZIP exports and downloads.
 - [Troubleshooting](https://docs.ohmyho.st/troubleshooting.md): Actionable errors and customer-agent feedback.
 
-## Product and legal
+## Pricing and comparisons
 
-- [Pricing](https://ohmyho.st/pricing.md)
+- [Pricing](https://ohmyho.st/pricing.md): Free 200 credits a month; Paid $10 for 1,000 monthly credits; one balance for every project.
+- [Cost breakdown](https://ohmyho.st/pricing/breakdown.md): Every published rate, worked workloads in credits and the same workloads as separate subscriptions.
+- [ohmyho.st vs Vercel](https://ohmyho.st/vs/vercel.md): Dated list prices, the same small app priced both ways, where Vercel is the better choice.
+- [ohmyho.st vs Supabase](https://ohmyho.st/vs/supabase.md): Postgres compute and storage by usage against Supabase Pro and per-project compute.
+- [ohmyho.st vs Resend](https://ohmyho.st/vs/resend.md): Mail per recipient plus a sender zone against Resend plans; break-even by volume.
+- [ohmyho.st vs Railway](https://ohmyho.st/vs/railway.md): Requests, CPU time and database credits against per-second vCPU, memory and volumes.
+
+## Deploy from your agent
+
+- [Claude Code](https://ohmyho.st/for/claude-code.md): One prompt, the MCP tool sequence, what Claude Code asks, Dev and Prod, costs.
+- [Cursor](https://ohmyho.st/for/cursor.md): Cursor MCP settings and the same deployment path.
+- [Codex](https://ohmyho.st/for/codex.md): Codex MCP registration, tokens and budgets for agents that run unattended.
+- [From Lovable](https://ohmyho.st/from/lovable.md): Export to GitHub, what breaks by hand, keep or migrate Supabase, verify the login.
+- [From Bolt](https://ohmyho.st/from/bolt.md): Export from Bolt.new and deploy with secrets, callback URLs and a domain.
+- [From Replit](https://ohmyho.st/from/replit.md): Move a Replit app to Dev and Prod hosting with Postgres.
+- [From Vercel and Supabase](https://ohmyho.st/from/vercel-supabase.md): Two bills become one balance; keep Supabase or import a dump.
+
+## Company and legal
+
+- [About](https://ohmyho.st/about.md): Amerged B.V., Venray, Netherlands; founder Sebastian Mertens; how the service runs.
+- [Philosophy](https://ohmyho.st/philosophy.md): Buy in bulk, add a small margin, one balance for every project, take your database and go.
+- [Open source](https://ohmyho.st/open-source.md): The MIT-licensed docs, the public Skills, llms.txt, MCP catalog and OpenAPI contract; the platform is private.
+- [Blog](https://ohmyho.st/blog.md): Notes from the build with dated, priced comparisons and migration guides.
 - [Brand](https://ohmyho.st/brand.md)
 - [Privacy](https://ohmyho.st/privacy.md)
 - [DPA](https://ohmyho.st/dpa.md)

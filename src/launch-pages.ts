@@ -143,7 +143,7 @@ Projects share an organization credit balance. You choose which services each ap
 
 The operator is Amerged B.V., KVK 42154221, Venray, Limburg, NL. Use [our contact form](/contact).
 
-[How to start](/docs/quickstart) · [Where credits go](/pricing/breakdown) · [Our approach](/#philosophy)`,
+[How to start](https://docs.ohmyho.st/quickstart) · [Where credits go](/pricing/breakdown) · [Our approach](/#philosophy)`,
   "/pricing": `# One balance for your projects
 
 Free starts with 200 credits. Paid starts at $10 for 1,000 monthly credits. Projects use the same organization balance; there is no separate project base subscription.
@@ -164,14 +164,14 @@ Performance uses 2.5 times standard database-compute credits for equal active ti
 
 Ask your agent for remaining credits, measured usage and optional project budgets. A top-up adds credits but does not extend a subscription. A top-up above $100 adds 125 credits per dollar for the part above $100; consumption prices stay the same. Automatic recharge is not enabled in the current beta. Production purchases are not yet enabled; your organization can use its available balance.
 
-[All usage rates](https://docs.ohmyho.st/pricing) · [Worked cost example](/pricing/breakdown) · [Usage guide](/docs/usage) · [Compare Vercel](/vs/vercel)`,
+[All usage rates](https://docs.ohmyho.st/pricing) · [Worked cost example](/pricing/breakdown) · [Usage guide](https://docs.ohmyho.st/usage) · [Compare Vercel](/vs/vercel)`,
   "/pricing/breakdown": `# Where your credits go
 
 At the standard purchase rate, 100 credits represent $1 of credit value. Credit consumption and the amount of a subscription payment are different. The table below and the [pricing reference](https://docs.ohmyho.st/pricing) use the same published price contract.
 
 ${CREDIT_PRICING_TABLE}
 
-Actual charges use the active rate card, measured quantities and microcredit rounding. Your agent can read those cards and usage through the [usage API](/docs/usage). Storage, history and other operations may add consumption; different mail configurations can have different rates.
+Actual charges use the active rate card, measured quantities and microcredit rounding. Your agent can read those cards and usage through the [usage API](https://docs.ohmyho.st/usage). Storage, history and other operations may add consumption; different mail configurations can have different rates.
 
 ## An example workload
 
@@ -185,7 +185,7 @@ One developer on Vercel Pro ($20), one Supabase Micro project on Pro ($25 total)
 
 Sources: [Vercel](https://vercel.com/docs/plans/pro-plan), [Supabase billing](https://supabase.com/docs/guides/platform/billing-on-supabase), [Resend](https://resend.com/pricing).
 
-[Pricing](/pricing) · [Read your usage](/docs/usage) · [Compare services](/vs/vercel)`,
+[Pricing](/pricing) · [Read your usage](https://docs.ohmyho.st/usage) · [Compare services](/vs/vercel)`,
   "/vs/vercel": `# ohmyho.st and Vercel
 
 Choose the hosting workflow that fits your application. Vercel provides an extensive deployment platform; ohmyho.st combines supported application hosting and optional managed services with an agent-operated organization balance.
@@ -206,7 +206,7 @@ Keep your application in GitHub, inventory its services and use the [deployment 
 
 Checked September 13, 2026: [Vercel Pro](https://vercel.com/docs/plans/pro-plan), [Vercel pricing](https://vercel.com/pricing).
 
-[Cost breakdown](/pricing/breakdown) · [GitHub guide](/docs/github) · [From Vercel and Supabase](/from/vercel-supabase)`,
+[Cost breakdown](/pricing/breakdown) · [GitHub guide](https://docs.ohmyho.st/github) · [From Vercel and Supabase](/from/vercel-supabase)`,
   "/vs/supabase": `# ohmyho.st and Supabase
 
 Supabase combines Postgres with Auth, Realtime and database tooling. ohmyho.st hosts supported applications with optional managed Postgres while you choose your application's authentication.
@@ -223,7 +223,7 @@ Supabase may fit best when those integrated services are central to your app. If
 
 Checked September 13, 2026: [Supabase pricing](https://supabase.com/pricing), [billing guide](https://supabase.com/docs/guides/platform/billing-on-supabase).
 
-[Migration guide](/from/vercel-supabase) · [Application auth](/docs/application-auth) · [Cost breakdown](/pricing/breakdown)`,
+[Migration guide](/from/vercel-supabase) · [Application auth](https://docs.ohmyho.st/application-auth) · [Cost breakdown](/pricing/breakdown)`,
   "/vs/resend": `# ohmyho.st and Resend
 
 ohmyho.st provides transactional mail alongside supported application hosting. Resend is a dedicated email product with its own tooling and allowances.
@@ -240,7 +240,7 @@ Managed mail requires Paid access and verified sender DNS. A verified sender is 
 
 Checked September 13, 2026: [Resend pricing](https://resend.com/pricing), [pricing details](https://resend.com/docs/knowledge-base/what-is-resend-pricing).
 
-[Email guide](/docs/email) · [DNS guide](/docs/domains) · [Cost breakdown](/pricing/breakdown)`,
+[Email guide](https://docs.ohmyho.st/email) · [DNS guide](https://docs.ohmyho.st/domains) · [Cost breakdown](/pricing/breakdown)`,
   "/vs/railway": `# ohmyho.st and Railway
 
 Railway runs a broad range of services and containers. ohmyho.st focuses on supported application frameworks and an agent workflow for hosting, Postgres, domains, mail and usage.
@@ -257,7 +257,7 @@ For Next.js, Vite or TanStack, start with a real framework/capability check and 
 
 Checked September 13, 2026: [Railway pricing](https://railway.com/pricing), [Serverless](https://docs.railway.com/deployments/serverless).
 
-[Supported frameworks](/docs/frameworks/vite) · [Usage](/docs/usage) · [Pricing](/pricing)`,
+[Supported frameworks](https://docs.ohmyho.st/frameworks/vite) · [Usage](https://docs.ohmyho.st/usage) · [Pricing](/pricing)`,
   "/status": `# Service status
 
 This page reports the scope of the current observation. An available API does not establish that every customer application or provider is healthy.
@@ -266,7 +266,7 @@ This page reports the scope of the current observation. An available API does no
 
 For your application's deployment, domain, database or mail status, ask your agent to read the project context and original operation. Those results include the action relevant to your project.
 
-[Project status](/docs/status) · [Troubleshooting](/docs/troubleshooting) · [Home](/)`,
+[Project status](https://docs.ohmyho.st/status) · [Troubleshooting](https://docs.ohmyho.st/troubleshooting) · [Home](/)`,
   "/changelog": `# Changelog
 
 ## September 16, 2026
@@ -277,9 +277,9 @@ Signup is open to everyone: there is no invitation, waitlist or access code. Eve
 
 The beta website then distinguished invited signup from registering interest. Task Skills cover initial connection, GitHub deployment, database sizing, DNS and email, usage and budgets, troubleshooting and encrypted SQL export.
 
-Public CLI/MCP releases provide project context, operation diagnostics, usage reports and user-owned deployment tokens. See the current [release manifest](/docs/cli) for the exact published version.
+Public CLI/MCP releases provide project context, operation diagnostics, usage reports and user-owned deployment tokens. See the current [release manifest](https://docs.ohmyho.st/cli) for the exact published version.
 
-[Documentation](/docs) · [Skills](/docs/skills) · [Beta introduction](/blog/introducing-ohmyho-st)`,
+[Documentation](https://docs.ohmyho.st/) · [Skills](https://docs.ohmyho.st/skills) · [Beta introduction](/blog/introducing-ohmyho-st)`,
 };
 
 const agentPages = {
