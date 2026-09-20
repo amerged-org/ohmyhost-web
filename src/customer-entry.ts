@@ -5,8 +5,8 @@ import { LAUNCH_DOCUMENTS } from "./launch-pages.js";
 import { marked } from "marked";
 import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
 
-export const CLIENT_RELEASE = "0.1.7";
-export const RETAINED_CLIENT_RELEASES = [CLIENT_RELEASE, "0.1.6", "0.1.5"] as const;
+export const CLIENT_RELEASE = "0.1.8";
+export const RETAINED_CLIENT_RELEASES = [CLIENT_RELEASE, "0.1.7", "0.1.6", "0.1.5"] as const;
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
