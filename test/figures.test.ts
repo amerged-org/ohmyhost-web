@@ -101,7 +101,7 @@ it("renders every figure as one Markdown-safe block whose numbers come from the 
     priceWorkload(WORKLOADS.smallApp).microcredits,
   ]);
   expect(figureCreditBars()).toContain(
-    'data-count-to="552.44" data-suffix=" credits"',
+    'data-count-to="723.30" data-suffix=" credits"',
   );
   const catalog = new Set(
     mcpTools.tools.map((tool: { name: string }) => tool.name),
@@ -143,10 +143,11 @@ it("keeps the pinned homepage's bill and credit examples equal to the data modul
     credits(priceLine("ses.{region}.recipients (Essentials)", 2000), 0),
   ).toBe("105 credits");
   expect(home).toContain("2,000 emails ≈ 105 credits");
-  const example = Math.round(
-    priceWorkload(WORKLOADS.smallApp).microcredits / MICROCREDITS,
+  expect(home).toContain("including the deployed script and sender zone");
+  expect(home).toContain(
+    '<a href="/pricing/breakdown">full cost breakdown</a>',
   );
-  expect(home).toContain(`≈ ${example} credits a month`);
+  expect(home).not.toContain("≈ 552 credits");
   expect(home).not.toContain("you.ohmyho.st");
   expect(home).not.toContain("stays up and read-only");
   expect(home).not.toContain("no web console");

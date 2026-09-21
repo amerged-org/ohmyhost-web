@@ -58,7 +58,7 @@ On ohmyho.st, five side projects, one of them with real traffic and login mail, 
 
 {{ table workload.portfolio }}
 
-That fits inside the {{ number plan.paidCredits }} credits the Paid plan grants each period. The fixed part is stored data, five scripts and one mail sender zone; everything else only accrues while someone uses an app. On its own, the small app is about {{ credits workload.smallApp }} and each quiet side project about {{ credits workload.quietProject }}. The headroom is real but not huge. If one app gets popular, give it a monthly budget through `project_budget_set` (continue or stop) so it cannot drain the others, and buy a top-up when the balance runs low. A zero balance starts a {{ value plan.graceDays }}-day grace period; funded services keep running, and only unfunded services suspend afterwards.
+That fits inside the {{ number plan.paidCredits }} credits the Paid plan grants each period. The fixed part is stored data, five scripts and one mail sender zone; everything else only accrues while someone uses an app. For comparison, our separate small-app workload sends more mail and costs about {{ credits workload.smallApp }} on its own; each quiet side project costs about {{ credits workload.quietProject }}. The headroom is real but not huge. If one app gets popular, give it a monthly budget through `project_budget_set` (continue or stop) so it cannot drain the others, and buy a top-up when the balance runs low. A zero balance starts a {{ value plan.graceDays }}-day grace period; funded services keep running, and only unfunded services suspend afterwards.
 
 To try it, open your repository in Claude Code and paste this:
 

@@ -20,9 +20,9 @@ export interface PageMeta {
   readonly crumb?: string;
 }
 
-export const SITE_ORIGIN = "https://ohmyho.st";
+export { SITE_ORIGIN } from "./site-identity.js";
 /** Last change of the static home and brand pages. */
-export const SITE_MODIFIED = "2026-09-20";
+export const SITE_MODIFIED = "2026-09-21";
 export const FOUNDER = {
   name: "Sebastian Mertens",
   path: "/about",
@@ -193,6 +193,6 @@ export function sitemapEntries(): Array<{ path: string; lastmod: string }> {
     { path: "/brand", lastmod: SITE_MODIFIED },
     ...Object.entries(PAGE_META)
       .filter(([path]) => path !== "/login")
-      .map(([path, meta]) => ({ path, lastmod: meta.modified })),
+      .map(([path, meta]) => ({ path, lastmod: meta.modified.slice(0, 10) })),
   ];
 }

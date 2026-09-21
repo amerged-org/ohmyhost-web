@@ -31,6 +31,16 @@
         "meter": "ses.{region}.recipients (Essentials)",
         "quantity": 2000,
         "label": "2,000 mail recipients"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 1,
+        "label": "1 deployed script"
+      },
+      {
+        "meter": "route53.zone",
+        "quantity": 1,
+        "label": "1 mail sender zone"
       }
     ]
   },
@@ -339,53 +349,13 @@
       },
       {
         "meter": "wfp.script",
-        "quantity": 4,
-        "label": "4 deployed scripts (one for each quiet project)"
-      }
-    ]
-  },
-  "fiveSideProjectsWithSender": {
-    "name": "The same five projects with the small app's deployed script and its mail sender zone",
-    "lines": [
-      {
-        "meter": "build.sandbox.standard-3",
-        "quantity": 1680,
-        "label": "28 build minutes"
-      },
-      {
-        "meter": "wfp.requests",
-        "quantity": 120000,
-        "label": "120,000 requests"
-      },
-      {
-        "meter": "wfp.cpu",
-        "quantity": 1200000,
-        "label": "1.2M CPU-ms"
-      },
-      {
-        "meter": "neon.compute.scale",
-        "quantity": 6,
-        "label": "6 database CU-hours (12 active hours on the Paid standard 0.5 CU profile across five databases)"
-      },
-      {
-        "meter": "neon.storage.root",
-        "quantity": 1.8,
-        "label": "1.8 database GB-months"
-      },
-      {
-        "meter": "ses.{region}.recipients (Essentials)",
-        "quantity": 2000,
-        "label": "2,000 mail recipients"
-      },
-      {
-        "meter": "wfp.script",
         "quantity": 5,
-        "label": "5 deployed scripts"
+        "label": "5 deployed scripts (one for each project)"
       },
       {
         "meter": "route53.zone",
         "quantity": 1,
-        "label": "1 mail sender zone"
+        "label": "1 mail sender zone (the small app sends mail)"
       }
     ]
   },

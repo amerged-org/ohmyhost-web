@@ -10,6 +10,8 @@ import {
 } from "./customer-entry.js";
 import { SITE_ICON } from "./generated-site-frame.js";
 import { sitemapEntries } from "./page-meta.js";
+import { editorialResponse, prefersMarkdown } from "./editorial-response.js";
+const EDITORIAL_PATHS = new Set(sitemapEntries().map((page) => page.path));
 // A shell-single-quoted assignment carries this value into the installer script.
 const SHELL_SAFE_SOURCE = /^[a-z0-9][a-z0-9_-]{0,63}$/u;
 const HOME = "https://ohmyho.st/";
@@ -116,10 +118,25 @@ export default {
     const sources = url.searchParams.getAll("r");
     const querySource =
       sources.length === 1 ? signupSource(sources[0]) : undefined;
-    if (host === "www.ohmyho.st") {
+    if (
+      host === "www.ohmyho.st" ||
+      (host === "ohmyho.st" && url.protocol === "http:")
+    ) {
       const target = new URL(HOME);
       target.pathname = url.pathname;
-      if (querySource) target.searchParams.set("r", querySource);
+      target.search = url.search;
+      headers.set("location", target.href);
+      return new Response(null, { status: 308, headers });
+    }
+    const withoutSlash = url.pathname.replace(/\/+$/u, "");
+    if (
+      host === "ohmyho.st" &&
+      withoutSlash &&
+      withoutSlash !== url.pathname &&
+      EDITORIAL_PATHS.has(withoutSlash)
+    ) {
+      const target = new URL(url);
+      target.pathname = withoutSlash;
       headers.set("location", target.href);
       return new Response(null, { status: 308, headers });
     }
@@ -227,15 +244,17 @@ export default {
       );
       return new Response(null, { status: 302, headers });
     }
-    const wantsMarkdown =
-      request.headers.get("accept")?.includes("text/markdown") === true;
+    const wantsMarkdown = prefersMarkdown(request.headers.get("accept"));
     const redirect = documentationRedirect(url.pathname, wantsMarkdown);
     if (redirect) {
       headers.set("location", redirect);
       headers.set("vary", "Accept");
       return new Response(null, { status: 308, headers });
     }
-    const documentPath = url.pathname;
+    const documentPath =
+      wantsMarkdown && EDITORIAL_PATHS.has(url.pathname)
+        ? `${url.pathname}.md`
+        : url.pathname;
     const document = customerDocument(documentPath);
     if (document) {
       let documentText = document.text;
@@ -276,8 +295,12 @@ export default {
           "link",
           `<${url.pathname}.md>; rel="alternate"; type="text/markdown"`,
         );
+      const canonicalPath = documentPath.endsWith(".md")
+        ? documentPath.slice(0, -3)
+        : documentPath;
+      if (EDITORIAL_PATHS.has(canonicalPath))
+        return editorialResponse(request, documentText, headers, canonicalPath);
       return new Response(request.method === "HEAD" ? null : documentText, {
-        status: 200,
         headers,
       });
     }
@@ -447,6 +470,10 @@ export default {
     }
     headers.set("content-type", type);
     headers.set("vary", "Accept");
+    const canonicalPath =
+      selected === "/index.md" ? "/" : selected.replace(/\.md$/u, "");
+    if (EDITORIAL_PATHS.has(canonicalPath))
+      return editorialResponse(request, body, headers, canonicalPath);
     return new Response(request.method === "HEAD" ? null : body, { headers });
   },
 };

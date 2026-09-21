@@ -2,6 +2,7 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 import type { ContentPage, PageKind } from "./types.js";
+import { schemaDate } from "../site-identity.js";
 
 const PAGE_KINDS = new Set<PageKind>([
   "page",
@@ -67,6 +68,8 @@ export function readPage(directory: string, url: string): ContentSource {
     fail("an article needs author and published");
   if (kind !== "article" && (meta["author"] || meta["published"]))
     fail("author and published belong to articles only");
+  schemaDate(meta["modified"] as string);
+  if (kind === "article") schemaDate(meta["published"] as string);
   return {
     path: url,
     title,

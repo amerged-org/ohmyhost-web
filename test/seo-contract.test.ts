@@ -2,6 +2,7 @@ import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 
 import { expect, it } from "vitest";
+import { schemaDate } from "../src/site-identity.js";
 
 import { DOCUMENTATION, customerDocument } from "../src/customer-entry.js";
 import { PAGE_META, pageMeta } from "../src/page-meta.js";
@@ -166,9 +167,11 @@ it("publishes the SEO contract for every rendered page", async () => {
       const post = graph.find(
         (node) => node["@type"] === "BlogPosting",
       ) as Record<string, unknown>;
-      expect(post["datePublished"]).toBe(meta.published);
+      expect(post["datePublished"]).toBe(
+        schemaDate(meta.published ?? meta.modified),
+      );
       expect(html).toContain(
-        `<meta property="article:published_time" content="${meta.published}">`,
+        `<meta property="article:published_time" content="${schemaDate(meta.published ?? meta.modified)}">`,
       );
     }
     const mirror = customerDocument(`${path}.md`)?.text ?? "";
@@ -251,7 +254,7 @@ it("serves crawler, cache and transport metadata", async () => {
     (await worker.fetch(new Request("https://ohmyho.st/about"))).headers.get(
       "cache-control",
     ),
-  ).toBe("no-store");
+  ).toBe("public, max-age=0, s-maxage=300, must-revalidate");
   const font = await worker.fetch(
     new Request("https://ohmyho.st/fonts/3386a05f6ece969e.ttf"),
     {

@@ -47,3 +47,27 @@ only that committed file, so a build is deterministic and offline.
 | W005 | Implemented | Client downloads, the project-address hostnames and the REST API stay with the platform.                                                           |
 
 | W006 | Implemented | Website and docs share the GA4 web stream G-C1PWJM238R and a versioned 180-day analytics preference; Google loads only after consent on the two public hosts, with explicit sanitized page views and no advertising features; Accept/Edit opens a preference dialog and the only persistent control is a cookie icon in the footer. |
+
+## Editorial SEO and response caching
+
+The homepage and editorial JSON-LD graphs share the `WebSite` identity from
+`src/site-identity.ts`. Editorial metadata accepts ISO dates or explicit timestamps with timezones.
+Existing dates retain their original day and are serialized at the UTC day boundary for schema and
+Open Graph; midnight represents the stored day's precision, not a recovered publication clock time.
+Explicit timestamps retain their clock time. Build time never substitutes for publication time.
+
+The canonical host permanently upgrades HTTP while retaining path and query. Known editorial
+trailing-slash routes redirect to their slashless page; unknown paths still return 404. Markdown
+mirrors and negotiated Markdown advertise the HTML canonical through the HTTP Link header, and
+Accept quality weights select the representation with HTML winning ties.
+
+`src/editorial-response.ts` generates weak body validators for anonymous editorial responses and
+returns 304 only for a matching representation. Browser HTML navigation is private and revalidated
+because the agent prompt can contain a region hint; other anonymous representations allow a
+five-minute shared freshness period. Vary covers Accept, Cookie, Authorization and fetch metadata.
+Any cookie, authorization header, referral query or Set-Cookie response keeps no-store and omits
+validators. Dynamic API, contact and login responses retain their existing policies.
+
+The small-app workload includes its deployed script and mail sender zone. The five-project example
+adds four quiet workloads to that complete workload; its prose states when the monthly credits
+need a top-up. The homepage links to the generated breakdown instead of repeating a hardcoded total.

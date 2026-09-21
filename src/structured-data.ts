@@ -1,4 +1,5 @@
 import { marked, type Token } from "marked";
+import { WEBSITE, schemaDate } from "./site-identity.js";
 
 import {
   FOUNDER,
@@ -120,6 +121,7 @@ export function jsonLdGraph(
         ? "CollectionPage"
         : "WebPage";
   const graph: object[] = [
+    WEBSITE,
     {
       "@type": "Organization",
       "@id": ORGANIZATION_ID,
@@ -133,7 +135,7 @@ export function jsonLdGraph(
       url,
       name: meta.title,
       description: meta.description,
-      dateModified: meta.modified,
+      dateModified: schemaDate(meta.modified),
       isPartOf: { "@id": `${SITE_ORIGIN}/#website` },
       breadcrumb: { "@id": `${url}#breadcrumb` },
     },
@@ -165,8 +167,8 @@ export function jsonLdGraph(
         "@id": `${url}#article`,
         headline: meta.title,
         description: meta.description,
-        datePublished: meta.published ?? meta.modified,
-        dateModified: meta.modified,
+        datePublished: schemaDate(meta.published ?? meta.modified),
+        dateModified: schemaDate(meta.modified),
         author: {
           "@type": "Person",
           "@id": FOUNDER_ID,
@@ -207,7 +209,7 @@ export function jsonLdGraph(
         "@type": "BlogPosting",
         "@id": `${SITE_ORIGIN}${post.path}#article`,
         headline: post.title,
-        datePublished: post.published ?? post.modified,
+        datePublished: schemaDate(post.published ?? post.modified),
         url: `${SITE_ORIGIN}${post.path}`,
       })),
     });
@@ -256,8 +258,8 @@ export function headTags(
   ];
   if (meta.kind === "article")
     tags.push(
-      `<meta property="article:published_time" content="${meta.published ?? meta.modified}">`,
-      `<meta property="article:modified_time" content="${meta.modified}">`,
+      `<meta property="article:published_time" content="${schemaDate(meta.published ?? meta.modified)}">`,
+      `<meta property="article:modified_time" content="${schemaDate(meta.modified)}">`,
       `<meta property="article:author" content="${SITE_ORIGIN}${FOUNDER.path}">`,
     );
   const graph = JSON.stringify({
