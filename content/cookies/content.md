@@ -4,7 +4,7 @@ Effective date: September 21, 2026.
 
 ## Technical cookies and optional analytics
 
-Our public website at ohmyho.st and documentation at docs.ohmyho.st offer optional Google Analytics. We load Google's analytics code only after you choose **Allow analytics**. **Reject analytics** is equally available. Your choice is shared across these two hosts for up to 180 days. Use **Cookie settings** on either site to change it or withdraw consent; withdrawal stops collection and clears the Google Analytics cookies on these hosts. The old informational notice's OK button is not analytics consent.
+Our public website at ohmyho.st and documentation at docs.ohmyho.st offer optional Google Analytics. We load Google's analytics code only after you choose **Accept**, or enable Analytics under **Edit** and save your preferences. Under **Edit**, you can switch Analytics off or choose **Turn off all**. Essential cookies cannot be switched off in these settings. Your choice is shared across these two hosts for up to 180 days. Use the cookie icon in the footer of either site to reopen **Cookie settings**, change your choice or withdraw consent; withdrawal stops collection and clears the Google Analytics cookies on these hosts. The old informational notice's OK button is not analytics consent.
 
 The account portal at app.ohmyho.st and development environments do not use this analytics integration. Technical cookies support login, security, referral handling and requested functions such as roadmap votes. A referral label is retained for acquisition analysis as explained in the Privacy notice; it is not a cross-site visitor identifier.
 

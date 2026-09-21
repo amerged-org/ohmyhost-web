@@ -46,4 +46,4 @@ only that committed file, so a build is deterministic and offline.
 | W004 | Implemented | The agent surface (`llms.txt`, `AGENTS.md`, the Skill pages and the MCP catalog) is served by this repository, generated from the platform inputs. |
 | W005 | Implemented | Client downloads, the project-address hostnames and the REST API stay with the platform.                                                           |
 
-| W006 | Implemented | Website and docs share the GA4 web stream G-C1PWJM238R and a versioned 180-day analytics preference; Google loads only after consent on the two public hosts, with explicit sanitized page views and no advertising features. |
+| W006 | Implemented | Website and docs share the GA4 web stream G-C1PWJM238R and a versioned 180-day analytics preference; Google loads only after consent on the two public hosts, with explicit sanitized page views and no advertising features; Accept/Edit opens a preference dialog and the only persistent control is a cookie icon in the footer. |

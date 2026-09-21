@@ -12,7 +12,7 @@ When a customer uses ohmyho.st to process personal data in an application, the c
 
 | Activity | Data | Purpose and legal basis |
 | --- | --- | --- |
-| Optional website and docs analytics | Page paths, referrer, browser/device and approximate location information, pseudonymous visitor/session identifiers, engagement, outbound clicks and downloads | Understand use of our public content with Google Analytics; only after consent, Article 6(1)(a) GDPR; withdraw through Cookie settings |
+| Optional website and docs analytics | Page paths, referrer, browser/device and approximate location information, pseudonymous visitor/session identifiers, engagement, outbound clicks and downloads | Understand use of our public content with Google Analytics; only after consent, Article 6(1)(a) GDPR; withdraw through the footer cookie settings |
 | Website delivery and security | Network address, request time, requested resource, browser/protocol information and necessary security events | Deliver pages, prevent abuse and diagnose faults; our legitimate interests in a secure, available service, Article 6(1)(f) GDPR |
 | Earlier interest registrations (closed) | Email address, submission time and the consent version accepted at the time | Registration closed when public signup opened: we collect no new registrations and only keep existing records until they expire; consent, Article 6(1)(a) |
 | Referral and signup source | The entry link’s r value, aggregate campaign observations, and the source associated with a verified signup | Remember the selected entry and administer configured referral eligibility; Article 6(1)(b) for requested benefits, and Article 6(1)(f) for proportionate acquisition analysis |
@@ -60,7 +60,7 @@ Account and operational records are retained while needed to provide and secure 
 
 ## 7. Cookies and similar technologies
 
-Our [cookie notice](/cookies) lists technical cookies for access, security, referrals and requested functions, plus optional Google Analytics on the public website and docs. Analytics is off until you allow it and can be withdrawn through **Cookie settings** on either host. The account portal and development environments do not load this integration. Website and portal fonts are served from ohmyho.st. Mintlify delivers the docs and may process its own service telemetry under its privacy notice. Independently visited identity/payment services and customer applications have their own notices.
+Our [cookie notice](/cookies) lists technical cookies for access, security, referrals and requested functions, plus optional Google Analytics on the public website and docs. Analytics is off until you allow it and can be withdrawn through the cookie icon in the footer of either host. The account portal and development environments do not load this integration. Website and portal fonts are served from ohmyho.st. Mintlify delivers the docs and may process its own service telemetry under its privacy notice. Independently visited identity/payment services and customer applications have their own notices.
 
 ## 8. Your rights
 

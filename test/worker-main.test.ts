@@ -56,7 +56,8 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html).not.toContain("Beta access");
     expect(html).not.toContain('id="beta-modal"');
     expect(html).not.toContain('id="beta-form"');
-    expect(html).not.toContain("showModal");
+    // Cookie preferences use a dialog; the former signup modal stays removed.
+    expect(html).toContain("dialog.id = 'omh-cookie-dialog'");
     expect(html.match(/rel="icon"/gu)).toHaveLength(1);
     expect(html).not.toContain("fetch('/stats.json'");
     expect(html).not.toContain('id="proof"');
