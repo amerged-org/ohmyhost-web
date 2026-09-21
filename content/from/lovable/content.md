@@ -116,7 +116,7 @@ Leaving Lovable Cloud means the database and the mail run here as well. Then the
 
 A linked domain adds {{ rate domain.custom_hostname }}, about {{ credits unit.customHostnameMonth }} a month, and needs Paid.
 
-Idle is honest in both cases: a deployed script keeps using about {{ credits unit.deployedScriptMonth }} a month, stored data {{ rate neon.storage.root }}, and Workers bandwidth is not charged. A zero balance starts a seven-day grace period in which everything keeps running. A monthly budget on the project (continue or stop) means a traffic spike cannot surprise you: https://docs.ohmyho.st/budgets.
+Idle is honest in both cases: a deployed script keeps using about {{ credits unit.deployedScriptMonth }} a month, stored data {{ rate neon.storage.root }}, and Workers bandwidth is not charged. A zero balance starts a seven-day grace period in which funded services keep running. A monthly budget on the project (continue or stop) means a traffic spike cannot surprise you: https://docs.ohmyho.st/budgets.
 
 ## FAQ
 

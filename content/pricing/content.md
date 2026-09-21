@@ -11,7 +11,7 @@ Measured builds, worker requests and CPU time, database compute and storage, fil
 | Database profile | Size | Sleep after idle |
 | --- | --- | --- |
 | Free | 0.25 CU / 1 GB | 1 minute |
-| Paid standard | 0.5 CU / 2 GB | 2 minutes |
+| Paid standard | 0.5 CU / 2 GB | 1 minute |
 | Paid performance | 1 CU / 4 GB | 5 minutes |
 
 Performance uses 2.5 times standard database-compute credits for equal active time. Shared Dev/Prod uses one database; isolated data uses two independently metered databases. Prices are identical in the US and EU hosting regions.

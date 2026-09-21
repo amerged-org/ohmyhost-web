@@ -60,6 +60,10 @@ describe("public entry and unassigned Free-host fallback", () => {
       "Monthly credits reset. Usage is metered.",
     );
     expect(html).not.toContain("skip Vercel");
+    expect(html).toContain("about 30 seconds");
+    expect(html).not.toContain("about two minutes");
+    expect(html).not.toContain("No dashboard");
+    expect(html).not.toContain("no CLI to install");
     // The shared card carries that copy as text instead of the bare brand mark.
     expect(html).toContain(
       '<meta property="og:image" content="https://ohmyho.st/og/home.png">',

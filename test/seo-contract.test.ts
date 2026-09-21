@@ -326,6 +326,11 @@ it("hardens the approved homepage markup for search and social", async () => {
     })
   ).text();
   expect(brand.match(/<meta name="description"/gu)).toHaveLength(1);
+  expect(brand).not.toMatch(
+    /Nightly|AI models|No dashboard|\$71|5 accounts|omh create|myapp\.ohm\.st/u,
+  );
+  expect(brand).toContain("One balance across your projects.");
+  expect(brand).toContain("ohmyhost init --dry-run");
   expect(brand).toContain(
     '<meta property="og:image" content="https://ohmyho.st/og.png">',
   );

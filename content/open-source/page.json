@@ -1,6 +1,6 @@
 {
-  "title": "Open source at ohmyho.st: Apache-2.0 clients and MIT docs",
-  "description": "The CLI, MCP server, SDK, runtime and auth packages are published on npm under Apache-2.0, the documentation is MIT, and the hosted platform is private.",
+  "title": "Open source — ohmyho.st clients, website and docs",
+  "description": "Explore the Apache-2.0 client packages and the MIT-licensed website and documentation of ohmyho.st. The hosted platform remains private.",
   "kind": "page",
   "status": "published",
   "crumb": "Open source",

@@ -148,10 +148,42 @@ for (const [name, digest] of Object.entries(templates)) {
     );
   }
   if (name === "brand") {
+    const vendors = JSON.parse(
+      await readFile(`${directory}content/data/vendors.json`, "utf8"),
+    );
+    const replacements = JSON.parse(
+      await readFile(`${directory}content/data/brand-copy.json`, "utf8"),
+    );
+    const values = {
+      stackPrice:
+        "$" +
+        ["vercel", "supabase", "resend"].reduce(
+          (total, vendor) => total + vendors[vendor].facts.pro.usd,
+          0,
+        ),
+      paidPrice: "$" + plans.paidUsd,
+      paidCredits: new Intl.NumberFormat("en-US").format(plans.paidCredits),
+      checkedOn: vendors.vercel.checkedOn,
+      vercelPrice: "$" + vendors.vercel.facts.pro.usd,
+      supabasePrice: "$" + vendors.supabase.facts.pro.usd,
+      resendPrice: "$" + vendors.resend.facts.pro.usd,
+    };
+    for (const [before, replacement] of Object.entries(replacements)) {
+      if (!html.includes(before))
+        throw new Error(`Brand copy boundary missing: ${before}`);
+      const after = replacement.replace(/\{\{(\w+)\}\}/gu, (_, key) => {
+        if (!(key in values))
+          throw new Error(`Unknown brand copy value: ${key}`);
+        return values[key];
+      });
+      html = html.replaceAll(before, after);
+    }
+
     html = html.replace(
       /<!-- ---------------- LOGO ---------------- -->[\s\S]*?(?=<!-- ---------------- COLOR ---------------- -->)/u,
       await readFile(`${directory}site/brand-logo-section.html`, "utf8"),
     );
+    html = html.replace(/\$10(?!\d)/gu, values.paidPrice);
     const mark = (await readFile(`${brandAssets}/omega-light.svg`, "utf8"))
       .replace("<svg ", '<svg width="24" height="24" aria-hidden="true" ')
       .replace('stroke="#F0F1F2"', 'stroke="currentColor"');
@@ -264,6 +296,14 @@ function applyApprovedHomepageChanges(html) {
   const euAnswer =
     "Yes. Choose EU when you create the project; the default is US. An EU project keeps its Postgres database, its files and its builds in the EU, and the application runs next to its database. The region cannot be changed later, and prices are identical in both regions. Transactional mail is sent from the platform's mail region in either case.";
   for (const [before, after] of Object.entries({
+    "No dashboard, no CLI to install.": "Your agent handles the setup.",
+    "No dashboard, no keys pasted between tabs.":
+      "Deploy through your agent; check projects and usage in the portal.",
+    "about two minutes, no Dockerfile, no CLI to install, no dashboard.":
+      "about 30 seconds. Your agent handles setup and deployment; the portal shows projects, credits and budgets.",
+    "No. Ask your agent. The MCP server returns your usage, projects and data on request — the same interface the agent used to deploy.":
+      "Yes. The portal shows projects, credits, budgets and API tokens. Your agent handles deployments and can read usage through MCP.",
+
     "<span>© 2026 ohmyho.st</span>\n    <span>Made in the EU</span>":
       "<span>© 2026 ohmyho.st — Made in Europe</span>",
 
@@ -495,8 +535,7 @@ function hardenHomepageMarkup(html) {
       'The worked example includes hosting, database usage and transactional mail, including the deployed script and sender zone. See the <a href="/pricing/breakdown">full cost breakdown</a>.',
     "When usage reaches it, ohmyho.st stops the project before it costs more; the site stays up and read-only.":
       "When usage reaches it, ohmyho.st stops new spending on the project before it costs more.",
-    "There is no web console to learn.":
-      "The portal shows your projects, credits, budgets and API tokens; there is no deploy console to learn.",
+    "There is no web console to learn.": "",
     '<a href="/docs/quickstart">Read the getting-started guide for your agent →</a>':
       '<a href="https://docs.ohmyho.st/quickstart">Read the getting-started guide for your agent →</a>',
     ".fcol h4{": ".fcol h4,.fcol .fh{",
