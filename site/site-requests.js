@@ -11,8 +11,9 @@
     "Keep existing projects in their current region. " +
     "Follow the deployment Skill, keep my existing project decisions and verify the app.";
 
-  const buttons = "[data-copy], #copy, #shcopy2, #shcopy, [data-wincopy], [data-copy-prompt]";
+  const buttons = "[data-copy], #copy, #shcopy2, #shcopy, [data-wincopy], [data-copy-prompt], [data-copy-code]";
   document.querySelectorAll(buttons).forEach((button) => {
+    if (button.matches("[data-copy-code]")) return;
     const label = button.querySelector("span");
     const text = button.closest("nav") ? "Copy prompt" : "Copy prompt for your agent";
     if (label) label.textContent = text;
@@ -27,11 +28,14 @@
       event.preventDefault();
       event.stopImmediatePropagation();
       const label = button.querySelector("span") || button;
+      const block = button.closest(".copy-block");
+      const value = block ? block.querySelector("pre code").textContent : prompt;
+      if (block) button.classList.remove("copy-error", "done");
       try {
-        if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(prompt);
+        if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(value);
         else {
           const field = document.createElement("textarea");
-          field.value = prompt;
+          field.value = value;
           document.body.append(field);
           field.select();
           const copied = document.execCommand("copy");
@@ -39,19 +43,23 @@
           if (!copied) throw Error("copy");
         }
         label.textContent = "Copied";
+        if (block) button.title = "Copy text";
         button.classList.add("done");
-        document.getElementById("next")?.classList.add("on");
-        const hero = document.getElementById("hero-cta");
-        if (hero) hero.style.display = "none";
-        const under = document.getElementById("under");
-        if (under) under.style.display = "none";
+        if (!block) {
+          document.getElementById("next")?.classList.add("on");
+          const hero = document.getElementById("hero-cta");
+          if (hero) hero.style.display = "none";
+          const under = document.getElementById("under");
+          if (under) under.style.display = "none";
+        }
         setTimeout(() => {
-          label.textContent = button.closest("nav") ? "Copy prompt" : "Copy prompt for your agent";
+          label.textContent = block ? "" : button.closest("nav") ? "Copy prompt" : "Copy prompt for your agent";
           button.classList.remove("done");
         }, 2500);
       } catch {
-        label.textContent = button.closest("nav") ? "Copy failed" : "Copy failed — select the prompt";
-        document.getElementById("next")?.classList.add("on");
+        label.textContent = block ? "Copy failed — select the text" : button.closest("nav") ? "Copy failed" : "Copy failed — select the prompt";
+        if (block) { button.classList.add("copy-error"); button.title = "Copy failed — select the text"; }
+        else document.getElementById("next")?.classList.add("on");
       }
     },
     true,

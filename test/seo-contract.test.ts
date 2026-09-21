@@ -58,6 +58,9 @@ it("publishes the SEO contract for every rendered page", async () => {
     const document = customerDocument(path);
     expect(document?.type, path).toContain("text/html");
     const html = document?.text ?? "";
+    expect(html.match(/class="copy-code"/gu)?.length ?? 0).toBe(
+      html.match(/<pre><code/gu)?.length ?? 0,
+    );
     const meta = pageMeta(path);
     expect(
       html.match(/<meta name="description"/gu),
