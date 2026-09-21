@@ -16,10 +16,13 @@ it("derives one social card per page and keeps the rendered PNGs in step with th
   const cards = ogCards();
   expect(new Set(cards.map((card) => card.slug)).size).toBe(cards.length);
   expect(cards.map((card) => card.path).sort()).toEqual(
-    Object.keys(PAGE_META)
-      .filter((path) => path !== "/login")
-      .sort(),
+    ["/", ...Object.keys(PAGE_META).filter((path) => path !== "/login")].sort(),
   );
+  // The homepage card carries the social copy as text, so a shared link never shows a bare mark.
+  const home = cards.find((card) => card.path === "/");
+  if (!home) throw new Error("homepage card missing");
+  expect(home.slug).toBe("home");
+  expect(ogCardHtml(home)).toContain("Supabase Vercel Resend alternative");
   expect(ogSlug("/pricing/breakdown")).toBe("pricing-breakdown");
   const vercel = cards.find((card) => card.path === "/vs/vercel");
   expect(vercel?.headline).toBe(
@@ -54,10 +57,12 @@ it("derives one social card per page and keeps the rendered PNGs in step with th
       const png = await readFile(new URL(`og/${card.slug}.png`, publicDir));
       expect(png.subarray(0, 8).toString("hex")).toBe("89504e470d0a1a0a");
       expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([1200, 630]);
-      expect(ogImagePath(card.path, pageMeta(card.path))).toBe(
-        `/og/${card.slug}.png`,
-      );
-    } else
+      // The homepage keeps its approved template, so its card is referenced from there.
+      if (card.path !== "/")
+        expect(ogImagePath(card.path, pageMeta(card.path))).toBe(
+          `/og/${card.slug}.png`,
+        );
+    } else if (card.path !== "/")
       expect(ogImagePath(card.path, pageMeta(card.path))).toBe(
         PAGE_META[card.path]?.ogImage ?? "/og.png",
       );

@@ -222,12 +222,24 @@ await writeFile(
 
 /** P30: approved changes are applied without rewriting the supplied v97 source. */
 function applyApprovedHomepageChanges(html) {
+  // One approved line for the document title and every social tag, so a shared link, a search
+  // result and the browser tab say the same thing.
   const socialPreview =
-    "Supabase Vercel Resend Alternative - all in one from 10$.";
+    "Supabase Vercel Resend Alternative - all in one from 10$. Hoster for vibe-coded apps.";
   html = html.replace(
     /(<meta (?:property="og:(?:title|description)"|name="twitter:(?:title|description)") content=")[^"]*(">)/gu,
     `$1${socialPreview}$2`,
   );
+  // The card carries the copy as text; the brand image alone showed only the mark.
+  html = html
+    .replace(
+      /(<meta (?:property="og:image"|name="twitter:image") content=")[^"]*(">)/gu,
+      "$1https://ohmyho.st/og/home.png$2",
+    )
+    .replace(
+      '<meta property="og:image:width" content="1200">',
+      '<meta property="og:image:alt" content="ohmyho.st — Supabase, Vercel and Resend alternative, all in one from $10 a month."><meta property="og:image:width" content="1200">',
+    );
   const exportAnswer =
     "Request a portable SQL dump in a password-encrypted ZIP through your agent, CLI or API. Exports run asynchronously, with one accepted request per project every 24 hours and a signed download link valid for 24 hours. Keep your password and restore on another Postgres host, or let your automation tool copy the encrypted file to your own storage.";
   const euAnswer =
@@ -236,7 +248,7 @@ function applyApprovedHomepageChanges(html) {
     '<span class="thin">Ten dollars.</span><br>Host your vibe-coded apps.':
       '<span class="thin">Host your app.</span><br>Supabase Vercel Resend alternative',
     "<title>Hosting for vibe-coded apps — $10/mo for all your projects, not per project | ohmyho.st</title>":
-      '<title>ohmyho.st — Hosting for agents, from $10/month</title><meta name="description" content="Deploy GitHub apps with your agent. Hosting, Postgres, domains, email and encrypted SQL exports, with one credit balance across projects.">',
+      '<title>Supabase Vercel Resend Alternative - all in one from 10$. Hoster for vibe-coded apps.</title><meta name="description" content="Hosting, Postgres, transactional mail and domains for vibe-coded apps on one prepaid balance from $10 a month, deployed and operated by your coding agent through MCP.">',
     '"logo": "https://ohmyho.st/logo.png",':
       '"logo": "https://ohmyho.st/logo.png", "legalName": "Amerged B.V.", "identifier": {"@type":"PropertyValue","propertyID":"KVK","value":"42154221"}, "contactPoint": {"@type":"ContactPoint","contactType":"Customer support","url":"https://ohmyho.st/contact"},',
     "Hosting, Postgres, email, domain, AI models and backups behind one command. Built for AI coding agents via MCP.":

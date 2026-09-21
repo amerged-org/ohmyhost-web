@@ -37,16 +37,32 @@ function headline(meta: PageMeta): string {
   return first.length > 48 ? crumbLabel(meta) : first;
 }
 
+/**
+ * The homepage keeps its approved template, so its card is stated here rather than derived from a
+ * page record. Without it the homepage would fall back to the brand image, which carries no text.
+ */
+const HOME_CARD: OgCard = {
+  slug: "home",
+  path: "/",
+  kicker: "hosting for vibe-coded apps",
+  headline: "Supabase Vercel Resend alternative",
+  subtitle:
+    "All in one from $10 a month: hosting, Postgres, transactional mail and domains on one prepaid balance, operated by your coding agent.",
+};
+
 export function ogCards(): OgCard[] {
-  return Object.entries(PAGE_META)
-    .filter(([path]) => path !== "/login")
-    .map(([path, meta]) => ({
-      slug: ogSlug(path),
-      path,
-      kicker: kicker(path),
-      headline: headline(meta),
-      subtitle: meta.description,
-    }));
+  return [
+    HOME_CARD,
+    ...Object.entries(PAGE_META)
+      .filter(([path]) => path !== "/login")
+      .map(([path, meta]) => ({
+        slug: ogSlug(path),
+        path,
+        kicker: kicker(path),
+        headline: headline(meta),
+        subtitle: meta.description,
+      })),
+  ];
 }
 
 /**

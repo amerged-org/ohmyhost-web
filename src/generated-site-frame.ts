@@ -32,6 +32,7 @@ export const OG_IMAGES: readonly string[] = [
   "from-lovable",
   "from-replit",
   "from-vercel-supabase",
+  "home",
   "open-source",
   "philosophy",
   "pricing",

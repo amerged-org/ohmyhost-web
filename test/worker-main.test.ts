@@ -34,10 +34,15 @@ describe("public entry and unassigned Free-host fallback", () => {
       ["name", "twitter:description"],
     ])
       expect(html).toContain(
-        `<meta ${attribute}="${name}" content="Supabase Vercel Resend Alternative - all in one from 10$.">`,
+        `<meta ${attribute}="${name}" content="Supabase Vercel Resend Alternative - all in one from 10$. Hoster for vibe-coded apps.">`,
       );
+    // The document title, the search result and every shared link say the same approved line.
     expect(html).toContain(
-      "<title>ohmyho.st — Hosting for agents, from $10/month</title>",
+      "<title>Supabase Vercel Resend Alternative - all in one from 10$. Hoster for vibe-coded apps.</title>",
+    );
+    // The shared card carries that copy as text instead of the bare brand mark.
+    expect(html).toContain(
+      '<meta property="og:image" content="https://ohmyho.st/og/home.png">',
     );
     expect(html).toContain("Copy prompt for your agent");
     expect(html).toContain("<span>Copy prompt</span>");
