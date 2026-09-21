@@ -1,0 +1,96 @@
+{
+  "observedAt": "2026-09-21T21:10:24.256155+00:00",
+  "release": {
+    "source": "e965b1394a7d62c35f5983e7c1b75f1eda3c8037",
+    "ci": 35655450485,
+    "ciConclusion": "success",
+    "worker": "ohmyho-web-production",
+    "versionId": "21db4fa2-12bc-4746-ac69-bfff8ac2febb"
+  },
+  "homepage": [
+    {
+      "width": 1440,
+      "parent": "FOOTER",
+      "text": "© 2026 ohmyho.st — Made in Europe",
+      "rowWidth": 856,
+      "textHeight": 16,
+      "lineHeight": "normal",
+      "gap": 610.15625,
+      "rightGap": 0,
+      "centerDifference": 0,
+      "overflow": false,
+      "settingsOpen": true
+    },
+    {
+      "width": 390,
+      "parent": "FOOTER",
+      "text": "© 2026 ohmyho.st — Made in Europe",
+      "rowWidth": 346,
+      "textHeight": 16,
+      "lineHeight": "normal",
+      "gap": 100.15625,
+      "rightGap": 0,
+      "centerDifference": 0,
+      "overflow": false,
+      "settingsOpen": true
+    },
+    {
+      "width": 320,
+      "parent": "FOOTER",
+      "text": "© 2026 ohmyho.st — Made in Europe",
+      "rowWidth": 276,
+      "textHeight": 16,
+      "lineHeight": "normal",
+      "gap": 30.15625,
+      "rightGap": 0,
+      "centerDifference": 0,
+      "overflow": false,
+      "settingsOpen": true
+    }
+  ],
+  "editorial": [
+    {
+      "width": 1440,
+      "parent": "FOOTER",
+      "text": "© 2026 ohmyho.st — Made in Europe",
+      "rowWidth": 856,
+      "textHeight": 16,
+      "lineHeight": "normal",
+      "gap": 610.15625,
+      "rightGap": 0,
+      "centerDifference": 0,
+      "overflow": false,
+      "settingsOpen": true
+    },
+    {
+      "width": 390,
+      "parent": "FOOTER",
+      "text": "© 2026 ohmyho.st — Made in Europe",
+      "rowWidth": 346,
+      "textHeight": 16,
+      "lineHeight": "normal",
+      "gap": 100.15625,
+      "rightGap": 0,
+      "centerDifference": 0,
+      "overflow": false,
+      "settingsOpen": true
+    },
+    {
+      "width": 320,
+      "parent": "FOOTER",
+      "text": "© 2026 ohmyho.st — Made in Europe",
+      "rowWidth": 276,
+      "textHeight": 16,
+      "lineHeight": "normal",
+      "gap": 30.15625,
+      "rightGap": 0,
+      "centerDifference": 0,
+      "overflow": false,
+      "settingsOpen": true
+    }
+  ],
+  "tests": {
+    "passed": 37,
+    "files": 10
+  }
+}
