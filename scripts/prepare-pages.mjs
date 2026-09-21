@@ -265,7 +265,7 @@ function applyApprovedHomepageChanges(html) {
     "Yes. Choose EU when you create the project; the default is US. An EU project keeps its Postgres database, its files and its builds in the EU, and the application runs next to its database. The region cannot be changed later, and prices are identical in both regions. Transactional mail is sent from the platform's mail region in either case.";
   for (const [before, after] of Object.entries({
     "Built it with <b>Claude Code, Cursor, Codex or Lovable</b>? Paste one prompt. Your agent deploys it — skip Vercel, Resend and Supabase.":
-      'An alternative to the Vercel, Supabase and Resend stack for app hosting, managed Postgres and transactional email.</p><p class="note">Deploy with your coding agent. Share one credit balance across your projects.',
+      "An alternative to the Vercel, Supabase and Resend stack for app hosting, managed Postgres and transactional email.",
 
     "header{text-align:center;padding:80px 0 0}":
       "header{text-align:center;padding:48px 0 0}",

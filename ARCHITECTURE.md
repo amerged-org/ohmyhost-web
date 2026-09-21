@@ -83,3 +83,5 @@ and X include image descriptions. The owner approved transactional-email copy wi
 approval notice; this editorial decision is not evidence of SES production readiness.
 
 The homepage social card uses the owner-selected migration motif, adding Resend to the Vercel and Supabase headline while retaining the shared ohmyho.st branding.
+
+The homepage omits the extra credit-balance paragraph beneath its lead to keep the primary Copy prompt action higher in the initial viewport (owner correction, 2026-09-21).
