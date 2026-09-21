@@ -2,6 +2,8 @@
 
 Free starts with 200 credits. Paid starts at $10 for 1,000 monthly credits. Projects use the same organization balance; there is no separate project base subscription.
 
+Monthly plan credits expire at the end of each billing period. Connect your own domain; domain registration is not included. Usage is metered; additional credits cost extra. Applicable taxes are added.
+
 ## What uses credits
 
 Measured builds, worker requests and CPU time, database compute and storage, file storage and operations, and enabled mail use their published rates. An idle database can suspend its compute; retained storage still uses credits.

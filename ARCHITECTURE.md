@@ -71,3 +71,15 @@ validators. Dynamic API, contact and login responses retain their existing polic
 The small-app workload includes its deployed script and mail sender zone. The five-project example
 adds four quiet workloads to that complete workload; its prose states when the monthly credits
 need a top-up. The homepage links to the generated breakdown instead of repeating a hardcoded total.
+
+## Approved alternative-positioning copy — 2026-09-21
+
+The homepage names app hosting and the entry price in its H1, keeps competitor names in a scoped
+alternative comparison, and states credit and tax terms by pricing. The original design template
+stays immutable; approved copy is applied in `scripts/prepare-pages.mjs`. Social titles and short
+card descriptions live in each page's `social` metadata independently of its longer SEO description;
+`src/og-pages.ts` uses those same values and gives ohmyho.st a prominent brand label. Both Open Graph
+and X include image descriptions. The owner approved transactional-email copy without a provider-
+approval notice; this editorial decision is not evidence of SES production readiness.
+
+The homepage social card uses the owner-selected migration motif, adding Resend to the Vercel and Supabase headline while retaining the shared ohmyho.st branding.

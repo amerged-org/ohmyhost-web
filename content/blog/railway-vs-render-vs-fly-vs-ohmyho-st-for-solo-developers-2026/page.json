@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "Railway vs Render vs Fly",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/blog-railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026.png",
+    "alt": "ohmyho.st. Hosting alternatives for solo developers. Railway, Render, Fly.io and ohmyho.st: compare workflows, costs and trade-offs.",
+    "title": "ohmyho.st — Hosting alternatives for solo developers",
+    "description": "Railway, Render, Fly.io and ohmyho.st: compare workflows, costs and trade-offs."
   },
   "parent": "/blog",
   "author": "Sebastian Mertens",

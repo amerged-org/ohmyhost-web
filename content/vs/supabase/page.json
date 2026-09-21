@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "vs Supabase",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/vs-supabase.png",
+    "alt": "ohmyho.st. An alternative to Supabase for managed Postgres. Compare database hosting, application integration and backend scope.",
+    "title": "ohmyho.st — An alternative to Supabase for managed Postgres",
+    "description": "Compare database hosting, application integration and backend scope."
   },
   "modified": "2026-09-21"
 }

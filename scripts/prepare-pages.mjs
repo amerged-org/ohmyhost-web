@@ -18,6 +18,9 @@ import { externalLinkRel, footerColumnsHtml } from "../src/site-links.ts";
 
 const directory = fileURLToPath(new URL("../", import.meta.url));
 const output = `${directory}public/pages`;
+const plans = JSON.parse(
+  await readFile(`${directory}content/data/plans.json`, "utf8"),
+);
 const brandAssets = `${directory}brand/assets`;
 await mkdir(output, { recursive: true });
 await writeFile(
@@ -233,14 +236,19 @@ await writeFile(
 
 /** P30: approved changes are applied without rewriting the supplied v97 source. */
 function applyApprovedHomepageChanges(html) {
-  // One approved line for the document title and every social tag, so a shared link, a search
-  // result and the browser tab say the same thing.
-  const socialPreview =
-    "Supabase Vercel Resend Alternative - all in one from 10$. Hoster for vibe-coded apps.";
-  html = html.replace(
-    /(<meta (?:property="og:(?:title|description)"|name="twitter:(?:title|description)") content=")[^"]*(">)/gu,
-    `$1${socialPreview}$2`,
-  );
+  const socialTitle =
+    "ohmyho.st — An alternative to Vercel, Supabase &amp; Resend";
+  const socialDescription =
+    "An alternative stack for app hosting, managed Postgres and transactional email. Deploy with your coding agent. One credit balance across projects.";
+  html = html
+    .replace(
+      /(<meta (?:property="og:title"|name="twitter:title") content=")[^"]*(">)/gu,
+      `$1${socialTitle}$2`,
+    )
+    .replace(
+      /(<meta (?:property="og:description"|name="twitter:description") content=")[^"]*(">)/gu,
+      `$1${socialDescription}$2`,
+    );
   // The card carries the copy as text; the brand image alone showed only the mark.
   html = html
     .replace(
@@ -249,22 +257,23 @@ function applyApprovedHomepageChanges(html) {
     )
     .replace(
       '<meta property="og:image:width" content="1200">',
-      '<meta property="og:image:alt" content="ohmyho.st — Supabase, Vercel and Resend alternative, all in one from $10 a month."><meta property="og:image:width" content="1200">',
+      '<meta property="og:image:alt" content="ohmyho.st: Move from Vercel, Supabase and Resend to one balance. App hosting, managed Postgres and transactional email."><meta name="twitter:image:alt" content="ohmyho.st: Move from Vercel, Supabase and Resend to one balance. App hosting, managed Postgres and transactional email."><meta property="og:image:width" content="1200">',
     );
   const exportAnswer =
     "Request a portable SQL dump in a password-encrypted ZIP through your agent, CLI or API. Exports run asynchronously, with one accepted request per project every 24 hours and a signed download link valid for 24 hours. Keep your password and restore on another Postgres host, or let your automation tool copy the encrypted file to your own storage.";
   const euAnswer =
     "Yes. Choose EU when you create the project; the default is US. An EU project keeps its Postgres database, its files and its builds in the EU, and the application runs next to its database. The region cannot be changed later, and prices are identical in both regions. Transactional mail is sent from the platform's mail region in either case.";
   for (const [before, after] of Object.entries({
+    "Built it with <b>Claude Code, Cursor, Codex or Lovable</b>? Paste one prompt. Your agent deploys it — skip Vercel, Resend and Supabase.":
+      'An alternative to the Vercel, Supabase and Resend stack for app hosting, managed Postgres and transactional email.</p><p class="note">Deploy with your coding agent. Share one credit balance across your projects.',
+
     "header{text-align:center;padding:80px 0 0}":
       "header{text-align:center;padding:48px 0 0}",
     "h1{font-size:clamp(44px,9vw,80px)": "h1{font-size:clamp(36px,7.2vw,64px)",
     ".art{margin:40px auto 0;max-width:900px;width:100%}":
       ".art{margin:40px auto 0;max-width:855px;width:95%}",
-    '<span class="thin">Ten dollars.</span><br>Host your vibe-coded apps.':
-      '<span class="thin">Host your app.</span><br>Supabase Vercel Resend alternative',
-    "<title>Hosting for vibe-coded apps — $10/mo for all your projects, not per project | ohmyho.st</title>":
-      '<title>Supabase Vercel Resend Alternative - all in one from 10$. Hoster for vibe-coded apps.</title><meta name="description" content="Hosting, Postgres, transactional mail and domains for vibe-coded apps on one prepaid balance from $10 a month, deployed and operated by your coding agent through MCP.">',
+    '<span class="thin">Ten dollars.</span><br>Host your vibe-coded apps.': `<span class="thin">Host your app.</span><br>All-in-one hosting from $${plans.paidUsd}/month.`,
+    "<title>Hosting for vibe-coded apps — $10/mo for all your projects, not per project | ohmyho.st</title>": `<title>${socialTitle}</title><meta name="description" content="${socialDescription}">`,
     '"logo": "https://ohmyho.st/logo.png",':
       '"logo": "https://ohmyho.st/logo.png", "legalName": "Amerged B.V.", "identifier": {"@type":"PropertyValue","propertyID":"KVK","value":"42154221"}, "contactPoint": {"@type":"ContactPoint","contactType":"Customer support","url":"https://ohmyho.st/contact"},',
     "Hosting, Postgres, email, domain, AI models and backups behind one command. Built for AI coding agents via MCP.":
@@ -357,6 +366,10 @@ function applyApprovedHomepageChanges(html) {
   }
   // Keep the export section and footer link; the top navigation stays compact.
   html = html.replace('        <a href="#export">Export</a>\n', "");
+  html = html.replace(
+    '<div class="vs stag">',
+    '<h3>An alternative. Know the differences.</h3><p class="note">Compare ohmyho.st with Vercel for app hosting, Supabase for managed Postgres, and Resend for transactional email. Explore the differences in features, pricing and limits.</p><p class="note">ohmyho.st is an independent service, not affiliated with or endorsed by Vercel, Supabase or Resend. All trademarks belong to their respective owners.</p><div class="vs stag">',
+  );
   const priceEnd = html.indexOf(
     "</section>",
     html.indexOf('<section id="price">'),
@@ -365,6 +378,7 @@ function applyApprovedHomepageChanges(html) {
     throw new Error("Pricing section missing for usage-rate link");
   html =
     html.slice(0, priceEnd) +
+    `<p class="note">$${plans.paidUsd}/month includes ${new Intl.NumberFormat("en-US").format(plans.paidCredits)} credits across your projects. Usage is metered; additional credits cost extra. Applicable taxes are added.</p><p class="note">Monthly plan credits expire at the end of each billing period. Connect your own domain; domain registration is not included.</p>` +
     '<p class="note"><a href="https://docs.ohmyho.st/pricing">See all usage rates</a></p>\n' +
     html.slice(priceEnd);
   html = html.replace(

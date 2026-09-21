@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "Philosophy",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/philosophy.png",
+    "alt": "ohmyho.st. Your app. Your agent. Your hosting.. Why we’re building an alternative around coding agents.",
+    "title": "ohmyho.st — Your app. Your agent. Your hosting.",
+    "description": "Why we’re building an alternative around coding agents."
   },
-  "modified": "2026-09-20"
+  "modified": "2026-09-21"
 }

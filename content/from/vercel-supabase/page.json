@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "From Vercel and Supabase",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/from-vercel-supabase.png",
+    "alt": "ohmyho.st. Explore an alternative to your Vercel + Supabase setup. Assess hosting, database and integration changes before migrating.",
+    "title": "ohmyho.st — Explore an alternative to your Vercel + Supabase setup",
+    "description": "Assess hosting, database and integration changes before migrating."
   },
   "modified": "2026-09-21"
 }

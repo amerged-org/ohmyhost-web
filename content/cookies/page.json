@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "Cookies",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/cookies.png",
+    "alt": "ohmyho.st. Your cookie choices. What our cookies do and how to manage them.",
+    "title": "ohmyho.st — Your cookie choices",
+    "description": "What our cookies do and how to manage them."
   },
-  "modified": "2026-09-19"
+  "modified": "2026-09-21"
 }

@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "Status",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/status.png",
+    "alt": "ohmyho.st. Check service availability. Find platform availability and your project’s current state.",
+    "title": "ohmyho.st — Check service availability",
+    "description": "Find platform availability and your project’s current state."
   },
-  "modified": "2026-09-20"
+  "modified": "2026-09-21"
 }

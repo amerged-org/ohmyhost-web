@@ -83,8 +83,12 @@ it("publishes the SEO contract for every rendered page", async () => {
     expect(html).toContain(
       `<link rel="alternate" type="text/markdown" href="${path}.md">`,
     );
-    expect(attribute(html, 'property="og:title"')).toBe(meta.title);
-    expect(attribute(html, 'property="og:description"')).toBe(meta.description);
+    expect(attribute(html, 'property="og:title"')).toBe(
+      meta.socialTitle ?? meta.title,
+    );
+    expect(attribute(html, 'property="og:description"')).toBe(
+      meta.socialDescription ?? meta.description,
+    );
     expect(attribute(html, 'property="og:url"')).toBe(
       `https://ohmyho.st${path}`,
     );

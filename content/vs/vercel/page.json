@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "vs Vercel",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/vs-vercel.png",
+    "alt": "ohmyho.st. An alternative to Vercel for app hosting. Compare deployment workflows, supported features and usage pricing.",
+    "title": "ohmyho.st — An alternative to Vercel for app hosting",
+    "description": "Compare deployment workflows, supported features and usage pricing."
   },
   "modified": "2026-09-21"
 }

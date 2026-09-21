@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "Five side projects, priced",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/blog-what-vercel-supabase-resend-cost-for-five-side-projects.png",
+    "alt": "ohmyho.st. Five projects. What does your stack cost?. Vercel, Supabase and Resend compared with ohmyho.st under explicit usage assumptions.",
+    "title": "ohmyho.st — Five projects. What does your stack cost?",
+    "description": "Vercel, Supabase and Resend compared with ohmyho.st under explicit usage assumptions."
   },
   "parent": "/blog",
   "author": "Sebastian Mertens",

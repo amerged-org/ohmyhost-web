@@ -5,11 +5,13 @@
   "status": "published",
   "crumb": "Host a Lovable app",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/blog-host-a-lovable-app-after-export.png",
+    "alt": "ohmyho.st. An alternative home for your Lovable app. Export to GitHub, check dependencies and deploy with your agent.",
+    "title": "ohmyho.st — An alternative home for your Lovable app",
+    "description": "Export to GitHub, check dependencies and deploy with your agent."
   },
   "parent": "/blog",
   "author": "Sebastian Mertens",
   "published": "2026-09-20",
-  "modified": "2026-09-20"
+  "modified": "2026-09-21"
 }

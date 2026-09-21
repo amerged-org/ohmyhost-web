@@ -5,9 +5,11 @@
   "status": "published",
   "crumb": "TOMs",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/dpa-toms.png",
+    "alt": "ohmyho.st. Our security measures. Documented technical and organisational measures.",
+    "title": "ohmyho.st — Our security measures",
+    "description": "Documented technical and organisational measures."
   },
   "parent": "/dpa",
-  "modified": "2026-09-19"
+  "modified": "2026-09-21"
 }

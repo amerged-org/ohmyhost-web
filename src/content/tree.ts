@@ -20,6 +20,8 @@ export interface ContentSource
   readonly social?: {
     readonly image?: string | null;
     readonly alt?: string | null;
+    readonly title?: string;
+    readonly description?: string;
   };
 }
 

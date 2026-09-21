@@ -157,3 +157,5 @@ Yes, per project and once. Pass `region: eu` to project_create and the project's
 {{ sources supabase vercel resend }}
 
 [Compare Vercel](/vs/vercel) · [Move from Vercel and Supabase](/from/vercel-supabase) · [Where your credits go](/pricing/breakdown) · [Supabase vs Vercel: do you need both?](/blog/supabase-vs-vercel-do-you-need-both)
+
+ohmyho.st is an independent service, not affiliated with or endorsed by Vercel, Supabase or Resend. All trademarks belong to their respective owners.

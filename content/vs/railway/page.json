@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "vs Railway",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/vs-railway.png",
+    "alt": "ohmyho.st. An alternative to Railway for app hosting. Compare ohmyho.st’s agent workflow, billing model and supported features.",
+    "title": "ohmyho.st — An alternative to Railway for app hosting",
+    "description": "Compare ohmyho.st’s agent workflow, billing model and supported features."
   },
   "modified": "2026-09-21"
 }

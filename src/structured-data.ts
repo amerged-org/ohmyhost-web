@@ -237,6 +237,10 @@ export function headTags(
   const image = `${SITE_ORIGIN}${ogImagePath(path, meta)}`;
   const title = attribute(meta.title);
   const description = attribute(meta.description);
+  const socialTitle = attribute(meta.socialTitle ?? meta.title);
+  const socialDescription = attribute(
+    meta.socialDescription ?? meta.description,
+  );
   const tags = [
     `<title>${title}</title>`,
     `<meta name="description" content="${description}">`,
@@ -245,15 +249,17 @@ export function headTags(
     `<meta property="og:type" content="${meta.kind === "article" ? "article" : "website"}">`,
     `<meta property="og:url" content="${url}">`,
     `<meta property="og:site_name" content="ohmyho.st">`,
-    `<meta property="og:title" content="${title}">`,
-    `<meta property="og:description" content="${description}">`,
+    `<meta property="og:title" content="${socialTitle}">`,
+    `<meta property="og:description" content="${socialDescription}">`,
     `<meta property="og:image" content="${image}">`,
+    `<meta property="og:image:alt" content="${attribute(meta.ogImageAlt ?? `${meta.socialTitle ?? meta.title}. ${meta.socialDescription ?? meta.description}`)}">`,
+    `<meta name="twitter:image:alt" content="${attribute(meta.ogImageAlt ?? `${meta.socialTitle ?? meta.title}. ${meta.socialDescription ?? meta.description}`)}">`,
     `<meta property="og:image:width" content="1200">`,
     `<meta property="og:image:height" content="630">`,
     `<meta property="og:locale" content="en_US">`,
     `<meta name="twitter:card" content="summary_large_image">`,
-    `<meta name="twitter:title" content="${title}">`,
-    `<meta name="twitter:description" content="${description}">`,
+    `<meta name="twitter:title" content="${socialTitle}">`,
+    `<meta name="twitter:description" content="${socialDescription}">`,
     `<meta name="twitter:image" content="${image}">`,
   ];
   if (meta.kind === "article")

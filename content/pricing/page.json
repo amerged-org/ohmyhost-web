@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "Pricing",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/pricing.png",
+    "alt": "ohmyho.st. One balance across your projects. Compare plans, included credits and metered usage.",
+    "title": "ohmyho.st — One balance across your projects",
+    "description": "Compare plans, included credits and metered usage."
   },
-  "modified": "2026-09-20"
+  "modified": "2026-09-21"
 }
