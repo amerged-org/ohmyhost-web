@@ -293,7 +293,7 @@ it("hardens the approved homepage markup for search and social", async () => {
     home.indexOf('<div class="fcol">'),
     home.indexOf('<div class="fbot">'),
   );
-  expect(columns.trim()).toBe(footerColumnsHtml());
+  expect(columns.trim()).toBe(`${footerColumnsHtml()}\n  </div>`);
   expect(home).toContain('href="/philosophy"');
   expect(home).toContain('href="/open-source"');
   expect(home).not.toContain("github.com/amerged/docs");

@@ -65,7 +65,7 @@ const privacyUi =
 const approvedHome = await readFile(`${directory}site/home.html`, "utf8");
 const sharedCss = approvedHome.match(/<style>([\s\S]*?)<\/style>/u)?.[1];
 const navigationCss =
-  '@media(max-width:760px){nav{gap:10px}nav .r{gap:8px}nav .btn.nochev{min-width:0;padding:9px 10px;font-size:13px}}@media(max-width:360px){nav a[href="https://docs.ohmyho.st/"]{display:none}}';
+  '@media(max-width:760px){nav{gap:10px}nav .r{gap:8px}nav .btn.nochev{min-width:0;padding:9px 10px;font-size:13px}}@media(max-width:360px){nav a[href="https://docs.ohmyho.st/"]{display:none}}footer .fbot{align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:12px}footer .fbot>span{white-space:nowrap}';
 if (!sharedCss) throw new Error("The approved design stylesheet is missing");
 await writeFile(
   `${directory}src/generated-site-frame.ts`,
@@ -264,6 +264,9 @@ function applyApprovedHomepageChanges(html) {
   const euAnswer =
     "Yes. Choose EU when you create the project; the default is US. An EU project keeps its Postgres database, its files and its builds in the EU, and the application runs next to its database. The region cannot be changed later, and prices are identical in both regions. Transactional mail is sent from the platform's mail region in either case.";
   for (const [before, after] of Object.entries({
+    "<span>© 2026 ohmyho.st</span>\n    <span>Made in the EU</span>":
+      "<span>© 2026 ohmyho.st — Made in Europe</span>",
+
     "Built it with <b>Claude Code, Cursor, Codex or Lovable</b>? Paste one prompt. Your agent deploys it — skip Vercel, Resend and Supabase.":
       "An alternative to the Vercel, Supabase and Resend stack for app hosting, managed Postgres and transactional email.",
 
@@ -510,7 +513,7 @@ function hardenHomepageMarkup(html) {
     throw new Error("Footer columns missing");
   html =
     html.slice(0, columnsStart) +
-    `    ${footerColumnsHtml()}\n` +
+    `    ${footerColumnsHtml()}\n  </div>\n` +
     html.slice(columnsEnd);
   html = externalLinkRel(
     html.replaceAll(

@@ -90,3 +90,5 @@ The homepage preserves the original comparison heading/lead/cards hierarchy: att
 single short line below the cards, pricing has one concise metering/reset note linking to usage
 rates, and the closing CTA says “No card required.” (owner layout correction, 2026-09-21).
 SEO and social metadata are unchanged by this correction.
+
+The footer bottom row is a sibling of the link grid, spanning its full width with “© 2026 ohmyho.st — Made in Europe” at the left and the existing cookie-settings button at the right, without wrapping (2026-09-21).

@@ -259,7 +259,7 @@ export function customerDocument(
 
 /** The homepage footer on every document page: brand block, the shared columns and the legal line. */
 function documentFooter(): string {
-  return `<footer><div class="fgrid"><div class="fbrand"><div class="fbrandrow"><svg class="ohm" viewBox="0 0 100 100" aria-hidden="true"><path d="M30 87 H14 L27 63 A31 31 0 1 1 73 63 L86 87 H70"/></svg><span class="mark">ohmyho<i>.st</i></span></div><p class="fslogan">Hosting for vibe-coded apps.</p><a class="status" href="/status">Status</a></div>${footerColumnsHtml()}</div><div class="fbot"><span>© 2026 ohmyho.st</span><span>Amerged B.V. · Venray, NL</span></div></footer>`;
+  return `<footer><div class="fgrid"><div class="fbrand"><div class="fbrandrow"><svg class="ohm" viewBox="0 0 100 100" aria-hidden="true"><path d="M30 87 H14 L27 63 A31 31 0 1 1 73 63 L86 87 H70"/></svg><span class="mark">ohmyho<i>.st</i></span></div><p class="fslogan">Hosting for vibe-coded apps.</p><a class="status" href="/status">Status</a></div>${footerColumnsHtml()}</div><div class="fbot"><span>© 2026 ohmyho.st — Made in Europe</span></div></footer>`;
 }
 
 export function isClientDownload(path: string): boolean {

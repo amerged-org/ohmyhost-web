@@ -24,6 +24,8 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(home.status).toBe(200);
     expect(home.headers.get("content-type")).toContain("text/html");
     const html = await home.text();
+    expect(html).toContain('</a></div>\n  </div>\n  <div class="fbot">');
+    expect(html).toContain("<span>© 2026 ohmyho.st — Made in Europe</span>");
     expect(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/u)?.[1]).toBe(
       '<span class="thin">Host your app.</span><br>All-in-one hosting from $10/month.',
     );
