@@ -3,7 +3,7 @@ import { expect, it } from "vitest";
 import { createControlApiTestHarness } from "../../control-api/test/harness.js";
 import { createPostgresPublicEntry } from "../../control-api/src/public-entry.js";
 import worker from "../src/worker-main.js";
-import { siteBetaResponse } from "../src/beta-entry.js";
+import { siteRequestResponse } from "../src/site-requests.js";
 
 it("connects the public page and consent form through the generated SDK to real API persistence", async () => {
   const h = await createControlApiTestHarness({
@@ -104,7 +104,7 @@ it("connects the public page and consent form through the generated SDK to real 
         );
       }
     for (const path of ["/status.json", "/stats.json"]) {
-      const response = await siteBetaResponse(
+      const response = await siteRequestResponse(
         new Request(`https://ohmyho.st${path}`, {
           method: "POST",
           headers: { origin: "https://ohmyho.st", "content-type": "application/json" },
@@ -116,7 +116,7 @@ it("connects the public page and consent form through the generated SDK to real 
     }
     const malformed = new UnexpectedApiResponse();
     expect(
-      (await siteBetaResponse(new Request("https://ohmyho.st/stats.json"), malformed))?.status,
+      (await siteRequestResponse(new Request("https://ohmyho.st/stats.json"), malformed))?.status,
     ).toBe(503);
     const interest = {
       email: "site-test@example.com",
@@ -124,7 +124,7 @@ it("connects the public page and consent form through the generated SDK to real 
       consent_version: "beta-interest-2026-09-13",
     };
     const retired = await worker.fetch(
-      new Request("https://ohmyho.st/v1/beta/interests", {
+      new Request("https://ohmyho.st/v1/site/interests", {
         method: "POST",
         headers: { origin: "https://ohmyho.st", "content-type": "application/json" },
         body: JSON.stringify(interest),
@@ -133,8 +133,8 @@ it("connects the public page and consent form through the generated SDK to real 
     );
     expect(retired.status).toBe(405);
     expect(
-      await siteBetaResponse(
-        new Request("https://ohmyho.st/v1/beta/interests", {
+      await siteRequestResponse(
+        new Request("https://ohmyho.st/v1/site/interests", {
           method: "POST",
           headers: { origin: "https://ohmyho.st", "content-type": "application/json" },
           body: JSON.stringify(interest),
@@ -142,20 +142,20 @@ it("connects the public page and consent form through the generated SDK to real 
         binding,
       ),
     ).toBeNull();
-    for (const path of ["/v1/beta/interests", "/v1/beta/eligibility?r=hostmebaby"]) {
+    for (const path of ["/v1/site/interests", "/v1/site/eligibility?r=hostmebaby"]) {
       const direct = await h.request(path, {
-        method: path.startsWith("/v1/beta/interests") ? "POST" : "GET",
+        method: path.startsWith("/v1/site/interests") ? "POST" : "GET",
         headers: { "content-type": "application/json", origin: "https://ohmyho.st" },
-        ...(path.startsWith("/v1/beta/interests") ? { body: JSON.stringify(interest) } : {}),
+        ...(path.startsWith("/v1/site/interests") ? { body: JSON.stringify(interest) } : {}),
       });
       expect(direct.status).toBe(404);
     }
-    const status = await siteBetaResponse(new Request("https://ohmyho.st/status.json"), binding);
+    const status = await siteRequestResponse(new Request("https://ohmyho.st/status.json"), binding);
     expect(await status?.json()).toMatchObject({
       ok: false,
       components: expect.arrayContaining([{ name: "API and reporting", status: "operational" }]),
     });
-    const initialVotes = await siteBetaResponse(new Request("https://ohmyho.st/want"), binding);
+    const initialVotes = await siteRequestResponse(new Request("https://ohmyho.st/want"), binding);
     expect(initialVotes?.status).toBe(200);
     expect(initialVotes?.headers.get("set-cookie")).toMatch(
       /^__Host-omh_voter=[0-9a-f-]+; Path=\/; Secure; HttpOnly; SameSite=Lax; Max-Age=31536000$/u,
@@ -181,7 +181,7 @@ it("connects the public page and consent form through the generated SDK to real 
         },
         body: JSON.stringify(body),
       });
-    const vote = await siteBetaResponse(voteRequest(), binding);
+    const vote = await siteRequestResponse(voteRequest(), binding);
     expect(vote?.status).toBe(202);
     const expectedVotes = {
       votes: [
@@ -191,45 +191,46 @@ it("connects the public page and consent form through the generated SDK to real 
       ],
     };
     expect(await vote?.json()).toEqual({ accepted: true, ...expectedVotes });
-    const restored = await siteBetaResponse(
+    const restored = await siteRequestResponse(
       new Request("https://ohmyho.st/want", { headers: { cookie: voterCookie } }),
       binding,
     );
     expect(await restored?.json()).toEqual(expectedVotes);
-    const another = await siteBetaResponse(new Request("https://ohmyho.st/want"), binding);
+    const another = await siteRequestResponse(new Request("https://ohmyho.st/want"), binding);
     expect(await another?.json()).toEqual({
       votes: expectedVotes.votes.map((item) => ({ ...item, choice: null })),
     });
     for (const cookie of ["", "__Host-omh_voter=bad", voterCookie + "; " + voterCookie]) {
-      const denied = await siteBetaResponse(voteRequest(voteBody, cookie), binding);
+      const denied = await siteRequestResponse(voteRequest(voteBody, cookie), binding);
       expect(denied?.status).toBe(409);
       expect(await denied?.json()).toEqual({ code: "voter_cookie_required" });
     }
     expect(
-      (await siteBetaResponse(voteRequest({ ...voteBody, voter_id: "forged" }), binding))?.status,
+      (await siteRequestResponse(voteRequest({ ...voteBody, voter_id: "forged" }), binding))
+        ?.status,
     ).toBe(400);
     expect(
       (
-        await siteBetaResponse(
+        await siteRequestResponse(
           voteRequest(voteBody, voterCookie, "https://foreign.example"),
           binding,
         )
       )?.status,
     ).toBe(403);
     expect(
-      (await siteBetaResponse(voteRequest({ ...voteBody, choice: "invalid" }), binding))?.status,
+      (await siteRequestResponse(voteRequest({ ...voteBody, choice: "invalid" }), binding))?.status,
     ).toBe(400);
     expect(
-      (await siteBetaResponse(voteRequest({ ...voteBody, feature: "x".repeat(2100) }), binding))
+      (await siteRequestResponse(voteRequest({ ...voteBody, feature: "x".repeat(2100) }), binding))
         ?.status,
     ).toBe(413);
-    const limited = await siteBetaResponse(voteRequest(), new LimitedPublicApi());
+    const limited = await siteRequestResponse(voteRequest(), new LimitedPublicApi());
     expect(limited?.status).toBe(429);
     expect(limited?.headers.get("retry-after")).toBe("37");
-    const unavailableVote = await siteBetaResponse(voteRequest(), new UnexpectedApiResponse());
+    const unavailableVote = await siteRequestResponse(voteRequest(), new UnexpectedApiResponse());
     expect(unavailableVote?.status).toBe(503);
     expect(await unavailableVote?.json()).toEqual({ code: "service_unavailable" });
-    const finalRestored = await siteBetaResponse(
+    const finalRestored = await siteRequestResponse(
       new Request("https://ohmyho.st/want", { headers: { cookie: voterCookie } }),
       binding,
     );
@@ -253,12 +254,14 @@ it("connects the public page and consent form through the generated SDK to real 
     expect(roadmapHtml).not.toContain('class="want"');
     expect(roadmapHtml).not.toContain('id="beta-modal"');
     expect(roadmapHtml).not.toContain('id="beta-form"');
-    expect(roadmapHtml).not.toContain("/v1/beta/interests");
+    expect(roadmapHtml).not.toContain("/v1/site/interests");
     expect(roadmapHtml).not.toContain("My invitation is");
     expect(roadmapHtml).toContain(
       '"I came from https://ohmyho.st/?r=" + encodeURIComponent(source)',
     );
-    expect((await siteBetaResponse(new Request("https://ohmyho.st/stats.json")))?.status).toBe(503);
+    expect((await siteRequestResponse(new Request("https://ohmyho.st/stats.json")))?.status).toBe(
+      503,
+    );
     const contact = {
       name: "Website visitor",
       email: "visitor@example.invalid",

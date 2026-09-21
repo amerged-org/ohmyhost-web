@@ -459,10 +459,9 @@ it("serves only pinned public client assets and strips credentials before the as
   expect(fixture.requests[0]?.headers.has("authorization")).toBe(false);
   expect(fixture.requests[0]?.headers.has("cookie")).toBe(false);
   expect((await worker.fetch(new Request(url))).status).toBe(503);
-  const unknown = await worker.fetch(
-    new Request("https://ohmyho.st/releases/0.1.0-beta.1/.env.local"),
-    { ASSETS: fixture },
-  );
+  const unknown = await worker.fetch(new Request("https://ohmyho.st/releases/0.1.1/.env.local"), {
+    ASSETS: fixture,
+  });
   expect(unknown.status).toBe(404);
   expect(fixture.requests).toHaveLength(1);
   expect(
@@ -497,9 +496,9 @@ it("serves only pinned public client assets and strips credentials before the as
   for (const invalid of [
     "https://ohmyho.st/releases/0.1.3/ohmyhost-product-cli-0.1.3.tgz",
     "https://ohmyho.st/releases/0.1.0/manifest.json",
-    "https://ohmyho.st/releases/0.1.0-beta.40/ohmyhost-product-cli-0.1.0-beta.40.tgz",
+    "https://ohmyho.st/releases/0.1.4/ohmyhost-product-cli-0.1.4.tgz",
     `https://ohmyho.st/releases/${CLIENT_RELEASE}/ohmyhost-product-cli-0.1.3.tgz`,
-    "https://ohmyho.st/releases/0.1.0-beta.119/manifest.json",
+    "https://ohmyho.st/releases/0.1.9/manifest.json",
     `https://ohmyho.st/releases/${CLIENT_RELEASE}/.env.local`,
   ])
     expect((await worker.fetch(new Request(invalid), { ASSETS: fixture })).status).toBe(404);

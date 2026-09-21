@@ -42,11 +42,11 @@ if (!sharedCss) throw new Error("The approved design stylesheet is missing");
 await writeFile(
   `${directory}src/generated-site-frame.ts`,
   await format(
-    "// Generated from the approved template and beta entry assets.\n" +
+    "// Generated from the approved template and site request assets.\n" +
       `export const SITE_CSS = ${JSON.stringify(fontCss + sharedCss + navigationCss)};\n` +
       `export const SITE_ICON = ${JSON.stringify(await readFile(`${brandAssets}/favicon.svg`, "utf8"))};\n` +
       `export const PRIVACY_UI = ${JSON.stringify(privacyUi)};\n` +
-      `export const BETA_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/beta-entry.js`, "utf8"))};\n` +
+      `export const SITE_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/site-requests.js`, "utf8"))};\n` +
       `export const FIGURE_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/figure-count.js`, "utf8"))};\n` +
       `export const OG_IMAGES: readonly string[] = ${JSON.stringify(await renderedOgSlugs())};\n`,
     { parser: "typescript", printWidth: 100 },
@@ -99,7 +99,7 @@ for (const [name, digest] of Object.entries(templates)) {
     );
     html = html.replace(
       "</body>",
-      `<script>${await readFile(`${directory}site/beta-entry.js`, "utf8")}</script></body>`,
+      `<script>${await readFile(`${directory}site/site-requests.js`, "utf8")}</script></body>`,
     );
   }
   if (name === "brand") {
@@ -156,7 +156,7 @@ for (const file of [
 
 const entry = await readFile(`${directory}src/customer-entry.ts`, "utf8");
 const version = entry.match(/export const CLIENT_RELEASE = "([^"]+)"/u)?.[1];
-if (!version || !/^\d+\.\d+\.\d+(?:-beta\.\d+)?$/u.test(version))
+if (!version || !/^\d+\.\d+\.\d+$/u.test(version))
   throw new Error("The public client release is invalid");
 await writeFile(
   `${output}/0.sh`,

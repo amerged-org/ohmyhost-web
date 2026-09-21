@@ -1,5 +1,7 @@
 import { existsSync } from "node:fs";
-import { readFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
 import { expect, it } from "vitest";
 
@@ -59,4 +61,34 @@ it("resolves only known tokens and fails loudly on anything else", () => {
   // No page may ship an unresolved token.
   for (const page of CONTENT_PAGE_LIST)
     expect(page.markdown, page.path).not.toMatch(/\{\{\s*\w+\s/u);
+});
+
+it("refuses page metadata that would ship a broken page", async () => {
+  const root = await mkdtemp(join(tmpdir(), "content-tree-"));
+  const write = async (meta: Record<string, unknown>) => {
+    await writeFile(join(root, "page.json"), JSON.stringify(meta), "utf8");
+    await writeFile(join(root, "content.md"), "# Title\n", "utf8");
+    return () => readPage(root, "/example");
+  };
+  const good = {
+    title: "A page title",
+    description: "d".repeat(140),
+    kind: "page",
+    status: "published",
+    modified: "2026-09-20",
+  };
+
+  expect((await write(good))()).toMatchObject({ path: "/example", kind: "page" });
+  for (const [reason, meta] of [
+    ["title is required", { ...good, title: 7 }],
+    ["kind must be one of", { ...good, kind: "landing" }],
+    ["status must be published or draft", { ...good, status: "live" }],
+    ["title is 61 characters, at most 60", { ...good, title: "t".repeat(61) }],
+    ["description is 60 characters, needs 120 to 160", { ...good, description: "d".repeat(60) }],
+    ["an article needs author and published", { ...good, kind: "article" }],
+    ["author and published belong to articles only", { ...good, author: "Someone" }],
+  ] as Array<[string, Record<string, unknown>]>)
+    expect(await write(meta), reason).toThrow(reason);
+
+  await rm(root, { recursive: true, force: true });
 });

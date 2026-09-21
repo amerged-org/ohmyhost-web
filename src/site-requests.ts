@@ -9,7 +9,7 @@ export interface PublicControlBinding {
   fetch(request: Request): Promise<Response>;
 }
 
-export function betaClient(binding: PublicControlBinding, request: Request) {
+export function publicApiClient(binding: PublicControlBinding, request: Request) {
   return createClient({
     baseUrl: "https://app.ohmyho.st",
     throwOnError: true,
@@ -42,7 +42,7 @@ export function betaClient(binding: PublicControlBinding, request: Request) {
 export function signupSource(source: string | undefined): string | undefined {
   return source !== undefined && /^[^\p{Cc}]{1,64}$/u.test(source) ? source : undefined;
 }
-export async function siteBetaResponse(
+export async function siteRequestResponse(
   request: Request,
   binding?: PublicControlBinding,
 ): Promise<Response | null> {
@@ -57,7 +57,7 @@ export async function siteBetaResponse(
     return json({ code: "invalid_request" }, 405);
   if (!binding) return json({ code: "service_unavailable" }, 503);
   try {
-    const client = betaClient(binding, request);
+    const client = publicApiClient(binding, request);
     const voteCookie = readVoteCookie(request);
     if (path === "/want" && request.method === "GET") {
       const origin = request.headers.get("origin");

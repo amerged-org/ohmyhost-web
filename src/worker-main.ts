@@ -1,4 +1,4 @@
-import { signupSource, siteBetaResponse, type PublicControlBinding } from "./beta-entry.js";
+import { signupSource, siteRequestResponse, type PublicControlBinding } from "./site-requests.js";
 import { customerDocument, isClientDownload, documentationRedirect } from "./customer-entry.js";
 import { SITE_ICON } from "./generated-site-frame.js";
 import { sitemapEntries } from "./page-meta.js";
@@ -83,11 +83,11 @@ export default {
     if (!ownHost || !["https:", "http:"].includes(url.protocol))
       return new Response(null, { status: 404, headers });
     if (url.origin === "https://ohmyho.st") {
-      const beta = await siteBetaResponse(request, env?.CONTROL_API);
-      if (beta) {
+      const answered = await siteRequestResponse(request, env?.CONTROL_API);
+      if (answered) {
         for (const [key, value] of headers)
-          if (key !== "content-security-policy") beta.headers.set(key, value);
-        return request.method === "HEAD" ? new Response(null, beta) : beta;
+          if (key !== "content-security-policy") answered.headers.set(key, value);
+        return request.method === "HEAD" ? new Response(null, answered) : answered;
       }
     }
     if (request.method !== "GET" && request.method !== "HEAD") {

@@ -11,12 +11,12 @@
     "Keep existing projects in their current region. " +
     "Follow the deployment Skill, keep my existing project decisions and verify the app.";
 
-  const buttons = "[data-copy], #copy, #shcopy2, #shcopy, [data-wincopy], [data-beta-access]";
+  const buttons = "[data-copy], #copy, #shcopy2, #shcopy, [data-wincopy], [data-copy-prompt]";
   document.querySelectorAll(buttons).forEach((button) => {
     const label = button.querySelector("span");
     const text = button.closest("nav") ? "Copy prompt" : "Copy prompt for your agent";
     if (label) label.textContent = text;
-    else if (button.matches("[data-beta-access]")) button.textContent = text;
+    else if (button.matches("[data-copy-prompt]")) button.textContent = text;
   });
   document.querySelectorAll(".body.prompt").forEach((node) => (node.textContent = prompt));
   document.addEventListener(
