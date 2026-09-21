@@ -8,13 +8,15 @@ no credential and no backend logic.
 
 ## Boundaries
 
-| Owner           | Surface                                                                                                                                                                          |
-| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| This repository | `https://ohmyho.st/*` — pages, `/brand`, `llms.txt`, `AGENTS.md`, `mcp.json`, `mcp-tools.json`, `/skills/*`, `/.well-known/*`, the sitemap, robots and the social cards          |
-| The platform    | `https://ohmyho.st/releases/*` and `/client-release.json` (client downloads), `omh.st`, `check.omh.st` and `*.check.omh.st` (project addresses), the REST API at `app.ohmyho.st` |
+| Owner           | Surface                                                                                                                                                                                                                                                   |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| This repository | every page of `https://ohmyho.st` — `/brand`, `llms.txt`, `AGENTS.md`, `mcp.json`, `mcp-tools.json`, `/skills/*`, `/.well-known/*`, the sitemap, robots, the social cards and the site's own `/want`, `/stats.json`, `/status.json` and contact endpoints |
+| The platform    | `https://ohmyho.st/releases/*`, `/client-release.json` and `/0.sh` (the released clients), `omh.st`, `check.omh.st` and `*.check.omh.st` (project addresses), the REST API at `app.ohmyho.st`                                                             |
 
-Cloudflare resolves the most specific route first, so the platform's path routes win over this
-Worker's host route on the same hostname.
+Cloudflare does not allow a route on a hostname that already has a custom domain, so the split is a
+service binding rather than a DNS move: `ohmyho.st` stays attached to the platform's entry Worker,
+which answers the paths above itself and hands every other request to this Worker. This repository
+releases without touching DNS, and removing the binding puts the platform Worker back in charge.
 
 ## Content
 
