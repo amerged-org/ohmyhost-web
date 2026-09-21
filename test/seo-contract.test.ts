@@ -186,7 +186,13 @@ it("publishes the SEO contract for every rendered page", async () => {
     expect(mirror).not.toContain("<svg");
   }
   const about = jsonLd(customerDocument("/about")?.text ?? "");
-  expect(about.map((node) => node["@type"])).toContain("Person");
+  expect(about.map((node) => node["@type"])).toContain("AboutPage");
+  expect(about.map((node) => node["@type"])).not.toContain("Person");
+  const aboutHtml = customerDocument("/about")?.text ?? "";
+  expect(aboutHtml).not.toMatch(
+    /Sebastian Mertens|42154221|founder\.png|Not yet|What is not there yet/u,
+  );
+  expect(aboutHtml).toContain("Apache-2.0");
   const blog = jsonLd(customerDocument("/blog")?.text ?? "").find(
     (node) => node["@type"] === "Blog",
   ) as {

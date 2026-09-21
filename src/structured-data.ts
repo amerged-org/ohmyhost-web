@@ -159,7 +159,6 @@ export function jsonLdGraph(
     jobTitle: "Founder",
     worksFor: { "@id": ORGANIZATION_ID },
   };
-  if (meta.kind === "about") graph.push(person);
   if (meta.kind === "article")
     graph.push(
       {

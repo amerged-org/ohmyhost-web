@@ -94,3 +94,5 @@ SEO and social metadata are unchanged by this correction.
 The footer bottom row is a sibling of the link grid, spanning its full width with “© 2026 ohmyho.st — Made in Europe” at the left and the existing cookie-settings button at the right, without wrapping (2026-09-21).
 
 Every editorial fenced prompt or command has a keyboard-accessible copy icon which copies that block’s full text, with success/error feedback and the existing clipboard fallback. Text prompts wrap for narrow screens; Markdown content and metadata remain unchanged.
+
+The About page explains the product, intended builders, agent deployment, credits and portability; personal biography, founder photo, registration detail, the obsolete “Not yet” inventory and About-page Person markup are removed. Operator disclosures remain on legal pages, and the client/site/documentation licences are described accurately (2026-09-21).
