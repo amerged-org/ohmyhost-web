@@ -44,8 +44,19 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html).toContain(
       "<title>ohmyho.st — An alternative to Vercel, Supabase &amp; Resend</title>",
     );
-    expect(html).toContain("Applicable taxes are added.");
-    expect(html).toContain("not affiliated with or endorsed by");
+    expect(html).toContain(
+      "Independent comparison; no affiliation or endorsement.",
+    );
+    expect(html).not.toContain("An alternative. Know the differences.");
+    expect(html).toContain("200 credits, free. No card required.");
+    const pricingSection = html.slice(
+      html.indexOf('<section id="price">'),
+      html.indexOf('<section id="from">'),
+    );
+    expect(pricingSection.match(/class="note"/gu)).toHaveLength(1);
+    expect(pricingSection).toContain(
+      "Monthly credits reset. Usage is metered.",
+    );
     expect(html).not.toContain("skip Vercel");
     // The shared card carries that copy as text instead of the bare brand mark.
     expect(html).toContain(

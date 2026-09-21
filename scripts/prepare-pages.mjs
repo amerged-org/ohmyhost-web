@@ -310,8 +310,9 @@ function applyApprovedHomepageChanges(html) {
     "Dev and prod, both included": "Dev and prod for every project",
     "Dev and prod environments are included for each project, not billed as two. Quiet projects use close to zero credits.":
       "Every project has Dev and Prod. Isolated data uses two independently metered databases; retained resources use credits even when traffic is quiet.",
-    "Quiet projects burn almost nothing. Busy ones take credits as they go — top up any time.":
-      "Idle database compute can suspend. Retained storage and deployed resources still use credits — top up any time.",
+    '<p class="note">Credits reset on your billing day. Quiet projects burn almost nothing. Busy ones take credits as they go — top up any time.</p>':
+      '<p class="note" style="color:var(--muted-foreground)">Monthly credits reset. Usage is metered. <a href="https://docs.ohmyho.st/pricing">See all usage rates</a>.</p>',
+    "No card, no dashboard.": "No card required.",
     "<span><h3>a quiet month</h3><u>≈ 0 credits</u></span>":
       "<span><h3>1 database GB-month</h3><u>115 credits</u></span>",
     "Off. If you run out, the site stays up and read-only.":
@@ -366,21 +367,14 @@ function applyApprovedHomepageChanges(html) {
   }
   // Keep the export section and footer link; the top navigation stays compact.
   html = html.replace('        <a href="#export">Export</a>\n', "");
-  html = html.replace(
-    '<div class="vs stag">',
-    '<h3>An alternative. Know the differences.</h3><p class="note">Compare ohmyho.st with Vercel for app hosting, Supabase for managed Postgres, and Resend for transactional email. Explore the differences in features, pricing and limits.</p><p class="note">ohmyho.st is an independent service, not affiliated with or endorsed by Vercel, Supabase or Resend. All trademarks belong to their respective owners.</p><div class="vs stag">',
-  );
-  const priceEnd = html.indexOf(
+  const comparisonEnd = html.indexOf(
     "</section>",
-    html.indexOf('<section id="price">'),
+    html.indexOf('<div class="vs stag">'),
   );
-  if (priceEnd < 0)
-    throw new Error("Pricing section missing for usage-rate link");
   html =
-    html.slice(0, priceEnd) +
-    `<p class="note">$${plans.paidUsd}/month includes ${new Intl.NumberFormat("en-US").format(plans.paidCredits)} credits across your projects. Usage is metered; additional credits cost extra. Applicable taxes are added.</p><p class="note">Monthly plan credits expire at the end of each billing period. Connect your own domain; domain registration is not included.</p>` +
-    '<p class="note"><a href="https://docs.ohmyho.st/pricing">See all usage rates</a></p>\n' +
-    html.slice(priceEnd);
+    html.slice(0, comparisonEnd) +
+    '<p class="note" style="color:var(--muted-foreground)">Independent comparison; no affiliation or endorsement. <a href="/vs/vercel">Details</a>.</p>\n' +
+    html.slice(comparisonEnd);
   html = html.replace(
     / {2}\/\* proof: a real number or nothing \*\/[\s\S]*?\n {2}\}\)\.catch\(function\(\)\{\}\);/u,
     "",

@@ -85,3 +85,8 @@ approval notice; this editorial decision is not evidence of SES production readi
 The homepage social card uses the owner-selected migration motif, adding Resend to the Vercel and Supabase headline while retaining the shared ohmyho.st branding.
 
 The homepage omits the extra credit-balance paragraph beneath its lead to keep the primary Copy prompt action higher in the initial viewport (owner correction, 2026-09-21).
+
+The homepage preserves the original comparison heading/lead/cards hierarchy: attribution is a
+single short line below the cards, pricing has one concise metering/reset note linking to usage
+rates, and the closing CTA says “No card required.” (owner layout correction, 2026-09-21).
+SEO and social metadata are unchanged by this correction.
