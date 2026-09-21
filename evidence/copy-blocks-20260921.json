@@ -1,0 +1,161 @@
+{
+  "observedAt": "2026-09-21T21:18:09.875555+00:00",
+  "release": {
+    "source": "0848856caed860ed61eb52fb8379bf32a0d9b9d2",
+    "ci": 35656105500,
+    "ciConclusion": "success",
+    "worker": "ohmyho-web-production",
+    "versionId": "768c48dd-0d90-4616-963d-22f63add826c"
+  },
+  "local": [
+    {
+      "path": "/blog/host-a-lovable-app-after-export",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/blog/railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/blog/six-things-that-break-when-a-vibe-coded-app-meets-production",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/blog/supabase-vs-vercel-do-you-need-both",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/blog/what-vercel-supabase-resend-cost-for-five-side-projects",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/for/claude-code",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/for/codex",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/for/cursor",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/from/bolt",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/from/lovable",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/open-source",
+      "blocks": 1,
+      "copiedCharacters": 148
+    },
+    {
+      "path": "/vs/supabase",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/vs/vercel",
+      "blocks": 1,
+      "copiedCharacters": 277
+    }
+  ],
+  "live": [
+    {
+      "path": "/blog/host-a-lovable-app-after-export",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/blog/railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/blog/six-things-that-break-when-a-vibe-coded-app-meets-production",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/blog/supabase-vs-vercel-do-you-need-both",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/blog/what-vercel-supabase-resend-cost-for-five-side-projects",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/for/claude-code",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/for/codex",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/for/cursor",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/from/bolt",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/from/lovable",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/open-source",
+      "blocks": 1,
+      "copiedCharacters": 148
+    },
+    {
+      "path": "/vs/supabase",
+      "blocks": 1,
+      "copiedCharacters": 277
+    },
+    {
+      "path": "/vs/vercel",
+      "blocks": 1,
+      "copiedCharacters": 277
+    }
+  ],
+  "checks": {
+    "exactClipboardText": true,
+    "keyboard": true,
+    "localFallbackAndFailureFeedback": true,
+    "desktopAndMobileRendered": true,
+    "existingTests": 37
+  },
+  "docsReadback": {
+    "/quickstart": {
+      "blocks": 1,
+      "copyButtons": 1
+    },
+    "/agents/mcp": {
+      "blocks": 6,
+      "copyButtons": 6
+    }
+  }
+}
