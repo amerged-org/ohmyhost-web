@@ -1,6 +1,8 @@
 # ohmyho.st as a Railway alternative for side projects
 
-Railway's Hobby and Pro plans bill a {{ usd vendor.railway.hobby }} or {{ usd vendor.railway.pro }} monthly minimum plus per-second vCPU and memory. ohmyho.st bills requests, CPU-ms, database hours and storage from one balance: {{ number plan.freeCredits }} credits free, or {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }}. Railway runs any container; ohmyho.st runs Next.js, Vite and TanStack on Workers. Quiet projects cost less here; long-running services belong on Railway.
+Railway keeps your container running and bills you for the time it runs, on top of a monthly minimum. That is exactly right for a queue worker or a websocket server, and exactly wrong for a side project that gets forty visitors in a good week.
+
+Railway's Hobby and Pro plans bill a {{ usd vendor.railway.hobby }} or {{ usd vendor.railway.pro }} monthly minimum plus per-second vCPU and memory. ohmyho.st bills what a request actually uses — requests, CPU-ms, database hours and storage — from one balance: {{ number plan.freeCredits }} credits free each month, or {{ usd plan.paidUsd }} for {{ number plan.paidCredits }}. The trade is real: Railway runs any container, ohmyho.st runs Next.js, Vite and TanStack on Workers. Quiet apps are cheaper here; anything that must stay running belongs on Railway.
 
 {{ figure bills.railway }}
 
@@ -152,7 +154,7 @@ Yes. The owner asks the agent for an export through project_export_create and ge
 
 ### Is there a dashboard like Railway's?
 
-Not for deploys. Your coding agent deploys through 62 MCP tools, and the expensive or destructive ones are two steps, such as deployment_plan then deployment_create. The portal at app.ohmyho.st shows projects, credits, budgets and API tokens. Usage questions go to the agent, which reads organization_usage_get and project_budget_get and answers with the meters.
+Not for deploys. Your coding agent deploys through {{ tools }} MCP tools, and the expensive or destructive ones are two steps, such as deployment_plan then deployment_create. The portal at app.ohmyho.st shows projects, credits, budgets and API tokens. Usage questions go to the agent, which reads organization_usage_get and project_budget_get and answers with the meters.
 
 {{ sources railway resend }}
 

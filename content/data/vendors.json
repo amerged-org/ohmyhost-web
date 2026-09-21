@@ -111,11 +111,11 @@
         "includes": "$20 of monthly usage credits, unlimited workspace seats"
       },
       "vcpuSecond": {
-        "usd": 0.00000772,
+        "usd": 7.72e-6,
         "unit": "per vCPU per second"
       },
       "memoryGbSecond": {
-        "usd": 0.00000386,
+        "usd": 3.86e-6,
         "unit": "per GB of memory per second"
       },
       "volumeGbSecond": {
@@ -219,6 +219,41 @@
       "buildMinutes": {
         "usd": 5,
         "unit": "per 1,000 build minutes beyond the plan"
+      }
+    }
+  },
+  "lovable": {
+    "name": "Lovable",
+    "sourceUrl": "https://lovable.dev/pricing",
+    "checkedOn": "2026-09-21",
+    "evidence": "evidence/before--lovable.dev--pricing--1440x900@2--full.jpg",
+    "facts": {
+      "pro": {
+        "usd": 25,
+        "currency": "eur",
+        "unit": "per month including VAT",
+        "includes": "100 credits a month"
+      },
+      "business": {
+        "usd": 50,
+        "currency": "eur",
+        "unit": "per month including VAT",
+        "includes": "100 credits a month"
+      },
+      "proCredits": {
+        "usd": 100,
+        "currency": "credit",
+        "unit": "credits a month on Pro"
+      },
+      "landingPageCredits": {
+        "usd": 1.7,
+        "currency": "credit",
+        "unit": "credits for one landing-page prompt"
+      },
+      "authCredits": {
+        "usd": 1.2,
+        "currency": "credit",
+        "unit": "credits for one authentication prompt"
       }
     }
   }

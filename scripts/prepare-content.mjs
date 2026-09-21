@@ -16,6 +16,8 @@ import process from "node:process";
 /* global URL */
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+import { mcpTools } from "./platform-inputs.mjs";
+
 // The site's TypeScript imports name the compiled `.js` file, as TypeScript requires. Node strips
 // types on import, so the tree compiles once with the Worker bundle instead of twice: resolve those
 // specifiers back to the source next to them.
@@ -93,6 +95,10 @@ async function main() {
         return format.sourcesSection(
           ...args.map((name) => lookup(data.VENDORS, name, "vendor")),
         );
+      case "tools":
+        return String(mcpTools().tools.length);
+      case "price":
+        return format.price(vendorFact(first).fact);
       case "usd":
         if (/^[\d.]+$/u.test(first)) return format.usd(Number(first));
         if (first.startsWith("vendor."))

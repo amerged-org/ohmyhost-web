@@ -1,6 +1,8 @@
 # A Supabase alternative that bills Postgres by the active hour
 
-Supabase Pro starts at {{ usd vendor.supabase.pro }} a month and each extra project's Micro instance adds {{ usd vendor.supabase.microProject }}. ohmyho.st has no per-project fee: {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits shared by every project, a Paid standard database costs about {{ credits unit.activeDatabaseHourStandard }} per active hour, storage {{ rate neon.storage.root }}, and idle compute suspends.
+The moment that hurts on Supabase is the fourth project. Pro starts at {{ usd vendor.supabase.pro }} a month and covers the first project's instance, then every further project adds {{ usd vendor.supabase.microProject }} a month for its own Micro instance — whether or not a single person used it that month.
+
+Here there is no per-project fee. {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits that every project shares, a database costs about {{ credits unit.activeDatabaseHourStandard }} for each hour it is actually awake, stored data {{ rate neon.storage.root }}, and idle compute suspends after a minute. Ten sleeping projects cost about what one sleeping project costs.
 
 {{ figure bills.supabase }}
 

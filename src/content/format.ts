@@ -54,6 +54,17 @@ export function usd(amount: number): string {
   return `$${Number(cents) === amount ? number(amount, 2) : number(amount, 3)}`;
 }
 
+/** A competitor's list price in the currency its own pricing page shows. */
+export function price(fact: {
+  usd: number;
+  currency?: "eur" | "credit";
+}): string {
+  const decimals = Number.isInteger(fact.usd) ? 0 : 2;
+  if (fact.currency === "eur") return `€${number(fact.usd, decimals)}`;
+  if (fact.currency === "credit") return number(fact.usd, decimals);
+  return usd(fact.usd);
+}
+
 /** "36.47 credits". */
 export function credits(microcredits: number, decimals = 2): string {
   return `${number(microcredits / MICROCREDITS, decimals)} credits`;

@@ -151,3 +151,38 @@ it("keeps the pinned homepage's bill and credit examples equal to the data modul
   expect(home).not.toContain("stays up and read-only");
   expect(home).not.toContain("no web console");
 });
+
+it("keeps every figure's text inside its frame, whatever the scenario contains", () => {
+  const monoWidth = 6.9;
+  for (const competitor of [
+    "vercel",
+    "supabase",
+    "resend",
+    "railway",
+  ] as const) {
+    const svg = figureBills(competitor);
+    const height = Number(/viewBox="0 0 960 (\d+)"/u.exec(svg)?.[1]);
+    const receipts = billsScenario(competitor).parts.length;
+    const lines = [...svg.matchAll(/<text x="\d+" y="(\d+)"/gu)].map((match) =>
+      Number(match[1]),
+    );
+    // Nothing is drawn below the frame, and the summary clears both the receipts and the card.
+    expect(Math.max(...lines)).toBeLessThan(height);
+    const summary = Math.max(36 + receipts * 74 - 16, 252) + 32;
+    expect(svg).toContain(`y="${summary}"`);
+    expect(svg).toContain(`y="${summary + 22}"`);
+  }
+  for (const agent of [
+    "Claude Code",
+    "Lovable export",
+    "Bolt export",
+  ] as const) {
+    const svg = figureFlow(agent);
+    const frame = /viewBox="(-?\d+) 0 (\d+) 270"/u.exec(svg);
+    const label =
+      /text-anchor="end"[^>]*>([^<]+)<\/text>/u.exec(svg)?.[1] ?? "";
+    // The source label is right-anchored at x=104 and grows leftwards; the frame has to hold it.
+    expect(Number(frame?.[1])).toBeLessThan(104 - label.length * monoWidth);
+    expect(Number(frame?.[1]) + Number(frame?.[2])).toBeGreaterThan(900);
+  }
+});

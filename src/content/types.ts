@@ -34,6 +34,8 @@ export type MeterId = keyof typeof CREDIT_RATES;
 /** One list price of a competitor, as shown on its pricing page on `checkedOn`. */
 export interface PriceFact {
   readonly usd: number;
+  /** The unit the vendor prices in; US dollars unless the vendor's own page says otherwise. */
+  readonly currency?: "eur" | "credit";
   readonly unit: string;
   readonly includes?: string;
 }

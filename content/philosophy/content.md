@@ -28,7 +28,7 @@ A project can carry a monthly budget if you want a ceiling: continue, which warn
 
 ## No dashboard runs your deploys
 
-There is no deploy dashboard. Your coding agent deploys through MCP: 62 tools, listed in the [tool catalog](https://docs.ohmyho.st/mcp-tools). It authorizes the GitHub repository with source_link, plans with deployment_plan, and you confirm before deployment_create runs. Every expensive or destructive action is that same pair: promotion_plan then promotion_execute, rollback_plan then rollback_execute, delete_plan then delete_execute. A plan quotes its build before it starts, so what you confirm is a price and a list of effects, not a spinner.
+There is no deploy dashboard. Your coding agent deploys through MCP: {{ tools }} tools, listed in the [tool catalog](https://docs.ohmyho.st/mcp-tools). It authorizes the GitHub repository with source_link, plans with deployment_plan, and you confirm before deployment_create runs. Every expensive or destructive action is that same pair: promotion_plan then promotion_execute, rollback_plan then rollback_execute, delete_plan then delete_execute. A plan quotes its build before it starts, so what you confirm is a price and a list of effects, not a spinner.
 
 Secrets never travel through the chat. secret_set_command returns a stdin-only CLI command; the value goes from your terminal to the environment and nowhere else. See [secrets](https://docs.ohmyho.st/secrets).
 
@@ -80,7 +80,7 @@ Yes. The Owner requests an on-demand export and receives a password-encrypted ZI
 
 ### Why is there no deploy dashboard?
 
-Because the agent that wrote the code has the context a dashboard lacks. It deploys through 62 MCP tools, and every expensive or destructive action is a plan you confirm followed by an execute call. The portal at app.ohmyho.st shows projects, credits, budgets and API tokens, so you can watch spending without running anything.
+Because the agent that wrote the code has the context a dashboard lacks. It deploys through {{ tools }} MCP tools, and every expensive or destructive action is a plan you confirm followed by an execute call. The portal at app.ohmyho.st shows projects, credits, budgets and API tokens, so you can watch spending without running anything.
 
 ### Does choosing the EU region cost more?
 

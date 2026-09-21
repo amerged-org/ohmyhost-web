@@ -14,6 +14,7 @@ import {
   creditValueUsd,
   credits,
   number,
+  price,
   priceLine,
   priceWorkload,
   rate,
@@ -65,6 +66,11 @@ it("formats prices, credits, rates and source lines the way pages quote them", (
   expect(usd(0.125)).toBe("$0.125");
   expect(usd(1234.5)).toBe("$1,234.50");
   expect(number(1_000_000)).toBe("1,000,000");
+  // A vendor's price is quoted in the currency its own pricing page shows.
+  expect(price(VENDORS.vercel.facts.pro)).toBe("$20");
+  expect(price(VENDORS.lovable.facts.pro)).toBe("\u20ac25");
+  expect(price(VENDORS.lovable.facts.landingPageCredits)).toBe("1.70");
+  expect(price(VENDORS.lovable.facts.proCredits)).toBe("100");
   expect(credits(552_441_601)).toBe("552.44 credits");
   expect(credits(36_471_429, 0)).toBe("36 credits");
   expect(creditValueUsd(552_441_601)).toBe("$5.52");

@@ -94,21 +94,29 @@ If any line fails, tell the agent which one. `deployment_logs` and `operation_ge
 
 ## What it costs
 
-There is no per-project base fee. Every project draws from your organization's one balance: Free gives {{ number plan.freeCredits }} credits each UTC month; Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits. Monthly credits expire at the end of the period; a purchased top-up never expires ({{ number plan.topUpPerUsd }} credits per dollar, {{ number plan.topUpPerUsdAbove100 }} per dollar above {{ usd 100 }} in one checkout).
+**On Lovable, one balance pays for three different things.** Its pricing page (read on {{ checked lovable }}) says credits are spent "for building by sending messages to Lovable, hosting with Cloud, and offering AI features to users as part of your app". Pro is {{ price vendor.lovable.pro }} a month including VAT and grants {{ price vendor.lovable.proCredits }} credits. Lovable's own examples put one prompt at {{ price vendor.lovable.authCredits }} credits for adding authentication and {{ price vendor.lovable.landingPageCredits }} credits for a landing page, so the month's credits are roughly sixty to a hundred edits — and every request your live app serves competes with them.
 
-{{ table workload.smallApp }}
+**Here, the balance pays for infrastructure only.** The model that writes your code is your own agent's subscription; ohmyho.st never charges for prompts. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, Free grants {{ number plan.freeCredits }} credits each UTC month, and there is no per-project fee. Monthly credits expire at the end of the period; a purchased top-up never expires.
 
-That workload assumes the database and mail also run here. A linked domain adds the hostname rate, {{ rate domain.custom_hostname }}, about {{ credits unit.customHostnameMonth }} a month, and needs Paid.
+Two setups, two bills. Pick the row that matches yours.
 
 ### If you keep Supabase
 
-Then ohmyho.st meters only the frontend: the build, the requests, the CPU time, one deployed script and the hostname.
+Supabase keeps the database and the login; ohmyho.st meters the frontend only — the build, the requests, the CPU time, one deployed script and the hostname.
 
 {{ table workload.lovableFrontend }}
 
-Drop the hostname line and the rest fits inside the Free plan's {{ number plan.freeCredits }} credits a month, on the `<three-words>.check.omh.st` hosts every project gets. Idle costs are honest too: a deployed script keeps using about {{ credits unit.deployedScriptMonth }} a month and retained database storage {{ rate neon.storage.root }}; Workers bandwidth is not charged. A zero balance starts a seven-day grace period during which everything keeps running. You can put a monthly budget on the project (continue or stop) so a traffic spike cannot surprise you: https://docs.ohmyho.st/budgets.
+Drop the custom hostname and the rest fits inside the Free plan's {{ number plan.freeCredits }} credits a month, on the `<three-words>.check.omh.st` address every project gets.
 
-Lovable's own pricing page (https://lovable.dev/pricing, read 2026-09-20) says hosting on Lovable Cloud draws from your credit balance once an app reaches significant traffic or size. Compare that against the tables above with your real request numbers; `organization_usage_get` shows them after the first month.
+### If you move the backend too
+
+Leaving Lovable Cloud means the database and the mail run here as well. Then the month looks like this:
+
+{{ table workload.smallApp }}
+
+A linked domain adds {{ rate domain.custom_hostname }}, about {{ credits unit.customHostnameMonth }} a month, and needs Paid.
+
+Idle is honest in both cases: a deployed script keeps using about {{ credits unit.deployedScriptMonth }} a month, stored data {{ rate neon.storage.root }}, and Workers bandwidth is not charged. A zero balance starts a seven-day grace period in which everything keeps running. A monthly budget on the project (continue or stop) means a traffic spike cannot surprise you: https://docs.ohmyho.st/budgets.
 
 ## FAQ
 
@@ -128,6 +136,6 @@ Lovable's guide says the backend "can remain on the built-in backend (Cloud) or 
 
 Almost never. The agent installs the CLI, prints the sign-in link and runs every command. The single exception is a private secret: the agent hands you a command that reads the value from your keyboard, so the key never appears in the chat or in a file. If your Lovable app only uses the public Supabase publishable key, you will not even do that.
 
-{{ sources supabase }}
+{{ sources supabase lovable }}
 
 [From Bolt](/from/bolt) · [Compare Supabase](/vs/supabase) · [Cost breakdown](/pricing/breakdown) · [Host a Lovable app after export](/blog/host-a-lovable-app-after-export)

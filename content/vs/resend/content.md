@@ -1,6 +1,8 @@
 # Resend alternative that sends from the same balance as your hosting
 
-ohmyho.st meters transactional mail per recipient, about {{ credits unit.thousandMailRecipients dp=0 }} per 1,000, plus about {{ credits unit.mailSenderZoneMonth dp=0 }} a month for the sender domain. Resend charges by plan: {{ usd vendor.resend.free }} for {{ text vendor.resend.free.includes }}, {{ usd vendor.resend.pro }} for 50,000. Below roughly 35,000 recipients metering is cheaper; above it Resend is.
+Most side projects send very little mail: a sign-up confirmation, a password reset, the occasional receipt. Paying a fixed monthly plan for that is paying for capacity you will never use, and it arrives as a third invoice next to your hosting and your database.
+
+ohmyho.st meters mail per recipient — about {{ credits unit.thousandMailRecipients dp=0 }} per 1,000, plus about {{ credits unit.mailSenderZoneMonth dp=0 }} a month for the verified sender domain — from the same balance as your hosting and database. Resend charges per plan: {{ usd vendor.resend.free }} for {{ text vendor.resend.free.includes }}, {{ usd vendor.resend.pro }} for 50,000. The honest line is around 35,000 recipients a month: below it, metering wins; above it, Resend's plan is the better deal and you should stay.
 
 {{ figure bills.resend }}
 

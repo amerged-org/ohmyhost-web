@@ -1,12 +1,14 @@
 # Vercel alternative with a database: ohmyho.st vs Vercel
 
-ohmyho.st is a Vercel alternative that meters hosting, Postgres, mail and a custom domain from one balance: {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits for every project. Vercel Pro is {{ usd vendor.vercel.pro }} a month before a database or mail; with Supabase Pro and Resend Pro the stack is {{ usd scenario.threeSubscriptions }} a month. A small app uses about {{ credits workload.smallApp }}.
+You ship the app on Vercel, the database on Supabase and the mail on Resend. That is three dashboards, three invoices and three usage models to keep in your head — and the two side projects nobody visited this month cost you exactly as much as the one that did.
+
+ohmyho.st puts those four pieces on one prepaid balance. {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits, every project you run draws from the same balance, and a quiet project spends almost nothing. Vercel Pro alone is {{ usd vendor.vercel.pro }} a month before you have a database or a way to send a password-reset mail; the usual three-subscription stack is {{ usd scenario.threeSubscriptions }} a month. A small app here uses about {{ credits workload.smallApp }} a month.
 
 {{ figure bills.vercel }}
 
 ## What Vercel charges
 
-Vercel sells the front end and its serverless functions, priced per developer seat. It does not run your Postgres and it does not send your transactional mail, so a portfolio builder on Vercel usually holds three accounts: Vercel, Supabase and Resend.
+Vercel sells the front end and its functions, and charges for every person who deploys. It does not run your Postgres and it does not send your mail. That is where the second and third subscription come from — not from Vercel being expensive, but from Vercel being one part of what an app needs.
 
 - Hobby: {{ usd vendor.vercel.hobby }} {{ text vendor.vercel.hobby.unit }}, with {{ text vendor.vercel.hobby.includes }}. Vercel states that Hobby is for personal, non-commercial use (vercel.com/pricing, read 2026-09-20), so a project that earns money belongs on Pro.
 - Pro: {{ usd vendor.vercel.pro }} {{ text vendor.vercel.pro.unit }}. The price carries {{ usd vendor.vercel.pro }} of usage credit each month to spend across resources, and viewer seats are free.
@@ -21,7 +23,7 @@ One developer with one project on all three accounts: {{ usd scenario.threeSubsc
 
 ## What ohmyho.st charges for the same small app
 
-One balance, every project. {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits that expire at the end of the paid period. Free gets {{ number plan.freeCredits }} credits per UTC month. Top-ups never expire: {{ number plan.topUpPerUsd }} credits per dollar, and {{ number plan.topUpPerUsdAbove100 }} per dollar on the part of a larger purchase. A credit has a nominal value of {{ usd plan.usdPerCredit }}. There is no per-project base fee and no seat price: an organization has one balance, every project draws from it, and a second person who deploys costs nothing extra.
+One balance, every project, no seat price. {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits that expire at the end of the paid period. Free gets {{ number plan.freeCredits }} credits per UTC month. Top-ups never expire: {{ number plan.topUpPerUsd }} credits per dollar, and {{ number plan.topUpPerUsdAbove100 }} per dollar on the part of a larger purchase. A credit has a nominal value of {{ usd plan.usdPerCredit }}. There is no per-project base fee and no seat price: an organization has one balance, every project draws from it, and a second person who deploys costs nothing extra.
 
 This is hosting for vibe-coded apps priced by what the app measures. Here is the workload the [rate card](https://docs.ohmyho.st/pricing) prices for a small app with some traffic, some mail and a database that is awake for a few hours a day:
 
@@ -56,7 +58,7 @@ The trade-off is metering with no quota to hide behind. One busy production app,
 
 - Several small projects, most of them idle. There is no per-project base fee and no seat price. Five quiet projects cost about {{ credits workload.fiveQuietProjects }} a month in total, and a project nobody visits keeps paying only for its stored data and its deployed script.
 - You want the database and the mail on the same balance as the hosting. Postgres, transactional mail and a custom domain are metered from the same {{ number plan.paidCredits }} credits, so the second and third account become optional. Your [application auth](https://docs.ohmyho.st/application-auth) stays yours: Better Auth and a customer-owned WorkOS AuthKit are the verified integrations, and the platform login is separate from your app's users.
-- You deploy from Claude Code, Cursor or Codex. The agent has 62 MCP tools. Every expensive or destructive action is two steps: deployment_plan then deployment_create, promotion_plan then promotion_execute, rollback_plan then rollback_execute, delete_plan then delete_execute. You read the plan and confirm; nothing runs on its own.
+- You deploy from Claude Code, Cursor or Codex. The agent has {{ tools }} MCP tools. Every expensive or destructive action is two steps: deployment_plan then deployment_create, promotion_plan then promotion_execute, rollback_plan then rollback_execute, delete_plan then delete_execute. You read the plan and confirm; nothing runs on its own.
 - You want a database you can leave with. project_export_create returns a password-encrypted ZIP with a portable SQL dump, on demand, at most one accepted request per project per rolling 24 hours, with a signed download link valid for 24 hours. It is free and it works at zero credits ([backups](https://docs.ohmyho.st/backups)).
 - You want one project in the EU and the rest in the US. Region is chosen once per project at creation; US is the default and prices are identical. Transactional mail is sent from the platform mail region regardless.
 - You want a ceiling instead of an invoice. A project can carry a monthly [budget](https://docs.ohmyho.st/budgets) set to continue or stop. A zero balance starts a {{ number plan.graceDays }}-day grace period in which funded services keep running; afterwards only unfunded services suspend. Automatic recharge is not enabled yet, so nothing charges your card without you.
@@ -99,7 +101,7 @@ Ask the agent for project_export_create. You get a password-encrypted ZIP with a
 
 ### Do I need a coding agent to use it?
 
-Yes. There is no deploy dashboard. Deployments, promotions, domains, mail and exports run through the 62 MCP tools from Claude Code, Cursor or Codex, or through the CLI. The portal at app.ohmyho.st shows projects, credits, budgets and API tokens; it does not deploy anything.
+Yes. There is no deploy dashboard. Deployments, promotions, domains, mail and exports run through the {{ tools }} MCP tools from Claude Code, Cursor or Codex, or through the CLI. The portal at app.ohmyho.st shows projects, credits, budgets and API tokens; it does not deploy anything.
 
 ### What happens when my credits run out?
 

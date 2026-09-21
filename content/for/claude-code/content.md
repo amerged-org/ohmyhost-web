@@ -22,7 +22,7 @@ Open your project in Claude Code and paste this. It tells the agent where the in
 
 ## What Claude Code does next
 
-This is the call order behind steps 2 to 5. Every name is a real tool in the [62-tool catalog](https://docs.ohmyho.st/mcp-tools).
+This is the call order behind steps 2 to 5. Every name is a real tool in the [{{ tools }}-tool catalog](https://docs.ohmyho.st/mcp-tools).
 
 - `identity_get` confirms who is signed in and which workspace is selected. It says nothing about your app's users; those stay with your own auth provider.
 - `organization_list` shows your workspaces. With exactly one, it is selected already.
@@ -55,7 +55,7 @@ Data mode is chosen at `project_create`. Shared data means one physical database
 
 ## Safety
 
-The catalog has 62 tools. 35 carry the MCP read-only annotation: status, usage, logs, plans and the secret command are reads that cannot change a project. 7 are marked destructive, and the expensive or irreversible actions only run as a pair: `deployment_plan` then `deployment_create`, `promotion_plan` then `promotion_execute`, `rollback_plan` then `rollback_execute`, `delete_plan` then `delete_execute`. The plan shows the cost and the effect; the execute call takes that plan and a saved idempotency key. Claude Code cannot delete a project or promote to Prod in one step.
+The catalog has {{ tools }} tools. 35 carry the MCP read-only annotation: status, usage, logs, plans and the secret command are reads that cannot change a project. 7 are marked destructive, and the expensive or irreversible actions only run as a pair: `deployment_plan` then `deployment_create`, `promotion_plan` then `promotion_execute`, `rollback_plan` then `rollback_execute`, `delete_plan` then `delete_execute`. The plan shows the cost and the effect; the execute call takes that plan and a saved idempotency key. Claude Code cannot delete a project or promote to Prod in one step.
 
 Spending has a ceiling if you want one. `project_budget_set` sets a monthly budget per project with mode `continue` (warn and keep drawing from the organization balance) or `stop` (reject new billable work). A budget is a limit, not a second wallet; usage already reserved still settles. See the [budgets guide](https://docs.ohmyho.st/budgets) or the [usage Skill](/skills/ohmyhost-usage-and-budgets/SKILL.md).
 

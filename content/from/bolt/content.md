@@ -1,6 +1,8 @@
 # Deploy a Bolt.new export: host your Bolt app on ohmyho.st
 
-A Bolt.new export is a repository, usually Vite and React with Supabase. Connect GitHub in Bolt, paste one prompt into your coding agent, and ohmyho.st builds it, deploys it to a Dev host and promotes it to Prod. Free is {{ number plan.freeCredits }} credits a month; Paid is {{ usd plan.paidUsd }} for {{ number plan.paidCredits }}. The .env is yours to recreate.
+A Bolt.new export is an ordinary repository — usually Vite and React with Supabase — minus the one thing that made it run: the environment. The `.env` stays behind, so the first deploy of an export fails on missing values rather than on anything you built.
+
+Connect GitHub in Bolt, paste one prompt into your coding agent, and the agent recreates those values as secrets, builds the app, deploys it to a private Dev host and promotes it to Prod once you have checked it. Free grants {{ number plan.freeCredits }} credits a month, Paid is {{ usd plan.paidUsd }} for {{ number plan.paidCredits }} credits shared by every project you run.
 
 {{ figure flow.bolt-export }}
 
@@ -28,7 +30,7 @@ Two smaller ones. Bolt projects rarely pin a package manager, and ohmyho.st need
 
 ## Paste this prompt
 
-Open the repository in Claude Code, Cursor or Codex and paste this. The agent reads the Skill, installs the CLI and the MCP server if they are missing, and shows you a sign-in link with a confirmation code. You sign in once in the browser; the agent does the rest through the 62 MCP tools.
+Open the repository in Claude Code, Cursor or Codex and paste this. The agent reads the Skill, installs the CLI and the MCP server if they are missing, and shows you a sign-in link with a confirmation code. You sign in once in the browser; the agent does the rest through the {{ tools }} MCP tools.
 
 ```text
 {{ prompt }}
@@ -57,7 +59,7 @@ The platform host works on Free. Your own domain and transactional mail need Pai
 
 ## What it costs
 
-There is no per-project fee. Every project draws from your organization's one balance: Free grants {{ number plan.freeCredits }} credits per UTC month, Paid grants {{ number plan.paidCredits }} credits per period for {{ usd plan.paidUsd }}, and both expire at period end. Top-ups never expire: {{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }}, {{ number plan.topUpPerUsdAbove100 }} per dollar for the part above. Automatic recharge is not enabled yet.
+One balance, every project, no per-project fee. Free grants {{ number plan.freeCredits }} credits per UTC month and Paid grants {{ number plan.paidCredits }} for {{ usd plan.paidUsd }}; both expire at the end of the period, while purchased top-ups never do ({{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }}, {{ number plan.topUpPerUsdAbove100 }} per dollar above it). Nothing recharges on its own.
 
 A Bolt export that keeps Supabase is close to the cheapest thing you can host. There is no database here to meter, and Workers bandwidth is not charged.
 

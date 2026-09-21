@@ -1,6 +1,6 @@
 # Deploy with Codex
 
-Paste one prompt into Codex and it deploys your GitHub repository to ohmyho.st through 62 MCP tools: hosting, Postgres, a domain and mail from one balance. Free gives {{ number plan.freeCredits }} credits a month; Paid is {{ usd plan.paidUsd }} for {{ number plan.paidCredits }}. A non-expiring token and a stop budget let the agent run without you watching.
+Paste one prompt into Codex and it deploys your GitHub repository to ohmyho.st through the {{ tools }} MCP tools: hosting, Postgres, a domain and mail from one balance. Free gives {{ number plan.freeCredits }} credits a month; Paid is {{ usd plan.paidUsd }} for {{ number plan.paidCredits }}. A non-expiring token and a stop budget let the agent run without you watching.
 
 {{ figure flow.codex }}
 
@@ -24,7 +24,7 @@ Codex reads llms.txt and the get-started Skill, then follows the deployment Skil
 
 ## What Codex does next
 
-The 62 tools cover the whole lifecycle, and the expensive or destructive ones come in pairs: `deployment_plan` → `deployment_create`, `promotion_plan` → `promotion_execute`, `rollback_plan` → `rollback_execute`, `delete_plan` → `delete_execute`. The plan is data you can read; the execute call carries the plan and one saved idempotency key, so a retry after an uncertain response cannot deploy twice.
+The {{ tools }} tools cover the whole lifecycle, and the expensive or destructive ones come in pairs: `deployment_plan` → `deployment_create`, `promotion_plan` → `promotion_execute`, `rollback_plan` → `rollback_execute`, `delete_plan` → `delete_execute`. The plan is data you can read; the execute call carries the plan and one saved idempotency key, so a retry after an uncertain response cannot deploy twice.
 
 - Resuming: `project_context_get` returns status, DNS and mail next actions and shared notes, so a new session does not re-read the repository.
 - Auth: `deployment_plan` preserves your existing application auth, Better Auth or your own WorkOS AuthKit tenant. The platform login is separate and never becomes your app's users.
@@ -50,7 +50,7 @@ Four public files, no login required:
 
 - [llms.txt](https://ohmyho.st/llms.txt) — the index an agent reads first. It links the Skills, the docs and the tool catalog, and it never contains account data.
 - [/.well-known/agent-skills/index.json](https://ohmyho.st/.well-known/agent-skills/index.json) — the nine Skills with descriptions, each served at `/skills/<name>/SKILL.md`, for example [ohmyhost-usage-and-budgets](/skills/ohmyhost-usage-and-budgets/SKILL.md).
-- [/mcp-tools.json](https://ohmyho.st/mcp-tools.json) — the 62 tools with their descriptions, the same catalog the local server exposes. It is a catalog, not a remote endpoint; `ohmyhost-mcp` runs on your machine.
+- [/mcp-tools.json](https://ohmyho.st/mcp-tools.json) — the {{ tools }} tools with their descriptions, the same catalog the local server exposes. It is a catalog, not a remote endpoint; `ohmyhost-mcp` runs on your machine.
 - The [OpenAPI 3.1 contract](https://ohmyho.st/api/openapi.json) — the REST `/v1` API behind the CLI, the MCP server and the SDK. An agent that prefers plain HTTP calls it with the same token.
 
 ## Dev and Prod

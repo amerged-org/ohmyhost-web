@@ -26,7 +26,7 @@ import { CONTENT_PAGE_LIST } from "../src/pages/index.js";
 const root = new URL("../", import.meta.url);
 const MICROCREDITS = 1_000_000;
 /** Bump on the monthly price re-check; every vendor's checkedOn must be within 45 days of it. */
-const CONTENT_REVIEW_DATE = "2026-09-20";
+const CONTENT_REVIEW_DATE = "2026-09-21";
 const DOCS_SLUGS = new Set([
   "",
   "index",
