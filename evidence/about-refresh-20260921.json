@@ -1,0 +1,37 @@
+{
+  "observedAt": "2026-09-21T21:28:01.351480+00:00",
+  "release": {
+    "source": "9127bbb90a0d2dd8135020f4fd6a62cd3e73002f",
+    "ci": 35657139056,
+    "ciConclusion": "success",
+    "worker": "ohmyho-web-production",
+    "versionId": "34dcf6e6-70e6-4b32-9207-202e6b1b57e5"
+  },
+  "live": [
+    {
+      "width": 1440,
+      "title": "About ohmyho.st \u2014 Hosting for vibe-coded apps",
+      "h1": "Hosting for the apps you build",
+      "description": "Hosting for apps built with coding agents: GitHub deployments, managed Postgres and one credit balance across projects. Learn how ohmyho.st works.",
+      "oldDetails": false,
+      "founderImage": false,
+      "licence": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "title": "About ohmyho.st \u2014 Hosting for vibe-coded apps",
+      "h1": "Hosting for the apps you build",
+      "description": "Hosting for apps built with coding agents: GitHub deployments, managed Postgres and one credit balance across projects. Learn how ohmyho.st works.",
+      "oldDetails": false,
+      "founderImage": false,
+      "licence": true,
+      "overflow": false
+    }
+  ],
+  "checks": {
+    "existingTests": 37,
+    "legalPagesUnchanged": true,
+    "aboutPersonSchemaRemoved": true
+  }
+}
