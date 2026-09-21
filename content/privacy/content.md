@@ -1,6 +1,6 @@
 # Privacy notice
 
-Effective date: September 14, 2026.
+Effective date: September 21, 2026.
 
 ## 1. Responsibility and contact
 
@@ -12,6 +12,7 @@ When a customer uses ohmyho.st to process personal data in an application, the c
 
 | Activity | Data | Purpose and legal basis |
 | --- | --- | --- |
+| Optional website and docs analytics | Page paths, referrer, browser/device and approximate location information, pseudonymous visitor/session identifiers, engagement, outbound clicks and downloads | Understand use of our public content with Google Analytics; only after consent, Article 6(1)(a) GDPR; withdraw through Cookie settings |
 | Website delivery and security | Network address, request time, requested resource, browser/protocol information and necessary security events | Deliver pages, prevent abuse and diagnose faults; our legitimate interests in a secure, available service, Article 6(1)(f) GDPR |
 | Earlier interest registrations (closed) | Email address, submission time and the consent version accepted at the time | Registration closed when public signup opened: we collect no new registrations and only keep existing records until they expire; consent, Article 6(1)(a) |
 | Referral and signup source | The entry link’s r value, aggregate campaign observations, and the source associated with a verified signup | Remember the selected entry and administer configured referral eligibility; Article 6(1)(b) for requested benefits, and Article 6(1)(f) for proportionate acquisition analysis |
@@ -33,7 +34,7 @@ You choose the agent or harness used with the CLI, API or MCP. Data you provide 
 
 ## 4. Recipients
 
-We limit access to authorised personnel and service providers whose access is needed for their role. Cloudflare provides website/edge delivery, security, application execution and storage; AWS provides build, execution, export and enabled mail infrastructure; Neon provides managed Postgres. WorkOS provides our account authentication and authorisation services. GitHub supplies repository access authorised by the customer. Mintlify hosts our public documentation and its search functionality; documentation visits, searches and messages submitted to its assistant are processed for that purpose, so do not submit credentials or private customer records there. When payments are enabled, Stripe handles payments, subscriptions, invoices and tax calculation; payment credentials entered in Stripe’s checkout are handled by Stripe, not stored as full card details in the hosting account.
+We limit access to authorised personnel and service providers whose access is needed for their role. Cloudflare provides website/edge delivery, security, application execution and storage; AWS provides build, execution, export and enabled mail infrastructure; Neon provides managed Postgres. WorkOS provides our account authentication and authorisation services. GitHub supplies repository access authorised by the customer and, when selected, account sign-in. Google provides Google sign-in when selected and Google Analytics for website and docs visits only after analytics consent. Login providers share identity, profile and email information with WorkOS to authenticate your account. Mintlify hosts our public documentation and its search functionality; documentation visits, searches and messages submitted to its assistant are processed for that purpose, so do not submit credentials or private customer records there. When payments are enabled, Stripe handles payments, subscriptions, invoices and tax calculation; payment credentials entered in Stripe’s checkout are handled by Stripe, not stored as full card details in the hosting account.
 
 The [provider register](/dpa/subprocessors) distinguishes workload subprocessors from providers used for our own account and business administration. Customer-selected authentication, agent and integration providers are governed by the customer's own arrangements. We do not sell personal data, and we do not use advertising pixels or cross-site marketing trackers on ohmyho.st or app.ohmyho.st. Documentation at docs.ohmyho.st is hosted by Mintlify; its own cookies and service telemetry are governed by its applicable privacy terms.
 
@@ -47,6 +48,8 @@ Restricted transfers require an applicable adequacy decision or another valid Ch
 
 ## 6. Retention
 
+Google Analytics user-level and event-level data retention is two months; standard aggregated reports have separate retention. The analytics choice and cookies last up to 180 days. We do not send account IDs, emails, API keys or URL query strings through our page-view measurement, and do not enable Google Signals or advertising personalization.
+
 Roadmap vote changes and request identifiers are deleted twelve months after each submission; repeating a request does not extend its retention. Removed choices are retained for that period only to prevent an earlier retry from restoring them. The browser cookie lasts up to twelve months after use. Earlier feature-interest records are retained only until their own twelve-month expiry and are not assigned an invented browser identity.
 
 Aggregate referral counts expire after thirty days without a new observation. At successful signup, the selected entry source is also associated with the authenticated user for acquisition analysis and eligibility for configured referral credits; later sign-ins do not overwrite that attribution. This account attribution is retained with the account and necessary grant records. Interest records from the closed registration are deleted twelve months after their submission, or earlier on withdrawal; registration closed when public signup opened, so no new record is collected and none can extend that period. Contact-form records are retained for no longer than twelve months from submission as contact-request records and may be deleted earlier when no longer needed. Records separately required to fulfil a statutory obligation or establish, exercise or defend a claim are limited to that purpose and the applicable period.
@@ -57,7 +60,7 @@ Account and operational records are retained while needed to provide and secure 
 
 ## 7. Cookies and similar technologies
 
-The main website and account portal use the technical cookies and storage listed in our [cookie notice](/cookies) for access, security, referral handling and requested functions. They are not used for advertising or cross-site profiling. The main website and portal serve their fonts from ohmyho.st. Documentation on docs.ohmyho.st is delivered by Mintlify, which may use its own cookies and service telemetry under its privacy notice; the cookie table in our cookie notice covers the main website and portal, not docs.ohmyho.st. Independently visited identity/payment services and customer applications have their own notices.
+Our [cookie notice](/cookies) lists technical cookies for access, security, referrals and requested functions, plus optional Google Analytics on the public website and docs. Analytics is off until you allow it and can be withdrawn through **Cookie settings** on either host. The account portal and development environments do not load this integration. Website and portal fonts are served from ohmyho.st. Mintlify delivers the docs and may process its own service telemetry under its privacy notice. Independently visited identity/payment services and customer applications have their own notices.
 
 ## 8. Your rights
 

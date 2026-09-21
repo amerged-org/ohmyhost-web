@@ -259,7 +259,7 @@ export default {
         }
         headers.set(
           "content-security-policy",
-          `default-src 'none'; script-src 'self' ${hashes.join(" ")}; style-src 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'`,
+          `default-src 'none'; script-src 'self' https://www.googletagmanager.com ${hashes.join(" ")}; style-src 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com; base-uri 'none'; form-action 'self'; frame-ancestors 'none'`,
         );
         if (source)
           documentText = documentText.replace("</head>", () =>
@@ -434,7 +434,7 @@ export default {
       }
       headers.set(
         "content-security-policy",
-        `default-src 'none'; script-src 'self' ${hashes.join(" ")}; style-src 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; worker-src blob:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'`,
+        `default-src 'none'; script-src 'self' https://www.googletagmanager.com ${hashes.join(" ")}; style-src 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com; worker-src blob:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'`,
       );
       headers.set(
         "link",

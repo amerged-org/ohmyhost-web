@@ -1,7 +1,5 @@
 /* First-party technical preference and private contact intake. */
 (() => {
-  const notice=document.getElementById('cookie-notice');
-  if(notice){notice.hidden=document.cookie.split(';').some(part=>part.trim()==='omh_cookie_notice=1');document.getElementById('cookie-dismiss').addEventListener('click',()=>{document.cookie='omh_cookie_notice=1; Path=/; Max-Age=15552000; Secure; SameSite=Lax';notice.hidden=true;});}
   const form=document.getElementById('contact-form');if(!form)return;
   let requestKey,previousPayload;
   form.addEventListener('submit',async event=>{

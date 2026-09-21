@@ -1,15 +1,18 @@
 # Cookie notice
 
-Effective date: September 14, 2026.
+Effective date: September 21, 2026.
 
-## Only technical cookies
+## Technical cookies and optional analytics
 
-The main website at ohmyho.st and account portal at app.ohmyho.st use technical cookies and similar storage for login, security, referral handling and functions you request, including saving roadmap votes. We do not use these identifiers for advertising, behavioural analytics or cross-site profiling. The small notice is informational: its OK button dismisses the notice and does not authorise marketing or a purchase. A referral label is retained for acquisition analysis as explained in the Privacy notice; it is not a cross-site visitor identifier.
+Our public website at ohmyho.st and documentation at docs.ohmyho.st offer optional Google Analytics. We load Google's analytics code only after you choose **Allow analytics**. **Reject analytics** is equally available. Your choice is shared across these two hosts for up to 180 days. Use **Cookie settings** on either site to change it or withdraw consent; withdrawal stops collection and clears the Google Analytics cookies on these hosts. The old informational notice's OK button is not analytics consent.
+
+The account portal at app.ohmyho.st and development environments do not use this analytics integration. Technical cookies support login, security, referral handling and requested functions such as roadmap votes. A referral label is retained for acquisition analysis as explained in the Privacy notice; it is not a cross-site visitor identifier.
 
 | Technology | Purpose | Duration / scope |
 | --- | --- | --- |
 | omh_referral | Remember the entry link’s r value and pass it to the login link and install command as signup attribution; no unique visitor identifier | Up to 30 days; first-party, Secure, HttpOnly, SameSite=Lax |
-| omh_cookie_notice | Remember that you dismissed the technical-cookie notice | Up to 180 days; first-party website preference, no unique visitor identifier |
+| omh_analytics | Remember your optional analytics choice; no visitor identifier | Up to 180 days; shared first-party preference for website and docs |
+| _ga and _ga_C1PWJM238R | Google Analytics visitor and session measurement, only after consent | Up to 180 days after use; shared across website and docs |
 | __Host-omh-session | Keep the authenticated account portal session, protect form actions and renew WorkOS access server-side | Up to seven days; encrypted and authenticated, host-only, Secure, HttpOnly, SameSite=Lax; cleared on logout or invalidation |
 | __Host-omh-login | Protect the browser login handoff using state and PKCE | Up to ten minutes; Secure, HttpOnly, SameSite=Lax; cleared after the handoff |
 | __Host-ohmyhost_dev_access | Authorise access to a private customer Dev environment after a single-use link is redeemed | Up to twelve hours; host-only, Secure, HttpOnly, SameSite=Lax |
@@ -19,12 +22,12 @@ The main website at ohmyho.st and account portal at app.ohmyho.st use technical 
 
 ## Documentation and separate provider pages
 
-Our documentation at docs.ohmyho.st is hosted by Mintlify, which may use its own cookies and service telemetry for that service. Its delivery, search and assistant receive the requests you submit and use their own service infrastructure. The cookie table above describes the main website and portal; it does not classify every cookie used by a separately hosted provider as technical. See [Mintlify’s privacy notice](https://www.mintlify.com/legal/privacy) for its processing. Optional analytics, advertising or tracking integrations require an appropriate notice and consent where required before they are enabled.
+Our documentation at docs.ohmyho.st is hosted by Mintlify, which may use its own cookies and service telemetry for that service. Its delivery, search and assistant receive the requests you submit and use their own service infrastructure. The table includes our Google Analytics integration on website and docs; it does not classify every cookie used by Mintlify as technical. See [Mintlify’s privacy notice](https://www.mintlify.com/legal/privacy) for its processing. Our Google Analytics integration follows the consent choice above; it measures page views, engagement, outbound links and downloads without enabling advertising features or Google Signals.
 
 The hosting CLI's locally stored credentials are not website cookies. Application-auth cookies in a customer's own application are controlled by that customer. Likewise, a separately opened GitHub, identity-provider or payment-provider page operates under that provider's own cookie notice; this notice does not classify those independent sites' cookies.
 
 ## Your controls
 
-You can remove or block cookies in your browser and clear site storage. Blocking a login, security or private-access cookie can prevent the function you requested from working. Removing the notice preference displays the notice again. Blocking the roadmap cookie prevents votes from being saved; deleting it disconnects this browser from its earlier votes until those records expire. There are no optional tracking categories to enable or reject on ohmyho.st or app.ohmyho.st; this statement does not cover docs.ohmyho.st or independently visited providers’ pages.
+You can remove or block cookies in your browser and clear site storage. Blocking a login, security or private-access cookie can prevent the function you requested from working. Removing the analytics preference displays the choice again. Rejecting analytics does not affect your ability to read the website or docs. Blocking the roadmap cookie prevents votes from being saved; deleting it disconnects this browser from its earlier votes until those records expire. Google Analytics is not enabled in the account portal.
 
 [Privacy notice](/privacy) · [Contact form](/contact)
