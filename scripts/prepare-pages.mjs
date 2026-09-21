@@ -6,22 +6,39 @@ import { mkdir, readFile, writeFile, rm } from "node:fs/promises";
 import { fileURLToPath, URL } from "node:url";
 import TurndownService from "turndown";
 import {
+  clientRelease,
   creditPricingRates,
   creditPricingTable,
-} from "../../../scripts/credit-pricing-document.mjs";
+  mcpTools,
+  openapiJson,
+  openapiYaml,
+  skillResources,
+} from "./platform-inputs.mjs";
 import { externalLinkRel, footerColumnsHtml } from "../src/site-links.ts";
 
 const directory = fileURLToPath(new URL("../", import.meta.url));
-const root = fileURLToPath(new URL("../../", new URL("../", import.meta.url)));
+const root = directory;
 const output = `${directory}public/pages`;
-const brandAssets = `${root}brand/assets`;
+const brandAssets = `${directory}brand/assets`;
 await mkdir(output, { recursive: true });
 await writeFile(
   `${directory}src/generated-pricing.ts`,
   await format(
     "// Generated from PRICING.md by pages:prepare.\n" +
-      `export const CREDIT_PRICING_TABLE = ${JSON.stringify(await creditPricingTable(root))};\n` +
-      `export const CREDIT_RATES = ${JSON.stringify(await creditPricingRates(root))} as const;\n`,
+      `export const CREDIT_PRICING_TABLE = ${JSON.stringify(creditPricingTable())};\n` +
+      `export const CREDIT_RATES = ${JSON.stringify(creditPricingRates())} as const;\n`,
+    { parser: "typescript", printWidth: 100 },
+  ),
+);
+await writeFile(
+  `${directory}src/generated-mcp-tools.json`,
+  `${JSON.stringify(mcpTools(), null, 2)}\n`,
+);
+await writeFile(
+  `${directory}src/generated-skills.ts`,
+  await format(
+    "// Generated from platform-inputs.json by pages:prepare.\n" +
+      `export const SKILL_RESOURCES = ${JSON.stringify(skillResources())} as const;\n`,
     { parser: "typescript", printWidth: 100 },
   ),
 );
@@ -154,35 +171,23 @@ for (const file of [
 ])
   await writeFile(`${output}/brand-assets/${file}`, await readFile(`${brandAssets}/${file}`));
 
-const entry = await readFile(`${directory}src/customer-entry.ts`, "utf8");
-const version = entry.match(/export const CLIENT_RELEASE = "([^"]+)"/u)?.[1];
-if (!version || !/^\d+\.\d+\.\d+$/u.test(version))
-  throw new Error("The public client release is invalid");
+const version = clientRelease().version;
+if (!/^\d+\.\d+\.\d+$/u.test(version)) throw new Error("The public client release is invalid");
+await writeFile(
+  `${directory}src/generated-release.ts`,
+  await format(
+    "// Generated from platform-inputs.json by pages:prepare.\n" +
+      `export const CLIENT_RELEASE = ${JSON.stringify(version)};\n`,
+    { parser: "typescript", printWidth: 100 },
+  ),
+);
 await writeFile(
   `${output}/0.sh`,
   (await readFile(`${directory}site/0.sh`, "utf8")).replace("@CLIENT_RELEASE@", version),
 );
-// The published release carries the same bundled contract the repository generates, so a
-// checkout without the prepared release directory still builds an identical site.
-const releaseContractPath = `${directory}public/releases/${version}/openapi.json`;
-const contractPath = existsSync(releaseContractPath)
-  ? releaseContractPath
-  : `${root}packages/contracts/generated/openapi.json`;
-const contract = JSON.parse(await readFile(contractPath, "utf8"));
-execFileSync(
-  "pnpm",
-  [
-    "exec",
-    "redocly",
-    "bundle",
-    contractPath,
-    "--output",
-    `${output}/openapi.yaml`,
-    "--ext",
-    "yaml",
-  ],
-  { cwd: root, stdio: "inherit" },
-);
+// The published contract arrives with the platform inputs, already bundled.
+const contract = openapiJson();
+await writeFile(`${output}/openapi.yaml`, openapiYaml());
 await writeFile(`${output}/openapi.json`, `${JSON.stringify(contract, null, 2)}\n`);
 
 /** P30: approved changes are applied without rewriting the supplied v97 source. */

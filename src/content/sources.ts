@@ -1,10 +1,10 @@
-import checkedOn from "../../../../content/data/checked-on.json" with { type: "json" };
-import databaseProfiles from "../../../../content/data/database-profiles.json" with { type: "json" };
-import plans from "../../../../content/data/plans.json" with { type: "json" };
-import scenarioData from "../../../../content/data/scenarios.json" with { type: "json" };
-import units from "../../../../content/data/units.json" with { type: "json" };
-import vendors from "../../../../content/data/vendors.json" with { type: "json" };
-import workloads from "../../../../content/data/workloads.json" with { type: "json" };
+import checkedOn from "../../content/data/checked-on.json" with { type: "json" };
+import databaseProfiles from "../../content/data/database-profiles.json" with { type: "json" };
+import plans from "../../content/data/plans.json" with { type: "json" };
+import scenarioData from "../../content/data/scenarios.json" with { type: "json" };
+import units from "../../content/data/units.json" with { type: "json" };
+import vendors from "../../content/data/vendors.json" with { type: "json" };
+import workloads from "../../content/data/workloads.json" with { type: "json" };
 import type { PriceFact, Scenario, Vendor, Workload } from "./types.js";
 
 /** Keeps each vendor's own fact keys after the JSON import, so a typo cannot reach a page. */

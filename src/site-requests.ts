@@ -4,7 +4,7 @@ import {
   submitContactRequest,
   registerFeatureInterest,
   getFeatureInterests,
-} from "@ohmyhost/sdk-ts";
+} from "@amerged/ohmyhost-sdk";
 export interface PublicControlBinding {
   fetch(request: Request): Promise<Response>;
 }

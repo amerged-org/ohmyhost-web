@@ -1,6 +1,6 @@
 import { existsSync } from "node:fs";
 
-import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
+import { SKILL_RESOURCES } from "../src/generated-skills.js";
 import { expect, it } from "vitest";
 
 import {
@@ -17,7 +17,7 @@ import { CREDIT_RATES } from "../src/generated-pricing.js";
 import { PAGE_META } from "../src/page-meta.js";
 import { CONTENT_PAGE_LIST } from "../src/pages/index.js";
 
-const root = new URL("../../../", import.meta.url);
+const root = new URL("../", import.meta.url);
 const MICROCREDITS = 1_000_000;
 /** Bump on the monthly price re-check; every vendor's checkedOn must be within 45 days of it. */
 const CONTENT_REVIEW_DATE = "2026-09-20";
@@ -180,7 +180,7 @@ it("keeps every editorial page inside the words, numbers and sources contract", 
         Math.abs(k - value) < 0.0051 || value === Math.round(k) || value === Number(k.toFixed(2)),
     );
   const skills = new Set(
-    listOhmyhostSkillResources().map((skill) => `/skills/${skill.skillName}/${skill.relativePath}`),
+    SKILL_RESOURCES.map((skill) => `/skills/${skill.skillName}/${skill.relativePath}`),
   );
   for (const [path, markdown] of Object.entries(DOCUMENTATION)) {
     if (path.endsWith(".md") || path === "/login") continue;

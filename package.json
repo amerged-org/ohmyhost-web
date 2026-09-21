@@ -1,37 +1,43 @@
 {
-  "name": "@ohmyhost/public-site",
+  "name": "ohmyhost-web",
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "ohmyhost": {
-    "deployment": "production",
-    "fakeProviderBoundary": {
-      "typescriptProject": "tsconfig.build.json",
-      "artifactRoot": "dist",
-      "entrypoints": [
-        "src/worker-main.ts"
-      ],
-      "bundles": [
-        {
-          "entrypoint": "src/worker-main.ts",
-          "metafile": "dist/worker-bundle/metafile.json"
-        }
-      ]
-    }
+  "license": "MIT",
+  "description": "The website of ohmyho.st",
+  "homepage": "https://ohmyho.st",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amerged-org/ohmyhost-web.git"
   },
   "scripts": {
-    "build": "node scripts/prepare-pages.mjs && tsc --project tsconfig.build.json && node ../../scripts/prepare-content.mjs && tsc --project tsconfig.build.json && wrangler deploy --dry-run --outdir dist/worker-bundle --metafile dist/worker-bundle/metafile.json --config wrangler.jsonc",
-    "typecheck": "tsc --project tsconfig.json --noEmit",
-    "test": "node scripts/prepare-pages.mjs && node ../../scripts/prepare-content.mjs && vitest run --root ../.. apps/public-site/test",
     "pages:prepare": "node scripts/prepare-pages.mjs",
-    "content:prepare": "node ../../scripts/prepare-content.mjs"
-  },
-  "devDependencies": {
-    "wrangler": "4.125.0"
+    "content:prepare": "node scripts/prepare-content.mjs",
+    "prepare:all": "node scripts/prepare-pages.mjs && tsc --project tsconfig.build.json && node scripts/prepare-content.mjs",
+    "build": "pnpm prepare:all && tsc --project tsconfig.build.json && wrangler deploy --dry-run --outdir dist/worker-bundle --config wrangler.jsonc",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write --ignore-unknown .",
+    "format:check": "prettier --check --ignore-unknown .",
+    "test": "pnpm prepare:all && vitest run",
+    "coverage": "pnpm prepare:all && vitest run --coverage"
   },
   "dependencies": {
-    "@ohmyhost/agent-skills": "workspace:*",
     "marked": "18.0.12",
-    "@ohmyhost/sdk-ts": "workspace:*"
-  }
+    "@amerged/ohmyhost-sdk": "0.1.10"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.33.0",
+    "@vitest/coverage-v8": "4.1.11",
+    "eslint": "9.33.0",
+    "eslint-config-prettier": "10.1.8",
+    "prettier": "3.6.2",
+    "turndown": "7.2.4",
+    "typescript": "5.9.2",
+    "typescript-eslint": "8.40.0",
+    "vitest": "4.1.11",
+    "wrangler": "4.125.0",
+    "@types/node": "24.3.0"
+  },
+  "packageManager": "pnpm@10.28.2"
 }

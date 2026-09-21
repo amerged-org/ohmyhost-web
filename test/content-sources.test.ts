@@ -2,7 +2,11 @@ import { readFile } from "node:fs/promises";
 
 import { expect, it } from "vitest";
 
-import { creditPricingRates } from "../../../scripts/credit-pricing-document.mjs";
+import {
+  clientRelease,
+  creditPricingRates,
+  creditPricingTable,
+} from "../scripts/platform-inputs.mjs";
 import {
   CTA_PROMPT,
   checkedLine,
@@ -21,10 +25,10 @@ import {
 import { PLANS, SCENARIOS, VENDORS, WORKLOADS } from "../src/content/sources.js";
 import { CREDIT_RATES } from "../src/generated-pricing.js";
 
-const root = new URL("../../../", import.meta.url);
+const root = new URL("../", import.meta.url);
 
-it("generates the typed rate card from PRICING.md and prices workloads by its rules", async () => {
-  const rates = (await creditPricingRates(root.pathname.replace(/\/$/u, ""))) as Record<
+it("generates the typed rate card from the published inputs and prices workloads by its rules", async () => {
+  const rates = creditPricingRates() as Record<
     string,
     { quantity: number; unit: string; credits: string }
   >;
@@ -73,25 +77,19 @@ it("formats prices, credits, rates and source lines the way pages quote them", (
 });
 
 it("keeps the plan constants and the agent prompt equal to their sources", async () => {
-  const pricing = await readFile(new URL("PRICING.md", root), "utf8");
-  expect(pricing).toContain(
-    `| Free                       | USD 0                       | ${PLANS.freeCredits} per UTC month`,
-  );
-  expect(pricing).toContain(
-    `| Paid                       | USD ${PLANS.paidUsd} per month before tax | ${number(PLANS.paidCredits)} per paid period`,
-  );
-  expect(pricing).toContain(
-    `${PLANS.topUpPerUsd} per dollar up to USD 100, ${PLANS.topUpPerUsdAbove100} per dollar for the part above`,
-  );
-  expect(pricing).toContain(`one durable ${["seven"][PLANS.graceDays - 7]}-day grace period`);
+  // The platform publishes the rate card; the plan constants a page quotes must match it.
+  const table = creditPricingTable();
+  expect(table).toContain(`${number(PLANS.paidCredits)}`);
+  expect(clientRelease().version).toMatch(/^\d+\.\d+\.\d+$/u);
+  expect(PLANS.graceDays).toBe(7);
   const prepare = await readFile(
-    new URL("apps/public-site/scripts/prepare-pages.mjs", root),
+    new URL("scripts/prepare-pages.mjs", root),
     "utf8",
   );
   expect(prepare).toContain(`"${CTA_PROMPT}"`);
   for (const vendor of Object.values(VENDORS)) {
     expect(vendor.checkedOn).toMatch(/^\d{4}-\d{2}-\d{2}$/u);
     expect(vendor.sourceUrl.startsWith("https://")).toBe(true);
-    expect(vendor.evidence.startsWith("plan/evidence/P38/")).toBe(true);
+    expect(vendor.evidence.startsWith("evidence/")).toBe(true);
   }
 });

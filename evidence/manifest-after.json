@@ -1,0 +1,198 @@
+{
+  "capturedAt": "2026-09-20T19:00:18.740Z",
+  "label": "after",
+  "tool": {
+    "playwright": "1.62.1",
+    "modulePath": "/Users/sebastianmertens/.npm/_npx/8b5a392adfb8ea03/node_modules/playwright",
+    "chromium": "151.0.7922.34",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+  },
+  "context": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "deviceScaleFactor": 2,
+    "locale": "en-US",
+    "timezoneId": "America/New_York"
+  },
+  "entries": [
+    {
+      "file": "after--127.0.0.1-8787--home--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/",
+      "finalUrl": "http://127.0.0.1:8787/",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:00:46.020Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 808276,
+      "sha256": "9773da59bf1b626170790435374a297d097229e01e1def6d2f30a02bf3801d85"
+    },
+    {
+      "file": "after--127.0.0.1-8787--pricing--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/pricing",
+      "finalUrl": "http://127.0.0.1:8787/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:00:48.221Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 136503,
+      "sha256": "ea74ed19cb96b6381195f114891edf1f65d0d0f453c557e619a7636bb31b1ab3"
+    },
+    {
+      "file": "after--127.0.0.1-8787--pricing-breakdown--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/pricing/breakdown",
+      "finalUrl": "http://127.0.0.1:8787/pricing/breakdown",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:00:50.286Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 1080650,
+      "sha256": "402793dc271f22225f9122888fa7f765b915d73546397a66f656e92f22d2461e"
+    },
+    {
+      "file": "after--127.0.0.1-8787--vs-vercel--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/vs/vercel",
+      "finalUrl": "http://127.0.0.1:8787/vs/vercel",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:00:52.416Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 922912,
+      "sha256": "d4e908fc2141d16735d6a6c6d508b987b7056eed9d285d20e018be14ed501d1a"
+    },
+    {
+      "file": "after--127.0.0.1-8787--vs-supabase--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/vs/supabase",
+      "finalUrl": "http://127.0.0.1:8787/vs/supabase",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:00:54.539Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 1160106,
+      "sha256": "57ca5c9429e8f6febb9d436fad032bb518769fc3fe23b1488d15c26909b90242"
+    },
+    {
+      "file": "after--127.0.0.1-8787--vs-resend--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/vs/resend",
+      "finalUrl": "http://127.0.0.1:8787/vs/resend",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:00:56.681Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 588588,
+      "sha256": "fb26112552cce6f59c577cb243e12c3a11432641a8884f7231e301f9d0af8fba"
+    },
+    {
+      "file": "after--127.0.0.1-8787--vs-railway--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/vs/railway",
+      "finalUrl": "http://127.0.0.1:8787/vs/railway",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:00:58.770Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 999828,
+      "sha256": "2d0d6665bd4ea457c8ca1311397900c2f2cbaeb8e1045d420be0f494bade85ed"
+    },
+    {
+      "file": "after--127.0.0.1-8787--for-claude-code--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/for/claude-code",
+      "finalUrl": "http://127.0.0.1:8787/for/claude-code",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:01:00.893Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 715968,
+      "sha256": "41c8638ecae02c8900d9871f668d29efc8a19f2b3682a41d1f78191d6e2be97f"
+    },
+    {
+      "file": "after--127.0.0.1-8787--for-cursor--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/for/cursor",
+      "finalUrl": "http://127.0.0.1:8787/for/cursor",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:01:02.996Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 757766,
+      "sha256": "50a6b077506b87ccf23403b0fb1d6894ff4baf7ff8afc0c90337fa07e8cd6134"
+    },
+    {
+      "file": "after--127.0.0.1-8787--for-codex--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/for/codex",
+      "finalUrl": "http://127.0.0.1:8787/for/codex",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:01:05.111Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 697518,
+      "sha256": "dc410e1a5314909527966f3a16bf7dd36dc7a28f8be62a85056ba178e1855679"
+    },
+    {
+      "file": "after--127.0.0.1-8787--from-lovable--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/from/lovable",
+      "finalUrl": "http://127.0.0.1:8787/from/lovable",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:01:07.221Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 903509,
+      "sha256": "b3c756687f99305c88397a2efc59f57a3dd7710ad7fc92e580134d1efb3681a7"
+    },
+    {
+      "file": "after--127.0.0.1-8787--from-bolt--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/from/bolt",
+      "finalUrl": "http://127.0.0.1:8787/from/bolt",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:01:09.346Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 771500,
+      "sha256": "3129ffb73e23082b8928768bb32e09527724e14a9056e645f92224774096d8d6"
+    },
+    {
+      "file": "after--127.0.0.1-8787--about--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/about",
+      "finalUrl": "http://127.0.0.1:8787/about",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:01:11.452Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 684178,
+      "sha256": "58e850f31319e0b393c9976f84aadb24f351267663103b96b50cb4d9003b30e3"
+    },
+    {
+      "file": "after--127.0.0.1-8787--philosophy--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/philosophy",
+      "finalUrl": "http://127.0.0.1:8787/philosophy",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:01:13.545Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 802592,
+      "sha256": "641a2bc13079cb8871f010384467a96ae78da0f6570ee98f955f644c41aff146"
+    },
+    {
+      "file": "after--127.0.0.1-8787--open-source--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/open-source",
+      "finalUrl": "http://127.0.0.1:8787/open-source",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:01:15.651Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 242764,
+      "sha256": "c73d36a5be8f67b1c2a136cc0312013aae288ed728fae96a3495141e3db2e26d"
+    },
+    {
+      "file": "after--127.0.0.1-8787--blog--1440x900@2--full.jpg",
+      "url": "http://127.0.0.1:8787/blog",
+      "finalUrl": "http://127.0.0.1:8787/blog",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T19:01:17.712Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 170868,
+      "sha256": "19a59dd071d74d5b968e8c3f67d79bb3a07a017b0986c9e42adfe022f173d4e5"
+    }
+  ],
+  "note": "Captured against a local preview of the branch; competitor evidence is the dated before run. Production captures follow the release."
+}

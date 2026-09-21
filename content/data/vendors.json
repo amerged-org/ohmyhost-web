@@ -3,7 +3,7 @@
     "name": "Vercel",
     "checkedOn": "2026-09-19",
     "sourceUrl": "https://vercel.com/pricing",
-    "evidence": "plan/evidence/P38/site-evidence-20260919/before--vercel.com--pricing--1440x900@2--full.jpg",
+    "evidence": "evidence/before--vercel.com--pricing--1440x900@2--full.jpg",
     "facts": {
       "hobby": {
         "usd": 0,
@@ -29,7 +29,7 @@
     "name": "Supabase",
     "checkedOn": "2026-09-19",
     "sourceUrl": "https://supabase.com/pricing",
-    "evidence": "plan/evidence/P38/site-evidence-20260919/before--supabase.com--pricing--1440x900@2--full.jpg",
+    "evidence": "evidence/before--supabase.com--pricing--1440x900@2--full.jpg",
     "facts": {
       "pro": {
         "usd": 25,
@@ -62,7 +62,7 @@
     "name": "Resend",
     "checkedOn": "2026-09-19",
     "sourceUrl": "https://resend.com/pricing",
-    "evidence": "plan/evidence/P38/site-evidence-20260919/before--resend.com--pricing--1440x900@2--table.png",
+    "evidence": "evidence/before--resend.com--pricing--1440x900@2--table.png",
     "facts": {
       "free": {
         "usd": 0,
@@ -93,7 +93,7 @@
     "name": "Railway",
     "checkedOn": "2026-09-19",
     "sourceUrl": "https://railway.com/pricing",
-    "evidence": "plan/evidence/P38/site-evidence-20260919/before--railway.com--pricing--1440x900@2--table.png",
+    "evidence": "evidence/before--railway.com--pricing--1440x900@2--table.png",
     "facts": {
       "free": {
         "usd": 0,
@@ -136,7 +136,7 @@
     "name": "Fly.io",
     "checkedOn": "2026-09-19",
     "sourceUrl": "https://fly.io/pricing",
-    "evidence": "plan/evidence/P38/site-evidence-20260919/before--fly.io--pricing--1440x900@2--full.jpg",
+    "evidence": "evidence/before--fly.io--pricing--1440x900@2--full.jpg",
     "facts": {
       "sharedCpu1x": {
         "usd": 1.94,
@@ -172,7 +172,7 @@
     "name": "Render",
     "checkedOn": "2026-09-19",
     "sourceUrl": "https://render.com/pricing",
-    "evidence": "plan/evidence/P38/site-evidence-20260919/before--render.com--pricing--1440x900@2--full.jpg",
+    "evidence": "evidence/before--render.com--pricing--1440x900@2--full.jpg",
     "facts": {
       "hobby": {
         "usd": 0,

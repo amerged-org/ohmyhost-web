@@ -9,7 +9,7 @@ import { pageFolders, readPage, resolveTokens } from "../src/content/tree.js";
 import { DOCUMENTATION } from "../src/customer-entry.js";
 import { CONTENT_PAGE_LIST } from "../src/pages/index.js";
 
-const contentRoot = new URL("../../../content/", import.meta.url).pathname;
+const contentRoot = new URL("../content/", import.meta.url).pathname;
 
 it("keeps the content tree, its page records and the served pages in step", async () => {
   const folders = pageFolders(contentRoot);

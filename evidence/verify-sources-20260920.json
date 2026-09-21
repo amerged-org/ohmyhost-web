@@ -1,0 +1,1800 @@
+{
+  "verifiedAt": "2026-09-20",
+  "method": "One skeptic agent per vendor read the dated screenshots in this directory and the live pricing page, and refuted every fact then recorded in apps/public-site/src/content/sources.ts. sources.ts was rewritten from these verdicts; facts a screenshot does not show were dropped.",
+  "verdicts": [
+    {
+      "vendor": "fly",
+      "matches": false,
+      "evidenceReadable": true,
+      "differences": [
+        {
+          "fact": "sharedCpu4x",
+          "recorded": "{ usd: 7.78, unit: \"per month for a shared-cpu-4x machine with 1 GB\" }",
+          "observed": "Not visible in either screenshot. before--fly.io--pricing--1440x900@2--table.png and --full.jpg show only three rows (shared-cpu-1x · 256MB $0.0027/hr $1.94/mo; performance-1x · 2GB $0.0431/hr $31.00/mo; Stopped Machine, per GB rootfs $0.15) behind a collapsed \"Show all 14 presets\" link. Live page confirms shared-cpu-4x · 1GB: $0.0108 per hour, $7.78 per month, but adds \"Compute prices are for Ashburn (iad); other regions vary\" and \"Billed by the second while a Machine runs\". The cited evidence file does not back this fact; confirmed by the live page only, and the recorded unit omits the Ashburn-only, billed-by-the-second caveat.",
+          "source": "https://fly.io/pricing (not in before--fly.io--pricing--1440x900@2--table.png or --full.jpg)"
+        },
+        {
+          "fact": "postgresBasic",
+          "recorded": "{ usd: 38, unit: \"per month for the Basic managed Postgres cluster\" }",
+          "observed": "Not visible in either screenshot: the Managed Postgres tab is collapsed in --full.jpg and absent from --table.png. Live page confirms Basic (shared-2x · 1GB) $38/mo, but states database storage is \"Billed on provisioned capacity\" at \"$0.28\" per GB (max 1,000 GB per cluster) and no storage is included in the plan price. The recorded unit \"for the Basic managed Postgres cluster\" reads as an all-in cluster price; a reader comparing it with a database plan that bundles storage would be misled. Also cited evidence file does not back this fact.",
+          "source": "https://fly.io/pricing (not in before--fly.io--pricing--1440x900@2--table.png or --full.jpg)"
+        },
+        {
+          "fact": "sharedCpu1x",
+          "recorded": "{ usd: 1.94, unit: \"per month for a shared-cpu-1x machine with 256 MB\" }",
+          "observed": "Screenshot: \"shared-cpu-1x · 256MB  $0.0027 per hour  $1.94 per month\" with header \"Billed by the second while a Machine runs. Prices for Ashburn.\" Live page: \"Compute prices are for Ashburn (iad); other regions vary\". Number matches; the recorded unit omits that $1.94 is the Ashburn price for a machine running the full month (per-second billing, $0.0027/hr) and that other regions cost more. Wording could mislead a reader in another region.",
+          "source": "before--fly.io--pricing--1440x900@2--table.png; https://fly.io/pricing"
+        },
+        {
+          "fact": "volumeGbMonth",
+          "recorded": "{ usd: 0.15, unit: \"per GB of volume per month\" }",
+          "observed": "Screenshot: \"Volumes, per GB / month  $0.15\" under the note \"Volumes bill on provisioned capacity, not usage.\" Number matches; the recorded unit does not say provisioned, so a reader could assume it is billed on used GB.",
+          "source": "before--fly.io--pricing--1440x900@2--full.jpg; https://fly.io/pricing"
+        }
+      ],
+      "observed": [
+        {
+          "label": "shared-cpu-1x · 256MB (screenshot + live)",
+          "value": "0.0027",
+          "unit": "USD per hour, Ashburn (iad), billed by the second"
+        },
+        {
+          "label": "shared-cpu-1x · 256MB (screenshot + live)",
+          "value": "1.94",
+          "unit": "USD per month, Ashburn (iad)"
+        },
+        {
+          "label": "shared-cpu-2x · 512MB (live only)",
+          "value": "0.0054 / 3.89",
+          "unit": "USD per hour / per month"
+        },
+        {
+          "label": "shared-cpu-4x · 1GB (live only)",
+          "value": "0.0108 / 7.78",
+          "unit": "USD per hour / per month"
+        },
+        {
+          "label": "shared-cpu-6x · 1.5GB (live only)",
+          "value": "0.0162 / 11.67",
+          "unit": "USD per hour / per month"
+        },
+        {
+          "label": "shared-cpu-8x · 2GB (live only)",
+          "value": "0.0216 / 15.56",
+          "unit": "USD per hour / per month"
+        },
+        {
+          "label": "performance-1x · 2GB (screenshot + live)",
+          "value": "0.0431 / 31.00",
+          "unit": "USD per hour / per month"
+        },
+        {
+          "label": "performance-2x · 4GB (live only)",
+          "value": "0.0861 / 62.00",
+          "unit": "USD per hour / per month"
+        },
+        {
+          "label": "performance-4x · 8GB (live only)",
+          "value": "0.1722 / 124.00",
+          "unit": "USD per hour / per month"
+        },
+        {
+          "label": "performance-6x · 12GB (live only)",
+          "value": "0.2583 / 186.00",
+          "unit": "USD per hour / per month"
+        },
+        {
+          "label": "performance-8x · 16GB (live only)",
+          "value": "0.3444 / 248.00",
+          "unit": "USD per hour / per month"
+        },
+        {
+          "label": "performance-10x · 20GB (live only)",
+          "value": "0.4306 / 310.00",
+          "unit": "USD per hour / per month"
+        },
+        {
+          "label": "performance-12x · 24GB (live only)",
+          "value": "0.5167 / 372.00",
+          "unit": "USD per hour / per month"
+        },
+        {
+          "label": "performance-14x · 28GB (live only)",
+          "value": "0.6028 / 434.00",
+          "unit": "USD per hour / per month"
+        },
+        {
+          "label": "performance-16x · 32GB (live only)",
+          "value": "0.6889 / 496.00",
+          "unit": "USD per hour / per month"
+        },
+        {
+          "label": "Stopped Machine, per GB rootfs (screenshot + live)",
+          "value": "0.15",
+          "unit": "USD per GB per month"
+        },
+        {
+          "label": "Additional RAM on any preset (screenshot + live)",
+          "value": "5.00",
+          "unit": "USD per GB per month, up to 128GB"
+        },
+        {
+          "label": "Compute price region (screenshot + live)",
+          "value": "Ashburn (iad)",
+          "unit": "other regions vary; prices in USD excluding tax"
+        },
+        {
+          "label": "Reserved compute discount (screenshot + live)",
+          "value": "40%",
+          "unit": "saving; one-year blocks from $36/yr shared, $144/yr performance"
+        },
+        {
+          "label": "Volumes (screenshot + live)",
+          "value": "0.15",
+          "unit": "USD per GB per month, billed on provisioned capacity not usage"
+        },
+        {
+          "label": "Snapshots (screenshot + live)",
+          "value": "0.08",
+          "unit": "USD per GB per month; first 10GB of snapshots free each month"
+        },
+        {
+          "label": "Egress, North America and Europe (screenshot + live)",
+          "value": "0.02",
+          "unit": "USD per GB"
+        },
+        {
+          "label": "Egress, Asia Pacific, Oceania and South America (screenshot + live)",
+          "value": "0.04",
+          "unit": "USD per GB"
+        },
+        {
+          "label": "Egress, Africa and India (screenshot + live)",
+          "value": "0.12",
+          "unit": "USD per GB"
+        },
+        {
+          "label": "Same-region transfer (live only)",
+          "value": "0",
+          "unit": "free"
+        },
+        {
+          "label": "Dedicated IPv4 (screenshot + live)",
+          "value": "2.00",
+          "unit": "USD per month; every app gets a shared IPv4 and unlimited Anycast IPv6 free"
+        },
+        {
+          "label": "Sprites CPU time (live only)",
+          "value": "0.07",
+          "unit": "USD per CPU-hour"
+        },
+        {
+          "label": "Sprites memory time (live only)",
+          "value": "0.04375",
+          "unit": "USD per GB-hour"
+        },
+        {
+          "label": "Sprites hot storage (live only)",
+          "value": "0.000683",
+          "unit": "USD per GB-hour (about $0.50 per GB-month)"
+        },
+        {
+          "label": "Sprites cold storage (live only)",
+          "value": "0.000027",
+          "unit": "USD per GB-hour (about $0.02 per GB-month)"
+        },
+        {
+          "label": "Managed Postgres Basic, shared-2x · 1GB (live only)",
+          "value": "38",
+          "unit": "USD per month; includes HA, automated backups, connection pooling; storage billed separately"
+        },
+        {
+          "label": "Managed Postgres Starter, shared-2x · 2GB (live only)",
+          "value": "72",
+          "unit": "USD per month; storage billed separately"
+        },
+        {
+          "label": "Managed Postgres Launch, performance-2x · 8GB (live only)",
+          "value": "282",
+          "unit": "USD per month; storage billed separately"
+        },
+        {
+          "label": "Managed Postgres Scale, performance-4x · 32GB (live only)",
+          "value": "962",
+          "unit": "USD per month; storage billed separately"
+        },
+        {
+          "label": "Managed Postgres Performance, performance-8x · 64GB (live only)",
+          "value": "1,922",
+          "unit": "USD per month; storage billed separately"
+        },
+        {
+          "label": "Managed Postgres database storage (live only)",
+          "value": "0.28",
+          "unit": "USD per GB, billed on provisioned capacity, max 1,000 GB per cluster, not included in any plan price"
+        },
+        {
+          "label": "Support Standard (screenshot + live)",
+          "value": "29",
+          "unit": "USD per month; 36-hour first response, technical architecture support"
+        },
+        {
+          "label": "Support Premium (screenshot + live)",
+          "value": "199",
+          "unit": "USD per month; 24-hour first response, 1-hour urgent, dedicated Slack channel, quarterly Solutions Architecture sessions"
+        },
+        {
+          "label": "Support Enterprise (screenshot + live)",
+          "value": "from 2,500",
+          "unit": "USD per month; 4-hour first response 24x7, 15-minute emergency response, 99.9% uptime SLA"
+        },
+        {
+          "label": "Community support (screenshot + live)",
+          "value": "0",
+          "unit": "free"
+        },
+        {
+          "label": "HIPAA compliance package (screenshot + live)",
+          "value": "99",
+          "unit": "USD per month, BAA pre-signed, available on any paid plan"
+        },
+        {
+          "label": "Startup program credit (screenshot + live)",
+          "value": "up to 15,000",
+          "unit": "USD in credit for eligible early-stage companies"
+        },
+        {
+          "label": "Free plan / free machine allowance (screenshot + live)",
+          "value": "none stated",
+          "unit": "hero says \"Start for free, pay as you grow\" but the only free allowances listed are 10GB snapshots per month, shared IPv4, Anycast IPv6 and same-region transfer"
+        }
+      ]
+    },
+    {
+      "vendor": "resend",
+      "matches": false,
+      "evidenceReadable": true,
+      "differences": [
+        {
+          "fact": "VENDORS.resend.facts.proLarge",
+          "recorded": "{ usd: 35, unit: \"per month\", includes: \"100,000 emails\" }",
+          "observed": "Not visible in either screenshot. The slider sits at its default (3,000), so the only card reading \"100,000 emails / mo\" is Scale at \"$90 / mo\"; no \"$35\" appears anywhere in the cited evidence file. The live page (WebFetch) does list Pro \"$35/mo\" (100,000 emails) as the Pro tier reached by moving the slider to 100,000, so the fact is confirmed by the URL only, not by the evidence the module points at.",
+          "source": "before--resend.com--pricing--1440x900@2--table.png (absent); https://resend.com/pricing (confirmed)"
+        },
+        {
+          "fact": "VENDORS.resend.facts.overageThousand",
+          "recorded": "{ usd: 0.9, unit: \"per 1,000 emails beyond the plan\" }",
+          "observed": "Screenshot shows \"Extra emails: $0.90 / 1,000\" on Pro and on Scale at the 100,000 tier only. Live page shows the Scale overage rate falls by tier: $0.90, $0.80, $0.70, $0.65, $0.52, $0.46 per 1,000. The page also states pay-as-you-go is opt-in (\"Enable pay-as-you-go\") and \"Available to paid subscriptions\" (not Free). The wording \"beyond the plan\" reads as one universal rate; it is the Pro rate (and Scale base tier) only.",
+          "source": "before--resend.com--pricing--1440x900@2--table.png; https://resend.com/pricing"
+        }
+      ],
+      "observed": [
+        {
+          "label": "Free plan",
+          "value": "$0",
+          "unit": "per month"
+        },
+        {
+          "label": "Free included emails",
+          "value": "3,000",
+          "unit": "emails per month"
+        },
+        {
+          "label": "Free daily send limit",
+          "value": "100",
+          "unit": "emails per day"
+        },
+        {
+          "label": "Free domains",
+          "value": "3",
+          "unit": "domains"
+        },
+        {
+          "label": "Free automation runs",
+          "value": "10,000",
+          "unit": "runs per month"
+        },
+        {
+          "label": "Free data retention",
+          "value": "30",
+          "unit": "days"
+        },
+        {
+          "label": "Free AI credits (live page)",
+          "value": "5",
+          "unit": "credits per month"
+        },
+        {
+          "label": "Free Single Sign-On",
+          "value": "not included",
+          "unit": "feature"
+        },
+        {
+          "label": "Pro plan (50,000 tier)",
+          "value": "$20",
+          "unit": "per month"
+        },
+        {
+          "label": "Pro included emails (50,000 tier)",
+          "value": "50,000",
+          "unit": "emails per month"
+        },
+        {
+          "label": "Pro plan (100,000 tier, live page only)",
+          "value": "$35",
+          "unit": "per month"
+        },
+        {
+          "label": "Pro included emails (100,000 tier, live page only)",
+          "value": "100,000",
+          "unit": "emails per month"
+        },
+        {
+          "label": "Pro extra emails",
+          "value": "$0.90",
+          "unit": "per 1,000 emails"
+        },
+        {
+          "label": "Pro domains",
+          "value": "10",
+          "unit": "domains"
+        },
+        {
+          "label": "Pro daily send limit",
+          "value": "none (\"No daily email limit\")",
+          "unit": "emails per day"
+        },
+        {
+          "label": "Pro webhook endpoints",
+          "value": "5",
+          "unit": "endpoints"
+        },
+        {
+          "label": "Pro AI credits",
+          "value": "100",
+          "unit": "credits per month"
+        },
+        {
+          "label": "Pro Single Sign-On",
+          "value": "not included",
+          "unit": "feature"
+        },
+        {
+          "label": "Scale plan (100,000 tier)",
+          "value": "$90",
+          "unit": "per month"
+        },
+        {
+          "label": "Scale included emails (100,000 tier)",
+          "value": "100,000",
+          "unit": "emails per month"
+        },
+        {
+          "label": "Scale extra emails (100,000 tier)",
+          "value": "$0.90",
+          "unit": "per 1,000 emails"
+        },
+        {
+          "label": "Scale plan (200,000 tier, live page)",
+          "value": "$160",
+          "unit": "per month"
+        },
+        {
+          "label": "Scale plan (500,000 tier, live page)",
+          "value": "$350",
+          "unit": "per month"
+        },
+        {
+          "label": "Scale plan (1,000,000 tier, live page)",
+          "value": "$650",
+          "unit": "per month"
+        },
+        {
+          "label": "Scale plan (1,500,000 tier, live page)",
+          "value": "$825",
+          "unit": "per month"
+        },
+        {
+          "label": "Scale plan (2,500,000 tier, live page)",
+          "value": "$1,150",
+          "unit": "per month"
+        },
+        {
+          "label": "Scale extra emails by tier (live page)",
+          "value": "$0.90 / $0.80 / $0.70 / $0.65 / $0.52 / $0.46",
+          "unit": "per 1,000 emails, 100k through 2.5M tiers"
+        },
+        {
+          "label": "Scale domains",
+          "value": "1,000",
+          "unit": "domains"
+        },
+        {
+          "label": "Scale webhook endpoints",
+          "value": "10",
+          "unit": "endpoints"
+        },
+        {
+          "label": "Scale AI credits",
+          "value": "500",
+          "unit": "credits per month"
+        },
+        {
+          "label": "Scale Single Sign-On",
+          "value": "with add-on",
+          "unit": "feature"
+        },
+        {
+          "label": "Scale dedicated IP",
+          "value": "with add-on",
+          "unit": "feature"
+        },
+        {
+          "label": "Enterprise plan",
+          "value": "Custom",
+          "unit": "contact us"
+        },
+        {
+          "label": "Slider volume steps",
+          "value": "3,000 / 50,000 / 100,000 / 200,000 / 500,000 / 1,000,000 / 1,500,000 / 2,500,000 / 3,000,000+",
+          "unit": "emails per month"
+        },
+        {
+          "label": "Pay-as-you-go emails",
+          "value": "plan's overage rate, opt-in, paid subscriptions only",
+          "unit": "per 1,000 emails beyond quota"
+        },
+        {
+          "label": "Pay-as-you-go automations",
+          "value": "$0.0015",
+          "unit": "per run beyond 10,000 free runs per month, paid subscriptions only"
+        },
+        {
+          "label": "Add-on: Domains",
+          "value": "$20",
+          "unit": "per month for 100 additional domains (Pro and Scale only)"
+        },
+        {
+          "label": "Add-on: Dedicated IPs",
+          "value": "$30",
+          "unit": "per month (Scale plan, customers exceeding 3,000 emails per day)"
+        },
+        {
+          "label": "Add-on: Single Sign-On",
+          "value": "$150",
+          "unit": "per month (Scale add-on; included on Enterprise)"
+        },
+        {
+          "label": "Marketing Free contacts (live page)",
+          "value": "1,000",
+          "unit": "contacts"
+        },
+        {
+          "label": "Marketing Pro (live page)",
+          "value": "$40 / $80 / $120 / $180 / $250 / $450 / $650",
+          "unit": "per month for 5,000 / 10,000 / 15,000 / 25,000 / 50,000 / 100,000 / 150,000 contacts"
+        }
+      ]
+    },
+    {
+      "vendor": "supabase",
+      "matches": false,
+      "evidenceReadable": true,
+      "differences": [
+        {
+          "fact": "VENDORS.supabase.facts.pro (usd 25, unit)",
+          "recorded": "usd: 25, unit: \"per organization per month\"",
+          "observed": "Pro card reads \"From $25 / month\" with \"First project included. Additional projects from $10/mo. See how pricing scales\". The word \"organization\" does not appear anywhere on the pricing page (cards, calculator, comparison table, WebFetch text). The \"From\" qualifier is dropped by the module; $25 is a floor that rises with any second project or any metered overage.",
+          "source": "before--supabase.com--pricing--1440x900@2--full.jpg (top pricing cards, y≈580-710) and https://supabase.com/pricing"
+        },
+        {
+          "fact": "VENDORS.supabase.facts.pro.includes",
+          "recorded": "\"$10 of compute credit, one Micro instance\"",
+          "observed": "Page: \"Paid plans include $10/mo in compute credits, enough to cover one Micro instance.\" and \"First instance is free on paid plans\". The Pro card lists what $25 actually includes and the module omits all of it: 100,000 monthly active users (then $0.00325 per MAU), 8 GB disk size per project (then $0.125 per GB), 250 GB egress (then $0.09 per GB), 250 GB cached egress (then $0.03 per GB), 100 GB file storage (then $0.0213 per GB), Email support, Daily backups stored for 7 days, 7-day log retention. Vercel's includes string in the same module lists its allowances, so the Supabase entry reads as if $25 buys only compute, which understates the plan.",
+          "source": "before--supabase.com--pricing--1440x900@2--full.jpg (Pro card y≈760-1100 and calculator panel y≈1900-2100) and https://supabase.com/pricing"
+        },
+        {
+          "fact": "VENDORS.supabase.facts.egressGb.unit",
+          "recorded": "\"per GB of egress beyond 250 GB\"",
+          "observed": "\"250 GB egress then $0.09 per GB\" is a monthly plan allowance (the unit says nothing about a period), and the page shows a second, separately metered \"250 GB cached egress then $0.03 per GB\". The Log Drain add-on also bills \"+ $0.09 per GB egress\" on top of its $60 per drain. A reader cannot tell from the recorded unit that the 250 GB resets monthly or that cached egress is priced differently.",
+          "source": "before--supabase.com--pricing--1440x900@2--full.jpg (Pro card y≈915-1000; comparison table Egress row y≈4750 and Cached Egress row y≈6430) and https://supabase.com/pricing"
+        },
+        {
+          "fact": "VENDORS.supabase.evidence (evidence(\"supabase.com\") -> ...--table.png)",
+          "recorded": "plan/evidence/P38/site-evidence-20260919/before--supabase.com--pricing--1440x900@2--table.png",
+          "observed": "table.png only shows the compute table (Micro $10, Small $15, \"First instance is free on paid plans\") and the \"Advanced disk configurations\" heading. It does not show the $25 Pro price, the 8 GB / $0.125 per GB disk rate, or the 250 GB / $0.09 per GB egress rate; those three facts are only evidenced by the full-page capture (full.jpg), which the module does not reference.",
+          "source": "before--supabase.com--pricing--1440x900@2--table.png vs before--supabase.com--pricing--1440x900@2--full.jpg"
+        }
+      ],
+      "observed": [
+        {
+          "label": "Free plan",
+          "value": "$0",
+          "unit": "per month"
+        },
+        {
+          "label": "Pro plan",
+          "value": "From $25",
+          "unit": "per month; first project included, additional projects from $10/mo"
+        },
+        {
+          "label": "Team plan",
+          "value": "From $599",
+          "unit": "per month; first project included, additional projects from $10/mo"
+        },
+        {
+          "label": "Enterprise plan",
+          "value": "Custom",
+          "unit": "contact us"
+        },
+        {
+          "label": "Paid-plan compute credits",
+          "value": "$10",
+          "unit": "per month, enough to cover one Micro instance; first instance is free on paid plans"
+        },
+        {
+          "label": "Compute: Micro",
+          "value": "$10",
+          "unit": "per instance per month (shared compute, 1 GB memory, 60 direct / 200 pooler connections)"
+        },
+        {
+          "label": "Compute: Small",
+          "value": "$15",
+          "unit": "per instance per month (shared compute, 2 GB memory, 90 direct / 400 pooler connections)"
+        },
+        {
+          "label": "Compute: Medium / Large / XL / 2XL / 4XL / 8XL / 12XL / 16XL (live page, collapsed in screenshot)",
+          "value": "$60 / $110 / $210 / $410 / $960 / $1,870 / $2,800 / $3,730",
+          "unit": "per instance per month; scale up to 64 vCPUs and 256 GB RAM"
+        },
+        {
+          "label": "Pro/Team: monthly active users",
+          "value": "100,000 included, then $0.00325",
+          "unit": "per MAU"
+        },
+        {
+          "label": "Free: monthly active users",
+          "value": "50,000",
+          "unit": "included"
+        },
+        {
+          "label": "Pro/Team: disk size (General Purpose)",
+          "value": "8 GB per project included, then $0.125",
+          "unit": "per GB"
+        },
+        {
+          "label": "Free: database size",
+          "value": "500 MB",
+          "unit": "per project, shared CPU, 500 MB RAM"
+        },
+        {
+          "label": "Pro/Team: egress",
+          "value": "250 GB included, then $0.09",
+          "unit": "per GB"
+        },
+        {
+          "label": "Free: egress",
+          "value": "5 GB",
+          "unit": "included"
+        },
+        {
+          "label": "Pro/Team: cached egress",
+          "value": "250 GB included, then $0.03",
+          "unit": "per GB"
+        },
+        {
+          "label": "Free: cached egress",
+          "value": "5 GB",
+          "unit": "included"
+        },
+        {
+          "label": "Pro/Team: file storage",
+          "value": "100 GB included, then $0.0213",
+          "unit": "per GB"
+        },
+        {
+          "label": "Free: file storage",
+          "value": "1 GB",
+          "unit": "included"
+        },
+        {
+          "label": "Max file upload size",
+          "value": "Free 50 MB; Pro/Team 500 GB",
+          "unit": "per file"
+        },
+        {
+          "label": "Free: active projects",
+          "value": "2",
+          "unit": "active projects; free projects paused after 1 week of inactivity (paid: never paused)"
+        },
+        {
+          "label": "Automatic backups",
+          "value": "Free none; Pro 7 days; Team 14 days",
+          "unit": "daily backups retention"
+        },
+        {
+          "label": "Log retention (API & Database)",
+          "value": "Free 1 day; Pro 7 days; Team 28 days; Enterprise 90 days",
+          "unit": "retention"
+        },
+        {
+          "label": "Auth audit logs",
+          "value": "Free 1 hour; Pro 7 days; Team 28 days",
+          "unit": "retention"
+        },
+        {
+          "label": "Point in Time Recovery (Pro/Team add-on)",
+          "value": "$100",
+          "unit": "per month per 7 days retention (Enterprise: >28 days available)"
+        },
+        {
+          "label": "Custom Domain (Pro/Team add-on)",
+          "value": "$10",
+          "unit": "per domain per month per project (Enterprise: 1 included, additional $10/domain/month)"
+        },
+        {
+          "label": "Branching (Pro/Team)",
+          "value": "$0.01344",
+          "unit": "per branch per hour"
+        },
+        {
+          "label": "Pipelines (Pro/Team)",
+          "value": "$0.053 per pipeline per hour; $3.00 per GB processed during ongoing replication; $0.60 per GB processed during initial sync",
+          "unit": "usage"
+        },
+        {
+          "label": "Log Drains (Pro/Team add-on)",
+          "value": "$60 per drain per month + $0.20 per million events + $0.09 per GB egress",
+          "unit": "per drain per project"
+        },
+        {
+          "label": "Advanced Multi-Factor Auth - Phone (Pro/Team)",
+          "value": "$75 per month for first project, then $10",
+          "unit": "per month per additional project"
+        },
+        {
+          "label": "Third-Party MAUs",
+          "value": "Free 50,000; Pro/Team 100,000 included, then $0.00325",
+          "unit": "per MAU"
+        },
+        {
+          "label": "Single Sign-On (SAML 2.0) (Pro/Team)",
+          "value": "50 included, then $0.015",
+          "unit": "per MAU"
+        },
+        {
+          "label": "Image transformations (Pro/Team)",
+          "value": "100 origin images included, then $5",
+          "unit": "per 1000 origin images"
+        },
+        {
+          "label": "Realtime concurrent peak connections",
+          "value": "Free 200; Pro/Team 500 included, then $10",
+          "unit": "per 1000 connections"
+        },
+        {
+          "label": "Realtime messages",
+          "value": "Free 2 Million; Pro/Team 5 Million included, then $2.50",
+          "unit": "per Million per month"
+        },
+        {
+          "label": "Realtime max message size",
+          "value": "Free 256 KB; Pro/Team 3 MB",
+          "unit": "per message"
+        },
+        {
+          "label": "Edge Function invocations",
+          "value": "Free 500,000; Pro/Team 2 Million included, then $2",
+          "unit": "per 1 Million"
+        },
+        {
+          "label": "Advanced disk: General Purpose",
+          "value": "8 GB included then $0.125 per GB; 3,000 IOPS included then $0.024 per IOPS; 125 MB/s included then $0.095 per MB/s; max 16 TB; 99.9% durability",
+          "unit": "per project"
+        },
+        {
+          "label": "Advanced disk: High Performance",
+          "value": "$0.195 per GB; $0.119 per IOPS; throughput scales automatically with IOPS; max 60 TB; 99.999% durability",
+          "unit": "per project"
+        },
+        {
+          "label": "Dashboard team members",
+          "value": "Unlimited",
+          "unit": "all plans (no seat pricing)"
+        },
+        {
+          "label": "Spend cap",
+          "value": "On by default on Pro",
+          "unit": "switch off to pay for additional resources beyond included quota"
+        },
+        {
+          "label": "Team-only inclusions",
+          "value": "SOC2 & ISO 27001, HIPAA as paid add-on, SSO for dashboard, priority email support & SLAs, project-scoped and read-only access",
+          "unit": "included in $599/month"
+        }
+      ]
+    },
+    {
+      "vendor": "render",
+      "matches": false,
+      "evidenceReadable": true,
+      "differences": [
+        {
+          "fact": "VENDORS.render entry (usd, unit, includes)",
+          "recorded": "(absent) VENDORS in /Users/sebastianmertens/Documents/GitHub/ohmyho-seo/apps/public-site/src/content/sources.ts contains only vercel, supabase, resend, railway, fly; no render key, so no recorded facts could be extracted",
+          "observed": "Render pricing page shows: Hobby $0/mo + compute (1 seat, 25 services, 5 GB bandwidth), Pro $25/mo + compute (unlimited seats, 25 GB bandwidth), Scale $499/mo + compute (1 TB bandwidth, multiple workspaces), Enterprise custom pricing; bandwidth overage $0.15 per GB on all paid-by-card plans; Services & Workers compute from $7/month (0.5 CPU, 512 MB) after a $0 free tier with limitations; Postgres from $6/month (256 MB) after a $0 free tier; persistent disks $0.25 per GB per month; Postgres expandable storage $0.30 per GB; standard build pipeline 500/1K/5K mins included then $5 per 1K mins; custom domains 2/15/25 included then $0.25/domain/month",
+          "source": "sources.ts (no entry); before--render.com--pricing--1440x900@2--full.jpg (workspace cards, features table); before--render.com--pricing--1440x900@2--table.png (Services & Postgres tables); https://render.com/pricing (WebFetch returned NO NUMBERS FOUND; a raw curl of the same URL contained the server-rendered price data and it agrees with the screenshots)"
+        },
+        {
+          "fact": "Evidence coverage of the table.png screenshot",
+          "recorded": "evidence() helper would resolve to plan/evidence/P38/site-evidence-20260919/before--render.com--pricing--1440x900@2--table.png",
+          "observed": "table.png only captures the collapsed Services & Workers table (Free $0, 0.5c-512mb $7, 1c-2g $25; the $85 2c-4g row is cut off under the 'Expand compute table' button) and the collapsed Postgres table (Free $0, $6, $19; the $40 1c-2g row is cut off). Any future render fact above those tiers, or any workspace-plan, bandwidth, disk, build-minute or domain price, is evidenced only by full.jpg (1440x16086, legible when cropped) or the live page, not by table.png",
+          "source": "before--render.com--pricing--1440x900@2--table.png; before--render.com--pricing--1440x900@2--full.jpg"
+        },
+        {
+          "fact": "Free tier wording",
+          "recorded": "(no recorded fact)",
+          "observed": "Every free compute row is labelled 'Free (limitations apply)' with no numbers on the page; the FAQ says 'Free compute plans types have usage limits'. A comparison quoting Render Free as $0 without naming the limits (spin-down, hours cap) would mislead; the limits are not on this page and would need a separate source",
+          "source": "before--render.com--pricing--1440x900@2--table.png; before--render.com--pricing--1440x900@2--full.jpg (FAQ 'How do free compute plans work?')"
+        }
+      ],
+      "observed": [
+        {
+          "label": "Hobby workspace plan",
+          "value": "0",
+          "unit": "USD per month, plus compute"
+        },
+        {
+          "label": "Pro workspace plan",
+          "value": "25",
+          "unit": "USD per month, plus compute"
+        },
+        {
+          "label": "Scale workspace plan",
+          "value": "499",
+          "unit": "USD per month, plus compute"
+        },
+        {
+          "label": "Enterprise workspace plan",
+          "value": "Custom pricing",
+          "unit": "per month"
+        },
+        {
+          "label": "Team seats: Hobby / Pro / Scale / Enterprise",
+          "value": "1 / Unlimited / Unlimited / Unlimited",
+          "unit": "seats included in the workspace plan (no per-seat price listed)"
+        },
+        {
+          "label": "Workspaces: Hobby / Pro / Scale / Enterprise",
+          "value": "1 / 1 / Unlimited / Unlimited",
+          "unit": "workspaces"
+        },
+        {
+          "label": "Maximum services: Hobby / Pro / Scale / Enterprise",
+          "value": "25 / Unlimited / Unlimited / Unlimited",
+          "unit": "services"
+        },
+        {
+          "label": "Bandwidth included: Hobby / Pro / Scale / Enterprise",
+          "value": "5 GB / 25 GB / 1 TB / Custom",
+          "unit": "per month"
+        },
+        {
+          "label": "Bandwidth overage (Hobby, Pro, Scale)",
+          "value": "0.15",
+          "unit": "USD per GB beyond the included amount"
+        },
+        {
+          "label": "Custom domains included: Hobby / Pro / Scale / Enterprise",
+          "value": "2 / 15 / 25 / Custom",
+          "unit": "domains"
+        },
+        {
+          "label": "Custom domain overage",
+          "value": "0.25",
+          "unit": "USD per domain per month beyond the included amount"
+        },
+        {
+          "label": "Persistent disks (SSD), all plans",
+          "value": "0.25",
+          "unit": "USD per GB per month"
+        },
+        {
+          "label": "Postgres expandable storage, all plans",
+          "value": "0.30",
+          "unit": "USD per GB (1 GB SSD storage included per instance)"
+        },
+        {
+          "label": "Postgres point-in-time recovery window: Hobby / Pro / Scale / Enterprise",
+          "value": "3 / 7 / 7 / 7",
+          "unit": "days"
+        },
+        {
+          "label": "Standard build pipeline included: Hobby / Pro / Scale / Enterprise",
+          "value": "500 mins per month / 1K mins per month / 5K mins per workspace per month / Custom",
+          "unit": "build minutes"
+        },
+        {
+          "label": "Standard build pipeline overage",
+          "value": "5",
+          "unit": "USD per 1,000 minutes"
+        },
+        {
+          "label": "Performance build pipeline (Pro, Scale)",
+          "value": "25",
+          "unit": "USD per 1,000 minutes (not available on Hobby)"
+        },
+        {
+          "label": "Dedicated IPs (Pro, Scale)",
+          "value": "100",
+          "unit": "USD per month for each IP set (not available on Hobby)"
+        },
+        {
+          "label": "AWS private links (Pro, Scale)",
+          "value": "30",
+          "unit": "USD per month, includes up to 3 links"
+        },
+        {
+          "label": "Private link outbound bandwidth (Pro, Scale)",
+          "value": "0.03",
+          "unit": "USD per GB"
+        },
+        {
+          "label": "Workflows concurrent task runs: Hobby / Pro / Scale",
+          "value": "20 / 50 / 100",
+          "unit": "task runs; Pro and Scale then $10 per month per additional 50"
+        },
+        {
+          "label": "Instant rollbacks: Hobby / Pro / Scale / Enterprise",
+          "value": "5 / 15 / 30 / 30",
+          "unit": "builds retained"
+        },
+        {
+          "label": "Environments: Hobby / others",
+          "value": "2 per project / Unlimited",
+          "unit": "environments"
+        },
+        {
+          "label": "Log retention: Hobby / Pro / Scale / Enterprise",
+          "value": "7 / 14 / 30 / 30",
+          "unit": "days"
+        },
+        {
+          "label": "HIPAA BAA (Scale, Enterprise)",
+          "value": "20%",
+          "unit": "compute premium for enabled workspaces"
+        },
+        {
+          "label": "Premium support (Pro, Scale)",
+          "value": "Add-on",
+          "unit": "no price listed; included on Enterprise"
+        },
+        {
+          "label": "Services & Workers: Free (limitations apply)",
+          "value": "0",
+          "unit": "USD per month, 512 MB RAM"
+        },
+        {
+          "label": "Services & Workers: Less than 1 CPU, 512 MB RAM (0.5c-512mb)",
+          "value": "7",
+          "unit": "USD per month"
+        },
+        {
+          "label": "Services & Workers: 1 CPU, 2 GB RAM (1c-2g)",
+          "value": "25",
+          "unit": "USD per month"
+        },
+        {
+          "label": "Services & Workers: 2 CPU, 4 GB RAM (2c-4g)",
+          "value": "85",
+          "unit": "USD per month (row cut off in table.png; confirmed in full.jpg and live HTML)"
+        },
+        {
+          "label": "Services & Workers: 2 CPU 8 GB / 2 CPU 16 GB (collapsed rows, live HTML only)",
+          "value": "135 / 200",
+          "unit": "USD per month"
+        },
+        {
+          "label": "Services & Workers: 4 CPU 8 GB / 16 GB / 32 GB (collapsed rows, live HTML only)",
+          "value": "175 / 225 / 350",
+          "unit": "USD per month"
+        },
+        {
+          "label": "Services & Workers: 8 CPU 16 GB / 32 GB / 64 GB (collapsed rows, live HTML only)",
+          "value": "300 / 450 / 1,000",
+          "unit": "USD per month"
+        },
+        {
+          "label": "Services & Workers: 12 CPU 24 GB / 48 GB / 96 GB (collapsed rows, live HTML only)",
+          "value": "450 / 800 / 1,500",
+          "unit": "USD per month"
+        },
+        {
+          "label": "Postgres: Free (limitations apply)",
+          "value": "0",
+          "unit": "USD per month, 256 MB RAM, 100 connections"
+        },
+        {
+          "label": "Postgres: Less than 1 CPU, 256 MB RAM (0.1c-256mb)",
+          "value": "6",
+          "unit": "USD per month, 100 connections"
+        },
+        {
+          "label": "Postgres: Less than 1 CPU, 1 GB RAM (0.5c-1g)",
+          "value": "19",
+          "unit": "USD per month, 100 connections"
+        },
+        {
+          "label": "Postgres: 1 CPU, 2 GB RAM (1c-2g)",
+          "value": "40",
+          "unit": "USD per month, 100 connections (row cut off in table.png; confirmed in live HTML)"
+        },
+        {
+          "label": "Postgres: 1c-4g / 2c-4g / 2c-8g / 2c-16g (collapsed rows, live HTML only)",
+          "value": "55 / 75 / 100 / 160",
+          "unit": "USD per month; 100 / 100 / 200 / 400 connections"
+        },
+        {
+          "label": "Postgres: 4c-16g / 4c-32g / 8c-32g / 8c-64g (collapsed rows, live HTML only)",
+          "value": "200 / 350 / 400 / 750",
+          "unit": "USD per month; 400 / 500 / 500 / 500 connections"
+        },
+        {
+          "label": "Postgres: 16c-64g / 16c-128g / 32c-128g / 32c-256g (collapsed rows, live HTML only)",
+          "value": "800 / 1,500 / 1,700 / 2,500",
+          "unit": "USD per month; 500 connections"
+        },
+        {
+          "label": "Postgres: 48c-192g / 48c-384g / 64c-256g / 64c-512g (collapsed rows, live HTML only)",
+          "value": "2,500 / 4,500 / 3,000 / 6,000",
+          "unit": "USD per month; 500 connections"
+        },
+        {
+          "label": "Postgres: 96c-384g / 96c-768g / 128c-512g / 128c-1024g (collapsed rows, live HTML only)",
+          "value": "4,600 / 9,000 / 6,200 / 11,000",
+          "unit": "USD per month; 500 connections"
+        },
+        {
+          "label": "Key Value: Free (limitations apply)",
+          "value": "Free",
+          "unit": "25 MB RAM, 50 connections"
+        },
+        {
+          "label": "Key Value: Standard CPU, 256 MB RAM",
+          "value": "10",
+          "unit": "USD per month, 250 connections"
+        },
+        {
+          "label": "Key Value: Standard CPU, 1 GB RAM",
+          "value": "32",
+          "unit": "USD per month, 1,000 connections"
+        },
+        {
+          "label": "Key Value: Standard CPU, 5 GB RAM",
+          "value": "135",
+          "unit": "USD per month, 5,000 connections (row cut off in full.jpg; confirmed in live HTML)"
+        },
+        {
+          "label": "Key Value: High CPU 10 GB / 20 GB / 40 GB (collapsed rows, live HTML only)",
+          "value": "250 / 550 / 1,100",
+          "unit": "USD per month; 10,000 / 20,000 / 40,000 connections"
+        },
+        {
+          "label": "Cron Jobs: Less than 1 CPU, 512 MB (0.5c-512mb)",
+          "value": "0.00016",
+          "unit": "USD per minute"
+        },
+        {
+          "label": "Cron Jobs: 1 CPU, 2 GB (1c-2g)",
+          "value": "0.00058",
+          "unit": "USD per minute"
+        },
+        {
+          "label": "Cron Jobs: 2 CPU, 4 GB (2c-4g)",
+          "value": "0.00197",
+          "unit": "USD per minute"
+        },
+        {
+          "label": "Cron Jobs: 2c-8g / 2c-16g / 4c-8g / 4c-16g / 4c-32g / 8c-16g / 8c-32g / 8c-64g (collapsed rows, live HTML only)",
+          "value": "0.00313 / 0.00463 / 0.00405 / 0.00521 / 0.00810 / 0.00694 / 0.01042 / 0.02315",
+          "unit": "USD per minute"
+        },
+        {
+          "label": "Workflows: flex (up to 1 CPU, up to 4 GB RAM)",
+          "value": "0.20 per active CPU hour; 0.05 per active GB hour",
+          "unit": "USD"
+        },
+        {
+          "label": "Workflows: 2 CPU 4 GB / 2 CPU 8 GB",
+          "value": "0.40 / 0.70",
+          "unit": "USD per hour"
+        },
+        {
+          "label": "Workflows: 4 CPU 8 GB / 4 CPU 16 GB (collapsed rows, live HTML only)",
+          "value": "1.00 / 1.50",
+          "unit": "USD per hour"
+        },
+        {
+          "label": "Static Sites",
+          "value": "Free",
+          "unit": "always free to deploy"
+        },
+        {
+          "label": "Free compute tiers",
+          "value": "limitations apply",
+          "unit": "limits not quantified on this page"
+        },
+        {
+          "label": "Workspace fee waiver (FAQ)",
+          "value": "waived",
+          "unit": "for any month with no services and no activity on Pro/Scale"
+        },
+        {
+          "label": "Card verification charge (FAQ)",
+          "value": "1",
+          "unit": "USD one-time security check, refunded"
+        },
+        {
+          "label": "Startup / migration credits (banner)",
+          "value": "up to 100,000 / up to 10,000",
+          "unit": "USD in credits (promotional, not list price)"
+        }
+      ]
+    },
+    {
+      "vendor": "vercel",
+      "matches": false,
+      "evidenceReadable": true,
+      "differences": [
+        {
+          "fact": "VENDORS.vercel.facts.pro.includes — '1 TB fast data transfer'",
+          "recorded": "one seat, 1 TB fast data transfer, 10M edge requests, 1M function invocations",
+          "observed": "Fast Data Transfer row — Hobby: '100 GB / month included'; Pro: 'Included in Flat Rate CDN'; Enterprise: 'Custom'. No '1 TB' / '1TB' figure appears anywhere in the screenshot, and curl of the live HTML returns 0 hits for '1TB' and '1 TB'.",
+          "source": "before--vercel.com--pricing--1440x900@2--full.jpg (Vercel Delivery Network table) and https://vercel.com/pricing raw HTML"
+        },
+        {
+          "fact": "VENDORS.vercel.facts.pro.includes — '10M edge requests'",
+          "recorded": "one seat, 1 TB fast data transfer, 10M edge requests, 1M function invocations",
+          "observed": "Edge Requests row — Hobby: '1M / month included'; Pro: 'Included in Flat Rate CDN'; Enterprise: 'Custom'. No '10M' figure appears anywhere in the screenshot; live HTML has 0 hits for '10M'.",
+          "source": "before--vercel.com--pricing--1440x900@2--full.jpg (Vercel Delivery Network table) and https://vercel.com/pricing raw HTML"
+        },
+        {
+          "fact": "VENDORS.vercel.facts.pro.includes — '1M function invocations'",
+          "recorded": "one seat, 1 TB fast data transfer, 10M edge requests, 1M function invocations",
+          "observed": "Function Invocations row — Hobby: '1M / month included'; Pro: 'Starting at $0.60 per 1M'; Enterprise: 'Custom'. The 1M included quantity is a Hobby figure; the Pro column shows only an overage rate. Pro usage is instead covered by '$20 of included usage credit'.",
+          "source": "before--vercel.com--pricing--1440x900@2--full.jpg (Vercel Compute table) and https://vercel.com/pricing"
+        },
+        {
+          "fact": "VENDORS.vercel.facts.pro.includes — 'one seat'",
+          "recorded": "one seat, 1 TB fast data transfer, 10M edge requests, 1M function invocations",
+          "observed": "Team Seats rows — Developer seat: Hobby '1', Pro '$20 / month', Enterprise 'Custom'; Viewer seat: Pro 'Unlimited'; Billing seat: Pro '1'. Pro card bullet: 'Team collaboration & free viewer seats'. The page never states how many developer seats are included in Pro; it only prices developer seats at $20/month. 'one seat' is an inference, not a page fact.",
+          "source": "before--vercel.com--pricing--1440x900@2--full.jpg (Build & Deploy > Team Seats) and https://vercel.com/pricing"
+        },
+        {
+          "fact": "VENDORS.vercel.facts.pro — missing included usage credit",
+          "recorded": "(absent from module)",
+          "observed": "Pro card: '$20 of included usage credit'. FAQ in live HTML: 'Pro plans have a $20 included credit to use across resources.' and 'On top of your included credit on Pro, you can pay as you go, uncapped.' This is the actual Pro inclusion and the module omits it.",
+          "source": "before--vercel.com--pricing--1440x900@2--table.png (Pro card) and https://vercel.com/pricing"
+        },
+        {
+          "fact": "VENDORS.vercel.facts.transferGb",
+          "recorded": "usd 0.15, unit 'per GB of fast data transfer beyond the allowance'",
+          "observed": "Fast Data Transfer — Pro: 'Included in Flat Rate CDN' with a 'Regional pricing' link. Live-page FAQ on Flat Rate CDN: 'Fixed monthly price: Pay a fixed amount for Vercel CDN each month, regardless of traffic and usage. Covers traffic spikes: CDN Requests, Fast Data Transfer, and other resources are no longer billed directly. No overages.' The only '$0.15 per GB' on the page is under 'Static IPs (shared pool)': '$100 / project / month — Starting at $0.15 per GB'.",
+          "source": "before--vercel.com--pricing--1440x900@2--full.jpg (Delivery Network table; Access & Deployment Security table) and https://vercel.com/pricing raw HTML"
+        },
+        {
+          "fact": "VENDORS.vercel.facts.edgeRequests",
+          "recorded": "usd 2, unit 'per 1M edge requests beyond the allowance'",
+          "observed": "Edge Requests — Pro: 'Included in Flat Rate CDN'. The only '$2 per 1M' on the page is 'Microfrontends Routing — $2 per 1M routed requests' (Pro). No per-1M edge-request overage rate is shown.",
+          "source": "before--vercel.com--pricing--1440x900@2--full.jpg (Delivery Network table; Content, Caching & Optimization table) and https://vercel.com/pricing raw HTML"
+        },
+        {
+          "fact": "VENDORS.vercel.facts.proSeat.unit (wording)",
+          "recorded": "usd 20, unit 'per additional seat per month'",
+          "observed": "'Developer seat — $20 / month' in the Pro column; 'Viewer seat — Unlimited'; 'Billing seat — 1'. The $20 figure is confirmed, but the page prices developer seats specifically and gives unlimited free viewer seats, so 'per additional seat' can mislead a reader into thinking every collaborator costs $20. The page also does not use the word 'additional'.",
+          "source": "before--vercel.com--pricing--1440x900@2--full.jpg (Build & Deploy > Team Seats) and https://vercel.com/pricing"
+        },
+        {
+          "fact": "VENDORS.vercel.evidence (cited screenshot)",
+          "recorded": "plan/evidence/P38/site-evidence-20260919/before--vercel.com--pricing--1440x900@2--table.png",
+          "observed": "table.png shows only the three plan cards ($0 / $20 / Custom) and the Delivery Network checkmark rows down to 'Redirects'. None of the rows the recorded facts depend on (Edge Requests, Fast Data Transfer, Function Invocations, Team Seats) are in it; they appear only in before--vercel.com--pricing--1440x900@2--full.jpg. The cited evidence cannot support facts.pro.includes, transferGb, edgeRequests or proSeat.",
+          "source": "before--vercel.com--pricing--1440x900@2--table.png"
+        },
+        {
+          "fact": "Provenance of the recorded numbers",
+          "recorded": "1 TB fast data transfer, 10M edge requests, $0.15 per GB, $2 per 1M edge requests",
+          "observed": "These four numbers match Vercel's pre-Flat-Rate-CDN price list, and WebFetch's summariser also reproduced them ('1TB / month included; then starting at $0.15 per GB', '10M / month included; then starting at $2 per 1M') even though curl of the live HTML contains none of them. The module appears to have been written from memory rather than from the 2026-09-19 screenshot; the WebFetch numbers must not be used as confirmation.",
+          "source": "https://vercel.com/pricing raw HTML (0 hits for '1TB', '1 TB', '10M', '10M / month')"
+        }
+      ],
+      "observed": [
+        {
+          "label": "Hobby plan",
+          "value": "$0",
+          "unit": "per month"
+        },
+        {
+          "label": "Pro plan",
+          "value": "$20",
+          "unit": "per month"
+        },
+        {
+          "label": "Enterprise plan",
+          "value": "Custom",
+          "unit": "contact sales"
+        },
+        {
+          "label": "Pro — included usage credit",
+          "value": "$20",
+          "unit": "of included usage credit per month, usable across resources"
+        },
+        {
+          "label": "Pro — CDN",
+          "value": "Flat Rate CDN with traffic spike protection",
+          "unit": "Pro card bullet; FAQ: fixed monthly price, no overages for CDN Requests and Fast Data Transfer"
+        },
+        {
+          "label": "Pro — viewer seats",
+          "value": "free / Unlimited",
+          "unit": "Pro card bullet 'Team collaboration & free viewer seats'; Team Seats row 'Viewer seat: Unlimited'"
+        },
+        {
+          "label": "Tax note",
+          "value": "All prices in USD, exclude VAT/GST and other taxes",
+          "unit": "footnote under plan cards"
+        },
+        {
+          "label": "Edge Requests — Hobby",
+          "value": "1M",
+          "unit": "per month included"
+        },
+        {
+          "label": "Edge Requests — Pro",
+          "value": "Included in Flat Rate CDN",
+          "unit": "no quantity or overage shown; 'Regional pricing' link"
+        },
+        {
+          "label": "Fast Data Transfer — Hobby",
+          "value": "100 GB",
+          "unit": "per month included"
+        },
+        {
+          "label": "Fast Data Transfer — Pro",
+          "value": "Included in Flat Rate CDN",
+          "unit": "no quantity or overage shown; 'Regional pricing' link"
+        },
+        {
+          "label": "Custom Firewall Rules",
+          "value": "Hobby up to 3 / Pro up to 40 / Enterprise up to 1,000",
+          "unit": "rules"
+        },
+        {
+          "label": "IP Blocking",
+          "value": "Hobby up to 3 / Pro up to 100 / Enterprise up to 1,000",
+          "unit": "rules"
+        },
+        {
+          "label": "System Bypass Rules",
+          "value": "Hobby — / Pro up to 25 / Enterprise up to 100",
+          "unit": "rules"
+        },
+        {
+          "label": "Firewall Rate Limit Requests — Hobby",
+          "value": "1M",
+          "unit": "allowed requests per month included"
+        },
+        {
+          "label": "Firewall Rate Limit Requests — Pro",
+          "value": "Starting at $0.50",
+          "unit": "per 1M allowed requests"
+        },
+        {
+          "label": "BotID — Hobby",
+          "value": "Basic checks included",
+          "unit": ""
+        },
+        {
+          "label": "BotID — Pro",
+          "value": "$1",
+          "unit": "per 1,000 Deep Analysis checks"
+        },
+        {
+          "label": "ISR Reads — Hobby",
+          "value": "1M",
+          "unit": "per month included"
+        },
+        {
+          "label": "ISR Reads — Pro",
+          "value": "Starting at $0.40",
+          "unit": "per 1M"
+        },
+        {
+          "label": "ISR Writes — Hobby",
+          "value": "200k",
+          "unit": "per month included"
+        },
+        {
+          "label": "ISR Writes — Pro",
+          "value": "Starting at $4",
+          "unit": "per 1M"
+        },
+        {
+          "label": "Bulk Redirects — Pro",
+          "value": "1K included per project; then $50",
+          "unit": "per month per 25K redirects"
+        },
+        {
+          "label": "Blob Storage Size — Hobby",
+          "value": "1 GB",
+          "unit": "per month included"
+        },
+        {
+          "label": "Blob Storage Size — Pro",
+          "value": "$0.023",
+          "unit": "per GB"
+        },
+        {
+          "label": "Blob Simple Operations",
+          "value": "Hobby 10K / month included; Pro $0.40",
+          "unit": "per 1M"
+        },
+        {
+          "label": "Blob Advanced Operations",
+          "value": "Hobby 2K / month included; Pro $5",
+          "unit": "per 1M"
+        },
+        {
+          "label": "Blob Data Transfer",
+          "value": "Hobby 10 GB / month included; Pro Included in Flat Rate CDN",
+          "unit": ""
+        },
+        {
+          "label": "Image Optimization Transformation",
+          "value": "Hobby 5K / month included; Pro Starting at $0.05",
+          "unit": "per 1K"
+        },
+        {
+          "label": "Image Optimization Cache Reads",
+          "value": "Hobby 300K / month included; Pro Starting at $0.40",
+          "unit": "per 1M"
+        },
+        {
+          "label": "Image Optimization Cache Writes",
+          "value": "Hobby 100K / month included; Pro Starting at $4",
+          "unit": "per 1M"
+        },
+        {
+          "label": "Global Config Reads",
+          "value": "Hobby 100K / month included; Pro Starting at $3",
+          "unit": "per 1M reads"
+        },
+        {
+          "label": "Global Config Writes",
+          "value": "Hobby 100 writes / month included; Pro $1",
+          "unit": "per 100 writes"
+        },
+        {
+          "label": "Microfrontends",
+          "value": "Hobby 2 included projects; Pro 2 included projects then $250",
+          "unit": "per additional project"
+        },
+        {
+          "label": "Microfrontends Routing",
+          "value": "Hobby 50K routed requests / month included; Pro $2",
+          "unit": "per 1M routed requests"
+        },
+        {
+          "label": "Fluid Active CPU",
+          "value": "Hobby 4 hours / month included; Pro Starting at $0.128",
+          "unit": "per hour"
+        },
+        {
+          "label": "Fluid Provisioned Memory",
+          "value": "Hobby 360 GB-hrs / month included; Pro Starting at $0.0106",
+          "unit": "per GB-hr"
+        },
+        {
+          "label": "Function Invocations",
+          "value": "Hobby 1M / month included; Pro Starting at $0.60",
+          "unit": "per 1M"
+        },
+        {
+          "label": "Service Requests (Beta)",
+          "value": "Hobby 1M requests / month included; Pro Starting at $0.50",
+          "unit": "per 1M"
+        },
+        {
+          "label": "Sandbox Active CPU",
+          "value": "Hobby 5 hours / month included; Pro Starting at $0.128",
+          "unit": "per hour"
+        },
+        {
+          "label": "Sandbox Provisioned Memory",
+          "value": "Hobby 420 GB-hrs / month included; Pro Starting at $0.0212",
+          "unit": "per GB-hr"
+        },
+        {
+          "label": "Sandbox Creations",
+          "value": "Hobby 5K / month included; Pro Starting at $0.60",
+          "unit": "per 1M"
+        },
+        {
+          "label": "Sandbox Data Transfer",
+          "value": "Hobby 20 GB / month included; Pro Included in Flat Rate CDN",
+          "unit": ""
+        },
+        {
+          "label": "Concurrent Sandboxes",
+          "value": "Hobby 10; Pro 10K",
+          "unit": "sandboxes"
+        },
+        {
+          "label": "Snapshot Storage",
+          "value": "Hobby 15 GB; Pro Starting at $0.08",
+          "unit": "per GB-month"
+        },
+        {
+          "label": "Container Registry Image Storage (Beta)",
+          "value": "Hobby 10 GB / month included; Pro $0.10",
+          "unit": "per GB-month"
+        },
+        {
+          "label": "Fast Origin Transfer",
+          "value": "Hobby 10 GB / month included; Pro Starting at $0.06",
+          "unit": "per GB"
+        },
+        {
+          "label": "Workflow Events",
+          "value": "Hobby 50K events / month included; Pro $20",
+          "unit": "per 1M"
+        },
+        {
+          "label": "Workflow Storage Writes",
+          "value": "Hobby 1 GB; Pro $0.50",
+          "unit": "per GB"
+        },
+        {
+          "label": "Workflow Storage Retention",
+          "value": "Hobby —; Pro $0.50",
+          "unit": "per GB-month"
+        },
+        {
+          "label": "Queues API Operations (Beta)",
+          "value": "Hobby 1M / month included; Pro Starting at $0.60",
+          "unit": "per 1M"
+        },
+        {
+          "label": "v0",
+          "value": "Hobby —; Pro Paid add-on; Enterprise Paid add-on",
+          "unit": ""
+        },
+        {
+          "label": "Vercel Agent (Beta) — Pro",
+          "value": "$0.25",
+          "unit": "per million tokens + pass-through token cost"
+        },
+        {
+          "label": "AI Gateway Token Requests",
+          "value": "Hobby 500 requests / month included; Pro $3.00",
+          "unit": "per 1,000 requests"
+        },
+        {
+          "label": "AI Gateway Triggers",
+          "value": "Hobby 1,000 triggers / month included; Pro $0.95",
+          "unit": "per 1,000 triggers"
+        },
+        {
+          "label": "Custom Environments",
+          "value": "Hobby —; Pro 1 environment; Enterprise 12 environments",
+          "unit": ""
+        },
+        {
+          "label": "Build minutes — Basic machines",
+          "value": "Hobby Included; Pro $0.007",
+          "unit": "per minute"
+        },
+        {
+          "label": "Build minutes — Standard machines",
+          "value": "Pro $0.014",
+          "unit": "per minute"
+        },
+        {
+          "label": "Build minutes — Enhanced machines",
+          "value": "Pro $0.028",
+          "unit": "per minute"
+        },
+        {
+          "label": "Build minutes — Turbo machines",
+          "value": "Pro $0.105",
+          "unit": "per minute"
+        },
+        {
+          "label": "Build minutes — Elastic machines",
+          "value": "Pro $0.0035",
+          "unit": "per CPU minute"
+        },
+        {
+          "label": "Deployments",
+          "value": "Unlimited",
+          "unit": "all plans"
+        },
+        {
+          "label": "Rolling Releases — Pro",
+          "value": "1 project included",
+          "unit": ""
+        },
+        {
+          "label": "Preview Deployment Suffix — Pro",
+          "value": "$100",
+          "unit": "per month"
+        },
+        {
+          "label": "Developer seat",
+          "value": "Hobby 1; Pro $20; Enterprise Custom",
+          "unit": "per month (Pro)"
+        },
+        {
+          "label": "Viewer seat",
+          "value": "Hobby —; Pro Unlimited; Enterprise Custom",
+          "unit": ""
+        },
+        {
+          "label": "Billing seat",
+          "value": "Hobby —; Pro 1; Enterprise Custom",
+          "unit": ""
+        },
+        {
+          "label": "Flags Explorer overrides",
+          "value": "Hobby 150 overrides / month included; Pro 150 overrides / month included then $250",
+          "unit": "for unlimited overrides"
+        },
+        {
+          "label": "Flag Requests",
+          "value": "Hobby 10K requests / month included; Pro $0.03",
+          "unit": "per 1K requests"
+        },
+        {
+          "label": "Observability Events (Add-On) — Pro",
+          "value": "$1.20",
+          "unit": "per 1M events"
+        },
+        {
+          "label": "Observability extended retention",
+          "value": "Pro 30 days; Enterprise 30 days",
+          "unit": ""
+        },
+        {
+          "label": "Speed Insights Plus Events",
+          "value": "Hobby 10K events / month included; Pro $10 / project / month + $0.65",
+          "unit": "per 10K events"
+        },
+        {
+          "label": "Web Analytics Events",
+          "value": "Hobby 50K events / month included; Pro $3",
+          "unit": "per 100K events"
+        },
+        {
+          "label": "Web Analytics Plus (Add-On) — Pro",
+          "value": "$10",
+          "unit": "per month"
+        },
+        {
+          "label": "Runtime Logs",
+          "value": "Hobby 1 hour of logs; Pro 1 day of logs (30 days with Observability Plus); Enterprise 3 days",
+          "unit": ""
+        },
+        {
+          "label": "Session Tracing",
+          "value": "Hobby 1 hour of traces; Pro 1 day; Enterprise 3 days",
+          "unit": ""
+        },
+        {
+          "label": "Drains Volume — Pro",
+          "value": "$0.50",
+          "unit": "per 1 GB"
+        },
+        {
+          "label": "SAML Single Sign-On — Pro",
+          "value": "$300",
+          "unit": "per month"
+        },
+        {
+          "label": "Password Protection — Pro",
+          "value": "$20",
+          "unit": "per project per month"
+        },
+        {
+          "label": "Static IPs (shared pool) — Pro",
+          "value": "$100 / project / month; Starting at $0.15",
+          "unit": "per GB"
+        },
+        {
+          "label": "HIPAA BAA — Pro",
+          "value": "$350",
+          "unit": "per month"
+        },
+        {
+          "label": "Regional pricing",
+          "value": "'Regional pricing' link under Delivery Network, Firewall, Content/Caching, Compute and Observability tables",
+          "unit": "overage rates marked 'Starting at' vary by region"
+        }
+      ]
+    },
+    {
+      "vendor": "railway",
+      "matches": false,
+      "evidenceReadable": true,
+      "differences": [
+        {
+          "fact": "pro.unit",
+          "recorded": "per workspace per month (usd 20)",
+          "observed": "Pro card: \"$20 minimum usage\", \"Includes $20 of monthly usage credits\", \"Unlimited workspace seats included\". The phrase \"per workspace\" appears nowhere on the page (raw HTML searched); the page frames $20 as a monthly minimum that is fully usable as usage credit, not a per-workspace subscription fee.",
+          "source": "before--railway.com--pricing--1440x900@2--table.png; https://railway.com/pricing"
+        },
+        {
+          "fact": "hobby.unit / hobby.includes",
+          "recorded": "per month (usd 5); includes \"$5 of usage\"",
+          "observed": "Hobby card: \"$5 minimum usage\", \"Includes $5 of monthly usage credits\", \"Single developer workspace\". FAQ: \"Your Hobby plan subscription includes $5 of usage per month ... If your total usage exceeds $5 in any given billing period, you will be charged total usage\"; \"Included usage is reset at the end of every billing cycle and does not accumulate\". Number matches; the unit omits the page's \"minimum usage\" framing.",
+          "source": "before--railway.com--pricing--1440x900@2--table.png; https://railway.com/pricing (FAQ JSON-LD)"
+        },
+        {
+          "fact": "free.includes",
+          "recorded": "$1 of usage a month",
+          "observed": "Free card: \"Start with a 30-day free trial with $5 credits, then $1 per month\". The string \"$1 of\" is absent from the page; \"$1 per month\" is the page's ambiguous wording. FAQ: trial is \"a one-time grant of $5 in credits ... expire in 30 days\". Module omits the $5 trial and the hard caps on the card: \"Up to 1 vCPU / 0.5 GB RAM per service\", \"0.5 GB of volume storage\" (compare table after trial: 1 project, 3 services per project, 1 replica, 0 custom domains, global regions unavailable, 3-day log retention).",
+          "source": "before--railway.com--pricing--1440x900@2--table.png; before--railway.com--pricing--1440x900@2--full.jpg (compare table); https://railway.com/pricing"
+        },
+        {
+          "fact": "vcpuMonth",
+          "recorded": "20 per vCPU-month",
+          "observed": "CPU: \"$0.00000772 per vCPU / sec\" (JSON-LD value 0.0000077160 per vCPU-second). No \"$20 per vCPU\" or per-month CPU price exists on the page; $20 is a derived figure: $20.01 for a 30-day month, $20.29 for 730 h, $20.68 for 31 days. The only \"per vCPU-month\" wording on the page is the sandbox line \"about $50 per vCPU-month, active use only\".",
+          "source": "before--railway.com--pricing--1440x900@2--table.png; https://railway.com/pricing (JSON-LD)"
+        },
+        {
+          "fact": "memoryGbMonth",
+          "recorded": "10 per GB of memory per month",
+          "observed": "Memory: \"$0.00000386 per GB / sec\" (JSON-LD 0.0000038580). \"$10 per GB\" is absent from the page; derived: $10.01 per 30-day month, $10.14 per 730 h, $10.34 per 31 days.",
+          "source": "before--railway.com--pricing--1440x900@2--table.png; https://railway.com/pricing (JSON-LD)"
+        },
+        {
+          "fact": "volumeGbMonth",
+          "recorded": "0.15 per GB of volume per month",
+          "observed": "Volumes: \"$0.00000006 per GB / sec\" (JSON-LD 0.0000000579). \"$0.15\" appears nowhere on the page except CSS. The displayed rate implies $0.1555 per 30-day month (rounds to $0.16) and $0.158 per 730 h; only the unrounded JSON-LD rate gives $0.150 per 30 days.",
+          "source": "before--railway.com--pricing--1440x900@2--table.png; https://railway.com/pricing (JSON-LD)"
+        },
+        {
+          "fact": "egressGb (wording scope)",
+          "recorded": "0.05 per GB of egress",
+          "observed": "Egress: \"$0.05 per GB\" with the qualifier \"for services\"; Object Storage is \"$0.015 per GB-month, free egress\" and the compare table lists \"Bucket egress: Free\" on every plan; sandbox egress is separately \"$0.05 per GB for sandboxes\". Number confirmed; unit lacks the \"for services\" scope.",
+          "source": "before--railway.com--pricing--1440x900@2--table.png; before--railway.com--pricing--1440x900@2--full.jpg"
+        },
+        {
+          "fact": "seats (absent from module)",
+          "recorded": "(none)",
+          "observed": "Pro: \"Unlimited workspace seats included\" (team members Unlimited); Hobby: \"Single developer workspace\" (team members —, project members 3); Free: project members 1. Railway charges $0 per seat, which matters against Vercel's $20 proSeat fact.",
+          "source": "before--railway.com--pricing--1440x900@2--table.png; before--railway.com--pricing--1440x900@2--full.jpg (Collaboration rows)"
+        },
+        {
+          "fact": "plan caps (absent from module)",
+          "recorded": "(none)",
+          "observed": "Hobby: up to 48 vCPU / 48 GB RAM per service, up to 5 GB volume storage, 50 projects, 50 services per project, replicas \"Up to 5\" on the card but \"Up to 6\" in the compare table (page is internally inconsistent). Pro: up to 1,000 vCPU / 1 TB RAM per service, up to 1 TB volume storage, 100 projects, 100 services per project, up to 42 replicas at 24 vCPU / 24 GB each.",
+          "source": "before--railway.com--pricing--1440x900@2--table.png; before--railway.com--pricing--1440x900@2--full.jpg (Resources & limits, Scaling rows)"
+        },
+        {
+          "fact": "sandboxes & VMs (absent from module)",
+          "recorded": "(none)",
+          "observed": "Memory \"$0.00001929 per GB / sec, about $50 per GB-month, while running\"; CPU \"$0.00001929 per vCPU / sec, about $50 per vCPU-month, active use only\"; Egress \"$0.05 per GB for sandboxes\"; FAQ: \"Sandbox usage draws from the same included credit as the rest of your plan\".",
+          "source": "before--railway.com--pricing--1440x900@2--table.png; https://railway.com/pricing (FAQ JSON-LD)"
+        },
+        {
+          "fact": "object storage (absent from module)",
+          "recorded": "(none)",
+          "observed": "\"$0.015 per GB-month, free egress\"; Class A and Class B operations Free; max storage Free 10 GB (50 GB during trial), Hobby 1 TB, Pro Unlimited.",
+          "source": "before--railway.com--pricing--1440x900@2--table.png; before--railway.com--pricing--1440x900@2--full.jpg (Object Storage rows)"
+        },
+        {
+          "fact": "enterprise add-on commitments (absent from module)",
+          "recorded": "(none)",
+          "observed": "\"Unlock more as you grow — Commit to a minimum monthly spend to unlock all features up to your spend\": HIPAA BAAs $1,000; Log History, RBAC, SSO, Audit Logs $2,000; Enterprise Support, Cloud Regions, Higher Resource Limits $5,000; Dedicated VMs $10,000.",
+          "source": "before--railway.com--pricing--1440x900@2--full.jpg (Unlock more as you grow section)"
+        }
+      ],
+      "observed": [
+        {
+          "label": "Free plan price",
+          "value": "$0",
+          "unit": "per month"
+        },
+        {
+          "label": "Free plan trial credit",
+          "value": "$5",
+          "unit": "one-time credits, 30-day free trial (FAQ: expire in 30 days, carry over on upgrade)"
+        },
+        {
+          "label": "Free plan usage after trial",
+          "value": "$1",
+          "unit": "per month ('then $1 per month' on the card; not phrased as 'of usage')"
+        },
+        {
+          "label": "Free plan compute cap",
+          "value": "1 vCPU / 0.5 GB RAM",
+          "unit": "per service (2 vCPU / 1 GB during trial)"
+        },
+        {
+          "label": "Free plan volume storage",
+          "value": "0.5 GB",
+          "unit": "total"
+        },
+        {
+          "label": "Free plan limits after trial",
+          "value": "1 project, 3 services per project, 1 replica per service, 1 volume, 1 bucket, 0 custom domains, 2 service domains, no global regions, 3-day log retention, 1 GB ephemeral disk, 4 GB build image, 10 min build timeout, 1 concurrent build",
+          "unit": "after trial (5 projects / 5 services / 2 replicas / 3 volumes / 1 custom domain / 7-day logs / 20 min / 3 builds during trial)"
+        },
+        {
+          "label": "Hobby plan price",
+          "value": "$5",
+          "unit": "minimum usage per month"
+        },
+        {
+          "label": "Hobby included credits",
+          "value": "$5",
+          "unit": "of monthly usage credits (FAQ: if total usage exceeds $5 you are charged total usage; does not accumulate)"
+        },
+        {
+          "label": "Hobby seats",
+          "value": "Single developer workspace",
+          "unit": "team members none; project members 3"
+        },
+        {
+          "label": "Hobby compute cap",
+          "value": "48 vCPU / 48 GB RAM",
+          "unit": "per service"
+        },
+        {
+          "label": "Hobby replicas",
+          "value": "Up to 5 replicas at 8 vCPU / 8 GB RAM per replica (card); Up to 6 (compare table)",
+          "unit": "per service"
+        },
+        {
+          "label": "Hobby volume storage",
+          "value": "Up to 5 GB",
+          "unit": "total"
+        },
+        {
+          "label": "Hobby other limits",
+          "value": "50 projects, 50 services per project, 10 volumes per project, 50 buckets, 2 custom domains, 4 service domains, 7-day log history, 99.9% availability target, 100 GB ephemeral disk, 100 GB build image, 40 min build timeout, 3 concurrent builds, 48-hour audit logs",
+          "unit": "per plan"
+        },
+        {
+          "label": "Pro plan price",
+          "value": "$20",
+          "unit": "minimum usage per month ('per workspace' not stated on the page)"
+        },
+        {
+          "label": "Pro included credits",
+          "value": "$20",
+          "unit": "of monthly usage credits"
+        },
+        {
+          "label": "Pro seats",
+          "value": "Unlimited workspace seats included",
+          "unit": "$0 per seat; team members Unlimited; roles Admin, Member, Deployer"
+        },
+        {
+          "label": "Pro compute cap",
+          "value": "1,000 vCPU / 1 TB RAM",
+          "unit": "per service"
+        },
+        {
+          "label": "Pro replicas",
+          "value": "Up to 42 replicas at 24 vCPU / 24 GB RAM per replica",
+          "unit": "per service"
+        },
+        {
+          "label": "Pro volume storage",
+          "value": "Up to 1 TB",
+          "unit": "total"
+        },
+        {
+          "label": "Pro other limits",
+          "value": "100 projects, 100 services per project, 20 volumes per project (can be increased), 100 buckets, 20 custom domains, 20 service domains, 30-day log history, 99.99% availability target, Railway/priority support, SOC 2, built-in database and volume backups, SMTP, concurrent global regions, unlimited build image, 90 min build timeout, 10 concurrent builds, 30-day audit logs",
+          "unit": "per plan"
+        },
+        {
+          "label": "Enterprise plan price",
+          "value": "Custom",
+          "unit": "contact sales; up to 2,400 vCPU / 2.4 TB RAM per service, 50 replicas at 48 vCPU / 48 GB, 5 TB volume storage, 90-day logs, 18-month audit logs, SSO, HIPAA BAAs, dedicated VMs, BYO cloud, 99.999% availability target"
+        },
+        {
+          "label": "CPU rate",
+          "value": "$0.00000772",
+          "unit": "per vCPU / sec (JSON-LD 0.0000077160; = $20.01 per 30-day month, $20.29 per 730 h, $20.68 per 31 days; no monthly figure printed)"
+        },
+        {
+          "label": "Memory rate",
+          "value": "$0.00000386",
+          "unit": "per GB / sec (JSON-LD 0.0000038580; = $10.01 per 30-day month, $10.14 per 730 h; no monthly figure printed)"
+        },
+        {
+          "label": "Volumes rate",
+          "value": "$0.00000006",
+          "unit": "per GB / sec (JSON-LD 0.0000000579; displayed rate = $0.1555 per 30-day month, $0.158 per 730 h; unrounded = $0.150 per 30 days; '$0.15' not printed)"
+        },
+        {
+          "label": "Egress rate",
+          "value": "$0.05",
+          "unit": "per GB for services"
+        },
+        {
+          "label": "Object Storage rate",
+          "value": "$0.015",
+          "unit": "per GB-month, free egress; Class A/B operations free; max storage Free 10 GB (50 GB in trial), Hobby 1 TB, Pro unlimited"
+        },
+        {
+          "label": "Sandbox memory rate",
+          "value": "$0.00001929",
+          "unit": "per GB / sec, about $50 per GB-month, while running"
+        },
+        {
+          "label": "Sandbox CPU rate",
+          "value": "$0.00001929",
+          "unit": "per vCPU / sec, about $50 per vCPU-month, active use only"
+        },
+        {
+          "label": "Sandbox egress rate",
+          "value": "$0.05",
+          "unit": "per GB for sandboxes; sandbox usage draws from the plan's included credit"
+        },
+        {
+          "label": "Sandbox limits",
+          "value": "Running sandboxes per environment 10 / 50 / 100 / 100+; default size 2 vCPU/2 GB, 4/4, 8/8, 8/8; max size 2/2, 8/8, 32/32, custom; idle timeout up to 5 min (Free) or up to 2 hours or never",
+          "unit": "Free / Hobby / Pro / Enterprise"
+        },
+        {
+          "label": "Railway Agent default spend limit",
+          "value": "$5 (Hobby), $20 (Pro), Custom (Enterprise), none on Free",
+          "unit": "per month"
+        },
+        {
+          "label": "Add-on: HIPAA BAAs",
+          "value": "$1,000",
+          "unit": "minimum monthly spend commitment"
+        },
+        {
+          "label": "Add-on: Log History, RBAC, SSO, Audit Logs",
+          "value": "$2,000",
+          "unit": "minimum monthly spend commitment"
+        },
+        {
+          "label": "Add-on: Enterprise Support, Cloud Regions, Higher Resource Limits",
+          "value": "$5,000",
+          "unit": "minimum monthly spend commitment (services with 48 vCPU / 48 GB RAM per replica)"
+        },
+        {
+          "label": "Add-on: Dedicated VMs",
+          "value": "$10,000",
+          "unit": "minimum monthly spend commitment"
+        },
+        {
+          "label": "IOPS",
+          "value": "3,000 read/write operations per second",
+          "unit": "Free, Hobby, Pro (Enterprise custom)"
+        },
+        {
+          "label": "Hard and soft limits",
+          "value": "available",
+          "unit": "all plans"
+        },
+        {
+          "label": "Evidence legibility note",
+          "value": "table.png legible directly (cookie banner overlaps the Free card but price text is readable); full.jpg legible only after cropping into 1000-px bands",
+          "unit": "note"
+        },
+        {
+          "label": "WebFetch reliability note",
+          "value": "WebFetch returned numbers, but its 'Monthly Equivalent' column ($20 per vCPU, $10 per GB, $0.15 per GB) and the quote 'Pro — $20/month per workspace' do not exist in the page HTML; live-page facts above come from the raw HTML and JSON-LD",
+          "unit": "note"
+        }
+      ]
+    }
+  ]
+}

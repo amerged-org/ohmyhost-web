@@ -1,0 +1,353 @@
+{
+  "capturedAt": "2026-09-20T05:22:32.927Z",
+  "label": "before",
+  "tool": {
+    "playwright": "1.62.1",
+    "modulePath": "/Users/sebastianmertens/.npm/_npx/8b5a392adfb8ea03/node_modules/playwright",
+    "chromium": "151.0.7922.34",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+  },
+  "context": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "deviceScaleFactor": 2,
+    "locale": "en-US",
+    "timezoneId": "America/New_York"
+  },
+  "entries": [
+    {
+      "file": "before--vercel.com--pricing--1440x900@2--full.jpg",
+      "url": "https://vercel.com/pricing",
+      "finalUrl": "https://vercel.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:22:35.509Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 828621,
+      "sha256": "c70932fd0c18e3ae60513f908470f355768f6a29a99f5849edfe798747b6fab4"
+    },
+    {
+      "file": "before--vercel.com--pricing--1440x900@2--table.png",
+      "url": "https://vercel.com/pricing",
+      "finalUrl": "https://vercel.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:22:35.509Z",
+      "kind": "crop",
+      "selector": "main",
+      "consent": "none",
+      "hiddenSelectors": [
+        "[id*=\"cookie\" i],[class*=\"cookie\" i],[id*=\"consent\" i],[class*=\"consent\" i],[id*=\"onetrust\" i]"
+      ],
+      "bytes": 600684,
+      "sha256": "e617b4e0388013341a8d9cad022c7b4985e002f2e4c06d759b22836e58e679df"
+    },
+    {
+      "file": "before--supabase.com--pricing--1440x900@2--full.jpg",
+      "url": "https://supabase.com/pricing",
+      "finalUrl": "https://supabase.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:22:38.375Z",
+      "kind": "full",
+      "consent": "clicked:Accept",
+      "bytes": 866574,
+      "sha256": "97743b183ce5c83cd82470039318ab5c94f3e8f9ce6c2f969fee8e894bca4e63"
+    },
+    {
+      "file": "before--supabase.com--pricing--1440x900@2--table.png",
+      "url": "https://supabase.com/pricing",
+      "finalUrl": "https://supabase.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:22:38.375Z",
+      "kind": "crop",
+      "selector": "main table",
+      "consent": "clicked:Accept",
+      "hiddenSelectors": [
+        "[id*=\"cookie\" i],[class*=\"cookie\" i],[id*=\"consent\" i],[class*=\"consent\" i],[id*=\"onetrust\" i]"
+      ],
+      "bytes": 89309,
+      "sha256": "8b8bb809482281ce8d070757f78311d7c3e997f7a3716f9aa33f3cdebe05de39"
+    },
+    {
+      "file": "before--resend.com--pricing--1440x900@2--full.jpg",
+      "url": "https://resend.com/pricing",
+      "finalUrl": "https://resend.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:22:41.646Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 597392,
+      "sha256": "eb6a24a96e8cb148449d56cc3656138648821ef09902ef0a749e25e93addd4f0"
+    },
+    {
+      "file": "before--resend.com--pricing--1440x900@2--table.png",
+      "url": "https://resend.com/pricing",
+      "finalUrl": "https://resend.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:22:41.646Z",
+      "kind": "crop",
+      "selector": "body",
+      "consent": "none",
+      "hiddenSelectors": [
+        "[id*=\"cookie\" i],[class*=\"cookie\" i],[id*=\"consent\" i],[class*=\"consent\" i],[id*=\"onetrust\" i]"
+      ],
+      "bytes": 786696,
+      "sha256": "f682dc2fe9df1e688de6bb121f6671e7969f990a73de9ead92b1f2830ff7b726"
+    },
+    {
+      "file": "before--railway.com--pricing--1440x900@2--full.jpg",
+      "url": "https://railway.com/pricing",
+      "finalUrl": "https://railway.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:22:44.286Z",
+      "kind": "full",
+      "consent": "clicked:Accept All",
+      "bytes": 947042,
+      "sha256": "f3d58f8a2123dc2a8c5802f478fc54c953e601b429c4fd4ce522f8ea672bf95c"
+    },
+    {
+      "file": "before--railway.com--pricing--1440x900@2--table.png",
+      "url": "https://railway.com/pricing",
+      "finalUrl": "https://railway.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:22:44.286Z",
+      "kind": "crop",
+      "selector": "body",
+      "consent": "clicked:Accept All",
+      "hiddenSelectors": [
+        "[id*=\"cookie\" i],[class*=\"cookie\" i],[id*=\"consent\" i],[class*=\"consent\" i],[id*=\"onetrust\" i]"
+      ],
+      "bytes": 1525666,
+      "sha256": "cf769cad7fee5bbbd0dd0eea5526c8b28617b195ee0ddca8f0e9a7c5b65ee36a"
+    },
+    {
+      "file": "before--render.com--pricing--1440x900@2--full.jpg",
+      "url": "https://render.com/pricing",
+      "finalUrl": "https://render.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:22:48.267Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 1241772,
+      "sha256": "027d73c52617967940afcb37a73d28e5b0bd300a299a45ccfdfd18eb5fdfcf7f"
+    },
+    {
+      "file": "before--render.com--pricing--1440x900@2--table.png",
+      "url": "https://render.com/pricing",
+      "finalUrl": "https://render.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:22:48.267Z",
+      "kind": "crop",
+      "selector": "main table",
+      "consent": "none",
+      "hiddenSelectors": [
+        "[id*=\"cookie\" i],[class*=\"cookie\" i],[id*=\"consent\" i],[class*=\"consent\" i],[id*=\"onetrust\" i]"
+      ],
+      "bytes": 170989,
+      "sha256": "abc3efe16ad948bea13b162e02e1cad15f24c0b1d7f45557d935e40e303dcede"
+    },
+    {
+      "file": "before--fly.io--pricing--1440x900@2--full.jpg",
+      "url": "https://fly.io/pricing",
+      "finalUrl": "https://fly.io/pricing/",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:22:51.717Z",
+      "kind": "full",
+      "consent": "clicked:Accept",
+      "bytes": 325800,
+      "sha256": "0b5a6b3a5fbb6ae9cf5793b0a8b45c165a556a51d2616f2e3b24afc965c18cf4"
+    },
+    {
+      "file": "before--fly.io--pricing--1440x900@2--table.png",
+      "url": "https://fly.io/pricing",
+      "finalUrl": "https://fly.io/pricing/",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:22:51.717Z",
+      "kind": "crop",
+      "selector": "main table",
+      "consent": "clicked:Accept",
+      "hiddenSelectors": [
+        "[id*=\"cookie\" i],[class*=\"cookie\" i],[id*=\"consent\" i],[class*=\"consent\" i],[id*=\"onetrust\" i]"
+      ],
+      "bytes": 36031,
+      "sha256": "93acd54473ff4bfd6453025b6e2778f16411923657006e67db7bca4bc28b6d4f"
+    },
+    {
+      "file": "before--ohmyho.st--home--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/",
+      "finalUrl": "https://ohmyho.st/",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:22:54.029Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 793097,
+      "sha256": "8c9f12d922ec7dc2d0417f536c11631a39b9fe36e17c1f83cac4fde26fb9da65"
+    },
+    {
+      "file": "before--ohmyho.st--pricing--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/pricing",
+      "finalUrl": "https://ohmyho.st/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:22:56.332Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 111600,
+      "sha256": "4de22aef23f3341a1173d7847cfa5e69a15dd3eddbb70859f1da459eaf6282cc"
+    },
+    {
+      "file": "before--ohmyho.st--pricing-breakdown--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/pricing/breakdown",
+      "finalUrl": "https://ohmyho.st/pricing/breakdown",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:22:58.450Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 218779,
+      "sha256": "2c106de45706a6c43b1482e37067ae70815c95e143b99c16b699e4c805c918c8"
+    },
+    {
+      "file": "before--ohmyho.st--vs-vercel--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/vs/vercel",
+      "finalUrl": "https://ohmyho.st/vs/vercel",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:23:00.574Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 115599,
+      "sha256": "cabec2e808ee022fa2e081b1973689ac8ef259ddb0470f130512d3068c128cf9"
+    },
+    {
+      "file": "before--ohmyho.st--vs-supabase--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/vs/supabase",
+      "finalUrl": "https://ohmyho.st/vs/supabase",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:23:02.693Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 100320,
+      "sha256": "e03fdf099b23ef1f98694855ac25cf009d0302bc9e0717f4c2ef11d00e11e518"
+    },
+    {
+      "file": "before--ohmyho.st--vs-resend--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/vs/resend",
+      "finalUrl": "https://ohmyho.st/vs/resend",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:23:04.803Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 105723,
+      "sha256": "1e9b55c99f2f99d65de2423f0e1e024f1ce681fcca2453563e93746d4a85c56e"
+    },
+    {
+      "file": "before--ohmyho.st--vs-railway--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/vs/railway",
+      "finalUrl": "https://ohmyho.st/vs/railway",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:23:06.917Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 91643,
+      "sha256": "793de3dd1d4144bebeae0996f34bc81b00b1b28648d6c4180d4a77e4bcec9485"
+    },
+    {
+      "file": "before--ohmyho.st--for-claude-code--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/for/claude-code",
+      "finalUrl": "https://ohmyho.st/for/claude-code",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:23:09.033Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 91170,
+      "sha256": "36390e5960fadf528b5e0a7455f3c7706ad7cde97531246f020ceb095f081d9f"
+    },
+    {
+      "file": "before--ohmyho.st--for-cursor--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/for/cursor",
+      "finalUrl": "https://ohmyho.st/for/cursor",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:23:11.148Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 90449,
+      "sha256": "0d1ec74a9783075cc0bbdec96d78bb5e751127a355eedad063e74e4f3d5df419"
+    },
+    {
+      "file": "before--ohmyho.st--for-codex--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/for/codex",
+      "finalUrl": "https://ohmyho.st/for/codex",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:23:13.271Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 88517,
+      "sha256": "1a7a6acec7d5a9b5062249388f67914a785a381d6c076dccf3240d6dab57c211"
+    },
+    {
+      "file": "before--ohmyho.st--from-lovable--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/from/lovable",
+      "finalUrl": "https://ohmyho.st/from/lovable",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:23:15.389Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 100746,
+      "sha256": "c9f808c000cd6ea77e871b6457d74c1ef6a3f8ee5d6692083403073e08fe6757"
+    },
+    {
+      "file": "before--ohmyho.st--from-bolt--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/from/bolt",
+      "finalUrl": "https://ohmyho.st/from/bolt",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:23:17.499Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 99447,
+      "sha256": "ae65b41430e7fac52130a03dca07f129a815bd6c9329e82816148a5829a82690"
+    },
+    {
+      "file": "before--ohmyho.st--about--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/about",
+      "finalUrl": "https://ohmyho.st/about",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:23:19.614Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 63887,
+      "sha256": "c9240af5835e57ca5231609a63e759bf24b2fe1041a9193f38a0a083ba299eee"
+    },
+    {
+      "file": "before--ohmyho.st--philosophy--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/philosophy",
+      "finalUrl": "https://ohmyho.st/philosophy",
+      "httpStatus": 404,
+      "capturedAt": "2026-09-20T05:23:21.664Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 18840,
+      "sha256": "2dae7b85750844d7cdab0ec5ecf0005b6da9af0d70f321dda24bd4c7129567b6"
+    },
+    {
+      "file": "before--ohmyho.st--open-source--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/open-source",
+      "finalUrl": "https://ohmyho.st/open-source",
+      "httpStatus": 404,
+      "capturedAt": "2026-09-20T05:23:23.712Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 18840,
+      "sha256": "2dae7b85750844d7cdab0ec5ecf0005b6da9af0d70f321dda24bd4c7129567b6"
+    },
+    {
+      "file": "before--ohmyho.st--blog--1440x900@2--full.jpg",
+      "url": "https://ohmyho.st/blog",
+      "finalUrl": "https://ohmyho.st/blog",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-20T05:23:25.804Z",
+      "kind": "full",
+      "consent": "none",
+      "bytes": 36169,
+      "sha256": "a66733e76041c5e4b24828a6618c30a599cba948caedc58dd01d4cbcd924e3d9"
+    }
+  ]
+}

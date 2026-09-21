@@ -7,9 +7,11 @@ import { CONTENT_PAGES } from "./pages/index.js";
 import { externalLinkRel, footerColumnsHtml } from "./site-links.js";
 import { breadcrumbHtml, headTags } from "./structured-data.js";
 import { marked } from "marked";
-import { listOhmyhostSkillResources } from "@ohmyhost/agent-skills";
+import { SKILL_RESOURCES } from "./generated-skills.js";
 
-export const CLIENT_RELEASE = "0.1.11";
+import { CLIENT_RELEASE } from "./generated-release.js";
+
+export { CLIENT_RELEASE };
 export const RELEASE_PATH = `/releases/${CLIENT_RELEASE}`;
 const CLIENT_PACKAGES = [
   "product-cli",
@@ -19,7 +21,7 @@ const CLIENT_PACKAGES = [
   "customer-auth-better-auth",
 ];
 
-const skills = listOhmyhostSkillResources();
+const skills = SKILL_RESOURCES;
 export const DOCS_ORIGIN = "https://docs.ohmyho.st";
 export const MCP_CONFIG = {
   mcpServers: {
