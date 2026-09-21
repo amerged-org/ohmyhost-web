@@ -10,9 +10,9 @@ By signing up, you accept these Terms of Service and the [Data Processing Agreem
 
 The order or checkout you expressly accept states the purchased service, price, tax and any recurring payment terms. That order prevails for its specific commercial terms; the DPA and any applicable mandatory transfer clauses prevail for their subject matter. You can retain these documents using their Markdown versions or your browser’s print/save function.
 
-## 2. Beta and supported hosting
+## 2. Open signup and supported hosting
 
-ohmyho.st is an open beta: you can create an account without an invitation. A signup source recorded from a link is attribution only; it grants no access and adds only the promotional benefit configured for that source, if any. Beta or manual Paid-feature access is not a paid subscription and does not authorise a charge. A beta entitlement can be withdrawn; we give reasonable notice where practicable, while urgent security or legal restrictions can take effect immediately.
+ohmyho.st has open signup: you can create an account without an invitation. A signup source recorded from a link is attribution only; it grants no access and adds only the promotional benefit configured for that source, if any. A granted or manual Paid-feature entitlement is not a paid subscription and does not authorise a charge. Such an entitlement can be withdrawn; we give reasonable notice where practicable, while urgent security or legal restrictions can take effect immediately.
 
 The service hosts supported GitHub applications and requested database, domain, transactional-mail, file and runtime capabilities. Your agent uses the API, CLI or MCP to plan and operate them; the portal exposes supported account, project, credit and budget controls. Current [documentation](https://docs.ohmyho.st/), returned plans and service status describe availability and limits. A roadmap vote or marketing calculator is not an order for an unimplemented feature.
 
@@ -66,9 +66,9 @@ Retrieve the data you need before deletion or closure. Supported exports are asy
 
 We provide the agreed service with reasonable care and skill. For a purchased service, our express service commitment is substantial conformity with its applicable documentation and accepted order. For business customers, the remedy for a material failure of that commitment is correction or an equivalent working service within a reasonable time after you give us sufficient details. If neither remedy is reasonably practicable, you may end the affected service and receive the unused prepaid fees for its remaining term. This remedy does not reduce mandatory rights or the exceptions in section 10.
 
-Except for an express commitment in this MSA, an accepted order or mandatory law, the service, beta features, sample applications, documentation and agent instructions are supplied **as available and as is**. To the extent legally permitted for business customers, we exclude implied warranties of merchantability, satisfactory quality, fitness for a particular purpose and non-infringement. We do not warrant uninterrupted or error-free operation, complete security against every threat, or that generated code, agent output or an integration meets your particular requirements.
+Except for an express commitment in this MSA, an accepted order or mandatory law, the service, its features, sample applications, documentation and agent instructions are supplied **as available and as is**. To the extent legally permitted for business customers, we exclude implied warranties of merchantability, satisfactory quality, fitness for a particular purpose and non-infringement. We do not warrant uninterrupted or error-free operation, complete security against every threat, or that generated code, agent output or an integration meets your particular requirements.
 
-The beta includes no uptime SLA, guaranteed support response time, universal recovery deadline or guarantee that every feature will remain available. Dedicated support, maintenance of your application, legal defence and indemnification are not included unless we expressly agree to them in writing. You may still report problems through our contact form. Our express service obligations, DPA assistance and security duties, and mandatory remedies remain applicable.
+The service includes no uptime SLA, guaranteed support response time, universal recovery deadline or guarantee that every feature will remain available. Dedicated support, maintenance of your application, legal defence and indemnification are not included unless we expressly agree to them in writing. You may still report problems through our contact form. Our express service obligations, DPA assistance and security duties, and mandatory remedies remain applicable.
 
 You assess suitability before relying on the service for important workloads. Review and test code, migrations, agent actions and restoration procedures, retain the data and credentials you need, and arrange independent copies where appropriate. Hosting an application does not make us its developer or the operator of your relationship with its end users.
 
@@ -88,7 +88,7 @@ To the extent permitted by applicable law, we exclude liability for indirect, co
 
 **Nothing in this MSA excludes or limits liability for fraud, intentional misconduct, gross negligence or deliberate recklessness, death or personal injury where exclusion is prohibited, or any other liability that cannot lawfully be excluded or limited.** Mandatory data-protection duties, data-subject compensation and statutory recourse rights, applicable transfer clauses, and non-excludable consumer remedies remain unaffected. We do not rely on these terms to make an unlawful exclusion effective. You retain the right to contest whether a limitation is enforceable.
 
-For business customers, these limitations allocate the risks of an agent-operated, metered beta service and are reflected in its price; purchasing credits does not buy unlimited loss coverage or an unstated service guarantee.
+For business customers, these limitations allocate the risks of an agent-operated, metered service and are reflected in its price; purchasing credits does not buy unlimited loss coverage or an unstated service guarantee.
 
 ## 11. Business customer indemnity
 

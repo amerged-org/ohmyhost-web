@@ -50,7 +50,7 @@ Cursor asks for decisions, not credentials.
 - Data mode: isolated Dev and Prod databases, which the Skill recommends, or one shared database. Isolated is safer for Prod records and meters two databases.
 - Secrets: it hands you a command that reads the value from stdin. You paste the value into your terminal, never into the chat.
 - Plans: every deployment, promotion, rollback and deletion is a plan you confirm before it executes.
-- Money: it never starts a checkout without your request, and automatic recharge is not enabled in the current beta.
+- Money: it never starts a checkout without your request, and automatic recharge is not enabled yet.
 
 A project ID in a prompt is context, not permission. Cursor checks its current authorization on every call.
 
@@ -98,7 +98,7 @@ From a GitHub repository you authorize. GitHub is the only deployment source; th
 
 ### What happens when the balance hits zero?
 
-A seven-day grace period starts and the Owner gets one warning mail. Funded services keep running during grace, and any refill clears it. After an unresolved grace period only unfunded services suspend; data, exports, diagnosis and buying credit stay available. Automatic recharge is not enabled in the current beta.
+A seven-day grace period starts and the Owner gets one warning mail. Funded services keep running during grace, and any refill clears it. After an unresolved grace period only unfunded services suspend; data, exports, diagnosis and buying credit stay available. Automatic recharge is not enabled yet.
 
 ### Can I take my data and leave?
 

@@ -82,7 +82,7 @@ Fly.io lets you put machines in specific regions, or several regions at once, cl
 
 No per-project base fee: five side projects draw from the same balance, and a dead one only pays for its stored data and one deployed script. Hosting, Postgres, transactional mail and a linked domain are metered from that one balance, so you are not stacking a hosting plan, a database plan and a mail plan. Your agent deploys through MCP; there is no dashboard to babysit. And you can leave: an on-demand export gives you a password-encrypted ZIP with a portable SQL dump.
 
-The trade-offs run the other way too. ohmyho.st is a beta. Automatic recharge is not enabled yet. Mail and a custom domain need Paid. Exports are SQL only, one accepted request per project in any rolling 24-hour window, and the signed download link lasts 24 hours.
+The trade-offs run the other way too. ohmyho.st is young. Automatic recharge is not enabled yet. Mail and a custom domain need Paid. Exports are SQL only, one accepted request per project in any rolling 24-hour window, and the signed download link lasts 24 hours.
 
 ## Where ohmyho.st fits
 
@@ -120,7 +120,7 @@ No. ohmyho.st deploys Next.js, Vite/React and TanStack Start applications from a
 
 ### What happens on ohmyho.st when the credits run out?
 
-The first zero balance starts a grace period of {{ number plan.graceDays }} days. Funded services keep running. Any refill clears it. After an unresolved grace period only unfunded services suspend; your data, diagnosis, cancellation, buying credit and export stay available. Automatic recharge is not enabled in the current beta, so a top-up is a deliberate purchase.
+The first zero balance starts a grace period of {{ number plan.graceDays }} days. Funded services keep running. Any refill clears it. After an unresolved grace period only unfunded services suspend; your data, diagnosis, cancellation, buying credit and export stay available. Automatic recharge is not enabled yet, so a top-up is a deliberate purchase.
 
 ### Can I leave ohmyho.st with my data?
 

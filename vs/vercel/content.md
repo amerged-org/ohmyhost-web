@@ -59,7 +59,7 @@ The trade-off is metering with no quota to hide behind. One busy production app,
 - You deploy from Claude Code, Cursor or Codex. The agent has 62 MCP tools. Every expensive or destructive action is two steps: deployment_plan then deployment_create, promotion_plan then promotion_execute, rollback_plan then rollback_execute, delete_plan then delete_execute. You read the plan and confirm; nothing runs on its own.
 - You want a database you can leave with. project_export_create returns a password-encrypted ZIP with a portable SQL dump, on demand, at most one accepted request per project per rolling 24 hours, with a signed download link valid for 24 hours. It is free and it works at zero credits ([backups](https://docs.ohmyho.st/backups)).
 - You want one project in the EU and the rest in the US. Region is chosen once per project at creation; US is the default and prices are identical. Transactional mail is sent from the platform mail region regardless.
-- You want a ceiling instead of an invoice. A project can carry a monthly [budget](https://docs.ohmyho.st/budgets) set to continue or stop. A zero balance starts a {{ number plan.graceDays }}-day grace period in which funded services keep running; afterwards only unfunded services suspend. Automatic recharge is not enabled in the current beta, so nothing charges your card without you.
+- You want a ceiling instead of an invoice. A project can carry a monthly [budget](https://docs.ohmyho.st/budgets) set to continue or stop. A zero balance starts a {{ number plan.graceDays }}-day grace period in which funded services keep running; afterwards only unfunded services suspend. Automatic recharge is not enabled yet, so nothing charges your card without you.
 
 ## How to move with your agent
 
@@ -103,7 +103,7 @@ Yes. There is no deploy dashboard. Deployments, promotions, domains, mail and ex
 
 ### What happens when my credits run out?
 
-A zero balance starts a {{ number plan.graceDays }}-day grace period during which funded services keep running. After it, only unfunded services suspend; your data, an export and buying credit stay available. A project can carry a monthly budget set to continue or stop. Automatic recharge is not enabled in the current beta, so nothing charges your card on its own.
+A zero balance starts a {{ number plan.graceDays }}-day grace period during which funded services keep running. After it, only unfunded services suspend; your data, an export and buying credit stay available. A project can carry a monthly budget set to continue or stop. Automatic recharge is not enabled yet, so nothing charges your card on its own.
 
 {{ sources vercel supabase resend }}
 

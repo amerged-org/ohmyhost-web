@@ -34,7 +34,7 @@ Relevant operations, authorisations, usage and cleanup outcomes are recorded wit
 
 Recovery procedures use the selected database and storage capabilities. On-demand SQL exports are asynchronous password-encrypted ZIP archives, limited to one accepted request per project per rolling 24 hours. The customer controls the password; it is not kept as a recoverable customer password vault. The archive lifecycle is seven days and authorised download links last 24 hours. Export/restore procedures have been exercised through the supported workflow. Recovery capability does not establish a guaranteed recovery point or recovery time for every workload.
 
-Deletion follows scoped operation records and provider observations. Retained backups are restricted and expire under their applicable lifecycle. Website beta-interest, contact and roadmap-vote records have explicit expiry timestamps and are purged through the existing maintenance process. Legal or data-subject requests are handled through the contact channel and recorded with access limited to responsible personnel.
+Deletion follows scoped operation records and provider observations. Retained backups are restricted and expire under their applicable lifecycle. Website interest, contact and roadmap-vote records have explicit expiry timestamps and are purged through the existing maintenance process. Legal or data-subject requests are handled through the contact channel and recorded with access limited to responsible personnel.
 
 ## Change and vulnerability management
 

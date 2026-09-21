@@ -6,8 +6,8 @@ Signup is open to everyone: there is no invitation, waitlist or access code. Eve
 
 ## September 13, 2026
 
-The beta website then distinguished invited signup from registering interest. Task Skills cover initial connection, GitHub deployment, database sizing, DNS and email, usage and budgets, troubleshooting and encrypted SQL export.
+The website then distinguished invited signup from registering interest. Task Skills cover initial connection, GitHub deployment, database sizing, DNS and email, usage and budgets, troubleshooting and encrypted SQL export.
 
 Public CLI/MCP releases provide project context, operation diagnostics, usage reports and user-owned deployment tokens. See the current [release manifest](https://docs.ohmyho.st/cli) for the exact published version.
 
-[Documentation](https://docs.ohmyho.st/) · [Skills](https://docs.ohmyho.st/skills) · [Beta introduction](/blog/introducing-ohmyho-st)
+[Documentation](https://docs.ohmyho.st/) · [Skills](https://docs.ohmyho.st/skills) · [Introduction](/blog/introducing-ohmyho-st)

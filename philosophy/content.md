@@ -22,7 +22,7 @@ Here every project draws from the organization's one balance. There is no fixed 
 
 {{ table workload.quietProject }}
 
-A project can carry a monthly budget if you want a ceiling: continue, which warns and keeps going, or stop. A budget is a limit, not a second wallet. A zero balance starts a {{ number plan.graceDays }}-day grace period instead of a surprise invoice; funded services keep running, and afterwards only unfunded services suspend. Automatic recharge exists in the contract but is not enabled in the current beta, so your balance never refills without you. The [budgets guide](https://docs.ohmyho.st/budgets) has the exact rules.
+A project can carry a monthly budget if you want a ceiling: continue, which warns and keeps going, or stop. A budget is a limit, not a second wallet. A zero balance starts a {{ number plan.graceDays }}-day grace period instead of a surprise invoice; funded services keep running, and afterwards only unfunded services suspend. Automatic recharge exists in the contract but is not enabled yet, so your balance never refills without you. The [budgets guide](https://docs.ohmyho.st/budgets) has the exact rules.
 
 {{ checked vercel }} {{ checked supabase }} {{ checked resend }}
 

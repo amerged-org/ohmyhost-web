@@ -16,6 +16,6 @@ Performance uses 2.5 times standard database-compute credits for equal active ti
 
 ## Control your spending
 
-Ask your agent for remaining credits, measured usage and optional project budgets. A top-up adds credits but does not extend a subscription. A top-up above $100 adds 125 credits per dollar for the part above $100; consumption prices stay the same. Automatic recharge is not enabled in the current beta. Production purchases are not yet enabled; your organization can use its available balance.
+Ask your agent for remaining credits, measured usage and optional project budgets. A top-up adds credits but does not extend a subscription. A top-up above $100 adds 125 credits per dollar for the part above $100; consumption prices stay the same. Automatic recharge is not enabled yet. Production purchases are not yet enabled; your organization can use its available balance.
 
 [All usage rates](https://docs.ohmyho.st/pricing) · [Worked cost example](/pricing/breakdown) · [Usage guide](https://docs.ohmyho.st/usage) · [Compare Vercel](/vs/vercel)

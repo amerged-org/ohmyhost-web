@@ -6,9 +6,9 @@ ohmyho.st is run by Amerged B.V., a Dutch company registered at the KVK under nu
 
 <img src="/brand/assets/founder.png" width="96" height="96" loading="lazy" alt="Founder of ohmyho.st" style="border-radius:50%">
 
-Sebastian Mertens founded ohmyho.st and runs it. The legal operator is Amerged B.V., registered with the Dutch Chamber of Commerce (KVK) under number 42154221, in Venray, Limburg, the Netherlands. The same company name is on the [terms](/terms), the [privacy notice](/privacy), the [data processing agreement](/dpa) and every Stripe invoice. The service is in public beta: signup opened to everyone on September 16, 2026, and the [changelog](/changelog) dates every change since.
+Sebastian Mertens founded ohmyho.st and runs it. The legal operator is Amerged B.V., registered with the Dutch Chamber of Commerce (KVK) under number 42154221, in Venray, Limburg, the Netherlands. The same company name is on the [terms](/terms), the [privacy notice](/privacy), the [data processing agreement](/dpa) and every Stripe invoice. Signup opened to everyone on September 16, 2026, and the [changelog](/changelog) dates every change since.
 
-Will it exist in a year? Nobody can promise that about a beta, so this page does not. What can be said: the company is registered and invoices with tax through Stripe; every credit you spend is priced above the provider's list cost, so usage is not sold below cost; and if it stops, your app leaves with you. Your source stays in your GitHub repository, your users stay on your own auth provider, and your database leaves as a portable SQL dump on request.
+Will it exist in a year? Nobody can promise that about a young service, so this page does not. What can be said: the company is registered and invoices with tax through Stripe; every credit you spend is priced above the provider's list cost, so usage is not sold below cost; and if it stops, your app leaves with you. Your source stays in your GitHub repository, your users stay on your own auth provider, and your database leaves as a portable SQL dump on request.
 
 ## Why it exists
 
@@ -60,9 +60,9 @@ A plain list, so nobody finds out later:
 
 - No video. The homepage is a prompt and a login link. Not yet.
 - No ISO or SOC certification. The technical and organizational measures are published in the DPA; an auditor's letter is not. Not yet.
-- No SLA and no published uptime figure. The beta terms say so in one sentence.
+- No SLA and no published uptime figure. The terms say so in one sentence.
 - No roadmap page. The roadmap votes live on the [homepage](/); vote there, and the count is the roadmap.
-- No automatic recharge in the current beta. When the balance runs low you top up by hand; the agent reads the balance and the grace deadline with organization_credits_get.
+- No automatic recharge yet. When the balance runs low you top up by hand; the agent reads the balance and the grace deadline with organization_credits_get.
 - No export schedule. Exports are on demand: a password-encrypted ZIP with a portable SQL dump, at most one accepted request for each project in any rolling 24 hours, a signed download link valid for 24 hours, free, and available even at zero credits.
 
 ## FAQ

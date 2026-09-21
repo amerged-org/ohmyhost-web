@@ -38,7 +38,7 @@ Storage is {{ rate neon.storage.root }} from the first gigabyte; there is no all
 
 {{ table workload.fiveQuietProjects }}
 
-That fleet fits inside one Paid month with credits to spare, and it is the same five projects that need five instances on Supabase. Every project draws from the organization's one balance. A project may carry a [monthly budget](https://docs.ohmyho.st/budgets) that continues with warnings or stops new work; a zero balance starts a seven-day grace period in which funded services keep running. Automatic recharge is not enabled in the current beta, so you top up on purpose. US is the default region; EU is a per-project choice made once at creation, at identical prices.
+That fleet fits inside one Paid month with credits to spare, and it is the same five projects that need five instances on Supabase. Every project draws from the organization's one balance. A project may carry a [monthly budget](https://docs.ohmyho.st/budgets) that continues with warnings or stops new work; a zero balance starts a seven-day grace period in which funded services keep running. Automatic recharge is not enabled yet, so you top up on purpose. US is the default region; EU is a per-project choice made once at creation, at identical prices.
 
 ## Keep Supabase or import a dump
 

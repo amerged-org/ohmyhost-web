@@ -42,7 +42,7 @@ This is the part an agent builder came for. Four tools, in this order.
 3. `organization_credits_get` before a run. It returns the shared balance, the grace window if one has started and the published rate cards, and it works at zero credits. An agent that reads it first declines a deployment it cannot fund instead of failing halfway. `organization_usage_get` adds the posted usage by project, environment and meter for the month.
 4. `feedback_submit` when something looks wrong. It takes a redacted expected-versus-actual description and a minimal reproduction, returns a receipt ID and works at zero credits. No credentials, no raw logs.
 
-The trade-off: an unattended agent cannot buy credits. `billing_checkout_create` is Owner-only and the Skills start it only on request, and automatic recharge is not enabled in the current beta. A run that empties the balance starts a seven-day grace period in which funded services keep running; after that only unfunded services suspend, and data, diagnosis and export stay available.
+The trade-off: an unattended agent cannot buy credits. `billing_checkout_create` is Owner-only and the Skills start it only on request, and automatic recharge is not enabled yet. A run that empties the balance starts a seven-day grace period in which funded services keep running; after that only unfunded services suspend, and data, diagnosis and export stay available.
 
 ## What an agent reads
 
@@ -81,7 +81,7 @@ In a private env file you choose, written by `token_create` with mode 600. The t
 
 ### What stops an agent from spending everything?
 
-A project budget. `project_budget_set` in `stop` mode rejects new billable work with `project_budget_exceeded` once the UTC-month threshold is reached and pauses the project's traffic. Automatic recharge is not enabled in the current beta, so nothing buys more credits on its own; a zero balance starts a seven-day grace period during which funded services keep running.
+A project budget. `project_budget_set` in `stop` mode rejects new billable work with `project_budget_exceeded` once the UTC-month threshold is reached and pauses the project's traffic. Automatic recharge is not enabled yet, so nothing buys more credits on its own; a zero balance starts a seven-day grace period during which funded services keep running.
 
 ### Can Codex deploy something other than a GitHub repository?
 

@@ -1,9 +1,9 @@
 {
-  "title": "Introducing the ohmyho.st beta: deploy with your agent",
-  "description": "The beta is open: bring a GitHub app, ask your coding agent to deploy it, share one credit balance across projects and ask the agent for usage and status.",
+  "title": "Introducing ohmyho.st: deploy with your agent",
+  "description": "Signup is open: bring a GitHub app, ask your coding agent to deploy it, share one credit balance across projects and ask the agent for usage and status.",
   "kind": "article",
   "status": "published",
-  "crumb": "Introducing the beta",
+  "crumb": "Introducing ohmyho.st",
   "social": {
     "image": null,
     "alt": null

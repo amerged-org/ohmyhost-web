@@ -1,4 +1,4 @@
-# Introducing the ohmyho.st beta
+# Introducing ohmyho.st
 
 By Sebastian Mertens · September 13, 2026
 
