@@ -1,42 +1,42 @@
 @font-face {
-  font-family: "JetBrains Mono";
+  font-family: 'JetBrains Mono';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(/fonts/44ce4a84f20d60f2.ttf) format("truetype");
+  src: url(/fonts/44ce4a84f20d60f2.ttf) format('truetype');
 }
 @font-face {
-  font-family: "JetBrains Mono";
+  font-family: 'JetBrains Mono';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(/fonts/3386a05f6ece969e.ttf) format("truetype");
+  src: url(/fonts/3386a05f6ece969e.ttf) format('truetype');
 }
 @font-face {
-  font-family: "Space Grotesk";
+  font-family: 'Space Grotesk';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(/fonts/ec926d5065eaca49.ttf) format("truetype");
+  src: url(/fonts/ec926d5065eaca49.ttf) format('truetype');
 }
 @font-face {
-  font-family: "Space Grotesk";
+  font-family: 'Space Grotesk';
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(/fonts/3e699ead1876244f.ttf) format("truetype");
+  src: url(/fonts/3e699ead1876244f.ttf) format('truetype');
 }
 @font-face {
-  font-family: "Space Grotesk";
+  font-family: 'Space Grotesk';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(/fonts/6c0346b8d297ebdc.ttf) format("truetype");
+  src: url(/fonts/6c0346b8d297ebdc.ttf) format('truetype');
 }
 @font-face {
-  font-family: "Space Grotesk";
+  font-family: 'Space Grotesk';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(/fonts/3e756954468ff1cb.ttf) format("truetype");
+  src: url(/fonts/3e756954468ff1cb.ttf) format('truetype');
 }

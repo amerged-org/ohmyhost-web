@@ -1,6 +1,9 @@
 coverage/
 dist/
 site/
+src/generated-*
+platform-inputs.json
+src/generated-content.ts
 public/pages/
 public/og/
 node_modules/

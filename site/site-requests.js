@@ -1,37 +1,24 @@
 /* Signup is open; the server supplies any r attribution as signup_source only. */
 (() => {
-  const source = document.querySelector(
-    'meta[name="ohmyhost-signup-source"]',
-  )?.content;
-  const region = document.querySelector(
-    'meta[name="ohmyhost-region-hint"]',
-  )?.content;
+  const source = document.querySelector('meta[name="ohmyhost-signup-source"]')?.content;
+  const region = document.querySelector('meta[name="ohmyhost-region-hint"]')?.content;
   const prompt =
     "Read https://ohmyho.st/llms.txt and https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md. Connect this agent to ohmyho.st and deploy this GitHub project using only the capabilities it needs. " +
-    (source
-      ? "I came from https://ohmyho.st/?r=" + encodeURIComponent(source) + ". "
-      : "") +
+    (source ? "I came from https://ohmyho.st/?r=" + encodeURIComponent(source) + ". " : "") +
     (region === "eu" || region === "us"
-      ? "For a new project, use " +
-        region.toUpperCase() +
-        " based on this browser's region unless I specify another region. "
+      ? "For a new project, use " + region.toUpperCase() + " based on this browser's region unless I specify another region. "
       : "For a new project, ask me once whether to use EU or US unless I already specified a region. ") +
     "Keep existing projects in their current region. " +
     "Follow the deployment Skill, keep my existing project decisions and verify the app.";
 
-  const buttons =
-    "[data-copy], #copy, #shcopy2, #shcopy, [data-wincopy], [data-copy-prompt]";
+  const buttons = "[data-copy], #copy, #shcopy2, #shcopy, [data-wincopy], [data-copy-prompt]";
   document.querySelectorAll(buttons).forEach((button) => {
     const label = button.querySelector("span");
-    const text = button.closest("nav")
-      ? "Copy prompt"
-      : "Copy prompt for your agent";
+    const text = button.closest("nav") ? "Copy prompt" : "Copy prompt for your agent";
     if (label) label.textContent = text;
     else if (button.matches("[data-copy-prompt]")) button.textContent = text;
   });
-  document
-    .querySelectorAll(".body.prompt")
-    .forEach((node) => (node.textContent = prompt));
+  document.querySelectorAll(".body.prompt").forEach((node) => (node.textContent = prompt));
   document.addEventListener(
     "click",
     async (event) => {
@@ -41,8 +28,7 @@
       event.stopImmediatePropagation();
       const label = button.querySelector("span") || button;
       try {
-        if (navigator.clipboard?.writeText)
-          await navigator.clipboard.writeText(prompt);
+        if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(prompt);
         else {
           const field = document.createElement("textarea");
           field.value = prompt;
@@ -60,15 +46,11 @@
         const under = document.getElementById("under");
         if (under) under.style.display = "none";
         setTimeout(() => {
-          label.textContent = button.closest("nav")
-            ? "Copy prompt"
-            : "Copy prompt for your agent";
+          label.textContent = button.closest("nav") ? "Copy prompt" : "Copy prompt for your agent";
           button.classList.remove("done");
         }, 2500);
       } catch {
-        label.textContent = button.closest("nav")
-          ? "Copy failed"
-          : "Copy failed — select the prompt";
+        label.textContent = button.closest("nav") ? "Copy failed" : "Copy failed — select the prompt";
         document.getElementById("next")?.classList.add("on");
       }
     },
@@ -88,8 +70,7 @@
       retry.disabled = value;
     }
     function apply(result) {
-      if (!result || !Array.isArray(result.votes) || result.votes.length !== 3)
-        throw Error("save");
+      if (!result || !Array.isArray(result.votes) || result.votes.length !== 3) throw Error("save");
       const seen = new Set();
       for (const vote of result.votes) {
         if (
@@ -116,8 +97,7 @@
       message.textContent = "Loading your votes…";
       try {
         const response = await fetch("/want", { cache: "no-store" });
-        if (!response.ok)
-          throw Error(response.status === 429 ? "rate" : "save");
+        if (!response.ok) throw Error(response.status === 429 ? "rate" : "save");
         apply(await response.json());
         ready = true;
         message.textContent = "";
@@ -147,11 +127,7 @@
         });
         if (!response.ok)
           throw Error(
-            response.status === 429
-              ? "rate"
-              : response.status === 409
-                ? "reload"
-                : "save",
+            response.status === 429 ? "rate" : response.status === 409 ? "reload" : "save",
           );
         const result = await response.json();
         if (result.accepted !== true) throw Error("save");
@@ -184,10 +160,7 @@
       }
       pending = {
         feature: button.dataset.f,
-        choice:
-          choices.get(button.dataset.f) === button.dataset.vote
-            ? null
-            : button.dataset.vote,
+        choice: choices.get(button.dataset.f) === button.dataset.vote ? null : button.dataset.vote,
         idempotency_key: crypto.randomUUID(),
       };
       void save();
@@ -209,17 +182,12 @@
         status.replaceChildren();
         for (const component of result.components) {
           const row = document.createElement("p");
-          row.textContent =
-            component.name + ": " + component.status.replaceAll("_", " ");
+          row.textContent = component.name + ": " + component.status.replaceAll("_", " ");
           status.append(row);
         }
         const time = document.createElement("p");
         time.textContent = "Checked " + result.observed_at;
         status.append(time);
       })
-      .catch(
-        () =>
-          (status.textContent =
-            "Status is temporarily unavailable. Please retry."),
-      );
+      .catch(() => (status.textContent = "Status is temporarily unavailable. Please retry."));
 })();
