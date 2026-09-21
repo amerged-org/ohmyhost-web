@@ -700,3 +700,32 @@ class SiteAssetFixture {
     return new Response(new Uint8Array(text));
   }
 }
+
+describe("signup attribution", () => {
+  it("carries a link's source into the page without letting it write markup", async () => {
+    const assets = new SiteAssetFixture();
+    const home = await worker.fetch(
+      new Request('https://ohmyho.st/?r=launch"><script>alert(1)</script>'),
+      { ASSETS: assets },
+    );
+    const html = await home.text();
+    // The source reaches the page as an escaped attribute, never as markup.
+    expect(html).toContain(
+      '<meta name="ohmyhost-signup-source" content="launch',
+    );
+    expect(html).not.toContain("<script>alert(1)</script>");
+    expect(html).toContain("&quot;");
+    expect(home.headers.get("set-cookie")).toContain("omh_referral=");
+
+    // A document page carries the same attribution, and takes it from the cookie too.
+    const document = await worker.fetch(
+      new Request("https://ohmyho.st/pricing", {
+        headers: { cookie: "omh_referral=partner-a" },
+      }),
+      { ASSETS: assets },
+    );
+    expect(await document.text()).toContain(
+      '<meta name="ohmyhost-signup-source" content="partner-a">',
+    );
+  });
+});

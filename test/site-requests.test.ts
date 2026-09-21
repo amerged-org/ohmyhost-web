@@ -66,7 +66,7 @@ it("reads roadmap votes and public statistics through the site endpoints", async
   const votes = await siteRequestResponse(site("/want"), api);
   expect(votes?.status).toBe(200);
   expect(await votes?.json()).toEqual(VOTES);
-  expect(votes?.headers.get("set-cookie")).toContain("omh_voter=");
+  expect(votes?.headers.get("set-cookie")).toContain("__Host-omh_voter=");
 
   const stats = await siteRequestResponse(site("/stats.json"), api);
   expect(await stats?.json()).toEqual(STATS);
@@ -129,7 +129,7 @@ it("refuses a foreign origin, a wrong content type and an oversized or malformed
     posted(
       "/want",
       { feature: "eu", choice: "up", idempotency_key: "k", extra: 1 },
-      "omh_voter=v",
+      "__Host-omh_voter=11111111-2222-4333-8444-555555555555",
     ),
     api,
   );
@@ -148,7 +148,7 @@ it("requires a voter cookie before a vote and accepts a complete contact request
     posted(
       "/want",
       { feature: "eu", choice: "up", idempotency_key: "k" },
-      "omh_voter=11111111-2222-4333-8444-555555555555",
+      "__Host-omh_voter=11111111-2222-4333-8444-555555555555",
     ),
     api,
   );

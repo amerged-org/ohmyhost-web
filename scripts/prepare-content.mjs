@@ -21,7 +21,11 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 // specifiers back to the source next to them.
 registerHooks({
   resolve(specifier, context, next) {
-    if (specifier.startsWith(".") && specifier.endsWith(".js") && context.parentURL?.endsWith(".ts"))
+    if (
+      specifier.startsWith(".") &&
+      specifier.endsWith(".js") &&
+      context.parentURL?.endsWith(".ts")
+    )
       return next(`${specifier.slice(0, -3)}.ts`, context);
     return next(specifier, context);
   },
