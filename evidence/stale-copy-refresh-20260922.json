@@ -1,0 +1,192 @@
+{
+  "observedAt": "2026-09-21T22:05:05.005513+00:00",
+  "release": {
+    "source": "22a50c01e71852e9371b34424e7f8534796acd0e",
+    "ci": 35660335193,
+    "ciConclusion": "success",
+    "worker": "ohmyho-web-production",
+    "versionId": "06d6f70b-cec7-40a0-8090-2216189c978f"
+  },
+  "localChecks": [
+    {
+      "path": "/",
+      "present": ["about 30 seconds", "Yes. The portal shows projects"],
+      "absent": ["about two minutes", "No dashboard", "no CLI to install"]
+    },
+    {
+      "path": "/brand",
+      "present": [
+        "One balance across your projects.",
+        "ohmyhost init --dry-run",
+        "$65",
+        "On demand. Portable SQL. Your data."
+      ],
+      "absent": [
+        "Nightly",
+        "AI models",
+        "No dashboard",
+        "$71",
+        "5 accounts",
+        "omh create",
+        "myapp.ohm.st",
+        "They charge per project"
+      ]
+    },
+    {
+      "path": "/pricing",
+      "present": [],
+      "absent": []
+    },
+    {
+      "path": "/vs/supabase",
+      "present": [
+        "each project still pays for the storage and deployed resources it retains"
+      ],
+      "absent": [
+        "Ten sleeping projects cost about what one sleeping project costs."
+      ]
+    },
+    {
+      "path": "/from/vercel-supabase",
+      "present": [
+        "Database data is shared or isolated according to the mode you choose."
+      ],
+      "absent": ["each with its own data and secrets"]
+    },
+    {
+      "path": "/from/replit",
+      "present": ["funded services keep running"],
+      "absent": ["everything keeps running"]
+    },
+    {
+      "path": "/from/lovable",
+      "present": ["funded services keep running"],
+      "absent": ["everything keeps running"]
+    },
+    {
+      "path": "/for/claude-code",
+      "present": [
+        "Deployment and promotion use a plan followed by an execution step."
+      ],
+      "absent": ["Every mutation is a plan you confirm before it executes."]
+    },
+    {
+      "path": "/for/cursor",
+      "present": [
+        "Deployment and promotion use a plan followed by an execution step."
+      ],
+      "absent": ["Every mutation is a plan you confirm before it executes."]
+    },
+    {
+      "path": "/for/codex",
+      "present": [
+        "Deployment and promotion use a plan followed by an execution step."
+      ],
+      "absent": ["Every mutation is a plan you confirm before it executes."]
+    },
+    {
+      "path": "/from/bolt",
+      "present": [
+        "Deployment and promotion use a plan followed by an execution step."
+      ],
+      "absent": ["Every mutation is a plan you confirm before it executes."]
+    },
+    {
+      "path": "/from/lovable",
+      "present": [
+        "Deployment and promotion use a plan followed by an execution step."
+      ],
+      "absent": ["Every mutation is a plan you confirm before it executes."]
+    },
+    {
+      "path": "/blog/host-a-lovable-app-after-export",
+      "present": [
+        "Deployment and promotion use a plan followed by an execution step."
+      ],
+      "absent": ["Every mutation is a plan you confirm before it executes."]
+    },
+    {
+      "path": "/changelog",
+      "present": ["September 21, 2026", "September 20, 2026", "Apache-2.0"],
+      "absent": []
+    },
+    {
+      "path": "/open-source",
+      "present": ["MIT: the website", "amerged-org/ohmyhost-web"],
+      "absent": []
+    }
+  ],
+  "httpReadback": "Blocked by untrusted Fortinet-issued TLS certificate on current network; certificate validation was not bypassed.",
+  "providerReadback": {
+    "activeVersion": "06d6f70b-cec7-40a0-8090-2216189c978f",
+    "trafficPercent": 100
+  },
+  "brandRender": {
+    "details": [
+      {
+        "i": 0,
+        "text": "ohmyho.st\nOne balance.\nAll your projects.\nHosting, Postgres, mail and linked domains.\nohmyho.st",
+        "clipped": []
+      },
+      {
+        "i": 1,
+        "text": "the problem\nOne balance.\nEvery project.\nUsage-based.\nohmyho.st",
+        "clipped": []
+      },
+      {
+        "i": 2,
+        "text": "Compare plans and credits.\nBase plans \u00b7 2026-09-19\n$65/mo\n3 accounts \u00b7 one project\nohmyho.st \u00b7 metered\n$10/mo\n1,000 shared credits",
+        "clipped": []
+      },
+      {
+        "i": 3,
+        "text": "Start with your agent.\n$ ohmyhost login\n$ ohmyhost init --dry-run\n$ ohmyhost deploy --help\n\u2713 https://docs.ohmyho.st/quickstart\nohmyho.st",
+        "clipped": []
+      },
+      {
+        "i": 4,
+        "text": "$65 \u2192 $10\nBase plans vs credits \u00b7 2026-09-19\nohmyho.st",
+        "clipped": []
+      },
+      {
+        "i": 5,
+        "text": "Why do you\nmanage 3 bills\nfor 1 app?\nCopy the homepage prompt",
+        "clipped": []
+      },
+      {
+        "i": 6,
+        "text": "hosting for vibe-coded apps\nOne balance.\nAll your projects.\nOne balance. No per-project base fee.\nohmyho.st",
+        "clipped": []
+      },
+      {
+        "i": 7,
+        "text": "ohmyho.st\nAgent deploys.\nPortal reports.\nyour agent deploys \u00b7 your portal reports",
+        "clipped": []
+      },
+      {
+        "i": 8,
+        "text": "paid credits\n$10\na month \u00b7 1,000 shared credits\nohmyho.st",
+        "clipped": []
+      },
+      {
+        "i": 9,
+        "text": "ohmyho.st\nDatabase exports you control.\nRequest export\nDownload encrypted ZIP\nRestore PostgreSQL\nOn demand. Portable SQL. Your data.",
+        "clipped": []
+      },
+      {
+        "i": 10,
+        "text": "one balance across projects\nOne balance.\nAll your projects.\nHosting, Postgres and mail. One credit balance.\nCopy the homepage prompt\nohmyho.st",
+        "clipped": []
+      }
+    ],
+    "mobile": {
+      "pageWidth": 390,
+      "viewport": 390
+    }
+  },
+  "tests": {
+    "files": 10,
+    "passed": 37
+  },
+  "scope": "Approved copy items 1\u201311; owner supplied approximately 30 seconds. Billing and handle availability were not changed."
+}
