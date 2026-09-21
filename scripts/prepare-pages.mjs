@@ -256,6 +256,11 @@ function applyApprovedHomepageChanges(html) {
   const euAnswer =
     "Yes. Choose EU when you create the project; the default is US. An EU project keeps its Postgres database, its files and its builds in the EU, and the application runs next to its database. The region cannot be changed later, and prices are identical in both regions. Transactional mail is sent from the platform's mail region in either case.";
   for (const [before, after] of Object.entries({
+    "header{text-align:center;padding:80px 0 0}":
+      "header{text-align:center;padding:48px 0 0}",
+    "h1{font-size:clamp(44px,9vw,80px)": "h1{font-size:clamp(36px,7.2vw,64px)",
+    ".art{margin:40px auto 0;max-width:900px;width:100%}":
+      ".art{margin:40px auto 0;max-width:855px;width:95%}",
     '<span class="thin">Ten dollars.</span><br>Host your vibe-coded apps.':
       '<span class="thin">Host your app.</span><br>Supabase Vercel Resend alternative',
     "<title>Hosting for vibe-coded apps — $10/mo for all your projects, not per project | ohmyho.st</title>":
