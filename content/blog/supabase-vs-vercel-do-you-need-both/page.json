@@ -1,0 +1,15 @@
+{
+  "title": "Supabase vs Vercel: do you need both? — ohmyho.st",
+  "description": "Vercel hosts the app, Supabase holds the data, and a portfolio of side projects pays for both. List prices, the credit math and when one balance is enough.",
+  "kind": "article",
+  "status": "published",
+  "crumb": "Supabase vs Vercel",
+  "social": {
+    "image": null,
+    "alt": null
+  },
+  "parent": "/blog",
+  "author": "Sebastian Mertens",
+  "published": "2026-09-20",
+  "modified": "2026-09-20"
+}

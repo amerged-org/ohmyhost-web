@@ -1,0 +1,12 @@
+{
+  "title": "Vercel alternative with a database: ohmyho.st vs Vercel",
+  "description": "ohmyho.st against Vercel for a portfolio of small apps: Vercel Pro, Supabase and Resend beside one prepaid balance that meters hosting, Postgres and mail.",
+  "kind": "page",
+  "status": "published",
+  "crumb": "vs Vercel",
+  "social": {
+    "image": null,
+    "alt": null
+  },
+  "modified": "2026-09-20"
+}

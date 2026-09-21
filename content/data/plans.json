@@ -1,0 +1,9 @@
+{
+  "freeCredits": 200,
+  "paidUsd": 10,
+  "paidCredits": 1000,
+  "topUpPerUsd": 100,
+  "topUpPerUsdAbove100": 125,
+  "usdPerCredit": 0.01,
+  "graceDays": 7
+}

@@ -1,0 +1,12 @@
+{
+  "title": "ohmyho.st vs Railway: a usage-billed Railway alternative",
+  "description": "Railway bills a $5 or $20 monthly minimum plus per-second compute. ohmyho.st bills requests, CPU-ms and database hours from one $10 balance for every project.",
+  "kind": "page",
+  "status": "published",
+  "crumb": "vs Railway",
+  "social": {
+    "image": null,
+    "alt": null
+  },
+  "modified": "2026-09-20"
+}

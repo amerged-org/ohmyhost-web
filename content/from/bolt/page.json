@@ -1,0 +1,12 @@
+{
+  "title": "Deploy a Bolt.new export: host your Bolt app — ohmyho.st",
+  "description": "Exported from Bolt.new? Connect GitHub or push the ZIP, paste one prompt, and your agent recreates the .env, deploys to Dev and promotes to Prod on ohmyho.st.",
+  "kind": "howto",
+  "status": "published",
+  "crumb": "From Bolt",
+  "social": {
+    "image": null,
+    "alt": null
+  },
+  "modified": "2026-09-20"
+}

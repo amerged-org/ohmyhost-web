@@ -1,0 +1,12 @@
+{
+  "title": "Move from Vercel and Supabase to one balance — ohmyho.st",
+  "description": "Two bills become one: keep Supabase as an external database or import a dump, move environment secrets and callback URLs, deploy with your agent and verify.",
+  "kind": "howto",
+  "status": "published",
+  "crumb": "From Vercel and Supabase",
+  "social": {
+    "image": null,
+    "alt": null
+  },
+  "modified": "2026-09-20"
+}

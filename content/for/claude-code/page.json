@@ -1,0 +1,12 @@
+{
+  "title": "Deploy a Claude Code app in one prompt — ohmyho.st",
+  "description": "Paste one prompt into Claude Code: it connects to ohmyho.st over MCP, links your GitHub repo, plans the deployment, sets secrets and verifies the live app.",
+  "kind": "howto",
+  "status": "published",
+  "crumb": "Claude Code",
+  "social": {
+    "image": null,
+    "alt": null
+  },
+  "modified": "2026-09-20"
+}

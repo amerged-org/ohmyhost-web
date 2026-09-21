@@ -1,0 +1,637 @@
+{
+  "smallApp": {
+    "name": "A small app for one month",
+    "lines": [
+      {
+        "meter": "build.sandbox.standard-3",
+        "quantity": 1200,
+        "label": "20 build minutes"
+      },
+      {
+        "meter": "wfp.requests",
+        "quantity": 100000,
+        "label": "100,000 requests"
+      },
+      {
+        "meter": "wfp.cpu",
+        "quantity": 1000000,
+        "label": "1M CPU-ms"
+      },
+      {
+        "meter": "neon.compute.scale",
+        "quantity": 4,
+        "label": "4 database CU-hours (8 active hours on the Paid standard 0.5 CU profile)"
+      },
+      {
+        "meter": "neon.storage.root",
+        "quantity": 1,
+        "label": "1 database GB-month"
+      },
+      {
+        "meter": "ses.{region}.recipients (Essentials)",
+        "quantity": 2000,
+        "label": "2,000 mail recipients"
+      }
+    ]
+  },
+  "quietProject": {
+    "name": "A quiet side project for one month",
+    "lines": [
+      {
+        "meter": "build.sandbox.standard-3",
+        "quantity": 120,
+        "label": "2 build minutes"
+      },
+      {
+        "meter": "wfp.requests",
+        "quantity": 5000,
+        "label": "5,000 requests"
+      },
+      {
+        "meter": "wfp.cpu",
+        "quantity": 50000,
+        "label": "50,000 CPU-ms"
+      },
+      {
+        "meter": "neon.compute.scale",
+        "quantity": 0.5,
+        "label": "1 active database hour on the Paid standard 0.5 CU profile"
+      },
+      {
+        "meter": "neon.storage.root",
+        "quantity": 0.2,
+        "label": "0.2 database GB-month"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 1,
+        "label": "1 deployed script"
+      }
+    ]
+  },
+  "clientSite": {
+    "name": "A client site with its own domain and sender mail for one month",
+    "lines": [
+      {
+        "meter": "build.sandbox.standard-3",
+        "quantity": 600,
+        "label": "10 build minutes"
+      },
+      {
+        "meter": "wfp.requests",
+        "quantity": 50000,
+        "label": "50,000 requests"
+      },
+      {
+        "meter": "wfp.cpu",
+        "quantity": 500000,
+        "label": "500,000 CPU-ms"
+      },
+      {
+        "meter": "neon.compute.scale",
+        "quantity": 2,
+        "label": "2 database CU-hours (4 active hours on the Paid standard profile)"
+      },
+      {
+        "meter": "neon.storage.root",
+        "quantity": 1,
+        "label": "1 database GB-month"
+      },
+      {
+        "meter": "ses.{region}.recipients (Essentials)",
+        "quantity": 1000,
+        "label": "1,000 mail recipients"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 1,
+        "label": "1 deployed script"
+      },
+      {
+        "meter": "domain.custom_hostname",
+        "quantity": 1,
+        "label": "1 custom hostname"
+      },
+      {
+        "meter": "route53.zone",
+        "quantity": 1,
+        "label": "1 mail sender zone"
+      }
+    ]
+  },
+  "busyApp": {
+    "name": "One busy production app for one month",
+    "lines": [
+      {
+        "meter": "build.sandbox.standard-3",
+        "quantity": 3600,
+        "label": "60 build minutes"
+      },
+      {
+        "meter": "wfp.requests",
+        "quantity": 5000000,
+        "label": "5M requests"
+      },
+      {
+        "meter": "wfp.cpu",
+        "quantity": 50000000,
+        "label": "50M CPU-ms"
+      },
+      {
+        "meter": "neon.compute.scale",
+        "quantity": 100,
+        "label": "100 database CU-hours (200 active hours on the Paid standard profile)"
+      },
+      {
+        "meter": "neon.storage.root",
+        "quantity": 10,
+        "label": "10 database GB-months"
+      },
+      {
+        "meter": "ses.{region}.recipients (Essentials)",
+        "quantity": 20000,
+        "label": "20,000 mail recipients"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 1,
+        "label": "1 deployed script"
+      },
+      {
+        "meter": "domain.custom_hostname",
+        "quantity": 1,
+        "label": "1 custom hostname"
+      },
+      {
+        "meter": "route53.zone",
+        "quantity": 1,
+        "label": "1 mail sender zone"
+      }
+    ]
+  },
+  "idleDatabase": {
+    "name": "One idle project for one month",
+    "lines": [
+      {
+        "meter": "neon.storage.root",
+        "quantity": 1,
+        "label": "1 database GB-month"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 1,
+        "label": "1 deployed script"
+      }
+    ]
+  },
+  "alwaysOnDatabase": {
+    "name": "A database that never suspends for one month",
+    "lines": [
+      {
+        "meter": "neon.compute.scale",
+        "quantity": 372,
+        "label": "372 database CU-hours (744 active hours on the Paid standard 0.5 CU profile)"
+      },
+      {
+        "meter": "neon.storage.root",
+        "quantity": 8,
+        "label": "8 database GB-months"
+      }
+    ]
+  },
+  "fiveQuietProjects": {
+    "name": "Five quiet side projects for one month",
+    "lines": [
+      {
+        "meter": "build.sandbox.standard-3",
+        "quantity": 600,
+        "label": "10 build minutes across five projects"
+      },
+      {
+        "meter": "wfp.requests",
+        "quantity": 25000,
+        "label": "25,000 requests"
+      },
+      {
+        "meter": "wfp.cpu",
+        "quantity": 250000,
+        "label": "250,000 CPU-ms"
+      },
+      {
+        "meter": "neon.compute.scale",
+        "quantity": 2.5,
+        "label": "5 active database hours on the Paid standard 0.5 CU profile (2.5 CU-hours)"
+      },
+      {
+        "meter": "neon.storage.root",
+        "quantity": 1,
+        "label": "1 database GB-month (0.2 GB each)"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 5,
+        "label": "5 deployed scripts"
+      }
+    ]
+  },
+  "threeStaticSites": {
+    "name": "Three static portfolio sites for one month",
+    "lines": [
+      {
+        "meter": "build.sandbox.standard-3",
+        "quantity": 360,
+        "label": "6 build minutes (three deploys of 2 minutes)"
+      },
+      {
+        "meter": "wfp.requests",
+        "quantity": 15000,
+        "label": "15,000 requests"
+      },
+      {
+        "meter": "wfp.cpu",
+        "quantity": 150000,
+        "label": "150,000 CPU-ms"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 6,
+        "label": "6 deployed scripts (Dev and Prod for each site)"
+      }
+    ]
+  },
+  "portfolio": {
+    "name": "A portfolio of five side projects for one month",
+    "lines": [
+      {
+        "meter": "build.sandbox.standard-3",
+        "quantity": 1680,
+        "label": "28 build minutes"
+      },
+      {
+        "meter": "wfp.requests",
+        "quantity": 120000,
+        "label": "120,000 requests"
+      },
+      {
+        "meter": "wfp.cpu",
+        "quantity": 1200000,
+        "label": "1.2M CPU-ms"
+      },
+      {
+        "meter": "neon.compute.scale",
+        "quantity": 6,
+        "label": "6 database CU-hours (12 active hours on the Paid standard 0.5 CU profile across five databases)"
+      },
+      {
+        "meter": "neon.storage.root",
+        "quantity": 1.8,
+        "label": "1.8 database GB-months"
+      },
+      {
+        "meter": "ses.{region}.recipients (Essentials)",
+        "quantity": 500,
+        "label": "500 mail recipients"
+      },
+      {
+        "meter": "route53.zone",
+        "quantity": 1,
+        "label": "1 mail sender zone (one project sends mail)"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 5,
+        "label": "5 deployed scripts"
+      }
+    ]
+  },
+  "fiveSideProjects": {
+    "name": "Four quiet side projects and one small app for one month",
+    "lines": [
+      {
+        "meter": "build.sandbox.standard-3",
+        "quantity": 1680,
+        "label": "28 build minutes (2 for each quiet project, 20 for the small app)"
+      },
+      {
+        "meter": "wfp.requests",
+        "quantity": 120000,
+        "label": "120,000 requests"
+      },
+      {
+        "meter": "wfp.cpu",
+        "quantity": 1200000,
+        "label": "1.2M CPU-ms"
+      },
+      {
+        "meter": "neon.compute.scale",
+        "quantity": 6,
+        "label": "6 database CU-hours (12 active hours on the Paid standard 0.5 CU profile across five databases)"
+      },
+      {
+        "meter": "neon.storage.root",
+        "quantity": 1.8,
+        "label": "1.8 database GB-months"
+      },
+      {
+        "meter": "ses.{region}.recipients (Essentials)",
+        "quantity": 2000,
+        "label": "2,000 mail recipients"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 4,
+        "label": "4 deployed scripts (one for each quiet project)"
+      }
+    ]
+  },
+  "fiveSideProjectsWithSender": {
+    "name": "The same five projects with the small app's deployed script and its mail sender zone",
+    "lines": [
+      {
+        "meter": "build.sandbox.standard-3",
+        "quantity": 1680,
+        "label": "28 build minutes"
+      },
+      {
+        "meter": "wfp.requests",
+        "quantity": 120000,
+        "label": "120,000 requests"
+      },
+      {
+        "meter": "wfp.cpu",
+        "quantity": 1200000,
+        "label": "1.2M CPU-ms"
+      },
+      {
+        "meter": "neon.compute.scale",
+        "quantity": 6,
+        "label": "6 database CU-hours (12 active hours on the Paid standard 0.5 CU profile across five databases)"
+      },
+      {
+        "meter": "neon.storage.root",
+        "quantity": 1.8,
+        "label": "1.8 database GB-months"
+      },
+      {
+        "meter": "ses.{region}.recipients (Essentials)",
+        "quantity": 2000,
+        "label": "2,000 mail recipients"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 5,
+        "label": "5 deployed scripts"
+      },
+      {
+        "meter": "route53.zone",
+        "quantity": 1,
+        "label": "1 mail sender zone"
+      }
+    ]
+  },
+  "fiftyThousandRecipients": {
+    "name": "50,000 mail recipients in one month",
+    "lines": [
+      {
+        "meter": "ses.{region}.recipients (Essentials)",
+        "quantity": 50000,
+        "label": "50,000 mail recipients"
+      }
+    ]
+  },
+  "agentLoop": {
+    "name": "An agent that redeploys ten times in one month",
+    "lines": [
+      {
+        "meter": "build.sandbox.standard-3",
+        "quantity": 3000,
+        "label": "50 build minutes (ten deployments of 5 minutes)"
+      },
+      {
+        "meter": "wfp.requests",
+        "quantity": 20000,
+        "label": "20,000 requests"
+      },
+      {
+        "meter": "wfp.cpu",
+        "quantity": 200000,
+        "label": "200,000 CPU-ms"
+      },
+      {
+        "meter": "neon.compute.scale",
+        "quantity": 1,
+        "label": "1 database CU-hour (2 active hours on the Paid standard 0.5 CU profile)"
+      },
+      {
+        "meter": "neon.storage.root",
+        "quantity": 0.5,
+        "label": "0.5 database GB-month"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 5.5,
+        "label": "ten staged scripts kept for rollback, about 5.5 script-months when the deployments are spread across the month"
+      }
+    ]
+  },
+  "lovableFrontend": {
+    "name": "A Lovable frontend that keeps Supabase, with its own domain, for one month",
+    "lines": [
+      {
+        "meter": "build.sandbox.standard-3",
+        "quantity": 600,
+        "label": "10 build minutes"
+      },
+      {
+        "meter": "wfp.requests",
+        "quantity": 100000,
+        "label": "100,000 requests"
+      },
+      {
+        "meter": "wfp.cpu",
+        "quantity": 1000000,
+        "label": "1M CPU-ms"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 1,
+        "label": "1 deployed script"
+      },
+      {
+        "meter": "domain.custom_hostname",
+        "quantity": 1,
+        "label": "1 custom hostname"
+      }
+    ]
+  },
+  "lovableFirstMonth": {
+    "name": "A Lovable export with managed mail in its first month",
+    "lines": [
+      {
+        "meter": "build.sandbox.standard-3",
+        "quantity": 900,
+        "label": "15 build minutes (three deployments)"
+      },
+      {
+        "meter": "wfp.requests",
+        "quantity": 20000,
+        "label": "20,000 requests"
+      },
+      {
+        "meter": "wfp.cpu",
+        "quantity": 200000,
+        "label": "200,000 CPU-ms"
+      },
+      {
+        "meter": "neon.compute.scale",
+        "quantity": 2,
+        "label": "2 database CU-hours (4 active hours on the Paid standard profile)"
+      },
+      {
+        "meter": "neon.storage.root",
+        "quantity": 0.5,
+        "label": "0.5 database GB-month"
+      },
+      {
+        "meter": "ses.{region}.recipients (Essentials)",
+        "quantity": 500,
+        "label": "500 mail recipients"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 1,
+        "label": "1 deployed script"
+      },
+      {
+        "meter": "route53.zone",
+        "quantity": 1,
+        "label": "1 mail sender zone"
+      }
+    ]
+  },
+  "boltKeepSupabase": {
+    "name": "A Bolt export that keeps Supabase, on the platform host, for one month",
+    "lines": [
+      {
+        "meter": "build.sandbox.standard-3",
+        "quantity": 300,
+        "label": "5 build minutes"
+      },
+      {
+        "meter": "wfp.requests",
+        "quantity": 20000,
+        "label": "20,000 requests"
+      },
+      {
+        "meter": "wfp.cpu",
+        "quantity": 200000,
+        "label": "200,000 CPU-ms"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 1,
+        "label": "1 deployed script"
+      }
+    ]
+  },
+  "boltOwnDomain": {
+    "name": "A Bolt export with managed Postgres on its own domain for one month",
+    "lines": [
+      {
+        "meter": "build.sandbox.standard-3",
+        "quantity": 300,
+        "label": "5 build minutes"
+      },
+      {
+        "meter": "wfp.requests",
+        "quantity": 20000,
+        "label": "20,000 requests"
+      },
+      {
+        "meter": "wfp.cpu",
+        "quantity": 200000,
+        "label": "200,000 CPU-ms"
+      },
+      {
+        "meter": "neon.compute.scale",
+        "quantity": 1,
+        "label": "1 database CU-hour (2 active hours on the Paid standard 0.5 CU profile)"
+      },
+      {
+        "meter": "neon.storage.root",
+        "quantity": 0.5,
+        "label": "0.5 database GB-month"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 1,
+        "label": "1 deployed script"
+      },
+      {
+        "meter": "domain.custom_hostname",
+        "quantity": 1,
+        "label": "1 custom hostname"
+      }
+    ]
+  },
+  "senderTwoThousand": {
+    "name": "2,000 mail recipients a month from your own sender domain",
+    "lines": [
+      {
+        "meter": "ses.{region}.recipients (Essentials)",
+        "quantity": 2000,
+        "label": "2,000 mail recipients"
+      },
+      {
+        "meter": "route53.zone",
+        "quantity": 1,
+        "label": "1 mail sender zone"
+      }
+    ]
+  },
+  "senderTenThousand": {
+    "name": "10,000 mail recipients a month from your own sender domain",
+    "lines": [
+      {
+        "meter": "ses.{region}.recipients (Essentials)",
+        "quantity": 10000,
+        "label": "10,000 mail recipients"
+      },
+      {
+        "meter": "route53.zone",
+        "quantity": 1,
+        "label": "1 mail sender zone"
+      }
+    ]
+  },
+  "senderThirtyFiveThousand": {
+    "name": "35,000 mail recipients a month from your own sender domain",
+    "lines": [
+      {
+        "meter": "ses.{region}.recipients (Essentials)",
+        "quantity": 35000,
+        "label": "35,000 mail recipients"
+      },
+      {
+        "meter": "route53.zone",
+        "quantity": 1,
+        "label": "1 mail sender zone"
+      }
+    ]
+  },
+  "senderFiftyThousand": {
+    "name": "50,000 mail recipients a month from your own sender domain",
+    "lines": [
+      {
+        "meter": "ses.{region}.recipients (Essentials)",
+        "quantity": 50000,
+        "label": "50,000 mail recipients"
+      },
+      {
+        "meter": "route53.zone",
+        "quantity": 1,
+        "label": "1 mail sender zone"
+      }
+    ]
+  }
+}

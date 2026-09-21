@@ -1,0 +1,68 @@
+{
+  "millionRequests": { "meter": "wfp.requests", "quantity": 1000000, "label": "1M requests" },
+  "thousandMailRecipients": {
+    "meter": "ses.{region}.recipients (Essentials)",
+    "quantity": 1000,
+    "label": "1,000 mail recipients"
+  },
+  "twentyThousandMailRecipients": {
+    "meter": "ses.{region}.recipients (Essentials)",
+    "quantity": 20000,
+    "label": "20,000 mail recipients"
+  },
+  "activeDatabaseHourFree": {
+    "meter": "neon.compute.scale",
+    "quantity": 0.25,
+    "label": "one active database hour on the Free 0.25 CU profile"
+  },
+  "activeDatabaseHourStandard": {
+    "meter": "neon.compute.scale",
+    "quantity": 0.5,
+    "label": "one active database hour on the Paid standard 0.5 CU profile"
+  },
+  "activeDatabaseHourPerformance": {
+    "meter": "neon.compute.performance",
+    "quantity": 1,
+    "label": "one active database hour on the Paid performance 1 CU profile"
+  },
+  "hundredDatabaseCuHours": {
+    "meter": "neon.compute.scale",
+    "quantity": 100,
+    "label": "100 database CU-hours"
+  },
+  "databaseGbMonth": {
+    "meter": "neon.storage.root",
+    "quantity": 1,
+    "label": "1 database GB-month"
+  },
+  "deployedScriptMonth": {
+    "meter": "wfp.script",
+    "quantity": 1,
+    "label": "one deployed script for a month"
+  },
+  "customHostnameMonth": {
+    "meter": "domain.custom_hostname",
+    "quantity": 1,
+    "label": "one linked custom hostname for a month"
+  },
+  "mailSenderZoneMonth": {
+    "meter": "route53.zone",
+    "quantity": 1,
+    "label": "one mail sender zone for a month"
+  },
+  "twentyBuildMinutes": {
+    "meter": "build.sandbox.standard-3",
+    "quantity": 1200,
+    "label": "20 build minutes"
+  },
+  "buildReservation": {
+    "meter": "build.sandbox.standard-3",
+    "quantity": 840,
+    "label": "the 840-second build reservation a deployment holds"
+  },
+  "buildRateUnit": {
+    "meter": "build.sandbox.standard-3",
+    "quantity": 175,
+    "label": "the exact 175-second build rational from the rate card"
+  }
+}

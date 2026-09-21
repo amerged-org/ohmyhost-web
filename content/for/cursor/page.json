@@ -1,0 +1,12 @@
+{
+  "title": "Deploy an app built with Cursor to ohmyho.st",
+  "description": "Add one MCP server to Cursor, paste one prompt, and Cursor plans, deploys and verifies your GitHub app on Dev and Prod with Postgres and one credit balance.",
+  "kind": "howto",
+  "status": "published",
+  "crumb": "Cursor",
+  "social": {
+    "image": null,
+    "alt": null
+  },
+  "modified": "2026-09-20"
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Sub-processors ohmyho.st uses to run your projects",
+  "description": "The providers ohmyho.st relies on to host, store and send on your behalf, with the role each one plays, where it processes data and how changes are announced.",
+  "kind": "page",
+  "status": "published",
+  "crumb": "Sub-processors",
+  "social": {
+    "image": null,
+    "alt": null
+  },
+  "parent": "/dpa",
+  "modified": "2026-09-19"
+}

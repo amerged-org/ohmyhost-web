@@ -1,0 +1,225 @@
+{
+  "vercel": {
+    "name": "Vercel",
+    "checkedOn": "2026-09-19",
+    "sourceUrl": "https://vercel.com/pricing",
+    "evidence": "plan/evidence/P38/site-evidence-20260919/before--vercel.com--pricing--1440x900@2--full.jpg",
+    "facts": {
+      "hobby": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "one developer seat, 100 GB fast data transfer, 1M edge requests and 1M function invocations a month"
+      },
+      "pro": {
+        "usd": 20,
+        "unit": "per month",
+        "includes": "$20 of included usage credit each month, Flat Rate CDN with no overages for CDN requests and fast data transfer, free viewer seats"
+      },
+      "developerSeat": {
+        "usd": 20,
+        "unit": "per developer seat per month"
+      },
+      "functionInvocations": {
+        "usd": 0.6,
+        "unit": "per 1M function invocations beyond the included credit"
+      }
+    }
+  },
+  "supabase": {
+    "name": "Supabase",
+    "checkedOn": "2026-09-19",
+    "sourceUrl": "https://supabase.com/pricing",
+    "evidence": "plan/evidence/P38/site-evidence-20260919/before--supabase.com--pricing--1440x900@2--full.jpg",
+    "facts": {
+      "pro": {
+        "usd": 25,
+        "unit": "per month, from",
+        "includes": "the first project's Micro instance through $10 of compute credits, 8 GB disk per project, 250 GB egress a month, 100,000 monthly active users"
+      },
+      "microProject": {
+        "usd": 10,
+        "unit": "per month for each additional project's Micro instance"
+      },
+      "smallProject": {
+        "usd": 15,
+        "unit": "per month for a Small compute instance"
+      },
+      "diskGb": {
+        "usd": 0.125,
+        "unit": "per GB of disk per month beyond 8 GB per project"
+      },
+      "egressGb": {
+        "usd": 0.09,
+        "unit": "per GB of egress per month beyond 250 GB"
+      },
+      "cachedEgressGb": {
+        "usd": 0.03,
+        "unit": "per GB of cached egress per month beyond 250 GB"
+      }
+    }
+  },
+  "resend": {
+    "name": "Resend",
+    "checkedOn": "2026-09-19",
+    "sourceUrl": "https://resend.com/pricing",
+    "evidence": "plan/evidence/P38/site-evidence-20260919/before--resend.com--pricing--1440x900@2--table.png",
+    "facts": {
+      "free": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "3,000 emails a month, at most 100 a day"
+      },
+      "pro": {
+        "usd": 20,
+        "unit": "per month",
+        "includes": "50,000 emails a month; pay-as-you-go overage is opt-in"
+      },
+      "scale": {
+        "usd": 90,
+        "unit": "per month",
+        "includes": "100,000 emails a month"
+      },
+      "overageThousand": {
+        "usd": 0.9,
+        "unit": "per 1,000 emails beyond the plan when pay-as-you-go is enabled"
+      },
+      "domainsAddon": {
+        "usd": 20,
+        "unit": "per month for 100 additional domains"
+      }
+    }
+  },
+  "railway": {
+    "name": "Railway",
+    "checkedOn": "2026-09-19",
+    "sourceUrl": "https://railway.com/pricing",
+    "evidence": "plan/evidence/P38/site-evidence-20260919/before--railway.com--pricing--1440x900@2--table.png",
+    "facts": {
+      "free": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "a 30-day trial with $5 of credits, then $1 per month; one project member"
+      },
+      "hobby": {
+        "usd": 5,
+        "unit": "per month minimum usage",
+        "includes": "$5 of monthly usage credits, a single developer workspace"
+      },
+      "pro": {
+        "usd": 20,
+        "unit": "per month minimum usage",
+        "includes": "$20 of monthly usage credits, unlimited workspace seats"
+      },
+      "vcpuSecond": {
+        "usd": 0.00000772,
+        "unit": "per vCPU per second"
+      },
+      "memoryGbSecond": {
+        "usd": 0.00000386,
+        "unit": "per GB of memory per second"
+      },
+      "volumeGbSecond": {
+        "usd": 6e-8,
+        "unit": "per GB of volume per second"
+      },
+      "egressGb": {
+        "usd": 0.05,
+        "unit": "per GB of service egress; bucket egress is free"
+      },
+      "objectStorageGbMonth": {
+        "usd": 0.015,
+        "unit": "per GB-month of object storage"
+      }
+    }
+  },
+  "fly": {
+    "name": "Fly.io",
+    "checkedOn": "2026-09-19",
+    "sourceUrl": "https://fly.io/pricing",
+    "evidence": "plan/evidence/P38/site-evidence-20260919/before--fly.io--pricing--1440x900@2--full.jpg",
+    "facts": {
+      "sharedCpu1x": {
+        "usd": 1.94,
+        "unit": "per month for a shared-cpu-1x machine with 256 MB in Ashburn, billed by the second while it runs"
+      },
+      "performance1x": {
+        "usd": 31,
+        "unit": "per month for a performance-1x machine with 2 GB in Ashburn"
+      },
+      "stoppedMachineGb": {
+        "usd": 0.15,
+        "unit": "per GB of root filesystem per month while a machine is stopped"
+      },
+      "additionalRamGb": {
+        "usd": 5,
+        "unit": "per GB of additional RAM per month"
+      },
+      "volumeGbMonth": {
+        "usd": 0.15,
+        "unit": "per GB of provisioned volume per month"
+      },
+      "snapshotGbMonth": {
+        "usd": 0.08,
+        "unit": "per GB of snapshots per month; the first 10 GB are free"
+      },
+      "egressGb": {
+        "usd": 0.02,
+        "unit": "per GB of egress in North America and Europe"
+      }
+    }
+  },
+  "render": {
+    "name": "Render",
+    "checkedOn": "2026-09-19",
+    "sourceUrl": "https://render.com/pricing",
+    "evidence": "plan/evidence/P38/site-evidence-20260919/before--render.com--pricing--1440x900@2--full.jpg",
+    "facts": {
+      "hobby": {
+        "usd": 0,
+        "unit": "per month plus compute",
+        "includes": "one seat, up to 25 services, 5 GB bandwidth, 2 custom domains, 500 build minutes a month; free compute rows carry usage limits"
+      },
+      "pro": {
+        "usd": 25,
+        "unit": "per month plus compute",
+        "includes": "unlimited seats, 25 GB bandwidth, 15 custom domains, 1,000 build minutes a month"
+      },
+      "webService512": {
+        "usd": 7,
+        "unit": "per month for a 0.5 CPU, 512 MB web service (0.5c-512mb)"
+      },
+      "webService2g": {
+        "usd": 25,
+        "unit": "per month for a 1 CPU, 2 GB web service (1c-2g)"
+      },
+      "postgres256": {
+        "usd": 6,
+        "unit": "per month for a 0.1 CPU, 256 MB Postgres instance (0.1c-256mb)"
+      },
+      "postgres1g": {
+        "usd": 19,
+        "unit": "per month for a 0.5 CPU, 1 GB Postgres instance (0.5c-1g)"
+      },
+      "postgresStorageGb": {
+        "usd": 0.3,
+        "unit": "per GB of expandable Postgres storage; 1 GB SSD is included per instance"
+      },
+      "diskGbMonth": {
+        "usd": 0.25,
+        "unit": "per GB of persistent disk per month"
+      },
+      "bandwidthGb": {
+        "usd": 0.15,
+        "unit": "per GB of bandwidth beyond the plan"
+      },
+      "domainOverage": {
+        "usd": 0.25,
+        "unit": "per custom domain per month beyond the plan"
+      },
+      "buildMinutes": {
+        "usd": 5,
+        "unit": "per 1,000 build minutes beyond the plan"
+      }
+    }
+  }
+}

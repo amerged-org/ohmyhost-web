@@ -1,0 +1,176 @@
+{
+  "threeSubscriptions": {
+    "name": "Vercel Pro, Supabase Pro and Resend Pro for one developer and one project",
+    "parts": [
+      {
+        "vendor": "vercel",
+        "fact": "pro",
+        "label": "Vercel Pro"
+      },
+      {
+        "vendor": "supabase",
+        "fact": "pro",
+        "label": "Supabase Pro, 1 project"
+      },
+      {
+        "vendor": "resend",
+        "fact": "pro",
+        "label": "Resend Pro"
+      }
+    ]
+  },
+  "fiveProjects": {
+    "name": "The same three subscriptions for five projects",
+    "parts": [
+      {
+        "vendor": "vercel",
+        "fact": "pro",
+        "label": "Vercel Pro"
+      },
+      {
+        "vendor": "supabase",
+        "fact": "pro",
+        "label": "Supabase Pro, 1 project"
+      },
+      {
+        "vendor": "supabase",
+        "fact": "microProject",
+        "label": "4 more Supabase Micro projects",
+        "times": 4
+      },
+      {
+        "vendor": "resend",
+        "fact": "pro",
+        "label": "Resend Pro"
+      }
+    ]
+  },
+  "railwayStack": {
+    "name": "Railway Pro and Resend Pro for one developer, before usage above the credits",
+    "parts": [
+      {
+        "vendor": "railway",
+        "fact": "pro",
+        "label": "Railway Pro"
+      },
+      {
+        "vendor": "resend",
+        "fact": "pro",
+        "label": "Resend Pro"
+      }
+    ]
+  },
+  "vercelProTwoSeats": {
+    "name": "Vercel Pro with one extra developer seat",
+    "parts": [
+      {
+        "vendor": "vercel",
+        "fact": "pro",
+        "label": "Vercel Pro"
+      },
+      {
+        "vendor": "vercel",
+        "fact": "developerSeat",
+        "label": "1 extra developer seat"
+      }
+    ]
+  },
+  "vercelSupabase": {
+    "name": "Vercel Pro and Supabase Pro for one developer and one project",
+    "parts": [
+      {
+        "vendor": "vercel",
+        "fact": "pro",
+        "label": "Vercel Pro"
+      },
+      {
+        "vendor": "supabase",
+        "fact": "pro",
+        "label": "Supabase Pro, 1 project"
+      }
+    ]
+  },
+  "vercelSupabaseFiveProjects": {
+    "name": "Vercel Pro and Supabase Pro with five Supabase projects",
+    "parts": [
+      {
+        "vendor": "vercel",
+        "fact": "pro",
+        "label": "Vercel Pro"
+      },
+      {
+        "vendor": "supabase",
+        "fact": "pro",
+        "label": "Supabase Pro, 1 project"
+      },
+      {
+        "vendor": "supabase",
+        "fact": "microProject",
+        "label": "4 more Supabase Micro projects",
+        "times": 4
+      }
+    ]
+  },
+  "supabaseFiveProjects": {
+    "name": "Supabase Pro with five projects",
+    "parts": [
+      {
+        "vendor": "supabase",
+        "fact": "pro",
+        "label": "Supabase Pro, first project"
+      },
+      {
+        "vendor": "supabase",
+        "fact": "microProject",
+        "label": "4 more Supabase Micro projects",
+        "times": 4
+      }
+    ]
+  },
+  "fiveProjectsFreeTiers": {
+    "name": "Vercel Hobby, Supabase Pro with five projects and Resend Free",
+    "parts": [
+      {
+        "vendor": "vercel",
+        "fact": "hobby",
+        "label": "Vercel Hobby"
+      },
+      {
+        "vendor": "supabase",
+        "fact": "pro",
+        "label": "Supabase Pro, 1 project"
+      },
+      {
+        "vendor": "supabase",
+        "fact": "microProject",
+        "label": "4 more Supabase Micro projects",
+        "times": 4
+      },
+      {
+        "vendor": "resend",
+        "fact": "free",
+        "label": "Resend Free"
+      }
+    ]
+  },
+  "renderSmallApp": {
+    "name": "Render Hobby with one 0.5 CPU web service and one 0.1 CPU Postgres instance",
+    "parts": [
+      {
+        "vendor": "render",
+        "fact": "hobby",
+        "label": "Render Hobby"
+      },
+      {
+        "vendor": "render",
+        "fact": "webService512",
+        "label": "One 0.5 CPU / 512 MB web service"
+      },
+      {
+        "vendor": "render",
+        "fact": "postgres256",
+        "label": "One 0.1 CPU / 256 MB Postgres"
+      }
+    ]
+  }
+}
