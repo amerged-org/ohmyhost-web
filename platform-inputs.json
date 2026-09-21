@@ -1,6 +1,6 @@
 {
-  "platformCommit": "de93a621438cde7874c9ef4fc4e14cad54a1c89f",
-  "generatedAt": "2026-09-21T06:09:51.800Z",
+  "platformCommit": "7c5be2ad0813411597efe9b47c49e676172dd10e",
+  "generatedAt": "2026-09-21T11:12:37.723Z",
   "clientRelease": {
     "version": "0.1.11",
     "manifestUrl": "https://ohmyho.st/releases/0.1.11/manifest.json"
@@ -241,10 +241,15 @@
             "environment": {
               "default": "dev",
               "type": "string",
-              "enum": ["dev", "prod"]
+              "enum": [
+                "dev",
+                "prod"
+              ]
             }
           },
-          "required": ["project_id"]
+          "required": [
+            "project_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -266,11 +271,17 @@
             },
             "environment": {
               "type": "string",
-              "enum": ["dev", "prod"]
+              "enum": [
+                "dev",
+                "prod"
+              ]
             },
             "profile": {
               "type": "string",
-              "enum": ["standard", "performance"]
+              "enum": [
+                "standard",
+                "performance"
+              ]
             },
             "confirm": {
               "type": "boolean",
@@ -309,7 +320,9 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id"]
+          "required": [
+            "project_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -379,7 +392,11 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id", "zone", "idempotency_key"]
+          "required": [
+            "project_id",
+            "zone",
+            "idempotency_key"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -400,7 +417,9 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id"]
+          "required": [
+            "project_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -425,7 +444,10 @@
               "pattern": "^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z]{2,63}$"
             }
           },
-          "required": ["project_id", "hostname"]
+          "required": [
+            "project_id",
+            "hostname"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -459,7 +481,12 @@
               "const": true
             }
           },
-          "required": ["project_id", "hostname", "idempotency_key", "confirm"]
+          "required": [
+            "project_id",
+            "hostname",
+            "idempotency_key",
+            "confirm"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -480,7 +507,9 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id"]
+          "required": [
+            "project_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -514,7 +543,12 @@
               "const": true
             }
           },
-          "required": ["project_id", "hostname", "idempotency_key", "confirm"]
+          "required": [
+            "project_id",
+            "hostname",
+            "idempotency_key",
+            "confirm"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -536,7 +570,10 @@
             },
             "offer": {
               "type": "string",
-              "enum": ["topup", "paid"]
+              "enum": [
+                "topup",
+                "paid"
+              ]
             },
             "packs": {
               "default": 1,
@@ -550,7 +587,11 @@
               "maxLength": 128
             }
           },
-          "required": ["organization_id", "offer", "idempotency_key"]
+          "required": [
+            "organization_id",
+            "offer",
+            "idempotency_key"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -576,7 +617,10 @@
               "maxLength": 256
             }
           },
-          "required": ["organization_id", "checkout_id"]
+          "required": [
+            "organization_id",
+            "checkout_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -597,7 +641,9 @@
               "maxLength": 256
             }
           },
-          "required": ["organization_id"]
+          "required": [
+            "organization_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -675,7 +721,9 @@
               "maxLength": 256
             }
           },
-          "required": ["organization_id"]
+          "required": [
+            "organization_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -706,7 +754,11 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id", "password_file", "idempotency_key"],
+          "required": [
+            "project_id",
+            "password_file",
+            "idempotency_key"
+          ],
           "additionalProperties": false
         },
         "annotations": {
@@ -733,7 +785,10 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id", "export_id"]
+          "required": [
+            "project_id",
+            "export_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -763,7 +818,10 @@
               "maxLength": 256
             }
           },
-          "required": ["organization_id", "month"]
+          "required": [
+            "organization_id",
+            "month"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -784,7 +842,9 @@
               "maxLength": 256
             }
           },
-          "required": ["organization_id"]
+          "required": [
+            "organization_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -805,7 +865,9 @@
               "maxLength": 256
             }
           },
-          "required": ["organization_id"]
+          "required": [
+            "organization_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -826,7 +888,9 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id"]
+          "required": [
+            "project_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -860,7 +924,10 @@
             "mode": {
               "default": "continue",
               "type": "string",
-              "enum": ["continue", "stop"]
+              "enum": [
+                "continue",
+                "stop"
+              ]
             },
             "idempotency_key": {
               "type": "string",
@@ -868,7 +935,11 @@
               "maxLength": 128
             }
           },
-          "required": ["project_id", "amount_micros", "idempotency_key"]
+          "required": [
+            "project_id",
+            "amount_micros",
+            "idempotency_key"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -898,7 +969,10 @@
               "maxLength": 256
             }
           },
-          "required": ["name", "idempotency_key"]
+          "required": [
+            "name",
+            "idempotency_key"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -933,7 +1007,9 @@
               "maxLength": 256
             }
           },
-          "required": ["organization_id"]
+          "required": [
+            "organization_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -955,7 +1031,10 @@
             },
             "environment": {
               "type": "string",
-              "enum": ["dev", "prod"]
+              "enum": [
+                "dev",
+                "prod"
+              ]
             },
             "statement": {
               "type": "string",
@@ -985,7 +1064,11 @@
               }
             }
           },
-          "required": ["project_id", "environment", "statement"]
+          "required": [
+            "project_id",
+            "environment",
+            "statement"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1007,7 +1090,10 @@
             },
             "environment": {
               "type": "string",
-              "enum": ["dev", "prod"]
+              "enum": [
+                "dev",
+                "prod"
+              ]
             },
             "statement": {
               "type": "string",
@@ -1058,12 +1144,18 @@
             },
             "environment": {
               "type": "string",
-              "enum": ["dev", "prod"]
+              "enum": [
+                "dev",
+                "prod"
+              ]
             },
             "mode": {
               "default": "read",
               "type": "string",
-              "enum": ["read", "write"]
+              "enum": [
+                "read",
+                "write"
+              ]
             },
             "ttl_seconds": {
               "default": 3600,
@@ -1081,7 +1173,10 @@
               "const": true
             }
           },
-          "required": ["project_id", "environment"]
+          "required": [
+            "project_id",
+            "environment"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -1103,10 +1198,15 @@
             },
             "environment": {
               "type": "string",
-              "enum": ["dev", "prod"]
+              "enum": [
+                "dev",
+                "prod"
+              ]
             }
           },
-          "required": ["project_id"]
+          "required": [
+            "project_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1132,7 +1232,10 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id", "access_id"]
+          "required": [
+            "project_id",
+            "access_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -1158,7 +1261,10 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id", "source_deployment_id"]
+          "required": [
+            "project_id",
+            "source_deployment_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -1281,7 +1387,9 @@
               "pattern": "^api_key_[A-Za-z0-9_]{1,120}$"
             }
           },
-          "required": ["organization_id"]
+          "required": [
+            "organization_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1310,7 +1418,11 @@
               "const": true
             }
           },
-          "required": ["organization_id", "key_id", "confirmed"]
+          "required": [
+            "organization_id",
+            "key_id",
+            "confirmed"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -1345,7 +1457,9 @@
               "maxLength": 120
             }
           },
-          "required": ["handle"]
+          "required": [
+            "handle"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1407,7 +1521,11 @@
             },
             "kind": {
               "type": "string",
-              "enum": ["bug", "issue", "feature_request"]
+              "enum": [
+                "bug",
+                "issue",
+                "feature_request"
+              ]
             },
             "title": {
               "type": "string",
@@ -1467,11 +1585,17 @@
             },
             "data_mode": {
               "type": "string",
-              "enum": ["shared", "isolated"]
+              "enum": [
+                "shared",
+                "isolated"
+              ]
             },
             "region": {
               "type": "string",
-              "enum": ["us", "eu"]
+              "enum": [
+                "us",
+                "eu"
+              ]
             },
             "idempotency_key": {
               "type": "string",
@@ -1479,7 +1603,11 @@
               "maxLength": 256
             }
           },
-          "required": ["organization_id", "name", "idempotency_key"]
+          "required": [
+            "organization_id",
+            "name",
+            "idempotency_key"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -1500,7 +1628,9 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id"]
+          "required": [
+            "project_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1521,7 +1651,9 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id"]
+          "required": [
+            "project_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1542,7 +1674,9 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id"]
+          "required": [
+            "project_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -1568,7 +1702,10 @@
               "maxLength": 256
             }
           },
-          "required": ["organization_id", "idempotency_key"]
+          "required": [
+            "organization_id",
+            "idempotency_key"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -1589,7 +1726,9 @@
               "maxLength": 256
             }
           },
-          "required": ["organization_id"]
+          "required": [
+            "organization_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1651,7 +1790,9 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id"]
+          "required": [
+            "project_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1676,7 +1817,10 @@
               "pattern": "^[a-f0-9]{40}$"
             }
           },
-          "required": ["project_id", "commit_sha"]
+          "required": [
+            "project_id",
+            "commit_sha"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1707,7 +1851,11 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id", "plan_id", "idempotency_key"]
+          "required": [
+            "project_id",
+            "plan_id",
+            "idempotency_key"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -1738,7 +1886,9 @@
               "maximum": 100
             }
           },
-          "required": ["project_id"]
+          "required": [
+            "project_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1764,7 +1914,10 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id", "deployment_id"]
+          "required": [
+            "project_id",
+            "deployment_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1796,7 +1949,10 @@
               "maximum": 100
             }
           },
-          "required": ["project_id", "deployment_id"]
+          "required": [
+            "project_id",
+            "deployment_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1817,7 +1973,9 @@
               "maxLength": 256
             }
           },
-          "required": ["operation_id"]
+          "required": [
+            "operation_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1844,7 +2002,9 @@
               "maximum": 100
             }
           },
-          "required": ["operation_id"]
+          "required": [
+            "operation_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1876,7 +2036,10 @@
               "maximum": 100
             }
           },
-          "required": ["project_id", "environment_id"]
+          "required": [
+            "project_id",
+            "environment_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1906,7 +2069,11 @@
               "const": true
             }
           },
-          "required": ["operation_id", "idempotency_key", "confirmed"]
+          "required": [
+            "operation_id",
+            "idempotency_key",
+            "confirmed"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -1936,7 +2103,11 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id", "domain", "idempotency_key"]
+          "required": [
+            "project_id",
+            "domain",
+            "idempotency_key"
+          ]
         },
         "annotations": {
           "readOnlyHint": false,
@@ -1957,7 +2128,9 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id"]
+          "required": [
+            "project_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -1983,7 +2156,10 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id", "environment_id"]
+          "required": [
+            "project_id",
+            "environment_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -2089,7 +2265,10 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id", "deployment_id"]
+          "required": [
+            "project_id",
+            "deployment_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -2157,7 +2336,9 @@
               "maxLength": 256
             }
           },
-          "required": ["project_id"]
+          "required": [
+            "project_id"
+          ]
         },
         "annotations": {
           "readOnlyHint": true,
@@ -2280,10 +2461,15 @@
                 "schema": {
                   "type": "object",
                   "additionalProperties": false,
-                  "required": ["source"],
+                  "required": [
+                    "source"
+                  ],
                   "properties": {
                     "source": {
-                      "type": ["string", "null"],
+                      "type": [
+                        "string",
+                        "null"
+                      ],
                       "minLength": 1,
                       "maxLength": 64
                     }
@@ -2550,7 +2736,9 @@
                   "schema": {
                     "type": "object",
                     "additionalProperties": false,
-                    "required": ["accepted"],
+                    "required": [
+                      "accepted"
+                    ],
                     "properties": {
                       "accepted": {
                         "type": "boolean",
@@ -2634,15 +2822,30 @@
                 "schema": {
                   "type": "object",
                   "additionalProperties": false,
-                  "required": ["feature", "choice", "idempotency_key"],
+                  "required": [
+                    "feature",
+                    "choice",
+                    "idempotency_key"
+                  ],
                   "properties": {
                     "feature": {
                       "type": "string",
-                      "enum": ["eu", "iso27001", "soc2"]
+                      "enum": [
+                        "eu",
+                        "iso27001",
+                        "soc2"
+                      ]
                     },
                     "choice": {
-                      "type": ["string", "null"],
-                      "enum": ["up", "down", null]
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "enum": [
+                        "up",
+                        "down",
+                        null
+                      ]
                     },
                     "idempotency_key": {
                       "type": "string",
@@ -2661,7 +2864,10 @@
                   "schema": {
                     "type": "object",
                     "additionalProperties": false,
-                    "required": ["accepted", "votes"],
+                    "required": [
+                      "accepted",
+                      "votes"
+                    ],
                     "properties": {
                       "accepted": {
                         "type": "boolean",
@@ -2709,7 +2915,10 @@
                   "schema": {
                     "type": "object",
                     "additionalProperties": false,
-                    "required": ["deploys_7d", "observed_at"],
+                    "required": [
+                      "deploys_7d",
+                      "observed_at"
+                    ],
                     "properties": {
                       "deploys_7d": {
                         "type": "integer",
@@ -2761,7 +2970,9 @@
                 "schema": {
                   "type": "object",
                   "additionalProperties": false,
-                  "required": ["name"],
+                  "required": [
+                    "name"
+                  ],
                   "properties": {
                     "name": {
                       "type": "string",
@@ -3033,7 +3244,9 @@
               "description": "GitHub authorization-response issuer, checked exactly when supplied.",
               "schema": {
                 "type": "string",
-                "enum": ["https://github.com/login/oauth"]
+                "enum": [
+                  "https://github.com/login/oauth"
+                ]
               }
             },
             {
@@ -3049,7 +3262,11 @@
               "in": "query",
               "schema": {
                 "type": "string",
-                "enum": ["install", "update", "request"]
+                "enum": [
+                  "install",
+                  "update",
+                  "request"
+                ]
               }
             }
           ],
@@ -3235,7 +3452,9 @@
                   "schema": {
                     "type": "object",
                     "additionalProperties": false,
-                    "required": ["revoked"],
+                    "required": [
+                      "revoked"
+                    ],
                     "properties": {
                       "revoked": {
                         "type": "boolean",
@@ -3364,11 +3583,17 @@
                 "schema": {
                   "type": "object",
                   "additionalProperties": false,
-                  "required": ["offer", "packs"],
+                  "required": [
+                    "offer",
+                    "packs"
+                  ],
                   "properties": {
                     "offer": {
                       "type": "string",
-                      "enum": ["topup", "paid"]
+                      "enum": [
+                        "topup",
+                        "paid"
+                      ]
                     },
                     "packs": {
                       "type": "integer",
@@ -3628,8 +3853,14 @@
                       "description": "Gross USD cents per UTC calendar month including tax."
                     },
                     "consent": {
-                      "type": ["string", "null"],
-                      "enum": ["off_session_v1", null],
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "enum": [
+                        "off_session_v1",
+                        null
+                      ],
                       "description": "Explicit Owner consent when enabling; null when disabling."
                     },
                     "revision": {
@@ -3809,7 +4040,9 @@
                 "schema": {
                   "type": "object",
                   "additionalProperties": false,
-                  "required": ["password"],
+                  "required": [
+                    "password"
+                  ],
                   "properties": {
                     "password": {
                       "type": "string",
@@ -4290,7 +4523,10 @@
                 "schema": {
                   "type": "object",
                   "additionalProperties": false,
-                  "required": ["markdown", "expected_version"],
+                  "required": [
+                    "markdown",
+                    "expected_version"
+                  ],
                   "properties": {
                     "markdown": {
                       "type": "string",
@@ -5660,15 +5896,25 @@
                 "schema": {
                   "type": "object",
                   "additionalProperties": false,
-                  "required": ["environment", "profile", "confirm"],
+                  "required": [
+                    "environment",
+                    "profile",
+                    "confirm"
+                  ],
                   "properties": {
                     "environment": {
                       "type": "string",
-                      "enum": ["dev", "prod"]
+                      "enum": [
+                        "dev",
+                        "prod"
+                      ]
                     },
                     "profile": {
                       "type": "string",
-                      "enum": ["standard", "performance"]
+                      "enum": [
+                        "standard",
+                        "performance"
+                      ]
                     },
                     "confirm": {
                       "type": "boolean",
@@ -5723,7 +5969,10 @@
               "in": "query",
               "schema": {
                 "type": "string",
-                "enum": ["dev", "prod"],
+                "enum": [
+                  "dev",
+                  "prod"
+                ],
                 "default": "dev"
               }
             }
@@ -6753,7 +7002,10 @@
               "$ref": "#/components/responses/Problem"
             }
           },
-          "x-ohmyhost-audit-order": ["occurred_at:desc", "audit_event_id:desc"],
+          "x-ohmyhost-audit-order": [
+            "occurred_at:desc",
+            "audit_event_id:desc"
+          ],
           "x-ohmyhost-resource-disclosure": "indistinguishable-not-found"
         }
       }
@@ -6869,7 +7121,10 @@
           "required": false,
           "schema": {
             "type": "string",
-            "enum": ["dev", "prod"]
+            "enum": [
+              "dev",
+              "prod"
+            ]
           }
         },
         "ProjectCursor": {
@@ -7101,15 +7356,29 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["feature", "choice"],
+            "required": [
+              "feature",
+              "choice"
+            ],
             "properties": {
               "feature": {
                 "type": "string",
-                "enum": ["eu", "iso27001", "soc2"]
+                "enum": [
+                  "eu",
+                  "iso27001",
+                  "soc2"
+                ]
               },
               "choice": {
-                "type": ["string", "null"],
-                "enum": ["up", "down", null]
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "up",
+                  "down",
+                  null
+                ]
               }
             }
           }
@@ -7117,7 +7386,9 @@
         "FeatureVoteState": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["votes"],
+          "required": [
+            "votes"
+          ],
           "properties": {
             "votes": {
               "$ref": "#/components/schemas/FeatureVoteChoices"
@@ -7167,7 +7438,10 @@
               }
             },
             "expires_at": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "date-time"
             },
             "created_at": {
@@ -7175,7 +7449,10 @@
               "format": "date-time"
             },
             "last_used_at": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "date-time"
             }
           }
@@ -7183,7 +7460,12 @@
         "UserApiKeyCreation": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["request_id", "replayed", "key", "value"],
+          "required": [
+            "request_id",
+            "replayed",
+            "key",
+            "value"
+          ],
           "properties": {
             "request_id": {
               "$ref": "#/components/schemas/Ulid"
@@ -7195,7 +7477,10 @@
               "$ref": "#/components/schemas/UserApiKey"
             },
             "value": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "pattern": "^sk_[A-Za-z0-9_-]{20,128}$"
             }
           },
@@ -7225,7 +7510,10 @@
         "UserApiKeyPage": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["data", "next_cursor"],
+          "required": [
+            "data",
+            "next_cursor"
+          ],
           "properties": {
             "data": {
               "type": "array",
@@ -7235,7 +7523,10 @@
               }
             },
             "next_cursor": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "pattern": "^api_key_[A-Za-z0-9_]{1,120}$"
             }
           }
@@ -7247,9 +7538,17 @@
         },
         "BillingTaxIssue": {
           "description": "Verified issue on an existing Stripe invoice; no new purchase is needed.",
-          "type": ["object", "null"],
+          "type": [
+            "object",
+            "null"
+          ],
           "additionalProperties": false,
-          "required": ["code", "invoice_id", "observed_at", "required_action"],
+          "required": [
+            "code",
+            "invoice_id",
+            "observed_at",
+            "required_action"
+          ],
           "properties": {
             "code": {
               "type": "string",
@@ -7269,7 +7568,10 @@
             },
             "required_action": {
               "type": "string",
-              "enum": ["open_billing_portal", "contact_support"]
+              "enum": [
+                "open_billing_portal",
+                "contact_support"
+              ]
             }
           }
         },
@@ -7345,12 +7647,18 @@
               "const": 100
             },
             "setup_url": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "uri",
               "maxLength": 8192
             },
             "invoice_url": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "uri",
               "maxLength": 8192
             },
@@ -7386,17 +7694,27 @@
             },
             "offer": {
               "type": "string",
-              "enum": ["topup", "paid"]
+              "enum": [
+                "topup",
+                "paid"
+              ]
             },
             "state": {
               "type": "string",
-              "enum": ["open", "complete", "expired"]
+              "enum": [
+                "open",
+                "complete",
+                "expired"
+              ]
             },
             "payment_confirmed": {
               "type": "boolean"
             },
             "url": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "uri",
               "maxLength": 8192
             },
@@ -7418,7 +7736,10 @@
               "pattern": "^(0|[1-9][0-9]{0,18})$"
             },
             "paid_until": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "date-time"
             },
             "required_action": {
@@ -7439,7 +7760,11 @@
         "BillingPortal": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["organization_id", "url", "created_at"],
+          "required": [
+            "organization_id",
+            "url",
+            "created_at"
+          ],
           "properties": {
             "organization_id": {
               "$ref": "#/components/schemas/Ulid"
@@ -7500,12 +7825,18 @@
               "$ref": "#/components/schemas/CreditMicros"
             },
             "grace_started_at": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "date-time",
               "description": "First confirmed exhaustion in this continuous period; null while funded."
             },
             "grace_expires_at": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "date-time",
               "description": "Seven days after first confirmed exhaustion. Existing services and domains are retained during this grace; no automatic data deletion. Explicit project stop budgets are separate."
             },
@@ -7574,7 +7905,11 @@
               "items": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": ["project_id", "reserved_micros", "meters"],
+                "required": [
+                  "project_id",
+                  "reserved_micros",
+                  "meters"
+                ],
                 "properties": {
                   "project_id": {
                     "$ref": "#/components/schemas/Ulid"
@@ -7711,7 +8046,10 @@
         "SetProjectCreditBudgetRequest": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["amount_micros", "mode"],
+          "required": [
+            "amount_micros",
+            "mode"
+          ],
           "properties": {
             "amount_micros": {
               "oneOf": [
@@ -7725,7 +8063,10 @@
             },
             "mode": {
               "type": "string",
-              "enum": ["continue", "stop"]
+              "enum": [
+                "continue",
+                "stop"
+              ]
             }
           }
         },
@@ -7758,7 +8099,10 @@
             },
             "mode": {
               "type": "string",
-              "enum": ["continue", "stop"]
+              "enum": [
+                "continue",
+                "stop"
+              ]
             },
             "used_micros": {
               "$ref": "#/components/schemas/CreditMicros"
@@ -7783,7 +8127,9 @@
         "CreateCloudflareDnsAuthorizationRequest": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["zone"],
+          "required": [
+            "zone"
+          ],
           "properties": {
             "zone": {
               "type": "string",
@@ -7797,7 +8143,11 @@
           "type": "object",
           "description": "Short-lived credential-free redirect information for one Cloudflare OAuth authorization.",
           "additionalProperties": false,
-          "required": ["authorization_id", "authorization_url", "expires_at"],
+          "required": [
+            "authorization_id",
+            "authorization_url",
+            "expires_at"
+          ],
           "properties": {
             "authorization_id": {
               "$ref": "#/components/schemas/Ulid"
@@ -7819,7 +8169,12 @@
           "type": "object",
           "description": "Credential-free project authorization state. Without an authorization, status is not_authorized, zone and expires_at are null, and scopes is empty. All other states name the actual customer zone; no platform or customer zone is inferred.",
           "additionalProperties": false,
-          "required": ["status", "zone", "scopes", "expires_at"],
+          "required": [
+            "status",
+            "zone",
+            "scopes",
+            "expires_at"
+          ],
           "properties": {
             "status": {
               "type": "string",
@@ -7832,7 +8187,10 @@
               ]
             },
             "zone": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "minLength": 4,
               "maxLength": 253,
               "pattern": "^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z]{2,63}$"
@@ -7843,7 +8201,10 @@
               "maxItems": 2,
               "items": {
                 "type": "string",
-                "enum": ["dns.write", "zone.read"]
+                "enum": [
+                  "dns.write",
+                  "zone.read"
+                ]
               }
             },
             "expires_at": {
@@ -7862,7 +8223,9 @@
         "PaidDomainRequest": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["hostname"],
+          "required": [
+            "hostname"
+          ],
           "properties": {
             "hostname": {
               "type": "string",
@@ -7899,7 +8262,10 @@
             },
             "cname_target": {
               "type": "string",
-              "enum": ["customers.omh.st", "customers.ohmyho.st"]
+              "enum": [
+                "customers.omh.st",
+                "customers.ohmyho.st"
+              ]
             },
             "effects": {
               "type": "array",
@@ -7950,7 +8316,10 @@
               ]
             },
             "suspension_reason": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "enum": [
                 "paid_plan_required",
                 "insufficient_organization_credits",
@@ -7977,13 +8346,22 @@
             },
             "cname_target": {
               "type": "string",
-              "enum": ["customers.omh.st", "customers.ohmyho.st"]
+              "enum": [
+                "customers.omh.st",
+                "customers.ohmyho.st"
+              ]
             },
             "custom_hostname_status": {
-              "type": ["string", "null"]
+              "type": [
+                "string",
+                "null"
+              ]
             },
             "ssl_status": {
-              "type": ["string", "null"]
+              "type": [
+                "string",
+                "null"
+              ]
             },
             "validation_records": {
               "type": "array",
@@ -7991,11 +8369,19 @@
               "items": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": ["type", "name", "content", "purpose"],
+                "required": [
+                  "type",
+                  "name",
+                  "content",
+                  "purpose"
+                ],
                 "properties": {
                   "type": {
                     "type": "string",
-                    "enum": ["CNAME", "TXT"]
+                    "enum": [
+                      "CNAME",
+                      "TXT"
+                    ]
                   },
                   "name": {
                     "type": "string",
@@ -8009,7 +8395,12 @@
                   },
                   "purpose": {
                     "type": "string",
-                    "enum": ["traffic", "ownership", "ssl", "dcv_delegation"]
+                    "enum": [
+                      "traffic",
+                      "ownership",
+                      "ssl",
+                      "dcv_delegation"
+                    ]
                   }
                 }
               }
@@ -8031,7 +8422,9 @@
         "ConfigureProjectMailDomainRequest": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["domain"],
+          "required": [
+            "domain"
+          ],
           "properties": {
             "domain": {
               "type": "string",
@@ -8054,7 +8447,11 @@
         "ConfiguredProjectMailDomain": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["domain", "status", "configured_at"],
+          "required": [
+            "domain",
+            "status",
+            "configured_at"
+          ],
           "properties": {
             "domain": {
               "type": "string",
@@ -8120,12 +8517,21 @@
               "description": "Time of the fresh read-only provider verification, not the original configuration time."
             },
             "next_check_after_seconds": {
-              "type": ["integer", "null"],
-              "enum": [3600, null],
+              "type": [
+                "integer",
+                "null"
+              ],
+              "enum": [
+                3600,
+                null
+              ],
               "description": "Ask the agent to check pending or failed verification again after one hour; null when ready."
             },
             "verification_issue": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "enum": [
                 "identity_missing",
                 "identity_verification_failed",
@@ -8141,7 +8547,9 @@
         "PutEnvironmentSecretRequest": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["value"],
+          "required": [
+            "value"
+          ],
           "properties": {
             "value": {
               "type": "string",
@@ -8200,11 +8608,22 @@
             },
             "delivery_state": {
               "type": "string",
-              "enum": ["not_deployed", "pending", "ready", "failed"]
+              "enum": [
+                "not_deployed",
+                "pending",
+                "ready",
+                "failed"
+              ]
             },
             "runtime_provider": {
-              "type": ["string", "null"],
-              "enum": ["wfp", null]
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "wfp",
+                null
+              ]
             },
             "applied_secret_count": {
               "type": "integer",
@@ -8212,7 +8631,10 @@
               "maximum": 100
             },
             "last_error": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "pattern": "^[A-Z][A-Z0-9_]{0,63}$"
             }
           }
@@ -8247,11 +8669,22 @@
             },
             "delivery_state": {
               "type": "string",
-              "enum": ["not_deployed", "pending", "ready", "failed"]
+              "enum": [
+                "not_deployed",
+                "pending",
+                "ready",
+                "failed"
+              ]
             },
             "runtime_provider": {
-              "type": ["string", "null"],
-              "enum": ["wfp", null]
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "wfp",
+                null
+              ]
             },
             "applied_secret_count": {
               "type": "integer",
@@ -8259,7 +8692,10 @@
               "maximum": 100
             },
             "last_error": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "pattern": "^[A-Z][A-Z0-9_]{0,63}$"
             }
           }
@@ -8284,7 +8720,10 @@
             },
             "status": {
               "type": "string",
-              "enum": ["deleted", "absent"]
+              "enum": [
+                "deleted",
+                "absent"
+              ]
             },
             "desired_generation": {
               "type": "integer",
@@ -8296,11 +8735,22 @@
             },
             "delivery_state": {
               "type": "string",
-              "enum": ["not_deployed", "pending", "ready", "failed"]
+              "enum": [
+                "not_deployed",
+                "pending",
+                "ready",
+                "failed"
+              ]
             },
             "runtime_provider": {
-              "type": ["string", "null"],
-              "enum": ["wfp", null]
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "wfp",
+                null
+              ]
             },
             "applied_secret_count": {
               "type": "integer",
@@ -8308,7 +8758,10 @@
               "maximum": 100
             },
             "last_error": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "pattern": "^[A-Z][A-Z0-9_]{0,63}$"
             }
           }
@@ -8316,7 +8769,10 @@
         "LinkProjectSourceRequest": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["repository_owner", "repository_name"],
+          "required": [
+            "repository_owner",
+            "repository_name"
+          ],
           "properties": {
             "repository_owner": {
               "type": "string",
@@ -8335,7 +8791,10 @@
         "ConfigureSourceAutoDeployRequest": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["branch", "enabled"],
+          "required": [
+            "branch",
+            "enabled"
+          ],
           "properties": {
             "branch": {
               "type": "string",
@@ -8371,7 +8830,9 @@
             },
             "environment": {
               "type": "string",
-              "enum": ["dev"]
+              "enum": [
+                "dev"
+              ]
             },
             "enabled": {
               "type": "boolean"
@@ -8382,7 +8843,10 @@
             },
             "grant_status": {
               "type": "string",
-              "enum": ["active", "revoked"]
+              "enum": [
+                "active",
+                "revoked"
+              ]
             },
             "updated_at": {
               "type": "string",
@@ -8432,7 +8896,10 @@
             },
             "account_type": {
               "type": "string",
-              "enum": ["User", "Organization"]
+              "enum": [
+                "User",
+                "Organization"
+              ]
             },
             "github_user_id": {
               "type": "string",
@@ -8448,7 +8915,10 @@
               "format": "date-time"
             },
             "revoked_at": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "date-time"
             },
             "settings_url": {
@@ -8460,11 +8930,18 @@
         "GithubOrganizationConnectionStatus": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["status", "connection"],
+          "required": [
+            "status",
+            "connection"
+          ],
           "properties": {
             "status": {
               "type": "string",
-              "enum": ["not_connected", "connected", "revoked"]
+              "enum": [
+                "not_connected",
+                "connected",
+                "revoked"
+              ]
             },
             "connection": {
               "oneOf": [
@@ -8491,7 +8968,10 @@
           ],
           "properties": {
             "authorization_id": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "pattern": "^[0-7][0-9A-HJKMNP-TV-Z]{25}$"
             },
             "status": {
@@ -8505,7 +8985,10 @@
               ]
             },
             "last_failure": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "enum": [
                 "installation_access_required",
                 "account_admin_required",
@@ -8520,12 +9003,18 @@
               ]
             },
             "authorization_url": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "uri",
               "description": "One GitHub browser authorization link when pending; contains only the bound single-use state, never a provider credential."
             },
             "expires_at": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "date-time"
             },
             "connection": {
@@ -8571,7 +9060,10 @@
               ]
             },
             "last_failure": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "description": "Why the last callback did not finish. A pending authorization that carries one is resumable; resolve the named cause, then open authorization_url again without a new key.",
               "enum": [
                 "repository_not_installed",
@@ -8586,12 +9078,18 @@
               ]
             },
             "authorization_url": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "uri",
               "description": "Open only when pending; contains the single-use state and PKCE challenge, never a provider credential."
             },
             "installation_url": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "uri",
               "description": "Install or update the GitHub App's selected repository access before authorizing, if required."
             },
@@ -8600,15 +9098,24 @@
               "format": "date-time"
             },
             "operation_id": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "pattern": "^[0-7][0-9A-HJKMNP-TV-Z]{25}$"
             },
             "installation_id": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "pattern": "^[1-9][0-9]*$"
             },
             "repository_id": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "pattern": "^[1-9][0-9]*$"
             },
             "repository_owner": {
@@ -8648,7 +9155,12 @@
             },
             "status": {
               "type": "string",
-              "enum": ["pending", "ready", "failed", "revoked"]
+              "enum": [
+                "pending",
+                "ready",
+                "failed",
+                "revoked"
+              ]
             },
             "linked_at": {
               "type": "string",
@@ -8696,7 +9208,13 @@
             },
             "state": {
               "type": "string",
-              "enum": ["due", "running", "retry", "succeeded", "failed"]
+              "enum": [
+                "due",
+                "running",
+                "retry",
+                "succeeded",
+                "failed"
+              ]
             },
             "attempt": {
               "type": "integer",
@@ -8704,16 +9222,25 @@
               "maximum": 3
             },
             "status_code": {
-              "type": ["integer", "null"],
+              "type": [
+                "integer",
+                "null"
+              ],
               "minimum": 100,
               "maximum": 599
             },
             "started_at": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "date-time"
             },
             "finished_at": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "date-time"
             }
           }
@@ -8721,7 +9248,9 @@
         "FunctionRunPage": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["items"],
+          "required": [
+            "items"
+          ],
           "properties": {
             "items": {
               "type": "array",
@@ -8735,14 +9264,25 @@
         "DeploymentDiagnostic": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["id", "source", "code", "message", "occurred_at"],
+          "required": [
+            "id",
+            "source",
+            "code",
+            "message",
+            "occurred_at"
+          ],
           "properties": {
             "id": {
               "$ref": "#/components/schemas/Ulid"
             },
             "source": {
               "type": "string",
-              "enum": ["build", "control", "runtime", "function"]
+              "enum": [
+                "build",
+                "control",
+                "runtime",
+                "function"
+              ]
             },
             "code": {
               "type": "string",
@@ -8804,7 +9344,9 @@
         "DeploymentDiagnosticPage": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["items"],
+          "required": [
+            "items"
+          ],
           "properties": {
             "items": {
               "type": "array",
@@ -8822,11 +9364,18 @@
         "ProjectDatabaseWriteRequest": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["environment", "statement", "parameters"],
+          "required": [
+            "environment",
+            "statement",
+            "parameters"
+          ],
           "properties": {
             "environment": {
               "type": "string",
-              "enum": ["dev", "prod"]
+              "enum": [
+                "dev",
+                "prod"
+              ]
             },
             "statement": {
               "type": "string",
@@ -8859,18 +9408,36 @@
             },
             "environment": {
               "type": "string",
-              "enum": ["dev", "prod"]
+              "enum": [
+                "dev",
+                "prod"
+              ]
             },
             "state": {
               "type": "string",
-              "enum": ["running", "succeeded", "failed"]
+              "enum": [
+                "running",
+                "succeeded",
+                "failed"
+              ]
             },
             "command": {
-              "type": ["string", "null"],
-              "enum": ["INSERT", "UPDATE", "DELETE", null]
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "INSERT",
+                "UPDATE",
+                "DELETE",
+                null
+              ]
             },
             "affected_rows": {
-              "type": ["integer", "null"],
+              "type": [
+                "integer",
+                "null"
+              ],
               "minimum": 0,
               "maximum": 1000
             },
@@ -8889,11 +9456,18 @@
         "ProjectDatabaseQueryRequest": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["environment", "statement", "parameters"],
+          "required": [
+            "environment",
+            "statement",
+            "parameters"
+          ],
           "properties": {
             "environment": {
               "type": "string",
-              "enum": ["dev", "prod"]
+              "enum": [
+                "dev",
+                "prod"
+              ]
             },
             "statement": {
               "type": "string",
@@ -8926,11 +9500,19 @@
         "ProjectDatabaseQueryResult": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["environment", "rows", "row_count", "truncated"],
+          "required": [
+            "environment",
+            "rows",
+            "row_count",
+            "truncated"
+          ],
           "properties": {
             "environment": {
               "type": "string",
-              "enum": ["dev", "prod"]
+              "enum": [
+                "dev",
+                "prod"
+              ]
             },
             "rows": {
               "type": "array",
@@ -8953,15 +9535,23 @@
         "ProjectDatabaseAccessRequest": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["environment"],
+          "required": [
+            "environment"
+          ],
           "properties": {
             "environment": {
               "type": "string",
-              "enum": ["dev", "prod"]
+              "enum": [
+                "dev",
+                "prod"
+              ]
             },
             "mode": {
               "type": "string",
-              "enum": ["read", "write"],
+              "enum": [
+                "read",
+                "write"
+              ],
               "default": "read",
               "description": "read joins the read-only role; write joins the restricted runtime role. Neither can change schema."
             },
@@ -8973,7 +9563,10 @@
               "description": "Credential lifetime between 5 minutes and 24 hours."
             },
             "label": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "minLength": 1,
               "maxLength": 64,
               "description": "Optional customer label without control characters or surrounding whitespace."
@@ -9003,11 +9596,17 @@
             },
             "environment": {
               "type": "string",
-              "enum": ["dev", "prod"]
+              "enum": [
+                "dev",
+                "prod"
+              ]
             },
             "mode": {
               "type": "string",
-              "enum": ["read", "write"]
+              "enum": [
+                "read",
+                "write"
+              ]
             },
             "role_name": {
               "type": "string",
@@ -9023,13 +9622,20 @@
               "const": "neondb"
             },
             "label": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "minLength": 1,
               "maxLength": 64
             },
             "state": {
               "type": "string",
-              "enum": ["active", "expired", "revoked"]
+              "enum": [
+                "active",
+                "expired",
+                "revoked"
+              ]
             },
             "issued_at": {
               "type": "string",
@@ -9040,11 +9646,17 @@
               "format": "date-time"
             },
             "revoked_at": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "date-time"
             },
             "revocation_reason": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "enum": [
                 "principal",
                 "expired",
@@ -9063,7 +9675,10 @@
             {
               "type": "object",
               "additionalProperties": false,
-              "required": ["connection_uri", "psql_command"],
+              "required": [
+                "connection_uri",
+                "psql_command"
+              ],
               "properties": {
                 "connection_uri": {
                   "type": "string",
@@ -9081,7 +9696,9 @@
         "ProjectDatabaseAccessPage": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["items"],
+          "required": [
+            "items"
+          ],
           "properties": {
             "items": {
               "type": "array",
@@ -9132,7 +9749,9 @@
         "PlanDeploymentRequest": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["commit_sha"],
+          "required": [
+            "commit_sha"
+          ],
           "properties": {
             "commit_sha": {
               "$ref": "#/components/schemas/GitCommitSha"
@@ -9142,7 +9761,9 @@
         "CreateDeploymentRequest": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["plan_id"],
+          "required": [
+            "plan_id"
+          ],
           "properties": {
             "plan_id": {
               "$ref": "#/components/schemas/Ulid"
@@ -9378,7 +9999,9 @@
         "DeploymentPage": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["items"],
+          "required": [
+            "items"
+          ],
           "properties": {
             "items": {
               "type": "array",
@@ -9387,7 +10010,10 @@
               }
             },
             "next_cursor": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "pattern": "^[A-Za-z0-9_-]+$"
             }
           }
@@ -9410,7 +10036,11 @@
           "properties": {
             "action": {
               "type": "string",
-              "enum": ["rollback", "promote", "delete"]
+              "enum": [
+                "rollback",
+                "promote",
+                "delete"
+              ]
             },
             "project_id": {
               "$ref": "#/components/schemas/Ulid"
@@ -9475,7 +10105,10 @@
                   "const": "rollback"
                 }
               },
-              "required": ["target_deployment_id", "target_artifact_digest"]
+              "required": [
+                "target_deployment_id",
+                "target_artifact_digest"
+              ]
             },
             {
               "properties": {
@@ -9499,22 +10132,34 @@
               "not": {
                 "anyOf": [
                   {
-                    "required": ["target_deployment_id"]
+                    "required": [
+                      "target_deployment_id"
+                    ]
                   },
                   {
-                    "required": ["target_artifact_digest"]
+                    "required": [
+                      "target_artifact_digest"
+                    ]
                   },
                   {
-                    "required": ["source_deployment_id"]
+                    "required": [
+                      "source_deployment_id"
+                    ]
                   },
                   {
-                    "required": ["source_artifact_digest"]
+                    "required": [
+                      "source_artifact_digest"
+                    ]
                   },
                   {
-                    "required": ["source_environment"]
+                    "required": [
+                      "source_environment"
+                    ]
                   },
                   {
-                    "required": ["target_environment"]
+                    "required": [
+                      "target_environment"
+                    ]
                   }
                 ]
               }
@@ -9539,23 +10184,38 @@
         },
         "ProjectDataMode": {
           "type": "string",
-          "enum": ["shared", "isolated"],
+          "enum": [
+            "shared",
+            "isolated"
+          ],
           "default": "shared",
           "description": "Chosen when the project is created. shared uses one database and a shared file namespace across Dev/Prod; isolated keeps their database/Auth records and files separate. Skills recommend isolated development, but the customer chooses the additional measured database consumption. Promotion applies pending schema migrations to an isolated Prod database without copying Dev data. Changing an established mode requires an explicit data migration."
         },
         "HostingRegion": {
           "type": "string",
-          "enum": ["us", "eu"],
+          "enum": [
+            "us",
+            "eu"
+          ],
           "default": "us",
           "description": "Chosen when the project is created and immutable afterwards. us (default) places the project's database, files, build sandbox and build objects in the US; eu places them in the EU. Prices are identical. ohmyhost.yaml storage.jurisdiction must equal this value."
         },
         "FeedbackSubmission": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["organization_id", "kind", "title", "description"],
+          "required": [
+            "organization_id",
+            "kind",
+            "title",
+            "description"
+          ],
           "dependentRequired": {
-            "environment_id": ["project_id"],
-            "operation_id": ["project_id"]
+            "environment_id": [
+              "project_id"
+            ],
+            "operation_id": [
+              "project_id"
+            ]
           },
           "properties": {
             "organization_id": {
@@ -9572,7 +10232,11 @@
             },
             "kind": {
               "type": "string",
-              "enum": ["bug", "issue", "feature_request"]
+              "enum": [
+                "bug",
+                "issue",
+                "feature_request"
+              ]
             },
             "title": {
               "type": "string",
@@ -9601,7 +10265,11 @@
         "FeedbackReceipt": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["id", "organization_id", "submitted_at"],
+          "required": [
+            "id",
+            "organization_id",
+            "submitted_at"
+          ],
           "properties": {
             "id": {
               "$ref": "#/components/schemas/Ulid"
@@ -9619,7 +10287,10 @@
           "type": "object",
           "description": "Phase 1 project creation request. The server assigns resource identifiers.",
           "additionalProperties": false,
-          "required": ["organization_id", "name"],
+          "required": [
+            "organization_id",
+            "name"
+          ],
           "properties": {
             "organization_id": {
               "$ref": "#/components/schemas/Ulid"
@@ -9641,7 +10312,9 @@
         "CreateOrganizationRequest": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["name"],
+          "required": [
+            "name"
+          ],
           "properties": {
             "signup_source": {
               "type": "string",
@@ -9661,7 +10334,10 @@
         "Organization": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["id", "name"],
+          "required": [
+            "id",
+            "name"
+          ],
           "properties": {
             "id": {
               "$ref": "#/components/schemas/Ulid"
@@ -9709,7 +10385,11 @@
               "items": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": ["id", "workos_id", "name"],
+                "required": [
+                  "id",
+                  "workos_id",
+                  "name"
+                ],
                 "properties": {
                   "id": {
                     "$ref": "#/components/schemas/Ulid"
@@ -9730,15 +10410,24 @@
               }
             },
             "signup_source": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "maxLength": 64
             },
             "attributed_at": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "date-time"
             },
             "initial_workspace_id": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"
             }
           }
@@ -9772,14 +10461,25 @@
             },
             "plan": {
               "type": "string",
-              "enum": ["free", "paid"]
+              "enum": [
+                "free",
+                "paid"
+              ]
             },
             "plan_source": {
               "type": "string",
-              "enum": ["free", "stripe", "granted", "manual"]
+              "enum": [
+                "free",
+                "stripe",
+                "granted",
+                "manual"
+              ]
             },
             "paid_until": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "date-time"
             },
             "available_micros": {
@@ -9795,7 +10495,10 @@
               "$ref": "#/components/schemas/CreditMicros"
             },
             "next_expiry": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "date-time"
             },
             "as_of": {
@@ -9808,7 +10511,10 @@
           "type": "object",
           "description": "Minimal customer-visible identity and organization scope for authenticated agent clients.",
           "additionalProperties": false,
-          "required": ["actor_id", "organization_ids"],
+          "required": [
+            "actor_id",
+            "organization_ids"
+          ],
           "properties": {
             "actor_id": {
               "type": "string",
@@ -9870,7 +10576,9 @@
         "ProjectPage": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["items"],
+          "required": [
+            "items"
+          ],
           "properties": {
             "items": {
               "type": "array",
@@ -9879,7 +10587,10 @@
               }
             },
             "next_cursor": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "pattern": "^[0-9A-HJKMNP-TV-Z]{26}$"
             }
           }
@@ -9887,7 +10598,10 @@
         "ProjectEnvironment": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["id", "name"],
+          "required": [
+            "id",
+            "name"
+          ],
           "properties": {
             "id": {
               "$ref": "#/components/schemas/Ulid"
@@ -9902,7 +10616,11 @@
         "ProjectHandleAvailability": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["handle", "available", "alternatives"],
+          "required": [
+            "handle",
+            "available",
+            "alternatives"
+          ],
           "properties": {
             "handle": {
               "type": "string",
@@ -9964,7 +10682,11 @@
             },
             "lifecycle": {
               "type": "string",
-              "enum": ["active", "deleting", "deleted"]
+              "enum": [
+                "active",
+                "deleting",
+                "deleted"
+              ]
             },
             "source": {
               "oneOf": [
@@ -10160,7 +10882,12 @@
           "type": "object",
           "description": "Durable record returned for an accepted asynchronous mutation. Optional reconciliation is a current observation for queued/running work, separate from immutable terminal state. A completed reconciliation attempt alone does not mean the operation succeeded.",
           "additionalProperties": false,
-          "required": ["id", "state", "created_at", "updated_at"],
+          "required": [
+            "id",
+            "state",
+            "created_at",
+            "updated_at"
+          ],
           "properties": {
             "blocking_operation_id": {
               "description": "The active operation holding this queued operation's project mutation claim.",
@@ -10171,7 +10898,13 @@
             },
             "state": {
               "type": "string",
-              "enum": ["queued", "running", "succeeded", "failed", "cancelled"]
+              "enum": [
+                "queued",
+                "running",
+                "succeeded",
+                "failed",
+                "cancelled"
+              ]
             },
             "created_at": {
               "type": "string",
@@ -10257,7 +10990,10 @@
           "properties": {
             "state": {
               "type": "string",
-              "enum": ["required", "pending"]
+              "enum": [
+                "required",
+                "pending"
+              ]
             },
             "attempt_id": {
               "oneOf": [
@@ -10285,7 +11021,11 @@
           "type": "object",
           "description": "Provider-neutral status of one idempotent reconciliation attempt.",
           "additionalProperties": false,
-          "required": ["reconciliation_id", "operation_id", "state"],
+          "required": [
+            "reconciliation_id",
+            "operation_id",
+            "state"
+          ],
           "properties": {
             "reconciliation_id": {
               "$ref": "#/components/schemas/Ulid"
@@ -10295,7 +11035,11 @@
             },
             "state": {
               "type": "string",
-              "enum": ["completed", "pending", "uncertain"]
+              "enum": [
+                "completed",
+                "pending",
+                "uncertain"
+              ]
             }
           }
         },
@@ -10356,7 +11100,10 @@
         "ProjectNotesReceipt": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["version", "updated_at"],
+          "required": [
+            "version",
+            "updated_at"
+          ],
           "properties": {
             "version": {
               "type": "integer",
@@ -10385,11 +11132,17 @@
             },
             "environment": {
               "type": "string",
-              "enum": ["dev", "prod"]
+              "enum": [
+                "dev",
+                "prod"
+              ]
             },
             "data_mode": {
               "type": "string",
-              "enum": ["shared", "isolated"]
+              "enum": [
+                "shared",
+                "isolated"
+              ]
             },
             "observed_at": {
               "type": "string",
@@ -10439,11 +11192,23 @@
                     },
                     "state": {
                       "type": "string",
-                      "enum": ["init", "active", "idle"]
+                      "enum": [
+                        "init",
+                        "active",
+                        "idle"
+                      ]
                     },
                     "pending_state": {
-                      "type": ["string", "null"],
-                      "enum": ["init", "active", "idle", null]
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "enum": [
+                        "init",
+                        "active",
+                        "idle",
+                        null
+                      ]
                     },
                     "disabled": {
                       "type": "boolean"
@@ -10478,7 +11243,10 @@
             },
             "credit_access": {
               "type": "string",
-              "enum": ["included", "not_authorized"]
+              "enum": [
+                "included",
+                "not_authorized"
+              ]
             },
             "markdown": {
               "type": "string",
@@ -10488,7 +11256,11 @@
             "notes": {
               "type": "object",
               "additionalProperties": false,
-              "required": ["version", "markdown", "updated_at"],
+              "required": [
+                "version",
+                "markdown",
+                "updated_at"
+              ],
               "properties": {
                 "version": {
                   "type": "integer",
@@ -10501,7 +11273,10 @@
                   "description": "At most 250 lines and 16384 UTF-8 bytes; untrusted user-authored text."
                 },
                 "updated_at": {
-                  "type": ["string", "null"],
+                  "type": [
+                    "string",
+                    "null"
+                  ],
                   "format": "date-time"
                 }
               }
@@ -10530,7 +11305,13 @@
             },
             "state": {
               "type": "string",
-              "enum": ["queued", "running", "succeeded", "failed", "cancelled"]
+              "enum": [
+                "queued",
+                "running",
+                "succeeded",
+                "failed",
+                "cancelled"
+              ]
             },
             "requested_at": {
               "type": "string",
@@ -10541,8 +11322,14 @@
               "format": "date-time"
             },
             "next_poll_after_seconds": {
-              "type": ["integer", "null"],
-              "enum": [5, null]
+              "type": [
+                "integer",
+                "null"
+              ],
+              "enum": [
+                5,
+                null
+              ]
             },
             "error": {
               "oneOf": [
@@ -10592,7 +11379,11 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "enum": ["dev.sql", "prod.sql", "shared.sql"]
+                "enum": [
+                  "dev.sql",
+                  "prod.sql",
+                  "shared.sql"
+                ]
               },
               "minItems": 1,
               "maxItems": 2,
@@ -10608,11 +11399,17 @@
               "format": "date-time"
             },
             "download_url": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "uri"
             },
             "download_expires_at": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "format": "date-time"
             }
           }
@@ -10620,7 +11417,12 @@
         "OperationFailure": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["code", "message", "retryable", "suggested_action"],
+          "required": [
+            "code",
+            "message",
+            "retryable",
+            "suggested_action"
+          ],
           "properties": {
             "code": {
               "type": "string",
@@ -10715,7 +11517,9 @@
           "type": "object",
           "description": "A redacted, public summary of an internal audit payload.",
           "additionalProperties": false,
-          "required": ["summary"],
+          "required": [
+            "summary"
+          ],
           "properties": {
             "summary": {
               "type": "string",
@@ -10727,7 +11531,9 @@
         "AuditEventPage": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["items"],
+          "required": [
+            "items"
+          ],
           "properties": {
             "items": {
               "type": "array",
@@ -10736,7 +11542,10 @@
               }
             },
             "next_cursor": {
-              "type": ["string", "null"],
+              "type": [
+                "string",
+                "null"
+              ],
               "pattern": "^[A-Za-z0-9_-]+$"
             }
           }
