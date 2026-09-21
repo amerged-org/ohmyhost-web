@@ -42,6 +42,8 @@ function browser(host = "ohmyho.st", initialCookie = "") {
     remove() {}
   }
   let footer = new Element();
+  const themeControl = new Element();
+  themeControl.parentElement = footer;
   const document = {
     readyState: "complete",
     title: "ohmyho.st",
@@ -49,7 +51,13 @@ function browser(host = "ohmyho.st", initialCookie = "") {
     head: new Element(),
     body: new Element(),
     createElement: () => new Element(),
-    querySelector: () => footer,
+    querySelector: (selector: string) => {
+      if (host === "docs.ohmyho.st")
+        return selector.includes("Switch to system theme")
+          ? themeControl
+          : null;
+      return selector === "footer .fbot" ? footer : null;
+    },
     getElementById: (id: string) => nodes.get(id),
     addEventListener: (name: string, fn: () => void) =>
       listeners.set(name, [...(listeners.get(name) ?? []), fn]),
@@ -126,6 +134,7 @@ function browser(host = "ohmyho.st", initialCookie = "") {
     footer: () => footer,
     replaceFooter: () => {
       footer = new Element();
+      themeControl.parentElement = footer;
       tick();
     },
   };
