@@ -30,7 +30,7 @@ const MONTHS = [
 
 /** "2026-09-13" → "September 13, 2026". */
 export function longDate(iso: string): string {
-  const [year, month, day] = iso.split("-").map(Number);
+  const [year, month, day] = iso.slice(0, 10).split("-").map(Number);
   return `${MONTHS[(month ?? 1) - 1]} ${day}, ${year}`;
 }
 

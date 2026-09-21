@@ -135,7 +135,11 @@ describe("public entry and unassigned Free-host fallback", () => {
       expect(page).toContain(
         `<meta name="ohmyhost-region-hint" content="${expectedRegion}">`,
       );
-      expect(response.headers.get("cache-control")).toBe("no-store");
+      expect(response.headers.get("cache-control")).toBe(
+        "sec-fetch-mode" in requestHeaders
+          ? "private, no-cache"
+          : "public, max-age=0, s-maxage=300, must-revalidate",
+      );
       const script = [...page.matchAll(/<script>([\s\S]*?)<\/script>/gu)]
         .map((match) => match[1] ?? "")
         .find((text) => text.includes('meta[name="ohmyhost-region-hint"]'));
@@ -520,7 +524,7 @@ describe("public entry and unassigned Free-host fallback", () => {
       );
       expect(response.status).toBe(308);
       expect(response.headers.get("location")).toBe(
-        "https://ohmyho.st/pricing?r=hostmebaby",
+        "https://ohmyho.st/pricing?r=hostmebaby&token=private",
       );
       expect(await response.text()).toBe("");
       expect(
@@ -529,7 +533,7 @@ describe("public entry and unassigned Free-host fallback", () => {
             new Request("http://www.ohmyho.st/docs/mcp?r=one&r=two"),
           )
         ).headers.get("location"),
-      ).toBe("https://ohmyho.st/docs/mcp");
+      ).toBe("https://ohmyho.st/docs/mcp?r=one&r=two");
     }
     for (const host of [
       "omh.st",

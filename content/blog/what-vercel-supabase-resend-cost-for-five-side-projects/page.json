@@ -1,6 +1,6 @@
 {
   "title": "What Vercel, Supabase and Resend cost for 5 side projects",
-  "description": "One project on Vercel Pro, Supabase Pro and Resend Pro is $65 a month; five projects are $105. On ohmyho.st the same five share one $10 balance.",
+  "description": "Vercel Pro, Supabase Pro and Resend Pro cost $105 a month for five projects. Compare an itemized ohmyho.st workload with hosting, Postgres and mail.",
   "kind": "article",
   "status": "published",
   "crumb": "Five side projects, priced",
@@ -11,5 +11,5 @@
   "parent": "/blog",
   "author": "Sebastian Mertens",
   "published": "2026-09-20",
-  "modified": "2026-09-20"
+  "modified": "2026-09-21"
 }

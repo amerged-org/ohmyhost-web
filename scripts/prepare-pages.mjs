@@ -4,6 +4,7 @@ import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile, rm } from "node:fs/promises";
 import { fileURLToPath, URL } from "node:url";
 import TurndownService from "turndown";
+import { WEBSITE } from "../src/site-identity.ts";
 import {
   clientRelease,
   creditPricingRates,
@@ -99,6 +100,14 @@ for (const [name, digest] of Object.entries(templates)) {
       "$1Copy prompt",
     );
     html = hardenHomepageMarkup(html);
+    html = html.replace(
+      /(<script type="application\/ld\+json">)([\s\S]*?)(<\/script>)/u,
+      (_match, open, text, close) => {
+        const data = JSON.parse(text);
+        data["@graph"].push(WEBSITE);
+        return `${open}${JSON.stringify(data).replaceAll("<", "\\u003c")}${close}`;
+      },
+    );
     html = html.replace(
       '<h2 class="up">Why one balance instead of five subscriptions.</h2>',
       '<h2 class="up" id="philosophy">Why one balance instead of five subscriptions.</h2>',
@@ -467,7 +476,7 @@ function hardenHomepageMarkup(html) {
     "<li>you.ohmyho.st</li>":
       "<li>A host like humble-kiwis-find.check.omh.st</li>",
     "Worked example: six quiet projects plus one with real users ≈ 600 credits a month. Ten dollars covers it.":
-      "Worked example: a small app with a database, some traffic and 2,000 mail recipients ≈ 552 credits a month. Ten dollars covers it.",
+      'The worked example includes hosting, database usage and transactional mail, including the deployed script and sender zone. See the <a href="/pricing/breakdown">full cost breakdown</a>.',
     "When usage reaches it, ohmyho.st stops the project before it costs more; the site stays up and read-only.":
       "When usage reaches it, ohmyho.st stops new spending on the project before it costs more.",
     "There is no web console to learn.":
