@@ -44,6 +44,12 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html).toContain(
       '<meta property="og:image" content="https://ohmyho.st/og/home.png">',
     );
+    // The header offers signing in next to the prompt, and Docs sits with the section links.
+    expect(html).toContain('href="/login" aria-label="Log in or sign up"');
+    expect(html).toContain(
+      '<a href="https://docs.ohmyho.st/" rel="noopener">Docs</a>',
+    );
+    expect(html).not.toContain('href="#stack"');
     expect(html).toContain("Copy prompt for your agent");
     expect(html).toContain("<span>Copy prompt</span>");
     expect(html).not.toContain("Get beta access");
