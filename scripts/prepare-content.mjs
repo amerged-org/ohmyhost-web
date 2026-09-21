@@ -8,6 +8,7 @@
  * `{{ … }}` tokens for every published number). Tokens resolve here, so a price on a page always
  * comes from PRICING.md or the dated competitor data and never from typing.
  */
+import { registerHooks } from "node:module";
 import { writeFileSync } from "node:fs";
 import prettier from "prettier";
 import { join } from "node:path";
@@ -15,26 +16,37 @@ import process from "node:process";
 /* global URL */
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+// The site's TypeScript imports name the compiled `.js` file, as TypeScript requires. Node strips
+// types on import, so the tree compiles once with the Worker bundle instead of twice: resolve those
+// specifiers back to the source next to them.
+registerHooks({
+  resolve(specifier, context, next) {
+    if (specifier.startsWith(".") && specifier.endsWith(".js") && context.parentURL?.endsWith(".ts"))
+      return next(`${specifier.slice(0, -3)}.ts`, context);
+    return next(specifier, context);
+  },
+});
+
 const root = fileURLToPath(new URL("../", import.meta.url));
 const contentRoot = join(root, "content");
 const site = root;
 
 async function main() {
   const { pageFolders, readPage, resolveTokens } = await import(
-    pathToFileURL(join(site, "dist/content/tree.js")).href
+    pathToFileURL(join(site, "src/content/tree.ts")).href
   );
 
   const { CREDIT_RATES } = await import(
-    pathToFileURL(join(site, "dist/generated-pricing.js")).href
+    pathToFileURL(join(site, "src/generated-pricing.ts")).href
   );
   const format = await import(
-    pathToFileURL(join(site, "dist/content/format.js")).href
+    pathToFileURL(join(site, "src/content/format.ts")).href
   );
   const data = await import(
-    pathToFileURL(join(site, "dist/content/sources.js")).href
+    pathToFileURL(join(site, "src/content/sources.ts")).href
   );
   const figures = await import(
-    pathToFileURL(join(site, "dist/figures.js")).href
+    pathToFileURL(join(site, "src/figures.ts")).href
   );
 
   const lookup = (map, name, what) => {
@@ -177,7 +189,7 @@ async function main() {
   };
 
   const { CREDIT_PRICING_TABLE } = await import(
-    pathToFileURL(join(site, "dist/generated-pricing.js")).href
+    pathToFileURL(join(site, "src/generated-pricing.ts")).href
   );
   CREDIT_PRICING_TABLE_TEXT = CREDIT_PRICING_TABLE;
 

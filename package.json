@@ -13,7 +13,7 @@
   "scripts": {
     "pages:prepare": "node scripts/prepare-pages.mjs",
     "content:prepare": "node scripts/prepare-content.mjs",
-    "prepare:all": "node scripts/prepare-pages.mjs && tsc --project tsconfig.build.json && node scripts/prepare-content.mjs",
+    "prepare:all": "node scripts/prepare-pages.mjs && node scripts/prepare-content.mjs",
     "build": "pnpm prepare:all && tsc --project tsconfig.build.json && wrangler deploy --dry-run --outdir dist/worker-bundle --config wrangler.jsonc",
     "typecheck": "tsc --project tsconfig.json --noEmit",
     "lint": "eslint . --max-warnings 0",

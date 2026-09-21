@@ -1,1001 +1,362 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" data-theme="dark">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="dark light" />
-    <title>ohmyho.st — Design System</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      /* ============================================================
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>ohmyho.st — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
    TOKENS — the whole brand lives in these two blocks
    ============================================================ */
-      :root {
-        --background: #ffffff;
-        --foreground: #09090b;
-        --card: #ffffff;
-        --muted: #f4f4f5;
-        --muted-foreground: #71717a;
-        --subtle: #a1a1aa;
-        --border: #e4e4e7;
-        --border-strong: #d4d4d8;
-        --primary: #18181b;
-        --primary-foreground: #fafafa;
-        --ok: #16a34a;
-        --warn: #b45309;
-        --bad: #b91c1c;
-        --noise: 0.03;
-        --noise-blend: multiply;
+:root{
+  --background:#FFFFFF; --foreground:#09090B; --card:#FFFFFF;
+  --muted:#F4F4F5; --muted-foreground:#71717A; --subtle:#A1A1AA;
+  --border:#E4E4E7; --border-strong:#D4D4D8;
+  --primary:#18181B; --primary-foreground:#FAFAFA;
+  --ok:#16A34A; --warn:#B45309; --bad:#B91C1C;
+  --noise:.030; --noise-blend:multiply;
 
-        --sans: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
-        --mono:
-          "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --sans:'Space Grotesk',-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
 
-        --r: 22px;
-        --r-sm: 12px;
-        --r-pill: 999px;
-        --s1: 4px;
-        --s2: 8px;
-        --s3: 12px;
-        --s4: 16px;
-        --s5: 24px;
-        --s6: 32px;
-        --s7: 48px;
-        --s8: 64px;
-        --s9: 96px;
-        --s10: 128px;
-      }
-      :root[data-theme="dark"] {
-        --background: #000000;
-        --foreground: #f0f1f2;
-        --card: #0a0b0d;
-        --muted: #0c0d10;
-        --muted-foreground: #83878d;
-        --subtle: #3e4247;
-        --border: #17181a;
-        --border-strong: #26282c;
-        --primary: #f0f1f2;
-        --primary-foreground: #000000;
-        --ok: #4caf8f;
-        --warn: #d9a441;
-        --bad: #e06c63;
-        --noise: 0.035;
-        --noise-blend: normal;
-      }
+  --r:22px; --r-sm:12px; --r-pill:999px;
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px;
+  --s6:32px; --s7:48px; --s8:64px; --s9:96px; --s10:128px;
+}
+:root[data-theme="dark"]{
+  --background:#000000; --foreground:#F0F1F2; --card:#0A0B0D;
+  --muted:#0C0D10; --muted-foreground:#83878D; --subtle:#3E4247;
+  --border:#17181A; --border-strong:#26282C;
+  --primary:#F0F1F2; --primary-foreground:#000000;
+  --ok:#4CAF8F; --warn:#D9A441; --bad:#E06C63;
+  --noise:.035; --noise-blend:normal;
+}
 
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      html {
-        scroll-behavior: smooth;
-        background: var(--background);
-      }
-      body {
-        background: var(--background);
-        color: var(--foreground);
-        font-family: var(--sans);
-        letter-spacing: -0.012em;
-        -webkit-font-smoothing: antialiased;
-        line-height: 1.55;
-      }
-      body::after {
-        content: "";
-        position: fixed;
-        inset: 0;
-        z-index: 200;
-        pointer-events: none;
-        opacity: var(--noise);
-        mix-blend-mode: var(--noise-blend);
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-      }
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-      :focus-visible {
-        outline: 1px solid var(--muted-foreground);
-        outline-offset: 3px;
-      }
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--background)}
+body{background:var(--background);color:var(--foreground);font-family:var(--sans);
+  letter-spacing:-.012em;-webkit-font-smoothing:antialiased;line-height:1.55}
+body::after{content:"";position:fixed;inset:0;z-index:200;pointer-events:none;
+  opacity:var(--noise);mix-blend-mode:var(--noise-blend);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:1px solid var(--muted-foreground);outline-offset:3px}
 
-      /* ---------- doc shell ---------- */
-      .shell {
-        display: grid;
-        grid-template-columns: 236px 1fr;
-        min-height: 100vh;
-      }
-      .side {
-        border-right: 1px solid var(--border);
-        padding: 26px 20px;
-        position: sticky;
-        top: 0;
-        height: 100vh;
-        overflow-y: auto;
-      }
-      .side .mark {
-        font-family: var(--mono);
-        font-size: 14px;
-        display: block;
-        margin-bottom: 4px;
-      }
-      .side .mark i {
-        font-style: normal;
-        color: var(--subtle);
-      }
-      .side .tag {
-        font-size: 11.5px;
-        color: var(--muted-foreground);
-        margin-bottom: 26px;
-      }
-      .side h5 {
-        font-family: var(--mono);
-        font-size: 10.5px;
-        color: var(--subtle);
-        letter-spacing: 0.08em;
-        margin: 22px 0 9px;
-      }
-      .side a {
-        display: block;
-        font-size: 13.5px;
-        color: var(--muted-foreground);
-        padding: 5px 0;
-      }
-      .side a:hover {
-        color: var(--foreground);
-      }
-      .main {
-        padding: 56px 48px 140px;
-        max-width: 1080px;
-      }
-      .themer {
-        position: fixed;
-        right: 22px;
-        top: 22px;
-        z-index: 100;
-        width: 36px;
-        height: 36px;
-        border: 1px solid var(--border);
-        border-radius: var(--r-sm);
-        background: var(--background);
-        cursor: pointer;
-        color: var(--muted-foreground);
-        font-size: 15px;
-      }
+/* ---------- doc shell ---------- */
+.shell{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+.side{border-right:1px solid var(--border);padding:26px 20px;position:sticky;top:0;
+  height:100vh;overflow-y:auto}
+.side .mark{font-family:var(--mono);font-size:14px;display:block;margin-bottom:4px}
+.side .mark i{font-style:normal;color:var(--subtle)}
+.side .tag{font-size:11.5px;color:var(--muted-foreground);margin-bottom:26px}
+.side h5{font-family:var(--mono);font-size:10.5px;color:var(--subtle);
+  letter-spacing:.08em;margin:22px 0 9px}
+.side a{display:block;font-size:13.5px;color:var(--muted-foreground);padding:5px 0}
+.side a:hover{color:var(--foreground)}
+.main{padding:56px 48px 140px;max-width:1080px}
+.themer{position:fixed;right:22px;top:22px;z-index:100;width:36px;height:36px;
+  border:1px solid var(--border);border-radius:var(--r-sm);background:var(--background);
+  cursor:pointer;color:var(--muted-foreground);font-size:15px}
 
-      h1 {
-        font-size: 44px;
-        font-weight: 700;
-        letter-spacing: -0.04em;
-        line-height: 1.08;
-        padding-bottom: 0.08em;
-      }
-      h2 {
-        font-size: 15px;
-        font-family: var(--mono);
-        font-weight: 400;
-        color: var(--subtle);
-        letter-spacing: 0.06em;
-        margin: 0 0 20px;
-        padding-top: 88px;
-        border-top: 1px solid var(--border);
-        margin-top: 88px;
-      }
-      h2:first-of-type {
-        margin-top: 56px;
-      }
-      h3 {
-        font-size: 19px;
-        font-weight: 600;
-        letter-spacing: -0.025em;
-        margin: 38px 0 10px;
-      }
-      h4 {
-        font-size: 14px;
-        font-weight: 500;
-        margin: 26px 0 10px;
-      }
-      p {
-        color: var(--muted-foreground);
-        font-size: 15px;
-        max-width: 66ch;
-      }
-      p b {
-        color: var(--foreground);
-        font-weight: 500;
-      }
-      .lede {
-        font-size: 18px;
-        line-height: 1.6;
-        margin-top: 16px;
-        max-width: 60ch;
-      }
-      ul {
-        margin: 12px 0 0 0;
-        list-style: none;
-      }
-      li {
-        font-size: 14.5px;
-        color: var(--muted-foreground);
-        padding: 5px 0;
-        max-width: 66ch;
-      }
-      li::before {
-        content: "—";
-        color: var(--subtle);
-        margin-right: 10px;
-      }
+h1{font-size:44px;font-weight:700;letter-spacing:-.04em;line-height:1.08;padding-bottom:.08em}
+h2{font-size:15px;font-family:var(--mono);font-weight:400;color:var(--subtle);
+  letter-spacing:.06em;margin:0 0 20px;padding-top:88px;border-top:1px solid var(--border);
+  margin-top:88px}
+h2:first-of-type{margin-top:56px}
+h3{font-size:19px;font-weight:600;letter-spacing:-.025em;margin:38px 0 10px}
+h4{font-size:14px;font-weight:500;margin:26px 0 10px}
+p{color:var(--muted-foreground);font-size:15px;max-width:66ch}
+p b{color:var(--foreground);font-weight:500}
+.lede{font-size:18px;line-height:1.6;margin-top:16px;max-width:60ch}
+ul{margin:12px 0 0 0;list-style:none}
+li{font-size:14.5px;color:var(--muted-foreground);padding:5px 0;max-width:66ch}
+li::before{content:"—";color:var(--subtle);margin-right:10px}
 
-      /* ---------- doc helpers ---------- */
-      .demo {
-        border: 1px solid var(--border);
-        border-radius: var(--r);
-        padding: 32px;
-        margin-top: 18px;
-        background: var(--card);
-        display: flex;
-        flex-wrap: wrap;
-        gap: 14px;
-        align-items: center;
-      }
-      .demo.col {
-        display: block;
-      }
-      .demo.plain {
-        background: transparent;
-      }
-      pre {
-        background: var(--muted);
-        border: 1px solid var(--border);
-        border-radius: var(--r-sm);
-        padding: 16px 18px;
-        margin-top: 10px;
-        overflow-x: auto;
-        font-family: var(--mono);
-        font-size: 12.5px;
-        line-height: 1.75;
-        color: var(--muted-foreground);
-        position: relative;
-      }
-      pre b {
-        color: var(--foreground);
-        font-weight: 400;
-      }
-      .codewrap {
-        position: relative;
-      }
-      .cbtn {
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        background: var(--background);
-        border: 1px solid var(--border);
-        border-radius: 7px;
-        color: var(--subtle);
-        cursor: pointer;
-        font-family: var(--mono);
-        font-size: 10.5px;
-        padding: 4px 9px;
-      }
-      .cbtn:hover {
-        color: var(--foreground);
-      }
-      .grid2 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-        margin-top: 18px;
-      }
-      .grid3 {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
-        margin-top: 18px;
-      }
-      .note {
-        font-size: 13px;
-        color: var(--subtle);
-        margin-top: 10px;
-      }
+/* ---------- doc helpers ---------- */
+.demo{border:1px solid var(--border);border-radius:var(--r);padding:32px;margin-top:18px;
+  background:var(--card);display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.demo.col{display:block}
+.demo.plain{background:transparent}
+pre{background:var(--muted);border:1px solid var(--border);border-radius:var(--r-sm);
+  padding:16px 18px;margin-top:10px;overflow-x:auto;font-family:var(--mono);
+  font-size:12.5px;line-height:1.75;color:var(--muted-foreground);position:relative}
+pre b{color:var(--foreground);font-weight:400}
+.codewrap{position:relative}
+.cbtn{position:absolute;right:10px;top:10px;background:var(--background);
+  border:1px solid var(--border);border-radius:7px;color:var(--subtle);cursor:pointer;
+  font-family:var(--mono);font-size:10.5px;padding:4px 9px}
+.cbtn:hover{color:var(--foreground)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+.note{font-size:13px;color:var(--subtle);margin-top:10px}
 
-      /* ---------- swatches ---------- */
-      .sw {
-        border: 1px solid var(--border);
-        border-radius: var(--r-sm);
-        overflow: hidden;
-      }
-      .sw .chip {
-        height: 74px;
-      }
-      .sw .meta {
-        padding: 11px 13px;
-        font-family: var(--mono);
-        font-size: 11px;
-        color: var(--muted-foreground);
-        border-top: 1px solid var(--border);
-      }
-      .sw .meta b {
-        display: block;
-        color: var(--foreground);
-        font-weight: 400;
-        margin-bottom: 3px;
-      }
+/* ---------- swatches ---------- */
+.sw{border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden}
+.sw .chip{height:74px}
+.sw .meta{padding:11px 13px;font-family:var(--mono);font-size:11px;
+  color:var(--muted-foreground);border-top:1px solid var(--border)}
+.sw .meta b{display:block;color:var(--foreground);font-weight:400;margin-bottom:3px}
 
-      /* ---------- brand components (copy these into any build) ---------- */
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        background: var(--muted);
-        color: var(--foreground);
-        border: 1px solid var(--border-strong);
-        padding: 11px 20px;
-        border-radius: var(--r-pill);
-        font-size: 14px;
-        font-weight: 500;
-        font-family: inherit;
-        cursor: pointer;
-        transition:
-          background 0.2s,
-          border-color 0.2s;
-      }
-      .btn::after {
-        content: "›";
-        font-size: 15px;
-        color: var(--muted-foreground);
-      }
-      .btn:hover {
-        background: var(--background);
-        border-color: var(--muted-foreground);
-      }
-      .btn.ghost {
-        background: transparent;
-      }
-      .btn.plain::after {
-        content: none;
-      }
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        border: 1px solid var(--border);
-        border-radius: var(--r-pill);
-        padding: 8px 15px;
-        font-size: 12.5px;
-        color: var(--muted-foreground);
-      }
-      .badge b {
-        color: var(--foreground);
-        font-weight: 500;
-      }
-      .badge.dim {
-        color: var(--subtle);
-      }
-      .badge.dim b {
-        color: var(--subtle);
-      }
-      .badge em {
-        font-style: normal;
-        font-family: var(--mono);
-        font-size: 10.5px;
-        border: 1px solid var(--border);
-        border-radius: 5px;
-        padding: 1px 5px;
-      }
-      .card {
-        border: 1px solid var(--border);
-        border-radius: var(--r);
-        padding: 26px;
-        background: var(--card);
-      }
-      .card.hi {
-        border-color: var(--foreground);
-        background: var(--muted);
-        box-shadow: 0 0 0 3px var(--muted);
-      }
-      .card h6 {
-        font-size: 13.5px;
-        font-weight: 500;
-        color: var(--muted-foreground);
-        margin-bottom: 8px;
-      }
-      .li {
-        display: flex;
-        justify-content: space-between;
-        padding: 11px 0;
-        border-bottom: 1px solid var(--border);
-        font-size: 14.5px;
-        color: var(--muted-foreground);
-      }
-      .li span {
-        font-family: var(--mono);
-        font-size: 12.5px;
-        color: var(--subtle);
-      }
-      .cells {
-        display: grid;
-        gap: 1px;
-        background: var(--border);
-        border: 1px solid var(--border);
-        border-radius: var(--r);
-        overflow: hidden;
-      }
-      .cells > * {
-        background: var(--background);
-        padding: 22px 14px;
-        text-align: center;
-        font-size: 14px;
-      }
-      .term {
-        border: 1px solid var(--border);
-        border-radius: var(--r);
-        background: var(--muted);
-        overflow: hidden;
-        font-family: var(--mono);
-        font-size: 13px;
-        max-width: 460px;
-      }
-      .term .top {
-        display: flex;
-        gap: 6px;
-        padding: 12px 16px;
-        border-bottom: 1px solid var(--border);
-      }
-      .term .top i {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: var(--border-strong);
-      }
-      .term .zone {
-        padding: 16px 18px;
-      }
-      .term .zone + .zone {
-        border-top: 1px solid var(--border);
-      }
-      .term .tag {
-        font-size: 10px;
-        color: var(--subtle);
-        letter-spacing: 0.07em;
-        margin-bottom: 9px;
-      }
-      .term .ln {
-        color: var(--muted-foreground);
-        line-height: 1.95;
-      }
-      .term .ln s {
-        color: var(--subtle);
-        text-decoration: none;
-        margin-right: 9px;
-      }
-      .term .ln.live {
-        color: var(--foreground);
-      }
-      .term .ln.live s {
-        color: var(--ok);
-      }
-      .sw-toggle {
-        position: relative;
-        width: 40px;
-        height: 23px;
-        border-radius: 14px;
-        background: var(--border-strong);
-        border: none;
-        cursor: pointer;
-      }
-      .sw-toggle::after {
-        content: "";
-        position: absolute;
-        top: 3px;
-        left: 3px;
-        width: 17px;
-        height: 17px;
-        border-radius: 50%;
-        background: var(--background);
-        transition: transform 0.22s;
-      }
-      .sw-toggle[aria-checked="true"] {
-        background: var(--ok);
-      }
-      .sw-toggle[aria-checked="true"]::after {
-        transform: translateX(17px);
-      }
+/* ---------- brand components (copy these into any build) ---------- */
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--muted);
+  color:var(--foreground);border:1px solid var(--border-strong);padding:11px 20px;
+  border-radius:var(--r-pill);font-size:14px;font-weight:500;font-family:inherit;
+  cursor:pointer;transition:background .2s,border-color .2s}
+.btn::after{content:"›";font-size:15px;color:var(--muted-foreground)}
+.btn:hover{background:var(--background);border-color:var(--muted-foreground)}
+.btn.ghost{background:transparent}
+.btn.plain::after{content:none}
+.badge{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border);
+  border-radius:var(--r-pill);padding:8px 15px;font-size:12.5px;color:var(--muted-foreground)}
+.badge b{color:var(--foreground);font-weight:500}
+.badge.dim{color:var(--subtle)}
+.badge.dim b{color:var(--subtle)}
+.badge em{font-style:normal;font-family:var(--mono);font-size:10.5px;
+  border:1px solid var(--border);border-radius:5px;padding:1px 5px}
+.card{border:1px solid var(--border);border-radius:var(--r);padding:26px;background:var(--card)}
+.card.hi{border-color:var(--foreground);background:var(--muted);box-shadow:0 0 0 3px var(--muted)}
+.card h6{font-size:13.5px;font-weight:500;color:var(--muted-foreground);margin-bottom:8px}
+.li{display:flex;justify-content:space-between;padding:11px 0;
+  border-bottom:1px solid var(--border);font-size:14.5px;color:var(--muted-foreground)}
+.li span{font-family:var(--mono);font-size:12.5px;color:var(--subtle)}
+.cells{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden}
+.cells>*{background:var(--background);padding:22px 14px;text-align:center;font-size:14px}
+.term{border:1px solid var(--border);border-radius:var(--r);background:var(--muted);
+  overflow:hidden;font-family:var(--mono);font-size:13px;max-width:460px}
+.term .top{display:flex;gap:6px;padding:12px 16px;border-bottom:1px solid var(--border)}
+.term .top i{width:7px;height:7px;border-radius:50%;background:var(--border-strong)}
+.term .zone{padding:16px 18px}
+.term .zone+.zone{border-top:1px solid var(--border)}
+.term .tag{font-size:10px;color:var(--subtle);letter-spacing:.07em;margin-bottom:9px}
+.term .ln{color:var(--muted-foreground);line-height:1.95}
+.term .ln s{color:var(--subtle);text-decoration:none;margin-right:9px}
+.term .ln.live{color:var(--foreground)}
+.term .ln.live s{color:var(--ok)}
+.sw-toggle{position:relative;width:40px;height:23px;border-radius:14px;
+  background:var(--border-strong);border:none;cursor:pointer}
+.sw-toggle::after{content:"";position:absolute;top:3px;left:3px;width:17px;height:17px;
+  border-radius:50%;background:var(--background);transition:transform .22s}
+.sw-toggle[aria-checked="true"]{background:var(--ok)}
+.sw-toggle[aria-checked="true"]::after{transform:translateX(17px)}
 
-      /* ---------- type specimens ---------- */
-      .spec {
-        border-bottom: 1px solid var(--border);
-        padding: 20px 0;
-        display: grid;
-        grid-template-columns: 1fr 190px;
-        gap: 20px;
-        align-items: baseline;
-      }
-      .spec .sample {
-        overflow: hidden;
-      }
-      .spec .info {
-        font-family: var(--mono);
-        font-size: 11px;
-        color: var(--subtle);
-        text-align: right;
-      }
-      .d1 {
-        font-size: 64px;
-        font-weight: 700;
-        letter-spacing: -0.05em;
-        line-height: 1.02;
-      }
-      .d2 {
-        font-size: 40px;
-        font-weight: 600;
-        letter-spacing: -0.042em;
-        line-height: 1.1;
-      }
-      .d3 {
-        font-size: 26px;
-        font-weight: 600;
-        letter-spacing: -0.03em;
-      }
-      .b1 {
-        font-size: 17px;
-      }
-      .b2 {
-        font-size: 15px;
-      }
-      .b3 {
-        font-size: 13.5px;
-        color: var(--muted-foreground);
-      }
-      .m1 {
-        font-family: var(--mono);
-        font-size: 13px;
-      }
-      .m2 {
-        font-family: var(--mono);
-        font-size: 11px;
-        color: var(--subtle);
-        letter-spacing: 0.06em;
-      }
-      .fade {
-        background: linear-gradient(
-          180deg,
-          var(--foreground) 42%,
-          var(--muted-foreground) 100%
-        );
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
+/* ---------- type specimens ---------- */
+.spec{border-bottom:1px solid var(--border);padding:20px 0;display:grid;
+  grid-template-columns:1fr 190px;gap:20px;align-items:baseline}
+.spec .sample{overflow:hidden}
+.spec .info{font-family:var(--mono);font-size:11px;color:var(--subtle);text-align:right}
+.d1{font-size:64px;font-weight:700;letter-spacing:-.05em;line-height:1.02}
+.d2{font-size:40px;font-weight:600;letter-spacing:-.042em;line-height:1.1}
+.d3{font-size:26px;font-weight:600;letter-spacing:-.03em}
+.b1{font-size:17px}.b2{font-size:15px}.b3{font-size:13.5px;color:var(--muted-foreground)}
+.m1{font-family:var(--mono);font-size:13px}
+.m2{font-family:var(--mono);font-size:11px;color:var(--subtle);letter-spacing:.06em}
+.fade{background:linear-gradient(180deg,var(--foreground) 42%,var(--muted-foreground) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
 
-      /* ============================================================
+/* ============================================================
    SOCIAL / SLIDE TEMPLATES — real pixel canvases, scaled to fit
    ============================================================ */
-      .stage {
-        margin-top: 20px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 24px;
-      }
-      .hold {
-        border: 1px solid var(--border);
-        border-radius: var(--r-sm);
-        overflow: hidden;
-        position: relative;
-        background: #000;
-      }
-      .hold .lbl {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        z-index: 3;
-        background: var(--background);
-        color: var(--muted-foreground);
-        font-family: var(--mono);
-        font-size: 10px;
-        padding: 4px 8px;
-        border-top: 1px solid var(--border);
-        border-right: 1px solid var(--border);
-        border-top-right-radius: 6px;
-      }
-      .canvas {
-        transform-origin: top left;
-        background: #000;
-        color: #f0f1f2;
-        font-family: var(--sans);
-        position: relative;
-        overflow: hidden;
-      }
-      .canvas .noise {
-        position: absolute;
-        inset: 0;
-        opacity: 0.04;
-        pointer-events: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-      }
-      .canvas .glow {
-        position: absolute;
-        border-radius: 50%;
-        background: radial-gradient(
-          circle,
-          rgba(240, 241, 242, 0.1),
-          transparent 70%
-        );
-        pointer-events: none;
-      }
-      .canvas .wm {
-        font-family: var(--mono);
-        color: #3e4247;
-      }
-      .canvas .wm i {
-        font-style: normal;
-        color: #26282c;
-      }
-      .canvas .kicker {
-        font-family: var(--mono);
-        color: #83878d;
-        letter-spacing: 0.08em;
-      }
-      .canvas .grad {
-        background: linear-gradient(180deg, #f0f1f2 40%, #83878d 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
-      .canvas .sub {
-        color: #83878d;
-      }
-      .canvas .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        border: 1px solid #26282c;
-        border-radius: 999px;
-        color: #f0f1f2;
-      }
-      .canvas .rule {
-        height: 1px;
-        background: #17181a;
-      }
+.stage{margin-top:20px;display:flex;flex-wrap:wrap;gap:24px}
+.hold{border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden;
+  position:relative;background:#000}
+.hold .lbl{position:absolute;left:0;bottom:0;z-index:3;background:var(--background);
+  color:var(--muted-foreground);font-family:var(--mono);font-size:10px;padding:4px 8px;
+  border-top:1px solid var(--border);border-right:1px solid var(--border);
+  border-top-right-radius:6px}
+.canvas{transform-origin:top left;background:#000;color:#F0F1F2;
+  font-family:var(--sans);position:relative;overflow:hidden}
+.canvas .noise{position:absolute;inset:0;opacity:.04;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+.canvas .glow{position:absolute;border-radius:50%;
+  background:radial-gradient(circle,rgba(240,241,242,.10),transparent 70%);pointer-events:none}
+.canvas .wm{font-family:var(--mono);color:#3E4247}
+.canvas .wm i{font-style:normal;color:#26282C}
+.canvas .kicker{font-family:var(--mono);color:#83878D;letter-spacing:.08em}
+.canvas .grad{background:linear-gradient(180deg,#F0F1F2 40%,#83878D 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.canvas .sub{color:#83878D}
+.canvas .pill{display:inline-flex;align-items:center;gap:10px;border:1px solid #26282C;
+  border-radius:999px;color:#F0F1F2}
+.canvas .rule{height:1px;background:#17181A}
 
-      @media (max-width: 900px) {
-        .shell {
-          grid-template-columns: 1fr;
-        }
-        .side {
-          position: static;
-          height: auto;
-          border-right: none;
-          border-bottom: 1px solid var(--border);
-        }
-        .main {
-          padding: 32px 20px 100px;
-        }
-        .grid2,
-        .grid3 {
-          grid-template-columns: 1fr;
-        }
-        .spec {
-          grid-template-columns: 1fr;
-          gap: 6px;
-        }
-        .spec .info {
-          text-align: left;
-        }
-        h1 {
-          font-size: 34px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <button class="themer" id="themer" aria-label="Toggle theme">◐</button>
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr}
+  .side{position:static;height:auto;border-right:none;border-bottom:1px solid var(--border)}
+  .main{padding:32px 20px 100px}
+  .grid2,.grid3{grid-template-columns:1fr}
+  .spec{grid-template-columns:1fr;gap:6px}
+  .spec .info{text-align:left}
+  h1{font-size:34px}
+}
+</style>
+</head>
+<body>
 
-    <div class="shell">
-      <!-- ============================== SIDEBAR ============================== -->
-      <aside class="side">
-        <span class="mark">ohmyho<i>.st</i></span>
-        <div class="tag">Design System v1</div>
+<button class="themer" id="themer" aria-label="Toggle theme">◐</button>
 
-        <h5>foundations</h5>
-        <a href="#brand">Brand</a>
-        <a href="#voice">Voice</a>
-        <a href="#logo">Logo</a>
-        <a href="#color">Color</a>
-        <a href="#type">Typography</a>
-        <a href="#space">Space &amp; shape</a>
-        <a href="#motion">Motion</a>
+<div class="shell">
 
-        <h5>components</h5>
-        <a href="#buttons">Buttons</a>
-        <a href="#badges">Badges</a>
-        <a href="#cards">Cards</a>
-        <a href="#cells">Cell grid</a>
-        <a href="#terminal">Terminal</a>
-        <a href="#controls">Controls</a>
-        <a href="#diagram">Diagrams</a>
-        <a href="#icons">Icons</a>
+<!-- ============================== SIDEBAR ============================== -->
+<aside class="side">
+  <span class="mark">ohmyho<i>.st</i></span>
+  <div class="tag">Design System v1</div>
 
-        <h5>templates</h5>
-        <a href="#slides">Slides 16:9</a>
-        <a href="#youtube">YouTube</a>
-        <a href="#linkedin">LinkedIn</a>
-        <a href="#instagram">Instagram</a>
-        <a href="#story">Story / Reel</a>
-        <a href="#export">Exporting</a>
+  <h5>foundations</h5>
+  <a href="#brand">Brand</a>
+  <a href="#voice">Voice</a>
+  <a href="#logo">Logo</a>
+  <a href="#color">Color</a>
+  <a href="#type">Typography</a>
+  <a href="#space">Space &amp; shape</a>
+  <a href="#motion">Motion</a>
 
-        <h5>rules</h5>
-        <a href="#writing">Writing</a>
-        <a href="#donts">Don'ts</a>
-      </aside>
+  <h5>components</h5>
+  <a href="#buttons">Buttons</a>
+  <a href="#badges">Badges</a>
+  <a href="#cards">Cards</a>
+  <a href="#cells">Cell grid</a>
+  <a href="#terminal">Terminal</a>
+  <a href="#controls">Controls</a>
+  <a href="#diagram">Diagrams</a>
+  <a href="#icons">Icons</a>
 
-      <!-- ============================== MAIN ============================== -->
-      <main class="main">
-        <h1 class="fade">The ohmyho.st<br />design system.</h1>
-        <p class="lede">
-          Everything needed to build a page, a deck, a thumbnail or a post that
-          looks like it came from the same company. Copy the tokens, use the
-          components, fill the templates.
-        </p>
+  <h5>templates</h5>
+  <a href="#slides">Slides 16:9</a>
+  <a href="#youtube">YouTube</a>
+  <a href="#linkedin">LinkedIn</a>
+  <a href="#instagram">Instagram</a>
+  <a href="#story">Story / Reel</a>
+  <a href="#export">Exporting</a>
 
-        <!-- ---------------- BRAND ---------------- -->
-        <h2 id="brand">01 — brand</h2>
-        <h3>What we are</h3>
-        <p>
-          One provider for hosting, Postgres, email, a domain, AI models and
-          backups. Ten dollars a month, for every project you build — not per
-          project. Driven by an agent through one MCP, with no dashboard.
-        </p>
+  <h5>rules</h5>
+  <a href="#writing">Writing</a>
+  <a href="#donts">Don'ts</a>
+</aside>
 
-        <h3>The one idea</h3>
-        <p>
-          <b>Bundling at Aldi prices.</b> Everyone else sells the parts
-          separately and charges per project. We buy in bulk, bundle, and add a
-          small margin. Every piece of communication should be traceable back to
-          that sentence.
-        </p>
+<!-- ============================== MAIN ============================== -->
+<main class="main">
 
-        <h3>Positioning statement</h3>
-        <div class="demo col">
-          <p
-            style="
-              font-size: 19px;
-              color: var(--foreground);
-              max-width: 52ch;
-              line-height: 1.5;
-            "
-          >
-            For people who build with agents and are tired of five
-            subscriptions, ohmyho.st is one host that does all of it for ten
-            dollars a month — because the agent should ship without asking you
-            for a credit card.
-          </p>
-        </div>
+<h1 class="fade">The ohmyho.st<br>design system.</h1>
+<p class="lede">Everything needed to build a page, a deck, a thumbnail or a post that looks like it came from the same company. Copy the tokens, use the components, fill the templates.</p>
 
-        <h3>Personality</h3>
-        <ul>
-          <li>Blunt, not rude. Short sentences beat clever ones.</li>
-          <li>Cheap and proud of it. Never apologetic about the price.</li>
-          <li>Technical without jargon. A price list, not a whitepaper.</li>
-          <li>Honest to the point of naming who we're worse for.</li>
-        </ul>
+<!-- ---------------- BRAND ---------------- -->
+<h2 id="brand">01 — brand</h2>
+<h3>What we are</h3>
+<p>One provider for hosting, Postgres, email, a domain, AI models and backups. Ten dollars a month, for every project you build — not per project. Driven by an agent through one MCP, with no dashboard.</p>
 
-        <!-- ---------------- VOICE ---------------- -->
-        <h2 id="voice">02 — voice</h2>
-        <div class="grid2">
-          <div class="card">
-            <h6 style="color: var(--ok)">Say this</h6>
-            <ul>
-              <li>Ten dollars. All your projects.</li>
-              <li>They charge per project. We don't.</li>
-              <li>Unhappy? Take your database and go.</li>
-              <li>No dashboard. Ask your agent.</li>
-              <li>Nightly. Restore anywhere. Leave whenever.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h6 style="color: var(--bad)">Never this</h6>
-            <ul>
-              <li>Seamlessly orchestrate your cloud-native workflow</li>
-              <li>Empowering developers to unlock their potential</li>
-              <li>Best-in-class, enterprise-grade, next-generation</li>
-              <li>Any sentence that survives being deleted</li>
-              <li>Exclamation marks</li>
-            </ul>
-          </div>
-        </div>
-        <h4>The test</h4>
-        <p>
-          Read it out loud. If it sounds like a person who got an invoice they
-          didn't like, it's right. If it sounds like a conference booth, rewrite
-          it.
-        </p>
+<h3>The one idea</h3>
+<p><b>Bundling at Aldi prices.</b> Everyone else sells the parts separately and charges per project. We buy in bulk, bundle, and add a small margin. Every piece of communication should be traceable back to that sentence.</p>
 
-        <!-- ---------------- LOGO ---------------- -->
-        <h2 id="logo">03 — logo</h2>
-        <p>
-          The wordmark is set in JetBrains Mono, weight 400, tracking −0.02em.
-          The domain suffix always drops to
-          <code style="font-family: var(--mono); font-size: 12.5px"
-            >--subtle</code
-          >. The period stays with the suffix — the joke only works if you can
-          see the split.
-        </p>
-        <div class="demo" style="gap: 44px">
-          <span
-            style="
-              font-family: var(--mono);
-              font-size: 30px;
-              letter-spacing: -0.02em;
-            "
-            >ohmyho<span style="color: var(--subtle)">.st</span></span
-          >
-          <span
-            style="
-              font-family: var(--mono);
-              font-size: 18px;
-              letter-spacing: -0.02em;
-            "
-            >ohmyho<span style="color: var(--subtle)">.st</span></span
-          >
-          <span
-            style="
-              font-family: var(--mono);
-              font-size: 13px;
-              letter-spacing: -0.02em;
-            "
-            >ohmyho<span style="color: var(--subtle)">.st</span></span
-          >
-        </div>
-        <div class="codewrap">
-          <button class="cbtn">copy</button>
-          <pre>
-&lt;span class="mark"&gt;ohmyho&lt;i&gt;.st&lt;/i&gt;&lt;/span&gt;
+<h3>Positioning statement</h3>
+<div class="demo col">
+  <p style="font-size:19px;color:var(--foreground);max-width:52ch;line-height:1.5">
+    For people who build with agents and are tired of five subscriptions,
+    ohmyho.st is one host that does all of it for ten dollars a month —
+    because the agent should ship without asking you for a credit card.</p>
+</div>
+
+<h3>Personality</h3>
+<ul>
+  <li>Blunt, not rude. Short sentences beat clever ones.</li>
+  <li>Cheap and proud of it. Never apologetic about the price.</li>
+  <li>Technical without jargon. A price list, not a whitepaper.</li>
+  <li>Honest to the point of naming who we're worse for.</li>
+</ul>
+
+<!-- ---------------- VOICE ---------------- -->
+<h2 id="voice">02 — voice</h2>
+<div class="grid2">
+  <div class="card">
+    <h6 style="color:var(--ok)">Say this</h6>
+    <ul>
+      <li>Ten dollars. All your projects.</li>
+      <li>They charge per project. We don't.</li>
+      <li>Unhappy? Take your database and go.</li>
+      <li>No dashboard. Ask your agent.</li>
+      <li>Nightly. Restore anywhere. Leave whenever.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h6 style="color:var(--bad)">Never this</h6>
+    <ul>
+      <li>Seamlessly orchestrate your cloud-native workflow</li>
+      <li>Empowering developers to unlock their potential</li>
+      <li>Best-in-class, enterprise-grade, next-generation</li>
+      <li>Any sentence that survives being deleted</li>
+      <li>Exclamation marks</li>
+    </ul>
+  </div>
+</div>
+<h4>The test</h4>
+<p>Read it out loud. If it sounds like a person who got an invoice they didn't like, it's right. If it sounds like a conference booth, rewrite it.</p>
+
+<!-- ---------------- LOGO ---------------- -->
+<h2 id="logo">03 — logo</h2>
+<p>The wordmark is set in JetBrains Mono, weight 400, tracking −0.02em. The domain suffix always drops to <code style="font-family:var(--mono);font-size:12.5px">--subtle</code>. The period stays with the suffix — the joke only works if you can see the split.</p>
+<div class="demo" style="gap:44px">
+  <span style="font-family:var(--mono);font-size:30px;letter-spacing:-.02em">ohmyho<span style="color:var(--subtle)">.st</span></span>
+  <span style="font-family:var(--mono);font-size:18px;letter-spacing:-.02em">ohmyho<span style="color:var(--subtle)">.st</span></span>
+  <span style="font-family:var(--mono);font-size:13px;letter-spacing:-.02em">ohmyho<span style="color:var(--subtle)">.st</span></span>
+</div>
+<div class="codewrap"><button class="cbtn">copy</button><pre>&lt;span class="mark"&gt;ohmyho&lt;i&gt;.st&lt;/i&gt;&lt;/span&gt;
 
 .mark{font-family:var(--mono);letter-spacing:-.02em}
-.mark i{font-style:normal;color:var(--subtle)}</pre
-          >
-        </div>
-        <h4>Clear space &amp; minimums</h4>
-        <ul>
-          <li>Clear space on all sides: the height of the wordmark.</li>
-          <li>
-            Minimum size on screen: 13px. Below that, drop the suffix colour
-            split.
-          </li>
-          <li>
-            Never stack, outline, rotate, add a symbol, or place on a busy
-            photo.
-          </li>
-        </ul>
-        <h4>Tagline lockup</h4>
-        <div class="demo">
-          <div>
-            <div
-              style="
-                font-family: var(--mono);
-                font-size: 20px;
-                letter-spacing: -0.02em;
-              "
-            >
-              ohmyho<span style="color: var(--subtle)">.st</span>
-            </div>
-            <div
-              style="
-                font-size: 13px;
-                color: var(--muted-foreground);
-                margin-top: 4px;
-              "
-            >
-              Hosting for agents.
-            </div>
-          </div>
-        </div>
+.mark i{font-style:normal;color:var(--subtle)}</pre></div>
+<h4>Clear space &amp; minimums</h4>
+<ul>
+  <li>Clear space on all sides: the height of the wordmark.</li>
+  <li>Minimum size on screen: 13px. Below that, drop the suffix colour split.</li>
+  <li>Never stack, outline, rotate, add a symbol, or place on a busy photo.</li>
+</ul>
+<h4>Tagline lockup</h4>
+<div class="demo">
+  <div>
+    <div style="font-family:var(--mono);font-size:20px;letter-spacing:-.02em">ohmyho<span style="color:var(--subtle)">.st</span></div>
+    <div style="font-size:13px;color:var(--muted-foreground);margin-top:4px">Hosting for agents.</div>
+  </div>
+</div>
 
-        <!-- ---------------- COLOR ---------------- -->
-        <h2 id="color">04 — color</h2>
-        <p>
-          The palette is monochrome on purpose. Colour carries meaning, never
-          decoration: green means it worked, amber means look, red means it
-          broke. If a colour isn't saying one of those three things, it's grey.
-        </p>
+<!-- ---------------- COLOR ---------------- -->
+<h2 id="color">04 — color</h2>
+<p>The palette is monochrome on purpose. Colour carries meaning, never decoration: green means it worked, amber means look, red means it broke. If a colour isn't saying one of those three things, it's grey.</p>
 
-        <h4>Dark (default)</h4>
-        <div class="grid3">
-          <div class="sw">
-            <div class="chip" style="background: #000"></div>
-            <div class="meta"><b>--background</b>#000000</div>
-          </div>
-          <div class="sw">
-            <div class="chip" style="background: #0a0b0d"></div>
-            <div class="meta"><b>--card</b>#0A0B0D</div>
-          </div>
-          <div class="sw">
-            <div class="chip" style="background: #0c0d10"></div>
-            <div class="meta"><b>--muted</b>#0C0D10</div>
-          </div>
-          <div class="sw">
-            <div class="chip" style="background: #17181a"></div>
-            <div class="meta"><b>--border</b>#17181A</div>
-          </div>
-          <div class="sw">
-            <div class="chip" style="background: #26282c"></div>
-            <div class="meta"><b>--border-strong</b>#26282C</div>
-          </div>
-          <div class="sw">
-            <div class="chip" style="background: #3e4247"></div>
-            <div class="meta"><b>--subtle</b>#3E4247</div>
-          </div>
-          <div class="sw">
-            <div class="chip" style="background: #83878d"></div>
-            <div class="meta"><b>--muted-foreground</b>#83878D</div>
-          </div>
-          <div class="sw">
-            <div class="chip" style="background: #f0f1f2"></div>
-            <div class="meta"><b>--foreground</b>#F0F1F2</div>
-          </div>
-          <div class="sw">
-            <div class="chip" style="background: #4caf8f"></div>
-            <div class="meta"><b>--ok</b>#4CAF8F</div>
-          </div>
-        </div>
+<h4>Dark (default)</h4>
+<div class="grid3">
+  <div class="sw"><div class="chip" style="background:#000"></div><div class="meta"><b>--background</b>#000000</div></div>
+  <div class="sw"><div class="chip" style="background:#0A0B0D"></div><div class="meta"><b>--card</b>#0A0B0D</div></div>
+  <div class="sw"><div class="chip" style="background:#0C0D10"></div><div class="meta"><b>--muted</b>#0C0D10</div></div>
+  <div class="sw"><div class="chip" style="background:#17181A"></div><div class="meta"><b>--border</b>#17181A</div></div>
+  <div class="sw"><div class="chip" style="background:#26282C"></div><div class="meta"><b>--border-strong</b>#26282C</div></div>
+  <div class="sw"><div class="chip" style="background:#3E4247"></div><div class="meta"><b>--subtle</b>#3E4247</div></div>
+  <div class="sw"><div class="chip" style="background:#83878D"></div><div class="meta"><b>--muted-foreground</b>#83878D</div></div>
+  <div class="sw"><div class="chip" style="background:#F0F1F2"></div><div class="meta"><b>--foreground</b>#F0F1F2</div></div>
+  <div class="sw"><div class="chip" style="background:#4CAF8F"></div><div class="meta"><b>--ok</b>#4CAF8F</div></div>
+</div>
 
-        <h4>Light</h4>
-        <div class="grid3">
-          <div class="sw">
-            <div class="chip" style="background: #ffffff"></div>
-            <div class="meta"><b>--background</b>#FFFFFF</div>
-          </div>
-          <div class="sw">
-            <div class="chip" style="background: #f4f4f5"></div>
-            <div class="meta"><b>--muted</b>#F4F4F5</div>
-          </div>
-          <div class="sw">
-            <div class="chip" style="background: #e4e4e7"></div>
-            <div class="meta"><b>--border</b>#E4E4E7</div>
-          </div>
-          <div class="sw">
-            <div class="chip" style="background: #a1a1aa"></div>
-            <div class="meta"><b>--subtle</b>#A1A1AA</div>
-          </div>
-          <div class="sw">
-            <div class="chip" style="background: #71717a"></div>
-            <div class="meta"><b>--muted-foreground</b>#71717A</div>
-          </div>
-          <div class="sw">
-            <div class="chip" style="background: #09090b"></div>
-            <div class="meta"><b>--foreground</b>#09090B</div>
-          </div>
-        </div>
+<h4>Light</h4>
+<div class="grid3">
+  <div class="sw"><div class="chip" style="background:#FFFFFF"></div><div class="meta"><b>--background</b>#FFFFFF</div></div>
+  <div class="sw"><div class="chip" style="background:#F4F4F5"></div><div class="meta"><b>--muted</b>#F4F4F5</div></div>
+  <div class="sw"><div class="chip" style="background:#E4E4E7"></div><div class="meta"><b>--border</b>#E4E4E7</div></div>
+  <div class="sw"><div class="chip" style="background:#A1A1AA"></div><div class="meta"><b>--subtle</b>#A1A1AA</div></div>
+  <div class="sw"><div class="chip" style="background:#71717A"></div><div class="meta"><b>--muted-foreground</b>#71717A</div></div>
+  <div class="sw"><div class="chip" style="background:#09090B"></div><div class="meta"><b>--foreground</b>#09090B</div></div>
+</div>
 
-        <h4>Semantic only</h4>
-        <div class="grid3">
-          <div class="sw">
-            <div class="chip" style="background: #4caf8f"></div>
-            <div class="meta"><b>ok</b>live · connected · copied</div>
-          </div>
-          <div class="sw">
-            <div class="chip" style="background: #d9a441"></div>
-            <div class="meta"><b>warn</b>low credits · degraded</div>
-          </div>
-          <div class="sw">
-            <div class="chip" style="background: #e06c63"></div>
-            <div class="meta"><b>bad</b>failed · over cap</div>
-          </div>
-        </div>
-        <p class="note">
-          Partner brand colours (Zapier orange, n8n pink, Postgres blue) appear
-          only inside logo tiles. They never leak into UI.
-        </p>
+<h4>Semantic only</h4>
+<div class="grid3">
+  <div class="sw"><div class="chip" style="background:#4CAF8F"></div><div class="meta"><b>ok</b>live · connected · copied</div></div>
+  <div class="sw"><div class="chip" style="background:#D9A441"></div><div class="meta"><b>warn</b>low credits · degraded</div></div>
+  <div class="sw"><div class="chip" style="background:#E06C63"></div><div class="meta"><b>bad</b>failed · over cap</div></div>
+</div>
+<p class="note">Partner brand colours (Zapier orange, n8n pink, Postgres blue) appear only inside logo tiles. They never leak into UI.</p>
 
-        <div class="codewrap">
-          <button class="cbtn">copy</button>
-          <pre>
-:root{
+<div class="codewrap"><button class="cbtn">copy</button><pre>:root{
   --background:#FFF; --foreground:#09090B; --card:#FFF;
   --muted:#F4F4F5; --muted-foreground:#71717A; --subtle:#A1A1AA;
   --border:#E4E4E7; --border-strong:#D4D4D8;
@@ -1008,1640 +369,500 @@
   --border:#17181A; --border-strong:#26282C;
   --primary:#F0F1F2; --primary-foreground:#000;
   --ok:#4CAF8F; --warn:#D9A441; --bad:#E06C63;
-}</pre
-          >
-        </div>
+}</pre></div>
 
-        <!-- ---------------- TYPE ---------------- -->
-        <h2 id="type">05 — typography</h2>
-        <p>
-          Two families, no exceptions. <b>Space Grotesk</b> for everything
-          human. <b>JetBrains Mono</b> for anything a machine produced: the
-          wordmark, commands, prices in tables, labels, timestamps, units.
-        </p>
+<!-- ---------------- TYPE ---------------- -->
+<h2 id="type">05 — typography</h2>
+<p>Two families, no exceptions. <b>Space Grotesk</b> for everything human. <b>JetBrains Mono</b> for anything a machine produced: the wordmark, commands, prices in tables, labels, timestamps, units.</p>
 
-        <div class="spec">
-          <div class="sample"><div class="d1 fade">Ten dollars.</div></div>
-          <div class="info">
-            display 1<br />64/1.02 · 700 · −.05em<br />gradient allowed
-          </div>
-        </div>
-        <div class="spec">
-          <div class="sample"><div class="d2">Hosting for agents.</div></div>
-          <div class="info">display 2<br />40/1.10 · 600 · −.042em</div>
-        </div>
-        <div class="spec">
-          <div class="sample">
-            <div class="d3">Backups you can walk away with.</div>
-          </div>
-          <div class="info">display 3<br />26/1.2 · 600 · −.03em</div>
-        </div>
-        <div class="spec">
-          <div class="sample">
-            <div class="b1">
-              Hosting, Postgres, email and a domain. They charge per project.
-            </div>
-          </div>
-          <div class="info">body large<br />17/1.5 · 400</div>
-        </div>
-        <div class="spec">
-          <div class="sample">
-            <div class="b2">
-              Credits reset on your billing day. Quiet projects burn almost
-              nothing.
-            </div>
-          </div>
-          <div class="info">body<br />15/1.55 · 400</div>
-        </div>
-        <div class="spec">
-          <div class="sample">
-            <div class="b3">
-              More runtimes later. Right now: pick one of these and deploy.
-            </div>
-          </div>
-          <div class="info">body small<br />13.5 · muted-foreground</div>
-        </div>
-        <div class="spec">
-          <div class="sample">
-            <div class="m1">$ curl omh.st/0.sh | bash</div>
-          </div>
-          <div class="info">mono<br />13/1.95 · 400</div>
-        </div>
-        <div class="spec">
-          <div class="sample"><div class="m2">your agent</div></div>
-          <div class="info">mono label<br />10–11 · +.07em · subtle</div>
-        </div>
+<div class="spec"><div class="sample"><div class="d1 fade">Ten dollars.</div></div><div class="info">display 1<br>64/1.02 · 700 · −.05em<br>gradient allowed</div></div>
+<div class="spec"><div class="sample"><div class="d2">Hosting for agents.</div></div><div class="info">display 2<br>40/1.10 · 600 · −.042em</div></div>
+<div class="spec"><div class="sample"><div class="d3">Backups you can walk away with.</div></div><div class="info">display 3<br>26/1.2 · 600 · −.03em</div></div>
+<div class="spec"><div class="sample"><div class="b1">Hosting, Postgres, email and a domain. They charge per project.</div></div><div class="info">body large<br>17/1.5 · 400</div></div>
+<div class="spec"><div class="sample"><div class="b2">Credits reset on your billing day. Quiet projects burn almost nothing.</div></div><div class="info">body<br>15/1.55 · 400</div></div>
+<div class="spec"><div class="sample"><div class="b3">More runtimes later. Right now: pick one of these and deploy.</div></div><div class="info">body small<br>13.5 · muted-foreground</div></div>
+<div class="spec"><div class="sample"><div class="m1">$ curl omh.st/0.sh | bash</div></div><div class="info">mono<br>13/1.95 · 400</div></div>
+<div class="spec"><div class="sample"><div class="m2">your agent</div></div><div class="info">mono label<br>10–11 · +.07em · subtle</div></div>
 
-        <h4>The gradient rule</h4>
-        <p>
-          Headlines may fade from
-          <code style="font-family: var(--mono); font-size: 12.5px"
-            >--foreground</code
-          >
-          at 42% to
-          <code style="font-family: var(--mono); font-size: 12.5px"
-            >--muted-foreground</code
-          >
-          at 100%. Only on display sizes, only on one heading per view, and
-          always with extra line-height — a tight leading clips descenders.
-        </p>
-        <div class="codewrap">
-          <button class="cbtn">copy</button>
-          <pre>
-.fade{
+<h4>The gradient rule</h4>
+<p>Headlines may fade from <code style="font-family:var(--mono);font-size:12.5px">--foreground</code> at 42% to <code style="font-family:var(--mono);font-size:12.5px">--muted-foreground</code> at 100%. Only on display sizes, only on one heading per view, and always with extra line-height — a tight leading clips descenders.</p>
+<div class="codewrap"><button class="cbtn">copy</button><pre>.fade{
   line-height:1.06; padding-bottom:.12em;
   background:linear-gradient(180deg,var(--foreground) 42%,var(--muted-foreground) 100%);
   -webkit-background-clip:text; background-clip:text; color:transparent;
-}</pre
-          >
-        </div>
+}</pre></div>
 
-        <!-- ---------------- SPACE ---------------- -->
-        <h2 id="space">06 — space &amp; shape</h2>
-        <h4>Spacing scale</h4>
-        <div class="demo" style="align-items: flex-end; gap: 10px">
-          <div style="text-align: center">
-            <div
-              style="width: 4px; height: 34px; background: var(--border-strong)"
-            ></div>
-            <div class="m2" style="margin-top: 8px">4</div>
-          </div>
-          <div style="text-align: center">
-            <div
-              style="width: 8px; height: 34px; background: var(--border-strong)"
-            ></div>
-            <div class="m2" style="margin-top: 8px">8</div>
-          </div>
-          <div style="text-align: center">
-            <div
-              style="
-                width: 12px;
-                height: 34px;
-                background: var(--border-strong);
-              "
-            ></div>
-            <div class="m2" style="margin-top: 8px">12</div>
-          </div>
-          <div style="text-align: center">
-            <div
-              style="
-                width: 16px;
-                height: 34px;
-                background: var(--border-strong);
-              "
-            ></div>
-            <div class="m2" style="margin-top: 8px">16</div>
-          </div>
-          <div style="text-align: center">
-            <div
-              style="
-                width: 24px;
-                height: 34px;
-                background: var(--border-strong);
-              "
-            ></div>
-            <div class="m2" style="margin-top: 8px">24</div>
-          </div>
-          <div style="text-align: center">
-            <div
-              style="
-                width: 32px;
-                height: 34px;
-                background: var(--border-strong);
-              "
-            ></div>
-            <div class="m2" style="margin-top: 8px">32</div>
-          </div>
-          <div style="text-align: center">
-            <div
-              style="
-                width: 48px;
-                height: 34px;
-                background: var(--border-strong);
-              "
-            ></div>
-            <div class="m2" style="margin-top: 8px">48</div>
-          </div>
-          <div style="text-align: center">
-            <div
-              style="
-                width: 64px;
-                height: 34px;
-                background: var(--border-strong);
-              "
-            ></div>
-            <div class="m2" style="margin-top: 8px">64</div>
-          </div>
-          <div style="text-align: center">
-            <div
-              style="
-                width: 96px;
-                height: 34px;
-                background: var(--border-strong);
-              "
-            ></div>
-            <div class="m2" style="margin-top: 8px">96</div>
-          </div>
-        </div>
-        <p class="note">
-          Section rhythm on the site: 112px desktop, 80px mobile. Card padding:
-          26px. Never invent a value between steps.
-        </p>
+<!-- ---------------- SPACE ---------------- -->
+<h2 id="space">06 — space &amp; shape</h2>
+<h4>Spacing scale</h4>
+<div class="demo" style="align-items:flex-end;gap:10px">
+  <div style="text-align:center"><div style="width:4px;height:34px;background:var(--border-strong)"></div><div class="m2" style="margin-top:8px">4</div></div>
+  <div style="text-align:center"><div style="width:8px;height:34px;background:var(--border-strong)"></div><div class="m2" style="margin-top:8px">8</div></div>
+  <div style="text-align:center"><div style="width:12px;height:34px;background:var(--border-strong)"></div><div class="m2" style="margin-top:8px">12</div></div>
+  <div style="text-align:center"><div style="width:16px;height:34px;background:var(--border-strong)"></div><div class="m2" style="margin-top:8px">16</div></div>
+  <div style="text-align:center"><div style="width:24px;height:34px;background:var(--border-strong)"></div><div class="m2" style="margin-top:8px">24</div></div>
+  <div style="text-align:center"><div style="width:32px;height:34px;background:var(--border-strong)"></div><div class="m2" style="margin-top:8px">32</div></div>
+  <div style="text-align:center"><div style="width:48px;height:34px;background:var(--border-strong)"></div><div class="m2" style="margin-top:8px">48</div></div>
+  <div style="text-align:center"><div style="width:64px;height:34px;background:var(--border-strong)"></div><div class="m2" style="margin-top:8px">64</div></div>
+  <div style="text-align:center"><div style="width:96px;height:34px;background:var(--border-strong)"></div><div class="m2" style="margin-top:8px">96</div></div>
+</div>
+<p class="note">Section rhythm on the site: 112px desktop, 80px mobile. Card padding: 26px. Never invent a value between steps.</p>
 
-        <h4>Radius — three values, that's all</h4>
-        <div class="demo">
-          <div
-            style="
-              width: 110px;
-              height: 70px;
-              border: 1px solid var(--border-strong);
-              border-radius: 22px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            "
-            class="m2"
-          >
-            22 surfaces
-          </div>
-          <div
-            style="
-              width: 110px;
-              height: 70px;
-              border: 1px solid var(--border-strong);
-              border-radius: 12px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            "
-            class="m2"
-          >
-            12 controls
-          </div>
-          <div
-            style="
-              width: 130px;
-              height: 44px;
-              border: 1px solid var(--border-strong);
-              border-radius: 999px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            "
-            class="m2"
-          >
-            999 pills
-          </div>
-        </div>
+<h4>Radius — three values, that's all</h4>
+<div class="demo">
+  <div style="width:110px;height:70px;border:1px solid var(--border-strong);border-radius:22px;display:flex;align-items:center;justify-content:center" class="m2">22 surfaces</div>
+  <div style="width:110px;height:70px;border:1px solid var(--border-strong);border-radius:12px;display:flex;align-items:center;justify-content:center" class="m2">12 controls</div>
+  <div style="width:130px;height:44px;border:1px solid var(--border-strong);border-radius:999px;display:flex;align-items:center;justify-content:center" class="m2">999 pills</div>
+</div>
 
-        <h4>Borders, not shadows</h4>
-        <p>
-          Depth comes from a 1px hairline and a change in surface brightness.
-          The only shadow in the system is under a floating element (toast).
-          Cards never drop shadows.
-        </p>
+<h4>Borders, not shadows</h4>
+<p>Depth comes from a 1px hairline and a change in surface brightness. The only shadow in the system is under a floating element (toast). Cards never drop shadows.</p>
 
-        <!-- ---------------- MOTION ---------------- -->
-        <h2 id="motion">07 — motion</h2>
-        <ul>
-          <li>
-            <b>Reveal</b> — 800ms, cubic-bezier(.2,.7,.3,1), 18px rise, 85ms
-            stagger between siblings.
-          </li>
-          <li>
-            <b>Hover</b> — 200ms, colour and border only. Nothing moves or
-            scales.
-          </li>
-          <li>
-            <b>Draw</b> — 1050ms stroke-dashoffset for diagram lines, 60ms
-            apart.
-          </li>
-          <li>
-            <b>Data</b> — numbers count up over 950ms with an ease-out cubic.
-            Only for prices.
-          </li>
-          <li>
-            <b>Loop</b> — particles along paths, 1.6–3.4s. Slow enough to
-            ignore.
-          </li>
-        </ul>
-        <div class="codewrap">
-          <button class="cbtn">copy</button>
-          <pre>
-.up{opacity:0;transform:translateY(18px);
+<!-- ---------------- MOTION ---------------- -->
+<h2 id="motion">07 — motion</h2>
+<ul>
+  <li><b>Reveal</b> — 800ms, cubic-bezier(.2,.7,.3,1), 18px rise, 85ms stagger between siblings.</li>
+  <li><b>Hover</b> — 200ms, colour and border only. Nothing moves or scales.</li>
+  <li><b>Draw</b> — 1050ms stroke-dashoffset for diagram lines, 60ms apart.</li>
+  <li><b>Data</b> — numbers count up over 950ms with an ease-out cubic. Only for prices.</li>
+  <li><b>Loop</b> — particles along paths, 1.6–3.4s. Slow enough to ignore.</li>
+</ul>
+<div class="codewrap"><button class="cbtn">copy</button><pre>.up{opacity:0;transform:translateY(18px);
   transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
 .up.in{opacity:1;transform:none}
 
 @media (prefers-reduced-motion:reduce){
   .up{opacity:1;transform:none;transition:none}
-}</pre
-          >
-        </div>
-        <p class="note">
-          Every animation must have a reduced-motion fallback that shows the end
-          state. Non-negotiable.
-        </p>
+}</pre></div>
+<p class="note">Every animation must have a reduced-motion fallback that shows the end state. Non-negotiable.</p>
 
-        <!-- ---------------- BUTTONS ---------------- -->
-        <h2 id="buttons">08 — buttons</h2>
-        <div class="demo">
-          <button class="btn">Get started</button>
-          <button class="btn ghost">Documentation</button>
-          <button class="btn plain">◻ Copy command</button>
-          <button
-            class="btn plain"
-            style="color: var(--ok); border-color: var(--ok)"
-          >
-            ✓ Copied
-          </button>
-        </div>
-        <p class="note">
-          Dark pill, hairline border, chevron for navigation. No solid white
-          slabs — they shout on black and break in light mode.
-        </p>
-        <div class="codewrap">
-          <button class="cbtn">copy</button>
-          <pre>
-.btn{display:inline-flex;align-items:center;gap:8px;
+<!-- ---------------- BUTTONS ---------------- -->
+<h2 id="buttons">08 — buttons</h2>
+<div class="demo">
+  <button class="btn">Get started</button>
+  <button class="btn ghost">Documentation</button>
+  <button class="btn plain">◻ Copy command</button>
+  <button class="btn plain" style="color:var(--ok);border-color:var(--ok)">✓ Copied</button>
+</div>
+<p class="note">Dark pill, hairline border, chevron for navigation. No solid white slabs — they shout on black and break in light mode.</p>
+<div class="codewrap"><button class="cbtn">copy</button><pre>.btn{display:inline-flex;align-items:center;gap:8px;
   background:var(--muted);color:var(--foreground);
   border:1px solid var(--border-strong);padding:11px 20px;
   border-radius:999px;font-size:14px;font-weight:500;cursor:pointer;
   transition:background .2s,border-color .2s}
 .btn::after{content:"›";color:var(--muted-foreground)}
-.btn:hover{background:var(--background);border-color:var(--muted-foreground)}</pre
-          >
-        </div>
+.btn:hover{background:var(--background);border-color:var(--muted-foreground)}</pre></div>
 
-        <!-- ---------------- BADGES ---------------- -->
-        <h2 id="badges">09 — badges</h2>
-        <div class="demo">
-          <span class="badge">Built in the <b>EU</b></span>
-          <span class="badge"><b>GDPR</b> compliant</span>
-          <span class="badge dim"><em>soon</em><b>ISO 27001</b></span>
-          <span class="badge" style="color: var(--ok); border-color: var(--ok)"
-            ><b>connected</b></span
-          >
-        </div>
-        <p class="note">
-          Unearned claims are greyed and prefixed
-          <em
-            style="
-              font-style: normal;
-              font-family: var(--mono);
-              font-size: 11px;
-            "
-            >soon</em
-          >. Never show a certification badge you don't hold.
-        </p>
+<!-- ---------------- BADGES ---------------- -->
+<h2 id="badges">09 — badges</h2>
+<div class="demo">
+  <span class="badge">Built in the <b>EU</b></span>
+  <span class="badge"><b>GDPR</b> compliant</span>
+  <span class="badge dim"><em>soon</em><b>ISO 27001</b></span>
+  <span class="badge" style="color:var(--ok);border-color:var(--ok)"><b>connected</b></span>
+</div>
+<p class="note">Unearned claims are greyed and prefixed <em style="font-style:normal;font-family:var(--mono);font-size:11px">soon</em>. Never show a certification badge you don't hold.</p>
 
-        <!-- ---------------- CARDS ---------------- -->
-        <h2 id="cards">10 — cards</h2>
-        <div class="grid2">
-          <div class="card">
-            <h6>Buy it separately</h6>
-            <div class="li">
-              <span style="font-family: var(--sans); font-size: 14.5px"
-                >Vercel Pro</span
-              ><span>$20</span>
-            </div>
-            <div class="li">
-              <span style="font-family: var(--sans); font-size: 14.5px"
-                >Supabase Pro</span
-              ><span>$25</span>
-            </div>
-            <div class="li" style="border: none">
-              <span style="font-family: var(--sans); font-size: 14.5px"
-                >Resend</span
-              ><span>$20</span>
-            </div>
-            <div
-              style="
-                display: flex;
-                justify-content: space-between;
-                align-items: baseline;
-                margin-top: 18px;
-                padding-top: 16px;
-                border-top: 1px solid var(--border);
-              "
-            >
-              <span style="font-size: 13.5px; color: var(--muted-foreground)"
-                >5 accounts, one project</span
-              >
-              <strong style="font-size: 30px; letter-spacing: -0.045em"
-                >$71<span
-                  style="
-                    font-size: 14px;
-                    font-weight: 400;
-                    color: var(--muted-foreground);
-                  "
-                  >/mo</span
-                ></strong
-              >
-            </div>
-          </div>
-          <div class="card hi">
-            <h6 style="color: var(--foreground)">ohmyho.st</h6>
-            <div class="li" style="color: var(--foreground)">
-              <span style="font-family: var(--sans); font-size: 14.5px"
-                >Hosting</span
-              ><span style="color: var(--foreground)">in</span>
-            </div>
-            <div class="li" style="color: var(--foreground)">
-              <span style="font-family: var(--sans); font-size: 14.5px"
-                >Database</span
-              ><span style="color: var(--foreground)">in</span>
-            </div>
-            <div class="li" style="color: var(--foreground); border: none">
-              <span style="font-family: var(--sans); font-size: 14.5px"
-                >Email</span
-              ><span style="color: var(--foreground)">in</span>
-            </div>
-            <div
-              style="
-                display: flex;
-                justify-content: space-between;
-                align-items: baseline;
-                margin-top: 18px;
-                padding-top: 16px;
-                border-top: 1px solid var(--border);
-              "
-            >
-              <span style="font-size: 13.5px; color: var(--muted-foreground)"
-                >1 command, every project</span
-              >
-              <strong style="font-size: 30px; letter-spacing: -0.045em"
-                >$10<span
-                  style="
-                    font-size: 14px;
-                    font-weight: 400;
-                    color: var(--muted-foreground);
-                  "
-                  >/mo</span
-                ></strong
-              >
-            </div>
-          </div>
-        </div>
-        <p class="note">
-          The winning card gets a
-          <b>foreground border plus a 3px muted ring</b> — permanently, not on
-          hover. One highlighted card per comparison.
-        </p>
+<!-- ---------------- CARDS ---------------- -->
+<h2 id="cards">10 — cards</h2>
+<div class="grid2">
+  <div class="card">
+    <h6>Buy it separately</h6>
+    <div class="li"><span style="font-family:var(--sans);font-size:14.5px">Vercel Pro</span><span>$20</span></div>
+    <div class="li"><span style="font-family:var(--sans);font-size:14.5px">Supabase Pro</span><span>$25</span></div>
+    <div class="li" style="border:none"><span style="font-family:var(--sans);font-size:14.5px">Resend</span><span>$20</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:18px;padding-top:16px;border-top:1px solid var(--border)">
+      <span style="font-size:13.5px;color:var(--muted-foreground)">5 accounts, one project</span>
+      <strong style="font-size:30px;letter-spacing:-.045em">$71<span style="font-size:14px;font-weight:400;color:var(--muted-foreground)">/mo</span></strong>
+    </div>
+  </div>
+  <div class="card hi">
+    <h6 style="color:var(--foreground)">ohmyho.st</h6>
+    <div class="li" style="color:var(--foreground)"><span style="font-family:var(--sans);font-size:14.5px">Hosting</span><span style="color:var(--foreground)">in</span></div>
+    <div class="li" style="color:var(--foreground)"><span style="font-family:var(--sans);font-size:14.5px">Database</span><span style="color:var(--foreground)">in</span></div>
+    <div class="li" style="color:var(--foreground);border:none"><span style="font-family:var(--sans);font-size:14.5px">Email</span><span style="color:var(--foreground)">in</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:18px;padding-top:16px;border-top:1px solid var(--border)">
+      <span style="font-size:13.5px;color:var(--muted-foreground)">1 command, every project</span>
+      <strong style="font-size:30px;letter-spacing:-.045em">$10<span style="font-size:14px;font-weight:400;color:var(--muted-foreground)">/mo</span></strong>
+    </div>
+  </div>
+</div>
+<p class="note">The winning card gets a <b>foreground border plus a 3px muted ring</b> — permanently, not on hover. One highlighted card per comparison.</p>
 
-        <!-- ---------------- CELLS ---------------- -->
-        <h2 id="cells">11 — cell grid</h2>
-        <p>
-          The default way to show a set of peers: logos, destinations, supported
-          runtimes. One outer frame, hairline dividers, no gaps, no individual
-          boxes. This is what keeps a long page from looking like a pile of
-          components.
-        </p>
-        <div
-          class="cells"
-          style="grid-template-columns: repeat(5, 1fr); margin-top: 18px"
-        >
-          <span>Next.js</span><span>Vite</span><span>TanStack</span
-          ><span>React</span><span>Postgres</span>
-        </div>
-        <div class="codewrap">
-          <button class="cbtn">copy</button>
-          <pre>
-.cells{display:grid;gap:1px;background:var(--border);
+<!-- ---------------- CELLS ---------------- -->
+<h2 id="cells">11 — cell grid</h2>
+<p>The default way to show a set of peers: logos, destinations, supported runtimes. One outer frame, hairline dividers, no gaps, no individual boxes. This is what keeps a long page from looking like a pile of components.</p>
+<div class="cells" style="grid-template-columns:repeat(5,1fr);margin-top:18px">
+  <span>Next.js</span><span>Vite</span><span>TanStack</span><span>React</span><span>Postgres</span>
+</div>
+<div class="codewrap"><button class="cbtn">copy</button><pre>.cells{display:grid;gap:1px;background:var(--border);
   border:1px solid var(--border);border-radius:22px;overflow:hidden}
 .cells &gt; *{background:var(--background);padding:22px 14px;
   transition:background .22s}
-.cells &gt; *:hover{background:var(--muted)}</pre
-          >
-        </div>
+.cells &gt; *:hover{background:var(--muted)}</pre></div>
 
-        <!-- ---------------- TERMINAL ---------------- -->
-        <h2 id="terminal">12 — terminal</h2>
-        <p>
-          Our signature object. Used whenever we show what the agent does. Zones
-          separated by hairlines, each with a mono label. Never fake output that
-          the product can't produce.
-        </p>
-        <div class="demo plain" style="border: none; padding: 0">
-          <div class="term">
-            <div class="top"><i></i><i></i><i></i></div>
-            <div class="zone">
-              <div class="tag">your agent</div>
-              <div class="ln"><s>$</s>omh create myapp</div>
-              <div class="ln"><s>$</s>omh db up</div>
-              <div class="ln"><s>$</s>omh deploy</div>
-            </div>
-            <div class="zone">
-              <div class="tag">live</div>
-              <div class="ln live"><s>✓</s>https://myapp.ohm.st</div>
-            </div>
-          </div>
-        </div>
+<!-- ---------------- TERMINAL ---------------- -->
+<h2 id="terminal">12 — terminal</h2>
+<p>Our signature object. Used whenever we show what the agent does. Zones separated by hairlines, each with a mono label. Never fake output that the product can't produce.</p>
+<div class="demo plain" style="border:none;padding:0">
+  <div class="term">
+    <div class="top"><i></i><i></i><i></i></div>
+    <div class="zone">
+      <div class="tag">your agent</div>
+      <div class="ln"><s>$</s>omh create myapp</div>
+      <div class="ln"><s>$</s>omh db up</div>
+      <div class="ln"><s>$</s>omh deploy</div>
+    </div>
+    <div class="zone">
+      <div class="tag">live</div>
+      <div class="ln live"><s>✓</s>https://myapp.ohm.st</div>
+    </div>
+  </div>
+</div>
 
-        <!-- ---------------- CONTROLS ---------------- -->
-        <h2 id="controls">13 — controls</h2>
-        <div class="demo" style="gap: 34px">
-          <div style="display: flex; align-items: center; gap: 12px">
-            <button
-              class="sw-toggle"
-              aria-checked="false"
-              onclick="this.setAttribute('aria-checked',this.getAttribute('aria-checked')==='true'?'false':'true')"
-            ></button>
-            <span style="font-size: 14px">Auto top-up</span>
-          </div>
-          <div style="flex: 1; min-width: 220px">
-            <input
-              type="range"
-              min="0"
-              max="10"
-              value="3"
-              style="width: 100%"
-            />
-            <div
-              class="m2"
-              style="
-                display: flex;
-                justify-content: space-between;
-                margin-top: 4px;
-              "
-            >
-              <span>$10</span><span>$100</span><span>$1000</span>
-            </div>
-          </div>
-        </div>
-        <p class="note">
-          Sliders use a 3px track in
-          <code style="font-family: var(--mono); font-size: 12px"
-            >--border-strong</code
-          >
-          and a 17px foreground thumb. Toggles turn
-          <code style="font-family: var(--mono); font-size: 12px">--ok</code>
-          when on, never blue.
-        </p>
+<!-- ---------------- CONTROLS ---------------- -->
+<h2 id="controls">13 — controls</h2>
+<div class="demo" style="gap:34px">
+  <div style="display:flex;align-items:center;gap:12px">
+    <button class="sw-toggle" aria-checked="false" onclick="this.setAttribute('aria-checked',this.getAttribute('aria-checked')==='true'?'false':'true')"></button>
+    <span style="font-size:14px">Auto top-up</span>
+  </div>
+  <div style="flex:1;min-width:220px">
+    <input type="range" min="0" max="10" value="3" style="width:100%">
+    <div class="m2" style="display:flex;justify-content:space-between;margin-top:4px"><span>$10</span><span>$100</span><span>$1000</span></div>
+  </div>
+</div>
+<p class="note">Sliders use a 3px track in <code style="font-family:var(--mono);font-size:12px">--border-strong</code> and a 17px foreground thumb. Toggles turn <code style="font-family:var(--mono);font-size:12px">--ok</code> when on, never blue.</p>
 
-        <!-- ---------------- DIAGRAM ---------------- -->
-        <h2 id="diagram">14 — diagrams</h2>
-        <p>
-          One visual language for every system drawing: sources on the left, the
-          hub in the middle, outputs fanning right. Hairline bezier curves,
-          2.5px dot nodes, boxed labels for named things, particles travelling
-          along the paths.
-        </p>
-        <div
-          class="demo plain"
-          style="border: 1px solid var(--border); justify-content: center"
-        >
-          <svg viewBox="-6 0 724 250" style="width: 100%; max-width: 640px">
-            <defs>
-              <radialGradient id="g" cx="50%" cy="50%" r="50%">
-                <stop
-                  offset="0%"
-                  stop-color="currentColor"
-                  stop-opacity=".08"
-                />
-                <stop
-                  offset="100%"
-                  stop-color="currentColor"
-                  stop-opacity="0"
-                />
-              </radialGradient>
-              <path id="p1" d="M96 50 C150 50,154 125,196 125" />
-              <path id="p2" d="M96 125 L196 125" />
-              <path id="p3" d="M96 200 C150 200,154 125,196 125" />
-              <path id="q1" d="M468 125 C540 125,545 40,612 40" />
-              <path id="q2" d="M468 125 C545 125,550 125,612 125" />
-              <path id="q3" d="M468 125 C540 125,545 210,612 210" />
-            </defs>
-            <ellipse cx="410" cy="125" rx="170" ry="80" fill="url(#g)" />
-            <g fill="none" stroke="var(--border-strong)" stroke-width="1">
-              <use href="#p1" />
-              <use href="#p2" />
-              <use href="#p3" />
-              <use href="#q1" />
-              <use href="#q2" />
-              <use href="#q3" />
-              <path d="M242 125 L352 125" />
-            </g>
-            <g fill="var(--subtle)">
-              <circle cx="92" cy="50" r="2.5" />
-              <circle cx="92" cy="125" r="2.5" />
-              <circle cx="92" cy="200" r="2.5" />
-              <circle cx="616" cy="40" r="2.5" />
-              <circle cx="616" cy="125" r="2.5" />
-              <circle cx="616" cy="210" r="2.5" />
-            </g>
-            <g
-              font-family="JetBrains Mono"
-              font-size="11.5"
-              fill="var(--muted-foreground)"
-            >
-              <text x="80" y="54" text-anchor="end">codex</text>
-              <text x="80" y="129" text-anchor="end">claude</text>
-              <text x="80" y="204" text-anchor="end">any harness</text>
-              <text x="632" y="44">hosting</text>
-              <text x="632" y="129">postgres</text>
-              <text x="632" y="214">email</text>
-            </g>
-            <rect
-              x="196"
-              y="111"
-              width="46"
-              height="28"
-              rx="8"
-              fill="var(--card)"
-              stroke="var(--border-strong)"
-            />
-            <text
-              x="219"
-              y="129"
-              text-anchor="middle"
-              font-family="JetBrains Mono"
-              font-size="11.5"
-              fill="var(--muted-foreground)"
-            >
-              mcp
-            </text>
-            <rect
-              x="352"
-              y="104"
-              width="116"
-              height="42"
-              rx="10"
-              fill="var(--card)"
-              stroke="var(--border-strong)"
-            />
-            <text
-              x="410"
-              y="130"
-              text-anchor="middle"
-              font-family="JetBrains Mono"
-              font-size="13"
-              fill="var(--foreground)"
-            >
-              ohmyho.st
-            </text>
-            <g fill="var(--muted-foreground)">
-              <circle r="2.4">
-                <animateMotion dur="3s" repeatCount="indefinite">
-                  <mpath href="#p1" />
-                </animateMotion>
-              </circle>
-              <circle r="2.4">
-                <animateMotion dur="3s" begin="1s" repeatCount="indefinite">
-                  <mpath href="#p3" />
-                </animateMotion>
-              </circle>
-              <circle r="2.4">
-                <animateMotion dur="3.4s" begin=".4s" repeatCount="indefinite">
-                  <mpath href="#q1" />
-                </animateMotion>
-              </circle>
-              <circle r="2.4">
-                <animateMotion dur="3.4s" begin="1.8s" repeatCount="indefinite">
-                  <mpath href="#q3" />
-                </animateMotion>
-              </circle>
-            </g>
-          </svg>
-        </div>
-        <p class="note">
-          Diagram rules: no arrowheads, no drop shadows, no colour except the
-          hub glow. Labels always lowercase mono.
-        </p>
+<!-- ---------------- DIAGRAM ---------------- -->
+<h2 id="diagram">14 — diagrams</h2>
+<p>One visual language for every system drawing: sources on the left, the hub in the middle, outputs fanning right. Hairline bezier curves, 2.5px dot nodes, boxed labels for named things, particles travelling along the paths.</p>
+<div class="demo plain" style="border:1px solid var(--border);justify-content:center">
+<svg viewBox="-6 0 724 250" style="width:100%;max-width:640px">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="currentColor" stop-opacity=".08"/>
+      <stop offset="100%" stop-color="currentColor" stop-opacity="0"/>
+    </radialGradient>
+    <path id="p1" d="M96 50 C150 50,154 125,196 125"/>
+    <path id="p2" d="M96 125 L196 125"/>
+    <path id="p3" d="M96 200 C150 200,154 125,196 125"/>
+    <path id="q1" d="M468 125 C540 125,545 40,612 40"/>
+    <path id="q2" d="M468 125 C545 125,550 125,612 125"/>
+    <path id="q3" d="M468 125 C540 125,545 210,612 210"/>
+  </defs>
+  <ellipse cx="410" cy="125" rx="170" ry="80" fill="url(#g)"/>
+  <g fill="none" stroke="var(--border-strong)" stroke-width="1">
+    <use href="#p1"/><use href="#p2"/><use href="#p3"/>
+    <use href="#q1"/><use href="#q2"/><use href="#q3"/>
+    <path d="M242 125 L352 125"/>
+  </g>
+  <g fill="var(--subtle)">
+    <circle cx="92" cy="50" r="2.5"/><circle cx="92" cy="125" r="2.5"/><circle cx="92" cy="200" r="2.5"/>
+    <circle cx="616" cy="40" r="2.5"/><circle cx="616" cy="125" r="2.5"/><circle cx="616" cy="210" r="2.5"/>
+  </g>
+  <g font-family="JetBrains Mono" font-size="11.5" fill="var(--muted-foreground)">
+    <text x="80" y="54" text-anchor="end">codex</text>
+    <text x="80" y="129" text-anchor="end">claude</text>
+    <text x="80" y="204" text-anchor="end">any harness</text>
+    <text x="632" y="44">hosting</text>
+    <text x="632" y="129">postgres</text>
+    <text x="632" y="214">email</text>
+  </g>
+  <rect x="196" y="111" width="46" height="28" rx="8" fill="var(--card)" stroke="var(--border-strong)"/>
+  <text x="219" y="129" text-anchor="middle" font-family="JetBrains Mono" font-size="11.5" fill="var(--muted-foreground)">mcp</text>
+  <rect x="352" y="104" width="116" height="42" rx="10" fill="var(--card)" stroke="var(--border-strong)"/>
+  <text x="410" y="130" text-anchor="middle" font-family="JetBrains Mono" font-size="13" fill="var(--foreground)">ohmyho.st</text>
+  <g fill="var(--muted-foreground)">
+    <circle r="2.4"><animateMotion dur="3s" repeatCount="indefinite"><mpath href="#p1"/></animateMotion></circle>
+    <circle r="2.4"><animateMotion dur="3s" begin="1s" repeatCount="indefinite"><mpath href="#p3"/></animateMotion></circle>
+    <circle r="2.4"><animateMotion dur="3.4s" begin=".4s" repeatCount="indefinite"><mpath href="#q1"/></animateMotion></circle>
+    <circle r="2.4"><animateMotion dur="3.4s" begin="1.8s" repeatCount="indefinite"><mpath href="#q3"/></animateMotion></circle>
+  </g>
+</svg>
+</div>
+<p class="note">Diagram rules: no arrowheads, no drop shadows, no colour except the hub glow. Labels always lowercase mono.</p>
 
-        <!-- ---------------- ICONS ---------------- -->
-        <h2 id="icons">15 — icons</h2>
-        <p>
-          Outline only, 24×24 grid, 1.6–1.7 stroke, round caps and joins,
-          <code style="font-family: var(--mono); font-size: 12px"
-            >currentColor</code
-          >. Rendered at 16–20px. No filled shapes, no duotone, no emoji
-          anywhere in the product.
-        </p>
-        <div class="demo" style="gap: 28px; color: var(--foreground)">
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <rect x="9" y="9" width="11" height="11" rx="2.5" />
-            <path
-              d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"
-            />
-          </svg>
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <ellipse cx="12" cy="6" rx="8" ry="3" />
-            <path
-              d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"
-            />
-          </svg>
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M12 3l8 3v6c0 5-3.4 8.2-8 9-4.6-.8-8-4-8-9V6z" />
-            <path d="M9 12h6" />
-          </svg>
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="6" cy="6" r="2.5" />
-            <circle cx="6" cy="18" r="2.5" />
-            <circle cx="18" cy="12" r="2.5" />
-            <path
-              d="M6 8.5v7M8.5 6h4a3 3 0 0 1 3 3v1M8.5 18h4a3 3 0 0 0 3-3v-1"
-            />
-          </svg>
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <rect x="3" y="3" width="18" height="8" rx="2" />
-            <rect x="3" y="13" width="18" height="8" rx="2" />
-          </svg>
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <circle cx="12" cy="12" r="9" />
-            <path
-              d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"
-            />
-          </svg>
-        </div>
+<!-- ---------------- ICONS ---------------- -->
+<h2 id="icons">15 — icons</h2>
+<p>Outline only, 24×24 grid, 1.6–1.7 stroke, round caps and joins, <code style="font-family:var(--mono);font-size:12px">currentColor</code>. Rendered at 16–20px. No filled shapes, no duotone, no emoji anywhere in the product.</p>
+<div class="demo" style="gap:28px;color:var(--foreground)">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"/></svg>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.4 8.2-8 9-4.6-.8-8-4-8-9V6z"/><path d="M9 12h6"/></svg>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="12" r="2.5"/><path d="M6 8.5v7M8.5 6h4a3 3 0 0 1 3 3v1M8.5 18h4a3 3 0 0 0 3-3v-1"/></svg>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="8" rx="2"/><rect x="3" y="13" width="18" height="8" rx="2"/></svg>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>
+</div>
 
-        <!-- ============================================================
+<!-- ============================================================
      TEMPLATES
      ============================================================ -->
-        <h2 id="slides">16 — slides 16:9</h2>
-        <p>
-          Canvas is <b>1920×1080</b>. Safe margin 120px. One idea per slide.
-          Four layouts cover almost everything.
-        </p>
+<h2 id="slides">16 — slides 16:9</h2>
+<p>Canvas is <b>1920×1080</b>. Safe margin 120px. One idea per slide. Four layouts cover almost everything.</p>
 
-        <div class="stage">
-          <!-- title slide -->
-          <div class="hold" style="width: 520px; height: 292.5px">
-            <div class="lbl">title · 1920×1080</div>
-            <div
-              class="canvas"
-              style="width: 1920px; height: 1080px; transform: scale(0.2708)"
-            >
-              <div class="noise"></div>
-              <div
-                class="glow"
-                style="width: 900px; height: 900px; left: 510px; top: 90px"
-              ></div>
-              <div
-                style="position: absolute; left: 120px; top: 110px"
-                class="wm"
-              >
-                ohmyho<i>.st</i><span style="font-size: 26px"></span>
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 120px;
-                  top: 400px;
-                  right: 120px;
-                "
-              >
-                <div
-                  style="
-                    font-size: 150px;
-                    font-weight: 700;
-                    letter-spacing: -0.05em;
-                    line-height: 0.98;
-                  "
-                  class="grad"
-                >
-                  Ten dollars.<br />All your projects.
-                </div>
-                <div class="sub" style="font-size: 44px; margin-top: 44px">
-                  Hosting, Postgres, email and a domain.
-                </div>
-              </div>
-              <div
-                style="position: absolute; left: 120px; bottom: 100px"
-                class="kicker"
-              >
-                ohmyho.st
-              </div>
-            </div>
-          </div>
+<div class="stage">
+  <!-- title slide -->
+  <div class="hold" style="width:520px;height:292.5px">
+    <div class="lbl">title · 1920×1080</div>
+    <div class="canvas" style="width:1920px;height:1080px;transform:scale(.2708)">
+      <div class="noise"></div>
+      <div class="glow" style="width:900px;height:900px;left:510px;top:90px"></div>
+      <div style="position:absolute;left:120px;top:110px" class="wm">ohmyho<i>.st</i><span style="font-size:26px"></span></div>
+      <div style="position:absolute;left:120px;top:400px;right:120px">
+        <div style="font-size:150px;font-weight:700;letter-spacing:-.05em;line-height:.98" class="grad">Ten dollars.<br>All your projects.</div>
+        <div class="sub" style="font-size:44px;margin-top:44px">Hosting, Postgres, email and a domain.</div>
+      </div>
+      <div style="position:absolute;left:120px;bottom:100px" class="kicker" >ohmyho.st</div>
+    </div>
+  </div>
 
-          <!-- statement slide -->
-          <div class="hold" style="width: 520px; height: 292.5px">
-            <div class="lbl">statement</div>
-            <div
-              class="canvas"
-              style="width: 1920px; height: 1080px; transform: scale(0.2708)"
-            >
-              <div class="noise"></div>
-              <div
-                style="position: absolute; left: 120px; top: 110px"
-                class="kicker"
-                style="font-size: 30px"
-              >
-                the problem
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 120px;
-                  top: 340px;
-                  right: 200px;
-                  font-size: 118px;
-                  font-weight: 600;
-                  letter-spacing: -0.04em;
-                  line-height: 1.1;
-                "
-              >
-                They charge<br />per project.<br /><span style="color: #83878d"
-                  >We don't.</span
-                >
-              </div>
-              <div
-                style="position: absolute; left: 120px; bottom: 100px"
-                class="wm"
-              >
-                ohmyho<i>.st</i>
-              </div>
-            </div>
-          </div>
+  <!-- statement slide -->
+  <div class="hold" style="width:520px;height:292.5px">
+    <div class="lbl">statement</div>
+    <div class="canvas" style="width:1920px;height:1080px;transform:scale(.2708)">
+      <div class="noise"></div>
+      <div style="position:absolute;left:120px;top:110px" class="kicker" style="font-size:30px">the problem</div>
+      <div style="position:absolute;left:120px;top:340px;right:200px;font-size:118px;font-weight:600;letter-spacing:-.04em;line-height:1.1">
+        They charge<br>per project.<br><span style="color:#83878D">We don't.</span></div>
+      <div style="position:absolute;left:120px;bottom:100px" class="wm">ohmyho<i>.st</i></div>
+    </div>
+  </div>
 
-          <!-- data slide -->
-          <div class="hold" style="width: 520px; height: 292.5px">
-            <div class="lbl">comparison</div>
-            <div
-              class="canvas"
-              style="width: 1920px; height: 1080px; transform: scale(0.2708)"
-            >
-              <div class="noise"></div>
-              <div
-                style="
-                  position: absolute;
-                  left: 120px;
-                  top: 120px;
-                  font-size: 72px;
-                  font-weight: 600;
-                  letter-spacing: -0.04em;
-                "
-              >
-                Same stack. One bill.
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 120px;
-                  top: 300px;
-                  width: 780px;
-                  border: 1px solid #17181a;
-                  border-radius: 36px;
-                  padding: 56px;
-                "
-              >
-                <div
-                  style="color: #83878d; font-size: 32px; margin-bottom: 34px"
-                >
-                  Buy it separately
-                </div>
-                <div
-                  style="
-                    font-size: 130px;
-                    font-weight: 600;
-                    letter-spacing: -0.05em;
-                  "
-                >
-                  $71<span
-                    style="font-size: 44px; color: #83878d; font-weight: 400"
-                    >/mo</span
-                  >
-                </div>
-                <div
-                  style="
-                    color: #3e4247;
-                    font-size: 28px;
-                    margin-top: 24px;
-                    font-family: &quot;JetBrains Mono&quot;;
-                  "
-                >
-                  5 accounts · one project
-                </div>
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 1020px;
-                  top: 300px;
-                  width: 780px;
-                  border: 1px solid #f0f1f2;
-                  border-radius: 36px;
-                  padding: 56px;
-                  background: #0c0d10;
-                "
-              >
-                <div style="font-size: 32px; margin-bottom: 34px">
-                  ohmyho.st
-                </div>
-                <div
-                  style="
-                    font-size: 130px;
-                    font-weight: 600;
-                    letter-spacing: -0.05em;
-                  "
-                >
-                  $10<span
-                    style="font-size: 44px; color: #83878d; font-weight: 400"
-                    >/mo</span
-                  >
-                </div>
-                <div
-                  style="
-                    color: #83878d;
-                    font-size: 28px;
-                    margin-top: 24px;
-                    font-family: &quot;JetBrains Mono&quot;;
-                  "
-                >
-                  1 command · every project
-                </div>
-              </div>
-            </div>
-          </div>
+  <!-- data slide -->
+  <div class="hold" style="width:520px;height:292.5px">
+    <div class="lbl">comparison</div>
+    <div class="canvas" style="width:1920px;height:1080px;transform:scale(.2708)">
+      <div class="noise"></div>
+      <div style="position:absolute;left:120px;top:120px;font-size:72px;font-weight:600;letter-spacing:-.04em">Same stack. One bill.</div>
+      <div style="position:absolute;left:120px;top:300px;width:780px;border:1px solid #17181A;border-radius:36px;padding:56px">
+        <div style="color:#83878D;font-size:32px;margin-bottom:34px">Buy it separately</div>
+        <div style="font-size:130px;font-weight:600;letter-spacing:-.05em">$71<span style="font-size:44px;color:#83878D;font-weight:400">/mo</span></div>
+        <div style="color:#3E4247;font-size:28px;margin-top:24px;font-family:'JetBrains Mono'">5 accounts · one project</div>
+      </div>
+      <div style="position:absolute;left:1020px;top:300px;width:780px;border:1px solid #F0F1F2;border-radius:36px;padding:56px;background:#0C0D10">
+        <div style="font-size:32px;margin-bottom:34px">ohmyho.st</div>
+        <div style="font-size:130px;font-weight:600;letter-spacing:-.05em">$10<span style="font-size:44px;color:#83878D;font-weight:400">/mo</span></div>
+        <div style="color:#83878D;font-size:28px;margin-top:24px;font-family:'JetBrains Mono'">1 command · every project</div>
+      </div>
+    </div>
+  </div>
 
-          <!-- terminal slide -->
-          <div class="hold" style="width: 520px; height: 292.5px">
-            <div class="lbl">demo</div>
-            <div
-              class="canvas"
-              style="width: 1920px; height: 1080px; transform: scale(0.2708)"
-            >
-              <div class="noise"></div>
-              <div
-                style="
-                  position: absolute;
-                  left: 120px;
-                  top: 120px;
-                  font-size: 72px;
-                  font-weight: 600;
-                  letter-spacing: -0.04em;
-                "
-              >
-                One command.
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 120px;
-                  top: 300px;
-                  width: 1000px;
-                  border: 1px solid #17181a;
-                  border-radius: 36px;
-                  background: #0c0d10;
-                  overflow: hidden;
-                "
-              >
-                <div
-                  style="
-                    display: flex;
-                    gap: 16px;
-                    padding: 34px 44px;
-                    border-bottom: 1px solid #17181a;
-                  "
-                >
-                  <i
-                    style="
-                      width: 18px;
-                      height: 18px;
-                      border-radius: 50%;
-                      background: #26282c;
-                      display: block;
-                    "
-                  ></i>
-                  <i
-                    style="
-                      width: 18px;
-                      height: 18px;
-                      border-radius: 50%;
-                      background: #26282c;
-                      display: block;
-                    "
-                  ></i>
-                  <i
-                    style="
-                      width: 18px;
-                      height: 18px;
-                      border-radius: 50%;
-                      background: #26282c;
-                      display: block;
-                    "
-                  ></i>
-                </div>
-                <div
-                  style="
-                    padding: 44px;
-                    font-family: &quot;JetBrains Mono&quot;;
-                    font-size: 38px;
-                    line-height: 2;
-                    color: #83878d;
-                  "
-                >
-                  <div>
-                    <span style="color: #3e4247">$</span> omh create myapp
-                  </div>
-                  <div><span style="color: #3e4247">$</span> omh db up</div>
-                  <div><span style="color: #3e4247">$</span> omh deploy</div>
-                  <div style="color: #f0f1f2">
-                    <span style="color: #4caf8f">✓</span> https://myapp.ohm.st
-                  </div>
-                </div>
-              </div>
-              <div
-                style="position: absolute; right: 120px; bottom: 100px"
-                class="wm"
-              >
-                ohmyho<i>.st</i>
-              </div>
-            </div>
-          </div>
+  <!-- terminal slide -->
+  <div class="hold" style="width:520px;height:292.5px">
+    <div class="lbl">demo</div>
+    <div class="canvas" style="width:1920px;height:1080px;transform:scale(.2708)">
+      <div class="noise"></div>
+      <div style="position:absolute;left:120px;top:120px;font-size:72px;font-weight:600;letter-spacing:-.04em">One command.</div>
+      <div style="position:absolute;left:120px;top:300px;width:1000px;border:1px solid #17181A;border-radius:36px;background:#0C0D10;overflow:hidden">
+        <div style="display:flex;gap:16px;padding:34px 44px;border-bottom:1px solid #17181A">
+          <i style="width:18px;height:18px;border-radius:50%;background:#26282C;display:block"></i>
+          <i style="width:18px;height:18px;border-radius:50%;background:#26282C;display:block"></i>
+          <i style="width:18px;height:18px;border-radius:50%;background:#26282C;display:block"></i>
         </div>
-
-        <h4>Slide rules</h4>
-        <ul>
-          <li>Margin 120px. Nothing outside it, ever.</li>
-          <li>Headline max 4 words per line, max 3 lines.</li>
-          <li>
-            One wordmark per slide, bottom left or bottom right — pick one and
-            keep it.
-          </li>
-          <li>Body text never below 28px at 1920 width.</li>
-        </ul>
-
-        <h2 id="youtube">17 — YouTube</h2>
-        <p>
-          Thumbnail <b>1280×720</b>. Readable at 210px wide — that's the only
-          test that matters. Max five words, minimum 90px type.
-        </p>
-        <div class="stage">
-          <div class="hold" style="width: 426px; height: 240px">
-            <div class="lbl">thumbnail · 1280×720</div>
-            <div
-              class="canvas"
-              style="width: 1280px; height: 720px; transform: scale(0.3328)"
-            >
-              <div class="noise"></div>
-              <div
-                class="glow"
-                style="width: 700px; height: 700px; left: 290px; top: 10px"
-              ></div>
-              <div
-                style="
-                  position: absolute;
-                  left: 80px;
-                  top: 210px;
-                  right: 80px;
-                  font-size: 150px;
-                  font-weight: 700;
-                  letter-spacing: -0.05em;
-                  line-height: 0.96;
-                "
-              >
-                $71<span style="color: #3e4247"> → </span>$10
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 80px;
-                  top: 530px;
-                  font-size: 52px;
-                  color: #83878d;
-                "
-              >
-                Vercel + Supabase + Resend, bundled
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  right: 70px;
-                  top: 60px;
-                  font-family: &quot;JetBrains Mono&quot;;
-                  font-size: 34px;
-                  color: #3e4247;
-                "
-              >
-                ohmyho<span style="color: #26282c">.st</span>
-              </div>
-            </div>
-          </div>
-          <div class="hold" style="width: 426px; height: 240px">
-            <div class="lbl">thumbnail · question</div>
-            <div
-              class="canvas"
-              style="width: 1280px; height: 720px; transform: scale(0.3328)"
-            >
-              <div class="noise"></div>
-              <div
-                style="
-                  position: absolute;
-                  left: 80px;
-                  top: 150px;
-                  right: 80px;
-                  font-size: 118px;
-                  font-weight: 700;
-                  letter-spacing: -0.045em;
-                  line-height: 1.02;
-                "
-              >
-                Why do you<br />pay 5 bills<br />for 1 app?
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 80px;
-                  bottom: 70px;
-                  display: flex;
-                  gap: 16px;
-                  align-items: center;
-                "
-              >
-                <span
-                  class="pill"
-                  style="
-                    padding: 18px 32px;
-                    font-size: 34px;
-                    font-family: &quot;JetBrains Mono&quot;;
-                  "
-                  >$ curl omh.st/0.sh</span
-                >
-              </div>
-            </div>
-          </div>
+        <div style="padding:44px;font-family:'JetBrains Mono';font-size:38px;line-height:2;color:#83878D">
+          <div><span style="color:#3E4247">$</span> omh create myapp</div>
+          <div><span style="color:#3E4247">$</span> omh db up</div>
+          <div><span style="color:#3E4247">$</span> omh deploy</div>
+          <div style="color:#F0F1F2"><span style="color:#4CAF8F">✓</span> https://myapp.ohm.st</div>
         </div>
-        <h4>Thumbnail rules</h4>
-        <ul>
-          <li>
-            Black background always. It is the only channel where that's a
-            differentiator.
-          </li>
-          <li>Never put the wordmark bigger than the headline.</li>
-          <li>No faces, no arrows, no red circles. The number is the hook.</li>
-        </ul>
+      </div>
+      <div style="position:absolute;right:120px;bottom:100px" class="wm">ohmyho<i>.st</i></div>
+    </div>
+  </div>
+</div>
 
-        <h2 id="linkedin">18 — LinkedIn</h2>
-        <p>
-          Link image <b>1200×627</b>, square post <b>1080×1080</b>. Assume it's
-          read at 400px on a phone in a grey feed — the black frame does the
-          work.
-        </p>
-        <div class="stage">
-          <div class="hold" style="width: 480px; height: 250.8px">
-            <div class="lbl">link · 1200×627</div>
-            <div
-              class="canvas"
-              style="width: 1200px; height: 627px; transform: scale(0.4)"
-            >
-              <div class="noise"></div>
-              <div
-                style="position: absolute; left: 80px; top: 76px"
-                class="kicker"
-                style="font-size: 24px"
-              >
-                hosting for agents
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 80px;
-                  top: 180px;
-                  right: 80px;
-                  font-size: 96px;
-                  font-weight: 700;
-                  letter-spacing: -0.045em;
-                  line-height: 1.02;
-                "
-                class="grad"
-              >
-                Ten dollars.<br />All your projects.
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 80px;
-                  bottom: 76px;
-                  display: flex;
-                  justify-content: space-between;
-                  right: 80px;
-                  align-items: flex-end;
-                "
-              >
-                <span class="sub" style="font-size: 30px"
-                  >They charge per project. We don't.</span
-                >
-                <span class="wm" style="font-size: 26px">ohmyho<i>.st</i></span>
-              </div>
-            </div>
-          </div>
-          <div class="hold" style="width: 340px; height: 340px">
-            <div class="lbl">square · 1080×1080</div>
-            <div
-              class="canvas"
-              style="width: 1080px; height: 1080px; transform: scale(0.3148)"
-            >
-              <div class="noise"></div>
-              <div
-                style="position: absolute; left: 90px; top: 90px"
-                class="wm"
-                style="font-size: 30px"
-              >
-                ohmyho<i>.st</i>
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 90px;
-                  top: 330px;
-                  right: 90px;
-                  font-size: 104px;
-                  font-weight: 600;
-                  letter-spacing: -0.04em;
-                  line-height: 1.08;
-                "
-              >
-                No dashboard.<br /><span style="color: #83878d"
-                  >Ask your agent.</span
-                >
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 90px;
-                  bottom: 110px;
-                  right: 90px;
-                "
-              >
-                <div
-                  style="height: 1px; background: #17181a; margin-bottom: 40px"
-                ></div>
-                <div
-                  style="
-                    font-family: &quot;JetBrains Mono&quot;;
-                    font-size: 32px;
-                    color: #83878d;
-                  "
-                >
-                  our mcp returns your usage and your data
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <h4>Carousel</h4>
-        <p>
-          Square, 6–8 slides. Slide 1 is the claim, slides 2–6 one fact each,
-          last slide is the command and the wordmark. Same margins as the deck,
-          scaled: 90px on 1080.
-        </p>
+<h4>Slide rules</h4>
+<ul>
+  <li>Margin 120px. Nothing outside it, ever.</li>
+  <li>Headline max 4 words per line, max 3 lines.</li>
+  <li>One wordmark per slide, bottom left or bottom right — pick one and keep it.</li>
+  <li>Body text never below 28px at 1920 width.</li>
+</ul>
 
-        <h2 id="instagram">19 — Instagram</h2>
-        <p>
-          Feed <b>1080×1080</b> or <b>1080×1350</b>. Same system, more air,
-          fewer words. The mono label at the top acts as the visual signature.
-        </p>
-        <div class="stage">
-          <div class="hold" style="width: 300px; height: 300px">
-            <div class="lbl">feed · 1080×1080</div>
-            <div
-              class="canvas"
-              style="width: 1080px; height: 1080px; transform: scale(0.2778)"
-            >
-              <div class="noise"></div>
-              <div
-                class="glow"
-                style="width: 800px; height: 800px; left: 140px; top: 140px"
-              ></div>
-              <div
-                style="position: absolute; left: 90px; top: 90px"
-                class="kicker"
-                style="font-size: 28px"
-              >
-                the whole price list
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 90px;
-                  top: 380px;
-                  font-size: 200px;
-                  font-weight: 700;
-                  letter-spacing: -0.055em;
-                  line-height: 1;
-                "
-                class="grad"
-              >
-                $10
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 90px;
-                  top: 640px;
-                  right: 90px;
-                  font-size: 46px;
-                  color: #83878d;
-                  line-height: 1.35;
-                "
-              >
-                a month, for every project you build
-              </div>
-              <div
-                style="position: absolute; left: 90px; bottom: 90px"
-                class="wm"
-                style="font-size: 28px"
-              >
-                ohmyho<i>.st</i>
-              </div>
-            </div>
-          </div>
-          <div class="hold" style="width: 300px; height: 375px">
-            <div class="lbl">portrait · 1080×1350</div>
-            <div
-              class="canvas"
-              style="width: 1080px; height: 1350px; transform: scale(0.2778)"
-            >
-              <div class="noise"></div>
-              <div
-                style="position: absolute; left: 90px; top: 90px"
-                class="wm"
-                style="font-size: 28px"
-              >
-                ohmyho<i>.st</i>
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 90px;
-                  top: 300px;
-                  right: 90px;
-                  font-size: 92px;
-                  font-weight: 600;
-                  letter-spacing: -0.04em;
-                  line-height: 1.1;
-                "
-              >
-                Backups you can walk away with.
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 90px;
-                  top: 720px;
-                  right: 90px;
-                  display: grid;
-                  gap: 1px;
-                  background: #17181a;
-                  border: 1px solid #17181a;
-                  border-radius: 34px;
-                  overflow: hidden;
-                "
-              >
-                <div style="background: #000; padding: 44px; font-size: 44px">
-                  Google Drive
-                </div>
-                <div style="background: #000; padding: 44px; font-size: 44px">
-                  Amazon S3
-                </div>
-                <div style="background: #000; padding: 44px; font-size: 44px">
-                  Cloudflare R2
-                </div>
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 90px;
-                  bottom: 100px;
-                  font-size: 38px;
-                  color: #83878d;
-                "
-              >
-                Nightly. Restore anywhere. Leave whenever.
-              </div>
-            </div>
-          </div>
-        </div>
+<h2 id="youtube">17 — YouTube</h2>
+<p>Thumbnail <b>1280×720</b>. Readable at 210px wide — that's the only test that matters. Max five words, minimum 90px type.</p>
+<div class="stage">
+  <div class="hold" style="width:426px;height:240px">
+    <div class="lbl">thumbnail · 1280×720</div>
+    <div class="canvas" style="width:1280px;height:720px;transform:scale(.3328)">
+      <div class="noise"></div>
+      <div class="glow" style="width:700px;height:700px;left:290px;top:10px"></div>
+      <div style="position:absolute;left:80px;top:210px;right:80px;font-size:150px;font-weight:700;letter-spacing:-.05em;line-height:.96">$71<span style="color:#3E4247"> → </span>$10</div>
+      <div style="position:absolute;left:80px;top:530px;font-size:52px;color:#83878D">Vercel + Supabase + Resend, bundled</div>
+      <div style="position:absolute;right:70px;top:60px;font-family:'JetBrains Mono';font-size:34px;color:#3E4247">ohmyho<span style="color:#26282C">.st</span></div>
+    </div>
+  </div>
+  <div class="hold" style="width:426px;height:240px">
+    <div class="lbl">thumbnail · question</div>
+    <div class="canvas" style="width:1280px;height:720px;transform:scale(.3328)">
+      <div class="noise"></div>
+      <div style="position:absolute;left:80px;top:150px;right:80px;font-size:118px;font-weight:700;letter-spacing:-.045em;line-height:1.02">Why do you<br>pay 5 bills<br>for 1 app?</div>
+      <div style="position:absolute;left:80px;bottom:70px;display:flex;gap:16px;align-items:center">
+        <span class="pill" style="padding:18px 32px;font-size:34px;font-family:'JetBrains Mono'">$ curl omh.st/0.sh</span>
+      </div>
+    </div>
+  </div>
+</div>
+<h4>Thumbnail rules</h4>
+<ul>
+  <li>Black background always. It is the only channel where that's a differentiator.</li>
+  <li>Never put the wordmark bigger than the headline.</li>
+  <li>No faces, no arrows, no red circles. The number is the hook.</li>
+</ul>
 
-        <h2 id="story">20 — story / reel</h2>
-        <p>
-          <b>1080×1920</b>. Keep everything inside the middle 1080×1420 — the
-          top 250px and bottom 250px are covered by the platform UI.
-        </p>
-        <div class="stage">
-          <div class="hold" style="width: 216px; height: 384px">
-            <div class="lbl">9:16</div>
-            <div
-              class="canvas"
-              style="width: 1080px; height: 1920px; transform: scale(0.2)"
-            >
-              <div class="noise"></div>
-              <div
-                style="
-                  position: absolute;
-                  left: 0;
-                  right: 0;
-                  top: 250px;
-                  bottom: 250px;
-                  border-top: 1px dashed #17181a;
-                  border-bottom: 1px dashed #17181a;
-                "
-              ></div>
-              <div
-                class="glow"
-                style="width: 900px; height: 900px; left: 90px; top: 400px"
-              ></div>
-              <div
-                style="position: absolute; left: 90px; top: 430px"
-                class="kicker"
-                style="font-size: 32px"
-              >
-                stop paying five bills
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 90px;
-                  top: 600px;
-                  right: 90px;
-                  font-size: 130px;
-                  font-weight: 700;
-                  letter-spacing: -0.05em;
-                  line-height: 1.02;
-                "
-                class="grad"
-              >
-                Ten dollars.<br />All your projects.
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 90px;
-                  top: 1120px;
-                  right: 90px;
-                  font-size: 48px;
-                  color: #83878d;
-                  line-height: 1.4;
-                "
-              >
-                Hosting, Postgres, email, a domain, AI and backups. One command.
-              </div>
-              <div
-                style="
-                  position: absolute;
-                  left: 90px;
-                  top: 1420px;
-                  padding: 34px 56px;
-                  border: 1px solid #26282c;
-                  border-radius: 999px;
-                  font-family: &quot;JetBrains Mono&quot;;
-                  font-size: 40px;
-                "
-              >
-                $ curl omh.st/0.sh | bash
-              </div>
-              <div
-                style="position: absolute; left: 90px; bottom: 300px"
-                class="wm"
-                style="font-size: 32px"
-              >
-                ohmyho<i>.st</i>
-              </div>
-            </div>
-          </div>
-        </div>
+<h2 id="linkedin">18 — LinkedIn</h2>
+<p>Link image <b>1200×627</b>, square post <b>1080×1080</b>. Assume it's read at 400px on a phone in a grey feed — the black frame does the work.</p>
+<div class="stage">
+  <div class="hold" style="width:480px;height:250.8px">
+    <div class="lbl">link · 1200×627</div>
+    <div class="canvas" style="width:1200px;height:627px;transform:scale(.4)">
+      <div class="noise"></div>
+      <div style="position:absolute;left:80px;top:76px" class="kicker" style="font-size:24px">hosting for agents</div>
+      <div style="position:absolute;left:80px;top:180px;right:80px;font-size:96px;font-weight:700;letter-spacing:-.045em;line-height:1.02" class="grad">Ten dollars.<br>All your projects.</div>
+      <div style="position:absolute;left:80px;bottom:76px;display:flex;justify-content:space-between;right:80px;align-items:flex-end">
+        <span class="sub" style="font-size:30px">They charge per project. We don't.</span>
+        <span class="wm" style="font-size:26px">ohmyho<i>.st</i></span>
+      </div>
+    </div>
+  </div>
+  <div class="hold" style="width:340px;height:340px">
+    <div class="lbl">square · 1080×1080</div>
+    <div class="canvas" style="width:1080px;height:1080px;transform:scale(.3148)">
+      <div class="noise"></div>
+      <div style="position:absolute;left:90px;top:90px" class="wm" style="font-size:30px">ohmyho<i>.st</i></div>
+      <div style="position:absolute;left:90px;top:330px;right:90px;font-size:104px;font-weight:600;letter-spacing:-.04em;line-height:1.08">
+        No dashboard.<br><span style="color:#83878D">Ask your agent.</span></div>
+      <div style="position:absolute;left:90px;bottom:110px;right:90px">
+        <div style="height:1px;background:#17181A;margin-bottom:40px"></div>
+        <div style="font-family:'JetBrains Mono';font-size:32px;color:#83878D">our mcp returns your usage and your data</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h4>Carousel</h4>
+<p>Square, 6–8 slides. Slide 1 is the claim, slides 2–6 one fact each, last slide is the command and the wordmark. Same margins as the deck, scaled: 90px on 1080.</p>
 
-        <h2 id="export">21 — exporting</h2>
-        <p>
-          Every template above is real HTML at real pixel size, scaled down with
-          <code style="font-family: var(--mono); font-size: 12.5px"
-            >transform: scale()</code
-          >. To export:
-        </p>
-        <ul>
-          <li>
-            Set the wrapper's scale to 1, open the file in a browser, screenshot
-            the canvas at device pixel ratio 2 — or
-          </li>
-          <li>
-            Use a headless shot:
-            <code style="font-family: var(--mono); font-size: 12.5px"
-              >npx playwright screenshot --viewport-size=1280,720 file.html
-              shot.png</code
-            >
-            — or
-          </li>
-          <li>
-            Print to PDF at exact page size for decks, then place in Keynote or
-            Figma.
-          </li>
-        </ul>
-        <div class="codewrap">
-          <button class="cbtn">copy</button>
-          <pre>
-&lt;!-- swap the scale factor to 1 before exporting --&gt;
+<h2 id="instagram">19 — Instagram</h2>
+<p>Feed <b>1080×1080</b> or <b>1080×1350</b>. Same system, more air, fewer words. The mono label at the top acts as the visual signature.</p>
+<div class="stage">
+  <div class="hold" style="width:300px;height:300px">
+    <div class="lbl">feed · 1080×1080</div>
+    <div class="canvas" style="width:1080px;height:1080px;transform:scale(.2778)">
+      <div class="noise"></div>
+      <div class="glow" style="width:800px;height:800px;left:140px;top:140px"></div>
+      <div style="position:absolute;left:90px;top:90px" class="kicker" style="font-size:28px">the whole price list</div>
+      <div style="position:absolute;left:90px;top:380px;font-size:200px;font-weight:700;letter-spacing:-.055em;line-height:1" class="grad">$10</div>
+      <div style="position:absolute;left:90px;top:640px;right:90px;font-size:46px;color:#83878D;line-height:1.35">a month, for every project you build</div>
+      <div style="position:absolute;left:90px;bottom:90px" class="wm" style="font-size:28px">ohmyho<i>.st</i></div>
+    </div>
+  </div>
+  <div class="hold" style="width:300px;height:375px">
+    <div class="lbl">portrait · 1080×1350</div>
+    <div class="canvas" style="width:1080px;height:1350px;transform:scale(.2778)">
+      <div class="noise"></div>
+      <div style="position:absolute;left:90px;top:90px" class="wm" style="font-size:28px">ohmyho<i>.st</i></div>
+      <div style="position:absolute;left:90px;top:300px;right:90px;font-size:92px;font-weight:600;letter-spacing:-.04em;line-height:1.1">Backups you can walk away with.</div>
+      <div style="position:absolute;left:90px;top:720px;right:90px;display:grid;gap:1px;background:#17181A;border:1px solid #17181A;border-radius:34px;overflow:hidden">
+        <div style="background:#000;padding:44px;font-size:44px">Google Drive</div>
+        <div style="background:#000;padding:44px;font-size:44px">Amazon S3</div>
+        <div style="background:#000;padding:44px;font-size:44px">Cloudflare R2</div>
+      </div>
+      <div style="position:absolute;left:90px;bottom:100px;font-size:38px;color:#83878D">Nightly. Restore anywhere. Leave whenever.</div>
+    </div>
+  </div>
+</div>
+
+<h2 id="story">20 — story / reel</h2>
+<p><b>1080×1920</b>. Keep everything inside the middle 1080×1420 — the top 250px and bottom 250px are covered by the platform UI.</p>
+<div class="stage">
+  <div class="hold" style="width:216px;height:384px">
+    <div class="lbl">9:16</div>
+    <div class="canvas" style="width:1080px;height:1920px;transform:scale(.2)">
+      <div class="noise"></div>
+      <div style="position:absolute;left:0;right:0;top:250px;bottom:250px;border-top:1px dashed #17181A;border-bottom:1px dashed #17181A"></div>
+      <div class="glow" style="width:900px;height:900px;left:90px;top:400px"></div>
+      <div style="position:absolute;left:90px;top:430px" class="kicker" style="font-size:32px">stop paying five bills</div>
+      <div style="position:absolute;left:90px;top:600px;right:90px;font-size:130px;font-weight:700;letter-spacing:-.05em;line-height:1.02" class="grad">Ten dollars.<br>All your projects.</div>
+      <div style="position:absolute;left:90px;top:1120px;right:90px;font-size:48px;color:#83878D;line-height:1.4">Hosting, Postgres, email, a domain, AI and backups. One command.</div>
+      <div style="position:absolute;left:90px;top:1420px;padding:34px 56px;border:1px solid #26282C;border-radius:999px;font-family:'JetBrains Mono';font-size:40px">$ curl omh.st/0.sh | bash</div>
+      <div style="position:absolute;left:90px;bottom:300px" class="wm" style="font-size:32px">ohmyho<i>.st</i></div>
+    </div>
+  </div>
+</div>
+
+<h2 id="export">21 — exporting</h2>
+<p>Every template above is real HTML at real pixel size, scaled down with <code style="font-family:var(--mono);font-size:12.5px">transform: scale()</code>. To export:</p>
+<ul>
+  <li>Set the wrapper's scale to 1, open the file in a browser, screenshot the canvas at device pixel ratio 2 — or</li>
+  <li>Use a headless shot: <code style="font-family:var(--mono);font-size:12.5px">npx playwright screenshot --viewport-size=1280,720 file.html shot.png</code> — or</li>
+  <li>Print to PDF at exact page size for decks, then place in Keynote or Figma.</li>
+</ul>
+<div class="codewrap"><button class="cbtn">copy</button><pre>&lt;!-- swap the scale factor to 1 before exporting --&gt;
 &lt;div class="canvas" style="width:1280px;height:720px;transform:scale(1)"&gt;
   …
-&lt;/div&gt;</pre
-          >
-        </div>
+&lt;/div&gt;</pre></div>
 
-        <!-- ---------------- WRITING ---------------- -->
-        <h2 id="writing">22 — writing rules</h2>
-        <ul>
-          <li>
-            <b>Number first.</b> "$10 a month" beats "affordable pricing" every
-            time.
-          </li>
-          <li>
-            <b>Name the competitor</b> when the comparison is the point. Never
-            sneer at them.
-          </li>
-          <li>
-            <b>Two-part headlines.</b> A fact, then the twist. "They charge per
-            project. We don't."
-          </li>
-          <li>
-            <b>Lowercase mono for machine words:</b> commands, labels, domains,
-            units.
-          </li>
-          <li>
-            <b>No hedging.</b> Cut "simply", "just", "basically", "seamlessly",
-            "powerful".
-          </li>
-          <li>
-            <b>State the limit.</b> Every claim page gets one honest sentence
-            about who it's wrong for.
-          </li>
-          <li><b>Sentence case</b> everywhere. Never Title Case Like This.</li>
-        </ul>
+<!-- ---------------- WRITING ---------------- -->
+<h2 id="writing">22 — writing rules</h2>
+<ul>
+  <li><b>Number first.</b> "$10 a month" beats "affordable pricing" every time.</li>
+  <li><b>Name the competitor</b> when the comparison is the point. Never sneer at them.</li>
+  <li><b>Two-part headlines.</b> A fact, then the twist. "They charge per project. We don't."</li>
+  <li><b>Lowercase mono for machine words:</b> commands, labels, domains, units.</li>
+  <li><b>No hedging.</b> Cut "simply", "just", "basically", "seamlessly", "powerful".</li>
+  <li><b>State the limit.</b> Every claim page gets one honest sentence about who it's wrong for.</li>
+  <li><b>Sentence case</b> everywhere. Never Title Case Like This.</li>
+</ul>
 
-        <!-- ---------------- DONTS ---------------- -->
-        <h2 id="donts">23 — don'ts</h2>
-        <div class="grid2">
-          <div class="card">
-            <h6 style="color: var(--bad)">Visual</h6>
-            <ul>
-              <li>No blue accent, no gradient buttons, no glassmorphism.</li>
-              <li>No drop shadows on cards. Hairlines only.</li>
-              <li>No stock photography, no 3D blobs, no AI illustration.</li>
-              <li>
-                No borrowed typefaces from competitors (Geist is Vercel's, the
-                serif is Resend's).
-              </li>
-              <li>
-                No fake logos. If we don't have the asset, we show a coloured
-                tile.
-              </li>
-              <li>No hover animations that move things.</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h6 style="color: var(--bad)">Content</h6>
-            <ul>
-              <li>No invented testimonials or customer logos.</li>
-              <li>
-                No certification badge that isn't held — mark it
-                <em
-                  style="
-                    font-style: normal;
-                    font-family: var(--mono);
-                    font-size: 11px;
-                  "
-                  >soon</em
-                >.
-              </li>
-              <li>No competitor pricing without a date and a source.</li>
-              <li>
-                No screenshots of a dashboard we deliberately don't build.
-              </li>
-              <li>No emoji, no exclamation marks.</li>
-            </ul>
-          </div>
-        </div>
+<!-- ---------------- DONTS ---------------- -->
+<h2 id="donts">23 — don'ts</h2>
+<div class="grid2">
+  <div class="card">
+    <h6 style="color:var(--bad)">Visual</h6>
+    <ul>
+      <li>No blue accent, no gradient buttons, no glassmorphism.</li>
+      <li>No drop shadows on cards. Hairlines only.</li>
+      <li>No stock photography, no 3D blobs, no AI illustration.</li>
+      <li>No borrowed typefaces from competitors (Geist is Vercel's, the serif is Resend's).</li>
+      <li>No fake logos. If we don't have the asset, we show a coloured tile.</li>
+      <li>No hover animations that move things.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h6 style="color:var(--bad)">Content</h6>
+    <ul>
+      <li>No invented testimonials or customer logos.</li>
+      <li>No certification badge that isn't held — mark it <em style="font-style:normal;font-family:var(--mono);font-size:11px">soon</em>.</li>
+      <li>No competitor pricing without a date and a source.</li>
+      <li>No screenshots of a dashboard we deliberately don't build.</li>
+      <li>No emoji, no exclamation marks.</li>
+    </ul>
+  </div>
+</div>
 
-        <p style="margin-top: 64px; font-size: 13px; color: var(--subtle)">
-          ohmyho.st design system v1 · Space Grotesk + JetBrains Mono, both open
-          source · tokens follow the shadcn/ui naming convention so any
-          component from that ecosystem drops in unchanged.
-        </p>
-      </main>
-    </div>
+<p style="margin-top:64px;font-size:13px;color:var(--subtle)">ohmyho.st design system v1 · Space Grotesk + JetBrains Mono, both open source · tokens follow the shadcn/ui naming convention so any component from that ecosystem drops in unchanged.</p>
 
-    <script>
-      document.getElementById("themer").addEventListener("click", function () {
-        var r = document.documentElement;
-        r.dataset.theme = r.dataset.theme === "light" ? "dark" : "light";
-      });
-      document.querySelectorAll(".cbtn").forEach(function (b) {
-        b.addEventListener("click", function () {
-          var code = b.parentNode.querySelector("pre").innerText;
-          var done = function () {
-            b.textContent = "copied";
-            setTimeout(function () {
-              b.textContent = "copy";
-            }, 1600);
-          };
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(code).then(done).catch(done);
-          } else {
-            var t = document.createElement("textarea");
-            t.value = code;
-            document.body.appendChild(t);
-            t.select();
-            try {
-              document.execCommand("copy");
-            } catch (e) {}
-            document.body.removeChild(t);
-            done();
-          }
-        });
-      });
-    </script>
-  </body>
+</main>
+</div>
+
+<script>
+document.getElementById('themer').addEventListener('click',function(){
+  var r=document.documentElement;
+  r.dataset.theme = r.dataset.theme==='light' ? 'dark' : 'light';
+});
+document.querySelectorAll('.cbtn').forEach(function(b){
+  b.addEventListener('click',function(){
+    var code=b.parentNode.querySelector('pre').innerText;
+    var done=function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1600);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(code).then(done).catch(done);
+    } else {
+      var t=document.createElement('textarea');t.value=code;document.body.appendChild(t);
+      t.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(t);done();
+    }
+  });
+});
+</script>
+</body>
 </html>

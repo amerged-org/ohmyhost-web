@@ -1,5 +1,6 @@
 coverage/
 dist/
+site/
 public/pages/
 public/og/
 node_modules/

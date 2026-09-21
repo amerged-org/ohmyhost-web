@@ -17,10 +17,15 @@
           "environment": {
             "default": "dev",
             "type": "string",
-            "enum": ["dev", "prod"]
+            "enum": [
+              "dev",
+              "prod"
+            ]
           }
         },
-        "required": ["project_id"]
+        "required": [
+          "project_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -42,11 +47,17 @@
           },
           "environment": {
             "type": "string",
-            "enum": ["dev", "prod"]
+            "enum": [
+              "dev",
+              "prod"
+            ]
           },
           "profile": {
             "type": "string",
-            "enum": ["standard", "performance"]
+            "enum": [
+              "standard",
+              "performance"
+            ]
           },
           "confirm": {
             "type": "boolean",
@@ -85,7 +96,9 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id"]
+        "required": [
+          "project_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -155,7 +168,11 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id", "zone", "idempotency_key"]
+        "required": [
+          "project_id",
+          "zone",
+          "idempotency_key"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -176,7 +193,9 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id"]
+        "required": [
+          "project_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -201,7 +220,10 @@
             "pattern": "^(?=.{1,253}$)(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z]{2,63}$"
           }
         },
-        "required": ["project_id", "hostname"]
+        "required": [
+          "project_id",
+          "hostname"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -235,7 +257,12 @@
             "const": true
           }
         },
-        "required": ["project_id", "hostname", "idempotency_key", "confirm"]
+        "required": [
+          "project_id",
+          "hostname",
+          "idempotency_key",
+          "confirm"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -256,7 +283,9 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id"]
+        "required": [
+          "project_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -290,7 +319,12 @@
             "const": true
           }
         },
-        "required": ["project_id", "hostname", "idempotency_key", "confirm"]
+        "required": [
+          "project_id",
+          "hostname",
+          "idempotency_key",
+          "confirm"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -312,7 +346,10 @@
           },
           "offer": {
             "type": "string",
-            "enum": ["topup", "paid"]
+            "enum": [
+              "topup",
+              "paid"
+            ]
           },
           "packs": {
             "default": 1,
@@ -326,7 +363,11 @@
             "maxLength": 128
           }
         },
-        "required": ["organization_id", "offer", "idempotency_key"]
+        "required": [
+          "organization_id",
+          "offer",
+          "idempotency_key"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -352,7 +393,10 @@
             "maxLength": 256
           }
         },
-        "required": ["organization_id", "checkout_id"]
+        "required": [
+          "organization_id",
+          "checkout_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -373,7 +417,9 @@
             "maxLength": 256
           }
         },
-        "required": ["organization_id"]
+        "required": [
+          "organization_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -451,7 +497,9 @@
             "maxLength": 256
           }
         },
-        "required": ["organization_id"]
+        "required": [
+          "organization_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -482,7 +530,11 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id", "password_file", "idempotency_key"],
+        "required": [
+          "project_id",
+          "password_file",
+          "idempotency_key"
+        ],
         "additionalProperties": false
       },
       "annotations": {
@@ -509,7 +561,10 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id", "export_id"]
+        "required": [
+          "project_id",
+          "export_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -539,7 +594,10 @@
             "maxLength": 256
           }
         },
-        "required": ["organization_id", "month"]
+        "required": [
+          "organization_id",
+          "month"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -560,7 +618,9 @@
             "maxLength": 256
           }
         },
-        "required": ["organization_id"]
+        "required": [
+          "organization_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -581,7 +641,9 @@
             "maxLength": 256
           }
         },
-        "required": ["organization_id"]
+        "required": [
+          "organization_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -602,7 +664,9 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id"]
+        "required": [
+          "project_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -636,7 +700,10 @@
           "mode": {
             "default": "continue",
             "type": "string",
-            "enum": ["continue", "stop"]
+            "enum": [
+              "continue",
+              "stop"
+            ]
           },
           "idempotency_key": {
             "type": "string",
@@ -644,7 +711,11 @@
             "maxLength": 128
           }
         },
-        "required": ["project_id", "amount_micros", "idempotency_key"]
+        "required": [
+          "project_id",
+          "amount_micros",
+          "idempotency_key"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -674,7 +745,10 @@
             "maxLength": 256
           }
         },
-        "required": ["name", "idempotency_key"]
+        "required": [
+          "name",
+          "idempotency_key"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -709,7 +783,9 @@
             "maxLength": 256
           }
         },
-        "required": ["organization_id"]
+        "required": [
+          "organization_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -731,7 +807,10 @@
           },
           "environment": {
             "type": "string",
-            "enum": ["dev", "prod"]
+            "enum": [
+              "dev",
+              "prod"
+            ]
           },
           "statement": {
             "type": "string",
@@ -761,7 +840,11 @@
             }
           }
         },
-        "required": ["project_id", "environment", "statement"]
+        "required": [
+          "project_id",
+          "environment",
+          "statement"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -783,7 +866,10 @@
           },
           "environment": {
             "type": "string",
-            "enum": ["dev", "prod"]
+            "enum": [
+              "dev",
+              "prod"
+            ]
           },
           "statement": {
             "type": "string",
@@ -834,12 +920,18 @@
           },
           "environment": {
             "type": "string",
-            "enum": ["dev", "prod"]
+            "enum": [
+              "dev",
+              "prod"
+            ]
           },
           "mode": {
             "default": "read",
             "type": "string",
-            "enum": ["read", "write"]
+            "enum": [
+              "read",
+              "write"
+            ]
           },
           "ttl_seconds": {
             "default": 3600,
@@ -857,7 +949,10 @@
             "const": true
           }
         },
-        "required": ["project_id", "environment"]
+        "required": [
+          "project_id",
+          "environment"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -879,10 +974,15 @@
           },
           "environment": {
             "type": "string",
-            "enum": ["dev", "prod"]
+            "enum": [
+              "dev",
+              "prod"
+            ]
           }
         },
-        "required": ["project_id"]
+        "required": [
+          "project_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -908,7 +1008,10 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id", "access_id"]
+        "required": [
+          "project_id",
+          "access_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -934,7 +1037,10 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id", "source_deployment_id"]
+        "required": [
+          "project_id",
+          "source_deployment_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -1057,7 +1163,9 @@
             "pattern": "^api_key_[A-Za-z0-9_]{1,120}$"
           }
         },
-        "required": ["organization_id"]
+        "required": [
+          "organization_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1086,7 +1194,11 @@
             "const": true
           }
         },
-        "required": ["organization_id", "key_id", "confirmed"]
+        "required": [
+          "organization_id",
+          "key_id",
+          "confirmed"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -1121,7 +1233,9 @@
             "maxLength": 120
           }
         },
-        "required": ["handle"]
+        "required": [
+          "handle"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1183,7 +1297,11 @@
           },
           "kind": {
             "type": "string",
-            "enum": ["bug", "issue", "feature_request"]
+            "enum": [
+              "bug",
+              "issue",
+              "feature_request"
+            ]
           },
           "title": {
             "type": "string",
@@ -1243,11 +1361,17 @@
           },
           "data_mode": {
             "type": "string",
-            "enum": ["shared", "isolated"]
+            "enum": [
+              "shared",
+              "isolated"
+            ]
           },
           "region": {
             "type": "string",
-            "enum": ["us", "eu"]
+            "enum": [
+              "us",
+              "eu"
+            ]
           },
           "idempotency_key": {
             "type": "string",
@@ -1255,7 +1379,11 @@
             "maxLength": 256
           }
         },
-        "required": ["organization_id", "name", "idempotency_key"]
+        "required": [
+          "organization_id",
+          "name",
+          "idempotency_key"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -1276,7 +1404,9 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id"]
+        "required": [
+          "project_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1297,7 +1427,9 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id"]
+        "required": [
+          "project_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1318,7 +1450,9 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id"]
+        "required": [
+          "project_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -1344,7 +1478,10 @@
             "maxLength": 256
           }
         },
-        "required": ["organization_id", "idempotency_key"]
+        "required": [
+          "organization_id",
+          "idempotency_key"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -1365,7 +1502,9 @@
             "maxLength": 256
           }
         },
-        "required": ["organization_id"]
+        "required": [
+          "organization_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1427,7 +1566,9 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id"]
+        "required": [
+          "project_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1452,7 +1593,10 @@
             "pattern": "^[a-f0-9]{40}$"
           }
         },
-        "required": ["project_id", "commit_sha"]
+        "required": [
+          "project_id",
+          "commit_sha"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1483,7 +1627,11 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id", "plan_id", "idempotency_key"]
+        "required": [
+          "project_id",
+          "plan_id",
+          "idempotency_key"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -1514,7 +1662,9 @@
             "maximum": 100
           }
         },
-        "required": ["project_id"]
+        "required": [
+          "project_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1540,7 +1690,10 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id", "deployment_id"]
+        "required": [
+          "project_id",
+          "deployment_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1572,7 +1725,10 @@
             "maximum": 100
           }
         },
-        "required": ["project_id", "deployment_id"]
+        "required": [
+          "project_id",
+          "deployment_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1593,7 +1749,9 @@
             "maxLength": 256
           }
         },
-        "required": ["operation_id"]
+        "required": [
+          "operation_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1620,7 +1778,9 @@
             "maximum": 100
           }
         },
-        "required": ["operation_id"]
+        "required": [
+          "operation_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1652,7 +1812,10 @@
             "maximum": 100
           }
         },
-        "required": ["project_id", "environment_id"]
+        "required": [
+          "project_id",
+          "environment_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1682,7 +1845,11 @@
             "const": true
           }
         },
-        "required": ["operation_id", "idempotency_key", "confirmed"]
+        "required": [
+          "operation_id",
+          "idempotency_key",
+          "confirmed"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -1712,7 +1879,11 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id", "domain", "idempotency_key"]
+        "required": [
+          "project_id",
+          "domain",
+          "idempotency_key"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -1733,7 +1904,9 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id"]
+        "required": [
+          "project_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1759,7 +1932,10 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id", "environment_id"]
+        "required": [
+          "project_id",
+          "environment_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1794,7 +1970,12 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id", "environment_id", "name", "idempotency_key"]
+        "required": [
+          "project_id",
+          "environment_id",
+          "name",
+          "idempotency_key"
+        ]
       },
       "annotations": {
         "readOnlyHint": false,
@@ -1829,7 +2010,12 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id", "environment_id", "name", "idempotency_key"]
+        "required": [
+          "project_id",
+          "environment_id",
+          "name",
+          "idempotency_key"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1855,7 +2041,10 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id", "deployment_id"]
+        "required": [
+          "project_id",
+          "deployment_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
@@ -1923,7 +2112,9 @@
             "maxLength": 256
           }
         },
-        "required": ["project_id"]
+        "required": [
+          "project_id"
+        ]
       },
       "annotations": {
         "readOnlyHint": true,
