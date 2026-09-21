@@ -22,7 +22,12 @@ import {
   usd,
   workloadTable,
 } from "../src/content/format.js";
-import { PLANS, SCENARIOS, VENDORS, WORKLOADS } from "../src/content/sources.js";
+import {
+  PLANS,
+  SCENARIOS,
+  VENDORS,
+  WORKLOADS,
+} from "../src/content/sources.js";
 import { CREDIT_RATES } from "../src/generated-pricing.js";
 
 const root = new URL("../", import.meta.url);
@@ -72,7 +77,9 @@ it("formats prices, credits, rates and source lines the way pages quote them", (
   );
   const table = workloadTable(WORKLOADS.smallApp);
   expect(table).toContain("| 20 build minutes | 24.10 |");
-  expect(table).toContain("| **Total: A small app for one month** | **about 552.44** |");
+  expect(table).toContain(
+    "| **Total: A small app for one month** | **about 552.44** |",
+  );
   expect(table).toContain("About $5.52 of credit value");
 });
 

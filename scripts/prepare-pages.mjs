@@ -1,7 +1,6 @@
 import { existsSync } from "node:fs";
 import { format } from "prettier";
 import { createHash } from "node:crypto";
-import { execFileSync } from "node:child_process";
 import { mkdir, readFile, writeFile, rm } from "node:fs/promises";
 import { fileURLToPath, URL } from "node:url";
 import TurndownService from "turndown";
@@ -17,7 +16,6 @@ import {
 import { externalLinkRel, footerColumnsHtml } from "../src/site-links.ts";
 
 const directory = fileURLToPath(new URL("../", import.meta.url));
-const root = directory;
 const output = `${directory}public/pages`;
 const brandAssets = `${directory}brand/assets`;
 await mkdir(output, { recursive: true });
@@ -42,8 +40,15 @@ await writeFile(
     { parser: "typescript", printWidth: 100 },
   ),
 );
-await Promise.all(["api.html", "api.md"].map((file) => rm(`${output}/${file}`, { force: true })));
-const markdown = new TurndownService({ headingStyle: "atx", codeBlockStyle: "fenced" });
+await Promise.all(
+  ["api.html", "api.md"].map((file) =>
+    rm(`${output}/${file}`, { force: true }),
+  ),
+);
+const markdown = new TurndownService({
+  headingStyle: "atx",
+  codeBlockStyle: "fenced",
+});
 markdown.remove(["script", "style", "svg", "head", "button", "input"]);
 const templates = {
   home: "99c3d2701c82c3ae9936ffa6c142169fd6fc136caa5ae33fbdacf36f6d93a2ac",
@@ -74,8 +79,14 @@ for (const [name, digest] of Object.entries(templates)) {
   if (createHash("sha256").update(original).digest("hex") !== digest)
     throw new Error(`The supplied ${name} template was changed`);
   let html = original
-    .replace(/<link[^>]+href="https:\/\/fonts\.(?:googleapis|gstatic)\.com[^>]*>/gu, "")
-    .replace(/<link\b[^>]*\brel="(?:icon|alternate icon|apple-touch-icon)"[^>]*>/gu, "")
+    .replace(
+      /<link[^>]+href="https:\/\/fonts\.(?:googleapis|gstatic)\.com[^>]*>/gu,
+      "",
+    )
+    .replace(
+      /<link\b[^>]*\brel="(?:icon|alternate icon|apple-touch-icon)"[^>]*>/gu,
+      "",
+    )
     .replace(
       "</head>",
       `<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style>${fontCss}${navigationCss}</style></head>`,
@@ -100,7 +111,10 @@ for (const [name, digest] of Object.entries(templates)) {
       .replaceAll("set_env", "secret_set_command")
       .replaceAll("verify_email_sender", "mail_domain_status")
       .replaceAll("add_domain", "domain_paid_apply")
-      .replaceAll("https://lovable.ohm.st", "https://calm-river-builds.check.omh.st");
+      .replaceAll(
+        "https://lovable.ohm.st",
+        "https://calm-river-builds.check.omh.st",
+      );
     html = html.replaceAll(
       "omh create lovable\\nomh db up\\nomh domain add lovable\\nomh deploy",
       'ohmyhost init --dry-run --json\\nohmyhost project context --project "$PROJECT_ID" --json',
@@ -155,8 +169,14 @@ for (const [name, digest] of Object.entries(templates)) {
   );
 }
 
-for (const [file, source] of Object.entries({ "og.png": "og.png", "logo.png": "omega-dark.png" }))
-  await writeFile(`${output}/${file}`, await readFile(`${brandAssets}/${source}`));
+for (const [file, source] of Object.entries({
+  "og.png": "og.png",
+  "logo.png": "omega-dark.png",
+}))
+  await writeFile(
+    `${output}/${file}`,
+    await readFile(`${brandAssets}/${source}`),
+  );
 await mkdir(`${output}/brand-assets`, { recursive: true });
 for (const file of [
   "omega-light.svg",
@@ -169,10 +189,14 @@ for (const file of [
   "founder.png",
   "og.png",
 ])
-  await writeFile(`${output}/brand-assets/${file}`, await readFile(`${brandAssets}/${file}`));
+  await writeFile(
+    `${output}/brand-assets/${file}`,
+    await readFile(`${brandAssets}/${file}`),
+  );
 
 const version = clientRelease().version;
-if (!/^\d+\.\d+\.\d+$/u.test(version)) throw new Error("The public client release is invalid");
+if (!/^\d+\.\d+\.\d+$/u.test(version))
+  throw new Error("The public client release is invalid");
 await writeFile(
   `${directory}src/generated-release.ts`,
   await format(
@@ -183,16 +207,23 @@ await writeFile(
 );
 await writeFile(
   `${output}/0.sh`,
-  (await readFile(`${directory}site/0.sh`, "utf8")).replace("@CLIENT_RELEASE@", version),
+  (await readFile(`${directory}site/0.sh`, "utf8")).replace(
+    "@CLIENT_RELEASE@",
+    version,
+  ),
 );
 // The published contract arrives with the platform inputs, already bundled.
 const contract = openapiJson();
 await writeFile(`${output}/openapi.yaml`, openapiYaml());
-await writeFile(`${output}/openapi.json`, `${JSON.stringify(contract, null, 2)}\n`);
+await writeFile(
+  `${output}/openapi.json`,
+  `${JSON.stringify(contract, null, 2)}\n`,
+);
 
 /** P30: approved changes are applied without rewriting the supplied v97 source. */
 function applyApprovedHomepageChanges(html) {
-  const socialPreview = "Supabase Vercel Resend Alternative - all in one from 10$.";
+  const socialPreview =
+    "Supabase Vercel Resend Alternative - all in one from 10$.";
   html = html.replace(
     /(<meta (?:property="og:(?:title|description)"|name="twitter:(?:title|description)") content=")[^"]*(">)/gu,
     `$1${socialPreview}$2`,
@@ -210,12 +241,15 @@ function applyApprovedHomepageChanges(html) {
       '"logo": "https://ohmyho.st/logo.png", "legalName": "Amerged B.V.", "identifier": {"@type":"PropertyValue","propertyID":"KVK","value":"42154221"}, "contactPoint": {"@type":"ContactPoint","contactType":"Customer support","url":"https://ohmyho.st/contact"},',
     "Hosting, Postgres, email, domain, AI models and backups behind one command. Built for AI coding agents via MCP.":
       "Hosting, Postgres, domains, email and encrypted SQL exports for GitHub apps, operated through an agent, CLI or API.",
-    'class="cta hero-a" id="hero-cta" style="animation-delay:2.4s"': 'class="cta" id="hero-cta"',
-    'class="under hero-a" style="animation-delay:2.55s" id="under"': 'class="under" id="under"',
+    'class="cta hero-a" id="hero-cta" style="animation-delay:2.4s"':
+      'class="cta" id="hero-cta"',
+    'class="under hero-a" style="animation-delay:2.55s" id="under"':
+      'class="under" id="under"',
     '  <p class="proof" id="proof" hidden></p>': "",
     "Export to GitHub, paste one prompt. The parts that break by hand come across with it.":
       "Export your Next.js or Vite app to GitHub, then deploy its hosting, database, domains and email with one agent prompt.",
-    "Your database, exported. Nightly.": "Your database, exported &amp; connected.",
+    "Your database, exported. Nightly.":
+      "Your database, exported &amp; connected.",
     "Plain Postgres dumps to Google Drive, Amazon S3 or Cloudflare R2 — sent through Zapier, Make, n8n or Composio. No lock-in, no export button to find.":
       "Request a portable SQL dump in a password-encrypted ZIP. Download it when ready, or use your automation tool to save it to Google Drive, Amazon S3 or Cloudflare R2.",
     "Postgres exports nightly through a connector to Google Drive, Amazon S3 or Cloudflare R2":
@@ -252,14 +286,18 @@ function applyApprovedHomepageChanges(html) {
     '<span class="avatar" aria-hidden="true"></span>':
       '<img src="/brand/assets/founder.png" width="96" height="96" loading="lazy" alt="Founder of ohmyho.st" style="border-radius:50%;flex:0 0 96px;object-fit:cover">',
     // PRICING.md is the only price source: no AI product, and every example equals the rate card.
-    '<text x="748" y="234">ai models</text>': '<text x="748" y="234">functions &amp; cron</text>',
+    '<text x="748" y="234">ai models</text>':
+      '<text x="748" y="234">functions &amp; cron</text>',
     "which runs hosting, domain, database, email, AI and backups":
       "which runs hosting, domain, database, email, functions and backups",
-    '      <div class="li"><b>AI models</b><span>uses credits</span></div>\n': "",
+    '      <div class="li"><b>AI models</b><span>uses credits</span></div>\n':
+      "",
     '        <li class="no">AI models</li>\n': "",
     '      <div class="li"><b>AI credits</b><span>≈ $5</span></div>\n': "",
-    '<span class="count" data-to="70">$70</span>': '<span class="count" data-to="65">$65</span>',
-    "Resend Pro $20 — around $70 for one project": "Resend Pro $20 — around $65 for one project",
+    '<span class="count" data-to="70">$70</span>':
+      '<span class="count" data-to="65">$65</span>',
+    "Resend Pro $20 — around $70 for one project":
+      "Resend Pro $20 — around $65 for one project",
     "        <li>AI models, any of them <em>uses credits</em></li>\n": "",
     "plus a linked domain, AI models and nightly exports":
       "plus a linked domain, functions and database exports",
@@ -276,20 +314,27 @@ function applyApprovedHomepageChanges(html) {
     "<span><h3>1 GB served</h3><u>40 credits</u></span>":
       "<span><h3>1M requests</h3><u>99 credits</u></span>",
     // The slider states the purchase rule of PRICING.md: more credits above USD 100, never a cheaper consumption rate.
-    ": '20% off above $100 — 125 credits per dollar';": ": '125 credits per dollar above $100';",
+    ": '20% off above $100 — 125 credits per dollar';":
+      ": '125 credits per dollar above $100';",
     "autotext.textContent='On. Every $10 of credits after this costs 10% less. Refills $'+f(v)+' when you drop below 10%.';":
       "autotext.textContent='On. Refills 1,000 credits for $9 when you drop below 100 credits.';",
     ": 'On. Every $10 of credits after this costs 10% less. Refills $'+f(steps[+dial.value])+' when you drop below 10%.';":
       ": 'On. Refills 1,000 credits for $9 when you drop below 100 credits.';",
   })) {
     if (!html.includes(before))
-      throw new Error(`Approved homepage boundary missing: ${before.slice(0, 65)}`);
+      throw new Error(
+        `Approved homepage boundary missing: ${before.slice(0, 65)}`,
+      );
     html = html.replaceAll(before, after);
   }
   // Keep the export section and footer link; the top navigation stays compact.
   html = html.replace('        <a href="#export">Export</a>\n', "");
-  const priceEnd = html.indexOf("</section>", html.indexOf('<section id="price">'));
-  if (priceEnd < 0) throw new Error("Pricing section missing for usage-rate link");
+  const priceEnd = html.indexOf(
+    "</section>",
+    html.indexOf('<section id="price">'),
+  );
+  if (priceEnd < 0)
+    throw new Error("Pricing section missing for usage-rate link");
   html =
     html.slice(0, priceEnd) +
     '<p class="note"><a href="https://docs.ohmyho.st/pricing">See all usage rates</a></p>\n' +
@@ -298,10 +343,13 @@ function applyApprovedHomepageChanges(html) {
     / {2}\/\* proof: a real number or nothing \*\/[\s\S]*?\n {2}\}\)\.catch\(function\(\)\{\}\);/u,
     "",
   );
-  const auth0Tile = / *<span class="logo">[^\n]*logos\/auth0\.svg[^\n]*<\/span>\n/gu;
-  if (html.match(auth0Tile)?.length !== 1) throw new Error("Expected the single Auth0 logo tile");
+  const auth0Tile =
+    / *<span class="logo">[^\n]*logos\/auth0\.svg[^\n]*<\/span>\n/gu;
+  if (html.match(auth0Tile)?.length !== 1)
+    throw new Error("Expected the single Auth0 logo tile");
   html = html.replace(auth0Tile, "");
-  if (html.includes("fetch('/stats.json'")) throw new Error("Obsolete homepage statistics remain");
+  if (html.includes("fetch('/stats.json'"))
+    throw new Error("Obsolete homepage statistics remain");
   html = html
     .replaceAll("Nightly export to your bucket", "Encrypted database exports")
     .replaceAll(
@@ -310,9 +358,11 @@ function applyApprovedHomepageChanges(html) {
     )
     .replaceAll("Nightly export", "Database export")
     .replaceAll("nightly exports", "on-demand database exports");
-  const badgePattern = /<span class="badge soon">[^\n]*<button class="want"[^\n]*?<\/span>/gu;
+  const badgePattern =
+    /<span class="badge soon">[^\n]*<button class="want"[^\n]*?<\/span>/gu;
   const badges = html.match(badgePattern);
-  if (badges?.length !== 2) throw new Error("Expected the two remaining roadmap interest badges");
+  if (badges?.length !== 2)
+    throw new Error("Expected the two remaining roadmap interest badges");
   html = html.replace(badgePattern, "");
   html = html.replace(
     /<script>\s*\(function\(\)\{\s*document\.querySelectorAll\('\.want'\)[\s\S]*?<\/script>/u,
@@ -328,13 +378,16 @@ function applyApprovedHomepageChanges(html) {
   const roadmap = `<section id="roadmap" aria-labelledby="roadmap-title"><h2 id="roadmap-title">Vote on the roadmap</h2><p class="sub">Press thumbs up or down to vote.</p><div class="roadmap-topics">${topics.map(([feature, name]) => `<div class="roadmap-topic"><span class="badge soon"><em>planned</em><b>${name}</b></span><div role="group" aria-label="Vote for ${name}"><button type="button" class="roadmap-vote" data-f="${feature}" data-vote="up" aria-label="Vote for ${name}" aria-pressed="false" disabled>👍</button><button type="button" class="roadmap-vote" data-f="${feature}" data-vote="down" aria-label="Vote against ${name}" aria-pressed="false" disabled>👎</button></div></div>`).join("")}</div><p class="roadmap-message" role="status" aria-live="polite"></p><button type="button" class="btn g" data-vote-retry hidden>Retry</button><noscript><p class="sub">Enable JavaScript to save your vote.</p></noscript></section><style>.roadmap-topics{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:30px}.roadmap-topic{display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:14px;padding:12px}.roadmap-topic .badge{border:0;padding:0;font-size:14px}.roadmap-topic .badge b{color:var(--foreground)}.roadmap-topic .badge em{font-size:12px;color:var(--muted-foreground);border-color:var(--border-strong)}.roadmap-vote{font:inherit;font-size:18px;min-width:44px;min-height:44px;border:1px solid var(--border);border-radius:10px;background:var(--card);cursor:pointer}.roadmap-vote[aria-pressed=true]{border-color:var(--ok);background:var(--accent-soft)}.roadmap-vote:disabled{cursor:wait;opacity:.5}.roadmap-message{text-align:center;min-height:1.6em;color:var(--muted-foreground);margin-top:16px}#roadmap>[data-vote-retry]{display:block;margin:8px auto}#roadmap>[data-vote-retry][hidden]{display:none}</style>`;
   const faqStart = html.indexOf('<section id="faq">');
   const faqEnd = html.indexOf("</section>", faqStart);
-  if (faqStart < 0 || faqEnd < 0) throw new Error("FAQ boundary missing for roadmap");
+  if (faqStart < 0 || faqEnd < 0)
+    throw new Error("FAQ boundary missing for roadmap");
   html = html.slice(0, faqEnd + 10) + roadmap + html.slice(faqEnd + 10);
   const vsStart = html.indexOf('<div class="vs stag">'),
     vsEnd = html.indexOf("</section>", vsStart);
-  if (vsStart < 0 || vsEnd < 0) throw new Error("Pricing comparison cards missing");
+  if (vsStart < 0 || vsEnd < 0)
+    throw new Error("Pricing comparison cards missing");
   const comparison = html.slice(vsStart, vsEnd);
-  const bill = /(<p class="scen">[^\n]*<\/p>\n)((?: {6}<div class="li">[^\n]*\n)+)/gu;
+  const bill =
+    /(<p class="scen">[^\n]*<\/p>\n)((?: {6}<div class="li">[^\n]*\n)+)/gu;
   if (comparison.match(bill)?.length !== 2)
     throw new Error("Expected the two itemized pricing bills");
   const billStyle =
@@ -357,10 +410,14 @@ function applyApprovedHomepageChanges(html) {
   const buttons = pricing.match(
     /<button class="btn nochev startfree" data-copy>[\s\S]*?<\/button>/gu,
   );
-  if (buttons?.length !== 2) throw new Error("Expected the two original pricing actions");
+  if (buttons?.length !== 2)
+    throw new Error("Expected the two original pricing actions");
   html =
     html.slice(0, start) +
-    pricing.replace(/<button class="btn nochev startfree" data-copy>[\s\S]*?<\/button>/gu, "") +
+    pricing.replace(
+      /<button class="btn nochev startfree" data-copy>[\s\S]*?<\/button>/gu,
+      "",
+    ) +
     '<div class="cta up" id="pricing-cta"><button class="btn nochev primary" data-copy><svg class="ohm" viewBox="0 0 100 100" aria-hidden="true"><path d="M30 87 H14 L27 63 A31 31 0 1 1 73 63 L86 87 H70"/></svg><span>Copy prompt for your agent</span></button></div>\n' +
     html.slice(end);
   const intro = `<style>header.intro-pending #hero-cta,header.intro-pending #under{visibility:hidden}</style><script>(()=>{const header=document.querySelector('header'),art=header?.querySelector('.art > svg');if(!header||!art?.getAnimations||matchMedia('(prefers-reduced-motion: reduce)').matches)return;header.classList.add('intro-pending');try{const animations=art.getAnimations({subtree:true}).filter(a=>a.effect&&Number.isFinite(a.effect.getComputedTiming().endTime));animations.forEach(a=>a.updatePlaybackRate(1.25));Promise.allSettled(animations.map(a=>a.finished)).finally(()=>header.classList.remove('intro-pending'));}catch{header.classList.remove('intro-pending');}})();</script>`;
@@ -383,7 +440,8 @@ function hardenHomepageMarkup(html) {
     '<a href="#">Docs</a>': '<a href="https://docs.ohmyho.st/">Docs</a>',
     "It includes hosting, a Postgres database and a you.ohmyho.st subdomain. Custom domains, email and database exports come with the $10 plan.":
       "It includes hosting, a Postgres database and a Dev and a Prod host, each on a generated three-word address such as humble-kiwis-find.check.omh.st, or your own domain on the $10 plan. Encrypted SQL exports are on every plan; linking your own domain and sending mail use credits.",
-    "<li>you.ohmyho.st</li>": "<li>A host like humble-kiwis-find.check.omh.st</li>",
+    "<li>you.ohmyho.st</li>":
+      "<li>A host like humble-kiwis-find.check.omh.st</li>",
     "Worked example: six quiet projects plus one with real users ≈ 600 credits a month. Ten dollars covers it.":
       "Worked example: a small app with a database, some traffic and 2,000 mail recipients ≈ 552 credits a month. Ten dollars covers it.",
     "When usage reaches it, ohmyho.st stops the project before it costs more; the site stays up and read-only.":
@@ -395,20 +453,27 @@ function hardenHomepageMarkup(html) {
     ".fcol h4{": ".fcol h4,.fcol .fh{",
   })) {
     if (!html.includes(before))
-      throw new Error(`Homepage hardening boundary missing: ${before.slice(0, 65)}`);
+      throw new Error(
+        `Homepage hardening boundary missing: ${before.slice(0, 65)}`,
+      );
     html = html.replaceAll(before, after);
   }
   const columnsStart = html.indexOf('    <div class="fcol">');
   const columnsEnd = html.indexOf('  <div class="fbot">');
-  if (columnsStart < 0 || columnsEnd < columnsStart) throw new Error("Footer columns missing");
-  html = html.slice(0, columnsStart) + `    ${footerColumnsHtml()}\n` + html.slice(columnsEnd);
+  if (columnsStart < 0 || columnsEnd < columnsStart)
+    throw new Error("Footer columns missing");
+  html =
+    html.slice(0, columnsStart) +
+    `    ${footerColumnsHtml()}\n` +
+    html.slice(columnsEnd);
   html = externalLinkRel(
     html.replaceAll(
       /<img src="logos\/([a-z0-9]+)\.svg" alt="([^"]+)" loading="lazy"/gu,
       '<img src="logos/$1.svg" alt="$2" width="18" height="18" loading="lazy"',
     ),
   );
-  if (html.includes('href="#"')) throw new Error("Homepage placeholder link remains");
+  if (html.includes('href="#"'))
+    throw new Error("Homepage placeholder link remains");
   return html;
 }
 

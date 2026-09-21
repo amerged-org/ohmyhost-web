@@ -8,10 +8,10 @@ no credential and no backend logic.
 
 ## Boundaries
 
-| Owner | Surface |
-| --- | --- |
-| This repository | `https://ohmyho.st/*` — pages, `/brand`, `llms.txt`, `AGENTS.md`, `mcp.json`, `mcp-tools.json`, `/skills/*`, `/.well-known/*`, the sitemap, robots and the social cards |
-| The platform | `https://ohmyho.st/releases/*` and `/client-release.json` (client downloads), `omh.st`, `check.omh.st` and `*.check.omh.st` (project addresses), the REST API at `app.ohmyho.st` |
+| Owner           | Surface                                                                                                                                                                          |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| This repository | `https://ohmyho.st/*` — pages, `/brand`, `llms.txt`, `AGENTS.md`, `mcp.json`, `mcp-tools.json`, `/skills/*`, `/.well-known/*`, the sitemap, robots and the social cards          |
+| The platform    | `https://ohmyho.st/releases/*` and `/client-release.json` (client downloads), `omh.st`, `check.omh.st` and `*.check.omh.st` (project addresses), the REST API at `app.ohmyho.st` |
 
 Cloudflare resolves the most specific route first, so the platform's path routes win over this
 Worker's host route on the same hostname.
@@ -36,10 +36,10 @@ only that committed file, so a build is deterministic and offline.
 
 ## Decisions
 
-| ID | State | Decision |
-| --- | --- | --- |
-| W001 | Implemented | The website is its own public MIT repository; the platform stays private. |
-| W002 | Implemented | The folder path under `content/` is the URL, and every page carries `page.json` and `content.md`. |
-| W003 | Implemented | Published numbers reach a page only through build-time tokens resolved from the rate card and dated competitor data. |
+| ID   | State       | Decision                                                                                                                                           |
+| ---- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| W001 | Implemented | The website is its own public MIT repository; the platform stays private.                                                                          |
+| W002 | Implemented | The folder path under `content/` is the URL, and every page carries `page.json` and `content.md`.                                                  |
+| W003 | Implemented | Published numbers reach a page only through build-time tokens resolved from the rate card and dated competitor data.                               |
 | W004 | Implemented | The agent surface (`llms.txt`, `AGENTS.md`, the Skill pages and the MCP catalog) is served by this repository, generated from the platform inputs. |
-| W005 | Implemented | Client downloads, the project-address hostnames and the REST API stay with the platform. |
+| W005 | Implemented | Client downloads, the project-address hostnames and the REST API stay with the platform.                                                           |

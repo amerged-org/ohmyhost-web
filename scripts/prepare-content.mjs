@@ -27,9 +27,15 @@ async function main() {
   const { CREDIT_RATES } = await import(
     pathToFileURL(join(site, "dist/generated-pricing.js")).href
   );
-  const format = await import(pathToFileURL(join(site, "dist/content/format.js")).href);
-  const data = await import(pathToFileURL(join(site, "dist/content/sources.js")).href);
-  const figures = await import(pathToFileURL(join(site, "dist/figures.js")).href);
+  const format = await import(
+    pathToFileURL(join(site, "dist/content/format.js")).href
+  );
+  const data = await import(
+    pathToFileURL(join(site, "dist/content/sources.js")).href
+  );
+  const figures = await import(
+    pathToFileURL(join(site, "dist/figures.js")).href
+  );
 
   const lookup = (map, name, what) => {
     const value = map[name];
@@ -48,7 +54,9 @@ async function main() {
     return format.priceLine(unit.meter, unit.quantity);
   };
   const workloadCredits = (reference) =>
-    format.priceWorkload(lookup(data.WORKLOADS, reference.split(".")[1], "workload")).microcredits;
+    format.priceWorkload(
+      lookup(data.WORKLOADS, reference.split(".")[1], "workload"),
+    ).microcredits;
 
   const render = (kind, args, options) => {
     const [first] = args;
@@ -59,38 +67,54 @@ async function main() {
       case "rate": {
         // A meter name can contain spaces, so it is the whole argument list.
         const meter = args.join(" ");
-        if (!(meter in CREDIT_RATES)) throw new Error(`unknown meter: ${meter}`);
+        if (!(meter in CREDIT_RATES))
+          throw new Error(`unknown meter: ${meter}`);
         return format.rate(meter);
       }
       case "checked":
         return format.checkedLine(lookup(data.VENDORS, first, "vendor"));
       case "sources":
-        return format.sourcesSection(...args.map((name) => lookup(data.VENDORS, name, "vendor")));
+        return format.sourcesSection(
+          ...args.map((name) => lookup(data.VENDORS, name, "vendor")),
+        );
       case "usd":
         if (/^[\d.]+$/u.test(first)) return format.usd(Number(first));
-        if (first.startsWith("vendor.")) return format.usd(vendorFact(first).fact.usd);
+        if (first.startsWith("vendor."))
+          return format.usd(vendorFact(first).fact.usd);
         if (first.startsWith("scenario."))
           return format.usd(
-            format.scenarioUsd(lookup(data.SCENARIOS, first.split(".")[1], "scenario")),
+            format.scenarioUsd(
+              lookup(data.SCENARIOS, first.split(".")[1], "scenario"),
+            ),
           );
         if (first.startsWith("plan."))
-          return format.usd(lookup(data.PLANS, first.split(".")[1], "plan value"));
+          return format.usd(
+            lookup(data.PLANS, first.split(".")[1], "plan value"),
+          );
         throw new Error(`usd cannot read ${first}`);
       case "usdPerMonth":
         return format.usd(format.perSecondMonthly(vendorFact(first).fact.usd));
       case "usdValue":
         return format.creditValueUsd(
-          first.startsWith("unit.") ? unitCredits(first) : workloadCredits(first),
+          first.startsWith("unit.")
+            ? unitCredits(first)
+            : workloadCredits(first),
         );
       case "credits":
         return format.credits(
-          first.startsWith("unit.") ? unitCredits(first) : workloadCredits(first),
+          first.startsWith("unit.")
+            ? unitCredits(first)
+            : workloadCredits(first),
           decimals,
         );
       case "number":
-        if (/^[\d.]+$/u.test(first)) return format.number(Number(first), decimals);
+        if (/^[\d.]+$/u.test(first))
+          return format.number(Number(first), decimals);
         if (first.startsWith("plan."))
-          return format.number(lookup(data.PLANS, first.split(".")[1], "plan value"), decimals);
+          return format.number(
+            lookup(data.PLANS, first.split(".")[1], "plan value"),
+            decimals,
+          );
         if (first.startsWith("profile."))
           return format.number(
             lookup(data.DATABASE_PROFILES, first.split(".")[1], "profile").cu,
@@ -103,7 +127,9 @@ async function main() {
         if (first.startsWith("plan."))
           return String(lookup(data.PLANS, first.split(".")[1], "plan value"));
         if (first.startsWith("profile."))
-          return String(lookup(data.DATABASE_PROFILES, first.split(".")[1], "profile").cu);
+          return String(
+            lookup(data.DATABASE_PROFILES, first.split(".")[1], "profile").cu,
+          );
         const { fact, field } = vendorFact(first);
         return String(fact[field ?? "usd"]);
       }
@@ -117,22 +143,32 @@ async function main() {
         const vendor = lookup(data.VENDORS, vendorName, "vendor");
         if (third === undefined) {
           if (!(second in vendor))
-            throw new Error(`unknown property on vendor ${vendorName}: ${second}`);
+            throw new Error(
+              `unknown property on vendor ${vendorName}: ${second}`,
+            );
           return String(vendor[second]);
         }
-        const fact = lookup(vendor.facts, second, `fact on vendor ${vendorName}`);
-        if (!(third in fact)) throw new Error(`unknown field on ${vendorName}.${second}: ${third}`);
+        const fact = lookup(
+          vendor.facts,
+          second,
+          `fact on vendor ${vendorName}`,
+        );
+        if (!(third in fact))
+          throw new Error(`unknown field on ${vendorName}.${second}: ${third}`);
         return String(fact[third]);
       }
       case "table":
         if (first === "rates") return CREDIT_PRICING_TABLE_TEXT;
-        return format.workloadTable(lookup(data.WORKLOADS, first.split(".")[1], "workload"));
+        return format.workloadTable(
+          lookup(data.WORKLOADS, first.split(".")[1], "workload"),
+        );
       case "figure": {
         const [family, name] = first.split(".");
         if (family === "creditBars") return figures.figureCreditBars();
         if (family === "bills") return figures.figureBills(name);
         if (family === "comparison") return figures.comparisonColumns(name);
-        if (family === "flow") return figures.figureFlow(FLOW_AGENTS[name] ?? name);
+        if (family === "flow")
+          return figures.figureFlow(FLOW_AGENTS[name] ?? name);
         throw new Error(`unknown figure: ${first}`);
       }
       default:
@@ -149,7 +185,10 @@ async function main() {
   for (const { url, directory } of pageFolders(contentRoot)) {
     const page = readPage(directory, url);
     if (page.status === "draft") continue;
-    pages.push({ ...page, markdown: resolveTokens(page.markdown, url, render) });
+    pages.push({
+      ...page,
+      markdown: resolveTokens(page.markdown, url, render),
+    });
   }
   pages.sort((a, b) => a.path.localeCompare(b.path));
   const module = `// Generated from content/ by content:prepare. Edit the content tree, not this file.
@@ -179,7 +218,9 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = ${JSON.stringify(
         ...(author ? { author } : {}),
         ...(published ? { published } : {}),
         modified,
-        ...(social?.image ? { ogImage: social.image, ogImageAlt: social.alt ?? undefined } : {}),
+        ...(social?.image
+          ? { ogImage: social.image, ogImageAlt: social.alt ?? undefined }
+          : {}),
         markdown,
       }),
     ),
@@ -203,9 +244,14 @@ const FLOW_AGENTS = {
   "bolt-export": "Bolt export",
 };
 
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
   main().catch((error) => {
-    process.stderr.write(`${error instanceof Error ? error.message : String(error)}\n`);
+    process.stderr.write(
+      `${error instanceof Error ? error.message : String(error)}\n`,
+    );
     process.exit(1);
   });
 }

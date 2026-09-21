@@ -1,13 +1,21 @@
 import { marked, type Token } from "marked";
 
-import { FOUNDER, SITE_ORIGIN, crumbLabel, pageMeta, type PageMeta } from "./page-meta.js";
+import {
+  FOUNDER,
+  SITE_ORIGIN,
+  crumbLabel,
+  pageMeta,
+  type PageMeta,
+} from "./page-meta.js";
 import { OG_IMAGES } from "./generated-site-frame.js";
 import { BLOG_POSTS } from "./pages/index.js";
 
 /** The page's rendered social card when one exists, else the declared or site-wide image. */
 export function ogImagePath(path: string, meta: PageMeta): string {
   const slug = path.slice(1).replaceAll("/", "-");
-  return OG_IMAGES.includes(slug) ? `/og/${slug}.png` : (meta.ogImage ?? "/og.png");
+  return OG_IMAGES.includes(slug)
+    ? `/og/${slug}.png`
+    : (meta.ogImage ?? "/og.png");
 }
 
 const ORGANIZATION_ID = `${SITE_ORIGIN}/#org`;
@@ -31,11 +39,15 @@ function plain(text: string): string {
 }
 
 function heading(token: Token, depth: number): string | null {
-  return token.type === "heading" && token.depth === depth ? String(token.text) : null;
+  return token.type === "heading" && token.depth === depth
+    ? String(token.text)
+    : null;
 }
 
 /** The `### Question?` + paragraph pairs under `## FAQ`; the visible text is the schema text. */
-export function faqEntries(markdown: string): Array<{ question: string; answer: string }> {
+export function faqEntries(
+  markdown: string,
+): Array<{ question: string; answer: string }> {
   const entries: Array<{ question: string; answer: string }> = [];
   let inFaq = false;
   let question: string | null = null;
@@ -61,7 +73,9 @@ export function faqEntries(markdown: string): Array<{ question: string; answer: 
 }
 
 /** The ordered list under the first `## How to …` heading. */
-export function howToSteps(markdown: string): Array<{ name: string; text: string }> {
+export function howToSteps(
+  markdown: string,
+): Array<{ name: string; text: string }> {
   let inHowTo = false;
   for (const token of marked.lexer(markdown)) {
     const section = heading(token, 2);
@@ -80,19 +94,31 @@ export function howToSteps(markdown: string): Array<{ name: string; text: string
   return [];
 }
 
-function breadcrumbItems(path: string, meta: PageMeta): Array<{ name: string; path: string }> {
+function breadcrumbItems(
+  path: string,
+  meta: PageMeta,
+): Array<{ name: string; path: string }> {
   const items = [{ name: "Home", path: "/" }];
-  if (meta.parent) items.push({ name: crumbLabel(pageMeta(meta.parent)), path: meta.parent });
+  if (meta.parent)
+    items.push({ name: crumbLabel(pageMeta(meta.parent)), path: meta.parent });
   items.push({ name: crumbLabel(meta), path });
   return items;
 }
 
 /** The schema.org graph for one page: organization, page node, breadcrumb and the kind's nodes. */
-export function jsonLdGraph(path: string, meta: PageMeta, markdown: string): object[] {
+export function jsonLdGraph(
+  path: string,
+  meta: PageMeta,
+  markdown: string,
+): object[] {
   const url = `${SITE_ORIGIN}${path}`;
   const image = `${SITE_ORIGIN}${ogImagePath(path, meta)}`;
   const pageType =
-    meta.kind === "about" ? "AboutPage" : meta.kind === "collection" ? "CollectionPage" : "WebPage";
+    meta.kind === "about"
+      ? "AboutPage"
+      : meta.kind === "collection"
+        ? "CollectionPage"
+        : "WebPage";
   const graph: object[] = [
     {
       "@type": "Organization",
@@ -200,7 +226,11 @@ export function jsonLdGraph(path: string, meta: PageMeta, markdown: string): obj
 }
 
 /** Title, description, canonical, social tags and JSON-LD for one page's `<head>`. */
-export function headTags(path: string, meta: PageMeta, markdown: string): string {
+export function headTags(
+  path: string,
+  meta: PageMeta,
+  markdown: string,
+): string {
   const url = `${SITE_ORIGIN}${path}`;
   const image = `${SITE_ORIGIN}${ogImagePath(path, meta)}`;
   const title = attribute(meta.title);

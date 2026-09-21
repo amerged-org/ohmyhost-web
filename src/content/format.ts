@@ -1,5 +1,11 @@
 import { CREDIT_RATES } from "../generated-pricing.js";
-import type { MeterId, PricedWorkload, Scenario, Vendor, Workload } from "./types.js";
+import type {
+  MeterId,
+  PricedWorkload,
+  Scenario,
+  Vendor,
+  Workload,
+} from "./types.js";
 
 /** The prompt the homepage copies; every /for and /from page quotes it unchanged. */
 export const CTA_PROMPT =
@@ -23,7 +29,8 @@ export function creditMicros(credits: string): number {
 
 /** Microcredits for a measured quantity, rounded up like the platform does. Build seconds use the exact sandbox rational of PRICING.md (3.5144 credits per 175 s). */
 export function priceLine(meter: MeterId, quantity: number): number {
-  if (meter === "build.sandbox.standard-3") return Math.ceil((3_514_400 * quantity) / 175);
+  if (meter === "build.sandbox.standard-3")
+    return Math.ceil((3_514_400 * quantity) / 175);
   const rate = CREDIT_RATES[meter];
   return Math.ceil((creditMicros(rate.credits) * quantity) / rate.quantity);
 }
@@ -64,7 +71,10 @@ export function rate(meter: MeterId): string {
 }
 
 export function scenarioUsd(scenario: Scenario): number {
-  return scenario.parts.reduce((sum, part) => sum + part.fact.usd * (part.times ?? 1), 0);
+  return scenario.parts.reduce(
+    (sum, part) => sum + part.fact.usd * (part.times ?? 1),
+    0,
+  );
 }
 
 /** "List prices checked on 2026-09-19 — [Vercel pricing](https://vercel.com/pricing)." */
@@ -73,7 +83,11 @@ export function checkedLine(vendor: Vendor): string {
 }
 
 export function sourcesSection(...vendors: Vendor[]): string {
-  return ["## Sources", "", ...vendors.map((vendor) => `- ${checkedLine(vendor)}`)].join("\n");
+  return [
+    "## Sources",
+    "",
+    ...vendors.map((vendor) => `- ${checkedLine(vendor)}`),
+  ].join("\n");
 }
 
 /** A Markdown table of one workload's lines and total. */
@@ -83,7 +97,8 @@ export function workloadTable(workload: Workload): string {
     "| Item | Credits |",
     "| --- | ---: |",
     ...priced.lines.map(
-      (line) => `| ${line.label} | ${number(line.microcredits / MICROCREDITS, 2)} |`,
+      (line) =>
+        `| ${line.label} | ${number(line.microcredits / MICROCREDITS, 2)} |`,
     ),
     `| **Total: ${workload.name}** | **about ${number(priced.microcredits / MICROCREDITS, 2)}** |`,
     "",

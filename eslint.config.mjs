@@ -4,19 +4,33 @@ import tseslint from "typescript-eslint";
 
 export default tseslint.config(
   {
-    ignores: ["**/dist/**", "**/node_modules/**", "**/coverage/**", "public/pages/**", "site/*.js"],
+    ignores: [
+      "**/dist/**",
+      "**/node_modules/**",
+      "**/coverage/**",
+      "public/pages/**",
+      "src/generated-*.ts",
+    ],
   },
   eslint.configs.recommended,
-  tseslint.configs.strictTypeChecked,
-  tseslint.configs.stylisticTypeChecked,
+  ...tseslint.configs.strict,
   {
+    files: ["site/*.js"],
     languageOptions: {
-      parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },
+      globals: {
+        location: "readonly",
+        history: "readonly",
+        document: "readonly",
+        navigator: "readonly",
+        crypto: "readonly",
+        fetch: "readonly",
+        setTimeout: "readonly",
+        matchMedia: "readonly",
+        performance: "readonly",
+        requestAnimationFrame: "readonly",
+        IntersectionObserver: "readonly",
+      },
     },
-  },
-  {
-    files: ["**/*.mjs"],
-    ...tseslint.configs.disableTypeChecked,
   },
   prettier,
 );

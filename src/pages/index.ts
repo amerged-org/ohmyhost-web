@@ -8,7 +8,9 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = GENERATED;
 export const BLOG_POSTS: readonly ContentPage[] = CONTENT_PAGE_LIST.filter(
   (page) => page.kind === "article",
 ).sort(
-  (a, b) => (b.published ?? "").localeCompare(a.published ?? "") || a.path.localeCompare(b.path),
+  (a, b) =>
+    (b.published ?? "").localeCompare(a.published ?? "") ||
+    a.path.localeCompare(b.path),
 );
 
 const MONTHS = [

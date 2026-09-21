@@ -1,6 +1,11 @@
 import { LEGAL_DOCUMENTS } from "./legal-documents.js";
 import MCP_REFERENCE from "./generated-mcp-tools.json" with { type: "json" };
-import { SITE_CSS, SITE_SCRIPT, PRIVACY_UI, FIGURE_SCRIPT } from "./generated-site-frame.js";
+import {
+  SITE_CSS,
+  SITE_SCRIPT,
+  PRIVACY_UI,
+  FIGURE_SCRIPT,
+} from "./generated-site-frame.js";
 import { LAUNCH_DOCUMENTS } from "./launch-pages.js";
 import { pageMeta } from "./page-meta.js";
 import { CONTENT_PAGES } from "./pages/index.js";
@@ -25,7 +30,10 @@ const skills = SKILL_RESOURCES;
 export const DOCS_ORIGIN = "https://docs.ohmyho.st";
 export const MCP_CONFIG = {
   mcpServers: {
-    ohmyho: { command: "ohmyhost-mcp", env: { OHMYHOST_ENVIRONMENT: "production" } },
+    ohmyho: {
+      command: "ohmyhost-mcp",
+      env: { OHMYHOST_ENVIRONMENT: "production" },
+    },
   },
 };
 
@@ -42,7 +50,10 @@ const DOC_ALIASES: Readonly<Record<string, string>> = {
   "dev-and-prod": "environments",
 };
 
-export function documentationRedirect(path: string, markdown = false): string | null {
+export function documentationRedirect(
+  path: string,
+  markdown = false,
+): string | null {
   if (path === "/llms-full.txt") return `${DOCS_ORIGIN}/llms-full.txt`;
   if (path === "/api" || path === "/api.md")
     return `${DOCS_ORIGIN}/api${markdown || path.endsWith(".md") ? ".md" : ""}`;
@@ -135,7 +146,10 @@ New user API tokens have no expiry and remain valid until revoked; existing keys
 - [Skill catalog](https://ohmyho.st/.well-known/agent-skills/index.json): Installable Skills and their descriptions.
 ${skills
   .filter((skill) => skill.relativePath === "SKILL.md")
-  .map((skill) => `- [${skill.skillName}](https://ohmyho.st/skills/${skill.skillName}/SKILL.md)`)
+  .map(
+    (skill) =>
+      `- [${skill.skillName}](https://ohmyho.st/skills/${skill.skillName}/SKILL.md)`,
+  )
   .join("\n")}
 
 ## Documentation by task
@@ -181,8 +195,11 @@ ${skills
 - [Contact](https://ohmyho.st/contact)
 `;
 
-export function customerDocument(path: string): { text: string; type: string } | null {
-  if (path === "/mcp.json") return { text: JSON.stringify(MCP_CONFIG), type: "application/json" };
+export function customerDocument(
+  path: string,
+): { text: string; type: string } | null {
+  if (path === "/mcp.json")
+    return { text: JSON.stringify(MCP_CONFIG), type: "application/json" };
   if (path === "/client-release.json")
     return {
       text: JSON.stringify({
@@ -193,10 +210,18 @@ export function customerDocument(path: string): { text: string; type: string } |
     };
   if (path === "/mcp-tools.json")
     return { text: JSON.stringify(MCP_REFERENCE), type: "application/json" };
-  if (path === "/.well-known/agent-skills/index.json") path = "/.well-known/skills/index.json";
-  if (path === "/llms.txt") return { text: AGENT_INDEX, type: "text/plain; charset=utf-8" };
-  if (path === "/AGENTS.md") return { text: PUBLIC_AGENTS, type: "text/markdown; charset=utf-8" };
-  const documentPath = path === "/auth.md" ? path : path.endsWith(".md") ? path.slice(0, -3) : path;
+  if (path === "/.well-known/agent-skills/index.json")
+    path = "/.well-known/skills/index.json";
+  if (path === "/llms.txt")
+    return { text: AGENT_INDEX, type: "text/plain; charset=utf-8" };
+  if (path === "/AGENTS.md")
+    return { text: PUBLIC_AGENTS, type: "text/markdown; charset=utf-8" };
+  const documentPath =
+    path === "/auth.md"
+      ? path
+      : path.endsWith(".md")
+        ? path.slice(0, -3)
+        : path;
   const markdown = DOCUMENTATION[documentPath];
   if (markdown) {
     if (path.endsWith(".md"))
@@ -224,8 +249,12 @@ export function customerDocument(path: string): { text: string; type: string } |
       }),
       type: "application/json",
     };
-  const skill = skills.find((item) => path === `/skills/${item.skillName}/${item.relativePath}`);
-  return skill ? { text: skill.text, type: "text/markdown; charset=utf-8" } : null;
+  const skill = skills.find(
+    (item) => path === `/skills/${item.skillName}/${item.relativePath}`,
+  );
+  return skill
+    ? { text: skill.text, type: "text/markdown; charset=utf-8" }
+    : null;
 }
 
 /** The homepage footer on every document page: brand block, the shared columns and the legal line. */

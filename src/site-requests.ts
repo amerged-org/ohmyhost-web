@@ -9,7 +9,10 @@ export interface PublicControlBinding {
   fetch(request: Request): Promise<Response>;
 }
 
-export function publicApiClient(binding: PublicControlBinding, request: Request) {
+export function publicApiClient(
+  binding: PublicControlBinding,
+  request: Request,
+) {
   return createClient({
     baseUrl: "https://app.ohmyho.st",
     throwOnError: true,
@@ -20,13 +23,19 @@ export function publicApiClient(binding: PublicControlBinding, request: Request)
       forwarded.headers.set("origin", "https://ohmyho.st");
       const response = await binding.fetch(
         new Request(forwarded, {
-          signal: AbortSignal.any([forwarded.signal, AbortSignal.timeout(15000)]),
+          signal: AbortSignal.any([
+            forwarded.signal,
+            AbortSignal.timeout(15000),
+          ]),
         }),
       );
       if (response.status === 429) {
         const value = response.headers.get("retry-after");
         const retryAfterSeconds =
-          value !== null && /^\d{1,5}$/u.test(value) && Number(value) > 0 && Number(value) <= 86400
+          value !== null &&
+          /^\d{1,5}$/u.test(value) &&
+          Number(value) > 0 &&
+          Number(value) <= 86400
             ? Number(value)
             : 60;
         throw Object.assign(new Error("Public request rate limited"), {
@@ -40,14 +49,21 @@ export function publicApiClient(binding: PublicControlBinding, request: Request)
 }
 /** Signup is open; a single bounded r value is acquisition attribution, never an access gate. */
 export function signupSource(source: string | undefined): string | undefined {
-  return source !== undefined && /^[^\p{Cc}]{1,64}$/u.test(source) ? source : undefined;
+  return source !== undefined && /^[^\p{Cc}]{1,64}$/u.test(source)
+    ? source
+    : undefined;
 }
 export async function siteRequestResponse(
   request: Request,
   binding?: PublicControlBinding,
 ): Promise<Response | null> {
   const path = new URL(request.url).pathname;
-  if (!["/v1/contact-requests", "/want", "/stats.json", "/status.json"].includes(path)) return null;
+  if (
+    !["/v1/contact-requests", "/want", "/stats.json", "/status.json"].includes(
+      path,
+    )
+  )
+    return null;
   const json = (body: unknown, status = 200) =>
     Response.json(body, { status, headers: { "cache-control": "no-store" } });
   if (
@@ -65,7 +81,9 @@ export async function siteRequestResponse(
         return json({ code: "forbidden" }, 403);
       const voter = voteCookie ?? crypto.randomUUID();
       const response = json(
-        validateVoteState(await getFeatureInterests({ "X-Ohmyho-Voter": voter }, { client })),
+        validateVoteState(
+          await getFeatureInterests({ "X-Ohmyho-Voter": voter }, { client }),
+        ),
       );
       response.headers.set("set-cookie", voteCookieHeader(voter));
       return response;
@@ -89,10 +107,14 @@ export async function siteRequestResponse(
           "API and reporting responded. This check does not establish every service's availability.",
       });
     }
-    if (request.method !== "POST") return json({ code: "invalid_request" }, 405);
+    if (request.method !== "POST")
+      return json({ code: "invalid_request" }, 405);
     if (request.headers.get("origin") !== "https://ohmyho.st")
       return json({ code: "forbidden" }, 403);
-    if (request.headers.get("content-type")?.split(";", 1)[0]?.trim() !== "application/json")
+    if (
+      request.headers.get("content-type")?.split(";", 1)[0]?.trim() !==
+      "application/json"
+    )
       return json({ code: "invalid_request" }, 400);
     const maxBytes = path === "/v1/contact-requests" ? 32768 : 2048;
     const reader = request.body?.getReader();
@@ -121,7 +143,9 @@ export async function siteRequestResponse(
     }
     let body: unknown;
     try {
-      body = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
+      body = JSON.parse(
+        new TextDecoder("utf-8", { fatal: true }).decode(bytes),
+      );
     } catch {
       return json({ code: "invalid_request" }, 400);
     }
@@ -129,23 +153,35 @@ export async function siteRequestResponse(
       return json({ code: "invalid_request" }, 400);
     const input = body as Record<string, unknown>;
     if (path === "/v1/contact-requests") {
-      if (Object.keys(input).sort().join(",") !== "company,email,idempotency_key,message,name")
+      if (
+        Object.keys(input).sort().join(",") !==
+        "company,email,idempotency_key,message,name"
+      )
         return json({ code: "invalid_request" }, 400);
       return json(
         validateAcceptance(
-          await submitContactRequest(input as Parameters<typeof submitContactRequest>[0], {
-            client,
-          }),
+          await submitContactRequest(
+            input as Parameters<typeof submitContactRequest>[0],
+            {
+              client,
+            },
+          ),
         ),
         202,
       );
     }
-    if (Object.keys(input).sort().join(",") !== "choice,feature,idempotency_key")
+    if (
+      Object.keys(input).sort().join(",") !== "choice,feature,idempotency_key"
+    )
       return json({ code: "invalid_request" }, 400);
-    if (voteCookie === null) return json({ code: "voter_cookie_required" }, 409);
+    if (voteCookie === null)
+      return json({ code: "voter_cookie_required" }, 409);
     const result = await registerFeatureInterest(
       {
-        ...(input as Omit<Parameters<typeof registerFeatureInterest>[0], "X-Ohmyho-Voter">),
+        ...(input as Omit<
+          Parameters<typeof registerFeatureInterest>[0],
+          "X-Ohmyho-Voter"
+        >),
         "X-Ohmyho-Voter": voteCookie,
       },
       { client },
@@ -156,7 +192,10 @@ export async function siteRequestResponse(
       result.accepted !== true
     )
       throw new Error("Invalid vote receipt");
-    const response = json({ accepted: true, ...validateVoteState({ votes: result.votes }) }, 202);
+    const response = json(
+      { accepted: true, ...validateVoteState({ votes: result.votes }) },
+      202,
+    );
     response.headers.set("set-cookie", voteCookieHeader(voteCookie));
     return response;
   } catch (error) {
@@ -201,7 +240,9 @@ function readVoteCookie(request: Request): string | null {
   if (values.length !== 1) return null;
   const value = values[0]?.slice("__Host-omh_voter=".length);
   return value !== undefined &&
-    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu.test(value)
+    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/iu.test(
+      value,
+    )
     ? value.toLowerCase()
     : null;
 }
@@ -235,7 +276,10 @@ function validateVoteState(value: unknown): {
     )
       throw new Error("Invalid vote choice");
     seen.add(vote.feature);
-    return { feature: vote.feature, choice: vote.choice as "up" | "down" | null };
+    return {
+      feature: vote.feature,
+      choice: vote.choice as "up" | "down" | null,
+    };
   });
   return { votes };
 }
@@ -251,7 +295,10 @@ function validateAcceptance(value: unknown): { accepted: true } {
     throw new Error("Invalid interest receipt");
   return { accepted: true };
 }
-function validateStats(value: unknown): { deploys_7d: number; observed_at: string } {
+function validateStats(value: unknown): {
+  deploys_7d: number;
+  observed_at: string;
+} {
   if (
     !value ||
     typeof value !== "object" ||

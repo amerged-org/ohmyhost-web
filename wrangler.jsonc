@@ -12,7 +12,9 @@
     { "pattern": "ohmyho.st", "custom_domain": true },
     { "pattern": "www.ohmyho.st", "custom_domain": true },
   ],
-  "services": [{ "binding": "CONTROL_API", "service": "ohmyho-control-api-production" }],
+  "services": [
+    { "binding": "CONTROL_API", "service": "ohmyho-control-api-production" },
+  ],
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",

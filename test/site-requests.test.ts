@@ -25,8 +25,12 @@ function controlApi(overrides: Record<string, () => Response> = {}) {
       if (path === "/v1/site/feature-interests")
         return request.method === "GET"
           ? Response.json(VOTES)
-          : Response.json({ accepted: true, votes: VOTES.votes }, { status: 202 });
-      if (path === "/v1/contact-requests") return Response.json({ accepted: true }, { status: 202 });
+          : Response.json(
+              { accepted: true, votes: VOTES.votes },
+              { status: 202 },
+            );
+      if (path === "/v1/contact-requests")
+        return Response.json({ accepted: true }, { status: 202 });
       return new Response(null, { status: 404 });
     },
   };
@@ -47,7 +51,9 @@ const posted = (path: string, body: unknown, cookie?: string) =>
 
 it("answers only the site's own paths and needs the control API for them", async () => {
   expect(await siteRequestResponse(site("/pricing"))).toBeNull();
-  const wrongMethod = await siteRequestResponse(site("/stats.json", { method: "DELETE" }));
+  const wrongMethod = await siteRequestResponse(
+    site("/stats.json", { method: "DELETE" }),
+  );
   expect(wrongMethod?.status).toBe(405);
   const unavailable = await siteRequestResponse(site("/stats.json"));
   expect(unavailable?.status).toBe(503);
@@ -66,7 +72,10 @@ it("reads roadmap votes and public statistics through the site endpoints", async
   expect(await stats?.json()).toEqual(STATS);
 
   const status = await siteRequestResponse(site("/status.json"), api);
-  const body = (await status?.json()) as { ok: boolean; components: { name: string }[] };
+  const body = (await status?.json()) as {
+    ok: boolean;
+    components: { name: string }[];
+  };
   expect(body.ok).toBe(false);
   expect(body.components).toHaveLength(6);
 
@@ -79,7 +88,10 @@ it("reads roadmap votes and public statistics through the site endpoints", async
 it("refuses a foreign origin, a wrong content type and an oversized or malformed body", async () => {
   const api = controlApi();
   const foreign = await siteRequestResponse(
-    site("/want", { method: "POST", headers: { origin: "https://evil.example" } }),
+    site("/want", {
+      method: "POST",
+      headers: { origin: "https://evil.example" },
+    }),
     api,
   );
   expect(foreign?.status).toBe(403);
@@ -91,7 +103,11 @@ it("refuses a foreign origin, a wrong content type and an oversized or malformed
   expect(wrongType?.status).toBe(400);
 
   const tooLarge = await siteRequestResponse(
-    posted("/want", { feature: "eu", choice: "up", idempotency_key: "x".repeat(4096) }),
+    posted("/want", {
+      feature: "eu",
+      choice: "up",
+      idempotency_key: "x".repeat(4096),
+    }),
     api,
   );
   expect(tooLarge?.status).toBe(413);
@@ -99,7 +115,10 @@ it("refuses a foreign origin, a wrong content type and an oversized or malformed
   const malformed = await siteRequestResponse(
     site("/want", {
       method: "POST",
-      headers: { origin: "https://ohmyho.st", "content-type": "application/json" },
+      headers: {
+        origin: "https://ohmyho.st",
+        "content-type": "application/json",
+      },
       body: "{",
     }),
     api,
@@ -107,7 +126,11 @@ it("refuses a foreign origin, a wrong content type and an oversized or malformed
   expect(malformed?.status).toBe(400);
 
   const unexpectedField = await siteRequestResponse(
-    posted("/want", { feature: "eu", choice: "up", idempotency_key: "k", extra: 1 }, "omh_voter=v"),
+    posted(
+      "/want",
+      { feature: "eu", choice: "up", idempotency_key: "k", extra: 1 },
+      "omh_voter=v",
+    ),
     api,
   );
   expect(unexpectedField?.status).toBe(400);
@@ -149,10 +172,13 @@ it("requires a voter cookie before a vote and accepts a complete contact request
 it("maps an upstream refusal to the customer's answer without leaking its detail", async () => {
   const limited = controlApi({
     "/v1/site/stats": () =>
-      Response.json({ code: "rate_limited", detail: "internal quota" }, {
-        status: 429,
-        headers: { "retry-after": "30" },
-      }),
+      Response.json(
+        { code: "rate_limited", detail: "internal quota" },
+        {
+          status: 429,
+          headers: { "retry-after": "30" },
+        },
+      ),
   });
   const response = await siteRequestResponse(site("/stats.json"), limited);
   expect(response?.status).toBe(429);
@@ -160,7 +186,8 @@ it("maps an upstream refusal to the customer's answer without leaking its detail
   expect(response?.headers.get("retry-after")).toBe("30");
 
   const broken = controlApi({
-    "/v1/site/stats": () => Response.json({ deploys_7d: -1, observed_at: "nope" }),
+    "/v1/site/stats": () =>
+      Response.json({ deploys_7d: -1, observed_at: "nope" }),
   });
   const refused = await siteRequestResponse(site("/stats.json"), broken);
   expect(refused?.status).toBe(503);

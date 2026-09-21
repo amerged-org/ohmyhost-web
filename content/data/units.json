@@ -1,5 +1,9 @@
 {
-  "millionRequests": { "meter": "wfp.requests", "quantity": 1000000, "label": "1M requests" },
+  "millionRequests": {
+    "meter": "wfp.requests",
+    "quantity": 1000000,
+    "label": "1M requests"
+  },
   "thousandMailRecipients": {
     "meter": "ses.{region}.recipients (Essentials)",
     "quantity": 1000,

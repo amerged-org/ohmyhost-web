@@ -3,11 +3,15 @@
  * tool catalog and the current client release. It arrives as one reviewed file, so a build is
  * deterministic and offline and a price change is visible as a diff.
  */
+/* global URL */
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 const inputs = JSON.parse(
-  readFileSync(fileURLToPath(new URL("../platform-inputs.json", import.meta.url)), "utf8"),
+  readFileSync(
+    fileURLToPath(new URL("../platform-inputs.json", import.meta.url)),
+    "utf8",
+  ),
 );
 
 for (const field of [
@@ -19,7 +23,8 @@ for (const field of [
   "openapiJson",
   "openapiYaml",
 ])
-  if (inputs[field] === undefined) throw new Error(`platform-inputs.json is missing ${field}`);
+  if (inputs[field] === undefined)
+    throw new Error(`platform-inputs.json is missing ${field}`);
 
 /** The published rate card as markdown, exactly as the platform generated it from PRICING.md. */
 export const creditPricingTable = () => inputs.creditPricingTable;

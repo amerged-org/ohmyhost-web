@@ -13,13 +13,13 @@ server, build and runtime) is a separate, private repository.
 
 ## What is here
 
-| Path | Contents |
-| --- | --- |
-| `content/` | Every page. The folder path is the URL; each page carries `page.json` and `content.md`. |
-| `content/data/` | The dated competitor prices, plans, workloads and units the pages quote. |
-| `src/` | The Worker: page metadata, structured data, figures, the content tree and token resolution. |
-| `site/` | The approved homepage and brand templates, verified by SHA-256 during preparation. |
-| `platform-inputs.json` | Pricing, Skills and the MCP tool catalog, published by the platform. |
+| Path                   | Contents                                                                                    |
+| ---------------------- | ------------------------------------------------------------------------------------------- |
+| `content/`             | Every page. The folder path is the URL; each page carries `page.json` and `content.md`.     |
+| `content/data/`        | The dated competitor prices, plans, workloads and units the pages quote.                    |
+| `src/`                 | The Worker: page metadata, structured data, figures, the content tree and token resolution. |
+| `site/`                | The approved homepage and brand templates, verified by SHA-256 during preparation.          |
+| `platform-inputs.json` | Pricing, Skills and the MCP tool catalog, published by the platform.                        |
 
 ## Working on a page
 

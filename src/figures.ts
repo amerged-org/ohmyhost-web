@@ -1,5 +1,17 @@
-import { DATABASE_PROFILES, SCENARIOS, VENDORS, WORKLOADS } from "./content/sources.js";
-import { credits, number, priceLine, priceWorkload, scenarioUsd, usd } from "./content/format.js";
+import {
+  DATABASE_PROFILES,
+  SCENARIOS,
+  VENDORS,
+  WORKLOADS,
+} from "./content/sources.js";
+import {
+  credits,
+  number,
+  priceLine,
+  priceWorkload,
+  scenarioUsd,
+  usd,
+} from "./content/format.js";
 import type { Scenario, Vendor } from "./content/types.js";
 import mcpTools from "./generated-mcp-tools.json" with { type: "json" };
 
@@ -33,11 +45,20 @@ function longDate(iso: string): string {
 
 function sourceLinks(vendors: readonly Vendor[]): string {
   return vendors
-    .map((vendor) => `<a href="${vendor.sourceUrl}" rel="noopener">${vendor.name} pricing</a>`)
+    .map(
+      (vendor) =>
+        `<a href="${vendor.sourceUrl}" rel="noopener">${vendor.name} pricing</a>`,
+    )
     .join(" · ");
 }
 
-function value(amount: number, text: string, x: number, y: number, extra = ""): string {
+function value(
+  amount: number,
+  text: string,
+  x: number,
+  y: number,
+  extra = "",
+): string {
   return `<text x="${x}" y="${y}" text-anchor="end" ${SANS} font-size="17" font-weight="600" fill="var(--foreground)" data-value="${amount}"${extra}>${text}</text>`;
 }
 
@@ -45,7 +66,9 @@ function value(amount: number, text: string, x: number, y: number, extra = ""): 
 export type BillsCompetitor = "vercel" | "supabase" | "resend" | "railway";
 
 export function billsScenario(competitor: BillsCompetitor): Scenario {
-  return competitor === "railway" ? SCENARIOS.railwayStack : SCENARIOS.threeSubscriptions;
+  return competitor === "railway"
+    ? SCENARIOS.railwayStack
+    : SCENARIOS.threeSubscriptions;
 }
 
 export function figureBills(competitor: BillsCompetitor): string {
@@ -85,22 +108,43 @@ export function figureBills(competitor: BillsCompetitor): string {
 }
 
 /** The rows of the credit bar chart: unit prices and the example workload, all computed. */
-export function creditBarRows(): Array<{ label: string; microcredits: number }> {
+export function creditBarRows(): Array<{
+  label: string;
+  microcredits: number;
+}> {
   const example = priceWorkload(WORKLOADS.smallApp);
   return [
-    { label: "1M requests", microcredits: priceLine("wfp.requests", 1_000_000) },
+    {
+      label: "1M requests",
+      microcredits: priceLine("wfp.requests", 1_000_000),
+    },
     {
       label: "1,000 mail recipients",
       microcredits: priceLine("ses.{region}.recipients (Essentials)", 1000),
     },
     {
       label: "1 active database hour, Paid standard (0.5 CU)",
-      microcredits: priceLine("neon.compute.scale", DATABASE_PROFILES.standard.cu),
+      microcredits: priceLine(
+        "neon.compute.scale",
+        DATABASE_PROFILES.standard.cu,
+      ),
     },
-    { label: "1 database GB-month", microcredits: priceLine("neon.storage.root", 1) },
-    { label: "1 custom hostname, per month", microcredits: priceLine("domain.custom_hostname", 1) },
-    { label: "1 mail sender zone, per month", microcredits: priceLine("route53.zone", 1) },
-    { label: "20 build minutes", microcredits: priceLine("build.sandbox.standard-3", 1200) },
+    {
+      label: "1 database GB-month",
+      microcredits: priceLine("neon.storage.root", 1),
+    },
+    {
+      label: "1 custom hostname, per month",
+      microcredits: priceLine("domain.custom_hostname", 1),
+    },
+    {
+      label: "1 mail sender zone, per month",
+      microcredits: priceLine("route53.zone", 1),
+    },
+    {
+      label: "20 build minutes",
+      microcredits: priceLine("build.sandbox.standard-3", 1200),
+    },
     { label: example.name.toLowerCase(), microcredits: example.microcredits },
   ];
 }
@@ -137,7 +181,12 @@ export function flowToolNames(): readonly string[] {
   return FLOW_TOOLS;
 }
 
-export type FlowAgent = "Claude Code" | "Cursor" | "Codex" | "Lovable export" | "Bolt export";
+export type FlowAgent =
+  | "Claude Code"
+  | "Cursor"
+  | "Codex"
+  | "Lovable export"
+  | "Bolt export";
 
 /** One prompt into the agent, MCP tools into ohmyho.st, hosting fanning out on the right. */
 export function figureFlow(agent: FlowAgent): string {

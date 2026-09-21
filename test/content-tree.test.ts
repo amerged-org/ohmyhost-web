@@ -34,8 +34,14 @@ it("keeps the content tree, its page records and the served pages in step", asyn
   for (const page of published)
     expect(DOCUMENTATION[page.path], `${page.path} is served`).toBeDefined();
   // Every page the site serves as an editorial page comes from the tree; nothing is left in code.
-  const launch = await readFile(new URL("../src/launch-pages.ts", import.meta.url), "utf8");
-  const legal = await readFile(new URL("../src/legal-documents.ts", import.meta.url), "utf8");
+  const launch = await readFile(
+    new URL("../src/launch-pages.ts", import.meta.url),
+    "utf8",
+  );
+  const legal = await readFile(
+    new URL("../src/legal-documents.ts", import.meta.url),
+    "utf8",
+  );
   expect(launch).not.toMatch(/": `#/u);
   expect(legal).not.toMatch(/": `#/u);
 });
@@ -46,12 +52,20 @@ it("resolves only known tokens and fails loudly on anything else", () => {
     seen.add(kind);
     return `<${kind}:${args.join(",")}>`;
   };
-  expect(resolveTokens("a {{ usd plan.paidUsd }} b", "/x", render)).toBe("a <usd:plan.paidUsd> b");
-  expect(resolveTokens("{{ credits unit.x dp=0 }}", "/x", render)).toBe("<credits:unit.x>");
-  // A meter name carries braces and spaces; the token must survive both.
-  expect(resolveTokens("{{ rate ses.{region}.recipients (Essentials) }}", "/x", render)).toBe(
-    "<rate:ses.{region}.recipients,(Essentials)>",
+  expect(resolveTokens("a {{ usd plan.paidUsd }} b", "/x", render)).toBe(
+    "a <usd:plan.paidUsd> b",
   );
+  expect(resolveTokens("{{ credits unit.x dp=0 }}", "/x", render)).toBe(
+    "<credits:unit.x>",
+  );
+  // A meter name carries braces and spaces; the token must survive both.
+  expect(
+    resolveTokens(
+      "{{ rate ses.{region}.recipients (Essentials) }}",
+      "/x",
+      render,
+    ),
+  ).toBe("<rate:ses.{region}.recipients,(Essentials)>");
   expect(seen.has("usd") && seen.has("credits") && seen.has("rate")).toBe(true);
   expect(() =>
     resolveTokens("{{ nonsense x }}", "/page", () => {
@@ -78,15 +92,24 @@ it("refuses page metadata that would ship a broken page", async () => {
     modified: "2026-09-20",
   };
 
-  expect((await write(good))()).toMatchObject({ path: "/example", kind: "page" });
+  expect((await write(good))()).toMatchObject({
+    path: "/example",
+    kind: "page",
+  });
   for (const [reason, meta] of [
     ["title is required", { ...good, title: 7 }],
     ["kind must be one of", { ...good, kind: "landing" }],
     ["status must be published or draft", { ...good, status: "live" }],
     ["title is 61 characters, at most 60", { ...good, title: "t".repeat(61) }],
-    ["description is 60 characters, needs 120 to 160", { ...good, description: "d".repeat(60) }],
+    [
+      "description is 60 characters, needs 120 to 160",
+      { ...good, description: "d".repeat(60) },
+    ],
     ["an article needs author and published", { ...good, kind: "article" }],
-    ["author and published belong to articles only", { ...good, author: "Someone" }],
+    [
+      "author and published belong to articles only",
+      { ...good, author: "Someone" },
+    ],
   ] as Array<[string, Record<string, unknown>]>)
     expect(await write(meta), reason).toThrow(reason);
 

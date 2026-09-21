@@ -1,5 +1,13 @@
-import { signupSource, siteRequestResponse, type PublicControlBinding } from "./site-requests.js";
-import { customerDocument, isClientDownload, documentationRedirect } from "./customer-entry.js";
+import {
+  signupSource,
+  siteRequestResponse,
+  type PublicControlBinding,
+} from "./site-requests.js";
+import {
+  customerDocument,
+  isClientDownload,
+  documentationRedirect,
+} from "./customer-entry.js";
 import { SITE_ICON } from "./generated-site-frame.js";
 import { sitemapEntries } from "./page-meta.js";
 // A shell-single-quoted assignment carries this value into the installer script.
@@ -35,12 +43,17 @@ const ATTRIBUTE_ESCAPES: Record<string, string> = {
   ">": "&gt;",
 };
 function signupSourceMeta(source: string): string {
-  const escaped = source.replaceAll(/["&'<>]/gu, (character) => ATTRIBUTE_ESCAPES[character] ?? "");
+  const escaped = source.replaceAll(
+    /["&'<>]/gu,
+    (character) => ATTRIBUTE_ESCAPES[character] ?? "",
+  );
   return `<meta name="ohmyhost-signup-source" content="${escaped}"></head>`;
 }
 
 function browserRegionMeta(request: Request): string {
-  const cf = (request as Request & { cf?: { country?: unknown; continent?: unknown } }).cf;
+  const cf = (
+    request as Request & { cf?: { country?: unknown; continent?: unknown } }
+  ).cf;
   let region = "";
   if (
     request.headers.get("sec-fetch-mode") === "navigate" &&
@@ -50,7 +63,10 @@ function browserRegionMeta(request: Request): string {
     cf.country !== "XX"
   ) {
     if (cf.country === "CY" || cf.continent === "EU") region = "eu";
-    else if (typeof cf.continent === "string" && /^(AF|AN|AS|NA|OC|SA)$/u.test(cf.continent))
+    else if (
+      typeof cf.continent === "string" &&
+      /^(AF|AN|AS|NA|OC|SA)$/u.test(cf.continent)
+    )
       region = "us";
   }
   return `<meta name="ohmyhost-region-hint" content="${region}"></head>`;
@@ -86,8 +102,11 @@ export default {
       const answered = await siteRequestResponse(request, env?.CONTROL_API);
       if (answered) {
         for (const [key, value] of headers)
-          if (key !== "content-security-policy") answered.headers.set(key, value);
-        return request.method === "HEAD" ? new Response(null, answered) : answered;
+          if (key !== "content-security-policy")
+            answered.headers.set(key, value);
+        return request.method === "HEAD"
+          ? new Response(null, answered)
+          : answered;
       }
     }
     if (request.method !== "GET" && request.method !== "HEAD") {
@@ -95,7 +114,8 @@ export default {
       return new Response(null, { status: 405, headers });
     }
     const sources = url.searchParams.getAll("r");
-    const querySource = sources.length === 1 ? signupSource(sources[0]) : undefined;
+    const querySource =
+      sources.length === 1 ? signupSource(sources[0]) : undefined;
     if (host === "www.ohmyho.st") {
       const target = new URL(HOME);
       target.pathname = url.pathname;
@@ -111,39 +131,57 @@ export default {
         .map((item) => item.trim())
         .find((item) => item.startsWith("omh_referral="));
       if (value)
-        cookieSource = signupSource(decodeURIComponent(value.slice("omh_referral=".length)));
+        cookieSource = signupSource(
+          decodeURIComponent(value.slice("omh_referral=".length)),
+        );
     } catch {
       /* Ignore malformed optional attribution cookies. */
     }
     const source = sources.length ? querySource : cookieSource;
     // Signup is open: the source is attribution only, so it never hides or unlocks anything.
-    const attribution = source !== undefined && SHELL_SAFE_SOURCE.test(source) ? source : undefined;
-    const loginHref = attribution === undefined ? "/login" : `/login?r=${attribution}`;
+    const attribution =
+      source !== undefined && SHELL_SAFE_SOURCE.test(source)
+        ? source
+        : undefined;
+    const loginHref =
+      attribution === undefined ? "/login" : `/login?r=${attribution}`;
     const contentPage =
       ["/", "/brand", "/api", "/login"].includes(url.pathname) ||
       url.pathname === "/docs.md" ||
       url.pathname === "/docs" ||
       url.pathname.startsWith("/docs/") ||
       customerDocument(url.pathname)?.type.startsWith("text/html");
-    if (host === "ohmyho.st" && url.protocol === "https:" && contentPage && querySource) {
+    if (
+      host === "ohmyho.st" &&
+      url.protocol === "https:" &&
+      contentPage &&
+      querySource
+    ) {
       headers.set(
         "set-cookie",
         `omh_referral=${encodeURIComponent(querySource)}; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=2592000`,
       );
     }
-    if (url.pathname === "/0.sh" && (host === "omh.st" || host === "ohmyho.st")) {
+    if (
+      url.pathname === "/0.sh" &&
+      (host === "omh.st" || host === "ohmyho.st")
+    ) {
       if (url.protocol !== "https:") {
         headers.set("location", "https://omh.st/0.sh");
         return new Response(null, { status: 308, headers });
       }
       headers.set("content-type", "text/x-shellscript; charset=utf-8");
       if (!env?.ASSETS)
-        return new Response(request.method === "HEAD" ? null : "Installer unavailable.", {
-          status: 503,
-          headers,
-        });
+        return new Response(
+          request.method === "HEAD" ? null : "Installer unavailable.",
+          {
+            status: 503,
+            headers,
+          },
+        );
       const script = await env.ASSETS.fetch(new Request(`${HOME}pages/0.sh`));
-      if (!script.ok) return new Response(null, { status: script.status, headers });
+      if (!script.ok)
+        return new Response(null, { status: script.status, headers });
       const text = (await script.text()).replace(
         "set -euo pipefail",
         `set -euo pipefail\nOHMYHOST_SIGNUP_SOURCE='${attribution ?? ""}'`,
@@ -154,14 +192,18 @@ export default {
       const referralHost = host === "omh.st" || host === "check.omh.st";
       headers.set(
         "location",
-        referralHost && source !== undefined ? `${HOME}?r=${encodeURIComponent(source)}` : HOME,
+        referralHost && source !== undefined
+          ? `${HOME}?r=${encodeURIComponent(source)}`
+          : HOME,
       );
       return new Response(null, { status: 302, headers });
     }
     if (url.pathname === "/robots.txt") {
       headers.set("content-type", "text/plain; charset=utf-8");
       headers.set("cache-control", "public, max-age=3600");
-      return new Response(request.method === "HEAD" ? null : ROBOTS, { headers });
+      return new Response(request.method === "HEAD" ? null : ROBOTS, {
+        headers,
+      });
     }
     if (url.pathname === "/sitemap.xml") {
       headers.set("content-type", "application/xml; charset=utf-8");
@@ -185,7 +227,8 @@ export default {
       );
       return new Response(null, { status: 302, headers });
     }
-    const wantsMarkdown = request.headers.get("accept")?.includes("text/markdown") === true;
+    const wantsMarkdown =
+      request.headers.get("accept")?.includes("text/markdown") === true;
     const redirect = documentationRedirect(url.pathname, wantsMarkdown);
     if (redirect) {
       headers.set("location", redirect);
@@ -197,12 +240,20 @@ export default {
     if (document) {
       let documentText = document.text;
       if (attribution)
-        documentText = documentText.replaceAll('href="/login"', `href="${loginHref}"`);
+        documentText = documentText.replaceAll(
+          'href="/login"',
+          `href="${loginHref}"`,
+        );
       if (document.type.startsWith("text/html")) {
         const hashes = [];
-        for (const script of documentText.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gu)) {
+        for (const script of documentText.matchAll(
+          /<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gu,
+        )) {
           const hash = new Uint8Array(
-            await crypto.subtle.digest("SHA-256", new TextEncoder().encode(script[1] ?? "")),
+            await crypto.subtle.digest(
+              "SHA-256",
+              new TextEncoder().encode(script[1] ?? ""),
+            ),
           );
           hashes.push(`'sha256-${btoa(String.fromCharCode(...hash))}'`);
         }
@@ -210,13 +261,21 @@ export default {
           "content-security-policy",
           `default-src 'none'; script-src 'self' ${hashes.join(" ")}; style-src 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'`,
         );
-        if (source) documentText = documentText.replace("</head>", () => signupSourceMeta(source));
-        documentText = documentText.replace("</head>", () => browserRegionMeta(request));
+        if (source)
+          documentText = documentText.replace("</head>", () =>
+            signupSourceMeta(source),
+          );
+        documentText = documentText.replace("</head>", () =>
+          browserRegionMeta(request),
+        );
       }
       headers.set("content-type", document.type);
       headers.set("vary", "Accept");
       if (document.type.startsWith("text/html"))
-        headers.set("link", `<${url.pathname}.md>; rel="alternate"; type="text/markdown"`);
+        headers.set(
+          "link",
+          `<${url.pathname}.md>; rel="alternate"; type="text/markdown"`,
+        );
       return new Response(request.method === "HEAD" ? null : documentText, {
         status: 200,
         headers,
@@ -224,19 +283,30 @@ export default {
     }
     if (isClientDownload(url.pathname)) {
       if (!env?.ASSETS)
-        return new Response("Client release is unavailable.", { status: 503, headers });
+        return new Response("Client release is unavailable.", {
+          status: 503,
+          headers,
+        });
       const asset = await env.ASSETS.fetch(
-        new Request(`${HOME.slice(0, -1)}${url.pathname}`, { method: request.method }),
+        new Request(`${HOME.slice(0, -1)}${url.pathname}`, {
+          method: request.method,
+        }),
       );
       const response = new Response(asset.body, asset);
       for (const [name, value] of headers) response.headers.set(name, value);
-      if (response.ok) response.headers.set("cache-control", "public, max-age=31536000, immutable");
+      if (response.ok)
+        response.headers.set(
+          "cache-control",
+          "public, max-age=31536000, immutable",
+        );
       return response;
     }
     if (url.pathname === "/favicon.svg") {
       headers.set("content-type", "image/svg+xml");
       headers.set("cache-control", "public, max-age=86400");
-      return new Response(request.method === "HEAD" ? null : SITE_ICON, { headers });
+      return new Response(request.method === "HEAD" ? null : SITE_ICON, {
+        headers,
+      });
     }
     const pages: Record<string, string> = {
       "/": "home.html",
@@ -263,8 +333,10 @@ export default {
       "/api/openapi.yaml": "openapi.yaml",
       "/api/openapi.json": "openapi.json",
     };
-    const markdownPath = url.pathname === "/" ? "/index.md" : `${url.pathname}.md`;
-    const selected = wantsMarkdown && pages[markdownPath] ? markdownPath : url.pathname;
+    const markdownPath =
+      url.pathname === "/" ? "/index.md" : `${url.pathname}.md`;
+    const selected =
+      wantsMarkdown && pages[markdownPath] ? markdownPath : url.pathname;
     const page = pages[selected];
     const logo =
       /^\/logos\/(?:composio|github|make|n8n|nextjs|postgres|react|tanstack|vite|zapier|betterauth|workos|gdrive|s3|r2)\.svg$/u.test(
@@ -276,7 +348,9 @@ export default {
       const apiRequest = url.pathname.startsWith("/v1/");
       headers.set(
         "content-type",
-        apiRequest ? "application/problem+json" : "text/markdown; charset=utf-8",
+        apiRequest
+          ? "application/problem+json"
+          : "text/markdown; charset=utf-8",
       );
       const body = apiRequest
         ? JSON.stringify({
@@ -288,13 +362,19 @@ export default {
               "The product API base is https://app.ohmyho.st/v1. Read https://ohmyho.st/api/openapi.json.",
           })
         : "# Page not found\n\nRead [llms.txt](https://ohmyho.st/llms.txt), the [documentation index](https://docs.ohmyho.st/llms.txt), or [OpenAPI](https://ohmyho.st/api/openapi.json).\n";
-      return new Response(request.method === "HEAD" ? null : body, { status: 404, headers });
-    }
-    if (!env?.ASSETS)
-      return new Response(request.method === "HEAD" ? null : "Page is unavailable.", {
-        status: 503,
+      return new Response(request.method === "HEAD" ? null : body, {
+        status: 404,
         headers,
       });
+    }
+    if (!env?.ASSETS)
+      return new Response(
+        request.method === "HEAD" ? null : "Page is unavailable.",
+        {
+          status: 503,
+          headers,
+        },
+      );
     const asset = await env.ASSETS.fetch(
       new Request(
         `${HOME.slice(0, -1)}${logo || font || social ? url.pathname : `/pages/${page}`}`,
@@ -304,14 +384,20 @@ export default {
     if (page?.endsWith(".png") || page?.endsWith(".ico") || font || social) {
       headers.set(
         "content-type",
-        font ? "font/ttf" : page?.endsWith(".ico") ? "image/x-icon" : "image/png",
+        font
+          ? "font/ttf"
+          : page?.endsWith(".ico")
+            ? "image/x-icon"
+            : "image/png",
       );
       if (font) headers.set("access-control-allow-origin", "*");
       headers.set(
         "cache-control",
         font ? "public, max-age=31536000, immutable" : "public, max-age=86400",
       );
-      return new Response(request.method === "HEAD" ? null : asset.body, { headers });
+      return new Response(request.method === "HEAD" ? null : asset.body, {
+        headers,
+      });
     }
     let body = await asset.text();
     const type =
@@ -324,16 +410,25 @@ export default {
             : page?.endsWith(".json")
               ? "application/json; charset=utf-8"
               : "text/html; charset=utf-8";
-    if (type === "image/svg+xml") headers.set("cache-control", "public, max-age=86400");
+    if (type === "image/svg+xml")
+      headers.set("cache-control", "public, max-age=86400");
     if (type.startsWith("text/html")) {
       if (attribution)
         body = body
-          .replaceAll('href="https://ohmyho.st/login"', `href="https://ohmyho.st${loginHref}"`)
+          .replaceAll(
+            'href="https://ohmyho.st/login"',
+            `href="https://ohmyho.st${loginHref}"`,
+          )
           .replaceAll('href="/login"', `href="${loginHref}"`);
       const hashes: string[] = [];
-      for (const script of body.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gu)) {
+      for (const script of body.matchAll(
+        /<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gu,
+      )) {
         const hash = new Uint8Array(
-          await crypto.subtle.digest("SHA-256", new TextEncoder().encode(script[1] ?? "")),
+          await crypto.subtle.digest(
+            "SHA-256",
+            new TextEncoder().encode(script[1] ?? ""),
+          ),
         );
         hashes.push(`'sha256-${btoa(String.fromCharCode(...hash))}'`);
       }
@@ -341,10 +436,14 @@ export default {
         "content-security-policy",
         `default-src 'none'; script-src 'self' ${hashes.join(" ")}; style-src 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self'; worker-src blob:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'`,
       );
-      headers.set("link", `<${markdownPath}>; rel="alternate"; type="text/markdown"`);
+      headers.set(
+        "link",
+        `<${markdownPath}>; rel="alternate"; type="text/markdown"`,
+      );
       if (page === "home.html" && source)
         body = body.replace("</head>", () => signupSourceMeta(source));
-      if (page === "home.html") body = body.replace("</head>", () => browserRegionMeta(request));
+      if (page === "home.html")
+        body = body.replace("</head>", () => browserRegionMeta(request));
     }
     headers.set("content-type", type);
     headers.set("vary", "Accept");

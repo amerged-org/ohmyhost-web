@@ -11,7 +11,13 @@ import {
   priceWorkload,
   scenarioUsd,
 } from "../src/content/format.js";
-import { DATABASE_PROFILES, PLANS, SCENARIOS, VENDORS, WORKLOADS } from "../src/content/sources.js";
+import {
+  DATABASE_PROFILES,
+  PLANS,
+  SCENARIOS,
+  VENDORS,
+  WORKLOADS,
+} from "../src/content/sources.js";
 import { DOCUMENTATION, customerDocument } from "../src/customer-entry.js";
 import { CREDIT_RATES } from "../src/generated-pricing.js";
 import { PAGE_META } from "../src/page-meta.js";
@@ -145,15 +151,20 @@ function knownNumbers(): number[] {
         known.add(Number((digits ?? "0").replaceAll(",", "")));
     }
   }
-  for (const scenario of Object.values(SCENARIOS)) known.add(scenarioUsd(scenario));
+  for (const scenario of Object.values(SCENARIOS))
+    known.add(scenarioUsd(scenario));
   for (const profile of Object.values(DATABASE_PROFILES)) {
     known.add(profile.cu);
-    addCredits(priceLine(profile.meter as keyof typeof CREDIT_RATES, profile.cu));
+    addCredits(
+      priceLine(profile.meter as keyof typeof CREDIT_RATES, profile.cu),
+    );
   }
-  for (const meter of Object.keys(CREDIT_RATES) as Array<keyof typeof CREDIT_RATES>)
+  for (const meter of Object.keys(CREDIT_RATES) as Array<
+    keyof typeof CREDIT_RATES
+  >)
     for (const quantity of [
-      1, 2, 4, 10, 20, 100, 120, 600, 840, 1000, 1200, 2000, 3000, 10_000, 20_000, 35_000, 50_000,
-      100_000, 1_000_000,
+      1, 2, 4, 10, 20, 100, 120, 600, 840, 1000, 1200, 2000, 3000, 10_000,
+      20_000, 35_000, 50_000, 100_000, 1_000_000,
     ])
       addCredits(priceLine(meter, quantity));
   return [...known];
@@ -177,10 +188,14 @@ it("keeps every editorial page inside the words, numbers and sources contract", 
   const matches = (value: number) =>
     known.some(
       (k) =>
-        Math.abs(k - value) < 0.0051 || value === Math.round(k) || value === Number(k.toFixed(2)),
+        Math.abs(k - value) < 0.0051 ||
+        value === Math.round(k) ||
+        value === Number(k.toFixed(2)),
     );
   const skills = new Set(
-    SKILL_RESOURCES.map((skill) => `/skills/${skill.skillName}/${skill.relativePath}`),
+    SKILL_RESOURCES.map(
+      (skill) => `/skills/${skill.skillName}/${skill.relativePath}`,
+    ),
   );
   for (const [path, markdown] of Object.entries(DOCUMENTATION)) {
     if (path.endsWith(".md") || path === "/login") continue;
@@ -204,7 +219,10 @@ it("keeps every editorial page inside the words, numbers and sources contract", 
     );
     for (const match of body.matchAll(NUMBER_PATTERN)) {
       const value = Number((match[1] ?? match[2] ?? "0").replaceAll(",", ""));
-      expect(matches(value), `${path}: ${match[0]} is not in the data module`).toBe(true);
+      expect(
+        matches(value),
+        `${path}: ${match[0]} is not in the data module`,
+      ).toBe(true);
     }
     // Structure per page type.
     expect(markdown.match(/^# /gmu), `${path} H1`).toHaveLength(1);
@@ -220,8 +238,14 @@ it("keeps every editorial page inside the words, numbers and sources contract", 
             !block.startsWith("!"),
         ) ?? "";
     const answerWords = answer.split(/\s+/u).filter(Boolean).length;
-    expect(answerWords, `${path} answer block: ${answerWords} words`).toBeGreaterThanOrEqual(35);
-    expect(answerWords, `${path} answer block: ${answerWords} words`).toBeLessThanOrEqual(75);
+    expect(
+      answerWords,
+      `${path} answer block: ${answerWords} words`,
+    ).toBeGreaterThanOrEqual(35);
+    expect(
+      answerWords,
+      `${path} answer block: ${answerWords} words`,
+    ).toBeLessThanOrEqual(75);
     if (path.startsWith("/vs/")) {
       const vendorName = Object.values(VENDORS).find((vendor) =>
         path.endsWith(vendor.name.toLowerCase().replace(".io", "")),
@@ -232,16 +256,29 @@ it("keeps every editorial page inside the words, numbers and sources contract", 
           .split(/^## /mu)
           .find(
             (section) =>
-              /^(?:When .* is the better choice|Where .* wins)/u.test(section) &&
-              section.includes(vendorName ?? ""),
+              /^(?:When .* is the better choice|Where .* wins)/u.test(
+                section,
+              ) && section.includes(vendorName ?? ""),
           ) ?? "";
-      expect(honest.split(/\s+/u).length, `${path} honest section`).toBeGreaterThanOrEqual(60);
+      expect(
+        honest.split(/\s+/u).length,
+        `${path} honest section`,
+      ).toBeGreaterThanOrEqual(60);
     }
     if (/^\/(?:for|from)\//u.test(path)) {
-      expect(markdown.match(/^## How to /gmu), `${path} How to`).toHaveLength(1);
-      const steps = (markdown.split(/^## How to /mu)[1] ?? "").split(/^## /mu)[0] ?? "";
-      expect(steps.match(/^\d+\. /gmu)?.length ?? 0, `${path} steps`).toBeGreaterThanOrEqual(4);
-      expect(markdown.match(/^```text\n[^\n]*\n```$/gmu), `${path} prompt block`).toHaveLength(1);
+      expect(markdown.match(/^## How to /gmu), `${path} How to`).toHaveLength(
+        1,
+      );
+      const steps =
+        (markdown.split(/^## How to /mu)[1] ?? "").split(/^## /mu)[0] ?? "";
+      expect(
+        steps.match(/^\d+\. /gmu)?.length ?? 0,
+        `${path} steps`,
+      ).toBeGreaterThanOrEqual(4);
+      expect(
+        markdown.match(/^```text\n[^\n]*\n```$/gmu),
+        `${path} prompt block`,
+      ).toHaveLength(1);
     }
     expect(
       (markdown.match(/```text\n([^\n]*)\n```/gu) ?? []).length,
@@ -270,7 +307,9 @@ it("keeps every editorial page inside the words, numbers and sources contract", 
         for (const [name, scenario] of Object.entries(SCENARIOS))
           if (
             section.includes(`SCENARIOS.${name}`) &&
-            scenario.parts.some((part) => part.vendor.name === VENDORS[key].name)
+            scenario.parts.some(
+              (part) => part.vendor.name === VENDORS[key].name,
+            )
           )
             priced.add(key);
       }
@@ -281,13 +320,19 @@ it("keeps every editorial page inside the words, numbers and sources contract", 
         ).toContain(checkedLine(VENDORS[key]));
     }
     for (const vendor of Object.values(VENDORS))
-      if (markdown.includes(`checked on ${vendor.checkedOn} — [${vendor.name} pricing]`))
+      if (
+        markdown.includes(
+          `checked on ${vendor.checkedOn} — [${vendor.name} pricing]`,
+        )
+      )
         expect(markdown, `${path} sources for ${vendor.name}`).toContain(
           `- ${checkedLine(vendor)}`,
         );
     // Links.
     expect(markdown, `${path} /docs link`).not.toMatch(/\]\(\/(?:docs|api)\b/u);
-    for (const [, slug] of markdown.matchAll(/https:\/\/docs\.ohmyho\.st\/([a-z0-9/-]*)/gu))
+    for (const [, slug] of markdown.matchAll(
+      /https:\/\/docs\.ohmyho\.st\/([a-z0-9/-]*)/gu,
+    ))
       expect(
         DOCS_SLUGS.has((slug ?? "").replace(/\.md$/u, "").replace(/\/$/u, "")),
         `${path} docs slug ${slug}`,
@@ -304,9 +349,16 @@ it("keeps every editorial page inside the words, numbers and sources contract", 
     }
   }
   for (const vendor of Object.values(VENDORS)) {
-    expect(existsSync(new URL(vendor.evidence, root)), vendor.evidence).toBe(true);
-    const age = (Date.parse(CONTENT_REVIEW_DATE) - Date.parse(vendor.checkedOn)) / 86_400_000;
-    expect(age, `${vendor.name} checked ${vendor.checkedOn}`).toBeLessThanOrEqual(45);
+    expect(existsSync(new URL(vendor.evidence, root)), vendor.evidence).toBe(
+      true,
+    );
+    const age =
+      (Date.parse(CONTENT_REVIEW_DATE) - Date.parse(vendor.checkedOn)) /
+      86_400_000;
+    expect(
+      age,
+      `${vendor.name} checked ${vendor.checkedOn}`,
+    ).toBeLessThanOrEqual(45);
     expect(age).toBeGreaterThanOrEqual(0);
   }
 });

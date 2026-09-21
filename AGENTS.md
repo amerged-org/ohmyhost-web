@@ -9,13 +9,13 @@
 
 ## Where a change belongs
 
-| Change | Where |
-| --- | --- |
-| Page copy, a new page, a blog post | `content/**` here |
-| Competitor price, plan, workload, unit | `content/data/*.json` here, with its dated screenshot evidence |
-| Layout, structured data, figures, sitemap, `llms.txt` | `src/**` here |
-| Credit rates, Skill text, MCP tool catalog, client release | the platform, published into `platform-inputs.json` here |
-| A CLI command, an MCP tool, a REST operation | the platform; then re-publish the inputs so the Skill pages and tool catalog this site serves stay current |
+| Change                                                     | Where                                                                                                      |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Page copy, a new page, a blog post                         | `content/**` here                                                                                          |
+| Competitor price, plan, workload, unit                     | `content/data/*.json` here, with its dated screenshot evidence                                             |
+| Layout, structured data, figures, sitemap, `llms.txt`      | `src/**` here                                                                                              |
+| Credit rates, Skill text, MCP tool catalog, client release | the platform, published into `platform-inputs.json` here                                                   |
+| A CLI command, an MCP tool, a REST operation               | the platform; then re-publish the inputs so the Skill pages and tool catalog this site serves stay current |
 
 ## Rules
 

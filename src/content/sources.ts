@@ -30,7 +30,9 @@ export const PLANS = plans;
 /** Database compute profiles in CU; an active hour costs profile × the CU-hour rate. */
 export const DATABASE_PROFILES = databaseProfiles;
 
-export const WORKLOADS = workloads as unknown as { [Name in keyof typeof workloads]: Workload };
+export const WORKLOADS = workloads as unknown as {
+  [Name in keyof typeof workloads]: Workload;
+};
 
 /** Scenario parts reference vendor facts by key in JSON; they are resolved to the facts here. */
 export const SCENARIOS = Object.fromEntries(
@@ -39,7 +41,9 @@ export const SCENARIOS = Object.fromEntries(
     {
       name: scenario.name,
       parts: scenario.parts.map((part) => {
-        const vendor = VENDORS[part.vendor as keyof typeof vendors] as Vendor | undefined;
+        const vendor = VENDORS[part.vendor as keyof typeof vendors] as
+          | Vendor
+          | undefined;
         const fact = vendor?.facts[part.fact];
         if (!vendor || !fact)
           throw new Error(
@@ -58,5 +62,9 @@ export const SCENARIOS = Object.fromEntries(
 
 /** Named metered units the pages cite, each priced from the generated rate card. */
 export const UNITS = units as unknown as {
-  [Name in keyof typeof units]: { meter: string; quantity: number; label: string };
+  [Name in keyof typeof units]: {
+    meter: string;
+    quantity: number;
+    label: string;
+  };
 };

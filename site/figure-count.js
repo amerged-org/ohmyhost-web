@@ -26,5 +26,7 @@
       }),
     { threshold: 0.4 },
   );
-  document.querySelectorAll(".fig .count").forEach((node) => observer.observe(node));
+  document
+    .querySelectorAll(".fig .count")
+    .forEach((node) => observer.observe(node));
 })();

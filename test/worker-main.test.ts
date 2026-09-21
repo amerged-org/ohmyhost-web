@@ -8,13 +8,19 @@ import worker from "../src/worker-main.js";
 
 describe("public entry and unassigned Free-host fallback", () => {
   it("serves the public home and favicon without reflecting request data", async () => {
-    const assetRules = await readFile(new URL("../public/.assetsignore", import.meta.url), "utf8");
+    const assetRules = await readFile(
+      new URL("../public/.assetsignore", import.meta.url),
+      "utf8",
+    );
     expect(assetRules).toContain("!pages/**");
     expect(assetRules).toContain("!logos/**");
     const assets = new SiteAssetFixture();
-    const home = await worker.fetch(new Request("https://ohmyho.st/?ticket=private-ticket"), {
-      ASSETS: assets,
-    });
+    const home = await worker.fetch(
+      new Request("https://ohmyho.st/?ticket=private-ticket"),
+      {
+        ASSETS: assets,
+      },
+    );
     expect(home.status).toBe(200);
     expect(home.headers.get("content-type")).toContain("text/html");
     const html = await home.text();
@@ -30,7 +36,9 @@ describe("public entry and unassigned Free-host fallback", () => {
       expect(html).toContain(
         `<meta ${attribute}="${name}" content="Supabase Vercel Resend Alternative - all in one from 10$.">`,
       );
-    expect(html).toContain("<title>ohmyho.st — Hosting for agents, from $10/month</title>");
+    expect(html).toContain(
+      "<title>ohmyho.st — Hosting for agents, from $10/month</title>",
+    );
     expect(html).toContain("Copy prompt for your agent");
     expect(html).toContain("<span>Copy prompt</span>");
     expect(html).not.toContain("Get beta access");
@@ -49,30 +57,43 @@ describe("public entry and unassigned Free-host fallback", () => {
       html.indexOf('<div class="slid up">'),
     );
     expect(pricing.match(/data-copy/gu)).toHaveLength(1);
-    expect(pricing).toContain("More capacity when you need it <em>uses credits</em>");
-    expect(html.slice(html.indexOf("<nav>"), html.indexOf("</nav>"))).not.toContain(
-      'href="#export"',
+    expect(pricing).toContain(
+      "More capacity when you need it <em>uses credits</em>",
     );
+    expect(
+      html.slice(html.indexOf("<nav>"), html.indexOf("</nav>")),
+    ).not.toContain('href="#export"');
     expect(html).toContain(
       'powered by <a href="https://amerged.com" rel="noopener">amerged.com</a>',
     );
-    expect(html).toContain('<a class="sales" href="/contact">Bigger than this? Talk to us.</a>');
+    expect(html).toContain(
+      '<a class="sales" href="/contact">Bigger than this? Talk to us.</a>',
+    );
     expect(html).toContain(
       'href="https://docs.ohmyho.st/pricing" rel="noopener">See all usage rates</a>',
     );
     const comparisonStart = html.indexOf('<div class="vs stag">');
-    const comparison = html.slice(comparisonStart, html.indexOf("</section>", comparisonStart));
-    expect(comparison.match(/<details class="bill" open><summary>/gu)).toHaveLength(2);
+    const comparison = html.slice(
+      comparisonStart,
+      html.indexOf("</section>", comparisonStart),
+    );
+    expect(
+      comparison.match(/<details class="bill" open><summary>/gu),
+    ).toHaveLength(2);
     expect(comparison.match(/class="li"/gu)).toHaveLength(13);
     expect(html).not.toMatch(/AI (models|credits)/u);
-    expect(html).toContain("<span><h3>1,000 emails</h3><u>53 credits</u></span>");
+    expect(html).toContain(
+      "<span><h3>1,000 emails</h3><u>53 credits</u></span>",
+    );
     expect(comparison.match(/Functions &amp; cron/gu)).toHaveLength(2);
     for (const card of comparison.split('<div class="card').slice(1)) {
       const bill = card.indexOf('<details class="bill" open>');
       const billEnd = card.indexOf("</details>");
       expect(bill).toBeGreaterThan(card.indexOf('<p class="scen">'));
       expect(billEnd).toBeLessThan(card.indexOf('<div class="tot">'));
-      expect(card.slice(bill, billEnd).match(/class="li"/gu)?.length).toBeGreaterThanOrEqual(6);
+      expect(
+        card.slice(bill, billEnd).match(/class="li"/gu)?.length,
+      ).toBeGreaterThanOrEqual(6);
       expect(card.slice(billEnd)).not.toContain('class="li"');
     }
     const comparisonEnd = html.indexOf("</section>", comparisonStart);
@@ -83,18 +104,25 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html).toContain(".vs .card .tot{order:-1");
     expect(html).toContain("details.bill");
     expect(html).not.toContain("Auth0");
-    const navigation = { "sec-fetch-mode": "navigate", "sec-fetch-dest": "document" };
+    const navigation = {
+      "sec-fetch-mode": "navigate",
+      "sec-fetch-dest": "document",
+    };
     for (const [cf, requestHeaders, expectedRegion] of [
       [{ country: "NL", continent: "EU" }, navigation, "eu"],
       [{ country: "US", continent: "NA" }, navigation, "us"],
       [undefined, { ...navigation, "cf-ipcountry": "NL" }, ""],
       [{ country: "NL", continent: "EU" }, {}, ""],
     ] as const) {
-      const request = new Request("https://ohmyho.st/", { headers: requestHeaders });
+      const request = new Request("https://ohmyho.st/", {
+        headers: requestHeaders,
+      });
       Object.defineProperty(request, "cf", { value: cf });
       const response = await worker.fetch(request, { ASSETS: assets });
       const page = await response.text();
-      expect(page).toContain(`<meta name="ohmyhost-region-hint" content="${expectedRegion}">`);
+      expect(page).toContain(
+        `<meta name="ohmyhost-region-hint" content="${expectedRegion}">`,
+      );
       expect(response.headers.get("cache-control")).toBe("no-store");
       const script = [...page.matchAll(/<script>([\s\S]*?)<\/script>/gu)]
         .map((match) => match[1] ?? "")
@@ -103,14 +131,23 @@ describe("public entry and unassigned Free-host fallback", () => {
       let copied = "";
       let click: ((event: unknown) => Promise<void>) | undefined;
       const label = { textContent: "" };
-      const button = { querySelector: () => label, closest: () => null, classList: { add() {} } };
+      const button = {
+        querySelector: () => label,
+        closest: () => null,
+        classList: { add() {} },
+      };
       runInNewContext(script ?? "", {
         document: {
           querySelector: (selector: string) =>
-            selector.includes("ohmyhost-region-hint") ? { content: expectedRegion } : null,
+            selector.includes("ohmyhost-region-hint")
+              ? { content: expectedRegion }
+              : null,
           querySelectorAll: () => [],
           getElementById: () => null,
-          addEventListener: (_name: string, handler: (event: unknown) => Promise<void>) => {
+          addEventListener: (
+            _name: string,
+            handler: (event: unknown) => Promise<void>,
+          ) => {
             click = handler;
           },
         },
@@ -134,20 +171,34 @@ describe("public entry and unassigned Free-host fallback", () => {
           ? `use ${expectedRegion.toUpperCase()} based on this browser's region unless I specify another region`
           : "ask me once whether to use EU or US unless I already specified a region",
       );
-      expect(copied).toContain("Keep existing projects in their current region.");
+      expect(copied).toContain(
+        "Keep existing projects in their current region.",
+      );
     }
     expect(html).not.toContain("logos/auth0.svg");
-    expect(html).toContain("Better Auth, WorkOS or anything else that speaks OAuth, OIDC or SAML");
-    expect(html).toContain('id="auth-logos" style="grid-template-columns:repeat(3,1fr)"');
+    expect(html).toContain(
+      "Better Auth, WorkOS or anything else that speaks OAuth, OIDC or SAML",
+    );
+    expect(html).toContain(
+      'id="auth-logos" style="grid-template-columns:repeat(3,1fr)"',
+    );
     expect(
-      (await worker.fetch(new Request("https://ohmyho.st/logos/auth0.svg"), { ASSETS: assets }))
-        .status,
+      (
+        await worker.fetch(new Request("https://ohmyho.st/logos/auth0.svg"), {
+          ASSETS: assets,
+        })
+      ).status,
     ).toBe(404);
     expect(
-      (await worker.fetch(new Request("https://ohmyho.st/logos/workos.svg"), { ASSETS: assets }))
-        .status,
+      (
+        await worker.fetch(new Request("https://ohmyho.st/logos/workos.svg"), {
+          ASSETS: assets,
+        })
+      ).status,
     ).toBe(200);
-    const icon = await worker.fetch(new Request("https://ohmyho.st/favicon.svg"));
+    const icon = await worker.fetch(
+      new Request("https://ohmyho.st/favicon.svg"),
+    );
     expect(await icon.text()).toContain("M30 86 H15 L27 63");
     for (const [path, mime] of [
       ["/favicon.ico", "image/x-icon"],
@@ -155,16 +206,21 @@ describe("public entry and unassigned Free-host fallback", () => {
       ["/brand/assets/founder.png", "image/png"],
       ["/brand/assets/omega-light.svg", "image/svg+xml"],
     ]) {
-      const response = await worker.fetch(new Request(`https://ohmyho.st${path}`), {
-        ASSETS: assets,
-      });
+      const response = await worker.fetch(
+        new Request(`https://ohmyho.st${path}`),
+        {
+          ASSETS: assets,
+        },
+      );
       expect(response.status).toBe(200);
       expect(response.headers.get("content-type")).toBe(mime);
     }
     expect(
       (
         await worker.fetch(
-          new Request("https://ohmyho.st/brand/reference/2026-09-14/manifest.json"),
+          new Request(
+            "https://ohmyho.st/brand/reference/2026-09-14/manifest.json",
+          ),
           { ASSETS: assets },
         )
       ).status,
@@ -177,33 +233,53 @@ describe("public entry and unassigned Free-host fallback", () => {
     const installerText = await installer.text();
     expect(installerText).toContain("OHMYHOST_SIGNUP_SOURCE='hostmebaby'");
     expect(
-      await (await worker.fetch(new Request("https://omh.st/0.sh"), { ASSETS: assets })).text(),
+      await (
+        await worker.fetch(new Request("https://omh.st/0.sh"), {
+          ASSETS: assets,
+        })
+      ).text(),
     ).toContain("OHMYHOST_SIGNUP_SOURCE=''");
     expect(installerText).toContain(`omh_release='${CLIENT_RELEASE}'`);
-    expect(installerText).toContain("using only my explicitly authorized GitHub repository");
+    expect(installerText).toContain(
+      "using only my explicitly authorized GitHub repository",
+    );
     expect(installerText).not.toMatch(/upload source path|source uploads/u);
-    expect(installerText).toContain("Hermes 0.21 or newer is required for interactive onboarding.");
+    expect(installerText).toContain(
+      "Hermes 0.21 or newer is required for interactive onboarding.",
+    );
     expect(installerText.indexOf("Hermes 0.21 or newer")).toBeLessThan(
       installerText.indexOf("npm install --global"),
     );
-    expect(installerText).toContain("Project directory (JSON string): $omh_project_json");
+    expect(installerText).toContain(
+      "Project directory (JSON string): $omh_project_json",
+    );
     expect(installerText).toContain("do not deploy a different workspace");
     expect(installerText).not.toContain("private");
     expect(installerText).not.toContain("@CLIENT_RELEASE@");
-    expect((await worker.fetch(new Request("http://omh.st/0.sh"))).status).toBe(308);
+    expect((await worker.fetch(new Request("http://omh.st/0.sh"))).status).toBe(
+      308,
+    );
     expect(html).toContain("ohmyhost-get-started");
     for (const image of ["/og.png", "/logo.png"]) {
-      const response = await worker.fetch(new Request(`https://ohmyho.st${image}`), {
-        ASSETS: assets,
-      });
+      const response = await worker.fetch(
+        new Request(`https://ohmyho.st${image}`),
+        {
+          ASSETS: assets,
+        },
+      );
       expect(response.headers.get("content-type")).toBe("image/png");
-      expect(Array.from(new Uint8Array(await response.arrayBuffer()).slice(0, 4))).toEqual([
-        137, 80, 78, 71,
-      ]);
+      expect(
+        Array.from(new Uint8Array(await response.arrayBuffer()).slice(0, 4)),
+      ).toEqual([137, 80, 78, 71]);
     }
-    const brand = await worker.fetch(new Request("https://ohmyho.st/brand"), { ASSETS: assets });
+    const brand = await worker.fetch(new Request("https://ohmyho.st/brand"), {
+      ASSETS: assets,
+    });
     expect(await brand.text()).toBe(
-      await readFile(new URL("../public/pages/brand.html", import.meta.url), "utf8"),
+      await readFile(
+        new URL("../public/pages/brand.html", import.meta.url),
+        "utf8",
+      ),
     );
     for (const path of [
       "/index.md",
@@ -216,9 +292,12 @@ describe("public entry and unassigned Free-host fallback", () => {
       "/client-release.json",
       "/.well-known/agent-skills/index.json",
     ]) {
-      const response = await worker.fetch(new Request(`https://ohmyho.st${path}`), {
-        ASSETS: assets,
-      });
+      const response = await worker.fetch(
+        new Request(`https://ohmyho.st${path}`),
+        {
+          ASSETS: assets,
+        },
+      );
       expect(response.status).toBe(200);
       expect((await response.text()).length).toBeGreaterThan(30);
     }
@@ -231,66 +310,99 @@ describe("public entry and unassigned Free-host fallback", () => {
       "/docs/usage",
       "/docs/backups",
     ]) {
-      expect((await worker.fetch(new Request(`https://ohmyho.st${path}.md`))).status).toBe(308);
+      expect(
+        (await worker.fetch(new Request(`https://ohmyho.st${path}.md`))).status,
+      ).toBe(308);
     }
     const login = await worker.fetch(
-      new Request("https://ohmyho.st/login?r=hostmebaby&next=https://foreign.example&token=secret"),
+      new Request(
+        "https://ohmyho.st/login?r=hostmebaby&next=https://foreign.example&token=secret",
+      ),
     );
-    expect(login.headers.get("location")).toBe("https://app.ohmyho.st/login?r=hostmebaby");
+    expect(login.headers.get("location")).toBe(
+      "https://app.ohmyho.st/login?r=hostmebaby",
+    );
     expect(home.headers.get("link")).toContain("/index.md");
-    expect(home.headers.get("content-security-policy")).toContain("font-src 'self'");
+    expect(home.headers.get("content-security-policy")).toContain(
+      "font-src 'self'",
+    );
     expect(html).not.toMatch(/fonts\.googleapis|fonts\.gstatic/u);
     expect(html).toContain('id="cookie-notice"');
-    const font = (await readdir(new URL("../public/fonts", import.meta.url))).find((name) =>
-      name.endsWith(".ttf"),
+    const font = (
+      await readdir(new URL("../public/fonts", import.meta.url))
+    ).find((name) => name.endsWith(".ttf"));
+    const fontResponse = await worker.fetch(
+      new Request(`https://ohmyho.st/fonts/${font}`),
+      {
+        ASSETS: assets,
+      },
     );
-    const fontResponse = await worker.fetch(new Request(`https://ohmyho.st/fonts/${font}`), {
-      ASSETS: assets,
-    });
     expect(fontResponse.headers.get("content-type")).toBe("font/ttf");
-    expect(Array.from(new Uint8Array(await fontResponse.arrayBuffer()).slice(0, 4))).toEqual([
-      0, 1, 0, 0,
-    ]);
+    expect(
+      Array.from(new Uint8Array(await fontResponse.arrayBuffer()).slice(0, 4)),
+    ).toEqual([0, 1, 0, 0]);
     expect(html).toContain('href="https://docs.ohmyho.st/"');
     const docs = await worker.fetch(new Request("https://ohmyho.st/docs"));
     expect(docs.status).toBe(308);
     expect(docs.headers.get("location")).toBe("https://docs.ohmyho.st/");
     const llms = await worker.fetch(new Request("https://ohmyho.st/llms.txt"));
     expect(llms.status).toBe(200);
-    expect(await llms.text()).toContain("/skills/ohmyhost-build-portable-app/SKILL.md");
+    expect(await llms.text()).toContain(
+      "/skills/ohmyhost-build-portable-app/SKILL.md",
+    );
     const skill = await worker.fetch(
-      new Request("https://ohmyho.st/skills/ohmyhost-build-portable-app/SKILL.md"),
+      new Request(
+        "https://ohmyho.st/skills/ohmyhost-build-portable-app/SKILL.md",
+      ),
     );
     expect(skill.status).toBe(200);
     expect(await skill.text()).toContain("feedback");
-    const terms = await (await worker.fetch(new Request("https://ohmyho.st/terms"))).text();
+    const terms = await (
+      await worker.fetch(new Request("https://ohmyho.st/terms"))
+    ).text();
     expect(terms).toContain(
       "A project chooses its hosting region when it is created: US by default, or EU.",
     );
     expect(terms).not.toContain("placements are in US East");
-    expect(await (await worker.fetch(new Request("https://ohmyho.st/pricing"))).text()).toContain(
-      "Prices are identical in the US and EU hosting regions.",
-    );
+    expect(
+      await (
+        await worker.fetch(new Request("https://ohmyho.st/pricing"))
+      ).text(),
+    ).toContain("Prices are identical in the US and EU hosting regions.");
     const breakdown = await (
       await worker.fetch(new Request("https://ohmyho.st/pricing/breakdown.md"))
     ).text();
-    expect(breakdown).toContain("| `build.sandbox.standard-3` | 60 build seconds | 1.204938 |");
+    expect(breakdown).toContain(
+      "| `build.sandbox.standard-3` | 60 build seconds | 1.204938 |",
+    );
     expect(breakdown).toContain("24.098743 credits");
     expect(breakdown).not.toContain("1.642857");
-    const privacy = await (await worker.fetch(new Request("https://ohmyho.st/privacy"))).text();
+    const privacy = await (
+      await worker.fetch(new Request("https://ohmyho.st/privacy"))
+    ).text();
     expect(privacy).toContain("US East or the EU");
-    expect(privacy).not.toContain("New customer application/database placements are in US East.");
+    expect(privacy).not.toContain(
+      "New customer application/database placements are in US East.",
+    );
     expect(html).not.toContain("private-ticket");
-    expect(home.headers.get("content-security-policy")).toContain("default-src 'none'");
+    expect(home.headers.get("content-security-policy")).toContain(
+      "default-src 'none'",
+    );
     expect(
-      await (await worker.fetch(new Request("https://ohmyho.st/", { method: "HEAD" }))).text(),
+      await (
+        await worker.fetch(
+          new Request("https://ohmyho.st/", { method: "HEAD" }),
+        )
+      ).text(),
     ).toBe("");
     expect(
-      (await worker.fetch(new Request("https://ohmyho.st/favicon.svg"))).headers.get(
-        "content-type",
-      ),
+      (
+        await worker.fetch(new Request("https://ohmyho.st/favicon.svg"))
+      ).headers.get("content-type"),
     ).toContain("image/svg+xml");
-    expect((await worker.fetch(new Request("https://ohmyho.st/missing"))).status).toBe(404);
+    expect(
+      (await worker.fetch(new Request("https://ohmyho.st/missing"))).status,
+    ).toBe(404);
   });
 
   it("moves legacy documentation directly to its canonical HTML or Markdown page", async () => {
@@ -320,33 +432,51 @@ describe("public entry and unassigned Free-host fallback", () => {
     for (const [path, target] of Object.entries(routes))
       for (const method of ["GET", "HEAD"]) {
         const response = await worker.fetch(
-          new Request(`https://ohmyho.st${path}?token=private&next=https://foreign.example`, {
-            method,
-          }),
+          new Request(
+            `https://ohmyho.st${path}?token=private&next=https://foreign.example`,
+            {
+              method,
+            },
+          ),
         );
         expect(response.status).toBe(308);
-        expect(response.headers.get("location")).toBe(`https://docs.ohmyho.st${target}`);
+        expect(response.headers.get("location")).toBe(
+          `https://docs.ohmyho.st${target}`,
+        );
         expect(response.headers.get("vary")).toBe("Accept");
         expect(await response.text()).toBe("");
       }
     for (const path of ["/docs", "/docs/cli", "/api"]) {
       const response = await worker.fetch(
-        new Request(`https://ohmyho.st${path}`, { headers: { accept: "text/markdown" } }),
+        new Request(`https://ohmyho.st${path}`, {
+          headers: { accept: "text/markdown" },
+        }),
       );
       expect(response.headers.get("location")).toBe(
         `https://docs.ohmyho.st${path === "/docs" ? "/index" : path.replace("/docs", "")}.md`,
       );
       expect(
-        (await worker.fetch(new Request(`https://ohmyho.st${path}`, { method: "POST" }))).status,
+        (
+          await worker.fetch(
+            new Request(`https://ohmyho.st${path}`, { method: "POST" }),
+          )
+        ).status,
       ).toBe(405);
     }
-    const config = await worker.fetch(new Request("https://ohmyho.st/mcp.json"));
+    const config = await worker.fetch(
+      new Request("https://ohmyho.st/mcp.json"),
+    );
     expect(await config.json()).toEqual({
       mcpServers: {
-        ohmyho: { command: "ohmyhost-mcp", env: { OHMYHOST_ENVIRONMENT: "production" } },
+        ohmyho: {
+          command: "ohmyhost-mcp",
+          env: { OHMYHOST_ENVIRONMENT: "production" },
+        },
       },
     });
-    const release = await worker.fetch(new Request("https://ohmyho.st/client-release.json"));
+    const release = await worker.fetch(
+      new Request("https://ohmyho.st/client-release.json"),
+    );
     expect(await release.json()).toEqual({
       version: CLIENT_RELEASE,
       manifest_url: `https://ohmyho.st/releases/${CLIENT_RELEASE}/manifest.json`,
@@ -356,26 +486,37 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(text).toContain("https://docs.ohmyho.st/quickstart.md");
     expect(text).not.toContain("https://ohmyho.st/docs/");
     expect(text).toContain("https://ohmyho.st/mcp.json");
-    const sitemap = await worker.fetch(new Request("https://ohmyho.st/sitemap.xml"));
+    const sitemap = await worker.fetch(
+      new Request("https://ohmyho.st/sitemap.xml"),
+    );
     expect(await sitemap.text()).not.toContain("https://ohmyho.st/docs");
     const unsafe = await worker.fetch(
       new Request("https://ohmyho.st/docs//foreign.example/path.md"),
     );
-    expect(new URL(unsafe.headers.get("location") ?? "").origin).toBe("https://docs.ohmyho.st");
+    expect(new URL(unsafe.headers.get("location") ?? "").origin).toBe(
+      "https://docs.ohmyho.st",
+    );
   });
 
   it("redirects bare and unassigned Free hosts to the fixed home without ticket or query", async () => {
     for (const method of ["GET", "HEAD"]) {
       const response = await worker.fetch(
-        new Request("https://www.ohmyho.st/pricing?r=hostmebaby&token=private", { method }),
+        new Request(
+          "https://www.ohmyho.st/pricing?r=hostmebaby&token=private",
+          { method },
+        ),
       );
       expect(response.status).toBe(308);
-      expect(response.headers.get("location")).toBe("https://ohmyho.st/pricing?r=hostmebaby");
+      expect(response.headers.get("location")).toBe(
+        "https://ohmyho.st/pricing?r=hostmebaby",
+      );
       expect(await response.text()).toBe("");
       expect(
-        (await worker.fetch(new Request("http://www.ohmyho.st/docs/mcp?r=one&r=two"))).headers.get(
-          "location",
-        ),
+        (
+          await worker.fetch(
+            new Request("http://www.ohmyho.st/docs/mcp?r=one&r=two"),
+          )
+        ).headers.get("location"),
       ).toBe("https://ohmyho.st/docs/mcp");
     }
     for (const host of [
@@ -417,9 +558,17 @@ describe("public entry and unassigned Free-host fallback", () => {
   });
 
   it("does not redirect writes, protected API hosts or foreign domains", async () => {
-    for (const host of ["ohmyho.st", "omh.st", "check.omh.st", "missing.check.omh.st"]) {
+    for (const host of [
+      "ohmyho.st",
+      "omh.st",
+      "check.omh.st",
+      "missing.check.omh.st",
+    ]) {
       const response = await worker.fetch(
-        new Request(`https://${host}/`, { method: "POST", body: "private-payload" }),
+        new Request(`https://${host}/`, {
+          method: "POST",
+          body: "private-payload",
+        }),
       );
       expect(response.status).toBe(405);
       expect(response.headers.has("location")).toBe(false);
@@ -459,18 +608,25 @@ it("serves only pinned public client assets and strips credentials before the as
   expect(fixture.requests[0]?.headers.has("authorization")).toBe(false);
   expect(fixture.requests[0]?.headers.has("cookie")).toBe(false);
   expect((await worker.fetch(new Request(url))).status).toBe(503);
-  const unknown = await worker.fetch(new Request("https://ohmyho.st/releases/0.1.1/.env.local"), {
-    ASSETS: fixture,
-  });
+  const unknown = await worker.fetch(
+    new Request("https://ohmyho.st/releases/0.1.1/.env.local"),
+    {
+      ASSETS: fixture,
+    },
+  );
   expect(unknown.status).toBe(404);
   expect(fixture.requests).toHaveLength(1);
   expect(
     (
-      await worker.fetch(new Request("https://ohmyho.st/.well-known/skills/index.json"))
+      await worker.fetch(
+        new Request("https://ohmyho.st/.well-known/skills/index.json"),
+      )
     ).headers.get("content-type"),
   ).toContain("application/json");
   const index = await (
-    await worker.fetch(new Request("https://ohmyho.st/.well-known/skills/index.json"))
+    await worker.fetch(
+      new Request("https://ohmyho.st/.well-known/skills/index.json"),
+    )
   ).json();
   expect(index.skills).toHaveLength(9);
   for (const entry of index.skills) {
@@ -480,7 +636,9 @@ it("serves only pinned public client assets and strips credentials before the as
   }
   // Only the current release is downloadable; superseded versions never reach assets.
   const currentUrl = `https://ohmyho.st/releases/${CLIENT_RELEASE}/ohmyhost-product-cli-${CLIENT_RELEASE}.tgz`;
-  expect((await worker.fetch(new Request(currentUrl), { ASSETS: fixture })).status).toBe(200);
+  expect(
+    (await worker.fetch(new Request(currentUrl), { ASSETS: fixture })).status,
+  ).toBe(200);
   expect(fixture.requests).toHaveLength(2);
   for (const retired of ["0.1.9", "0.1.8", "0.1.7", "0.1.6", "0.1.5"])
     expect(
@@ -501,7 +659,9 @@ it("serves only pinned public client assets and strips credentials before the as
     "https://ohmyho.st/releases/0.1.9/manifest.json",
     `https://ohmyho.st/releases/${CLIENT_RELEASE}/.env.local`,
   ])
-    expect((await worker.fetch(new Request(invalid), { ASSETS: fixture })).status).toBe(404);
+    expect(
+      (await worker.fetch(new Request(invalid), { ASSETS: fixture })).status,
+    ).toBe(404);
   expect(fixture.requests).toHaveLength(2);
 });
 
@@ -509,7 +669,9 @@ class PublicAssetFixture {
   readonly requests: Request[] = [];
   async fetch(request: Request) {
     this.requests.push(request);
-    return new Response("test-client-archive", { headers: { "content-type": "application/gzip" } });
+    return new Response("test-client-archive", {
+      headers: { "content-type": "application/gzip" },
+    });
   }
 }
 

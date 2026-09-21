@@ -18,12 +18,16 @@ export function ogSlug(path: string): string {
 }
 
 function kicker(path: string): string {
-  if (path.startsWith("/vs/")) return "compare · list prices checked september 2026";
+  if (path.startsWith("/vs/"))
+    return "compare · list prices checked september 2026";
   if (path.startsWith("/for/")) return "deploy from your coding agent";
   if (path.startsWith("/from/")) return "bring your app · one prompt";
   if (path.startsWith("/blog")) return "from the build";
   if (path.startsWith("/pricing")) return "one balance · every project";
-  if (path.startsWith("/dpa") || ["/terms", "/privacy", "/cookies"].includes(path))
+  if (
+    path.startsWith("/dpa") ||
+    ["/terms", "/privacy", "/cookies"].includes(path)
+  )
     return "legal · amerged b.v.";
   return "hosting for vibe-coded apps";
 }
@@ -50,7 +54,8 @@ export function ogCards(): OgCard[] {
  * default keeps the markup stable for hashing, the renderer passes a file URL.
  */
 export function ogCardHtml(card: OgCard, fontsBase = "/fonts"): string {
-  const size = card.headline.length > 34 ? 66 : card.headline.length > 22 ? 84 : 104;
+  const size =
+    card.headline.length > 34 ? 66 : card.headline.length > 22 ? 84 : 104;
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><style>
 @font-face{font-family:'Space Grotesk';font-weight:500;src:url(${fontsBase}/3e699ead1876244f.ttf) format('truetype')}
 @font-face{font-family:'Space Grotesk';font-weight:700;src:url(${fontsBase}/3e756954468ff1cb.ttf) format('truetype')}

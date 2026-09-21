@@ -22,13 +22,17 @@ it("derives one social card per page and keeps the rendered PNGs in step with th
   );
   expect(ogSlug("/pricing/breakdown")).toBe("pricing-breakdown");
   const vercel = cards.find((card) => card.path === "/vs/vercel");
-  expect(vercel?.headline).toBe(pageMeta("/vs/vercel").title.split(/ — |: | \| /u)[0]);
+  expect(vercel?.headline).toBe(
+    pageMeta("/vs/vercel").title.split(/ — |: | \| /u)[0],
+  );
   expect(vercel?.kicker).toContain("compare");
   if (!vercel) throw new Error("/vs/vercel card missing");
   const html = ogCardHtml(vercel);
   expect(html).toContain("url(/fonts/3e756954468ff1cb.ttf)");
   expect(html).toContain('<div class="pill"><s>ohmyho.st</s>/vs/vercel</div>');
-  expect(ogCardHtml(vercel, "file:///x/fonts")).toContain("url(file:///x/fonts/");
+  expect(ogCardHtml(vercel, "file:///x/fonts")).toContain(
+    "url(file:///x/fonts/",
+  );
   const manifestFile = new URL("og/manifest.json", publicDir);
   const manifest = existsSync(manifestFile)
     ? (JSON.parse(await readFile(manifestFile, "utf8")) as Record<
@@ -39,7 +43,9 @@ it("derives one social card per page and keeps the rendered PNGs in step with th
   expect(Object.keys(manifest).sort()).toEqual([...OG_IMAGES].sort());
   for (const card of cards) {
     const rendered = manifest[card.slug];
-    const expected = createHash("sha256").update(ogCardHtml(card)).digest("hex");
+    const expected = createHash("sha256")
+      .update(ogCardHtml(card))
+      .digest("hex");
     if (rendered) {
       expect(
         rendered.templateSha256,
@@ -48,7 +54,9 @@ it("derives one social card per page and keeps the rendered PNGs in step with th
       const png = await readFile(new URL(`og/${card.slug}.png`, publicDir));
       expect(png.subarray(0, 8).toString("hex")).toBe("89504e470d0a1a0a");
       expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([1200, 630]);
-      expect(ogImagePath(card.path, pageMeta(card.path))).toBe(`/og/${card.slug}.png`);
+      expect(ogImagePath(card.path, pageMeta(card.path))).toBe(
+        `/og/${card.slug}.png`,
+      );
     } else
       expect(ogImagePath(card.path, pageMeta(card.path))).toBe(
         PAGE_META[card.path]?.ogImage ?? "/og.png",
@@ -65,22 +73,31 @@ it("derives one social card per page and keeps the rendered PNGs in step with th
       },
     };
     const first = OG_IMAGES[0] ?? "";
-    const response = await worker.fetch(new Request(`https://ohmyho.st/og/${first}.png`), {
-      ASSETS: assets,
-    });
+    const response = await worker.fetch(
+      new Request(`https://ohmyho.st/og/${first}.png`),
+      {
+        ASSETS: assets,
+      },
+    );
     expect(response.status).toBe(200);
     expect(response.headers.get("content-type")).toBe("image/png");
     expect(response.headers.get("cache-control")).toBe("public, max-age=86400");
     expect(
       (
-        await worker.fetch(new Request("https://ohmyho.st/og/../pages/home.html"), {
-          ASSETS: assets,
-        })
+        await worker.fetch(
+          new Request("https://ohmyho.st/og/../pages/home.html"),
+          {
+            ASSETS: assets,
+          },
+        )
       ).status,
     ).toBe(404);
     expect(
-      (await worker.fetch(new Request("https://ohmyho.st/og/missing.png"), { ASSETS: assets }))
-        .status,
+      (
+        await worker.fetch(new Request("https://ohmyho.st/og/missing.png"), {
+          ASSETS: assets,
+        })
+      ).status,
     ).toBe(404);
   }
 });
