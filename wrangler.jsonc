@@ -6,12 +6,9 @@
   "compatibility_date": "2026-09-05",
   "workers_dev": false,
   "preview_urls": false,
-  // The platform keeps ohmyho.st/releases/*, client-release.json, omh.st and the project
-  // addresses; Cloudflare resolves its path routes before this host route.
-  "routes": [
-    { "pattern": "ohmyho.st", "custom_domain": true },
-    { "pattern": "www.ohmyho.st", "custom_domain": true },
-  ],
+  // ohmyho.st keeps its DNS on the platform's front door, which hands every page request to this
+  // Worker over a service binding and answers the client downloads itself. Nothing here is
+  // reachable from the internet directly, so a website release never touches DNS.
   "services": [
     { "binding": "CONTROL_API", "service": "ohmyho-control-api-production" },
   ],
