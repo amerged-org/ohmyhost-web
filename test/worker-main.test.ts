@@ -24,22 +24,46 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(home.status).toBe(200);
     expect(home.headers.get("content-type")).toContain("text/html");
     const html = await home.text();
+    expect(html).toContain('</a></div>\n  </div>\n  <div class="fbot">');
+    expect(html).toContain("<span>© 2026 ohmyho.st — Made in Europe</span>");
     expect(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/u)?.[1]).toBe(
-      '<span class="thin">Host your app.</span><br>Supabase Vercel Resend alternative',
+      '<span class="thin">Host your app.</span><br>All-in-one hosting from $10/month.',
     );
     for (const [attribute, name] of [
       ["property", "og:title"],
-      ["property", "og:description"],
       ["name", "twitter:title"],
+    ])
+      expect(html).toContain(
+        `<meta ${attribute}="${name}" content="ohmyho.st — An alternative to Vercel, Supabase &amp; Resend">`,
+      );
+    for (const [attribute, name] of [
+      ["property", "og:description"],
       ["name", "twitter:description"],
     ])
       expect(html).toContain(
-        `<meta ${attribute}="${name}" content="Supabase Vercel Resend Alternative - all in one from 10$. Hoster for vibe-coded apps.">`,
+        `<meta ${attribute}="${name}" content="An alternative stack for app hosting, managed Postgres and transactional email. Deploy with your coding agent. One credit balance across projects.">`,
       );
-    // The document title, the search result and every shared link say the same approved line.
     expect(html).toContain(
-      "<title>Supabase Vercel Resend Alternative - all in one from 10$. Hoster for vibe-coded apps.</title>",
+      "<title>ohmyho.st — An alternative to Vercel, Supabase &amp; Resend</title>",
     );
+    expect(html).toContain(
+      "Independent comparison; no affiliation or endorsement.",
+    );
+    expect(html).not.toContain("An alternative. Know the differences.");
+    expect(html).toContain("200 credits, free. No card required.");
+    const pricingSection = html.slice(
+      html.indexOf('<section id="price">'),
+      html.indexOf('<section id="from">'),
+    );
+    expect(pricingSection.match(/class="note"/gu)).toHaveLength(1);
+    expect(pricingSection).toContain(
+      "Monthly credits reset. Usage is metered.",
+    );
+    expect(html).not.toContain("skip Vercel");
+    expect(html).toContain("about 30 seconds");
+    expect(html).not.toContain("about two minutes");
+    expect(html).not.toContain("No dashboard");
+    expect(html).not.toContain("no CLI to install");
     // The shared card carries that copy as text instead of the bare brand mark.
     expect(html).toContain(
       '<meta property="og:image" content="https://ohmyho.st/og/home.png">',

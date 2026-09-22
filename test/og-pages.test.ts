@@ -22,11 +22,13 @@ it("derives one social card per page and keeps the rendered PNGs in step with th
   const home = cards.find((card) => card.path === "/");
   if (!home) throw new Error("homepage card missing");
   expect(home.slug).toBe("home");
-  expect(ogCardHtml(home)).toContain("Supabase Vercel Resend alternative");
+  expect(ogCardHtml(home)).toContain(
+    "Move from Vercel, Supabase and Resend to one balance",
+  );
   expect(ogSlug("/pricing/breakdown")).toBe("pricing-breakdown");
   const vercel = cards.find((card) => card.path === "/vs/vercel");
   expect(vercel?.headline).toBe(
-    pageMeta("/vs/vercel").title.split(/ — |: | \| /u)[0],
+    pageMeta("/vs/vercel").socialTitle?.replace(/^ohmyho\.st — /u, ""),
   );
   expect(vercel?.kicker).toContain("compare");
   if (!vercel) throw new Error("/vs/vercel card missing");

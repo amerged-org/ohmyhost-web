@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "DPA",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/dpa.png",
+    "alt": "ohmyho.st. Data processing agreement. Responsibilities when processing customer data.",
+    "title": "ohmyho.st — Data processing agreement",
+    "description": "Responsibilities when processing customer data."
   },
-  "modified": "2026-09-19"
+  "modified": "2026-09-21"
 }

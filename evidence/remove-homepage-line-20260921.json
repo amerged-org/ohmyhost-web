@@ -1,0 +1,23 @@
+{
+  "observedAt": "2026-09-21T20:53:37.363Z",
+  "release": {
+    "source": "2c580e0b7da8f35e25f7bee77148b91160ef0673",
+    "ci": 35653682395,
+    "ciConclusion": "success",
+    "worker": "ohmyho-web-production",
+    "versionId": "2f1b23e9-b181-404f-b795-0eb0a64222e2"
+  },
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "before": {
+    "buttonTop": 586.3125,
+    "hasLine": true
+  },
+  "after": {
+    "buttonTop": 532.3125,
+    "hasLine": false
+  },
+  "movedUpPixels": 54
+}

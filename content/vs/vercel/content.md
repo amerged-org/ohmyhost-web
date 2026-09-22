@@ -110,3 +110,5 @@ A zero balance starts a {{ number plan.graceDays }}-day grace period during whic
 {{ sources vercel supabase resend }}
 
 [Cost breakdown](/pricing/breakdown) · [From Vercel and Supabase](/from/vercel-supabase) · [vs Supabase](/vs/supabase) · [What Vercel, Supabase and Resend cost for five side projects](/blog/what-vercel-supabase-resend-cost-for-five-side-projects)
+
+ohmyho.st is an independent service, not affiliated with or endorsed by Vercel, Supabase or Resend. All trademarks belong to their respective owners.

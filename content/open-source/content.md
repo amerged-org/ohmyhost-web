@@ -1,6 +1,6 @@
 # Open source at ohmyho.st
 
-Every client you run is open source. The command-line client, the MCP server, the TypeScript SDK, the application runtime and the Better Auth integration are published on npm under Apache-2.0, with their source and third-party notices inside the package. The documentation is MIT. The hosted platform that runs your projects is private, and this page says exactly which part is which.
+Every client you run is open source. The command-line client, the MCP server, the TypeScript SDK, the application runtime and the Better Auth integration are published on npm under Apache-2.0, with their source and third-party notices inside the package. The website and documentation are MIT. The hosted platform that runs your projects is private, and this page says exactly which part is which.
 
 ## Apache-2.0: the client packages
 
@@ -25,6 +25,10 @@ The runtime and auth packages matter most for portability: they are the code you
 
 [amerged-org/docs](https://github.com/amerged-org/docs) holds the source of [docs.ohmyho.st](https://docs.ohmyho.st/) under the MIT licence. Fix a typo, add a framework note or improve a guide with a pull request.
 
+## MIT: the website
+
+[amerged-org/ohmyhost-web](https://github.com/amerged-org/ohmyhost-web) holds the public website, page content and design assets under MIT. Website changes are reviewed and released independently of the private hosting platform. Contributions to page content or the website belong in this repository.
+
 ## Public: everything an agent reads
 
 - [llms.txt](https://ohmyho.st/llms.txt) — the index an agent reads first.
@@ -44,6 +48,6 @@ An agent cannot work against a product it has to guess at, so the interface is p
 
 ## How to contribute
 
-Open a pull request on the docs repository, or send a bug or feature request through your agent's `feedback_submit` tool. Both reach the same place. Roadmap votes live on the [homepage](/).
+Open a pull request on the [website repository](https://github.com/amerged-org/ohmyhost-web) for website changes or the [docs repository](https://github.com/amerged-org/docs) for documentation. Send product bugs and feature requests through your agent's `feedback_submit` tool. Roadmap votes live on the [homepage](/).
 
 [Documentation](https://docs.ohmyho.st/) · [Philosophy](/philosophy) · [About](/about) · [Contact](/contact)

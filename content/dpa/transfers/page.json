@@ -5,9 +5,11 @@
   "status": "published",
   "crumb": "Transfers",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/dpa-transfers.png",
+    "alt": "ohmyho.st. International data transfers. Transfer arrangements and applicable safeguards.",
+    "title": "ohmyho.st — International data transfers",
+    "description": "Transfer arrangements and applicable safeguards."
   },
   "parent": "/dpa",
-  "modified": "2026-09-19"
+  "modified": "2026-09-21"
 }

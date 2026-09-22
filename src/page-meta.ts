@@ -16,6 +16,9 @@ export interface PageMeta {
   readonly parent?: string;
   /** Absolute path of a 1200×630 PNG; the site image when absent. */
   readonly ogImage?: string;
+  readonly ogImageAlt?: string;
+  readonly socialTitle?: string;
+  readonly socialDescription?: string;
   /** Short breadcrumb label. */
   readonly crumb?: string;
 }
@@ -154,6 +157,9 @@ const STATIC_PAGES: Record<string, PageMeta> = {
     kind: "collection",
     modified: BLOG_POSTS[0]?.modified ?? SITE_MODIFIED,
     crumb: "Blog",
+    socialTitle: "ohmyho.st — From the build",
+    socialDescription:
+      "Hosting alternatives, practical deployment guides and lessons from production.",
   },
 };
 
@@ -170,6 +176,9 @@ export const PAGE_META: Record<string, PageMeta> = {
         published: page.published,
         parent: page.parent,
         ogImage: page.ogImage,
+        ogImageAlt: page.ogImageAlt,
+        socialTitle: page.socialTitle,
+        socialDescription: page.socialDescription,
         crumb: page.crumb,
       } satisfies PageMeta,
     ]),

@@ -71,3 +71,30 @@ validators. Dynamic API, contact and login responses retain their existing polic
 The small-app workload includes its deployed script and mail sender zone. The five-project example
 adds four quiet workloads to that complete workload; its prose states when the monthly credits
 need a top-up. The homepage links to the generated breakdown instead of repeating a hardcoded total.
+
+## Approved alternative-positioning copy — 2026-09-21
+
+The homepage names app hosting and the entry price in its H1, keeps competitor names in a scoped
+alternative comparison, and states credit and tax terms by pricing. The original design template
+stays immutable; approved copy is applied in `scripts/prepare-pages.mjs`. Social titles and short
+card descriptions live in each page's `social` metadata independently of its longer SEO description;
+`src/og-pages.ts` uses those same values and gives ohmyho.st a prominent brand label. Both Open Graph
+and X include image descriptions. The owner approved transactional-email copy without a provider-
+approval notice; this editorial decision is not evidence of SES production readiness.
+
+The homepage social card uses the owner-selected migration motif, adding Resend to the Vercel and Supabase headline while retaining the shared ohmyho.st branding.
+
+The homepage omits the extra credit-balance paragraph beneath its lead to keep the primary Copy prompt action higher in the initial viewport (owner correction, 2026-09-21).
+
+The homepage preserves the original comparison heading/lead/cards hierarchy: attribution is a
+single short line below the cards, pricing has one concise metering/reset note linking to usage
+rates, and the closing CTA says “No card required.” (owner layout correction, 2026-09-21).
+SEO and social metadata are unchanged by this correction.
+
+The footer bottom row is a sibling of the link grid, spanning its full width with “© 2026 ohmyho.st — Made in Europe” at the left and the existing cookie-settings button at the right, without wrapping (2026-09-21).
+
+Every editorial fenced prompt or command has a keyboard-accessible copy icon which copies that block’s full text, with success/error feedback and the existing clipboard fallback. Text prompts wrap for narrow screens; Markdown content and metadata remain unchanged.
+
+The About page explains the product, intended builders, agent deployment, credits and portability; personal biography, founder photo, registration detail, the obsolete “Not yet” inventory and About-page Person markup are removed. Operator disclosures remain on legal pages, and the client/site/documentation licences are described accurately (2026-09-21).
+
+The September 2026 copy audit corrects portal/CLI descriptions, default database idle timing, retained-resource costs, shared/isolated data and funded-service grace wording; deployment examples describe only actual plan/execute pairs. The owner supplied the homepage’s approximately 30-second deployment wording. Brand templates retain their original geometry but receive current copy, valid CLI examples and dated, data-derived plan prices. The changelog and open-source inventory cover verified releases and the MIT website repository. Billing availability and handle-rollout claims are outside this editorial release.

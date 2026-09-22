@@ -1,0 +1,91 @@
+{
+  "observedAt": "2026-09-21T21:03:34.639904+00:00",
+  "release": {
+    "source": "acc48f24f2a9e529077af340aea4d06d5bf65a59",
+    "ci": 35654679552,
+    "ciConclusion": "success",
+    "worker": "ohmyho-web-production",
+    "versionId": "11773fdd-1311-4335-b19a-dc949aeef59f"
+  },
+  "head": {
+    "seoHeadUnchanged": true,
+    "headSha256": "9dc1f65daa69dc1ecd5b817aaaa8b0303592965b6c582985a533f53cc70290dd",
+    "excludedDynamicTag": "ohmyhost-region-hint"
+  },
+  "before": [
+    {
+      "name": "desktop",
+      "comparisonHeadings": [
+        "The Vercel, Supabase and Resend alternative.",
+        "An alternative. Know the differences.",
+        "Buy it separately",
+        "ohmyho.st"
+      ],
+      "comparisonBeforeCards": "The Vercel, Supabase and Resend alternative.\n\nVercel hosts, Supabase stores, Resend sends \u2014 three accounts, three base fees, and every extra project adds a Supabase compute charge. Here the same stack runs from one balance, and an extra project costs only the credits it uses.\n\nAn alternative. Know the differences.\n\nCompare ohmyho.st with Vercel for app hosting, Supabase for managed Postgres, and Resend for transactional email. Explore the differences in features, pricing and limits.\n\nohmyho.st is an independent service, not affiliated with or endorsed by Vercel, Supabase or Resend. All trademarks belong to their respective owners.\n\n",
+      "priceNotes": [
+        "Credits reset on your billing day. Idle database compute can suspend. Retained storage and deployed resources still use credits \u2014 top up any time.",
+        "$10/month includes 1,000 credits across your projects. Usage is metered; additional credits cost extra. Applicable taxes are added.",
+        "Monthly plan credits expire at the end of each billing period. Connect your own domain; domain registration is not included.",
+        "See all usage rates"
+      ],
+      "cta": "200 credits, free. No card, no dashboard.",
+      "overflow": false
+    },
+    {
+      "name": "mobile",
+      "comparisonHeadings": [
+        "The Vercel, Supabase and Resend alternative.",
+        "An alternative. Know the differences.",
+        "Buy it separately",
+        "ohmyho.st"
+      ],
+      "comparisonBeforeCards": "The Vercel, Supabase and Resend alternative.\n\nVercel hosts, Supabase stores, Resend sends \u2014 three accounts, three base fees, and every extra project adds a Supabase compute charge. Here the same stack runs from one balance, and an extra project costs only the credits it uses.\n\nAn alternative. Know the differences.\n\nCompare ohmyho.st with Vercel for app hosting, Supabase for managed Postgres, and Resend for transactional email. Explore the differences in features, pricing and limits.\n\nohmyho.st is an independent service, not affiliated with or endorsed by Vercel, Supabase or Resend. All trademarks belong to their respective owners.\n\n",
+      "priceNotes": [
+        "Credits reset on your billing day. Idle database compute can suspend. Retained storage and deployed resources still use credits \u2014 top up any time.",
+        "$10/month includes 1,000 credits across your projects. Usage is metered; additional credits cost extra. Applicable taxes are added.",
+        "Monthly plan credits expire at the end of each billing period. Connect your own domain; domain registration is not included.",
+        "See all usage rates"
+      ],
+      "cta": "200 credits, free. No card, no dashboard.",
+      "overflow": false
+    }
+  ],
+  "live": [
+    {
+      "name": "desktop",
+      "comparisonHeadings": [
+        "The Vercel, Supabase and Resend alternative.",
+        "Buy it separately",
+        "ohmyho.st"
+      ],
+      "comparisonBeforeCards": "The Vercel, Supabase and Resend alternative.\n\nVercel hosts, Supabase stores, Resend sends \u2014 three accounts, three base fees, and every extra project adds a Supabase compute charge. Here the same stack runs from one balance, and an extra project costs only the credits it uses.\n\n",
+      "priceNotes": [
+        "Monthly credits reset. Usage is metered. See all usage rates."
+      ],
+      "cta": "200 credits, free. No card required.",
+      "overflow": false
+    },
+    {
+      "name": "mobile",
+      "comparisonHeadings": [
+        "The Vercel, Supabase and Resend alternative.",
+        "Buy it separately",
+        "ohmyho.st"
+      ],
+      "comparisonBeforeCards": "The Vercel, Supabase and Resend alternative.\n\nVercel hosts, Supabase stores, Resend sends \u2014 three accounts, three base fees, and every extra project adds a Supabase compute charge. Here the same stack runs from one balance, and an extra project costs only the credits it uses.\n\n",
+      "priceNotes": [
+        "Monthly credits reset. Usage is metered. See all usage rates."
+      ],
+      "cta": "200 credits, free. No card required.",
+      "overflow": false
+    }
+  ],
+  "tests": {
+    "files": 10,
+    "passed": 37
+  },
+  "screenshots": [
+    "/tmp/layout-fixed-comparison.png",
+    "/tmp/layout-fixed-pricing.png"
+  ]
+}

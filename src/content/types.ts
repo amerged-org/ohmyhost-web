@@ -25,6 +25,8 @@ export interface ContentPage {
   readonly author?: string;
   /** Alternative text for the social card. */
   readonly ogImageAlt?: string;
+  readonly socialTitle?: string;
+  readonly socialDescription?: string;
   readonly markdown: string;
 }
 

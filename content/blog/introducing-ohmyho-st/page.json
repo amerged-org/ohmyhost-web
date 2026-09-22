@@ -5,11 +5,13 @@
   "status": "published",
   "crumb": "Introducing ohmyho.st",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/blog-introducing-ohmyho-st.png",
+    "alt": "ohmyho.st. Meet your hosting alternative. App hosting, managed Postgres and transactional email, operated through your coding agent.",
+    "title": "ohmyho.st — Meet your hosting alternative",
+    "description": "App hosting, managed Postgres and transactional email, operated through your coding agent."
   },
   "parent": "/blog",
   "author": "Sebastian Mertens",
   "published": "2026-09-13",
-  "modified": "2026-09-13"
+  "modified": "2026-09-21"
 }

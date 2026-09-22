@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "Cost breakdown",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/pricing-breakdown.png",
+    "alt": "ohmyho.st. Know what your credits buy. Usage units and credit rates for each service.",
+    "title": "ohmyho.st — Know what your credits buy",
+    "description": "Usage units and credit rates for each service."
   },
   "parent": "/pricing",
   "modified": "2026-09-21"

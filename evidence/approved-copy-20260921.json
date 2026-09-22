@@ -1,0 +1,183 @@
+{
+  "observedAt": "2026-09-21T20:42:58.709Z",
+  "release": {
+    "source": "b9083d2df363b481bcadd09da5339967ef2d507f",
+    "ci": 35652574599,
+    "ciConclusion": "success",
+    "worker": "ohmyho-web-production",
+    "versionId": "14f13551-0207-4299-ac6f-37e1484226fa"
+  },
+  "pages": [
+    {
+      "path": "/",
+      "status": 200,
+      "socialTitle": "ohmyho.st — An alternative to Vercel, Supabase & Resend"
+    },
+    {
+      "path": "/vs/vercel",
+      "status": 200,
+      "socialTitle": "ohmyho.st — An alternative to Vercel for app hosting"
+    },
+    {
+      "path": "/vs/supabase",
+      "status": 200,
+      "socialTitle": "ohmyho.st — An alternative to Supabase for managed Postgres"
+    },
+    {
+      "path": "/vs/resend",
+      "status": 200,
+      "socialTitle": "ohmyho.st — An alternative to Resend for transactional email"
+    },
+    {
+      "path": "/from/vercel-supabase",
+      "status": 200,
+      "socialTitle": "ohmyho.st — Explore an alternative to your Vercel + Supabase setup"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://ohmyho.st/og/terms.png",
+      "sha256": "debca332ad703eedaa914434f45c6ec3f56709c71d41e23a6db4802624d0efcc"
+    },
+    {
+      "url": "https://ohmyho.st/og/changelog.png",
+      "sha256": "85a5897719455a1c2bfdc12896bb0ac414fc2b6e20a98ef16888988e5a7d2c07"
+    },
+    {
+      "url": "https://ohmyho.st/og/pricing.png",
+      "sha256": "680764abea10326915ab6d9c96d02767e0c3325ee0ca8b32eaeb40766653e1ff"
+    },
+    {
+      "url": "https://ohmyho.st/og/status.png",
+      "sha256": "fd006e11a36af6f8af6c99c09cc407c6c2a6ce98da8c7234f3f3d0697a71a74d"
+    },
+    {
+      "url": "https://ohmyho.st/og/home.png",
+      "sha256": "6effdd53c140180fdeebea8926b3f69d59b8c4085289dc09f1ffb6da8477004c"
+    },
+    {
+      "url": "https://ohmyho.st/og/privacy.png",
+      "sha256": "944be38d7d41bcee26b82008d730d8e8712213714775a5a370d5e0497aa0117e"
+    },
+    {
+      "url": "https://ohmyho.st/og/from-vercel-supabase.png",
+      "sha256": "2a535c9a32005797758eb188403f0bdd7d07cf961bee7c4676a5f3742f15a433"
+    },
+    {
+      "url": "https://ohmyho.st/og/from-replit.png",
+      "sha256": "b106d2ce829003e8579ad81c27f0d5d8dea5e02ce43b9e198565cc721ea16600"
+    },
+    {
+      "url": "https://ohmyho.st/og/cookies.png",
+      "sha256": "226c070bd6c9cbcec1f4445cf2f0cb7e76ffd1dd025e4e7518537d55756821ca"
+    },
+    {
+      "url": "https://ohmyho.st/og/dpa.png",
+      "sha256": "08035d8886c4a55cd7edc6e71cc385b98842670b9e8b34804a903bf72abf6ad7"
+    },
+    {
+      "url": "https://ohmyho.st/og/dpa-transfers.png",
+      "sha256": "16e152a63b8382c911df7be697b6f2b630a4f4e2f9babbf5333b2b91366aab10"
+    },
+    {
+      "url": "https://ohmyho.st/og/dpa-toms.png",
+      "sha256": "142a71b1e02836a95f6bb4d93498fcf52705a61b5ae4b8e9bd1baa6e485fb00b"
+    },
+    {
+      "url": "https://ohmyho.st/og/blog.png",
+      "sha256": "d0f136ff1e7011dec80ad2406ecdb52ec19a1453dc6ebdd0497aa0f25eb5d9cb"
+    },
+    {
+      "url": "https://ohmyho.st/og/dpa-subprocessors.png",
+      "sha256": "4e6188f563a3390f16197f9b5ffb339c3c852da09002a02f54f7e75506c54f9e"
+    },
+    {
+      "url": "https://ohmyho.st/og/contact.png",
+      "sha256": "236df5aaf21773e72a73fefd80ca5133dfe85c7d8acad7030af0b9fa3e414508"
+    },
+    {
+      "url": "https://ohmyho.st/og/blog-host-a-lovable-app-after-export.png",
+      "sha256": "4e4b12d839fcb102649a2e9c128ba144731d0e15f1762b9e3babe45adcce393b"
+    },
+    {
+      "url": "https://ohmyho.st/og/about.png",
+      "sha256": "caabe2ff0b1c93e187944b95e30c51f0af02241171c97234c974b4713be261ca"
+    },
+    {
+      "url": "https://ohmyho.st/og/blog-railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026.png",
+      "sha256": "2e2e846ce82dcd447634c1e77f2a3909be60dc66a9b64c331ade4d8888e9f921"
+    },
+    {
+      "url": "https://ohmyho.st/og/blog-six-things-that-break-when-a-vibe-coded-app-meets-production.png",
+      "sha256": "6290b498e9674e9870ffd9a2595a3338d3cfee76b7bbc2d69c86010af0274b19"
+    },
+    {
+      "url": "https://ohmyho.st/og/blog-introducing-ohmyho-st.png",
+      "sha256": "f87fd45b1f5eae82c2a165434db0e44722c602f0f77b02f437b0022fabb25ecb"
+    },
+    {
+      "url": "https://ohmyho.st/og/blog-supabase-vs-vercel-do-you-need-both.png",
+      "sha256": "5a78ccc2d907cebb3e9d7859c273eb307141d386d4ea468c07c2762734135ec6"
+    },
+    {
+      "url": "https://ohmyho.st/og/blog-what-vercel-supabase-resend-cost-for-five-side-projects.png",
+      "sha256": "63afe3d41f5995d518a19bb5b1c0bd93d07eb34eb4926c8b104c6e40a4aa3b61"
+    },
+    {
+      "url": "https://ohmyho.st/og/for-claude-code.png",
+      "sha256": "e8a1d59aaf22ffa3f46a0c32a9906579005b548163032c060315ebea49676085"
+    },
+    {
+      "url": "https://ohmyho.st/og/for-codex.png",
+      "sha256": "311a638b3e55c8dea72eeb2e38ee5c713dc868327a9f3a446b75cc3e53add05e"
+    },
+    {
+      "url": "https://ohmyho.st/og/for-cursor.png",
+      "sha256": "86207d4f286261704c9f3878c31b6df6ffbc63b235aac17182f43aa48596e982"
+    },
+    {
+      "url": "https://ohmyho.st/og/from-lovable.png",
+      "sha256": "717ded8217d380d0fa6be20e5fc3c590e2e5db7811654c9e9a69cfe37c7eb849"
+    },
+    {
+      "url": "https://ohmyho.st/og/from-bolt.png",
+      "sha256": "6c6a512ead9006f66d3f97d4cdde92279defcfc96d3be8effa9f278dd11cfef4"
+    },
+    {
+      "url": "https://ohmyho.st/og/open-source.png",
+      "sha256": "0c455ab1b4b069586c2e68df0f2a39a0ac9059f75c40dde19951675d63a86804"
+    },
+    {
+      "url": "https://ohmyho.st/og/pricing-breakdown.png",
+      "sha256": "a011729009ec8dccfa2d2f81bcaf2d6149769d9be6e51ae3643638fa2c65e9f1"
+    },
+    {
+      "url": "https://ohmyho.st/og/philosophy.png",
+      "sha256": "92c17fe455ea69c3a052f31bd426f2f43c7d5ac20f1c024352aedc1a9f926786"
+    },
+    {
+      "url": "https://ohmyho.st/og/vs-railway.png",
+      "sha256": "08bdfca71cbafa925eb317d060235dcc1ceef50965ded79094c37b817ac05f8a"
+    },
+    {
+      "url": "https://ohmyho.st/og/vs-supabase.png",
+      "sha256": "46eaef22b11e5cd08b7bf061a693229d7edd9ada9a1d22b4476a2ca309642e67"
+    },
+    {
+      "url": "https://ohmyho.st/og/vs-resend.png",
+      "sha256": "82a035814ac5763ab565e21a9a8e99670d447f8ca3d486bc565877034d374340"
+    },
+    {
+      "url": "https://ohmyho.st/og/vs-vercel.png",
+      "sha256": "593b8f45fc9bedd3a34eb4afbc6252424915597972a07cd3f38282075a667fcd"
+    }
+  ],
+  "checks": {
+    "websiteTests": 37,
+    "websiteTestFiles": 10,
+    "cardLayouts": 34,
+    "clippedCards": 0,
+    "mobileOverflow": false,
+    "desktopOverflow": false
+  }
+}

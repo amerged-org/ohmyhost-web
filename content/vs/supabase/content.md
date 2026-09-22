@@ -2,7 +2,7 @@
 
 The moment that hurts on Supabase is the fourth project. Pro starts at {{ usd vendor.supabase.pro }} a month and covers the first project's instance, then every further project adds {{ usd vendor.supabase.microProject }} a month for its own Micro instance — whether or not a single person used it that month.
 
-Here there is no per-project fee. {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits that every project shares, a database costs about {{ credits unit.activeDatabaseHourStandard }} for each hour it is actually awake, stored data {{ rate neon.storage.root }}, and idle compute suspends after a minute. Ten sleeping projects cost about what one sleeping project costs.
+Here there is no per-project fee. {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits that every project shares, a database costs about {{ credits unit.activeDatabaseHourStandard }} for each hour it is actually awake, stored data {{ rate neon.storage.root }}, and idle compute suspends after a minute. Idle compute can suspend; each project still pays for the storage and deployed resources it retains.
 
 {{ figure bills.supabase }}
 
@@ -157,3 +157,5 @@ Yes, per project and once. Pass `region: eu` to project_create and the project's
 {{ sources supabase vercel resend }}
 
 [Compare Vercel](/vs/vercel) · [Move from Vercel and Supabase](/from/vercel-supabase) · [Where your credits go](/pricing/breakdown) · [Supabase vs Vercel: do you need both?](/blog/supabase-vs-vercel-do-you-need-both)
+
+ohmyho.st is an independent service, not affiliated with or endorsed by Vercel, Supabase or Resend. All trademarks belong to their respective owners.

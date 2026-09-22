@@ -24,7 +24,7 @@ A small app with its database and its mail on this side, for one month:
 
 {{ table workload.smallApp }}
 
-A custom domain adds {{ rate domain.custom_hostname }}, about {{ credits unit.customHostnameMonth }} a month, and needs Paid. Without one, every project is reachable at its own `<three-words>.check.omh.st` address at no extra cost. A zero balance starts a seven-day grace period in which everything keeps running, and a per-project monthly budget can stop new billable work instead of surprising you.
+A custom domain adds {{ rate domain.custom_hostname }}, about {{ credits unit.customHostnameMonth }} a month, and needs Paid. Without one, every project is reachable at its own `<three-words>.check.omh.st` address at no extra cost. A zero balance starts a seven-day grace period in which funded services keep running, and a per-project monthly budget can stop new billable work instead of surprising you.
 
 ## When to stay on Replit
 

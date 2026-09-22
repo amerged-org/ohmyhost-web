@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "Contact",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/contact.png",
+    "alt": "ohmyho.st. Let’s talk about your app. Questions about ohmyho.st, billing or privacy.",
+    "title": "ohmyho.st — Let’s talk about your app",
+    "description": "Questions about ohmyho.st, billing or privacy."
   },
-  "modified": "2026-09-19"
+  "modified": "2026-09-21"
 }

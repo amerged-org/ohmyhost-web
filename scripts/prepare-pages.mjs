@@ -18,6 +18,9 @@ import { externalLinkRel, footerColumnsHtml } from "../src/site-links.ts";
 
 const directory = fileURLToPath(new URL("../", import.meta.url));
 const output = `${directory}public/pages`;
+const plans = JSON.parse(
+  await readFile(`${directory}content/data/plans.json`, "utf8"),
+);
 const brandAssets = `${directory}brand/assets`;
 await mkdir(output, { recursive: true });
 await writeFile(
@@ -62,7 +65,7 @@ const privacyUi =
 const approvedHome = await readFile(`${directory}site/home.html`, "utf8");
 const sharedCss = approvedHome.match(/<style>([\s\S]*?)<\/style>/u)?.[1];
 const navigationCss =
-  '@media(max-width:760px){nav{gap:10px}nav .r{gap:8px}nav .btn.nochev{min-width:0;padding:9px 10px;font-size:13px}}@media(max-width:360px){nav a[href="https://docs.ohmyho.st/"]{display:none}}';
+  '@media(max-width:760px){nav{gap:10px}nav .r{gap:8px}nav .btn.nochev{min-width:0;padding:9px 10px;font-size:13px}}@media(max-width:360px){nav a[href="https://docs.ohmyho.st/"]{display:none}}footer .fbot{align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:12px}footer .fbot>span{white-space:nowrap}';
 if (!sharedCss) throw new Error("The approved design stylesheet is missing");
 await writeFile(
   `${directory}src/generated-site-frame.ts`,
@@ -145,10 +148,42 @@ for (const [name, digest] of Object.entries(templates)) {
     );
   }
   if (name === "brand") {
+    const vendors = JSON.parse(
+      await readFile(`${directory}content/data/vendors.json`, "utf8"),
+    );
+    const replacements = JSON.parse(
+      await readFile(`${directory}content/data/brand-copy.json`, "utf8"),
+    );
+    const values = {
+      stackPrice:
+        "$" +
+        ["vercel", "supabase", "resend"].reduce(
+          (total, vendor) => total + vendors[vendor].facts.pro.usd,
+          0,
+        ),
+      paidPrice: "$" + plans.paidUsd,
+      paidCredits: new Intl.NumberFormat("en-US").format(plans.paidCredits),
+      checkedOn: vendors.vercel.checkedOn,
+      vercelPrice: "$" + vendors.vercel.facts.pro.usd,
+      supabasePrice: "$" + vendors.supabase.facts.pro.usd,
+      resendPrice: "$" + vendors.resend.facts.pro.usd,
+    };
+    for (const [before, replacement] of Object.entries(replacements)) {
+      if (!html.includes(before))
+        throw new Error(`Brand copy boundary missing: ${before}`);
+      const after = replacement.replace(/\{\{(\w+)\}\}/gu, (_, key) => {
+        if (!(key in values))
+          throw new Error(`Unknown brand copy value: ${key}`);
+        return values[key];
+      });
+      html = html.replaceAll(before, after);
+    }
+
     html = html.replace(
       /<!-- ---------------- LOGO ---------------- -->[\s\S]*?(?=<!-- ---------------- COLOR ---------------- -->)/u,
       await readFile(`${directory}site/brand-logo-section.html`, "utf8"),
     );
+    html = html.replace(/\$10(?!\d)/gu, values.paidPrice);
     const mark = (await readFile(`${brandAssets}/omega-light.svg`, "utf8"))
       .replace("<svg ", '<svg width="24" height="24" aria-hidden="true" ')
       .replace('stroke="#F0F1F2"', 'stroke="currentColor"');
@@ -233,14 +268,19 @@ await writeFile(
 
 /** P30: approved changes are applied without rewriting the supplied v97 source. */
 function applyApprovedHomepageChanges(html) {
-  // One approved line for the document title and every social tag, so a shared link, a search
-  // result and the browser tab say the same thing.
-  const socialPreview =
-    "Supabase Vercel Resend Alternative - all in one from 10$. Hoster for vibe-coded apps.";
-  html = html.replace(
-    /(<meta (?:property="og:(?:title|description)"|name="twitter:(?:title|description)") content=")[^"]*(">)/gu,
-    `$1${socialPreview}$2`,
-  );
+  const socialTitle =
+    "ohmyho.st — An alternative to Vercel, Supabase &amp; Resend";
+  const socialDescription =
+    "An alternative stack for app hosting, managed Postgres and transactional email. Deploy with your coding agent. One credit balance across projects.";
+  html = html
+    .replace(
+      /(<meta (?:property="og:title"|name="twitter:title") content=")[^"]*(">)/gu,
+      `$1${socialTitle}$2`,
+    )
+    .replace(
+      /(<meta (?:property="og:description"|name="twitter:description") content=")[^"]*(">)/gu,
+      `$1${socialDescription}$2`,
+    );
   // The card carries the copy as text; the brand image alone showed only the mark.
   html = html
     .replace(
@@ -249,22 +289,34 @@ function applyApprovedHomepageChanges(html) {
     )
     .replace(
       '<meta property="og:image:width" content="1200">',
-      '<meta property="og:image:alt" content="ohmyho.st — Supabase, Vercel and Resend alternative, all in one from $10 a month."><meta property="og:image:width" content="1200">',
+      '<meta property="og:image:alt" content="ohmyho.st: Move from Vercel, Supabase and Resend to one balance. App hosting, managed Postgres and transactional email."><meta name="twitter:image:alt" content="ohmyho.st: Move from Vercel, Supabase and Resend to one balance. App hosting, managed Postgres and transactional email."><meta property="og:image:width" content="1200">',
     );
   const exportAnswer =
     "Request a portable SQL dump in a password-encrypted ZIP through your agent, CLI or API. Exports run asynchronously, with one accepted request per project every 24 hours and a signed download link valid for 24 hours. Keep your password and restore on another Postgres host, or let your automation tool copy the encrypted file to your own storage.";
   const euAnswer =
     "Yes. Choose EU when you create the project; the default is US. An EU project keeps its Postgres database, its files and its builds in the EU, and the application runs next to its database. The region cannot be changed later, and prices are identical in both regions. Transactional mail is sent from the platform's mail region in either case.";
   for (const [before, after] of Object.entries({
+    "No dashboard, no CLI to install.": "Your agent handles the setup.",
+    "No dashboard, no keys pasted between tabs.":
+      "Deploy through your agent; check projects and usage in the portal.",
+    "about two minutes, no Dockerfile, no CLI to install, no dashboard.":
+      "about 30 seconds. Your agent handles setup and deployment; the portal shows projects, credits and budgets.",
+    "No. Ask your agent. The MCP server returns your usage, projects and data on request — the same interface the agent used to deploy.":
+      "Yes. The portal shows projects, credits, budgets and API tokens. Your agent handles deployments and can read usage through MCP.",
+
+    "<span>© 2026 ohmyho.st</span>\n    <span>Made in the EU</span>":
+      "<span>© 2026 ohmyho.st — Made in Europe</span>",
+
+    "Built it with <b>Claude Code, Cursor, Codex or Lovable</b>? Paste one prompt. Your agent deploys it — skip Vercel, Resend and Supabase.":
+      "An alternative to the Vercel, Supabase and Resend stack for app hosting, managed Postgres and transactional email.",
+
     "header{text-align:center;padding:80px 0 0}":
       "header{text-align:center;padding:48px 0 0}",
     "h1{font-size:clamp(44px,9vw,80px)": "h1{font-size:clamp(36px,7.2vw,64px)",
     ".art{margin:40px auto 0;max-width:900px;width:100%}":
       ".art{margin:40px auto 0;max-width:855px;width:95%}",
-    '<span class="thin">Ten dollars.</span><br>Host your vibe-coded apps.':
-      '<span class="thin">Host your app.</span><br>Supabase Vercel Resend alternative',
-    "<title>Hosting for vibe-coded apps — $10/mo for all your projects, not per project | ohmyho.st</title>":
-      '<title>Supabase Vercel Resend Alternative - all in one from 10$. Hoster for vibe-coded apps.</title><meta name="description" content="Hosting, Postgres, transactional mail and domains for vibe-coded apps on one prepaid balance from $10 a month, deployed and operated by your coding agent through MCP.">',
+    '<span class="thin">Ten dollars.</span><br>Host your vibe-coded apps.': `<span class="thin">Host your app.</span><br>All-in-one hosting from $${plans.paidUsd}/month.`,
+    "<title>Hosting for vibe-coded apps — $10/mo for all your projects, not per project | ohmyho.st</title>": `<title>${socialTitle}</title><meta name="description" content="${socialDescription}">`,
     '"logo": "https://ohmyho.st/logo.png",':
       '"logo": "https://ohmyho.st/logo.png", "legalName": "Amerged B.V.", "identifier": {"@type":"PropertyValue","propertyID":"KVK","value":"42154221"}, "contactPoint": {"@type":"ContactPoint","contactType":"Customer support","url":"https://ohmyho.st/contact"},',
     "Hosting, Postgres, email, domain, AI models and backups behind one command. Built for AI coding agents via MCP.":
@@ -301,8 +353,9 @@ function applyApprovedHomepageChanges(html) {
     "Dev and prod, both included": "Dev and prod for every project",
     "Dev and prod environments are included for each project, not billed as two. Quiet projects use close to zero credits.":
       "Every project has Dev and Prod. Isolated data uses two independently metered databases; retained resources use credits even when traffic is quiet.",
-    "Quiet projects burn almost nothing. Busy ones take credits as they go — top up any time.":
-      "Idle database compute can suspend. Retained storage and deployed resources still use credits — top up any time.",
+    '<p class="note">Credits reset on your billing day. Quiet projects burn almost nothing. Busy ones take credits as they go — top up any time.</p>':
+      '<p class="note" style="color:var(--muted-foreground)">Monthly credits reset. Usage is metered. <a href="https://docs.ohmyho.st/pricing">See all usage rates</a>.</p>',
+    "No card, no dashboard.": "No card required.",
     "<span><h3>a quiet month</h3><u>≈ 0 credits</u></span>":
       "<span><h3>1 database GB-month</h3><u>115 credits</u></span>",
     "Off. If you run out, the site stays up and read-only.":
@@ -357,16 +410,14 @@ function applyApprovedHomepageChanges(html) {
   }
   // Keep the export section and footer link; the top navigation stays compact.
   html = html.replace('        <a href="#export">Export</a>\n', "");
-  const priceEnd = html.indexOf(
+  const comparisonEnd = html.indexOf(
     "</section>",
-    html.indexOf('<section id="price">'),
+    html.indexOf('<div class="vs stag">'),
   );
-  if (priceEnd < 0)
-    throw new Error("Pricing section missing for usage-rate link");
   html =
-    html.slice(0, priceEnd) +
-    '<p class="note"><a href="https://docs.ohmyho.st/pricing">See all usage rates</a></p>\n' +
-    html.slice(priceEnd);
+    html.slice(0, comparisonEnd) +
+    '<p class="note" style="color:var(--muted-foreground)">Independent comparison; no affiliation or endorsement. <a href="/vs/vercel">Details</a>.</p>\n' +
+    html.slice(comparisonEnd);
   html = html.replace(
     / {2}\/\* proof: a real number or nothing \*\/[\s\S]*?\n {2}\}\)\.catch\(function\(\)\{\}\);/u,
     "",
@@ -484,8 +535,7 @@ function hardenHomepageMarkup(html) {
       'The worked example includes hosting, database usage and transactional mail, including the deployed script and sender zone. See the <a href="/pricing/breakdown">full cost breakdown</a>.',
     "When usage reaches it, ohmyho.st stops the project before it costs more; the site stays up and read-only.":
       "When usage reaches it, ohmyho.st stops new spending on the project before it costs more.",
-    "There is no web console to learn.":
-      "The portal shows your projects, credits, budgets and API tokens; there is no deploy console to learn.",
+    "There is no web console to learn.": "",
     '<a href="/docs/quickstart">Read the getting-started guide for your agent →</a>':
       '<a href="https://docs.ohmyho.st/quickstart">Read the getting-started guide for your agent →</a>',
     ".fcol h4{": ".fcol h4,.fcol .fh{",
@@ -502,7 +552,7 @@ function hardenHomepageMarkup(html) {
     throw new Error("Footer columns missing");
   html =
     html.slice(0, columnsStart) +
-    `    ${footerColumnsHtml()}\n` +
+    `    ${footerColumnsHtml()}\n  </div>\n` +
     html.slice(columnsEnd);
   html = externalLinkRel(
     html.replaceAll(

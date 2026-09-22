@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "Claude Code",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/for-claude-code.png",
+    "alt": "ohmyho.st. Your Claude Code hosting workflow. Connect Claude Code to ohmyho.st and deploy a supported GitHub app.",
+    "title": "ohmyho.st — Your Claude Code hosting workflow",
+    "description": "Connect Claude Code to ohmyho.st and deploy a supported GitHub app."
   },
   "modified": "2026-09-21"
 }

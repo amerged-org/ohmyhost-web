@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "From Bolt",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/from-bolt.png",
+    "alt": "ohmyho.st. An alternative home for your Bolt app. Bring your exported app and prepare it for deployment.",
+    "title": "ohmyho.st — An alternative home for your Bolt app",
+    "description": "Bring your exported app and prepare it for deployment."
   },
-  "modified": "2026-09-20"
+  "modified": "2026-09-21"
 }

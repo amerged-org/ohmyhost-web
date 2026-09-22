@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "vs Resend",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/vs-resend.png",
+    "alt": "ohmyho.st. An alternative to Resend for transactional email. Compare sending workflows, usage pricing and limits.",
+    "title": "ohmyho.st — An alternative to Resend for transactional email",
+    "description": "Compare sending workflows, usage pricing and limits."
   },
   "modified": "2026-09-21"
 }

@@ -159,3 +159,5 @@ Not for deploys. Your coding agent deploys through {{ tools }} MCP tools, and th
 {{ sources railway resend }}
 
 [Compare Vercel](/vs/vercel) · [Cost breakdown](/pricing/breakdown) · [Deploy from Codex](/for/codex) · [Railway vs Render vs Fly vs ohmyho.st for solo developers](/blog/railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026)
+
+ohmyho.st is an independent service, not affiliated with or endorsed by Vercel, Supabase or Resend. All trademarks belong to their respective owners.

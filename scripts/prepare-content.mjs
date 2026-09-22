@@ -240,6 +240,10 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = ${JSON.stringify(
         ...(author ? { author } : {}),
         ...(published ? { published } : {}),
         modified,
+        ...(social?.title ? { socialTitle: social.title } : {}),
+        ...(social?.description
+          ? { socialDescription: social.description }
+          : {}),
         ...(social?.image
           ? { ogImage: social.image, ogImageAlt: social.alt ?? undefined }
           : {}),

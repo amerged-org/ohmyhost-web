@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "Terms",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/terms.png",
+    "alt": "ohmyho.st. Terms of service. The conditions for using ohmyho.st.",
+    "title": "ohmyho.st — Terms of service",
+    "description": "The conditions for using ohmyho.st."
   },
-  "modified": "2026-09-19"
+  "modified": "2026-09-21"
 }

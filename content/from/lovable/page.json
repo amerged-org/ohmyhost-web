@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "From Lovable",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/from-lovable.png",
+    "alt": "ohmyho.st. An alternative home for your Lovable app. Export to GitHub and deploy supported apps with your coding agent.",
+    "title": "ohmyho.st — An alternative home for your Lovable app",
+    "description": "Export to GitHub and deploy supported apps with your coding agent."
   },
   "modified": "2026-09-21"
 }

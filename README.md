@@ -29,11 +29,6 @@ pnpm build      # resolves content tokens and bundles the Worker
 pnpm test       # rendering, structured data and the content truth gate
 ```
 
-Prose lives in `content/**/content.md` and never repeats metadata. Numbers are never typed: a page
-writes `{{ usd vendor.vercel.pro }}` or `{{ credits unit.activeDatabaseHour }}`, and the build
-resolves it from the published rate card and the dated competitor data. An unknown token fails the
-build.
-
 ## License
 
 MIT — see [LICENSE](LICENSE).

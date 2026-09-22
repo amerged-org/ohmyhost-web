@@ -5,9 +5,11 @@
   "status": "published",
   "crumb": "Sub-processors",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/dpa-subprocessors.png",
+    "alt": "ohmyho.st. The providers behind ohmyho.st. Provider roles and processing locations.",
+    "title": "ohmyho.st — The providers behind ohmyho.st",
+    "description": "Provider roles and processing locations."
   },
   "parent": "/dpa",
-  "modified": "2026-09-19"
+  "modified": "2026-09-21"
 }

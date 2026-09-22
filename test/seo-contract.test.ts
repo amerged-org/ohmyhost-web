@@ -58,6 +58,9 @@ it("publishes the SEO contract for every rendered page", async () => {
     const document = customerDocument(path);
     expect(document?.type, path).toContain("text/html");
     const html = document?.text ?? "";
+    expect(html.match(/class="copy-code"/gu)?.length ?? 0).toBe(
+      html.match(/<pre><code/gu)?.length ?? 0,
+    );
     const meta = pageMeta(path);
     expect(
       html.match(/<meta name="description"/gu),
@@ -83,8 +86,12 @@ it("publishes the SEO contract for every rendered page", async () => {
     expect(html).toContain(
       `<link rel="alternate" type="text/markdown" href="${path}.md">`,
     );
-    expect(attribute(html, 'property="og:title"')).toBe(meta.title);
-    expect(attribute(html, 'property="og:description"')).toBe(meta.description);
+    expect(attribute(html, 'property="og:title"')).toBe(
+      meta.socialTitle ?? meta.title,
+    );
+    expect(attribute(html, 'property="og:description"')).toBe(
+      meta.socialDescription ?? meta.description,
+    );
     expect(attribute(html, 'property="og:url"')).toBe(
       `https://ohmyho.st${path}`,
     );
@@ -179,7 +186,13 @@ it("publishes the SEO contract for every rendered page", async () => {
     expect(mirror).not.toContain("<svg");
   }
   const about = jsonLd(customerDocument("/about")?.text ?? "");
-  expect(about.map((node) => node["@type"])).toContain("Person");
+  expect(about.map((node) => node["@type"])).toContain("AboutPage");
+  expect(about.map((node) => node["@type"])).not.toContain("Person");
+  const aboutHtml = customerDocument("/about")?.text ?? "";
+  expect(aboutHtml).not.toMatch(
+    /Sebastian Mertens|42154221|founder\.png|Not yet|What is not there yet/u,
+  );
+  expect(aboutHtml).toContain("Apache-2.0");
   const blog = jsonLd(customerDocument("/blog")?.text ?? "").find(
     (node) => node["@type"] === "Blog",
   ) as {
@@ -289,7 +302,7 @@ it("hardens the approved homepage markup for search and social", async () => {
     home.indexOf('<div class="fcol">'),
     home.indexOf('<div class="fbot">'),
   );
-  expect(columns.trim()).toBe(footerColumnsHtml());
+  expect(columns.trim()).toBe(`${footerColumnsHtml()}\n  </div>`);
   expect(home).toContain('href="/philosophy"');
   expect(home).toContain('href="/open-source"');
   expect(home).not.toContain("github.com/amerged/docs");
@@ -313,6 +326,11 @@ it("hardens the approved homepage markup for search and social", async () => {
     })
   ).text();
   expect(brand.match(/<meta name="description"/gu)).toHaveLength(1);
+  expect(brand).not.toMatch(
+    /Nightly|AI models|No dashboard|\$71|5 accounts|omh create|myapp\.ohm\.st/u,
+  );
+  expect(brand).toContain("One balance across your projects.");
+  expect(brand).toContain("ohmyhost init --dry-run");
   expect(brand).toContain(
     '<meta property="og:image" content="https://ohmyho.st/og.png">',
   );

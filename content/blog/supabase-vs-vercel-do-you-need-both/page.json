@@ -5,8 +5,10 @@
   "status": "published",
   "crumb": "Supabase vs Vercel",
   "social": {
-    "image": null,
-    "alt": null
+    "image": "/og/blog-supabase-vs-vercel-do-you-need-both.png",
+    "alt": "ohmyho.st. Supabase and Vercel: do you need both?. Understand their different roles and explore an alternative stack.",
+    "title": "ohmyho.st — Supabase and Vercel: do you need both?",
+    "description": "Understand their different roles and explore an alternative stack."
   },
   "parent": "/blog",
   "author": "Sebastian Mertens",

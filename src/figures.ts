@@ -217,7 +217,7 @@ export function figureFlow(agent: FlowAgent): string {
   return figure(
     `How a ${agent} deployment reaches ohmyho.st`,
     svg,
-    `The agent reads llms.txt, calls the MCP tools (${FLOW_TOOLS.join(", ")} and the rest of the ${mcpTools.tools.length}-tool catalog) and returns the live URL. Every mutation is a plan you confirm before it executes.`,
+    `The agent reads llms.txt, calls the MCP tools (${FLOW_TOOLS.join(", ")} and the rest of the ${mcpTools.tools.length}-tool catalog) and returns the live URL. Deployment and promotion use a plan followed by an execution step.`,
   );
 }
 
