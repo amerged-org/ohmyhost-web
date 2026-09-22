@@ -63,6 +63,8 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html).toContain("about 30 seconds");
     expect(html).not.toContain("about two minutes");
     expect(html).not.toContain("No dashboard");
+    expect(html).not.toContain("you don't get a dashboard");
+    expect(html).not.toContain("No UI.");
     expect(html).not.toContain("no CLI to install");
     // The shared card carries that copy as text instead of the bare brand mark.
     expect(html).toContain(
