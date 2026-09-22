@@ -1,5 +1,5 @@
 {
-  "observedAt": "2026-09-21T22:05:05.005513+00:00",
+  "observedAt": "2026-09-22T10:01:22.248828+00:00",
   "release": {
     "source": "22a50c01e71852e9371b34424e7f8534796acd0e",
     "ci": 35660335193,
@@ -7,11 +7,18 @@
     "worker": "ohmyho-web-production",
     "versionId": "06d6f70b-cec7-40a0-8090-2216189c978f"
   },
-  "localChecks": [
+  "checks": [
     {
       "path": "/",
-      "present": ["about 30 seconds", "Yes. The portal shows projects"],
-      "absent": ["about two minutes", "No dashboard", "no CLI to install"]
+      "present": [
+        "about 30 seconds",
+        "Yes. The portal shows projects"
+      ],
+      "absent": [
+        "about two minutes",
+        "No dashboard",
+        "no CLI to install"
+      ]
     },
     {
       "path": "/brand",
@@ -51,76 +58,100 @@
       "present": [
         "Database data is shared or isolated according to the mode you choose."
       ],
-      "absent": ["each with its own data and secrets"]
+      "absent": [
+        "each with its own data and secrets"
+      ]
     },
     {
       "path": "/from/replit",
-      "present": ["funded services keep running"],
-      "absent": ["everything keeps running"]
+      "present": [
+        "funded services keep running"
+      ],
+      "absent": [
+        "everything keeps running"
+      ]
     },
     {
       "path": "/from/lovable",
-      "present": ["funded services keep running"],
-      "absent": ["everything keeps running"]
+      "present": [
+        "funded services keep running"
+      ],
+      "absent": [
+        "everything keeps running"
+      ]
     },
     {
       "path": "/for/claude-code",
       "present": [
         "Deployment and promotion use a plan followed by an execution step."
       ],
-      "absent": ["Every mutation is a plan you confirm before it executes."]
+      "absent": [
+        "Every mutation is a plan you confirm before it executes."
+      ]
     },
     {
       "path": "/for/cursor",
       "present": [
         "Deployment and promotion use a plan followed by an execution step."
       ],
-      "absent": ["Every mutation is a plan you confirm before it executes."]
+      "absent": [
+        "Every mutation is a plan you confirm before it executes."
+      ]
     },
     {
       "path": "/for/codex",
       "present": [
         "Deployment and promotion use a plan followed by an execution step."
       ],
-      "absent": ["Every mutation is a plan you confirm before it executes."]
+      "absent": [
+        "Every mutation is a plan you confirm before it executes."
+      ]
     },
     {
       "path": "/from/bolt",
       "present": [
         "Deployment and promotion use a plan followed by an execution step."
       ],
-      "absent": ["Every mutation is a plan you confirm before it executes."]
+      "absent": [
+        "Every mutation is a plan you confirm before it executes."
+      ]
     },
     {
       "path": "/from/lovable",
       "present": [
         "Deployment and promotion use a plan followed by an execution step."
       ],
-      "absent": ["Every mutation is a plan you confirm before it executes."]
+      "absent": [
+        "Every mutation is a plan you confirm before it executes."
+      ]
     },
     {
       "path": "/blog/host-a-lovable-app-after-export",
       "present": [
         "Deployment and promotion use a plan followed by an execution step."
       ],
-      "absent": ["Every mutation is a plan you confirm before it executes."]
+      "absent": [
+        "Every mutation is a plan you confirm before it executes."
+      ]
     },
     {
       "path": "/changelog",
-      "present": ["September 21, 2026", "September 20, 2026", "Apache-2.0"],
+      "present": [
+        "September 21, 2026",
+        "September 20, 2026",
+        "Apache-2.0"
+      ],
       "absent": []
     },
     {
       "path": "/open-source",
-      "present": ["MIT: the website", "amerged-org/ohmyhost-web"],
+      "present": [
+        "MIT: the website",
+        "amerged-org/ohmyhost-web"
+      ],
       "absent": []
     }
   ],
-  "httpReadback": "Blocked by untrusted Fortinet-issued TLS certificate on current network; certificate validation was not bypassed.",
-  "providerReadback": {
-    "activeVersion": "06d6f70b-cec7-40a0-8090-2216189c978f",
-    "trafficPercent": 100
-  },
   "brandRender": {
     "details": [
       {
