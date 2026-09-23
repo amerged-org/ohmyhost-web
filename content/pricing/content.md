@@ -2,7 +2,7 @@
 
 Free starts with 200 credits. Paid starts at $10 for 1,000 monthly credits. Projects use the same organization balance; there is no separate project base subscription.
 
-Monthly plan credits expire at the end of each billing period. Connect your own domain; domain registration is not included. Usage is metered; additional credits cost extra. Applicable taxes are added.
+Free credits expire at the end of each month. Purchased credits never expire: each paid month adds to your balance. Connect your own domain; domain registration is not included. Usage is metered; additional credits cost extra. Applicable taxes are added.
 
 ## What uses credits
 

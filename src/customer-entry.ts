@@ -160,13 +160,13 @@ ${skills
 - [Databases and compute](https://docs.ohmyho.st/database.md): Profiles, Dev/Prod choices and migrations.
 - [Domains and mail](https://docs.ohmyho.st/domains.md): Setup and follow-up checks.
 - [Usage and budgets](https://docs.ohmyho.st/usage.md): Shared credits, measured costs and project limits.
-- [Billing](https://docs.ohmyho.st/billing.md): Plan access, monthly and non-expiring credits, Stripe when enabled.
+- [Billing](https://docs.ohmyho.st/billing.md): Plan access, expiring Free credits and purchased credits that never expire, Stripe when enabled.
 - [SQL exports](https://docs.ohmyho.st/backups.md): Asynchronous password-encrypted ZIP exports and downloads.
 - [Troubleshooting](https://docs.ohmyho.st/troubleshooting.md): Actionable errors and customer-agent feedback.
 
 ## Pricing and comparisons
 
-- [Pricing](https://ohmyho.st/pricing.md): Free 200 credits a month; Paid $10 for 1,000 monthly credits; one balance for every project.
+- [Pricing](https://ohmyho.st/pricing.md): Free 200 credits a month; Paid $10 for 1,000 credits a month that never expire and stack; one balance for every project.
 - [Cost breakdown](https://ohmyho.st/pricing/breakdown.md): Every published rate, worked workloads in credits and the same workloads as separate subscriptions.
 - [ohmyho.st vs Vercel](https://ohmyho.st/vs/vercel.md): Dated list prices, the same small app priced both ways, where Vercel is the better choice.
 - [ohmyho.st vs Supabase](https://ohmyho.st/vs/supabase.md): Postgres compute and storage by usage against Supabase Pro and per-project compute.

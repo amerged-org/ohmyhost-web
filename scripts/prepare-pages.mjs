@@ -348,6 +348,14 @@ function applyApprovedHomepageChanges(html) {
     '"addressCountry": "US"': '"addressCountry": "NL"',
     "From Amsterdam, Netherlands to Palo Alto, CA, US — deploy with ohmyho.st":
       'powered by <a href="https://amerged.com">amerged.com</a> · <a href="/open-source">Open source</a>',
+    // Purchased credits never expire (platform D311): one corner chip on the $10 card and a few
+    // bold words in the existing copy, without changing the approved layout.
+    '<div class="plan on">\n      <h3>Credits</h3>':
+      '<div class="plan on">\n      <style>.plan.on{position:relative}.keep{position:absolute;top:26px;right:0;font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--foreground);border:1px solid var(--border-strong);border-radius:5px;padding:2px 7px;white-space:nowrap}.keepb{color:var(--foreground);font-weight:500}</style><span class="keep">Purchased credits don\'t expire</span>\n      <h3>Credits</h3>',
+    "Spend the credits on any app, get a fresh 1000 every month, top up whenever.":
+      'Spend the credits on any app, get 1000 more every month, top up whenever. <b class="keepb">Credits you buy never expire.</b>',
+    "<li>1000 fresh credits each month</li>":
+      '<li>1000 credits a month, <b class="keepb">they stack</b></li>',
     "<li>Scales up on its own</li>":
       "<li>More capacity when you need it <em>uses credits</em></li>",
     '<span class="sales">Bigger than this? Talk to us.</span>':
@@ -356,7 +364,7 @@ function applyApprovedHomepageChanges(html) {
     "Dev and prod environments are included for each project, not billed as two. Quiet projects use close to zero credits.":
       "Every project has Dev and Prod. Isolated data uses two independently metered databases; retained resources use credits even when traffic is quiet.",
     '<p class="note">Credits reset on your billing day. Quiet projects burn almost nothing. Busy ones take credits as they go — top up any time.</p>':
-      '<p class="note" style="color:var(--muted-foreground)">Monthly credits reset. Usage is metered. <a href="https://docs.ohmyho.st/pricing">See all usage rates</a>.</p>',
+      '<p class="note" style="color:var(--muted-foreground)">Free credits reset monthly. <b class="keepb">Purchased credits never expire.</b> Usage is metered. <a href="https://docs.ohmyho.st/pricing">See all usage rates</a>.</p>',
     "No card, no dashboard.": "No card required.",
     "<span><h3>a quiet month</h3><u>≈ 0 credits</u></span>":
       "<span><h3>1 database GB-month</h3><u>115 credits</u></span>",

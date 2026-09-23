@@ -26,7 +26,7 @@ The [quickstart](https://docs.ohmyho.st/quickstart) covers the steps. Existing a
 
 Every project draws from the same organization credit balance. There is no separate base subscription for each project; the services you use consume credits at published rates.
 
-Free provides {{ number plan.freeCredits }} monthly credits. Paid is {{ usd plan.paidUsd }} per month with {{ number plan.paidCredits }} credits per billing period. Monthly credits expire at period end, while purchased top-ups do not expire. Retained resources can still use credits when an app is quiet.
+Free provides {{ number plan.freeCredits }} monthly credits. Paid is {{ usd plan.paidUsd }} per month with {{ number plan.paidCredits }} credits per billing period. Free credits expire at month end, while purchased credits, Paid and top-ups alike, never expire. Retained resources can still use credits when an app is quiet.
 
 See [pricing](/pricing) for the plans and the [cost breakdown](/pricing/breakdown) for a worked example with its usage assumptions.
 

@@ -72,7 +72,7 @@ Each deployed script uses about {{ credits unit.deployedScriptMonth }} a month w
 
 ## What it costs
 
-Free: {{ number plan.freeCredits }} credits per UTC month. Paid: {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period, which also unlocks a customer-owned domain and verified sender mail. Monthly credits expire at period end; purchased top-ups never expire ({{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }}, {{ number plan.topUpPerUsdAbove100 }} per dollar above). Every project draws from the organization's one balance and there is no per-project base fee, which is the point for a portfolio.
+Free: {{ number plan.freeCredits }} credits per UTC month. Paid: {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period, which also unlocks a customer-owned domain and verified sender mail. Free credits expire at month end; purchased credits never expire (top-ups: {{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }}, {{ number plan.topUpPerUsdAbove100 }} per dollar above). Every project draws from the organization's one balance and there is no per-project base fee, which is the point for a portfolio.
 
 {{ table workload.threeStaticSites }}
 

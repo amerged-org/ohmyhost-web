@@ -23,7 +23,7 @@ One developer with one project on all three accounts: {{ usd scenario.threeSubsc
 
 ## What ohmyho.st charges for the same small app
 
-One balance, every project, no seat price. {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits that expire at the end of the paid period. Free gets {{ number plan.freeCredits }} credits per UTC month. Top-ups never expire: {{ number plan.topUpPerUsd }} credits per dollar, and {{ number plan.topUpPerUsdAbove100 }} per dollar on the part of a larger purchase. A credit has a nominal value of {{ usd plan.usdPerCredit }}. There is no per-project base fee and no seat price: an organization has one balance, every project draws from it, and a second person who deploys costs nothing extra.
+One balance, every project, no seat price. {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits that never expire; unused credits stack from month to month. Free gets {{ number plan.freeCredits }} credits per UTC month. Top-ups never expire: {{ number plan.topUpPerUsd }} credits per dollar, and {{ number plan.topUpPerUsdAbove100 }} per dollar on the part of a larger purchase. A credit has a nominal value of {{ usd plan.usdPerCredit }}. There is no per-project base fee and no seat price: an organization has one balance, every project draws from it, and a second person who deploys costs nothing extra.
 
 This is hosting for vibe-coded apps priced by what the app measures. Here is the workload the [rate card](https://docs.ohmyho.st/pricing) prices for a small app with some traffic, some mail and a database that is awake for eight hours across the month:
 
@@ -93,7 +93,7 @@ Yes. The migration Skill converts only the capabilities you pick. If the app use
 
 ### Is there a free plan?
 
-Yes. Free gives {{ number plan.freeCredits }} credits per UTC month, a Dev and a Prod host on check.omh.st and a database on the {{ value profile.free.cu }} CU profile at the same rates as Paid. A custom domain and sending mail need Paid at {{ usd plan.paidUsd }} a month. Monthly credits expire at the end of the period; purchased top-ups never expire.
+Yes. Free gives {{ number plan.freeCredits }} credits per UTC month, a Dev and a Prod host on check.omh.st and a database on the {{ value profile.free.cu }} CU profile at the same rates as Paid. A custom domain and sending mail need Paid at {{ usd plan.paidUsd }} a month. Free credits expire at the end of the month; purchased credits, Paid and top-ups alike, never expire.
 
 ### How do I get my database out?
 

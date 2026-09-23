@@ -63,7 +63,7 @@ What the agent does, with two honest options. First: keep your external mail pro
 3. Work through the six items above as the returned blockers and requirements. The agent commits the fixes; you approve each `deployment_plan` before `deployment_create` runs.
 4. Check the private Dev app through `project_dev_access_create`: sign-in, a protected route, one real write and one mail if you enabled it.
 5. Promote with `promotion_plan` and `promotion_execute`. Isolated promotion applies the migrations without copying Dev rows into Prod.
-6. Set a monthly ceiling with `project_budget_set` if you want one, in continue or stop mode. Every project draws from the organization's one balance; Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, and purchased top-ups never expire.
+6. Set a monthly ceiling with `project_budget_set` if you want one, in continue or stop mode. Every project draws from the organization's one balance; Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, and purchased credits never expire.
 
 ```text
 {{ prompt }}

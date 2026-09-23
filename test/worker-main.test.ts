@@ -57,8 +57,23 @@ describe("public entry and unassigned Free-host fallback", () => {
     );
     expect(pricingSection.match(/class="note"/gu)).toHaveLength(1);
     expect(pricingSection).toContain(
-      "Monthly credits reset. Usage is metered.",
+      'Free credits reset monthly. <b class="keepb">Purchased credits never expire.</b> Usage is metered.',
     );
+    // The $10 card carries one small corner chip; the copy repeats it in bold.
+    const paidCard = pricingSection.slice(
+      pricingSection.indexOf('<div class="plan on">'),
+    );
+    expect(paidCard.match(/class="keep"/gu)).toHaveLength(1);
+    expect(paidCard).toContain(
+      '<span class="keep">Purchased credits don\'t expire</span>',
+    );
+    expect(paidCard).toContain(
+      '<li>1000 credits a month, <b class="keepb">they stack</b></li>',
+    );
+    expect(pricingSection).toContain(
+      'get 1000 more every month, top up whenever. <b class="keepb">Credits you buy never expire.</b>',
+    );
+    expect(pricingSection).not.toContain("fresh 1000");
     expect(html).not.toContain("skip Vercel");
     expect(html).toContain("about 30 seconds");
     expect(html).not.toContain("about two minutes");

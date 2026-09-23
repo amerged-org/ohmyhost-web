@@ -32,7 +32,7 @@ There is no memory meter. An app is billed for requests and CPU milliseconds. A 
 Plans first:
 
 - Free: {{ number plan.freeCredits }} credits per UTC month. They expire at month end.
-- Paid: {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period. They expire at period end.
+- Paid: {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period. Purchased credits never expire and stack.
 - Top-ups: {{ number plan.topUpPerUsd }} credits per dollar for the first hundred dollars of a purchase, {{ number plan.topUpPerUsdAbove100 }} per dollar above that. Purchased credits never expire.
 
 Then the meters a side project touches:

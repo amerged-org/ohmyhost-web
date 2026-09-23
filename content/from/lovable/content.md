@@ -96,7 +96,7 @@ If any line fails, tell the agent which one. `deployment_logs` and `operation_ge
 
 **On Lovable, one balance pays for three different things.** Its pricing page (read on {{ checked lovable }}) says credits are spent "for building by sending messages to Lovable, hosting with Cloud, and offering AI features to users as part of your app". Pro is {{ price vendor.lovable.pro }} a month including VAT and grants {{ price vendor.lovable.proCredits }} credits. Lovable's own examples put one prompt at {{ price vendor.lovable.authCredits }} credits for adding authentication and {{ price vendor.lovable.landingPageCredits }} credits for a landing page, so the month's credits are roughly sixty to a hundred edits — and every request your live app serves competes with them.
 
-**Here, the balance pays for infrastructure only.** The model that writes your code is your own agent's subscription; ohmyho.st never charges for prompts. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, Free grants {{ number plan.freeCredits }} credits each UTC month, and there is no per-project fee. Monthly credits expire at the end of the period; a purchased top-up never expires.
+**Here, the balance pays for infrastructure only.** The model that writes your code is your own agent's subscription; ohmyho.st never charges for prompts. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, Free grants {{ number plan.freeCredits }} credits each UTC month, and there is no per-project fee. Free credits expire at the end of the period; a purchased top-up never expires.
 
 Two setups, two bills. Pick the row that matches yours.
 

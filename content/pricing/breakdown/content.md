@@ -9,8 +9,8 @@ One credit has a nominal value of {{ usd plan.usdPerCredit }}, so {{ number plan
 Credits arrive three ways:
 
 - Free grants {{ number plan.freeCredits }} credits per UTC month. They expire at the end of that month.
-- Paid costs {{ usd plan.paidUsd }} a month before tax and grants {{ number plan.paidCredits }} credits per paid period. They expire at the end of the period, with no rollover. Paid also unlocks a customer-owned domain and verified sender mail; both still use credits.
-- Top-ups never expire. A purchase grants {{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }} and {{ number plan.topUpPerUsdAbove100 }} credits per dollar for the part above that. Monthly credits are spent before top-up credits, so the ones that expire go first.
+- Paid costs {{ usd plan.paidUsd }} a month before tax and grants {{ number plan.paidCredits }} credits per paid period. They never expire: unused Paid credits stack from period to period. Paid also unlocks a customer-owned domain and verified sender mail; both still use credits.
+- Top-ups never expire. A purchase grants {{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }} and {{ number plan.topUpPerUsdAbove100 }} credits per dollar for the part above that. Free credits are spent first, so the ones that expire go first.
 
 Every project draws from the organization's one balance. There is no per-project base fee and no project-count limit. A project may carry a monthly budget in continue mode (warn, keep going) or stop mode (reject new work past the line); a budget is a ceiling, not a second wallet. A zero balance starts a {{ number plan.graceDays }}-day grace period during which funded services keep running; after it, only unfunded services suspend, and data, export and buying credit stay available. Automatic recharge is not enabled yet.
 
@@ -125,7 +125,7 @@ For several small projects, yes: {{ usd plan.paidUsd }} a month buys {{ number p
 
 ### Do unused credits roll over?
 
-Monthly credits do not: the {{ number plan.freeCredits }} Free credits expire at the end of the UTC month and the {{ number plan.paidCredits }} Paid credits at the end of the paid period. Top-up credits never expire and are spent after the monthly ones, so a top-up is the way to bank credits for a busy month later.
+Purchased credits do: the {{ number plan.paidCredits }} Paid credits and every top-up never expire, so what you do not use this month stays for a busy month later. Only the {{ number plan.freeCredits }} Free credits expire at the end of the UTC month, and they are spent first.
 
 ### What does a project cost when nobody visits it?
 

@@ -61,7 +61,7 @@ At `project_create` you choose once: shared data, one database for both environm
 
 ## What it costs
 
-Free: {{ number plan.freeCredits }} credits per UTC month. Paid: {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period. Monthly credits expire at period end; purchased top-ups never expire, at {{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }} and {{ number plan.topUpPerUsdAbove100 }} per dollar above. Every project draws from the organization's one balance; there is no per-project base fee.
+Free: {{ number plan.freeCredits }} credits per UTC month. Paid: {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period. Free credits expire at month end; purchased credits never expire, and top-ups come at {{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }} and {{ number plan.topUpPerUsdAbove100 }} per dollar above. Every project draws from the organization's one balance; there is no per-project base fee.
 
 An agent loop spends on builds, requests, database time and whatever it keeps. One active hour on the Paid standard profile ({{ value profile.standard.cu }} CU) is about {{ credits unit.activeDatabaseHourStandard }}. Idle compute suspends, but stored data stays at {{ rate neon.storage.root }} and each deployed script at about {{ credits unit.deployedScriptMonth }} a month. Workers bandwidth is not charged.
 

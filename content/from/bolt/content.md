@@ -59,7 +59,7 @@ The platform host works on Free. Your own domain and transactional mail need Pai
 
 ## What it costs
 
-One balance, every project, no per-project fee. Free grants {{ number plan.freeCredits }} credits per UTC month and Paid grants {{ number plan.paidCredits }} for {{ usd plan.paidUsd }}; both expire at the end of the period, while purchased top-ups never do ({{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }}, {{ number plan.topUpPerUsdAbove100 }} per dollar above it). Nothing recharges on its own.
+One balance, every project, no per-project fee. Free grants {{ number plan.freeCredits }} credits per UTC month and Paid grants {{ number plan.paidCredits }} for {{ usd plan.paidUsd }}; Free credits expire at the end of the month, while purchased credits, Paid and top-ups alike, never do ({{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }}, {{ number plan.topUpPerUsdAbove100 }} per dollar above it). Nothing recharges on its own.
 
 A Bolt export that keeps Supabase is close to the cheapest thing you can host. There is no database here to meter, and Workers bandwidth is not charged.
 
