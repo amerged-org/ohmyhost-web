@@ -50,7 +50,7 @@ A single busy production app with serious traffic may still belong on Vercel and
 
 Vercel Hobby is {{ usd vendor.vercel.hobby }} a month for one developer seat. If that is all your projects need, it beats any paid balance, and I will not pretend otherwise.
 
-Railway, Fly.io and Render run any container. ohmyho.st runs Next.js, Vite/React and TanStack Start on Workers, deployed from a GitHub repository, and nothing else. Resend Pro is {{ usd vendor.resend.pro }} for 50,000 emails a month; here mail is {{ rate ses.{region}.recipients (Essentials) }}, counted per recipient, and it needs Paid plus a verified sender subdomain. Send most of that plan every month and Resend is the better price. Supabase gives you Auth, Storage, Realtime and Edge Functions in one console; here you bring Better Auth or WorkOS AuthKit and write plain SQL.
+Railway, Fly.io and Render run any container. ohmyho.st runs Next.js, Vite/React and TanStack Start on Workers, deployed from a GitHub repository, and nothing else. Resend Pro is {{ usd vendor.resend.pro }} for 50,000 emails a month; here mail is {{ rate mail.sent }}, counted per recipient, and it needs Paid plus a verified sender subdomain. Send most of that plan every month and Resend is the better price. Supabase gives you Auth, Storage, Realtime and Edge Functions in one console; here you bring Better Auth or WorkOS AuthKit and write plain SQL.
 
 Every comparison page says where the other side wins, with list prices checked on a named date. {{ checked vercel }} {{ checked supabase }} {{ checked resend }}
 

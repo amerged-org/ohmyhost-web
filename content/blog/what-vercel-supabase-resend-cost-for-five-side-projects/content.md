@@ -46,7 +46,7 @@ The free tiers, honestly. Vercel Hobby is {{ usd vendor.vercel.hobby }} and cove
 
 There is no per-project base fee. Every project draws from the organization's one balance. Free gives {{ number plan.freeCredits }} credits per UTC month. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period; Free credits expire at the end of the month, purchased credits never expire, and a top-up pack never expires ({{ number plan.topUpPerUsd }} credits per dollar, {{ number plan.topUpPerUsdAbove100 }} per dollar above the first hundred dollars). A project may carry a monthly budget, continue or stop, so one experiment cannot drain the other four.
 
-Credits are priced from what the providers underneath charge, plus a margin, and the rate card is public. The rates that decide a side project's month: requests at {{ rate wfp.requests }}, database compute at about {{ credits unit.activeDatabaseHourStandard }} per active hour on the Paid standard profile, storage at {{ rate neon.storage.root }}, mail at {{ rate ses.{region}.recipients (Essentials) }}. Bandwidth from the Workers runtime is not charged. SQL exports are free. The full card is at [docs.ohmyho.st/pricing](https://docs.ohmyho.st/pricing).
+Credits are priced from what the providers underneath charge, plus a margin, and the rate card is public. The rates that decide a side project's month: requests at {{ rate wfp.requests }}, database compute at about {{ credits unit.activeDatabaseHourStandard }} per active hour on the Paid standard profile, storage at {{ rate neon.storage.root }}, mail at {{ rate mail.sent }}. Bandwidth from the Workers runtime is not charged. SQL exports are free. The full card is at [docs.ohmyho.st/pricing](https://docs.ohmyho.st/pricing).
 
 ### A quiet project
 
@@ -70,7 +70,7 @@ Four quiet projects and the small app, added up as one workload:
 
 {{ table workload.fiveSideProjects }}
 
-About {{ credits workload.fiveSideProjects }}, including every deployed script and the small app's mail sender zone. This is slightly above the {{ number plan.paidCredits }} credits that {{ usd plan.paidUsd }} buys, so keep a top-up balance for the difference and any extra usage. A zero balance starts a {{ value plan.graceDays }}-day grace period during which funded services keep running, but a new build the balance cannot cover is rejected until you refill. Automatic recharge is not enabled yet.
+About {{ credits workload.fiveSideProjects }}, including every deployed script and the small app's mail sender zone. This is about a quarter above the {{ number plan.paidCredits }} credits that {{ usd plan.paidUsd }} buys, so keep a top-up balance for the difference and any extra usage. A zero balance starts a {{ value plan.graceDays }}-day grace period during which funded services keep running, but a new build the balance cannot cover is rejected until you refill. Automatic recharge is not enabled yet.
 
 Set that against the {{ usd scenario.fiveProjects }} a month from the section above. The difference is not a discount. It is that four of the five projects are quiet, and here quiet costs almost nothing.
 

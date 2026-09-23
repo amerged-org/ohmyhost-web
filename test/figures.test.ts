@@ -92,7 +92,7 @@ it("renders every figure as one Markdown-safe block whose numbers come from the 
   );
   expect(creditBarRows().map((row) => row.microcredits)).toEqual([
     priceLine("wfp.requests", 1_000_000),
-    priceLine("ses.{region}.recipients (Essentials)", 1000),
+    priceLine("mail.sent", 1000),
     priceLine("neon.compute.scale", DATABASE_PROFILES.standard.cu),
     priceLine("neon.storage.root", 1),
     priceLine("domain.custom_hostname", 1),
@@ -101,7 +101,7 @@ it("renders every figure as one Markdown-safe block whose numbers come from the 
     priceWorkload(WORKLOADS.smallApp).microcredits,
   ]);
   expect(figureCreditBars()).toContain(
-    'data-count-to="723.30" data-suffix=" credits"',
+    'data-count-to="978.16" data-suffix=" credits"',
   );
   const catalog = new Set(
     mcpTools.tools.map((tool: { name: string }) => tool.name),
@@ -131,7 +131,7 @@ it("keeps the pinned homepage's bill and credit examples equal to the data modul
     `<h3>1 active database hour</h3><u>${round(priceLine("neon.compute.scale", DATABASE_PROFILES.standard.cu))}</u>`,
   );
   expect(home).toContain(
-    `<h3>1,000 emails</h3><u>${round(priceLine("ses.{region}.recipients (Essentials)", 1000))}</u>`,
+    `<h3>1,000 emails</h3><u>${round(priceLine("mail.sent", 1000))}</u>`,
   );
   expect(home).toContain(
     `<h3>1M requests</h3><u>${round(priceLine("wfp.requests", 1_000_000))}</u>`,
@@ -139,10 +139,8 @@ it("keeps the pinned homepage's bill and credit examples equal to the data modul
   expect(home).toContain(
     `<h3>1 database GB-month</h3><u>${round(priceLine("neon.storage.root", 1))}</u>`,
   );
-  expect(
-    credits(priceLine("ses.{region}.recipients (Essentials)", 2000), 0),
-  ).toBe("105 credits");
-  expect(home).toContain("2,000 emails ≈ 105 credits");
+  expect(credits(priceLine("mail.sent", 2000), 0)).toBe("360 credits");
+  expect(home).toContain("2,000 emails ≈ 360 credits");
   expect(home).toContain("including the deployed script and sender zone");
   expect(home).toContain(
     '<a href="/pricing/breakdown">full cost breakdown</a>',

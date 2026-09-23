@@ -125,7 +125,7 @@ export function creditBarRows(): Array<{
     },
     {
       label: "1,000 mail recipients",
-      microcredits: priceLine("ses.{region}.recipients (Essentials)", 1000),
+      microcredits: priceLine("mail.sent", 1000),
     },
     {
       label: "1 active database hour, Paid standard (0.5 CU)",

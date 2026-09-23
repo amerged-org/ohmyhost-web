@@ -51,9 +51,9 @@ it("generates the typed rate card from the published inputs and prices workloads
   expect(priceLine("wfp.requests", 100_000)).toBe(9_857_143);
   expect(priceLine("neon.compute.scale", 0.5)).toBe(36_471_429);
   const small = priceWorkload(WORKLOADS.smallApp);
-  expect(small.microcredits).toBe(723_298_744);
+  expect(small.microcredits).toBe(978_155_886);
   expect(small.lines.map((line) => line.microcredits)).toEqual([
-    24_098_743, 9_857_143, 6_571_429, 291_771_428, 115_000_000, 105_142_858,
+    24_098_743, 9_857_143, 6_571_429, 291_771_428, 115_000_000, 360_000_000,
     6_571_429, 164_285_714,
   ]);
   expect(scenarioUsd(SCENARIOS.threeSubscriptions)).toBe(65);
@@ -89,7 +89,7 @@ it("includes retained hosting and sender charges and adds the same five-project 
     ),
   ).toEqual(Object.fromEntries(combinedMeters));
   const five = priceWorkload(WORKLOADS.fiveSideProjects);
-  expect(credits(five.microcredits)).toBe("1,000.40 credits");
+  expect(credits(five.microcredits)).toBe("1,255.25 credits");
   expect(five.microcredits).toBeGreaterThan(PLANS.paidCredits * 1_000_000);
 });
 
@@ -117,9 +117,9 @@ it("formats prices, credits, rates and source lines the way pages quote them", (
   const table = workloadTable(WORKLOADS.smallApp);
   expect(table).toContain("| 20 build minutes | 24.10 |");
   expect(table).toContain(
-    "| **Total: A small app for one month** | **about 723.30** |",
+    "| **Total: A small app for one month** | **about 978.16** |",
   );
-  expect(table).toContain("About $7.23 of credit value");
+  expect(table).toContain("About $9.78 of credit value");
 });
 
 it("keeps the plan constants and the agent prompt equal to their sources", async () => {

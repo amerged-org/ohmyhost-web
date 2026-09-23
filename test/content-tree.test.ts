@@ -59,13 +59,9 @@ it("resolves only known tokens and fails loudly on anything else", () => {
     "<credits:unit.x>",
   );
   // A meter name carries braces and spaces; the token must survive both.
-  expect(
-    resolveTokens(
-      "{{ rate ses.{region}.recipients (Essentials) }}",
-      "/x",
-      render,
-    ),
-  ).toBe("<rate:ses.{region}.recipients,(Essentials)>");
+  expect(resolveTokens("{{ rate mail.sent }}", "/x", render)).toBe(
+    "<rate:mail.sent>",
+  );
   expect(seen.has("usd") && seen.has("credits") && seen.has("rate")).toBe(true);
   expect(() =>
     resolveTokens("{{ nonsense x }}", "/page", () => {

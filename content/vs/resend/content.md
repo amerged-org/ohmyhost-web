@@ -2,7 +2,7 @@
 
 Most side projects send very little mail: a sign-up confirmation, a password reset, the occasional receipt. Paying a fixed monthly plan for that is paying for capacity you will never use, and it arrives as a third invoice next to your hosting and your database.
 
-ohmyho.st meters mail per recipient — about {{ credits unit.thousandMailRecipients dp=0 }} per 1,000, plus about {{ credits unit.mailSenderZoneMonth dp=0 }} a month for the verified sender domain — from the same balance as your hosting and database. Resend charges per plan: {{ usd vendor.resend.free }} for {{ text vendor.resend.free.includes }}, {{ usd vendor.resend.pro }} for 50,000. The honest line is around 35,000 recipients a month: below it, metering wins; above it, Resend's plan is the better deal and you should stay.
+ohmyho.st meters mail per recipient — about {{ credits unit.thousandMailRecipients dp=0 }} per 1,000, plus about {{ credits unit.mailSenderZoneMonth dp=0 }} a month for the verified sender domain — from the same balance as your hosting and database. Resend charges per plan: {{ usd vendor.resend.free }} for {{ text vendor.resend.free.includes }}, {{ usd vendor.resend.pro }} for 50,000. Resend Free wins while your volume fits its limits. Against Resend Pro, the sender zone and per-recipient price meet around 10,200 recipients a month; above that, Pro is cheaper for mail alone.
 
 {{ figure bills.resend }}
 
@@ -22,7 +22,7 @@ The plan is per account, not per app, so one subscription covers every project y
 
 Mail here is a capability of the project, not a separate account. It needs Paid: {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits that every project shares. Two meters apply.
 
-The first is the send itself: {{ rate ses.{region}.recipients (Essentials) }}. The meter counts **recipients**, not messages. One message to a customer with two people in CC is three recipients. A message to 400 subscribers is 400.
+The first is the send itself: {{ rate mail.sent }}. The meter counts **recipients**, not messages. One message to a customer with two people in CC is three recipients. A message to 400 subscribers is 400.
 
 The second is the sender domain: {{ rate route53.zone }}. You delegate one subdomain, for example `notify.yourdomain.com`, and that zone holds the DKIM, SPF and DMARC records. It costs its credits every month the zone exists, whether you send one message or fifty thousand, and it is the reason very low volumes are not free here.
 
@@ -39,7 +39,7 @@ The table prices a month of mail from your own sender domain on ohmyho.st agains
 | 35,000 | {{ credits workload.senderThirtyFiveThousand }} ({{ usdValue workload.senderThirtyFiveThousand }}) | Pro, {{ usd vendor.resend.pro }} |
 | 50,000 | {{ credits workload.senderFiftyThousand }} ({{ usdValue workload.senderFiftyThousand }}) | Pro, {{ usd vendor.resend.pro }} |
 
-Read it in three bands. Under about 3,000 recipients a month, and under 100 on any day, Resend Free costs nothing and metering cannot beat that. Between there and about 35,000, metering wins: 10,000 recipients cost {{ usdValue workload.senderTenThousand }} of credit value against {{ usd vendor.resend.pro }}. At 35,000 the two are level. Above that Resend is cheaper and keeps getting cheaper, because its tier price is flat while credits keep counting: 50,000 recipients are {{ usdValue workload.senderFiftyThousand }} here against {{ usd vendor.resend.pro }} there. {{ checked resend }}
+Read it in three bands. While your volume and daily rate fit Resend Free, its zero price wins. Around 10,000 recipients, ohmyho.st costs {{ usdValue workload.senderTenThousand }} of credit value including the sender zone, close to Resend Pro at {{ usd vendor.resend.pro }}. Above about 10,200 recipients, Resend Pro is cheaper for mail alone: 50,000 recipients cost {{ usdValue workload.senderFiftyThousand }} here against {{ usd vendor.resend.pro }} there. {{ checked resend }}
 
 ## What your agent sets up
 
@@ -60,11 +60,11 @@ The left card is a stack bought separately, with Resend Pro as its mail line. Th
 
 ## When Resend is the better choice
 
-Above roughly 35,000 recipients a month, Resend is simply cheaper, and the gap widens with volume. It is also the better choice when mail is the product rather than a feature: Resend gives you a dedicated dashboard, per-message logs you can search, webhooks for delivery events, suppression management and broadcast sending, and its team publishes deliverability guidance that a hosting product does not. If you already run Resend and it works, keeping it costs you nothing here: point your app at it, set the API key as a project secret, and use ohmyho.st for hosting and Postgres only. Mail on ohmyho.st is for the app that needs a password reset and a receipt, not for the app whose business is sending.
+Above roughly 10,200 recipients a month, Resend Pro is cheaper for mail alone, and the gap widens with volume. It is also the better choice when mail is the product rather than a feature: Resend gives you a dedicated dashboard, per-message logs you can search, webhooks for delivery events, suppression management and broadcast sending, and its team publishes deliverability guidance that a hosting product does not. If you already run Resend and it works, keeping it costs you nothing here: point your app at it, set the API key as a project secret, and use ohmyho.st for hosting and Postgres only. Mail on ohmyho.st is for the app that needs a password reset and a receipt, not for the app whose business is sending.
 
 ## When ohmyho.st is
 
-When mail is a small, necessary part of an app you already host here. You get one bill to reason about instead of two, the sender domain is set up by the same agent that deploys, and a project that sends a few thousand transactional messages a month lands well under the {{ number plan.paidCredits }} credits the plan already includes. It also fits the freelancer case: every client project can have its own verified sender domain without every client project needing its own subscription.
+When mail is a small, necessary part of an app you already host here. You get one bill to reason about instead of two, the sender domain is set up by the same agent that deploys, and the Paid plan's {{ number plan.paidCredits }} credits are shared with hosting and database use. Check the combined workload rather than assuming mail fits on its own. Each client project can have its own verified sender domain and pays its own zone and usage credits.
 
 ## FAQ
 

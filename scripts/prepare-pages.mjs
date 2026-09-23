@@ -395,13 +395,15 @@ function applyApprovedHomepageChanges(html) {
     "Custom domains, email, AI models and backups come with the $10 plan.":
       "Custom domains, email and database exports come with the $10 plan.",
     "(2,000 emails ≈ $7 from your balance vs a $20 Resend Pro plan) and more expensive at high volume (50,000 emails ≈ $175 vs $20)":
-      "(2,000 emails ≈ $1 from your balance vs a $20 Resend Pro plan) and more expensive at high volume (50,000 emails ≈ $26 vs $20)",
+      "(2,000 emails ≈ $3.60 in sending credits plus a sender zone) and more expensive at high volume (50,000 emails ≈ $90 in sending credits vs $20)",
     "1,000 credits. 2,000 emails ≈ 700 credits, a small app's":
-      "1,000 credits. 2,000 emails ≈ 105 credits, a small app's",
+      "1,000 credits. 2,000 emails ≈ 360 credits; a small app's",
+    "hosting and Postgres ≈ 100–200. Busy months use more":
+      "hosting and Postgres ≈ 420 credits. Busy months use more",
     "<span><h3>10,000 db reads</h3><u>8 credits</u></span>":
       "<span><h3>1 active database hour</h3><u>36 credits</u></span>",
     "<span><h3>1,000 emails</h3><u>350 credits</u></span>":
-      "<span><h3>1,000 emails</h3><u>53 credits</u></span>",
+      "<span><h3>1,000 emails</h3><u>180 credits</u></span>",
     "<span><h3>1 GB served</h3><u>40 credits</u></span>":
       "<span><h3>1M requests</h3><u>99 credits</u></span>",
     // The slider states the purchase rule of PRICING.md: more credits above USD 100, never a cheaper consumption rate.
