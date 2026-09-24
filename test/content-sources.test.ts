@@ -39,7 +39,8 @@ it("generates the typed rate card from the published inputs and prices workloads
     { quantity: number; unit: string; credits: string }
   >;
   expect(rates).toEqual(CREDIT_RATES);
-  expect(Object.keys(rates).length).toBeGreaterThanOrEqual(20);
+  expect(Object.keys(rates).length).toBeGreaterThanOrEqual(19);
+  expect(rates).not.toHaveProperty(["route53.zone"]);
   expect(rates["wfp.requests"]).toEqual({
     quantity: 1_000_000,
     unit: "requests",
