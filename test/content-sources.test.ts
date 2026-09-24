@@ -51,22 +51,23 @@ it("generates the typed rate card from the published inputs and prices workloads
   expect(priceLine("wfp.requests", 100_000)).toBe(9_857_143);
   expect(priceLine("neon.compute.scale", 0.5)).toBe(36_471_429);
   const small = priceWorkload(WORKLOADS.smallApp);
-  expect(small.microcredits).toBe(723_298_744);
+  expect(small.microcredits).toBe(813_870_172);
   expect(small.lines.map((line) => line.microcredits)).toEqual([
-    24_098_743, 9_857_143, 6_571_429, 291_771_428, 115_000_000, 105_142_858,
-    6_571_429, 164_285_714,
+    24_098_743, 9_857_143, 6_571_429, 291_771_428, 115_000_000, 360_000_000,
+    6_571_429,
   ]);
   expect(scenarioUsd(SCENARIOS.threeSubscriptions)).toBe(65);
   expect(scenarioUsd(SCENARIOS.fiveProjects)).toBe(105);
   expect(scenarioUsd(SCENARIOS.railwayStack)).toBe(40);
 });
 
-it("includes retained hosting and sender charges and adds the same five-project workload", () => {
+it("includes retained hosting charges, meters mail per sent recipient and adds the same five-project workload", () => {
   const smallMeters = Object.fromEntries(
     WORKLOADS.smallApp.lines.map((line) => [line.meter, line.quantity]),
   );
   expect(smallMeters["wfp.script"]).toBe(1);
-  expect(smallMeters["route53.zone"]).toBe(1);
+  expect(smallMeters["mail.sent"]).toBe(2000);
+  expect(smallMeters["route53.zone"]).toBeUndefined();
 
   const combinedMeters = new Map<string, number>();
   for (const [workload, count] of [
@@ -89,7 +90,7 @@ it("includes retained hosting and sender charges and adds the same five-project 
     ),
   ).toEqual(Object.fromEntries(combinedMeters));
   const five = priceWorkload(WORKLOADS.fiveSideProjects);
-  expect(credits(five.microcredits)).toBe("1,000.40 credits");
+  expect(credits(five.microcredits)).toBe("1,090.97 credits");
   expect(five.microcredits).toBeGreaterThan(PLANS.paidCredits * 1_000_000);
 });
 
@@ -117,9 +118,9 @@ it("formats prices, credits, rates and source lines the way pages quote them", (
   const table = workloadTable(WORKLOADS.smallApp);
   expect(table).toContain("| 20 build minutes | 24.10 |");
   expect(table).toContain(
-    "| **Total: A small app for one month** | **about 723.30** |",
+    "| **Total: A small app for one month** | **about 813.87** |",
   );
-  expect(table).toContain("About $7.23 of credit value");
+  expect(table).toContain("About $8.14 of credit value");
 });
 
 it("keeps the plan constants and the agent prompt equal to their sources", async () => {

@@ -43,7 +43,7 @@ Then the meters a side project touches:
 - Database storage: {{ rate neon.storage.root }}, charged whether the database is awake or not.
 - Files: {{ rate r2.storage.standard }}.
 - Builds: {{ rate build.sandbox.standard-3 }}, measured from the start of your build to its end.
-- Mail: {{ rate ses.{region}.recipients (Essentials) }}. To, CC and BCC each count. Sending needs Paid and a verified sender subdomain; the sender zone uses about {{ credits unit.mailSenderZoneMonth }} a month.
+- Mail: {{ rate mail.sent }}. To, CC and BCC each count. Sending needs Paid and a verified mail domain; the domain itself has no monthly fee.
 - Per project: each deployed script uses about {{ credits unit.deployedScriptMonth }} a month, and a linked customer-owned hostname uses about {{ credits unit.customHostnameMonth }} a month on Paid.
 
 Bandwidth from Workers is not charged. SQL exports are free. Scheduled functions have no meter of their own: each run is one request plus its CPU milliseconds. EU hosting is a choice made once when a project is created, US is the default, and the rates are the same in both.
@@ -90,7 +90,7 @@ A request that never arrives costs nothing. An app with no traffic keeps only it
 
 ### Postgres and mail on the same balance
 
-Railway Pro plus Resend Pro is {{ usd scenario.railwayStack }} a month before any usage above the plan credits, across two accounts. Here Postgres compute, storage and transactional mail come off the same credits as hosting: mail at {{ rate ses.{region}.recipients (Essentials) }}, sender zone about {{ credits unit.mailSenderZoneMonth }} a month on Paid. Resend Pro is {{ usd vendor.resend.pro }} {{ text vendor.resend.pro.unit }} and covers {{ text vendor.resend.pro.includes }}. At that volume a dedicated mail plan is cheaper per message. The saving here is not the per-message price, it is the second account and the second plan: you send from the balance and the agent that already deployed the app.
+Railway Pro plus Resend Pro is {{ usd scenario.railwayStack }} a month before any usage above the plan credits, across two accounts. Here Postgres compute, storage and transactional mail come off the same credits as hosting: mail at {{ rate mail.sent }} on Paid, with no monthly fee for the mail domain. Resend Pro is {{ usd vendor.resend.pro }} {{ text vendor.resend.pro.unit }} and covers {{ text vendor.resend.pro.includes }}. At that volume a dedicated mail plan is cheaper per message. The saving here is not the per-message price, it is the second account and the second plan: you send from the balance and the agent that already deployed the app.
 
 ### Bandwidth
 

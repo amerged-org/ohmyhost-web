@@ -114,7 +114,7 @@ export const AGENT_INDEX = `# ohmyho.st
 
 - Deploy or update an app from a GitHub repository the customer authorizes.
 - Resume a project: authenticate, identify its organization and read project context before acting.
-- Connect a domain or sender, follow DNS/TLS/DKIM readiness, or diagnose a failed deployment.
+- Connect a domain or sender, follow DNS, TLS and mail readiness, or diagnose a failed deployment.
 - Check measured consumption, change a monthly project budget, or request an encrypted SQL export.
 - Keep the app's existing authentication provider; enable only the hosting capabilities it needs.
 
@@ -170,7 +170,7 @@ ${skills
 - [Cost breakdown](https://ohmyho.st/pricing/breakdown.md): Every published rate, worked workloads in credits and the same workloads as separate subscriptions.
 - [ohmyho.st vs Vercel](https://ohmyho.st/vs/vercel.md): Dated list prices, the same small app priced both ways, where Vercel is the better choice.
 - [ohmyho.st vs Supabase](https://ohmyho.st/vs/supabase.md): Postgres compute and storage by usage against Supabase Pro and per-project compute.
-- [ohmyho.st vs Resend](https://ohmyho.st/vs/resend.md): Mail per recipient plus a sender zone against Resend plans; break-even by volume.
+- [ohmyho.st vs Resend](https://ohmyho.st/vs/resend.md): Mail per sent recipient against Resend plans; break-even by volume.
 - [ohmyho.st vs Railway](https://ohmyho.st/vs/railway.md): Requests, CPU time and database credits against per-second vCPU, memory and volumes.
 
 ## Deploy from your agent

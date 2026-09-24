@@ -123,7 +123,7 @@ for (const [name, digest] of Object.entries(templates)) {
       .replaceAll("create_project", "project_create")
       .replaceAll("provision_postgres", "deployment_plan")
       .replaceAll("set_env", "secret_set_command")
-      .replaceAll("verify_email_sender", "mail_domain_status")
+      .replaceAll("verify_email_sender", "mail_status")
       .replaceAll("add_domain", "domain_paid_apply")
       .replaceAll(
         "https://lovable.ohm.st",
@@ -395,13 +395,13 @@ function applyApprovedHomepageChanges(html) {
     "Custom domains, email, AI models and backups come with the $10 plan.":
       "Custom domains, email and database exports come with the $10 plan.",
     "(2,000 emails ≈ $7 from your balance vs a $20 Resend Pro plan) and more expensive at high volume (50,000 emails ≈ $175 vs $20)":
-      "(2,000 emails ≈ $1 from your balance vs a $20 Resend Pro plan) and more expensive at high volume (50,000 emails ≈ $26 vs $20)",
+      "(2,000 emails ≈ $4 from your balance vs a $20 Resend Pro plan) and more expensive at high volume (50,000 emails ≈ $90 vs $20)",
     "1,000 credits. 2,000 emails ≈ 700 credits, a small app's":
-      "1,000 credits. 2,000 emails ≈ 105 credits, a small app's",
+      "1,000 credits. 2,000 emails ≈ 360 credits, a small app's",
     "<span><h3>10,000 db reads</h3><u>8 credits</u></span>":
       "<span><h3>1 active database hour</h3><u>36 credits</u></span>",
     "<span><h3>1,000 emails</h3><u>350 credits</u></span>":
-      "<span><h3>1,000 emails</h3><u>53 credits</u></span>",
+      "<span><h3>1,000 emails</h3><u>180 credits</u></span>",
     "<span><h3>1 GB served</h3><u>40 credits</u></span>":
       "<span><h3>1M requests</h3><u>99 credits</u></span>",
     // The slider states the purchase rule of PRICING.md: more credits above USD 100, never a cheaper consumption rate.
@@ -542,7 +542,7 @@ function hardenHomepageMarkup(html) {
     "<li>you.ohmyho.st</li>":
       "<li>A host like humble-kiwis-find.check.omh.st</li>",
     "Worked example: six quiet projects plus one with real users ≈ 600 credits a month. Ten dollars covers it.":
-      'The worked example includes hosting, database usage and transactional mail, including the deployed script and sender zone. See the <a href="/pricing/breakdown">full cost breakdown</a>.',
+      'The worked example includes hosting, database usage and transactional mail, including the deployed script and mail. See the <a href="/pricing/breakdown">full cost breakdown</a>.',
     "When usage reaches it, ohmyho.st stops the project before it costs more; the site stays up and read-only.":
       "When usage reaches it, ohmyho.st stops new spending on the project before it costs more.",
     "There is no web console to learn.": "",

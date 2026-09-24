@@ -125,7 +125,7 @@ export function creditBarRows(): Array<{
     },
     {
       label: "1,000 mail recipients",
-      microcredits: priceLine("ses.{region}.recipients (Essentials)", 1000),
+      microcredits: priceLine("mail.sent", 1000),
     },
     {
       label: "1 active database hour, Paid standard (0.5 CU)",
@@ -141,10 +141,6 @@ export function creditBarRows(): Array<{
     {
       label: "1 custom hostname, per month",
       microcredits: priceLine("domain.custom_hostname", 1),
-    },
-    {
-      label: "1 mail sender zone, per month",
-      microcredits: priceLine("route53.zone", 1),
     },
     {
       label: "20 build minutes",

@@ -30,7 +30,7 @@ The {{ tools }} tools cover the whole lifecycle, and the expensive or destructiv
 - Auth: `deployment_plan` preserves your existing application auth, Better Auth or your own WorkOS AuthKit tenant. The platform login is separate and never becomes your app's users.
 - Diagnosis: `deployment_logs` carries the sanitized tail of a failed build; `operation_logs` is a bounded ten-second snapshot, not a wait.
 - Data: `database_query` reads at most 100 rows; `database_write` needs confirmation and an idempotency key; `database_access_create` issues a time-bound psql credential shown exactly once.
-- Mail: sending needs Paid and a verified sender subdomain. `mail_domain_set` starts it and `mail_domain_status` reports DKIM and SPF until they verify.
+- Mail: sending needs Paid and a verified mail domain. `mail_setup` starts it and `mail_status` returns the DNS records and reports sending and receiving readiness until they verify.
 - Leaving: `project_export_create` produces a password-encrypted ZIP with a portable SQL dump, one accepted request per project per rolling 24 hours, signed link valid 24 hours. Free, even at zero credits.
 
 ## Running without a human present

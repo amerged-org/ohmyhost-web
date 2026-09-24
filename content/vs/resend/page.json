@@ -1,6 +1,6 @@
 {
   "title": "Resend alternative: transactional mail by usage — ohmyho.st",
-  "description": "Resend Pro is $20 a month for 50,000 emails. ohmyho.st meters mail per recipient plus one sender zone, from the same balance as your hosting.",
+  "description": "Resend Pro is $20 a month for 50,000 emails. ohmyho.st meters mail per sent recipient, from the same balance as your hosting.",
   "kind": "page",
   "status": "published",
   "crumb": "vs Resend",
@@ -10,5 +10,5 @@
     "title": "ohmyho.st — An alternative to Resend for transactional email",
     "description": "Compare sending workflows, usage pricing and limits."
   },
-  "modified": "2026-09-21"
+  "modified": "2026-09-24"
 }

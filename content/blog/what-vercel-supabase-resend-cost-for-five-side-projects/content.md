@@ -46,7 +46,7 @@ The free tiers, honestly. Vercel Hobby is {{ usd vendor.vercel.hobby }} and cove
 
 There is no per-project base fee. Every project draws from the organization's one balance. Free gives {{ number plan.freeCredits }} credits per UTC month. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period; Free credits expire at the end of the month, purchased credits never expire, and a top-up pack never expires ({{ number plan.topUpPerUsd }} credits per dollar, {{ number plan.topUpPerUsdAbove100 }} per dollar above the first hundred dollars). A project may carry a monthly budget, continue or stop, so one experiment cannot drain the other four.
 
-Credits are priced from what the providers underneath charge, plus a margin, and the rate card is public. The rates that decide a side project's month: requests at {{ rate wfp.requests }}, database compute at about {{ credits unit.activeDatabaseHourStandard }} per active hour on the Paid standard profile, storage at {{ rate neon.storage.root }}, mail at {{ rate ses.{region}.recipients (Essentials) }}. Bandwidth from the Workers runtime is not charged. SQL exports are free. The full card is at [docs.ohmyho.st/pricing](https://docs.ohmyho.st/pricing).
+Credits are priced from what the providers underneath charge, plus a margin, and the rate card is public. The rates that decide a side project's month: requests at {{ rate wfp.requests }}, database compute at about {{ credits unit.activeDatabaseHourStandard }} per active hour on the Paid standard profile, storage at {{ rate neon.storage.root }}, mail at {{ rate mail.sent }}. Bandwidth from the Workers runtime is not charged. SQL exports are free. The full card is at [docs.ohmyho.st/pricing](https://docs.ohmyho.st/pricing).
 
 ### A quiet project
 
@@ -62,7 +62,7 @@ One of the five is real. People log in, it sends mail, and its database is awake
 
 {{ table workload.smallApp }}
 
-The database line dominates, and it is the one you control: fewer active hours, fewer credits. Sending mail needs Paid and a verified sender subdomain; the agent sets DKIM and SPF through mail_domain_set and reads mail_domain_status until the records verify. Every recipient is metered, and To, CC and BCC count separately.
+Mail and the database are the two large lines, and both are ones you control: fewer recipients or fewer active hours, fewer credits. Sending mail needs Paid and a verified mail domain; the agent sets it up through mail_setup and reads mail_status until the DNS records verify. Every sent recipient is metered, and To, CC and BCC count separately.
 
 ### Five together
 
@@ -70,7 +70,7 @@ Four quiet projects and the small app, added up as one workload:
 
 {{ table workload.fiveSideProjects }}
 
-About {{ credits workload.fiveSideProjects }}, including every deployed script and the small app's mail sender zone. This is slightly above the {{ number plan.paidCredits }} credits that {{ usd plan.paidUsd }} buys, so keep a top-up balance for the difference and any extra usage. A zero balance starts a {{ value plan.graceDays }}-day grace period during which funded services keep running, but a new build the balance cannot cover is rejected until you refill. Automatic recharge is not enabled yet.
+About {{ credits workload.fiveSideProjects }}, including every deployed script and the small app's mail. This is slightly above the {{ number plan.paidCredits }} credits that {{ usd plan.paidUsd }} buys, so keep a top-up balance for the difference and any extra usage. A zero balance starts a {{ value plan.graceDays }}-day grace period during which funded services keep running, but a new build the balance cannot cover is rejected until you refill. Automatic recharge is not enabled yet.
 
 Set that against the {{ usd scenario.fiveProjects }} a month from the section above. The difference is not a discount. It is that four of the five projects are quiet, and here quiet costs almost nothing.
 
@@ -93,7 +93,7 @@ Metering cuts both ways. A quiet project costs less than any subscription; a bus
 That is about {{ usdValue workload.busyApp }} of credit value, most of it bought as top-up packs, against {{ usd scenario.threeSubscriptions }} for Vercel Pro, Supabase Pro and Resend Pro, if the app fits inside their allowances. Where the money goes, and where the subscriptions win:
 
 - The database. Two hundred active hours on the standard profile cost about {{ credits unit.hundredDatabaseCuHours }}. Supabase Pro runs a Micro instance all month inside its {{ usd vendor.supabase.pro }}, and a Small instance is {{ usd vendor.supabase.smallProject }} {{ text vendor.supabase.smallProject.unit }}. An app whose database never sleeps belongs on a fixed instance. The performance profile on ohmyho.st is about {{ credits unit.activeDatabaseHourPerformance }} per active hour and gives more compute, not a lower bill.
-- Mail. Twenty thousand recipients cost about {{ credits unit.twentyThousandMailRecipients }}. Resend Pro's {{ usd vendor.resend.pro }} covers {{ text vendor.resend.pro.includes }}. Use that whole allowance and Resend wins: {{ text workload.fiftyThousandRecipients.name }} costs about {{ credits workload.fiftyThousandRecipients }} here.
+- Mail. Twenty thousand recipients cost about {{ credits unit.twentyThousandMailRecipients }}. Resend Pro's {{ usd vendor.resend.pro }} covers {{ text vendor.resend.pro.includes }}, so above about 10,000 recipients a month Resend wins, and the gap grows: {{ text workload.fiftyThousandRecipients.name }} costs about {{ credits workload.fiftyThousandRecipients }} here.
 - Requests. Neither bill is decided here. The busy app's requests line is small, and Vercel Pro bills {{ usd vendor.vercel.functionInvocations }} per million function invocations above its credit.
 - Team and auth. Vercel Pro's viewer seats are free. Supabase Pro authenticates its monthly active users for you. ohmyho.st runs neither: application auth stays with Better Auth or your own WorkOS AuthKit, and every extra collaborator needs nothing from the balance because there are no seats to buy.
 - Previews and runtimes. Every ohmyho.st project has a Dev host and a Prod host, not a preview per branch. It deploys Next.js, Vite/React and TanStack Start from a GitHub repository you authorize, and nothing else; no containers.

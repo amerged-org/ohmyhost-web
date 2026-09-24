@@ -26,7 +26,7 @@ The build row deserves a closer look. It reads {{ rate build.sandbox.standard-3 
 
 {{ figure creditBars }}
 
-The bars put the rate card in proportion. A million requests cost about {{ credits unit.millionRequests }}; one active database hour on Paid standard about {{ credits unit.activeDatabaseHourStandard }}; one stored gigabyte for a month {{ rate neon.storage.root }}. For a side project the database, not the traffic, is where the credits go: eight active hours cost more than a hundred thousand requests. The two Paid-only fixed lines, a custom hostname at about {{ credits unit.customHostnameMonth }} a month and a mail sender zone at about {{ credits unit.mailSenderZoneMonth }} a month, are what turn a quiet project into a client site. The last bar is the small app, itemized in the next section.
+The bars put the rate card in proportion. A million requests cost about {{ credits unit.millionRequests }}; one active database hour on Paid standard about {{ credits unit.activeDatabaseHourStandard }}; one stored gigabyte for a month {{ rate neon.storage.root }}. For a side project the database, not the traffic, is where the credits go: eight active hours cost more than a hundred thousand requests. The one Paid-only fixed line, a custom hostname at about {{ credits unit.customHostnameMonth }} a month, is what turns a quiet project into a client site. Mail has no fixed line: 1,000 sent recipients cost about {{ credits unit.thousandMailRecipients }}. The last bar is the small app, itemized in the next section.
 
 ## Four worked workloads
 
@@ -42,19 +42,19 @@ This is a project you deploy twice a month and open a few times a week. Most of 
 
 {{ table workload.smallApp }}
 
-This is the homepage example: a real app with users, mail and regular deploys. The database's eight active hours are more than half the total, and the 2,000 mail recipients cost more than the 100,000 requests.
+This is the homepage example: a real app with users, mail and regular deploys. The 2,000 mail recipients are the largest line, ahead of the database's eight active hours, and together they are most of the total. The 100,000 requests are a small fraction of either.
 
 ### A client site with its own domain and sender mail
 
 {{ table workload.clientSite }}
 
-Less traffic and half the database time of the small app, yet nearly the same total. The custom hostname and the mail sender zone are Paid fixed lines that run whether or not the site is busy, and the zone alone costs more than the site's database compute.
+Less traffic, half the database time and half the mail of the small app. The custom hostname is a Paid fixed line that runs whether or not the site is busy; mail costs only what the site sends.
 
 ### One busy production app
 
 {{ table workload.busyApp }}
 
-Two hundred active database hours and ten stored gigabytes dominate; traffic and mail come next. This is the workload where the {{ number plan.paidCredits }} monthly credits are a small fraction of the total and the rest is bought as top-ups, which is the honest way to say ohmyho.st is not the cheapest place for it.
+Two hundred active database hours dominate; mail and ten stored gigabytes come next, then traffic. This is the workload where the {{ number plan.paidCredits }} monthly credits are a small fraction of the total and the rest is bought as top-ups, which is the honest way to say ohmyho.st is not the cheapest place for it.
 
 ## The three subscriptions, bought separately
 
@@ -82,12 +82,11 @@ Three things a pricing-showdown reader expects to pay for cost nothing here:
 - Workers bandwidth. The provider cost is zero, so the formula yields zero. Egress from your app is not a line on any table above.
 - The platform login, the portal at app.ohmyho.st, reading usage and holding projects. Signing in through WorkOS is the platform's own login and is separate from your application's users, whose Better Auth or WorkOS AuthKit setup stays yours.
 
-Four things keep using credits while nobody visits:
+Three things keep using credits while nobody visits:
 
 - Stored data, at {{ rate neon.storage.root }}. Idle database compute suspends after 60 seconds on the standard profiles (five minutes on performance), so compute stops but storage does not, and the first query after a suspension is a cold start.
 - Each deployed script, about {{ credits unit.deployedScriptMonth }} a month. Every deployment stages one immutable script that stays for rollback until it is cleaned up or the project is deleted.
 - A linked custom hostname, about {{ credits unit.customHostnameMonth }} a month, Paid.
-- A mail sender zone, about {{ credits unit.mailSenderZoneMonth }} a month, Paid. It is free if removed within twelve hours; otherwise it costs a full month, then a month on each first of the month while it exists.
 
 Periodic SQL health checks keep idle compute awake. The agent reads database state through database_compute_get, which does not wake the database.
 
@@ -97,7 +96,7 @@ Three cases, with the numbers.
 
 The busy app. One busy production app uses about {{ credits workload.busyApp }} a month, {{ usdValue workload.busyApp }} of credit value, most of it in database compute and storage. At that scale Vercel Pro at {{ usd vendor.vercel.pro }} a month with its usage allowance and Supabase Pro from {{ usd vendor.supabase.pro }} a month with a fixed compute instance can come out cheaper, and a usage meter stops being an advantage. Compare a concrete quote before moving a busy app.
 
-Resend at high volume. Resend Pro is {{ usd vendor.resend.pro }} a month for 50,000 emails. The same 50,000 recipients on ohmyho.st cost about {{ credits workload.fiftyThousandRecipients }}, {{ usdValue workload.fiftyThousandRecipients }} of credit value, and Resend Scale is {{ usd vendor.resend.scale }} a month for 100,000. Below a few thousand recipients the per-recipient meter is cheaper because there is no plan to buy; in the tens of thousands, Resend is.
+Resend at high volume. Resend Pro is {{ usd vendor.resend.pro }} a month for 50,000 emails. The same 50,000 recipients on ohmyho.st cost about {{ credits workload.fiftyThousandRecipients }}, {{ usdValue workload.fiftyThousandRecipients }} of credit value, and Resend Scale is {{ usd vendor.resend.scale }} a month for 100,000. Up to about 10,000 recipients a month the per-recipient meter is cheaper than Resend Pro because there is no plan to buy; above that, Resend is.
 
 Railway for containers. Railway runs any container and bills CPU and memory by the second above a {{ usd vendor.railway.pro }} a month minimum on Pro. ohmyho.st runs no containers. It deploys Next.js, Vite/React and TanStack Start from a GitHub repository the customer authorizes, and nothing else. A long-running process, a websocket server you manage yourself or a binary dependency belongs on Railway, whatever the credits say.
 
@@ -129,7 +128,7 @@ Purchased credits do: the {{ number plan.paidCredits }} Paid credits and every t
 
 ### What does a project cost when nobody visits it?
 
-Only what it keeps. Stored data at {{ rate neon.storage.root }}, one deployed script at about {{ credits unit.deployedScriptMonth }} a month, and on Paid a custom hostname or mail sender zone if you linked one. Database compute suspends after a minute of idle time and costs nothing until the next query wakes it.
+Only what it keeps. Stored data at {{ rate neon.storage.root }}, one deployed script at about {{ credits unit.deployedScriptMonth }} a month, and on Paid a custom hostname if you linked one. Database compute suspends after a minute of idle time and costs nothing until the next query wakes it.
 
 ### Can I cap what one project spends?
 

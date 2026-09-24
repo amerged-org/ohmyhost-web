@@ -98,9 +98,9 @@ A side project you rarely touch looks different.
 
 {{ table workload.quietProject }}
 
-That fits inside the Free grant. What keeps drawing credits when nothing happens: stored data, each deployed script at about {{ credits unit.deployedScriptMonth }} a month, a linked custom hostname (Paid) at about {{ credits unit.customHostnameMonth }} a month and a mail sender zone (Paid) at about {{ credits unit.mailSenderZoneMonth }} a month. Workers bandwidth is not charged. SQL exports are free. Mail is metered per recipient at the Essentials rate, and To, CC and BCC each count; the small-app table shows what 2,000 recipients cost.
+That fits inside the Free grant. What keeps drawing credits when nothing happens: stored data, each deployed script at about {{ credits unit.deployedScriptMonth }} a month, and a linked custom hostname (Paid) at about {{ credits unit.customHostnameMonth }} a month. A mail domain has no monthly fee. Workers bandwidth is not charged. SQL exports are free. Mail is metered per sent recipient at {{ rate mail.sent }}, and To, CC and BCC each count; the small-app table shows what 2,000 recipients cost.
 
-How a deploy actually happens when you deploy from Claude Code, Codex or Cursor: the agent reads the Skill, calls project_create and source_link for the GitHub repository you authorize, then deployment_plan, which quotes the build and its credits before deployment_create runs it. Promotion to Prod is promotion_plan then promotion_execute; rollback is rollback_plan then rollback_execute. Secrets go through the stdin-only CLI command from secret_set_command, never through chat. Every project gets Dev and Prod hosts on a three-word check.omh.st address; a customer-owned domain is Paid and metered, set up through domain_paid_plan and domain_paid_apply, and a sender subdomain for mail through mail_domain_set and mail_domain_status. US hosting is the default; EU is a per-project choice made once at creation, at the same prices. The portal at app.ohmyho.st shows projects, credits, budgets and API tokens; it does not deploy. The full {{ tools }}-tool catalog is on the [MCP tools](https://docs.ohmyho.st/mcp-tools) page.
+How a deploy actually happens when you deploy from Claude Code, Codex or Cursor: the agent reads the Skill, calls project_create and source_link for the GitHub repository you authorize, then deployment_plan, which quotes the build and its credits before deployment_create runs it. Promotion to Prod is promotion_plan then promotion_execute; rollback is rollback_plan then rollback_execute. Secrets go through the stdin-only CLI command from secret_set_command, never through chat. Every project gets Dev and Prod hosts on a three-word check.omh.st address; a customer-owned domain is Paid and metered, set up through domain_paid_plan and domain_paid_apply, and a mail domain through mail_setup and mail_status. US hosting is the default; EU is a per-project choice made once at creation, at the same prices. The portal at app.ohmyho.st shows projects, credits, budgets and API tokens; it does not deploy. The full {{ tools }}-tool catalog is on the [MCP tools](https://docs.ohmyho.st/mcp-tools) page.
 
 To try it, paste this into your agent:
 
@@ -128,7 +128,7 @@ Yes. The organization Owner requests an export with project_export_create; the p
 
 ### Do I need Paid for a custom domain or transactional mail?
 
-Yes. Free projects use their check.omh.st hosts. A customer-owned hostname needs Paid and draws about {{ credits unit.customHostnameMonth }} a month; a verified mail sender zone needs Paid and draws about {{ credits unit.mailSenderZoneMonth }} a month, plus the per-recipient mail rate. Paid itself is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits.
+Yes. Free projects use their check.omh.st hosts. A customer-owned hostname needs Paid and draws about {{ credits unit.customHostnameMonth }} a month; a verified mail domain needs Paid, has no monthly fee and draws only the per-recipient mail rate. Paid itself is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits.
 
 {{ sources railway render fly resend }}
 

@@ -29,9 +29,9 @@ This is hosting for vibe-coded apps priced by what the app measures. Here is the
 
 {{ table workload.smallApp }}
 
-Read the table from the largest line down. The database is most of the bill. One active hour on the Paid standard profile ({{ value profile.standard.cu }} CU) is about {{ credits unit.activeDatabaseHourStandard }}; compute suspends after a minute of idle, so a project nobody visits stops paying for compute and pays only for what it keeps. Stored data is {{ rate neon.storage.root }}. Requests are {{ rate wfp.requests }}, and bandwidth from the Worker is not charged. Mail is {{ rate ses.{region}.recipients (Essentials) }}, counted per recipient with To, CC and BCC separate; sending needs Paid and a verified sender subdomain.
+Read the table from the largest line down. Mail and the database are most of the bill. One active hour on the Paid standard profile ({{ value profile.standard.cu }} CU) is about {{ credits unit.activeDatabaseHourStandard }}; compute suspends after a minute of idle, so a project nobody visits stops paying for compute and pays only for what it keeps. Stored data is {{ rate neon.storage.root }}. Requests are {{ rate wfp.requests }}, and bandwidth from the Worker is not charged. Mail is {{ rate mail.sent }}, counted per sent recipient with To, CC and BCC separate, so 2,000 recipients outweigh the database hours; sending needs Paid and a verified mail domain.
 
-Three things keep drawing credits while a project sits still: each deployed script, about {{ credits unit.deployedScriptMonth }} a month; a linked custom hostname, about {{ credits unit.customHostnameMonth }} a month on Paid; and a mail sender zone, about {{ credits unit.mailSenderZoneMonth }} a month on Paid. SQL exports are free. A quiet side project whose database wakes for one hour a month costs about {{ credits workload.quietProject }}. Five of them cost about {{ credits workload.fiveQuietProjects }}, which leaves most of the monthly {{ number plan.paidCredits }} unused.
+Two things keep drawing credits while a project sits still: each deployed script, about {{ credits unit.deployedScriptMonth }} a month, and a linked custom hostname, about {{ credits unit.customHostnameMonth }} a month on Paid. A mail domain has no monthly fee. SQL exports are free. A quiet side project whose database wakes for one hour a month costs about {{ credits workload.quietProject }}. Five of them cost about {{ credits workload.fiveQuietProjects }}, which leaves most of the monthly {{ number plan.paidCredits }} unused.
 
 ## Side by side
 
@@ -79,7 +79,7 @@ What happens next, step by step:
 2. It connects GitHub once through `github_connect`, then runs `ohmyhost init --dry-run` on the repository and reports blockers and requirements before anything is built.
 3. It creates the project with `project_create`, asking once for US or EU and for isolated or shared Dev/Prod data, then asks for a `deployment_plan`. You read the plan, including the build cost it reserves, and confirm; `deployment_create` builds the commit. Secrets travel through the stdin-only CLI command returned by `secret_set_command`, never pasted into chat.
 4. Dev is private. `project_dev_access_create` gives you a single-use link; test login, a protected route and a real read and write. Then `promotion_plan` and `promotion_execute` publish to Prod at your project's three-word host on check.omh.st without a rebuild.
-5. On Paid, `domain_paid_plan` then `domain_paid_apply` link your own hostname, and `mail_domain_set` then `mail_domain_status` set up the sender subdomain's DKIM and SPF and wait for verification. Move your DNS when Prod works, then cancel the Vercel Pro seat.
+5. On Paid, `domain_paid_plan` then `domain_paid_apply` link your own hostname, and `mail_setup` then `mail_status` set up the mail domain, return its DNS records and wait for verification. Move your DNS when Prod works, then cancel the Vercel Pro seat.
 
 ## FAQ
 

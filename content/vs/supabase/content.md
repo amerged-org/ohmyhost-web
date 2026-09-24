@@ -68,7 +68,7 @@ Exports on ohmyho.st are on-demand, asynchronous and free. project_export_create
 
 ohmyho.st is not a Supabase Auth replacement. It has no user pool, no social provider catalog and no MFA service of its own. Application users belong to whichever provider you choose, and two integrations are verified:
 
-- **Better Auth**, the managed integration, selected explicitly in your project configuration. It owns its own `auth` schema and database sessions and sends verification and reset mail, so it needs Paid and a verified sender subdomain; your agent sets DKIM and SPF through mail_domain_set and checks them with mail_domain_status.
+- **Better Auth**, the managed integration, selected explicitly in your project configuration. It owns its own `auth` schema and database sessions and sends verification and reset mail, so it needs Paid and a verified mail domain; your agent sets it up through mail_setup and checks its DNS records with mail_status.
 - **WorkOS AuthKit**, customer-owned. You bring your WorkOS account; the agent configures callback URLs per environment and installs the client secret through secret_set_command.
 
 If you keep the Supabase project, keep Supabase Auth with it; the hosted app still calls it. If you import the dump and want off Supabase Auth, the migration Skill's opt-in mode rewrites `auth.users` into Better Auth's UUID `auth."user"` table and `auth.uid()` into a server-controlled helper. Test login, protected routes, session refresh and logout on Dev before you promote.
@@ -110,7 +110,7 @@ One busy app reads differently from five quiet ones. {{ text workload.smallApp.n
 
 - **Several small projects.** The five quiet projects above cost about {{ credits workload.fiveQuietProjects }} together; on Supabase each one needs its own instance. Nine side projects and two live ones is the normal shape of a builder's account, and no base fee punishes it.
 - **Databases that idle.** A portfolio site, an internal tool, a demo for a client: hours of activity a month, not hundreds. Compute suspends a minute after the last query, and storage is the only steady cost.
-- **One balance for hosting, Postgres, mail and a domain.** The app, its database, its transactional mail (Paid, metered at {{ rate ses.{region}.recipients (Essentials) }}, To, CC and BCC counted separately) and a linked custom hostname (Paid, {{ rate domain.custom_hostname }}) all draw from the same {{ number plan.paidCredits }} credits a month. No second and third account.
+- **One balance for hosting, Postgres, mail and a domain.** The app, its database, its transactional mail (Paid, metered at {{ rate mail.sent }}, To, CC and BCC counted separately) and a linked custom hostname (Paid, {{ rate domain.custom_hostname }}) all draw from the same {{ number plan.paidCredits }} credits a month. No second and third account.
 - **You deploy from Claude Code, Cursor or Codex.** There is no deploy dashboard. The agent plans, you confirm, it executes: deployment_plan then deployment_create, promotion_plan then promotion_execute, rollback_plan then rollback_execute.
 - **EU data per project.** Choose `eu` once at project creation and the database, files and builds live in the EU at the same prices. Transactional mail is sent from the platform mail region.
 - **A ceiling per project.** project_budget_set gives a project a monthly budget that warns or stops. A zero balance starts a seven-day grace period; funded services keep running.
@@ -132,7 +132,7 @@ One busy app reads differently from five quiet ones. {{ text workload.smallApp.n
 
 ### Does ohmyho.st replace Supabase Auth?
 
-No. ohmyho.st hosts your app and its Postgres; application users stay with a provider you own. Better Auth is the managed integration and needs Paid plus a verified sender subdomain for its mail; customer-owned WorkOS AuthKit is the other verified path. If you keep your Supabase project, keep Supabase Auth with it. Your own ohmyho.st login is a separate WorkOS boundary.
+No. ohmyho.st hosts your app and its Postgres; application users stay with a provider you own. Better Auth is the managed integration and needs Paid plus a verified mail domain for its mail; customer-owned WorkOS AuthKit is the other verified path. If you keep your Supabase project, keep Supabase Auth with it. Your own ohmyho.st login is a separate WorkOS boundary.
 
 ### Can I host on ohmyho.st and keep my Supabase database?
 

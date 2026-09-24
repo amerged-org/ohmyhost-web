@@ -5,14 +5,14 @@
     "label": "1M requests"
   },
   "thousandMailRecipients": {
-    "meter": "ses.{region}.recipients (Essentials)",
+    "meter": "mail.sent",
     "quantity": 1000,
-    "label": "1,000 mail recipients"
+    "label": "1,000 sent mail recipients"
   },
   "twentyThousandMailRecipients": {
-    "meter": "ses.{region}.recipients (Essentials)",
+    "meter": "mail.sent",
     "quantity": 20000,
-    "label": "20,000 mail recipients"
+    "label": "20,000 sent mail recipients"
   },
   "activeDatabaseHourFree": {
     "meter": "neon.compute.scale",
@@ -48,11 +48,6 @@
     "meter": "domain.custom_hostname",
     "quantity": 1,
     "label": "one linked custom hostname for a month"
-  },
-  "mailSenderZoneMonth": {
-    "meter": "route53.zone",
-    "quantity": 1,
-    "label": "one mail sender zone for a month"
   },
   "twentyBuildMinutes": {
     "meter": "build.sandbox.standard-3",
