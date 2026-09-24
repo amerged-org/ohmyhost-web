@@ -16,8 +16,11 @@ Published by Amerged under the [Apache-2.0 licence](https://www.apache.org/licen
 
 ```sh
 npm install --global @amerged/ohmyhost-cli @amerged/ohmyhost-mcp
-npm install @amerged/ohmyhost-sdk @amerged/ohmyhost-runtime @amerged/ohmyhost-auth
+npm install @amerged/ohmyhost-sdk
+npm install "@ohmyhost/customer-runtime@npm:@amerged/ohmyhost-runtime@<version>"
 ```
+
+Upgrade the CLI and MCP server first. Your application imports the runtime as `@ohmyhost/customer-runtime`, so install it under that name as the exact npm alias `ohmyhost init` reports, with `<version>` taken from that report, and commit the updated lockfile. Every `@ohmyhost/customer-runtime/*` import stays unchanged. The website also offers the current release as archives, but only the current one: older archive URLs return 404, so do not pin an application to an `ohmyho.st/releases/` URL, and older runtime versions carry no compatibility promise.
 
 The runtime and auth packages matter most for portability: they are the code your application imports, so the parts of your app that touch our platform are readable, forkable and licensed to you.
 
@@ -48,6 +51,6 @@ An agent cannot work against a product it has to guess at, so the interface is p
 
 ## How to contribute
 
-Open a pull request on the [website repository](https://github.com/amerged-org/ohmyhost-web) for website changes or the [docs repository](https://github.com/amerged-org/docs) for documentation. Send product bugs and feature requests through your agent's `feedback_submit` tool. Roadmap votes live on the [homepage](/).
+Open a pull request on the [website repository](https://github.com/amerged-org/ohmyhost-web) for website changes or the [docs repository](https://github.com/amerged-org/docs) for documentation. Send product bugs and feature requests through your agent's `feedback_submit` tool, and read ohmyho.st's replies to your own report with `feedback_status`. Reports stay private; they are not published. Roadmap votes live on the [homepage](/).
 
 [Documentation](https://docs.ohmyho.st/) · [Philosophy](/philosophy) · [About](/about) · [Contact](/contact)
