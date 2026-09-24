@@ -54,7 +54,7 @@ Moving the database is the second step, once the app is live and calm. Export fr
 
 ## Custom domain and mail
 
-Both need Paid, and both are metered rather than bundled. `domain_paid_plan` returns the CNAME to set at your registrar and `domain_paid_apply` activates the hostname once DNS resolves; a linked hostname costs about {{ credits unit.customHostnameMonth dp=0 }} a month. Transactional mail needs a verified mail domain that the agent configures with `mail_setup`; you add the DNS records `mail_status` returns, and it reports when sending is ready. The domain has no monthly fee; each 1,000 sent recipients cost about {{ credits unit.thousandMailRecipients dp=0 }}.
+Both need Paid, and both are metered rather than bundled. The domain serves Prod, so deploy or promote to Prod first; until then both steps answer `production_deployment_required`. `domain_paid_plan` returns the CNAME to set at your registrar and `domain_paid_apply` activates the hostname once DNS resolves; a linked hostname costs about {{ credits unit.customHostnameMonth dp=0 }} a month. Transactional mail needs a verified mail domain that the agent configures with `mail_setup`; you add the DNS records `mail_status` returns, and it reports when sending is ready. The domain has no monthly fee; each 1,000 sent recipients cost about {{ credits unit.thousandMailRecipients dp=0 }}.
 
 ## What it costs
 

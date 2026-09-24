@@ -2,7 +2,7 @@
 
 A Bolt.new export is an ordinary repository — usually Vite and React with Supabase — minus the one thing that made it run: the environment. The `.env` stays behind, so the first deploy of an export fails on missing values rather than on anything you built.
 
-Connect GitHub in Bolt, paste one prompt into your coding agent, and the agent recreates those values as secrets, builds the app, deploys it to a private Dev host and promotes it to Prod once you have checked it. Free grants {{ number plan.freeCredits }} credits a month, Paid is {{ usd plan.paidUsd }} for {{ number plan.paidCredits }} credits shared by every project you run.
+Connect GitHub in Bolt, paste one prompt into your coding agent, and the agent recreates those values as secrets, builds the app, deploys it to a protected Dev host and promotes it to Prod once you have checked it. Free grants {{ number plan.freeCredits }} credits a month, Paid is {{ usd plan.paidUsd }} for {{ number plan.paidCredits }} credits shared by every project you run.
 
 {{ figure flow.bolt-export }}
 
@@ -45,7 +45,7 @@ Every expensive step is two calls: `deployment_plan` shows the quoted build and 
 3. Decide about Supabase. Keep it, and your app talks to the same project from the new host; only the callback URLs change. Or migrate the database to managed Postgres with the [Supabase migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md), which converts the capabilities you select and leaves your auth provider alone unless you ask.
 4. Create and link. The agent creates the project with `project_create`, choosing US or EU once (the region cannot change later and prices are identical), then authorizes the repository through `source_link` and one GitHub consent screen. Isolated Dev and Prod data is the recommendation; two databases consume credits separately.
 5. Plan, set secrets, deploy. `deployment_plan` quotes the build. You supply private values through the command from `secret_set_command` for the Dev environment. `deployment_create` starts the build; the agent polls `operation_get` until it is done.
-6. Verify Dev, then promote. Dev is private: `project_dev_access_create` returns a single-use link. Test a deep-link reload, a login and one write. Then `promotion_plan` and `promotion_execute` move the same artifact to Prod without a rebuild and without copying Dev records over Prod data. Update the Prod callback URLs.
+6. Verify Dev, then promote. Dev is protected by default: `project_dev_share_link_get` returns a reusable share link you can open again or pass to a tester. Test a deep-link reload, a login and one write. Then `promotion_plan` and `promotion_execute` move the same artifact to Prod without a rebuild and without copying Dev records over Prod data. Update the Prod callback URLs.
 
 Read the [deployment Skill](/skills/ohmyhost-deploy-github/SKILL.md) for every command and the [Vite guide](https://docs.ohmyho.st/frameworks/vite) for the runtime contract.
 
@@ -55,7 +55,7 @@ The platform host works on Free. Your own domain and transactional mail need Pai
 
 **Domain.** The agent calls `domain_paid_plan` for the hostname, shows the CNAME and validation records, then `domain_paid_apply`. If your DNS is on Cloudflare, `domain_cloudflare_authorize` lets the platform set the records for you; otherwise you paste them at your DNS provider. A linked hostname is metered at {{ rate domain.custom_hostname }}, about {{ credits unit.customHostnameMonth }} a month. Once `domain_paid_status` reports HTTPS ready, the agent updates your auth provider's callback URLs one last time. Read [domains](https://docs.ohmyho.st/domains).
 
-**Mail.** If your Bolt app sends its own mail (welcome, reset, receipts) through Supabase Auth or an external provider, that keeps working unchanged. If you want ohmyho.st to send, the agent runs `mail_setup` for a mail subdomain, you add the DNS records `mail_status` returns, and `mail_status` reports when sending is ready. The domain has no monthly fee; every send is metered at {{ rate mail.sent }}, and To, CC and BCC each count as one recipient. Transactional mail is sent from the platform mail region regardless of your project's region, and you need no mail provider account of your own. Read [email](https://docs.ohmyho.st/email).
+**Mail.** If your Bolt app sends its own mail (welcome, reset, receipts) through Supabase Auth or an external provider, that keeps working unchanged. If you want ohmyho.st to send, the agent runs `mail_setup` for a mail subdomain, you add the DNS records `mail_status` returns, and `mail_status` reports when sending is ready. The domain has no monthly fee; every send is metered at {{ rate mail.sent }} for its one recipient. Transactional mail is sent and processed in the US regardless of your project's region, and you need no mail provider account of your own. Read [email](https://docs.ohmyho.st/email).
 
 ## What it costs
 

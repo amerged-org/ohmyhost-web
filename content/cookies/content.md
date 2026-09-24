@@ -1,6 +1,6 @@
 # Cookie notice
 
-Effective date: September 21, 2026.
+Effective date: September 24, 2026.
 
 ## Technical cookies and optional analytics
 
@@ -15,7 +15,7 @@ The account portal at app.ohmyho.st and development environments do not use this
 | _ga and _ga_C1PWJM238R | Google Analytics visitor and session measurement, only after consent | Up to 180 days after use; shared across website and docs |
 | __Host-omh-session | Keep the authenticated account portal session, protect form actions and renew WorkOS access server-side | Up to seven days; encrypted and authenticated, host-only, Secure, HttpOnly, SameSite=Lax; cleared on logout or invalidation |
 | __Host-omh-login | Protect the browser login handoff using state and PKCE | Up to ten minutes; Secure, HttpOnly, SameSite=Lax; cleared after the handoff |
-| __Host-ohmyhost_dev_access | Authorise access to a private customer Dev environment after a single-use link is redeemed | Up to twelve hours; host-only, Secure, HttpOnly, SameSite=Lax |
+| __Host-ohmyhost_dev_access | Authorise access to a protected customer Dev environment after its share link or an owner access link is opened; access is checked again on every request | Up to twelve hours; host-only, Secure, HttpOnly, SameSite=Lax |
 | Authentication and security cookies used by WorkOS and the identity provider you sign in through it | Maintain the requested login and protect authentication | The login service's session/security expiry; only when that service is used |
 | Cloudflare security cookies, where its protection requires them | Detect abusive traffic or remember a successfully completed security challenge | Expiry follows the enabled mechanism, described in [Cloudflare’s cookie documentation](https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/) |
 | __Host-omh_voter | Restore your roadmap votes for this browser; the server stores only a hash of the random identifier, not a verified personal identity | Up to twelve months after use; host-only, Secure, HttpOnly, SameSite=Lax; not used for analytics, advertising or account access |

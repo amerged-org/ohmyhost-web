@@ -16,7 +16,7 @@ That is the actual work of moving, and it is work an agent can do with you: inve
 
 1. **Inventory the app.** Identify the framework, application directory, package manager, auth provider, database, files, functions and external services. `ohmyhost init --dry-run --json` returns the blockers and the required conversions for your actual repository instead of a generic checklist.
 2. **Replace the Replit-only pieces.** Move key-value data into Postgres tables, pick the auth provider, list the files to copy, and convert anything that assumed a long-running machine. Keep every decision in the repository as ordinary code and migrations, so the next move — if you ever make one — is a normal one.
-3. **Deploy and verify.** Push to GitHub and follow the [deployment Skill](/skills/ohmyhost-deploy-github/SKILL.md). Set the target environment's secrets through the stdin command, run the migrations, then test sign-in, a protected route, one real write and any mail the app sends. Dev is private, so open it once through a ten-minute access ticket. Promote to Prod only after Dev passes.
+3. **Deploy and verify.** Push to GitHub and follow the [deployment Skill](/skills/ohmyhost-deploy-github/SKILL.md). Set the target environment's secrets through the stdin command, run the migrations, then test sign-in, a protected route, one real write and any mail the app sends. Dev is protected by default, so open it through the owner's reusable share link. Promote to Prod only after Dev passes.
 
 ## What it costs here
 

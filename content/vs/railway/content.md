@@ -43,7 +43,7 @@ Then the meters a side project touches:
 - Database storage: {{ rate neon.storage.root }}, charged whether the database is awake or not.
 - Files: {{ rate r2.storage.standard }}.
 - Builds: {{ rate build.sandbox.standard-3 }}, measured from the start of your build to its end.
-- Mail: {{ rate mail.sent }}. To, CC and BCC each count. Sending needs Paid and a verified mail domain; the domain itself has no monthly fee.
+- Mail: {{ rate mail.sent }}, one recipient per message. Sending needs Paid and a verified mail domain; the domain itself has no monthly fee.
 - Per project: each deployed script uses about {{ credits unit.deployedScriptMonth }} a month, and a linked customer-owned hostname uses about {{ credits unit.customHostnameMonth }} a month on Paid.
 
 Bandwidth from Workers is not charged. SQL exports are free. Scheduled functions have no meter of their own: each run is one request plus its CPU milliseconds. EU hosting is a choice made once when a project is created, US is the default, and the rates are the same in both.
@@ -128,7 +128,7 @@ ohmyho.st is hosting for vibe-coded apps: you deploy from Claude Code, Codex or 
 2. Keep the app in GitHub and authorize the repository. The agent follows the [deploy Skill](/skills/ohmyhost-deploy-github/SKILL.md): project_create, source_link, deployment_plan, then deployment_create once you have seen the plan and its cost.
 3. Move secrets through the stdin-only CLI command from secret_set_command, never through chat.
 4. Move existing rows through a time-bound credential from database_access_create after the deployment has applied your versioned migrations.
-5. Verify Dev through the single-use link from project_dev_access_create, then promotion_plan and promotion_execute for Prod. Set a monthly ceiling with project_budget_set if you want one.
+5. Verify Dev through the reusable share link from project_dev_share_link_get, then promotion_plan and promotion_execute for Prod. Set a monthly ceiling with project_budget_set if you want one.
 
 ## FAQ
 

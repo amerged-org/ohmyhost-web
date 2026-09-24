@@ -91,6 +91,8 @@ single short line below the cards, pricing has one concise metering/reset note l
 rates, and the closing CTA says “No card required.” (owner layout correction, 2026-09-21).
 SEO and social metadata are unchanged by this correction.
 
+The homepage EU answer states that transactional mail is processed in the US by the platform's mail provider, replacing the earlier "platform's mail region" wording (approved copy, 2026-09-24); the template and brand artifacts are unchanged.
+
 The footer bottom row is a sibling of the link grid, spanning its full width with “© 2026 ohmyho.st — Made in Europe” at the left and the existing cookie-settings button at the right, without wrapping (2026-09-21).
 
 Every editorial fenced prompt or command has a keyboard-accessible copy icon which copies that block’s full text, with success/error feedback and the existing clipboard fallback. Text prompts wrap for narrow screens; Markdown content and metadata remain unchanged.

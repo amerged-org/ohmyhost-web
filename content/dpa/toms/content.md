@@ -1,6 +1,6 @@
 # Technical and organisational measures
 
-Annex II to the ohmyho.st DPA. Version: September 14, 2026.
+Annex II to the ohmyho.st DPA. Version: September 24, 2026.
 
 Statements about authentication, encryption, scoping, validation and export limits describe the current technical controls; personnel, review, notification and incident-response procedures are Processor’s organisational commitments under this annex.
 
@@ -16,7 +16,7 @@ Product requests are authenticated and authorised against the relevant organisat
 
 Public service endpoints use HTTPS. Database connections use encrypted transport with server validation in the supported connection paths. Infrastructure storage uses the storage provider's encryption controls. Application runtime secrets are encrypted separately in the control system and delivered only to the intended runtime environment; secret listing exposes metadata rather than plaintext. Management credentials are separated from customer source, untrusted builds and public client responses.
 
-API-token creation exposes the new value once through the supported flow; full-token retrieval and a reversible user-token vault are not provided. New keys have no scheduled expiry and remain subject to revocation, current membership and permissions. Browser sessions and short-lived handoffs expire separately. Deliberate local credential persistence applies owner-only file controls. Short-lived handoffs and download capabilities have bounded lifetimes and remain subject to their scope. These controls do not make service execution end-to-end encrypted against every infrastructure operator.
+API-token creation exposes the new value once through the supported flow; full-token retrieval and a reversible user-token vault are not provided. New keys have no scheduled expiry and remain subject to revocation, current membership and permissions. Browser sessions and short-lived handoffs expire separately. Deliberate local credential persistence applies owner-only file controls. Short-lived handoffs and download capabilities have bounded lifetimes and remain subject to their scope. The exception is the share link for a protected customer Dev environment: it is a persistent bearer link without automatic expiry, retrievable only by the project Owner and stored encrypted in the control system. Each opening starts a browser session of at most twelve hours. The current Dev access mode and link are checked on every request, so a rotation, revocation or switch of access mode takes effect on the next request. A customer can instead choose public Dev, which requires no link. The link grants no Prod or account access. These controls do not make service execution end-to-end encrypted against every infrastructure operator.
 
 ## Application and build isolation
 
@@ -33,6 +33,8 @@ Relevant operations, authorisations, usage and cleanup outcomes are recorded wit
 ## Recovery and deletion
 
 Recovery procedures use the selected database and storage capabilities. On-demand SQL exports are asynchronous password-encrypted ZIP archives, limited to one accepted request per project per rolling 24 hours. The customer controls the password; it is not kept as a recoverable customer password vault. The archive lifecycle is seven days and authorised download links last 24 hours. Export/restore procedures have been exercised through the supported workflow. Recovery capability does not establish a guaranteed recovery point or recovery time for every workload.
+
+Received mail is reachable through the service for 72 hours after receipt, for webhook delivery, bounded retries and recovery; the platform keeps no permanent inbox, and the customer's application stores the messages it needs. The mail provider retains email and log data under its own terms, as listed in Annex III.
 
 Deletion follows scoped operation records and provider observations. Retained backups are restricted and expire under their applicable lifecycle. Website interest, contact and roadmap-vote records have explicit expiry timestamps and are purged through the existing maintenance process. Legal or data-subject requests are handled through the contact channel and recorded with access limited to responsible personnel.
 

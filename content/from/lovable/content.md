@@ -48,7 +48,7 @@ Your app already talks to Supabase from the browser. Leave the database, Auth, S
 
 ### Import a dump into managed Postgres
 
-If you want off Supabase, the agent follows the [Supabase migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md). It inventories what the app really uses: queries, RPCs, RLS assumptions, Auth sessions, Storage calls, Edge Functions, Realtime. A package name alone is not a reason to replace anything. The schema conversion takes only your application-owned `public` (and optional `private`) schema; Supabase's `auth` and `storage` schemas never enter it. So users do not come across as-is: passwords cannot be exported, and the app needs its own auth. The verified integrations are Better Auth and customer-owned WorkOS AuthKit (https://docs.ohmyho.st/application-auth); Better Auth sends mail, so it needs Paid and a verified sender domain. Budget a real afternoon, and do it after the frontend is already live.
+If you want off Supabase, the agent follows the [Supabase migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md). It inventories what the app really uses: queries, RPCs, RLS assumptions, Auth sessions, Storage calls, Edge Functions, Realtime. A package name alone is not a reason to replace anything. The schema conversion takes only your application-owned `public` (and optional `private`) schema; Supabase's `auth` and `storage` schemas never enter it. So users do not come across as-is: passwords cannot be exported, and the app needs its own auth. The verified integrations are Better Auth and customer-owned WorkOS AuthKit (https://docs.ohmyho.st/application-auth); Better Auth needs the database; only if your app sends its verification or reset mail through ohmyho.st does it also need Paid and your own verified sender domain. Budget a real afternoon, and do it after the frontend is already live.
 
 Either way your data stays portable. An Owner can request a password-encrypted ZIP with a SQL dump (`project_export_create`): one accepted request for each project in any 24-hour window, download link valid 24 hours. SQL exports are free, even at zero credits.
 
@@ -71,7 +71,7 @@ What happens next, in plain words. The agent reads two pages, installs the ohmyh
 3. Inventory: the agent runs `ohmyhost init --dry-run` on the repository and reports the framework, the Supabase usage, the `.env` values and anything unsupported. Read its summary; ask questions.
 4. Decide: keep Supabase (default) or ask for the migration Skill. Say it in one sentence, because the agent keeps your existing decisions unless you change them.
 5. Secrets and callback URLs: the agent tells you which secrets it needs and gives you the stdin command. You add the new hosts to Supabase's Redirect URLs and Site URL.
-6. Deploy to Dev: the agent creates the project (US by default, EU if you say so at creation; the choice is permanent and prices are identical), links the repository, plans, and builds. Dev is private; `project_dev_access_create` gives you a single-use browser link.
+6. Deploy to Dev: the agent creates the project (US by default, EU if you say so at creation; the choice is permanent and prices are identical), links the repository, plans, and builds. Dev is protected by default; `project_dev_share_link_get` gives you a reusable share link, or you choose public Dev when the project is created.
 7. Verify login on Dev: sign in with Google or email, open a protected page, reload it, sign out. Reload a deep link.
 8. Promote to Prod: `promotion_plan` then `promotion_execute` reuse the same build without a rebuild. Isolated projects keep Dev and Prod data apart; Prod records are never overwritten by Dev rows.
 9. Link the domain: on Paid, `domain_paid_plan` returns the CNAME to set at your registrar and `domain_paid_apply` activates it (https://docs.ohmyho.st/domains). Add the domain to Supabase's Redirect URLs, then run the login check once more on the real address.
@@ -88,7 +88,7 @@ Run this three times: on the Dev link, on the Prod host, and on your own domain 
 - Sign in, open a protected page, reload it, sign out. A session that survives a reload proves the token is stored for the new host.
 - A magic link or password-reset mail lands on the new host, not on the old Lovable address.
 - A deep link such as `/settings` loads directly and after a reload.
-- Dev 404 for anonymous visitors is expected: Dev is private. Use the access link, not the raw URL.
+- Dev 404 for anonymous visitors is expected: Dev is protected by default. Use the share link, not the raw URL.
 
 If any line fails, tell the agent which one. `deployment_logs` and `operation_get` give it the diagnostics; it does not need you to read them.
 

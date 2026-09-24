@@ -1,6 +1,6 @@
 # Data Processing Agreement
 
-Version: September 14, 2026.
+Version: September 24, 2026.
 
 ## 1. Parties, scope and order of precedence
 
@@ -71,7 +71,7 @@ This DPA continues while Processor holds Customer Personal Data under the agreem
 | Subject matter | Provision of the hosting capabilities ordered and configured by Customer |
 | Nature and operations | Receipt, transmission, organisation, storage, retrieval, execution of application requests, authorised access, export and deletion; build/deployment, database, file, runtime and enabled transactional-mail processing as applicable |
 | Purpose | Host and operate Customer's application and perform its authorised service instructions |
-| Duration and frequency | Continuous or request-driven during the service, followed by the documented return/deletion and protected-retention lifecycle |
+| Duration and frequency | Continuous or request-driven during the service, followed by the documented return/deletion and protected-retention lifecycle; received mail is reachable through the service for 72 hours after receipt, and the mail provider's own retention is set out in Annex III |
 | Data subjects | Customer's authorised personnel, application users, visitors, contacts and other persons whose data Customer lawfully submits |
 | Data categories | Application-defined identifiers, contact details, account/content records, uploaded files, transaction or communication records, network/request metadata and diagnostic data, only to the extent present in the selected workload |
 | Sensitive data | Special-category data under Article 9 and criminal-offence data under Article 10 require a separate written arrangement establishing appropriate safeguards before being intentionally submitted |

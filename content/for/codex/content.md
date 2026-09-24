@@ -20,7 +20,7 @@ Codex reads llms.txt and the get-started Skill, then follows the deployment Skil
 2. Paste the prompt above. Codex runs `ohmyhost whoami --json` and lists the `ohmyho` tools before it touches anything; a saved configuration alone is not a connection.
 3. Sign in once. Codex runs `ohmyhost login --json` and prints a link plus a confirmation code such as `ABCD-EFGH`. Open the link, check that the page shows the same code, then sign in or sign up. No password, email code or token value ever goes into the chat.
 4. Review the plan. Codex calls `project_create`, `source_link` and `deployment_plan`. The plan reserves 14 build minutes, about {{ credits unit.buildReservation }}, settles the measured seconds afterwards, and lists required secret names and blockers. Secrets go in through the stdin-only command returned by `secret_set_command`, never through the chat.
-5. Verify. After `deployment_create`, Codex polls `operation_get`, reads the URL from `project_status`, opens Dev through a `project_dev_access_create` link and tests login plus a real read and write before it reports a URL as working.
+5. Verify. After `deployment_create`, Codex polls `operation_get`, reads the URL from `project_status`, opens Dev through the owner's reusable share link from `project_dev_share_link_get` (or the clean URL, for public Dev) and tests login plus a real read and write before it reports a URL as working.
 
 ## What Codex does next
 
@@ -55,7 +55,7 @@ Four public files, no login required:
 
 ## Dev and Prod
 
-Every project gets two environments on `<three-words>.check.omh.st`. Dev is private: anonymous requests get a 404, and Codex opens it through a ten-minute single-use link from `project_dev_access_create`. Prod is reached only by `promotion_plan` → `promotion_execute`, which moves the verified Dev artifact without a rebuild.
+Every project gets two environments on `<three-words>.check.omh.st`. Dev is protected by default: anonymous requests get a 404, and Codex opens it through the reusable share link from `project_dev_share_link_get`, which has no automatic expiry until the owner rotates or revokes it. Public Dev is an explicit choice when the project is created. Prod is reached in two ways: `promotion_plan` → `promotion_execute` moves the verified Dev artifact without a rebuild, and with isolated data `deployment_plan` with `environment: "prod"` builds a commit straight into Prod. A project whose Dev and Prod share a database always deploys to Dev and promotes.
 
 At `project_create` you choose once: shared data, one database for both environments, or isolated data, two databases metered separately, where promotion applies migrations without copying Dev rows. The region is chosen once as well, US by default or EU, at identical prices; it cannot change later. A customer-owned domain on Prod needs Paid and uses credits, through `domain_paid_plan` → `domain_paid_apply`.
 

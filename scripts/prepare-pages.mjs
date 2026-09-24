@@ -294,7 +294,7 @@ function applyApprovedHomepageChanges(html) {
   const exportAnswer =
     "Request a portable SQL dump in a password-encrypted ZIP through your agent, CLI or API. Exports run asynchronously, with one accepted request per project every 24 hours and a signed download link valid for 24 hours. Keep your password and restore on another Postgres host, or let your automation tool copy the encrypted file to your own storage.";
   const euAnswer =
-    "Yes. Choose EU when you create the project; the default is US. An EU project keeps its Postgres database, its files and its builds in the EU, and the application runs next to its database. The region cannot be changed later, and prices are identical in both regions. Transactional mail is sent from the platform's mail region in either case.";
+    "Yes. Choose EU when you create the project; the default is US. An EU project keeps its Postgres database, its files and its builds in the EU, and the application runs next to its database. The region cannot be changed later, and prices are identical in both regions. Transactional mail is processed in the US by the platform's mail provider in either case.";
   for (const [before, after] of Object.entries({
     "And you don't get a dashboard. Ask Codex, Claude, whatever you run — <b>our MCP hands back your usage and your data.</b> No UI. This was built for agents.":
       "Deploy through Codex, Claude or the agent you already use. <b>The portal shows your projects, credits and budgets.</b> The same information is available through MCP.",
