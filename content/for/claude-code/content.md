@@ -18,7 +18,7 @@ Open your project in Claude Code and paste this. It tells the agent where the in
 2. Paste the prompt above. Claude Code reads llms.txt and the Skill, runs `ohmyhost whoami`, and continues without a single question when this machine is already signed in.
 3. Confirm the sign-in link. With no session, Claude Code prints a link and a short code such as ABCD-EFGH. The page shows the same code; sign in or sign up there and tell the agent when you are done. The code lives a few minutes, so a fresh one is normal.
 4. Review the deployment plan. `deployment_plan` lists the build it will reserve, the secret names it needs, the callback URLs your auth provider wants and any blocker in the repository. You say go, and `deployment_create` starts the build.
-5. Verify the URL. Dev is private, so Claude Code asks for a single-use link, opens it, tests login and one read/write flow, and reports the URL and the deployed commit. Ask for Prod once you have seen it work.
+5. Verify the URL. Dev is protected by default, so Claude Code opens it through your reusable Dev share link (or directly, if you chose public Dev), tests login and one read/write flow, and reports the URL and the deployed commit. Ask for Prod once you have seen it work.
 
 ## What Claude Code does next
 
@@ -33,7 +33,7 @@ This is the call order behind steps 2 to 5. Every name is a real tool in the [{{
 - `operation_get` reports the phase and the next poll interval. Claude Code waits instead of building again.
 - `project_status` returns both environment IDs and the deployment URLs.
 
-Secrets go through `secret_set_command`. It returns a stdin-only CLI command; you run it in your own terminal and the value never enters MCP or the chat. A customer domain goes through `domain_paid_plan`, which only returns the DNS records, and `domain_paid_apply`, which activates the hostname you named. Both need Paid.
+Secrets go through `secret_set_command`. It returns a stdin-only CLI command; you run it in your own terminal and the value never enters MCP or the chat. A customer domain goes through `domain_paid_plan`, which only returns the DNS records, and `domain_paid_apply`, which activates the hostname you named. Both need Paid, and both answer `production_deployment_required` without changing anything until Prod has an active deployment.
 
 ## What it asks you
 
@@ -41,13 +41,13 @@ Claude Code stops for five decisions and nothing else.
 
 - Sign-in. One browser page, with the code shown in the chat. Sign-up is open; there is no waitlist.
 - GitHub authorization. An Owner or Admin opens one `authorization_url` and picks the repositories the ohmyho.st App may read. A repository you did not select is added later from the same settings page, never with a pasted token.
-- Region and data mode, once. US is the default; EU places the database, files, build sandbox and build objects in the EU at the same prices. The region cannot change after creation, and shared or isolated Dev/Prod data is decided in the same call. Transactional mail is sent from the platform mail region either way.
+- Region and data mode, once. US is the default; EU places the database, files, build sandbox and build objects in the EU at the same prices. The region cannot change after creation, and shared or isolated Dev/Prod data is decided in the same call. Transactional mail is sent and processed in the US either way.
 - Secrets. The agent names each secret and hands you a command. You paste the value into your terminal, not into the chat.
 - Domain decisions. A custom hostname needs Paid and uses credits. Claude Code shows the CNAME and validation records, or offers a scoped Cloudflare DNS authorization when the zone is on Cloudflare. Until DNS is ready, the project answers on its platform hostname.
 
 ## Dev and Prod
 
-Every project gets a Dev and a Prod environment on `<three-words>.check.omh.st`. Dev is private: an anonymous request gets a 404, and the owner opens it through a ten-minute single-use link from `project_dev_access_create`. Prod answers publicly.
+Every project gets a Dev and a Prod environment on `<three-words>.check.omh.st`. Dev is protected by default: an anonymous request gets a 404, and the owner opens it through a reusable share link from `project_dev_share_link_get`. The link has no automatic expiry and works for everyone you give it to; each opening starts a browser session of up to twelve hours, and rotating or revoking the link cuts off old links and sessions on their next request. If you choose public Dev when the project is created, anyone with the Dev URL can open it. Prod answers publicly.
 
 Promotion is two calls. `promotion_plan` describes the move of the current Dev artifact to Prod without a rebuild; `promotion_execute` runs it with the unchanged plan guards after you confirm. The [deploy Skill](/skills/ohmyhost-deploy-github/SKILL.md) tells the agent to verify Dev first and to test that existing Prod rows survive.
 

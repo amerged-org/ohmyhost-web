@@ -22,9 +22,9 @@ The plan is per account, not per app, so one subscription covers every project y
 
 Mail here is a capability of the project, not a separate account. It needs Paid: {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits that every project shares. Two meters apply, and nothing is charged for the domain itself.
 
-The first is the send itself: {{ rate mail.sent }}. The meter counts **recipients**, not messages. One message to a customer with two people in CC is three recipients. A message to 400 subscribers is 400.
+The first is the send itself: {{ rate mail.sent }}. The meter counts **recipients**. Each message goes to one `to` address, so a notice to 400 subscribers is 400 messages and 400 recipients.
 
-The second is received mail: {{ rate mail.received }}. It applies only if you turn receiving on. Each incoming message goes to a signed HTTPS webhook in your Prod app, and your app stores it in its own database. A mail domain that sends and receives nothing costs nothing.
+The second is received mail: {{ rate mail.received }}. It applies only if you turn receiving on. Each incoming message goes to a signed HTTPS webhook in your Prod app, and your app stores it in its own database. ohmyho.st keeps received messages reachable for 72 hours for webhook retries and recovery, not as a permanent inbox. A mail domain that sends and receives nothing costs nothing.
 
 Everything else about a project stays on the same balance: hosting, Postgres, a linked domain. There is no second subscription and no per-project mail fee.
 
@@ -43,13 +43,14 @@ Read it in three bands. Under about 3,000 recipients a month, and under 100 on a
 
 ## What your agent sets up
 
-Mail is a DNS job, and the agent does it as a plan you confirm.
+Mail is optional: hosting needs no mail domain, and the agent sets one up only when you ask for mail or your app declares `mail.enabled`. When it is needed, it is a DNS job, and the agent does it as a plan you confirm.
 
-1. You name the mail domain. A subdomain such as `mail.yourdomain.com` keeps your existing inboxes and their MX records untouched. `mail_setup` registers it as the project's one production mail domain. No Resend account or key is needed.
+1. You name the mail domain. A subdomain such as `mail.yourdomain.com` keeps your existing inboxes and their MX records untouched. `mail_setup` registers it with the project's Prod environment ID as the one mail domain that Dev and Prod both send from. No Resend account or key is needed. The project's automatic `check.omh.st` address cannot send mail, and nothing falls back to a platform sender while your domain is unverified.
 2. You add the DNS records that `mail_status` returns at your DNS provider. If your DNS is on Cloudflare, you can authorize it through `domain_cloudflare_authorize` and the platform sets them.
 3. `mail_status` reads sending and receiving readiness back until DNS verification is done. Your agent can poll it and tell you what is still missing.
 4. Your application sends through the runtime mail client and the project's private mail binding. Dev and Prod use separate keys; no provider key goes into your code.
 5. Receiving is optional. The agent adds a webhook route to your app, deploys it to Prod, and runs `mail_webhook_set` and `mail_webhook_verify`. Only then does `mail_status` return the MX record for incoming mail.
+6. If you stop using managed mail, `mail_domain_delete` with your confirmation stops sending and receiving and retires the provider domain and key. Your project and website domain stay. The DNS records are left in place and returned to you, so you remove exactly those.
 
 Sending is bounded the same way everything else is: each accepted recipient reserves credits at claim and settles at provider accept, and a send that the provider refuses is not charged.
 
@@ -73,9 +74,9 @@ When mail is a small, necessary part of an app you already host here. You get on
 
 No. Sending needs Paid, because it registers a real sender identity: a mail domain verified through DNS. Free projects get hosting, a database and their Dev and Prod hosts, and they can use an external provider's API from application code like any other third-party service.
 
-### Are CC and BCC counted separately?
+### Can one message go to several recipients?
 
-Yes. The meter counts accepted recipients, so one message with a customer in To and two colleagues in CC is three recipients. This matters for digests and notifications that quietly copy a team inbox: the recipient count, not the message count, is what you should estimate.
+Not today. The runtime mail client sends each message to one `to` address, and each accepted recipient is metered once. A digest or notification for a team is one message per person, so estimate by the number of people you write to, not by the number of templates you send.
 
 ### Can I keep Resend and still host here?
 

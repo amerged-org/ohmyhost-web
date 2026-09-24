@@ -62,7 +62,7 @@ One of the five is real. People log in, it sends mail, and its database is awake
 
 {{ table workload.smallApp }}
 
-Mail and the database are the two large lines, and both are ones you control: fewer recipients or fewer active hours, fewer credits. Sending mail needs Paid and a verified mail domain; the agent sets it up through mail_setup and reads mail_status until the DNS records verify. Every sent recipient is metered, and To, CC and BCC count separately.
+Mail and the database are the two large lines, and both are ones you control: fewer recipients or fewer active hours, fewer credits. Sending mail needs Paid and a verified mail domain; the agent sets it up through mail_setup and reads mail_status until the DNS records verify. Every sent recipient is metered, one per message.
 
 ### Five together
 

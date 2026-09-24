@@ -84,7 +84,7 @@ Because the agent that wrote the code has the context a dashboard lacks. It depl
 
 ### Does choosing the EU region cost more?
 
-No. Region is a per-project choice made once at project creation, and US is the default. EU places the project's database, files and builds in the EU. Prices are identical in both regions. Transactional mail is sent from the platform's mail region regardless of the project's choice, so mail placement is not part of that decision.
+No. Region is a per-project choice made once at project creation, and US is the default. EU places the project's database, files and builds in the EU. Prices are identical in both regions. Transactional mail is sent and processed in the US regardless of the project's choice, so mail placement is not part of that decision.
 
 ### How do I know a comparison price is still right?
 

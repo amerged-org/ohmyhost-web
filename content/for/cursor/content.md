@@ -21,7 +21,7 @@ Open the repository in Cursor, open the agent chat and paste this. Cursor reads 
 3. Paste the prompt above into the agent chat. Cursor runs `ohmyhost whoami` and `ohmyhost init --dry-run`, reads the Skill and reports the state before it acts.
 4. Confirm sign-in. With no session on the machine, Cursor posts a sign-in link and a short code. Open the link, check that the page shows the same code, sign in or sign up on that page, and tell Cursor you are done. It verifies with `whoami` instead of trusting the report. It never asks for a password, an email code or a token.
 5. Review the plan. `deployment_plan` returns the exact commit, the build hold (about {{ credits unit.buildReservation }} for 14 reserved minutes, settled to the measured seconds), required secrets and effects. Confirm, and Cursor calls `deployment_create`.
-6. Verify. Cursor polls `operation_get`, reads `project_status`, opens the private Dev app through a single-use link and tests a real read and write before it reports the URL. Ask it to promote once Dev works.
+6. Verify. Cursor polls `operation_get`, reads `project_status`, opens Dev through the reusable share link (or the clean URL, for public Dev) and tests a real read and write before it reports the URL. Ask it to promote once Dev works.
 
 The whole path is the [deployment Skill](/skills/ohmyhost-deploy-github/SKILL.md); Cursor follows it step by step.
 
@@ -36,7 +36,7 @@ The sequence for a first deployment, in order (MCP tools unless marked CLI):
 5. `deployment_plan` for the pushed commit, then your confirmation.
 6. `secret_set_command` for each required secret. It returns a CLI command that reads the value from stdin, so the value never passes through the chat or the MCP server.
 7. `deployment_create` with the reviewed plan and one saved idempotency key, then `operation_get` until the build finishes; `deployment_logs` if it fails.
-8. `project_status` and `project_dev_access_create` to verify Dev.
+8. `project_status` and `project_dev_share_link_get` to verify Dev.
 9. `promotion_plan` and `promotion_execute` when you ask for Prod.
 
 A later session starts with `project_context_get`, which returns status, DNS and mail next actions and the notes Cursor saved with `project_notes_set`. There is no deploy dashboard; the portal at app.ohmyho.st shows projects, credits, budgets and API tokens. The full catalog is at [docs.ohmyho.st/mcp-tools](https://docs.ohmyho.st/mcp-tools).
@@ -46,7 +46,7 @@ A later session starts with `project_context_get`, which returns status, DNS and
 Cursor asks for decisions, not credentials.
 
 - Sign-in: open one link and check the code. Sign-up is open; there is no invitation and no waitlist.
-- Region: US or EU, once, at project creation. US is the default. EU places the database, files and builds in the EU at identical prices; transactional mail is sent from the platform mail region either way. The choice cannot change later.
+- Region: US or EU, once, at project creation. US is the default. EU places the database, files and builds in the EU at identical prices; transactional mail is sent and processed in the US either way. The choice cannot change later.
 - Data mode: isolated Dev and Prod databases, which the Skill recommends, or one shared database. Isolated is safer for Prod records and meters two databases.
 - Secrets: it hands you a command that reads the value from stdin. You paste the value into your terminal, never into the chat.
 - Plans: every deployment, promotion, rollback and deletion is a plan you confirm before it executes.
@@ -56,9 +56,9 @@ A project ID in a prompt is context, not permission. Cursor checks its current a
 
 ## Dev and Prod
 
-Every project gets two environments on a platform hostname of the form three-words.check.omh.st. Dev is private: an anonymous request gets a 404, and Cursor opens it through a ten-minute single-use link from `project_dev_access_create`. Prod is public. Promotion moves the verified Dev artifact to Prod without a rebuild; with isolated data it applies schema migrations and copies no Dev rows, so existing Prod records survive.
+Every project gets two environments on a platform hostname of the form three-words.check.omh.st. Dev is protected by default: an anonymous request gets a 404, and Cursor opens it through the reusable share link from `project_dev_share_link_get`. The link has no automatic expiry; rotating or revoking it cuts off old links and sessions on their next request, and public Dev is an explicit choice at project creation. Prod is public. Promotion moves the verified Dev artifact to Prod without a rebuild; with isolated data it applies schema migrations and copies no Dev rows, so existing Prod records survive. With isolated data you can also build a commit straight into Prod; a project whose Dev and Prod share a database deploys to Dev and promotes.
 
-Each deployed script uses about {{ credits unit.deployedScriptMonth }} a month while it exists, and every deployment stages one that stays for rollback until cleanup. A customer-owned domain on Prod needs Paid and uses about {{ credits unit.customHostnameMonth }} a month; the domain Skill returns the exact DNS records, or authorizes Cloudflare DNS when you host the zone there. See [environments](https://docs.ohmyho.st/environments) and [domains](https://docs.ohmyho.st/domains).
+Each deployed script uses about {{ credits unit.deployedScriptMonth }} a month while it exists, and every deployment stages one that stays for rollback until cleanup. A customer-owned domain on Prod needs Paid and an active Prod deployment (otherwise the domain tools return `production_deployment_required`), and uses about {{ credits unit.customHostnameMonth }} a month; the domain Skill returns the exact DNS records, or authorizes Cloudflare DNS when you host the zone there. See [environments](https://docs.ohmyho.st/environments) and [domains](https://docs.ohmyho.st/domains).
 
 ## Safety
 
@@ -76,7 +76,7 @@ Free: {{ number plan.freeCredits }} credits per UTC month. Paid: {{ usd plan.pai
 
 {{ table workload.threeStaticSites }}
 
-Add a database and the numbers move. One active hour on the Paid standard profile ({{ value profile.standard.cu }} CU) is about {{ credits unit.activeDatabaseHourStandard }}; on the Free profile ({{ value profile.free.cu }} CU) about {{ credits unit.activeDatabaseHourFree }}. Idle compute suspends, but stored data is {{ rate neon.storage.root }} whether the compute is awake or not. A quiet side project with a database costs about {{ credits workload.quietProject }} a month. A small app with 100,000 requests, eight active database hours and 2,000 mail recipients costs about {{ credits workload.smallApp }}. Requests are {{ rate wfp.requests }}; Workers bandwidth is not charged. Mail needs Paid and a verified mail domain and is metered per sent recipient at {{ rate mail.sent }} (To, CC and BCC count separately); the domain has no monthly fee.
+Add a database and the numbers move. One active hour on the Paid standard profile ({{ value profile.standard.cu }} CU) is about {{ credits unit.activeDatabaseHourStandard }}; on the Free profile ({{ value profile.free.cu }} CU) about {{ credits unit.activeDatabaseHourFree }}. Idle compute suspends, but stored data is {{ rate neon.storage.root }} whether the compute is awake or not. A quiet side project with a database costs about {{ credits workload.quietProject }} a month. A small app with 100,000 requests, eight active database hours and 2,000 mail recipients costs about {{ credits workload.smallApp }}. Requests are {{ rate wfp.requests }}; Workers bandwidth is not charged. Mail needs Paid and a verified mail domain and is metered per sent recipient at {{ rate mail.sent }}, one recipient per message; the domain has no monthly fee.
 
 Where Vercel wins: Vercel Hobby costs {{ usd vendor.vercel.hobby }} a month for one developer seat, and for a static portfolio with no database and no mail it is the cheaper answer. Vercel Pro is {{ usd vendor.vercel.pro }} a month before you add a database or a mail provider. ohmyho.st fits once a project needs Postgres, transactional mail or a domain, or once you run several small projects and want one balance instead of one plan each.
 
