@@ -9,7 +9,7 @@ import type {
 
 /** The prompt the homepage copies; every /for and /from page quotes it unchanged. */
 export const CTA_PROMPT =
-  "Read https://ohmyho.st/llms.txt and https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md. Connect this agent to ohmyho.st and deploy this GitHub project using only the capabilities it needs. Follow the deployment Skill, keep my existing project decisions and verify the app.";
+  "Read https://ohmyho.st/llms.txt and https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md. Connect this agent to ohmyho.st and deploy this GitHub project using only the capabilities it needs. After signing in, use the user and organization that whoami reports; never guess an account, organization or project ID. Follow the deployment Skill, keep my existing project decisions and verify the app.";
 
 const MICROCREDITS = 1_000_000;
 
