@@ -1,9 +1,9 @@
 {
-  "platformCommit": "24bc1dc5341fad4aac49000699dcb6414b3d1992",
-  "generatedAt": "2026-09-25T00:01:23.134Z",
+  "platformCommit": "25a41210619c13fdbfbaa994f5bcb437e457af54",
+  "generatedAt": "2026-09-25T01:01:08.396Z",
   "clientRelease": {
-    "version": "0.1.19",
-    "manifestUrl": "https://ohmyho.st/releases/0.1.19/manifest.json"
+    "version": "0.1.20",
+    "manifestUrl": "https://ohmyho.st/releases/0.1.20/manifest.json"
   },
   "creditPricingTable": "| Service meter | Measured quantity | Credits |\n| --- | --- | ---: |\n| `build.sandbox.standard-3` | 60 build seconds | 1.204938 |\n| `wfp.requests` | 1,000,000 requests | 98.571429 |\n| `wfp.cpu` | 1,000,000 CPU-ms | 6.571429 |\n| `neon.compute.scale` | 1 CU-hour | 72.942857 |\n| `neon.compute.performance` | 1 CU-hour | 91.178571 |\n| `neon.storage.root` | 1 GB-month | 115 |\n| `neon.storage.child` | 1 GB-month | 115 |\n| `neon.history` | 1 GB-month | 65.714286 |\n| `neon.snapshot` | 1 GB-month | 29.571429 |\n| `neon.transfer.public` | 1 GB | 32.857143 |\n| `neon.transfer.private` | 1 GB | 3.285714 |\n| `neon.branches` | 1 branch-month (744 h) | 492.857143 |\n| `r2.storage.standard` | 1 GB for 30 days (daily peak) | 4.928571 |\n| `r2.class_a` | 1,000,000 operations | 1478.571429 |\n| `r2.class_b` | 1,000,000 operations | 118.285714 |\n| `mail.sent` | 1 sent recipient | 0.18 |\n| `mail.received` | 1 received message | 0.18 |\n| `wfp.script` | 1 deployed script for a 744-hour month | 6.571429 |\n| `domain.custom_hostname` | 1 paid custom hostname for a 744-hour month | 32.857143 |",
   "creditRates": {
