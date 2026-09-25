@@ -271,6 +271,45 @@ export function pngSize(bytes) {
   return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) };
 }
 
+/** The origin a template is served from while it renders; `.invalid` never reaches the network. */
+const RENDER_ORIGIN = "https://render.invalid";
+
+/**
+ * Opens a page that serves each template from RENDER_ORIGIN and its `/fonts/*.ttf` URLs from
+ * public/fonts, and returns a function that shows one template once every font face has loaded.
+ * Chromium refuses file:// fonts in a setContent page, which rendered every social card in fallback
+ * fonts until 2026-09-25.
+ */
+async function templatePage(browser, root, viewport, deviceScaleFactor = 1) {
+  const page = await browser.newPage({ viewport, deviceScaleFactor });
+  let markup = "";
+  await page.route(`${RENDER_ORIGIN}/**`, (route) => {
+    const path = new URL(route.request().url()).pathname;
+    return /^\/fonts\/[a-f0-9]{16}\.ttf$/u.test(path)
+      ? route.fulfill({
+          path: join(root, "public", path),
+          contentType: "font/ttf",
+        })
+      : route.fulfill({
+          body: markup,
+          contentType: "text/html; charset=utf-8",
+        });
+  });
+  return async (html) => {
+    markup = html;
+    await page.goto(`${RENDER_ORIGIN}/`, { waitUntil: "load" });
+    const failed = await page.evaluate(async () => {
+      await Promise.allSettled([...document.fonts].map((face) => face.load()));
+      return [...document.fonts]
+        .filter((face) => face.status !== "loaded")
+        .map((face) => `${face.family} ${face.weight}`);
+    });
+    if (failed.length)
+      throw new Error(`Fonts did not load: ${failed.join(", ")}`);
+    return page;
+  };
+}
+
 /** Renders every social card from the compiled page metadata into public/og with a template-hash manifest. */
 export async function renderSocialCards({
   only,
@@ -292,16 +331,11 @@ export async function renderSocialCards({
   const manifest = existsSync(manifestPath)
     ? JSON.parse(readFileSync(manifestPath, "utf8"))
     : {};
-  const fonts = pathToFileURL(join(site, "public", "fonts")).href;
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage({
-    viewport: { width: 1200, height: 630 },
-    deviceScaleFactor: 1,
-  });
+  const show = await templatePage(browser, site, { width: 1200, height: 630 });
   for (const card of ogCards()) {
     if (only && card.slug !== only) continue;
-    await page.setContent(ogCardHtml(card, fonts), { waitUntil: "load" });
-    await page.evaluate(() => document.fonts.ready);
+    const page = await show(ogCardHtml(card));
     const bytes = await page.screenshot({
       type: "png",
       clip: { x: 0, y: 0, width: 1200, height: 630 },
