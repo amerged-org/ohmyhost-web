@@ -90,6 +90,10 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html).toContain(
       '<a href="https://docs.ohmyho.st/" rel="noopener">Docs</a>',
     );
+    // Support is the agent's feedback report, explained on the docs Support page.
+    expect(html).toContain(
+      '<a href="https://docs.ohmyho.st/support" rel="noopener">Support</a>',
+    );
     expect(html).not.toContain('href="#stack"');
     expect(html).toContain("Copy prompt for your agent");
     expect(html).toContain("<span>Copy prompt</span>");

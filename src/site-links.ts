@@ -46,6 +46,7 @@ export const SITE_LINKS: readonly SiteLinkGroup[] = [
       ["CLI", "https://docs.ohmyho.st/cli"],
       ["API", "https://docs.ohmyho.st/api"],
       ["Skills", "https://docs.ohmyho.st/skills"],
+      ["Support", "https://docs.ohmyho.st/support"],
     ],
   },
   {
