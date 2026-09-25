@@ -38,7 +38,7 @@ it("serves every article illustration as a PNG rendered from its current SVG sou
     );
     const png = await readFile(new URL(`${name}.png`, imagesDir));
     expect(png.subarray(0, 8).toString("hex")).toBe("89504e470d0a1a0a");
-    expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([1600, 900]);
+    expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([2400, 1350]);
   }
 
   // Every illustration a page shows exists, says what it shows and reserves its space.
@@ -49,7 +49,7 @@ it("serves every article illustration as a PNG rendered from its current SVG sou
       expect(sources.has(name ?? ""), `${page.path} shows ${name}`).toBe(true);
       expect(tag, `${page.path} ${name} alt`).toMatch(/ alt="[^"]{40,}"/u);
       expect(tag, `${page.path} ${name} size`).toContain(
-        'width="1600" height="900"',
+        'width="1200" height="675"',
       );
     }
 

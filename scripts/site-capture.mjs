@@ -363,14 +363,22 @@ export async function renderSocialCards({
   return sorted;
 }
 
-/** Article illustrations are drawn at one size; the page declares it on every `<img>`. */
-export const FIGURE_SIZE = { width: 1600, height: 900 };
+/**
+ * Article illustrations are drawn at one size, which every `<img>` declares, and rendered at twice
+ * that size so they stay sharp on high-density screens.
+ */
+export const FIGURE_SIZE = { width: 1200, height: 675 };
 const FIGURE_FONTS = [
   ["Space Grotesk", 500, "3e699ead1876244f.ttf"],
   ["Space Grotesk", 700, "3e756954468ff1cb.ttf"],
   ["JetBrains Mono", 400, "44ce4a84f20d60f2.ttf"],
   ["JetBrains Mono", 500, "3386a05f6ece969e.ttf"],
-];
+]
+  .map(
+    ([family, weight, file]) =>
+      `@font-face{font-family:'${family}';font-weight:${weight};src:url(/fonts/${file}) format('truetype')}`,
+  )
+  .join("");
 
 /** Every illustration source (a `figures/<name>.svg` below content/), keyed by its file name. */
 export function figureSources(contentRoot) {
@@ -396,31 +404,14 @@ export async function renderFigures({
   );
   const out = join(root, "public", "images");
   mkdirSync(out, { recursive: true });
-  // A page loaded with setContent may not read file:// fonts, so the faces travel inline.
-  const faces = FIGURE_FONTS.map(
-    ([family, weight, file]) =>
-      `@font-face{font-family:'${family}';font-weight:${weight};src:url(data:font/ttf;base64,${readFileSync(join(root, "public", "fonts", file)).toString("base64")}) format('truetype')}`,
-  ).join("");
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage({
-    viewport: FIGURE_SIZE,
-    deviceScaleFactor: 1,
-  });
+  const show = await templatePage(browser, root, FIGURE_SIZE, 2);
   const manifest = {};
   for (const [name, source] of figureSources(join(root, "content"))) {
     const svg = readFileSync(source, "utf8");
-    await page.setContent(
-      `<!doctype html><html><head><meta charset="utf-8"><style>${faces}html,body{margin:0;background:#000}svg{display:block}</style></head><body>${svg}</body></html>`,
-      { waitUntil: "load" },
+    const page = await show(
+      `<!doctype html><html><head><meta charset="utf-8"><style>${FIGURE_FONTS}html,body{margin:0;background:#000}svg{display:block}</style></head><body>${svg}</body></html>`,
     );
-    const missing = await page.evaluate(async () => {
-      await Promise.allSettled([...document.fonts].map((face) => face.load()));
-      return [...document.fonts]
-        .filter((face) => face.status !== "loaded")
-        .map((face) => `${face.family} ${face.weight}`);
-    });
-    if (missing.length)
-      throw new Error(`${name}: fonts did not load: ${missing.join(", ")}`);
     const bytes = await page.screenshot({
       type: "png",
       clip: { x: 0, y: 0, ...FIGURE_SIZE },

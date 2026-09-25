@@ -4,7 +4,7 @@ By Sebastian Mertens · September 25, 2026
 
 The Lovable alternative most builders need is not another app builder. It is the coding agent they already pay for (Claude Code, Codex, Cursor or Grok Build) working on the same repository, plus a host that agent can operate. Lovable exports to GitHub in a few clicks, and your agent deploys from there to ohmyho.st with one prompt.
 
-<figure class="fig"><img src="/images/lovable-alternative-flow.png" alt="Lovable alternative with your own LLM: a Lovable project goes to a private GitHub repository, Claude Code, Codex, Cursor or Grok Build works on it, and ohmyho.st hosts it on a Dev and a Prod URL" width="1600" height="900" fetchpriority="high" decoding="async"><figcaption>The whole path: Lovable builds, GitHub holds the code, your own agent and model change it, ohmyho.st runs it.</figcaption></figure>
+<figure class="fig"><img src="/images/lovable-alternative-flow.png" alt="Lovable alternative with your own LLM: Lovable, then a private GitHub repository, then your agent (Claude Code, Codex, Cursor or Grok Build), then ohmyho.st hosting" width="1200" height="675" fetchpriority="high" decoding="async"><figcaption>Lovable builds, GitHub holds the code, your own agent changes it, ohmyho.st runs it.</figcaption></figure>
 
 ## Why builders look for a Lovable alternative
 
@@ -25,7 +25,7 @@ Bring your own LLM (sometimes called BYOK, bring your own key) means the model t
 
 The point is separation. Your agent's plan pays for thinking and typing. The host pays for running. A slow week of prompting does not touch your hosting balance, and a busy week of traffic does not eat into your prompts.
 
-<figure class="fig"><img src="/images/lovable-alternative-two-meters.png" alt="Lovable credits versus your own LLM plan: inside Lovable one workspace balance pays for building, hosting and in-app AI; after the move your Claude, ChatGPT, Cursor or SuperGrok plan pays for building and ohmyho.st credits pay for hosting, Postgres, mail and domains" width="1600" height="900" loading="lazy" decoding="async"><figcaption>Building and running on two separate meters. Lovable's billing as described on lovable.dev/pricing and docs.lovable.dev, read 2026-09-25.</figcaption></figure>
+<figure class="fig"><img src="/images/lovable-alternative-two-meters.png" alt="Lovable credits versus your own LLM plan: in Lovable one credit balance pays for building, hosting and in-app AI; with your own LLM the LLM plan pays for building and ohmyho.st credits pay for running" width="1200" height="675" loading="lazy" decoding="async"><figcaption>Building and running on two separate meters. Lovable's billing as described on lovable.dev/pricing, read 2026-09-25.</figcaption></figure>
 
 ## Lovable vs Claude Code, Codex, Cursor and Grok Build
 
@@ -54,7 +54,7 @@ Lovable's GitHub integration is available on all plans, and it creates the repos
 
 From then on, every change in Lovable lands as a commit, and every commit pushed to that branch shows up in Lovable. If you rename the repository, sync continues; if you delete it, sync breaks. The ohmyho.st side of the connection is described at https://docs.ohmyho.st/github.
 
-<figure class="fig"><img src="/images/lovable-alternative-github-export.png" alt="How to move a Lovable project to GitHub: Workspace settings, Git, GitHub, Add connection; Project settings, Git, GitHub; Connect; Lovable creates a private repository with two-way sync" width="1600" height="900" loading="lazy" decoding="async"><figcaption>The four clicks in Lovable. Menu labels from docs.lovable.dev/integrations/github, read 2026-09-25.</figcaption></figure>
+<figure class="fig"><img src="/images/lovable-alternative-github-export.png" alt="How to move a Lovable project to GitHub in three steps: Project settings, Git, GitHub; connect your GitHub account; Lovable creates a private repository synced both ways" width="1200" height="675" loading="lazy" decoding="async"><figcaption>The three steps in Lovable. Menu labels from docs.lovable.dev/integrations/github, read 2026-09-25.</figcaption></figure>
 
 ## Step 2: open the repository in Claude Code, Codex, Cursor or Grok Build
 
@@ -89,7 +89,7 @@ What happens next:
 7. It deploys to Dev, opens the `dev-….check.omh.st` address and checks the app: a page, a deep link after a reload, and sign-in if the app has one.
 8. When you are happy, it promotes the verified artifact to Prod. Promotion moves the same build: it does not rebuild, and it does not copy Dev data into Prod. Details: https://docs.ohmyho.st/environments.
 
-<figure class="fig"><img src="/images/lovable-alternative-agent-session.png" alt="An ohmyho.st agent session in Claude Code, Codex, Cursor or Grok Build: login, github_connect, project_create, source_link, deployment_plan, secret_set_command, deployment_create to Dev and promotion_execute to Prod" width="1600" height="900" loading="lazy" decoding="async"><figcaption>One prompt, then the agent stops only where you have to decide: the sign-in, the GitHub authorization and the secret values.</figcaption></figure>
+<figure class="fig"><img src="/images/lovable-alternative-agent-session.png" alt="Deploy a Lovable app from Claude Code, Codex, Cursor or Grok Build: paste one prompt, approve sign-in, GitHub and secrets, get a Dev URL and then the live Prod URL" width="1200" height="675" loading="lazy" decoding="async"><figcaption>One prompt, then the agent stops only where you have to decide: the sign-in, the GitHub authorization and the secret values.</figcaption></figure>
 
 The full walk-through, from the prompt to a verified URL, is in the quickstart at https://docs.ohmyho.st/quickstart.
 

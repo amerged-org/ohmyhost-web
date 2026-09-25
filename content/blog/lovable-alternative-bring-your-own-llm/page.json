@@ -6,8 +6,8 @@
   "crumb": "Lovable alternative",
   "social": {
     "image": "/og/blog-lovable-alternative-bring-your-own-llm.png",
-    "alt": "ohmyho.st. A Lovable alternative with your own LLM. Export to GitHub, build with Claude Code, Codex, Cursor or Grok, deploy with one prompt.",
-    "title": "ohmyho.st — A Lovable alternative with your own LLM",
+    "alt": "ohmyho.st. A Lovable alternative that runs on your own LLM. Export to GitHub, build with Claude Code, Codex, Cursor or Grok, deploy with one prompt.",
+    "title": "ohmyho.st — A Lovable alternative that runs on your own LLM",
     "description": "Export to GitHub, build with Claude Code, Codex, Cursor or Grok, deploy with one prompt."
   },
   "parent": "/blog",
