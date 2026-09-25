@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="An agent session after one prompt: sign-in link, github_connect, project_create, source_link, deployment_plan, secret_set_command, deployment_create to a Dev URL, and promotion_execute to Prod. The same session works in Claude Code, Codex, Cursor or Grok Build.">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F0F1F2" stop-opacity=".08"/>
+      <stop offset="100%" stop-color="#F0F1F2" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#000"/>
+  <ellipse cx="800" cy="520" rx="760" ry="320" fill="url(#glow)"/>
+
+  <text x="80" y="104" font-family="'JetBrains Mono', monospace" font-size="20" fill="#83878D">step 2 · in your agent</text>
+  <text x="80" y="190" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="68" fill="#F0F1F2" letter-spacing="-1.5">One prompt. The agent does the rest.</text>
+
+  <rect x="80" y="246" width="1440" height="520" rx="18" fill="#0A0B0D" stroke="#26282C" stroke-width="2"/>
+  <path d="M80 300 H1520" stroke="#17181A" stroke-width="2"/>
+  <circle cx="112" cy="273" r="7" fill="#26282C"/>
+  <circle cx="136" cy="273" r="7" fill="#26282C"/>
+  <circle cx="160" cy="273" r="7" fill="#26282C"/>
+  <text x="800" y="279" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="15" fill="#83878D">claude code · codex · cursor · grok build</text>
+
+  <g font-family="'JetBrains Mono', monospace" font-size="19">
+    <text x="112" y="346" fill="#83878D">›</text>
+    <text x="138" y="346" fill="#F0F1F2">Read ohmyho.st/llms.txt and the get-started Skill. Deploy this GitHub project.</text>
+
+    <g fill="#F0F1F2">
+      <text x="138" y="400">login</text>
+      <text x="138" y="442">github_connect</text>
+      <text x="138" y="484">project_create</text>
+      <text x="138" y="526">source_link</text>
+      <text x="138" y="568">deployment_plan</text>
+      <text x="138" y="610">secret_set_command</text>
+      <text x="138" y="652">deployment_create</text>
+      <text x="138" y="694">promotion_execute</text>
+    </g>
+    <g fill="#3E4247">
+      <text x="470" y="400">→</text>
+      <text x="470" y="442">→</text>
+      <text x="470" y="484">→</text>
+      <text x="470" y="526">→</text>
+      <text x="470" y="568">→</text>
+      <text x="470" y="610">→</text>
+      <text x="470" y="652">→</text>
+      <text x="470" y="694">→</text>
+    </g>
+    <g fill="#83878D">
+      <text x="504" y="400">sign-in link · you approve once in the browser</text>
+      <text x="504" y="442">you authorize the repository on github.com</text>
+      <text x="504" y="484">region us by default · chosen once</text>
+      <text x="504" y="526">you/your-lovable-app · main</text>
+      <text x="504" y="568">vite detected · 1 secret still needed</text>
+      <text x="504" y="610">you paste the value into stdin, not the chat</text>
+    </g>
+    <text x="504" y="652" fill="#F0F1F2">dev-app.check.omh.st</text>
+    <text x="504" y="694" fill="#F0F1F2">app.check.omh.st</text>
+    <text x="744" y="652" fill="#83878D">· verified in the browser</text>
+    <text x="698" y="694" fill="#83878D">· same artifact, now live</text>
+  </g>
+  <g fill="none" stroke="#F0F1F2" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1470 644 l6 6 l12 -13"/>
+    <path d="M1470 686 l6 6 l12 -13"/>
+  </g>
+  <g font-family="'JetBrains Mono', monospace" font-size="15" fill="#83878D" text-anchor="end">
+    <text x="1488" y="400">you</text>
+    <text x="1488" y="442">you</text>
+    <text x="1488" y="610">you</text>
+  </g>
+  <text x="112" y="740" font-family="'JetBrains Mono', monospace" font-size="15" fill="#83878D">the agent stops at every step marked “you”; everything else runs through mcp or the cli</text>
+
+  <line x1="80" y1="800" x2="1520" y2="800" stroke="#17181A" stroke-width="2"/>
+  <path d="M30 87 H14 L27 63 A31 31 0 1 1 73 63 L86 87 H70" transform="translate(80 822) scale(.3)" fill="none" stroke="#83878D" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="120" y="848" font-family="'JetBrains Mono', monospace" font-size="17" fill="#83878D">ohmyho.st</text>
+  <text x="1520" y="848" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="17" fill="#3E4247">docs.ohmyho.st/quickstart</text>
+</svg>

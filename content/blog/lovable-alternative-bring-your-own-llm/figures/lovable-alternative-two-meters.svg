@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Inside Lovable one workspace credit balance pays for building messages, Lovable Cloud hosting and in-app AI. After the move your own LLM plan pays for building with Claude Code, Codex, Cursor or Grok Build, and ohmyho.st credits pay only for running the app: hosting, Postgres, mail and domains.">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F0F1F2" stop-opacity=".09"/>
+      <stop offset="100%" stop-color="#F0F1F2" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#000"/>
+  <ellipse cx="1180" cy="520" rx="480" ry="320" fill="url(#glow)"/>
+
+  <text x="80" y="104" font-family="'JetBrains Mono', monospace" font-size="20" fill="#83878D">who pays for what</text>
+  <text x="80" y="190" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="68" fill="#F0F1F2" letter-spacing="-1.5">Two meters instead of one balance.</text>
+
+  <!-- Left: inside Lovable -->
+  <rect x="80" y="260" width="660" height="500" rx="18" fill="#0A0B0D" stroke="#26282C" stroke-width="2"/>
+  <text x="112" y="310" font-family="'JetBrains Mono', monospace" font-size="16" fill="#83878D">before</text>
+  <text x="112" y="356" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="36" fill="#F0F1F2">Inside Lovable</text>
+  <rect x="112" y="398" width="250" height="72" rx="12" fill="#000" stroke="#83878D" stroke-width="2"/>
+  <text x="237" y="431" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="17" fill="#F0F1F2">workspace credits</text>
+  <text x="237" y="456" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="14" fill="#83878D">one balance</text>
+  <g fill="none" stroke="#3E4247" stroke-width="2">
+    <path d="M362 434 C410 434 410 434 440 434"/>
+    <path d="M362 434 C410 434 410 540 440 540"/>
+    <path d="M362 434 C410 434 410 646 440 646"/>
+  </g>
+  <g font-family="'JetBrains Mono', monospace">
+    <rect x="440" y="404" width="268" height="60" rx="10" fill="#000" stroke="#26282C" stroke-width="2"/>
+    <text x="460" y="430" font-size="17" fill="#F0F1F2">building</text>
+    <text x="460" y="452" font-size="14" fill="#83878D">every message</text>
+    <rect x="440" y="510" width="268" height="60" rx="10" fill="#000" stroke="#26282C" stroke-width="2"/>
+    <text x="460" y="536" font-size="17" fill="#F0F1F2">hosting</text>
+    <text x="460" y="558" font-size="14" fill="#83878D">lovable cloud</text>
+    <rect x="440" y="616" width="268" height="60" rx="10" fill="#000" stroke="#26282C" stroke-width="2"/>
+    <text x="460" y="642" font-size="17" fill="#F0F1F2">in-app ai</text>
+    <text x="460" y="664" font-size="14" fill="#83878D">ai gateway</text>
+  </g>
+  <text x="112" y="728" font-family="'JetBrains Mono', monospace" font-size="15" fill="#83878D">traffic and prompting draw on the same pool</text>
+
+  <!-- Right: after the move -->
+  <rect x="820" y="260" width="700" height="500" rx="18" fill="#0A0B0D" stroke="#83878D" stroke-width="2"/>
+  <text x="852" y="310" font-family="'JetBrains Mono', monospace" font-size="16" fill="#83878D">after</text>
+  <text x="852" y="356" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="36" fill="#F0F1F2">Bring your own LLM</text>
+
+  <text x="852" y="410" font-family="'JetBrains Mono', monospace" font-size="16" fill="#F0F1F2">building → your own plan</text>
+  <g font-family="'JetBrains Mono', monospace" font-size="15">
+    <rect x="852" y="428" width="310" height="46" rx="10" fill="#000" stroke="#26282C" stroke-width="2"/>
+    <text x="870" y="457" fill="#F0F1F2">claude code</text>
+    <text x="1146" y="457" text-anchor="end" fill="#83878D">claude plan</text>
+    <rect x="1178" y="428" width="310" height="46" rx="10" fill="#000" stroke="#26282C" stroke-width="2"/>
+    <text x="1196" y="457" fill="#F0F1F2">codex</text>
+    <text x="1472" y="457" text-anchor="end" fill="#83878D">chatgpt plan</text>
+    <rect x="852" y="484" width="310" height="46" rx="10" fill="#000" stroke="#26282C" stroke-width="2"/>
+    <text x="870" y="513" fill="#F0F1F2">cursor</text>
+    <text x="1146" y="513" text-anchor="end" fill="#83878D">own keys</text>
+    <rect x="1178" y="484" width="310" height="46" rx="10" fill="#000" stroke="#26282C" stroke-width="2"/>
+    <text x="1196" y="513" fill="#F0F1F2">grok build</text>
+    <text x="1472" y="513" text-anchor="end" fill="#83878D">supergrok</text>
+  </g>
+
+  <line x1="852" y1="566" x2="1488" y2="566" stroke="#17181A" stroke-width="2"/>
+
+  <text x="852" y="608" font-family="'JetBrains Mono', monospace" font-size="16" fill="#F0F1F2">running → ohmyho.st credits</text>
+  <g font-family="'JetBrains Mono', monospace" font-size="15" text-anchor="middle">
+    <rect x="852" y="626" width="148" height="46" rx="10" fill="#000" stroke="#26282C" stroke-width="2"/>
+    <text x="926" y="655" fill="#F0F1F2">hosting</text>
+    <rect x="1014" y="626" width="148" height="46" rx="10" fill="#000" stroke="#26282C" stroke-width="2"/>
+    <text x="1088" y="655" fill="#F0F1F2">postgres</text>
+    <rect x="1178" y="626" width="148" height="46" rx="10" fill="#000" stroke="#26282C" stroke-width="2"/>
+    <text x="1252" y="655" fill="#F0F1F2">mail</text>
+    <rect x="1340" y="626" width="148" height="46" rx="10" fill="#000" stroke="#26282C" stroke-width="2"/>
+    <text x="1414" y="655" fill="#F0F1F2">domains</text>
+  </g>
+  <text x="852" y="728" font-family="'JetBrains Mono', monospace" font-size="15" fill="#83878D">prompting never touches the hosting balance</text>
+
+  <line x1="80" y1="800" x2="1520" y2="800" stroke="#17181A" stroke-width="2"/>
+  <path d="M30 87 H14 L27 63 A31 31 0 1 1 73 63 L86 87 H70" transform="translate(80 822) scale(.3)" fill="none" stroke="#83878D" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="120" y="848" font-family="'JetBrains Mono', monospace" font-size="17" fill="#83878D">ohmyho.st</text>
+  <text x="1520" y="848" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="17" fill="#3E4247">sources: lovable.dev/pricing, docs.lovable.dev · read 2026-09-25</text>
+</svg>

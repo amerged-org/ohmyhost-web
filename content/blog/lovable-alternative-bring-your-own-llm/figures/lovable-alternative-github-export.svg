@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Four steps in Lovable: add a GitHub connection under Workspace settings, Git, GitHub; open Project settings, Git, GitHub; click Connect next to the account or organization; Lovable creates a private repository and syncs the default branch both ways.">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F0F1F2" stop-opacity=".08"/>
+      <stop offset="100%" stop-color="#F0F1F2" stop-opacity="0"/>
+    </radialGradient>
+    <marker id="head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#83878D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="900" fill="#000"/>
+  <ellipse cx="800" cy="540" rx="760" ry="300" fill="url(#glow)"/>
+
+  <text x="80" y="104" font-family="'JetBrains Mono', monospace" font-size="20" fill="#83878D">step 1 · in lovable</text>
+  <text x="80" y="190" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="68" fill="#F0F1F2" letter-spacing="-1.5">Move the project to GitHub.</text>
+
+  <g fill="none" stroke="#3E4247" stroke-width="2">
+    <path d="M419 520 H437" marker-end="url(#head)"/>
+    <path d="M784 520 H802" marker-end="url(#head)"/>
+    <path d="M1149 520 H1167" marker-end="url(#head)"/>
+  </g>
+
+  <!-- Card 1: workspace connection -->
+  <rect x="80" y="260" width="335" height="500" rx="18" fill="#0A0B0D" stroke="#26282C" stroke-width="2"/>
+  <text x="108" y="304" font-family="'JetBrains Mono', monospace" font-size="16" fill="#83878D">01 · once per workspace</text>
+  <text x="108" y="346" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="28" fill="#F0F1F2">Add a connection</text>
+  <rect x="108" y="376" width="279" height="200" rx="12" fill="#000" stroke="#26282C" stroke-width="2"/>
+  <g font-family="'JetBrains Mono', monospace" font-size="15">
+    <text x="128" y="410" fill="#3E4247">General</text>
+    <rect x="118" y="426" width="259" height="36" rx="8" fill="#17181A"/>
+    <text x="128" y="450" fill="#F0F1F2">Git</text>
+    <text x="364" y="450" text-anchor="end" fill="#83878D">GitHub</text>
+    <text x="128" y="490" fill="#3E4247">Members</text>
+    <text x="128" y="526" fill="#3E4247">Billing</text>
+    <rect x="232" y="538" width="145" height="28" rx="7" fill="#F0F1F2"/>
+    <text x="304" y="557" text-anchor="middle" font-size="13" fill="#000">Add connection</text>
+  </g>
+  <g font-family="'JetBrains Mono', monospace" font-size="15" fill="#83878D">
+    <text x="108" y="626">Workspace settings</text>
+    <text x="108" y="652">→ Git → GitHub</text>
+    <text x="108" y="678">→ Add connection</text>
+    <text x="108" y="728" fill="#3E4247">admins or owners</text>
+  </g>
+
+  <!-- Card 2: project settings -->
+  <rect x="445" y="260" width="335" height="500" rx="18" fill="#0A0B0D" stroke="#26282C" stroke-width="2"/>
+  <text x="473" y="304" font-family="'JetBrains Mono', monospace" font-size="16" fill="#83878D">02 · in the project</text>
+  <text x="473" y="346" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="28" fill="#F0F1F2">Open Git settings</text>
+  <rect x="473" y="376" width="279" height="200" rx="12" fill="#000" stroke="#26282C" stroke-width="2"/>
+  <g font-family="'JetBrains Mono', monospace" font-size="15">
+    <text x="493" y="410" fill="#83878D">Project settings</text>
+    <rect x="483" y="426" width="259" height="36" rx="8" fill="#17181A"/>
+    <text x="493" y="450" fill="#F0F1F2">Git</text>
+    <rect x="493" y="478" width="239" height="84" rx="8" fill="none" stroke="#26282C" stroke-width="2"/>
+    <text x="509" y="506" fill="#F0F1F2">GitHub</text>
+    <text x="509" y="534" font-size="13" fill="#83878D">not connected</text>
+  </g>
+  <g font-family="'JetBrains Mono', monospace" font-size="15" fill="#83878D">
+    <text x="473" y="626">Project settings</text>
+    <text x="473" y="652">→ Git → GitHub</text>
+    <text x="473" y="702" fill="#3E4247">or + → Project → GitHub</text>
+  </g>
+
+  <!-- Card 3: connect -->
+  <rect x="810" y="260" width="335" height="500" rx="18" fill="#0A0B0D" stroke="#26282C" stroke-width="2"/>
+  <text x="838" y="304" font-family="'JetBrains Mono', monospace" font-size="16" fill="#83878D">03 · pick the owner</text>
+  <text x="838" y="346" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="28" fill="#F0F1F2">Click Connect</text>
+  <rect x="838" y="376" width="279" height="200" rx="12" fill="#000" stroke="#26282C" stroke-width="2"/>
+  <g font-family="'JetBrains Mono', monospace" font-size="15">
+    <text x="858" y="410" fill="#83878D">Accounts</text>
+    <circle cx="868" cy="448" r="10" fill="#26282C"/>
+    <text x="888" y="453" fill="#F0F1F2">your-account</text>
+    <rect x="1015" y="433" width="88" height="30" rx="7" fill="#F0F1F2"/>
+    <text x="1059" y="453" text-anchor="middle" font-size="13" fill="#000">Connect</text>
+    <circle cx="868" cy="506" r="10" fill="#26282C"/>
+    <text x="888" y="511" fill="#83878D">your-org</text>
+    <rect x="1015" y="491" width="88" height="30" rx="7" fill="none" stroke="#26282C" stroke-width="2"/>
+    <text x="1059" y="511" text-anchor="middle" font-size="13" fill="#83878D">Connect</text>
+  </g>
+  <g font-family="'JetBrains Mono', monospace" font-size="15" fill="#83878D">
+    <text x="838" y="626">the account or org</text>
+    <text x="838" y="652">that should own</text>
+    <text x="838" y="678">the new repository</text>
+  </g>
+
+  <!-- Card 4: repository -->
+  <rect x="1175" y="260" width="345" height="500" rx="18" fill="#0A0B0D" stroke="#83878D" stroke-width="2"/>
+  <text x="1203" y="304" font-family="'JetBrains Mono', monospace" font-size="16" fill="#83878D">04 · done</text>
+  <text x="1203" y="346" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="28" fill="#F0F1F2">Repo is created</text>
+  <rect x="1203" y="376" width="289" height="200" rx="12" fill="#000" stroke="#26282C" stroke-width="2"/>
+  <g font-family="'JetBrains Mono', monospace" font-size="15">
+    <rect x="1223" y="400" width="14" height="11" rx="2" fill="none" stroke="#83878D" stroke-width="2"/>
+    <path d="M1226 400 V396 A4 4 0 0 1 1234 396 V400" fill="none" stroke="#83878D" stroke-width="2"/>
+    <text x="1247" y="412" fill="#F0F1F2">you/your-app</text>
+    <text x="1223" y="446" font-size="13" fill="#83878D">private · branch main</text>
+    <line x1="1223" y1="466" x2="1472" y2="466" stroke="#17181A" stroke-width="2"/>
+    <text x="1223" y="500" fill="#83878D">lovable</text>
+    <text x="1472" y="500" text-anchor="end" fill="#83878D">github</text>
+    <path d="M1300 490 H1392" fill="none" stroke="#83878D" stroke-width="2" marker-end="url(#head)"/>
+    <path d="M1392 520 H1300" fill="none" stroke="#83878D" stroke-width="2" marker-end="url(#head)"/>
+    <text x="1347" y="554" text-anchor="middle" font-size="13" fill="#3E4247">two-way sync</text>
+  </g>
+  <g font-family="'JetBrains Mono', monospace" font-size="15" fill="#83878D">
+    <text x="1203" y="626">private by default</text>
+    <text x="1203" y="652">keep prompting in</text>
+    <text x="1203" y="678">lovable if you like</text>
+  </g>
+
+  <line x1="80" y1="800" x2="1520" y2="800" stroke="#17181A" stroke-width="2"/>
+  <path d="M30 87 H14 L27 63 A31 31 0 1 1 73 63 L86 87 H70" transform="translate(80 822) scale(.3)" fill="none" stroke="#83878D" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="120" y="848" font-family="'JetBrains Mono', monospace" font-size="17" fill="#83878D">ohmyho.st</text>
+  <text x="1520" y="848" text-anchor="end" font-family="'JetBrains Mono', monospace" font-size="17" fill="#3E4247">labels from docs.lovable.dev/integrations/github · read 2026-09-25</text>
+</svg>
