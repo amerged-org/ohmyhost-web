@@ -5,6 +5,7 @@
   const prompt =
     "Read https://ohmyho.st/llms.txt and https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md. Connect this agent to ohmyho.st and deploy this GitHub project using only the capabilities it needs. " +
     (source ? "I came from https://ohmyho.st/?r=" + encodeURIComponent(source) + ". " : "") +
+    "After signing in, use the user and organization that whoami reports; never guess an account, organization or project ID. " +
     (region === "eu" || region === "us"
       ? "For a new project, use " + region.toUpperCase() + " based on this browser's region unless I specify another region. "
       : "For a new project, ask me once whether to use EU or US unless I already specified a region. ") +

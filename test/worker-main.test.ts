@@ -93,6 +93,13 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html).not.toContain('href="#stack"');
     expect(html).toContain("Copy prompt for your agent");
     expect(html).toContain("<span>Copy prompt</span>");
+    // A visitor's prompt cannot know an account: it has the agent verify one after sign-in, in the
+    // static fallback and in the prompt the copy button builds alike.
+    const verify =
+      "After signing in, use the user and organization that whoami reports; never guess an account, organization or project ID. ";
+    expect(html.slice(0, html.indexOf("const prompt ="))).toContain(verify);
+    expect(html.slice(html.indexOf("const prompt ="))).toContain(verify);
+    expect(html).not.toMatch(/user_[0-9A-Z]{26}/u);
     expect(html).not.toContain("Get beta access");
     expect(html).not.toContain("Beta access");
     expect(html).not.toContain('id="beta-modal"');
