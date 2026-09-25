@@ -65,16 +65,16 @@ export function ogCards(): OgCard[] {
 }
 
 /**
- * The card as a self-contained HTML document. `fontsBase` points at the self-hosted TTFs; the
- * default keeps the markup stable for hashing, the renderer passes a file URL.
+ * The card as a self-contained HTML document. The renderer serves it from an origin that answers
+ * the self-hosted `/fonts` URLs, so the rendered markup is exactly the hashed markup.
  */
-export function ogCardHtml(card: OgCard, fontsBase = "/fonts"): string {
+export function ogCardHtml(card: OgCard): string {
   const size =
     card.headline.length > 34 ? 66 : card.headline.length > 22 ? 84 : 96;
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><style>
-@font-face{font-family:'Space Grotesk';font-weight:500;src:url(${fontsBase}/3e699ead1876244f.ttf) format('truetype')}
-@font-face{font-family:'Space Grotesk';font-weight:700;src:url(${fontsBase}/3e756954468ff1cb.ttf) format('truetype')}
-@font-face{font-family:'JetBrains Mono';font-weight:400;src:url(${fontsBase}/44ce4a84f20d60f2.ttf) format('truetype')}
+@font-face{font-family:'Space Grotesk';font-weight:500;src:url(/fonts/3e699ead1876244f.ttf) format('truetype')}
+@font-face{font-family:'Space Grotesk';font-weight:700;src:url(/fonts/3e756954468ff1cb.ttf) format('truetype')}
+@font-face{font-family:'JetBrains Mono';font-weight:400;src:url(/fonts/44ce4a84f20d60f2.ttf) format('truetype')}
 html,body{margin:0;background:#000}
 .og{width:1200px;height:630px;position:relative;overflow:hidden;background:#000;color:#F0F1F2;font-family:'Space Grotesk',sans-serif;-webkit-font-smoothing:antialiased}
 .glow{position:absolute;left:280px;top:-200px;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(240,241,242,.10),transparent 68%)}
