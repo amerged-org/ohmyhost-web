@@ -5,5 +5,8 @@
   "topUpPerUsd": 100,
   "topUpPerUsdAbove100": 125,
   "usdPerCredit": 0.01,
-  "graceDays": 7
+  "graceDays": 7,
+  "flagPaidBonusCredits": 250,
+  "flagReferralCredits": 1000,
+  "flagReferralPaidDays": 30
 }
