@@ -52,7 +52,7 @@ Put together, a quiet project looks like this:
 
 {{ table workload.quietProject }}
 
-That project pays for the hour its database was awake, the data it keeps and one deployed script. Between requests it pays nothing. A project may carry a monthly budget that either continues from the shared balance or stops the project at its limit. A zero balance starts a {{ number plan.graceDays }}-day grace period during which funded services keep running; afterwards only unfunded services suspend. Automatic recharge is not enabled yet.
+That project pays for the hour its database was awake, the data it keeps and one deployed script. Between requests it pays nothing. A project may carry a monthly budget that either continues from the shared balance or stops the project at its limit. A zero balance starts a {{ number plan.graceDays }}-day grace period during which funded services keep running; afterwards only unfunded services suspend. Automatic recharge stays off unless the Owner turns it on.
 
 ## Where Railway wins
 

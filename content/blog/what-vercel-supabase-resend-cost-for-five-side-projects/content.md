@@ -70,7 +70,7 @@ Four quiet projects and the small app, added up as one workload:
 
 {{ table workload.fiveSideProjects }}
 
-About {{ credits workload.fiveSideProjects }}, including every deployed script and the small app's mail. This is slightly above the {{ number plan.paidCredits }} credits that {{ usd plan.paidUsd }} buys, so keep a top-up balance for the difference and any extra usage. A zero balance starts a {{ value plan.graceDays }}-day grace period during which funded services keep running, but a new build the balance cannot cover is rejected until you refill. Automatic recharge is not enabled yet.
+About {{ credits workload.fiveSideProjects }}, including every deployed script and the small app's mail. This is slightly above the {{ number plan.paidCredits }} credits that {{ usd plan.paidUsd }} buys, so keep a top-up balance for the difference and any extra usage. A zero balance starts a {{ value plan.graceDays }}-day grace period during which funded services keep running, but a new build the balance cannot cover is rejected until you refill. Automatic recharge stays off unless the Owner turns it on.
 
 Set that against the {{ usd scenario.fiveProjects }} a month from the section above. The difference is not a discount. It is that four of the five projects are quiet, and here quiet costs almost nothing.
 
