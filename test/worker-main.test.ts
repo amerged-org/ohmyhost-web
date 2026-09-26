@@ -14,6 +14,14 @@ describe("public entry and unassigned Free-host fallback", () => {
     );
     expect(assetRules).toContain("!pages/**");
     expect(assetRules).toContain("!logos/**");
+    // The rules upload nothing by default, so a public directory missing here is never deployed.
+    for (const entry of await readdir(new URL("../public/", import.meta.url), {
+      withFileTypes: true,
+    }))
+      if (entry.isDirectory())
+        expect(assetRules, `public/${entry.name} is not uploaded`).toContain(
+          `!${entry.name}/**`,
+        );
     const assets = new SiteAssetFixture();
     const home = await worker.fetch(
       new Request("https://ohmyho.st/?ticket=private-ticket"),
