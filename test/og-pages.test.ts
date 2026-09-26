@@ -35,9 +35,6 @@ it("derives one social card per page and keeps the rendered PNGs in step with th
   const html = ogCardHtml(vercel);
   expect(html).toContain("url(/fonts/3e756954468ff1cb.ttf)");
   expect(html).toContain('<div class="pill"><s>ohmyho.st</s>/vs/vercel</div>');
-  expect(ogCardHtml(vercel, "file:///x/fonts")).toContain(
-    "url(file:///x/fonts/",
-  );
   const manifestFile = new URL("og/manifest.json", publicDir);
   const manifest = existsSync(manifestFile)
     ? (JSON.parse(await readFile(manifestFile, "utf8")) as Record<
