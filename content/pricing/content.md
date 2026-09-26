@@ -18,11 +18,11 @@ Performance uses 2.5 times standard database-compute credits for equal active ti
 
 ## Show the ohmyho.st flag
 
-Ask your agent to show a small “Powered by ohmyho.st” flag on the right edge of your production site. It loads nothing and sets no cookie; a visitor who clicks it lands on ohmyho.st. While it shows, a Free workspace can connect its own domain without the domain fee, and each Paid month adds 250 credits. You bring your own domain; we never buy one for you.
+Ask your agent to show a small “Powered by ohmyho.st” flag on the right edge of your production site. It loads nothing and sets no cookie; a visitor who clicks it lands on ohmyho.st. While it shows, a Free workspace can connect its own domain without the domain fee, and each Paid month adds {{ number plan.flagPaidBonusCredits }} credits. You bring your own domain; we never buy one for you.
 
 ## Refer and earn
 
-Copy your referral link with the Refer and earn button in your account menu, or ask your agent for it. Someone who signs up through your link or your flag starts with a month of Paid and 1,000 credits, and when they first pay, you receive the same.
+Copy your referral link with the Refer and earn button in your account menu, or ask your agent for it. Someone who signs up through your link or your flag starts with {{ number plan.flagReferralPaidDays }} days of Paid and {{ number plan.flagReferralCredits }} credits, and when they first pay, you receive the same.
 
 ## Control your spending
 
