@@ -367,7 +367,10 @@ export default {
       );
     const font = /^\/fonts\/[a-f0-9]{16}\.ttf$/u.test(url.pathname);
     const social = /^\/og\/[a-z0-9-]+\.png$/u.test(url.pathname);
-    if (!page && !logo && !font && !social) {
+    // Article illustrations, rendered from the SVG sources next to their post.
+    const illustration = /^\/images\/[a-z0-9-]+\.png$/u.test(url.pathname);
+    const image = social || illustration;
+    if (!page && !logo && !font && !image) {
       const apiRequest = url.pathname.startsWith("/v1/");
       headers.set(
         "content-type",
@@ -400,11 +403,11 @@ export default {
       );
     const asset = await env.ASSETS.fetch(
       new Request(
-        `${HOME.slice(0, -1)}${logo || font || social ? url.pathname : `/pages/${page}`}`,
+        `${HOME.slice(0, -1)}${logo || font || image ? url.pathname : `/pages/${page}`}`,
       ),
     );
     if (!asset.ok) return new Response(null, { status: asset.status, headers });
-    if (page?.endsWith(".png") || page?.endsWith(".ico") || font || social) {
+    if (page?.endsWith(".png") || page?.endsWith(".ico") || font || image) {
       headers.set(
         "content-type",
         font

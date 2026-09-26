@@ -47,6 +47,7 @@ only that committed file, so a build is deterministic and offline.
 | W005 | Implemented | Client downloads, the project-address hostnames and the REST API stay with the platform.                                                           |
 
 | W006 | Implemented | Website and docs share the GA4 web stream G-C1PWJM238R and a versioned 180-day analytics preference; Google loads only after consent on the two public hosts, with explicit sanitized page views and no advertising features; Accept/Edit opens a preference dialog and the only persistent control is a cookie icon in the footer. |
+| W007 | Implemented | An article illustration is an SVG beside its post (`content/<path>/figures/<name>.svg`), rendered by `node scripts/site-capture.mjs figures` into `public/images/<name>.png` with a source-hash manifest and served at `/images/<name>.png`. |
 
 ## Editorial SEO and response caching
 

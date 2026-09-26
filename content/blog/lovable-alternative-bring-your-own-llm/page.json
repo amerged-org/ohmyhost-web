@@ -1,0 +1,17 @@
+{
+  "title": "Lovable alternative: Claude Code, Codex, Cursor or Grok",
+  "description": "A Lovable alternative that keeps your repo: export to GitHub, build with your own LLM in Claude Code, Codex, Cursor or Grok, deploy to ohmyho.st in one prompt.",
+  "kind": "article",
+  "status": "published",
+  "crumb": "Lovable alternative",
+  "social": {
+    "image": "/og/blog-lovable-alternative-bring-your-own-llm.png",
+    "alt": "ohmyho.st. A Lovable alternative that runs on your own LLM. Export to GitHub, build with Claude Code, Codex, Cursor or Grok, deploy with one prompt.",
+    "title": "ohmyho.st — A Lovable alternative that runs on your own LLM",
+    "description": "Export to GitHub, build with Claude Code, Codex, Cursor or Grok, deploy with one prompt."
+  },
+  "parent": "/blog",
+  "author": "Sebastian Mertens",
+  "published": "2026-09-25",
+  "modified": "2026-09-25"
+}

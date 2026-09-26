@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="Three steps in Lovable: open Project settings, Git, GitHub; connect your GitHub account; Lovable creates a private repository that syncs both ways.">
+  <defs>
+    <marker id="head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#83878D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="675" fill="#000"/>
+  <g fill="none" stroke="#3E4247" stroke-width="3">
+    <path d="M394 330 H424" marker-end="url(#head)"/>
+    <path d="M774 330 H804" marker-end="url(#head)"/>
+  </g>
+  <g fill="#0A0B0D" stroke="#26282C" stroke-width="2">
+    <rect x="50" y="180" width="340" height="300" rx="18"/>
+    <rect x="430" y="180" width="340" height="300" rx="18"/>
+    <rect x="810" y="180" width="340" height="300" rx="18" stroke="#83878D"/>
+  </g>
+  <g font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="64" fill="#3E4247">
+    <text x="84" y="262">1</text>
+    <text x="464" y="262">2</text>
+    <text x="844" y="262">3</text>
+  </g>
+  <g font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="34" fill="#F0F1F2">
+    <text x="84" y="360">Project settings</text>
+    <text x="464" y="360">Connect</text>
+    <text x="844" y="360">Private repo</text>
+  </g>
+  <g font-family="'JetBrains Mono', monospace" font-size="24" fill="#83878D">
+    <text x="84" y="408">Git → GitHub</text>
+    <text x="464" y="408">your GitHub account</text>
+    <text x="844" y="408">synced both ways</text>
+  </g>
+</svg>

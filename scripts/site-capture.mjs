@@ -5,6 +5,7 @@
  *
  *   node scripts/site-capture.mjs evidence --label before [--out <dir>] [--base <origin>]
  *   node scripts/site-capture.mjs og [--only <slug>]        (after pnpm build)
+ *   node scripts/site-capture.mjs figures                   (article illustrations)
  *
  * Playwright is resolved from the npx cache and pinned to one version; nothing is installed.
  * Screenshots are evidence only (plan/evidence/P38) and are never served by the site.
@@ -362,6 +363,74 @@ export async function renderSocialCards({
   return sorted;
 }
 
+/**
+ * Article illustrations are drawn at one size, which every `<img>` declares, and rendered at twice
+ * that size so they stay sharp on high-density screens.
+ */
+export const FIGURE_SIZE = { width: 1200, height: 675 };
+const FIGURE_FONTS = [
+  ["Space Grotesk", 500, "3e699ead1876244f.ttf"],
+  ["Space Grotesk", 700, "3e756954468ff1cb.ttf"],
+  ["JetBrains Mono", 400, "44ce4a84f20d60f2.ttf"],
+  ["JetBrains Mono", 500, "3386a05f6ece969e.ttf"],
+]
+  .map(
+    ([family, weight, file]) =>
+      `@font-face{font-family:'${family}';font-weight:${weight};src:url(/fonts/${file}) format('truetype')}`,
+  )
+  .join("");
+
+/** Every illustration source (a `figures/<name>.svg` below content/), keyed by its file name. */
+export function figureSources(contentRoot) {
+  const sources = new Map();
+  for (const entry of readdirSync(contentRoot, { recursive: true }).sort()) {
+    const match = String(entry).match(/(?:^|\/)figures\/([a-z0-9-]+)\.svg$/u);
+    if (!match) continue;
+    if (sources.has(match[1]))
+      throw new Error(`Two illustrations are named ${match[1]}`);
+    sources.set(match[1], join(contentRoot, String(entry)));
+  }
+  return sources;
+}
+
+/** Renders every article illustration into public/images with a source-hash manifest. */
+export async function renderFigures({
+  root,
+  playwrightDir = resolvePlaywright(),
+  log = (line) => process.stderr.write(`${line}\n`),
+}) {
+  const { chromium } = await import(
+    pathToFileURL(join(playwrightDir, "index.mjs")).href
+  );
+  const out = join(root, "public", "images");
+  mkdirSync(out, { recursive: true });
+  const browser = await chromium.launch({ headless: true });
+  const show = await templatePage(browser, root, FIGURE_SIZE, 2);
+  const manifest = {};
+  for (const [name, source] of figureSources(join(root, "content"))) {
+    const svg = readFileSync(source, "utf8");
+    const page = await show(
+      `<!doctype html><html><head><meta charset="utf-8"><style>${FIGURE_FONTS}html,body{margin:0;background:#000}svg{display:block}</style></head><body>${svg}</body></html>`,
+    );
+    const bytes = await page.screenshot({
+      type: "png",
+      clip: { x: 0, y: 0, ...FIGURE_SIZE },
+    });
+    writeFileSync(join(out, `${name}.png`), bytes);
+    manifest[name] = {
+      sourceSha256: createHash("sha256").update(svg).digest("hex"),
+      renderedAt: new Date().toISOString(),
+    };
+    log(`images/${name}.png (${bytes.length} bytes)`);
+  }
+  await browser.close();
+  writeFileSync(
+    join(out, "manifest.json"),
+    `${JSON.stringify(manifest, null, 2)}\n`,
+  );
+  return manifest;
+}
+
 export function parseArguments(argv) {
   const [command, ...rest] = argv;
   const options = {};
@@ -377,11 +446,13 @@ export function parseArguments(argv) {
 
 export async function main(argv, { cwd = process.cwd() } = {}) {
   const { command, options } = parseArguments(argv);
-  if (command !== "evidence" && command !== "og")
+  if (!["evidence", "og", "figures"].includes(command))
     throw new Error(`Unknown command: ${command ?? "(none)"}`);
   const playwrightDir = options.playwright
     ? resolvePlaywright({ override: options.playwright })
     : resolvePlaywright();
+  if (command === "figures")
+    return renderFigures({ root: resolve(cwd), playwrightDir });
   if (command === "og")
     return renderSocialCards({
       only: options.only,
