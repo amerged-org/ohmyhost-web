@@ -30,6 +30,7 @@ import {
   WORKLOADS,
 } from "../src/content/sources.js";
 import { CREDIT_RATES } from "../src/generated-pricing.js";
+import { PRIVACY_UI } from "../src/generated-site-frame.js";
 
 const root = new URL("../", import.meta.url);
 
@@ -135,6 +136,10 @@ it("keeps the plan constants and the agent prompt equal to their sources", async
     "utf8",
   );
   expect(prepare).toContain(`"${CTA_PROMPT}"`);
+  // The flag's reward is its Paid bonus on a Paid month's credits: 250 on 1,000 is 25% more.
+  const flagReward = `Show this flag, get ${(100 * PLANS.flagPaidBonusCredits) / PLANS.paidCredits}% more`;
+  expect(PRIVACY_UI).toContain(`aria-label="${flagReward}"`);
+  expect(PRIVACY_UI).toContain(`<span>${flagReward}</span>`);
   for (const vendor of Object.values(VENDORS)) {
     expect(vendor.checkedOn).toMatch(/^\d{4}-\d{2}-\d{2}$/u);
     expect(vendor.sourceUrl.startsWith("https://")).toBe(true);
