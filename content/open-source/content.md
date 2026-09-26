@@ -22,6 +22,8 @@ npm install "@ohmyhost/customer-runtime@npm:@amerged/ohmyhost-runtime@<version>"
 
 Upgrade the CLI and MCP server first. Your application imports the runtime as `@ohmyhost/customer-runtime`, so install it under that name as the exact npm alias `ohmyhost init` reports, with `<version>` taken from that report, and commit the updated lockfile. Every `@ohmyhost/customer-runtime/*` import stays unchanged. The website also offers the current release as archives, but only the current one: older archive URLs return 404, so do not pin an application to an `ohmyho.st/releases/` URL, and older runtime versions carry no compatibility promise.
 
+The MCP server's source is also on GitHub: [amerged-org/ohmyhost-mcp](https://github.com/amerged-org/ohmyhost-mcp) mirrors the published `@amerged/ohmyhost-mcp` package with every release, byte for byte, and its `release.json` names the npm integrity to check it against.
+
 The runtime and auth packages matter most for portability: they are the code your application imports, so the parts of your app that touch our platform are readable, forkable and licensed to you.
 
 ## MIT: the documentation

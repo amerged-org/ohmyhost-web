@@ -1,2 +1,2 @@
 // Generated from platform-inputs.json by pages:prepare.
-export const CLIENT_RELEASE = "0.1.21";
+export const CLIENT_RELEASE = "0.1.22";
