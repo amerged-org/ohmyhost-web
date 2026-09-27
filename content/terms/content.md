@@ -1,6 +1,6 @@
 # Terms of Service — Master Services Agreement
 
-Version: September 14, 2026 — MSA revision 2.
+Version: September 27, 2026 — MSA revision 3.
 
 ## 1. Your agreement
 
@@ -38,7 +38,7 @@ You are responsible for your application code, dependencies, user notices and au
 
 Projects use their organisation’s shared credit balance. The current rate card and deployment plan describe measured charges. Prices, tax and credit consumption are different quantities. Retained database or file storage can use credits while compute is idle.
 
-Free monthly allowance credits expire on their recorded allowance date. Purchased credits, including Paid-period credits and top-ups, as well as configured signup/referral bonuses and manual grants, have no scheduled expiry. Credits are service-use units, not money, a deposit or an investment. They are not transferable between customers or redeemable for cash except where law or an expressly agreed refund requires it. Corrections, refunds and disputes can adjust associated credit entries; one payment does not earn credit twice.
+Free monthly allowance credits expire at the end of their UTC month. Paid monthly credits and that period’s powered-by bonus expire at the end of their billing period without rollover; monthly credits are spent before top-ups. Top-up and automatic-recharge credits have no time limit while the workspace keeps active Paid access; they expire when Paid access effectively ends, not when cancellation is requested, and a later upgrade does not restore them. After a Stripe billing period ends, they stay usable for 24 hours while its renewal is collected. Configured signup/referral bonuses and manual grants keep their recorded terms. From this version, these rules apply to all existing and future balances. Credits are service-use units, not money, a deposit or an investment. They are not transferable between customers or redeemable for cash except where law or an expressly agreed refund requires it. Corrections, refunds and disputes can adjust associated credit entries; one payment does not earn credit twice.
 
 Project budgets use UTC calendar months. You may select no limit or a credit limit with the supported Continue/Stop behaviour. Measurements can arrive after work starts: a budget does not erase already incurred, reserved or delayed usage. Insufficient credits or a Stop limit can restrict affected capabilities under the documented rules. Keep monitoring and a recovery plan for important workloads.
 
@@ -46,9 +46,9 @@ Project budgets use UTC calendar months. You may select no limit or a credit lim
 
 Where purchases are enabled, Stripe processes checkout and invoices. Checkout shows the amount, currency, applicable tax and recurring terms before payment. Provide a correct billing address and a valid business tax ID if relevant. We calculate applicable taxes through Stripe Tax; any business status or tax treatment you claim must be accurate. Each completed purchase receives an invoice.
 
-A subscription renews on its stated billing cycle until cancelled. Cancel future renewals using the Stripe management link in Billing; the subscription ends at the period end displayed there unless an applicable right requires otherwise. Contact us for assistance. A top-up does not renew a subscription. Turning recharge off does not cancel a subscription.
+A subscription renews on its stated billing cycle until cancelled. Cancel future renewals using the Stripe management link in Billing; the subscription ends at the period end displayed there unless an applicable right requires otherwise. Contact us for assistance. A top-up does not renew a subscription. Top-ups and automatic recharge are available only while the workspace has active Paid access. Turning recharge off does not cancel a subscription.
 
-Automatic recharge is a separate opt-in. Saving a payment method, signing up, accepting these terms or moving a marketing calculator does not enable it. When you explicitly enable the current policy, you authorise 1,000 one-time credits for USD 9 plus applicable tax when available credits fall below 100, subject to your displayed gross monthly limit. The limit uses UTC calendar months and includes tax. There is at most one unresolved recharge attempt at a time.
+Automatic recharge is a separate opt-in. Saving a payment method, signing up, accepting these terms or moving a marketing calculator does not enable it. When you explicitly enable the current policy, you authorise 1,000 top-up credits for USD 9 plus applicable tax when available credits fall below 100, subject to your displayed gross monthly limit. The limit uses UTC calendar months and includes tax. There is at most one unresolved recharge attempt at a time. Without active Paid access no recharge starts; your consent remains until you turn recharge off.
 
 Turn recharge off in Billing or through the supported API, CLI or MCP to prevent new attempts. An invoice or payment already initiated can still complete and is reconciled to your balance. A tax-address problem, failed payment or unresolved result can pause recharge; the status identifies the required action. We do not silently disable tax or create another charge to hide an uncertain result.
 

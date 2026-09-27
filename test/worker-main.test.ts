@@ -77,7 +77,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     );
     expect(paidCard).toContain("<li>1000 credits per month, no rollover</li>");
     expect(pricingSection).toContain(
-      "Get 1000 credits each paid month, top up whenever.",
+      "Get 1000 credits each paid month; on Paid, top up whenever.",
     );
     expect(pricingSection).not.toContain("fresh 1000");
     expect(html).not.toContain("skip Vercel");

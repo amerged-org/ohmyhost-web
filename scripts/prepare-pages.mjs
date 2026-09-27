@@ -362,7 +362,7 @@ function applyApprovedHomepageChanges(html) {
     '<div class="plan on">\n      <h3>Credits</h3>':
       '<div class="plan on">\n      <style>.plan.on{position:relative}.keep{position:absolute;top:26px;right:0;font-family:var(--mono);font-size:11px;line-height:1.5;color:var(--foreground);border:1px solid var(--border-strong);border-radius:5px;padding:2px 7px;white-space:nowrap}.keepb{color:var(--foreground);font-weight:500}</style><span class="keep">Top-ups never expire</span>\n      <h3>Credits</h3>',
     "Spend the credits on any app, get a fresh 1000 every month, top up whenever.":
-      "Spend the credits on any app. Get 1000 credits each paid month, top up whenever.",
+      "Spend the credits on any app. Get 1000 credits each paid month; on Paid, top up whenever.",
     "<li>1000 fresh credits each month</li>":
       "<li>1000 credits per month, no rollover</li>",
     "<li>Scales up on its own</li>":
