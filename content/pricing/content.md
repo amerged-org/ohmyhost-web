@@ -2,7 +2,7 @@
 
 Free starts with 200 credits. Paid starts at $10 for 1,000 monthly credits. Projects use the same organization balance; there is no separate project base subscription.
 
-Free credits expire at the end of each month. Purchased credits never expire: each paid month adds to your balance. Connect your own domain; domain registration is not included. Usage is metered; additional credits cost extra. Applicable taxes are added.
+Free credits expire at UTC month end. Paid monthly credits expire at billing-period end without rollover. Only Paid users can buy top-ups; they carry over during uninterrupted Paid membership and expire on downgrade to Free. Connect your own domain; domain registration is not included. Usage is metered; additional credits cost extra. Applicable taxes are added.
 
 ## What uses credits
 
@@ -18,7 +18,7 @@ Performance uses 2.5 times standard database-compute credits for equal active ti
 
 ## Show the ohmyho.st flag
 
-Ask your agent to show a small “Powered by ohmyho.st” flag on the right edge of your production site. It loads nothing and sets no cookie; a visitor who clicks it lands on ohmyho.st. While it shows, a Free workspace can connect its own domain without the domain fee, and each Paid month adds {{ number plan.flagPaidBonusCredits }} credits. You bring your own domain; we never buy one for you.
+Ask your agent to show a small “Powered by ohmyho.st” flag on the right edge of your production site. It loads nothing and sets no cookie; a visitor who clicks it lands on ohmyho.st. While it shows, a Free workspace can connect its own domain without the domain fee, and each Paid month adds {{ number plan.flagPaidBonusCredits }} credits that expire with that billing period. You bring your own domain; we never buy one for you.
 
 ## Refer and earn
 

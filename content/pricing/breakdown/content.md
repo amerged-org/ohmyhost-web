@@ -9,8 +9,8 @@ One credit has a nominal value of {{ usd plan.usdPerCredit }}, so {{ number plan
 Credits arrive three ways:
 
 - Free grants {{ number plan.freeCredits }} credits per UTC month. They expire at the end of that month.
-- Paid costs {{ usd plan.paidUsd }} a month before tax and grants {{ number plan.paidCredits }} credits per paid period. They never expire: unused Paid credits stack from period to period. Paid also unlocks a customer-owned domain and verified sender mail; both still use credits.
-- Top-ups never expire. A purchase grants {{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }} and {{ number plan.topUpPerUsdAbove100 }} credits per dollar for the part above that. Free credits are spent first, so the ones that expire go first.
+- Paid costs {{ usd plan.paidUsd }} a month before tax and grants {{ number plan.paidCredits }} credits per paid period. Unused monthly credits expire at the end of their billing period without rollover. Paid also unlocks a customer-owned domain and verified sender mail; both still use credits.
+- Top-ups never expire during uninterrupted Paid membership; remaining top-ups expire when you switch to Free. Only Paid users can buy them. A purchase grants {{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }} and {{ number plan.topUpPerUsdAbove100 }} credits per dollar for the part above that. Monthly credits are spent before top-ups.
 
 Every project draws from the organization's one balance. There is no per-project base fee and no project-count limit. A project may carry a monthly budget in continue mode (warn, keep going) or stop mode (reject new work past the line); a budget is a ceiling, not a second wallet. A zero balance starts a {{ number plan.graceDays }}-day grace period during which funded services keep running; after it, only unfunded services suspend, and data, export and buying credit stay available. Automatic recharge stays off unless the Owner turns it on.
 
@@ -124,7 +124,7 @@ For several small projects, yes: {{ usd plan.paidUsd }} a month buys {{ number p
 
 ### Do unused credits roll over?
 
-Purchased credits do: the {{ number plan.paidCredits }} Paid credits and every top-up never expire, so what you do not use this month stays for a busy month later. Only the {{ number plan.freeCredits }} Free credits expire at the end of the UTC month, and they are spent first.
+Monthly credits do not roll over: the {{ number plan.freeCredits }} Free credits expire at UTC month end and the {{ number plan.paidCredits }} Paid credits and any flag bonus at billing-period end. Top-ups carry over while you stay on Paid. Remaining top-ups expire when your workspace switches to Free and do not return after a later upgrade. Monthly credits are spent before top-ups.
 
 ### What does a project cost when nobody visits it?
 
