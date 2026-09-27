@@ -65,7 +65,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     );
     expect(pricingSection.match(/class="note"/gu)).toHaveLength(1);
     expect(pricingSection).toContain(
-      'Free credits reset monthly. <b class="keepb">Purchased credits never expire.</b> Usage is metered.',
+      "Monthly credits expire at period end. Top-ups carry over while Paid and expire when you switch to Free. Usage is metered.",
     );
     // The $10 card carries one small corner chip; the copy repeats it in bold.
     const paidCard = pricingSection.slice(
@@ -73,13 +73,11 @@ describe("public entry and unassigned Free-host fallback", () => {
     );
     expect(paidCard.match(/class="keep"/gu)).toHaveLength(1);
     expect(paidCard).toContain(
-      '<span class="keep">Purchased credits don\'t expire</span>',
+      '<span class="keep">Top-ups never expire</span>',
     );
-    expect(paidCard).toContain(
-      '<li>1000 credits a month, <b class="keepb">they stack</b></li>',
-    );
+    expect(paidCard).toContain("<li>1000 credits per month, no rollover</li>");
     expect(pricingSection).toContain(
-      'get 1000 more every month, top up whenever. <b class="keepb">Credits you buy never expire.</b>',
+      "Get 1000 credits each paid month, top up whenever.",
     );
     expect(pricingSection).not.toContain("fresh 1000");
     expect(html).not.toContain("skip Vercel");
