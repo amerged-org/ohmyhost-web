@@ -553,5 +553,40 @@
         "label": "50,000 mail recipients"
       }
     ]
+  },
+  "freePlanApp": {
+    "name": "A quiet app on the Free plan for one month",
+    "lines": [
+      {
+        "meter": "build.sandbox.standard-3",
+        "quantity": 240,
+        "label": "4 build minutes (two deployments)"
+      },
+      {
+        "meter": "wfp.requests",
+        "quantity": 20000,
+        "label": "20,000 requests"
+      },
+      {
+        "meter": "wfp.cpu",
+        "quantity": 200000,
+        "label": "200,000 CPU-ms"
+      },
+      {
+        "meter": "neon.compute.scale",
+        "quantity": 1,
+        "label": "1 database CU-hour (4 active hours on the Free 0.25 CU profile)"
+      },
+      {
+        "meter": "neon.storage.root",
+        "quantity": 0.25,
+        "label": "0.25 database GB-month"
+      },
+      {
+        "meter": "wfp.script",
+        "quantity": 2,
+        "label": "2 deployed scripts (Dev and Prod)"
+      }
+    ]
   }
 }

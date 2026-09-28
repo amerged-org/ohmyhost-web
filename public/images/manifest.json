@@ -1,4 +1,16 @@
 {
+  "free-alternatives-catches": {
+    "sourceSha256": "9ccadd92225911fbe94ba51d71fc2fb366f306946b1ec496e8e4f42b6ac8878c",
+    "renderedAt": "2026-09-28T22:00:13.463Z"
+  },
+  "free-alternatives-pick": {
+    "sourceSha256": "2a0227b0f24024b03bbada785a1e976f67c28794fd7fb581f1de78eb9bca53f6",
+    "renderedAt": "2026-09-28T22:00:13.526Z"
+  },
+  "free-alternatives-two-accounts": {
+    "sourceSha256": "5a3c7b8d2d78d0972fb8889157122f5569357e940f77a32287386e05ee95d9d9",
+    "renderedAt": "2026-09-28T22:00:13.593Z"
+  },
   "lovable-alternative-agent-session": {
     "sourceSha256": "6eb1ebbaaa293c67c57b31ffd2a2f1d05d18479e21a6716e20ea33e08d2f0793",
     "renderedAt": "2026-09-25T18:25:21.118Z"

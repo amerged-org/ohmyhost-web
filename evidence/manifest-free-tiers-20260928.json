@@ -1,0 +1,273 @@
+{
+  "capturedAt": "2026-09-28T21:50:14.743Z",
+  "label": "free-tiers",
+  "tool": {
+    "playwright": "1.62.1",
+    "chromium": "151.0.7922.34"
+  },
+  "context": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "deviceScaleFactor": 1,
+    "locale": "en-US",
+    "timezoneId": "America/New_York"
+  },
+  "entries": [
+    {
+      "file": "free-tiers--vercel.com--pricing--1440x900@1--full.jpg",
+      "url": "https://vercel.com/pricing",
+      "finalUrl": "https://vercel.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:50:18.164Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 736326,
+      "sha256": "f368c1f6a33f29487b1c26688fb080d0476d25f8c8237b2837ae796fb216f54a"
+    },
+    {
+      "file": "free-tiers--vercel.com--docs-plans-hobby--1440x900@1--full.jpg",
+      "url": "https://vercel.com/docs/plans/hobby",
+      "finalUrl": "https://vercel.com/docs/plans/hobby",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:50:21.719Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 342140,
+      "sha256": "7886dbed0a9e5746b2d67656207cdae0ed054a5452176b246bdc6930dbd18519"
+    },
+    {
+      "file": "free-tiers--vercel.com--docs-fair-use-guidelines--1440x900@1--full.jpg",
+      "url": "https://vercel.com/docs/limits/fair-use-guidelines",
+      "finalUrl": "https://vercel.com/docs/limits/fair-use-guidelines",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:50:25.455Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 336297,
+      "sha256": "a5ca92cfc93d5a249cceb03b39697093cb6c28be42cce6e9eec3bc86f591d0b7"
+    },
+    {
+      "file": "free-tiers--supabase.com--pricing--1440x900@1--full.jpg",
+      "url": "https://supabase.com/pricing",
+      "finalUrl": "https://supabase.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:50:28.683Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 768776,
+      "sha256": "0fcb1ce722bdc78e248c7e31003cd01e59c1c7555cc6340c0d46f082c7315518"
+    },
+    {
+      "file": "free-tiers--supabase.com--docs-free-project-pausing--1440x900@1--full.jpg",
+      "url": "https://supabase.com/docs/guides/platform/free-project-pausing",
+      "finalUrl": "https://supabase.com/docs/guides/platform/free-project-pausing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:50:31.607Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 204138,
+      "sha256": "7402d5df9739ac8715b62ef74dd1837bc0a3b30a443e44dff4d0d15545eeef5e"
+    },
+    {
+      "file": "free-tiers--developers.cloudflare.com--workers-pricing--1440x900@1--full.jpg",
+      "url": "https://developers.cloudflare.com/workers/platform/pricing/",
+      "finalUrl": "https://developers.cloudflare.com/workers/platform/pricing/",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:50:41.942Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 1835007,
+      "sha256": "51620b39b9550a28286d08e27aab577d6a36f8d9b0de9a43133823a35716541c"
+    },
+    {
+      "file": "free-tiers--developers.cloudflare.com--d1-pricing--1440x900@1--full.jpg",
+      "url": "https://developers.cloudflare.com/d1/platform/pricing/",
+      "finalUrl": "https://developers.cloudflare.com/d1/platform/pricing/",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:50:44.796Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 541367,
+      "sha256": "72983778bdf9e6f365972551b0274f42486a949d7fc01225710e1961c2dc68ec"
+    },
+    {
+      "file": "free-tiers--cloudflare.com--plans--1440x900@1--full.jpg",
+      "url": "https://www.cloudflare.com/plans/",
+      "finalUrl": "https://www.cloudflare.com/plans/",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:50:48.520Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 518190,
+      "sha256": "200b988ac2172b5c56b4caeee9b7109bb52cdb164fa74de62abe9b6dad38aef9"
+    },
+    {
+      "file": "free-tiers--render.com--pricing--1440x900@1--full.jpg",
+      "url": "https://render.com/pricing",
+      "finalUrl": "https://render.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:50:52.553Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 1086521,
+      "sha256": "5b580f7d0b2fdde4ca7e7f7e60f445da2d0cdd10d9eff6d9bf1bcb89f15ad026"
+    },
+    {
+      "file": "free-tiers--render.com--docs-free--1440x900@1--full.jpg",
+      "url": "https://render.com/docs/free",
+      "finalUrl": "https://render.com/docs/free",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:50:56.128Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 809406,
+      "sha256": "a8e3c8347f0ca75e50e4da813d38ccd71c75883db6ee3ddbeac2108fd1623955"
+    },
+    {
+      "file": "free-tiers--railway.com--pricing--1440x900@1--full.jpg",
+      "url": "https://railway.com/pricing",
+      "finalUrl": "https://railway.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:50:59.437Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 805926,
+      "sha256": "9c21798bd82a1ff6f6eef7207c53657507e1de00ad272a62881ec34eee6c4b70"
+    },
+    {
+      "file": "free-tiers--docs.railway.com--pricing-free-trial--1440x900@1--full.jpg",
+      "url": "https://docs.railway.com/pricing/free-trial",
+      "finalUrl": "https://docs.railway.com/pricing/free-trial",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:51:02.346Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 319965,
+      "sha256": "d1818268328d01b4289cfec66964def482dbd465c3919b12747506eadd96043b"
+    },
+    {
+      "file": "free-tiers--neon.com--pricing--1440x900@1--full.jpg",
+      "url": "https://neon.com/pricing",
+      "finalUrl": "https://neon.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:51:05.516Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 594531,
+      "sha256": "468602bb733f53c7c012d5f56aea73d5577935520674bcc2633677017e96eba8"
+    },
+    {
+      "file": "free-tiers--neon.com--docs-plans--1440x900@1--full.jpg",
+      "url": "https://neon.com/docs/introduction/plans",
+      "finalUrl": "https://neon.com/docs/introduction/plans",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:55:32.930Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 1762145,
+      "sha256": "e44d7d3fca20f54a845e45489fc8856cb1f2cd19ef525d888ee2f8a4d993405a",
+      "expanded": ["What happens if I exceed my Free plan limits?"]
+    },
+    {
+      "file": "free-tiers--fly.io--pricing--1440x900@1--full.jpg",
+      "url": "https://fly.io/pricing",
+      "finalUrl": "https://fly.io/pricing/",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:51:12.485Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 282728,
+      "sha256": "27eb78e1f1bb2cb4b6a7a79e57d5258655f711c3270266d12e4876c97369b308"
+    },
+    {
+      "file": "free-tiers--docs.fly.io--free-trial--1440x900@1--full.jpg",
+      "url": "https://docs.fly.io/about/free-trial/",
+      "finalUrl": "https://docs.fly.io/about/free-trial/",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:51:18.100Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 210274,
+      "sha256": "3ac5a873ee38d68acf989fb0d4fd93065338481162d636071bf951fcd3334e8d"
+    },
+    {
+      "file": "free-tiers--vercel.com--docs-postgres--1440x900@1--full.jpg",
+      "url": "https://vercel.com/docs/postgres",
+      "finalUrl": "https://vercel.com/docs/postgres",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:57:04.578Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 146767,
+      "sha256": "720374f81895d7bd005326828388b711881d47321da79b602709b9125eefe5d3"
+    },
+    {
+      "file": "free-tiers--supabase.com--docs-functions-limits--1440x900@1--full.jpg",
+      "url": "https://supabase.com/docs/guides/functions/limits",
+      "finalUrl": "https://supabase.com/docs/guides/functions/limits",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:57:07.662Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 172229,
+      "sha256": "5a2252f1654ec6fb387fc4a127d5a4fdbe2673561de9786ffa871f78867e3f6e"
+    },
+    {
+      "file": "free-tiers--developers.cloudflare.com--d1-overview--1440x900@1--full.jpg",
+      "url": "https://developers.cloudflare.com/d1/",
+      "finalUrl": "https://developers.cloudflare.com/d1/",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:57:10.553Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 255207,
+      "sha256": "c7917ffb275ccd59e42b9ce2f1d3901d2c9903321ed8868751ac2c6f5d9936bf"
+    },
+    {
+      "file": "free-tiers--developers.cloudflare.com--workers-limits--1440x900@1--full.jpg",
+      "url": "https://developers.cloudflare.com/workers/platform/limits/",
+      "finalUrl": "https://developers.cloudflare.com/workers/platform/limits/",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:57:13.880Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 1317013,
+      "sha256": "a765f798d2f7a9bd70bf1ccfadd03c027ded39f0d5eaa84ac60eba77aee17c4c"
+    },
+    {
+      "file": "free-tiers--developers.cloudflare.com--workers-custom-domains--1440x900@1--full.jpg",
+      "url": "https://developers.cloudflare.com/workers/configuration/routing/custom-domains/",
+      "finalUrl": "https://developers.cloudflare.com/workers/configuration/routing/custom-domains/",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:57:16.919Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 737285,
+      "sha256": "20557193d1791d461905f7a3b9aee057ac54e057f4cc003edcbd7dde2eb378c9"
+    },
+    {
+      "file": "free-tiers--docs.railway.com--pricing-faqs--1440x900@1--full.jpg",
+      "url": "https://docs.railway.com/pricing/faqs",
+      "finalUrl": "https://docs.railway.com/pricing/faqs",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T21:59:30.044Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 583962,
+      "sha256": "627fdde0d0763c76b1e2b09367f2ec7e03d5c7b8caeaf765b1cbe8b9e371b463"
+    },
+    {
+      "file": "free-tiers--resend.com--pricing--1440x900@1--full.jpg",
+      "url": "https://resend.com/pricing",
+      "finalUrl": "https://resend.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-09-28T22:02:09.135Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 513664,
+      "sha256": "ef11e1c17fdb0111a6d9f52f74daae231a401f1f62345a801510f5f72c0c53d5"
+    }
+  ]
+}
