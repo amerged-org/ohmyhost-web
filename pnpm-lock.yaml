@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@amerged/ohmyhost-sdk':
-        specifier: 0.1.24
-        version: 0.1.24
+        specifier: 0.1.25
+        version: 0.1.25
       marked:
         specifier: 18.0.12
         version: 18.0.12
@@ -51,8 +51,8 @@ importers:
 
 packages:
 
-  '@amerged/ohmyhost-sdk@0.1.24':
-    resolution: {integrity: sha512-azXBn+0L/GUgIMl00FZ9OlDoZagJfMHHXPi52duf0DigwLd7hXmnCHAO9LP5TaHLgSI2XnR+stZSD0JGTtVsBA==}
+  '@amerged/ohmyhost-sdk@0.1.25':
+    resolution: {integrity: sha512-wJt6YKHV91V8NIFDsyP0wb2kt29ra0TXi6P5IvlDN2YZU0cn5MV8mVXKNrM8IVLr1JD7Vx3EwIPy+SnIr3lJWQ==}
     engines: {node: '>=22'}
 
   '@babel/helper-string-parser@7.29.7':
@@ -1514,7 +1514,7 @@ packages:
 
 snapshots:
 
-  '@amerged/ohmyhost-sdk@0.1.24': {}
+  '@amerged/ohmyhost-sdk@0.1.25': {}
 
   '@babel/helper-string-parser@7.29.7': {}
 
