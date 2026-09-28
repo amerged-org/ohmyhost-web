@@ -1,0 +1,25 @@
+/** Every file the brand page offers, served at /brand/assets/<file>. */
+export const BRAND_ASSET_FILES: readonly string[] = [
+  "omega-light.svg",
+  "omega-dark.svg",
+  "omega-light.png",
+  "omega-dark.png",
+  "icon-dark.svg",
+  "icon-light.svg",
+  "icon-dark-512.png",
+  "icon-light-512.png",
+  "logo-on-white.png",
+  "logo-on-black.png",
+  "wordmark-on-white.png",
+  "wordmark-on-black.png",
+  "wordmark-black-transparent.png",
+  "wordmark-white-transparent.png",
+  ...["og", "x-card", "linkedin", "square", "github", "x-header"].flatMap(
+    (format) => [`social-${format}-dark.png`, `social-${format}-light.png`],
+  ),
+  "favicon.svg",
+  "favicon.ico",
+  "apple-touch-icon.png",
+  "founder.png",
+  "og.png",
+];
