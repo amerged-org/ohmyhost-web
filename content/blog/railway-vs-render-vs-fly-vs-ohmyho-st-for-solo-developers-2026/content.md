@@ -82,7 +82,7 @@ Fly.io lets you put machines in specific regions, or several regions at once, cl
 
 No per-project base fee: five side projects draw from the same balance, and a dead one only pays for its stored data and one deployed script. Hosting, Postgres, transactional mail and a linked domain are metered from that one balance, so you are not stacking a hosting plan, a database plan and a mail plan. Your agent deploys through MCP; there is no dashboard to babysit. And you can leave: an on-demand export gives you a password-encrypted ZIP with a portable SQL dump.
 
-The trade-offs run the other way too. ohmyho.st is young. Mail and a custom domain need Paid. Exports are SQL only, one accepted request per project in any rolling 24-hour window, and the signed download link lasts 24 hours.
+The trade-offs run the other way too. ohmyho.st is young. Mail needs Paid. A custom domain needs Paid or, on Free, the “Powered by ohmyho.st” flag; the flag waives domain credits on either plan. Exports are SQL only, one accepted request per project in any rolling 24-hour window, and the signed download link lasts 24 hours.
 
 ## Where ohmyho.st fits
 
@@ -98,9 +98,9 @@ A side project you rarely touch looks different.
 
 {{ table workload.quietProject }}
 
-That fits inside the Free grant. What keeps drawing credits when nothing happens: stored data, each deployed script at about {{ credits unit.deployedScriptMonth }} a month, and a linked custom hostname (Paid) at about {{ credits unit.customHostnameMonth }} a month. A mail domain has no monthly fee. Workers bandwidth is not charged. SQL exports are free. Mail is metered per sent recipient at {{ rate mail.sent }}, one recipient per message; the small-app table shows what 2,000 recipients cost.
+That fits inside the Free grant. What keeps drawing credits when nothing happens: stored data, each deployed script at about {{ credits unit.deployedScriptMonth }} a month, and a linked custom hostname at about {{ credits unit.customHostnameMonth }} a month, nothing while the project shows the “Powered by ohmyho.st” flag. A mail domain has no monthly fee. Workers bandwidth is not charged. SQL exports are free. Mail is metered per sent recipient at {{ rate mail.sent }}, one recipient per message; the small-app table shows what 2,000 recipients cost.
 
-How a deploy actually happens when you deploy from Claude Code, Codex or Cursor: the agent reads the Skill, calls project_create and source_link for the GitHub repository you authorize, then deployment_plan, which quotes the build and its credits before deployment_create runs it. Promotion to Prod is promotion_plan then promotion_execute; rollback is rollback_plan then rollback_execute. Secrets go through the stdin-only CLI command from secret_set_command, never through chat. Every project gets Dev and Prod hosts on a three-word check.omh.st address; a customer-owned domain is Paid and metered, set up through domain_paid_plan and domain_paid_apply, and a mail domain through mail_setup and mail_status. US hosting is the default; EU is a per-project choice made once at creation, at the same prices. The portal at app.ohmyho.st shows projects, credits, budgets and API tokens; it does not deploy. The full {{ tools }}-tool catalog is on the [MCP tools](https://docs.ohmyho.st/mcp-tools) page.
+How a deploy actually happens when you deploy from Claude Code, Codex or Cursor: the agent reads the Skill, calls project_create and source_link for the GitHub repository you authorize, then deployment_plan, which quotes the build and its credits before deployment_create runs it. Promotion to Prod is promotion_plan then promotion_execute; rollback is rollback_plan then rollback_execute. Secrets go through the stdin-only CLI command from secret_set_command, never through chat. Every project gets Dev and Prod hosts on a three-word check.omh.st address; a customer-owned domain needs Paid or, on Free, the “Powered by ohmyho.st” flag and uses credits unless the flag shows, set up through domain_paid_plan and domain_paid_apply, and a mail domain through mail_setup and mail_status. US hosting is the default; EU is a per-project choice made once at creation, at the same prices. The portal at app.ohmyho.st shows projects, credits, budgets and API tokens; it does not deploy. The full {{ tools }}-tool catalog is on the [MCP tools](https://docs.ohmyho.st/mcp-tools) page.
 
 To try it, paste this into your agent:
 
@@ -128,7 +128,7 @@ Yes. The organization Owner requests an export with project_export_create; the p
 
 ### Do I need Paid for a custom domain or transactional mail?
 
-Yes. Free projects use their check.omh.st hosts. A customer-owned hostname needs Paid and draws about {{ credits unit.customHostnameMonth }} a month; a verified mail domain needs Paid, has no monthly fee and draws only the per-recipient mail rate. Paid itself is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits.
+Managed mail needs Paid. A customer-owned hostname needs Paid or, on Free, a project that shows the “Powered by ohmyho.st” flag, and an active Prod deployment. It draws about {{ credits unit.customHostnameMonth }} a month, nothing while the flag shows. A verified mail domain has no monthly fee and draws only the per-recipient mail rate. Paid itself is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits.
 
 {{ sources railway render fly resend }}
 

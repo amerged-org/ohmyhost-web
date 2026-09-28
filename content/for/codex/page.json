@@ -1,6 +1,6 @@
 {
   "title": "Codex deploy: hosting for vibe-coded apps — ohmyho.st",
-  "description": "Deploy from Codex with one prompt: 65 MCP tools, plan-then-execute deploys, a non-expiring token and a stop budget so an agent can run unattended.",
+  "description": "Deploy from Codex with a saved ohmyho.st login and reviewed plans. Add an optional API token and stop budget for unattended runs.",
   "kind": "howto",
   "status": "published",
   "crumb": "Codex",
@@ -10,5 +10,5 @@
     "title": "ohmyho.st — Your Codex hosting workflow",
     "description": "Connect Codex to ohmyho.st and deploy a supported GitHub app."
   },
-  "modified": "2026-09-21"
+  "modified": "2026-09-28"
 }

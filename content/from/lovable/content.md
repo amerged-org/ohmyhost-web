@@ -1,12 +1,12 @@
 # Host a Lovable app after you export it to GitHub
 
-Export your Lovable project to GitHub, paste one prompt into a coding agent, and ohmyho.st hosts the Vite app from that repository. Keep Supabase or import a dump into managed Postgres. Free gives {{ number plan.freeCredits }} credits a month; Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, and a small app uses about {{ credits workload.smallApp }}.
+Export your Lovable project to GitHub, then ask a coding agent to check the Vite app, its external services and login before deploying it to ohmyho.st. Keeping Supabase and moving to managed Postgres are separate choices, each requiring verification. Free gives {{ number plan.freeCredits }} credits a month; Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, and a small app uses about {{ credits workload.smallApp }}.
 
 {{ figure flow.lovable-export }}
 
 ## Export to GitHub
 
-We like Lovable. It builds a plain Vite and React app, and that is exactly what ohmyho.st hosts. You do not rebuild anything; you move the repository. ohmyho.st's own test fixtures include a Lovable export, unchanged.
+Lovable exports a Vite and React repository, which is the starting point for the hosting review. The agent checks the exported source, build command and dependencies with `ohmyhost init --dry-run --json`. A frontend build alone does not establish that its external database, authentication or files work from the new host; test those flows on Dev before moving production traffic.
 
 Lovable's GitHub integration keeps the project "in continuous sync with your repository", and "external platforms deploy directly from GitHub" (https://docs.lovable.dev/tips-tricks/external-deployment-hosting, read 2026-09-20). The sync runs both ways: edits you make in Lovable land in the repository as commits, and commits from your agent show up in Lovable.
 
@@ -36,7 +36,7 @@ Anything private (a service role key, a Stripe secret, a third-party API key) mu
 
 ### SPA rewrites
 
-A React app with client-side routes needs the host to "configure a fallback rewrite so all routes serve `/index.html`" (docs.lovable.dev, read 2026-09-20). Otherwise `/dashboard` works when you click there and returns 404 when you reload. After the first Dev deploy, ask the agent to open a deep link directly and reload it. If it fails, the agent adds the Vite companion that `ohmyhost init` returns; a companion deployment serves `index.html` for unknown routes. Framework notes: https://docs.ohmyho.st/frameworks/vite.
+A React app with client-side routes needs the host to "configure a fallback rewrite so all routes serve `/index.html`" (docs.lovable.dev, read 2026-09-20). Otherwise `/dashboard` works when you click there and returns 404 when you reload. Vite artifacts on ohmyho.st serve `index.html` for paths without a static file. After the first Dev deploy, ask the agent to open a deep link directly and reload it. An edge companion is needed for the app's own server routes, rather than for the fallback alone. Framework notes: https://docs.ohmyho.st/frameworks/vite.
 
 ## Keep Supabase or import a dump
 
@@ -44,11 +44,11 @@ Two honest paths. The first is smaller.
 
 ### Keep Supabase (recommended for a first move)
 
-Your app already talks to Supabase from the browser. Leave the database, Auth, Storage and Edge Functions where they are; ohmyho.st hosts only the frontend. Nothing about your data or your users changes, and Google login keeps its existing callback into Supabase. You keep paying Supabase whatever you pay today; Supabase Pro is from {{ usd vendor.supabase.pro }} per month. What you drop is Lovable's hosting.
+Keeping Supabase is an option to verify against your actual export. The agent inventories browser requests, backend functions, authentication and files, then declares the exact external browser origins the app uses in `runtime.browser` in `ohmyhost.yaml`. Browser connections and external scripts, images or other resources have separate declarations; undeclared origins keep the restrictive defaults. Server-side calls use `runtime.egress.allow` instead. Check Supabase's allowed redirect URLs and Site URL, and verify login, a protected read, a write and file access on Dev before moving production traffic. This route keeps the backend at Supabase rather than copying it into ohmyho.st. Supabase's existing bill remains separate; Supabase Pro is from {{ usd vendor.supabase.pro }} per month.
 
 ### Import a dump into managed Postgres
 
-If you want off Supabase, the agent follows the [Supabase migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md). It inventories what the app really uses: queries, RPCs, RLS assumptions, Auth sessions, Storage calls, Edge Functions, Realtime. A package name alone is not a reason to replace anything. The schema conversion takes only your application-owned `public` (and optional `private`) schema; Supabase's `auth` and `storage` schemas never enter it. So users do not come across as-is: passwords cannot be exported, and the app needs its own auth. The verified integrations are Better Auth and customer-owned WorkOS AuthKit (https://docs.ohmyho.st/application-auth); Better Auth needs the database; only if your app sends its verification or reset mail through ohmyho.st does it also need Paid and your own verified sender domain. Budget a real afternoon, and do it after the frontend is already live.
+If you want off Supabase, the agent follows the [Supabase migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md). It inventories what the app really uses: queries, RPCs, RLS assumptions, Auth sessions, Storage calls, Edge Functions, Realtime. A package name alone is not a reason to replace anything. The schema conversion takes only your application-owned `public` (and optional `private`) schema; Supabase's `auth` and `storage` schemas never enter it. So users do not come across as-is: passwords cannot be exported, and the app needs its own auth. The managed Better Auth bridge requires the database and managed mail, including Paid access and your verified sender domain. A customer-owned Better Auth implementation and sender remain ordinary dependencies; customer-owned WorkOS AuthKit is another documented path (https://docs.ohmyho.st/application-auth). Verify the chosen auth flow separately after the frontend works on Dev.
 
 Either way your data stays portable. An Owner can request a password-encrypted ZIP with a SQL dump (`project_export_create`): one accepted request for each project in any 24-hour window, download link valid 24 hours. SQL exports are free, even at zero credits.
 
@@ -74,7 +74,7 @@ What happens next, in plain words. The agent reads two pages, installs the ohmyh
 6. Deploy to Dev: the agent creates the project (US by default, EU if you say so at creation; the choice is permanent and prices are identical), links the repository, plans, and builds. Dev is protected by default; `project_dev_share_link_get` gives you a reusable share link, or you choose public Dev when the project is created.
 7. Verify login on Dev: sign in with Google or email, open a protected page, reload it, sign out. Reload a deep link.
 8. Promote to Prod: `promotion_plan` then `promotion_execute` reuse the same build without a rebuild. Isolated projects keep Dev and Prod data apart; Prod records are never overwritten by Dev rows.
-9. Link the domain: on Paid, `domain_paid_plan` returns the CNAME to set at your registrar and `domain_paid_apply` activates it (https://docs.ohmyho.st/domains). Add the domain to Supabase's Redirect URLs, then run the login check once more on the real address.
+9. Link the domain: after Prod works, `domain_paid_plan` returns the CNAME to set at your registrar and `domain_paid_apply` activates it on Paid, or on Free while the project shows the “Powered by ohmyho.st” flag; the flag waives domain credits on either plan (https://docs.ohmyho.st/domains). Add the domain to Supabase's Redirect URLs, then run the login check once more on the real address.
 
 Every step maps to a Skill the agent reads on its own: [get started](/skills/ohmyhost-get-started/SKILL.md), [deploy from GitHub](/skills/ohmyhost-deploy-github/SKILL.md), [domains and mail](/skills/ohmyhost-domains-and-mail/SKILL.md).
 
@@ -114,7 +114,7 @@ Leaving Lovable Cloud means the database and the mail run here as well. Then the
 
 {{ table workload.smallApp }}
 
-A linked domain adds {{ rate domain.custom_hostname }}, about {{ credits unit.customHostnameMonth }} a month, and needs Paid.
+A linked domain adds {{ rate domain.custom_hostname }}, about {{ credits unit.customHostnameMonth }} a month, and needs Paid; while the project shows the “Powered by ohmyho.st” flag it also works on Free and uses no domain credits. The tables price a hostname without the flag.
 
 Idle is honest in both cases: a deployed script keeps using about {{ credits unit.deployedScriptMonth }} a month, stored data {{ rate neon.storage.root }}, and Workers bandwidth is not charged. A zero balance starts a seven-day grace period in which funded services keep running. A monthly budget on the project (continue or stop) means a traffic spike cannot surprise you: https://docs.ohmyho.st/budgets.
 
@@ -122,7 +122,7 @@ Idle is honest in both cases: a deployed script keeps using about {{ credits uni
 
 ### Will my Google login keep working?
 
-Yes, if you keep Supabase and add the new hosts. Google's OAuth client still calls back into Supabase, which did not move. What changes is Supabase's Redirect URLs and Site URL: add the Dev host, the Prod host and your own domain, then sign in, reload a protected page and sign out on each. If you migrate auth away from Supabase, the agent registers new callback URLs with your provider and you test again.
+It can, but check the deployed flow before moving traffic. If Supabase stays, confirm that Google's OAuth client still points to the existing Supabase callback, declare the browser origins the export needs, and add the Dev host, Prod host and your own domain to Supabase's Redirect URLs and Site URL. Sign in, reload a protected page and sign out on each. If you migrate auth away from Supabase, the agent registers the new callback URLs with your chosen provider and tests again.
 
 ### Can I keep building in Lovable?
 
@@ -130,7 +130,7 @@ Yes. Lovable's GitHub integration keeps the project in continuous sync with the 
 
 ### What about Lovable Cloud data?
 
-Lovable's guide says the backend "can remain on the built-in backend (Cloud) or run elsewhere", and that you export data under More → Cloud → Overview → Advanced settings → Export data (docs.lovable.dev, read 2026-09-20). Table contents and storage files move manually; user passwords cannot be exported, so moved users need a password reset. The simplest first move is to leave Cloud as the backend and host only the frontend here.
+Lovable's guide says the backend "can remain on the built-in backend (Cloud) or run elsewhere", and that you export data under More → Cloud → Overview → Advanced settings → Export data (docs.lovable.dev, read 2026-09-20). Table contents and storage files move manually; user passwords cannot be exported, so moved users need a password reset. Before choosing to keep Cloud behind a hosted frontend, verify its actual functions, login and file access on Dev. Keep the data move separate from the hosting change.
 
 ### Do I have to use the terminal?
 

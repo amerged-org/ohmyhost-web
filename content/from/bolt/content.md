@@ -42,20 +42,20 @@ Every expensive step is two calls: `deployment_plan` shows the quoted build and 
 
 1. Export. Connect GitHub in Bolt, or push the ZIP contents to a new private repository. Confirm the main branch holds the version you want to host, then stop editing in Bolt or accept that its commits keep landing on main.
 2. Inventory. The agent runs `ohmyhost init --dry-run` and reports blockers: framework and version, package manager pin, Netlify-only files and which Supabase capabilities the code actually uses. A package name alone is not a reason to replace anything.
-3. Decide about Supabase. Keep it, and your app talks to the same project from the new host; only the callback URLs change. Or migrate the database to managed Postgres with the [Supabase migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md), which converts the capabilities you select and leaves your auth provider alone unless you ask.
+3. Decide about Supabase. Keep it after checking the export: declare the external browser origins it uses, update callback URLs and verify login, reads, writes and files on Dev. Or migrate the database to managed Postgres with the [Supabase migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md), which converts the capabilities you select and leaves your auth provider alone unless you ask.
 4. Create and link. The agent creates the project with `project_create`, choosing US or EU once (the region cannot change later and prices are identical), then authorizes the repository through `source_link` and one GitHub consent screen. Isolated Dev and Prod data is the recommendation; two databases consume credits separately.
 5. Plan, set secrets, deploy. `deployment_plan` quotes the build. You supply private values through the command from `secret_set_command` for the Dev environment. `deployment_create` starts the build; the agent polls `operation_get` until it is done.
 6. Verify Dev, then promote. Dev is protected by default: `project_dev_share_link_get` returns a reusable share link you can open again or pass to a tester. Test a deep-link reload, a login and one write. Then `promotion_plan` and `promotion_execute` move the same artifact to Prod without a rebuild and without copying Dev records over Prod data. Update the Prod callback URLs.
 
 Read the [deployment Skill](/skills/ohmyhost-deploy-github/SKILL.md) for every command and the [Vite guide](https://docs.ohmyho.st/frameworks/vite) for the runtime contract.
 
-## Custom domain and mail (Paid, metered)
+## Custom domain and mail (metered)
 
-The platform host works on Free. Your own domain and transactional mail need Paid, which is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, and both use credits on top.
+The platform host works on Free. Transactional mail needs Paid, which is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, and uses credits on top. Your own domain needs Paid too, or on Free a project that shows the “Powered by ohmyho.st” flag, and uses credits unless the flag shows. The domain serves Prod and requires an active Prod deployment.
 
-**Domain.** The agent calls `domain_paid_plan` for the hostname, shows the CNAME and validation records, then `domain_paid_apply`. If your DNS is on Cloudflare, `domain_cloudflare_authorize` lets the platform set the records for you; otherwise you paste them at your DNS provider. A linked hostname is metered at {{ rate domain.custom_hostname }}, about {{ credits unit.customHostnameMonth }} a month. Once `domain_paid_status` reports HTTPS ready, the agent updates your auth provider's callback URLs one last time. Read [domains](https://docs.ohmyho.st/domains).
+**Domain.** The agent calls `domain_paid_plan` for the hostname, shows the CNAME and validation records, then `domain_paid_apply`. If your DNS is on Cloudflare, `domain_cloudflare_authorize` lets the platform set the records for you; otherwise you paste them at your DNS provider. A linked hostname is metered at {{ rate domain.custom_hostname }}, about {{ credits unit.customHostnameMonth }} a month, with no domain credits while the flag shows. Once `domain_paid_status` reports HTTPS ready, the agent updates your auth provider's callback URLs one last time. Read [domains](https://docs.ohmyho.st/domains).
 
-**Mail.** If your Bolt app sends its own mail (welcome, reset, receipts) through Supabase Auth or an external provider, that keeps working unchanged. If you want ohmyho.st to send, the agent runs `mail_setup` for a mail subdomain, you add the DNS records `mail_status` returns, and `mail_status` reports when sending is ready. The domain has no monthly fee; every send is metered at {{ rate mail.sent }} for its one recipient. Transactional mail is sent and processed in the US regardless of your project's region, and you need no mail provider account of your own. Read [email](https://docs.ohmyho.st/email).
+**Mail.** If your Bolt app sends its own mail (welcome, reset, receipts) through Supabase Auth or an external provider, keep that integration and verify its auth mail on Dev. Its browser calls need declared browser origins; server calls need declared egress and private runtime secrets. If you want ohmyho.st to send, the agent runs `mail_setup` for a mail subdomain, you add the DNS records `mail_status` returns, and `mail_status` reports when sending is ready. The domain has no monthly fee; every send is metered at {{ rate mail.sent }} for its one recipient. Transactional mail is sent and processed in the US regardless of your project's region, and you need no mail provider account of your own. Read [email](https://docs.ohmyho.st/email).
 
 ## What it costs
 
@@ -77,7 +77,7 @@ Keeping Supabase means Supabase keeps billing you. Its free tier stays free; Sup
 
 ### Do I have to leave Supabase?
 
-No. Keep the Supabase project, add the new Dev and Prod hosts to its redirect URLs, and the app talks to it from ohmyho.st like it did from Netlify. Migrate only the capabilities you choose, database first; Realtime has no conversion here and stays on Supabase. Your auth provider is never swapped without your decision.
+Keeping it is an option to verify. Inventory the actual export, declare its exact browser origins in `runtime.browser`, declare server-side calls separately in `runtime.egress.allow`, and add the real Dev and Prod hosts to Supabase's redirect URLs. Verify login, protected reads and writes, and any used files or backend functions on Dev before moving traffic. Migrate only the capabilities you choose; there is no managed Realtime conversion, so a retained external subscription needs its own verified flow. Your auth provider is never swapped without your decision.
 
 ### Can I keep editing in Bolt after the move?
 

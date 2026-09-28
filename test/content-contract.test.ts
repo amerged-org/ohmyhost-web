@@ -59,6 +59,7 @@ const DOCS_SLUGS = new Set([
   "backups",
   "project-context",
   "feedback",
+  "support",
   "limits",
   "changelog",
   "api",

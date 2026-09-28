@@ -44,11 +44,11 @@ That fleet fits inside one Paid month with credits to spare, and it is the same 
 
 ## Keep Supabase or import a dump
 
-Both paths are supported and neither is hidden behind the other.
+Review keeping the external backend and importing its database as separate paths. Each needs verification against the actual application.
 
 ### Path 1: host on ohmyho.st, keep the Supabase project
 
-A Lovable export usually arrives as a Vite/React repository with a Supabase project behind it. You can deploy that repository from GitHub and leave the database, Auth and Storage exactly where they are. The hosted app talks to Supabase over HTTPS through supabase-js; list the project's origin in `runtime.egress.allow` in `ohmyhost.yaml`, because outbound fetches are denied by default and at most sixteen HTTPS origins are allowed. Public keys stay in the app; private keys go through the stdin-only command from secret_set_command and never through chat. A direct Postgres socket from the Worker to Supabase is not available, so server code uses the HTTPS API as well.
+A Lovable export usually arrives as a Vite/React repository with a Supabase project behind it. Before retaining that backend, the agent inventories the real export and declares its exact browser connection origins in `runtime.browser` in `ohmyhost.yaml`; external scripts, images and other resource types have separate declarations. Server-side HTTPS calls use `runtime.egress.allow` instead, with at most {{ number 13 }} exact HTTPS origins and restrictive defaults for undeclared services. Public keys can stay in the browser bundle; private keys belong in server code and go through the stdin-only command from secret_set_command. A direct Postgres socket from the Worker to Supabase is not available, so server code uses the HTTPS API. Verify login, protected reads and writes, and any used files or backend functions on Dev before moving production traffic.
 
 You keep paying Supabase for the database and ohmyho.st meters only the hosting: requests, CPU time, build seconds and the deployed script. The migration Skill's first step, an inventory of what the app actually calls, tells you whether this path is enough. A package name alone is not a reason to move anything.
 
@@ -68,7 +68,7 @@ Exports on ohmyho.st are on-demand, asynchronous and free. project_export_create
 
 ohmyho.st is not a Supabase Auth replacement. It has no user pool, no social provider catalog and no MFA service of its own. Application users belong to whichever provider you choose, and two integrations are verified:
 
-- **Better Auth**, the managed integration, selected explicitly in your project configuration. It owns its own `auth` schema and database sessions and needs the database, not mail. Only if your app sends its verification or reset email through ohmyho.st does it declare `mail.enabled`, which then needs Paid and your own verified sender domain, set up through mail_setup and checked with mail_status.
+- **Better Auth**, with the managed bridge selected explicitly in your project configuration. The bridge owns its own `auth` schema and database sessions and requires the managed database and mail capabilities, including Paid access and a verified sender domain for its authentication mail. Set the sender up through mail_setup and check mail_status. A customer-owned Better Auth implementation with its own sender is an ordinary application dependency; merely installing Better Auth does not select the managed bridge.
 - **WorkOS AuthKit**, customer-owned. You bring your WorkOS account; the agent configures callback URLs per environment and installs the client secret through secret_set_command.
 
 If you keep the Supabase project, keep Supabase Auth with it; the hosted app still calls it. If you import the dump and want off Supabase Auth, the migration Skill's opt-in mode rewrites `auth.users` into Better Auth's UUID `auth."user"` table and `auth.uid()` into a server-controlled helper. Test login, protected routes, session refresh and logout on Dev before you promote.
@@ -97,7 +97,7 @@ One busy app reads differently from five quiet ones. {{ text workload.smallApp.n
 
 ## When Supabase is the better choice
 
-- **Realtime.** Supabase pushes Postgres changes and presence to the browser. ohmyho.st has no Realtime contract; the migration Skill marks a Realtime subscription as an unsupported blocker rather than quietly replacing it with polling.
+- **Realtime.** Supabase pushes Postgres changes and presence to the browser. ohmyho.st has no managed Realtime contract. Keeping an external Realtime service requires its declared browser connection origins and a verified hosted subscription; moving to managed Postgres does not replace that capability with polling.
 - **Vector search.** Supabase documents pgvector as a product path with examples. ohmyho.st makes no claim there.
 - **Auth breadth.** Social providers, phone sign-in and MFA out of one hosted user pool. ohmyho.st offers two integrations, and you run them.
 - **Edge Functions ecosystem.** A catalog of function templates and integrations next to the database. ohmyho.st runs functions and crons inside your framework's own routes, which is smaller.
@@ -110,7 +110,7 @@ One busy app reads differently from five quiet ones. {{ text workload.smallApp.n
 
 - **Several small projects.** The five quiet projects above cost about {{ credits workload.fiveQuietProjects }} together; on Supabase each one needs its own instance. Nine side projects and two live ones is the normal shape of a builder's account, and no base fee punishes it.
 - **Databases that idle.** A portfolio site, an internal tool, a demo for a client: hours of activity a month, not hundreds. Compute suspends a minute after the last query, and storage is the only steady cost.
-- **One balance for hosting, Postgres, mail and a domain.** The app, its database, its transactional mail (Paid, metered at {{ rate mail.sent }} per sent recipient) and a linked custom hostname (Paid, {{ rate domain.custom_hostname }}) all draw from the same {{ number plan.paidCredits }} credits a month. No second and third account.
+- **One balance for hosting, Postgres, mail and a domain.** The app, its database, its transactional mail (Paid, metered at {{ rate mail.sent }} per sent recipient) and a linked custom hostname ({{ rate domain.custom_hostname }}) all draw from the same {{ number plan.paidCredits }} credits a month. The hostname needs Paid or, on Free, a project that shows the “Powered by ohmyho.st” flag; the flag waives domain credits on either plan. No second and third account.
 - **You deploy from Claude Code, Cursor or Codex.** There is no deploy dashboard. The agent plans, you confirm, it executes: deployment_plan then deployment_create, promotion_plan then promotion_execute, rollback_plan then rollback_execute.
 - **EU data per project.** Choose `eu` once at project creation and the database, files and builds live in the EU at the same prices. Transactional mail is sent and processed in the US.
 - **A ceiling per project.** project_budget_set gives a project a monthly budget that warns or stops. A zero balance starts a seven-day grace period; funded services keep running.
@@ -132,11 +132,11 @@ One busy app reads differently from five quiet ones. {{ text workload.smallApp.n
 
 ### Does ohmyho.st replace Supabase Auth?
 
-No. ohmyho.st hosts your app and its Postgres; application users stay with a provider you own. Better Auth is the managed integration and needs the database; it needs Paid plus your own verified sender domain only if the app sends its auth mail through ohmyho.st; customer-owned WorkOS AuthKit is the other verified path. If you keep your Supabase project, keep Supabase Auth with it. Your own ohmyho.st login is a separate WorkOS boundary.
+No. ohmyho.st hosts your app and its Postgres; application users stay with a provider you own. The managed Better Auth bridge needs the database and managed mail, including Paid access and a verified sender domain. Your own Better Auth implementation and sender remain ordinary dependencies, and customer-owned WorkOS AuthKit is another documented path. If you keep your Supabase project, keep Supabase Auth with it and verify the hosted login. Your own ohmyho.st login is a separate WorkOS boundary.
 
 ### Can I host on ohmyho.st and keep my Supabase database?
 
-Yes. Deploy the repository from GitHub, list the Supabase project's HTTPS origin in `runtime.egress.allow` in `ohmyhost.yaml`, and install the private key through secret_set_command. The app keeps calling supabase-js over HTTPS; a direct Postgres socket from the Worker is not available. You keep paying Supabase for the database, and ohmyho.st meters only requests, CPU time, builds and the deployed script.
+It is an option to verify against your actual application. Declare browser connections and resource origins separately in `runtime.browser` in `ohmyhost.yaml`; declare server-side HTTPS calls in `runtime.egress.allow`, which allows at most {{ number 13 }} exact origins. Keep private keys in server code through secret_set_command. A direct Postgres socket from the Worker is not available. Before moving traffic, test the actual export's login, protected reads and writes, and any used files or backend functions on Dev. If those checks pass and Supabase stays, its database bill remains separate from ohmyho.st's metered hosting.
 
 ### What does an idle project cost on ohmyho.st?
 

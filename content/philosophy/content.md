@@ -18,7 +18,7 @@ Why a formula and not tiers: a plan has to guess your usage, and the guess is pr
 
 Hosting is usually priced per project, per seat or per service. That punishes the person with nine side projects and two live ones. Supabase Pro starts at {{ usd vendor.supabase.pro }} a month, and each additional project's Micro instance is {{ usd vendor.supabase.microProject }} a month. Vercel Pro is {{ usd vendor.vercel.pro }} a month, and each developer seat is {{ usd vendor.vercel.developerSeat }}. Put five side projects on Vercel Pro, Supabase Pro and Resend Pro and the list price is {{ usd scenario.fiveProjects }} a month before you serve one request.
 
-Here every project draws from the organization's one balance. There is no fixed project-count limit and no base fee per project. Every project gets a Dev and a Prod address on check.omh.st; a customer-owned hostname is Paid and uses credits at {{ rate domain.custom_hostname }}. What a parked project keeps paying is exactly what it keeps: stored data and its deployed script. Idle database compute suspends and stops costing. This is a quiet side project for one month:
+Here every project draws from the organization's one balance. There is no fixed project-count limit and no base fee per project. Every project gets a Dev and a Prod address on check.omh.st; a customer-owned hostname needs Paid or, on Free, a project that shows the “Powered by ohmyho.st” flag. It uses credits at {{ rate domain.custom_hostname }}, nothing while the flag shows. What a parked project keeps paying is exactly what it keeps: stored data and its deployed script. Idle database compute suspends and stops costing. This is a quiet side project for one month:
 
 {{ table workload.quietProject }}
 
@@ -68,7 +68,7 @@ Prices move. When a vendor changes a plan, the date on our page goes stale befor
 
 ### Is there a per-project fee on ohmyho.st?
 
-No. Every project draws from the organization's one balance, and there is no fixed project-count limit. A project costs what it keeps and uses: stored data, a deployed script, requests, database active time and, on Paid, a linked hostname and the mail it sends. A parked project with suspended compute keeps costing only its storage and its script.
+No. Every project draws from the organization's one balance, and there is no fixed project-count limit. A project costs what it keeps and uses: stored data, a deployed script, requests, database active time, a linked hostname and the mail it sends. Mail needs Paid; a hostname needs Paid or the “Powered by ohmyho.st” flag and uses no domain credits while that flag shows. A parked project with suspended compute keeps costing its storage, scripts and any metered hostname.
 
 ### What does a parked side project cost per month?
 
