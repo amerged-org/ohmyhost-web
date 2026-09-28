@@ -68,7 +68,7 @@ Exports on ohmyho.st are on-demand, asynchronous and free. project_export_create
 
 ohmyho.st is not a Supabase Auth replacement. It has no user pool, no social provider catalog and no MFA service of its own. Application users belong to whichever provider you choose, and two integrations are verified:
 
-- **Better Auth**, with the managed bridge selected explicitly in your project configuration. The bridge owns its own `auth` schema and database sessions and requires the managed database and mail capabilities, including Paid access and a verified sender domain for its authentication mail. Set the sender up through mail_setup and check mail_status. A customer-owned Better Auth implementation with its own sender is an ordinary application dependency; merely installing Better Auth does not select the managed bridge.
+- **Better Auth**, with the managed bridge selected explicitly in your project configuration. The bridge owns its own `auth` schema and database sessions and requires the managed database. Managed mail is optional for verified-user sign-in and sessions; the bridge’s verification/reset sends need its configured platform sender, Paid access and a verified sender domain. Set that sender up through mail_setup and check mail_status when you use these email actions. A customer-owned Better Auth implementation with its own sender is an ordinary application dependency; merely installing Better Auth does not select the managed bridge.
 - **WorkOS AuthKit**, customer-owned. You bring your WorkOS account; the agent configures callback URLs per environment and installs the client secret through secret_set_command.
 
 If you keep the Supabase project, keep Supabase Auth with it; the hosted app still calls it. If you import the dump and want off Supabase Auth, the migration Skill's opt-in mode rewrites `auth.users` into Better Auth's UUID `auth."user"` table and `auth.uid()` into a server-controlled helper. Test login, protected routes, session refresh and logout on Dev before you promote.
@@ -132,7 +132,7 @@ One busy app reads differently from five quiet ones. {{ text workload.smallApp.n
 
 ### Does ohmyho.st replace Supabase Auth?
 
-No. ohmyho.st hosts your app and its Postgres; application users stay with a provider you own. The managed Better Auth bridge needs the database and managed mail, including Paid access and a verified sender domain. Your own Better Auth implementation and sender remain ordinary dependencies, and customer-owned WorkOS AuthKit is another documented path. If you keep your Supabase project, keep Supabase Auth with it and verify the hosted login. Your own ohmyho.st login is a separate WorkOS boundary.
+No. ohmyho.st hosts your app and its Postgres; application users stay with a provider you own. The managed Better Auth bridge needs its database; managed mail is optional. Its verification/reset sends use the configured platform sender and require Paid access and a verified sender domain. Your own Better Auth implementation and sender remain ordinary dependencies, and customer-owned WorkOS AuthKit is another documented path. If you keep your Supabase project, keep Supabase Auth with it and verify the hosted login. Your own ohmyho.st login is a separate WorkOS boundary.
 
 ### Can I host on ohmyho.st and keep my Supabase database?
 

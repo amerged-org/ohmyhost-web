@@ -166,7 +166,7 @@ ${skills
 - [Private files](https://docs.ohmyho.st/files.md): Private Cloudflare R2 files, signed transfers, streamed bulk reads and idempotent bulk deletion.
 - [Functions and cron](https://docs.ohmyho.st/functions.md): Cron schedules for Next.js, TanStack Start and Vite apps, and Worker modules without a framework.
 - [Runtime secrets](https://docs.ohmyho.st/secrets.md): Per-environment private values, reserved names and build-time values.
-- [Application auth](https://docs.ohmyho.st/application-auth.md): The managed Better Auth bridge and its database/mail requirements, or customer-owned auth, callbacks and secrets.
+- [Application auth](https://docs.ohmyho.st/application-auth.md): Managed Better Auth with its database and optional mail, or customer-owned auth, callbacks, Resend integration and secrets.
 - [Domains](https://docs.ohmyho.st/domains.md) and [email](https://docs.ohmyho.st/email.md): Project addresses, custom hostnames, the opt-in ohmyho.st flag for a Free workspace's own domain, sender domains, inbound webhooks and readiness checks.
 - [Support](https://docs.ohmyho.st/support.md): Report a bug, issue or feature request with feedback_submit and follow it with feedback_status; use the contact form when sign-in fails, a billing answer names contact_support, or for privacy and DPA questions.
 - [Usage and budgets](https://docs.ohmyho.st/usage.md): Shared credits, measured costs and project limits.
