@@ -8,6 +8,7 @@ import {
   isClientDownload,
   documentationRedirect,
 } from "./customer-entry.js";
+import { BRAND_ASSET_FILES } from "./brand-assets.js";
 import { SITE_ICON } from "./generated-site-frame.js";
 import { sitemapEntries } from "./page-meta.js";
 import { editorialResponse, prefersMarkdown } from "./editorial-response.js";
@@ -338,17 +339,10 @@ export default {
       "/favicon.ico": "brand-assets/favicon.ico",
       "/apple-touch-icon.png": "brand-assets/apple-touch-icon.png",
       ...Object.fromEntries(
-        [
-          "omega-light.svg",
-          "omega-dark.svg",
-          "omega-light.png",
-          "omega-dark.png",
-          "favicon.svg",
-          "favicon.ico",
-          "apple-touch-icon.png",
-          "founder.png",
-          "og.png",
-        ].map((file) => [`/brand/assets/${file}`, `brand-assets/${file}`]),
+        BRAND_ASSET_FILES.map((file) => [
+          `/brand/assets/${file}`,
+          `brand-assets/${file}`,
+        ]),
       ),
       "/index.md": "index.md",
       "/brand": "brand.html",

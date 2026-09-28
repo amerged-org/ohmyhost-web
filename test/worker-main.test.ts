@@ -764,9 +764,7 @@ class SiteAssetFixture {
         "/pages/0.sh",
         "/logos/workos.svg",
       ].includes(path) &&
-      !/^\/pages\/brand-assets\/(?:omega-(?:light|dark)\.(?:svg|png)|favicon\.(?:svg|ico)|apple-touch-icon\.png|founder\.png|og\.png)$/u.test(
-        path,
-      ) &&
+      !/^\/pages\/brand-assets\/[a-z0-9-]+\.(?:svg|png|ico)$/u.test(path) &&
       !/^\/fonts\/[a-f0-9]{16}\.ttf$/u.test(path)
     )
       return new Response(null, { status: 404 });
