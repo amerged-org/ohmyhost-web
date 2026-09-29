@@ -48,13 +48,13 @@ The agent stops at the points where only you can decide: the browser sign-in, th
 
 ## Keep your Supabase or move it
 
-Keeping Supabase is the smaller change and usually the right first move. The three `VITE_` values stay as they are, you add the new Dev and Prod hosts to Supabase's Redirect URLs and Site URL, and your Google OAuth client keeps calling back into Supabase, which did not move. You are changing where the frontend runs, nothing else.
+Keeping Supabase is a separate option to verify against the real export. Before moving production traffic, the agent inventories its browser calls, declares exact external origins in `runtime.browser` in `ohmyhost.yaml`, and checks the backend functions, login, protected reads and writes, and files on Dev. Browser connections and resource types have separate declarations; server-side calls use `runtime.egress.allow`. Check that the exported `VITE_` values identify the intended Supabase project and add the actual Dev and Prod hosts to its Redirect URLs and Site URL. The backend stays external only when those flows pass.
 
 Moving the database is the second step, once the app is live and calm. Export from Supabase, import into the project's managed Postgres, and switch the application to the database binding the platform provides. Do it as its own change, with its own verification, and not on the same evening as the move.
 
 ## Custom domain and mail
 
-Both need Paid, and both are metered rather than bundled. The domain serves Prod, so deploy or promote to Prod first; until then both steps answer `production_deployment_required`. `domain_paid_plan` returns the CNAME to set at your registrar and `domain_paid_apply` activates the hostname once DNS resolves; a linked hostname costs about {{ credits unit.customHostnameMonth dp=0 }} a month. Transactional mail needs a verified mail domain that the agent configures with `mail_setup`; you add the DNS records `mail_status` returns, and it reports when sending is ready. The domain has no monthly fee; each 1,000 sent recipients cost about {{ credits unit.thousandMailRecipients dp=0 }}.
+Transactional mail needs Paid. A custom domain needs Paid or, on Free, a project that shows the “Powered by ohmyho.st” flag; the flag waives domain credits on either plan. The domain serves Prod, so deploy or promote to Prod first; until then both domain steps answer `production_deployment_required`. `domain_paid_plan` returns the CNAME to set at your registrar and `domain_paid_apply` activates the hostname once DNS resolves; a linked hostname costs about {{ credits unit.customHostnameMonth dp=0 }} a month without the flag. Transactional mail needs a verified sender domain that the agent configures with `mail_setup`; you add the DNS records `mail_status` returns, and it reports when sending is ready. The sender domain has no monthly fee; each 1,000 sent recipients cost about {{ credits unit.thousandMailRecipients dp=0 }}.
 
 ## What it costs
 
@@ -72,7 +72,7 @@ Both sit inside the {{ number plan.paidCredits }} credits that {{ usd plan.paidU
 
 ### Will my Google login keep working?
 
-Yes, if you keep Supabase and add the new hosts. Google still calls back into Supabase, which has not moved. What changes is Supabase's own configuration: the Site URL becomes your production address, and the Redirect URLs gain the Dev host, the Prod host and your domain.
+It can, after verification on the new hosts. Confirm that Google still calls back into the intended Supabase project, declare the browser origins the export needs, set its Site URL and Redirect URLs, and test sign-in, a protected page, reload and sign-out on Dev before promotion. Repeat that check on Prod and any custom domain.
 
 ### Can I keep building in Lovable after I move?
 
@@ -80,7 +80,7 @@ Yes. The GitHub sync is two-way, so prompting in Lovable still lands commits in 
 
 ### What about data that lives in Lovable Cloud?
 
-Export it before you switch anything off. Lovable's guide describes exporting data from the project's Cloud settings, and the backend can stay where it is while the frontend moves. Treat the data move as a separate step with its own verification.
+Export it before you switch anything off. Lovable's guide describes exporting data from the project's Cloud settings. Keeping that backend is an option to check with its actual functions, login and file access on Dev before moving production traffic. Treat a data move as a separate step with its own verification.
 
 ### Do I have to use the terminal?
 
@@ -88,7 +88,7 @@ You need it once, to install the clients and register the MCP server; the get-st
 
 ### What does it cost to try?
 
-Nothing. Free gives {{ number plan.freeCredits }} credits a UTC month with hosting, a database and Dev and Prod hosts, which is enough to deploy the exported app and click through it. A custom domain and mail are what Paid adds.
+Free gives {{ number plan.freeCredits }} credits a UTC month with hosting, a database and Dev and Prod hosts at their published usage rates. Sending managed mail needs Paid. A custom domain needs Paid or, on Free, the “Powered by ohmyho.st” flag and an active Prod deployment; the flag waives domain credits on either plan. Read the deployment plan and verify the export's backend before assuming the allowance covers your test.
 
 {{ sources vercel supabase resend }}
 

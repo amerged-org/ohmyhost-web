@@ -44,7 +44,7 @@ Then the meters a side project touches:
 - Files: {{ rate r2.storage.standard }}.
 - Builds: {{ rate build.sandbox.standard-3 }}, measured from the start of your build to its end.
 - Mail: {{ rate mail.sent }}, one recipient per message. Sending needs Paid and a verified mail domain; the domain itself has no monthly fee.
-- Per project: each deployed script uses about {{ credits unit.deployedScriptMonth }} a month, and a linked customer-owned hostname uses about {{ credits unit.customHostnameMonth }} a month on Paid.
+- Per project: each deployed script uses about {{ credits unit.deployedScriptMonth }} a month, and a linked customer-owned hostname uses about {{ credits unit.customHostnameMonth }} a month. The hostname needs Paid or, on Free, a project that shows the “Powered by ohmyho.st” flag; the flag waives domain credits on either plan.
 
 Bandwidth from Workers is not charged. SQL exports are free. Scheduled functions have no meter of their own: each run is one request plus its CPU milliseconds. EU hosting is a choice made once when a project is created, US is the default, and the rates are the same in both.
 

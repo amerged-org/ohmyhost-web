@@ -47,7 +47,7 @@ Cursor asks for decisions, not credentials.
 
 - Sign-in: open one link and check the code. Sign-up is open; there is no invitation and no waitlist.
 - Region: US or EU, once, at project creation. US is the default. EU places the database, files and builds in the EU at identical prices; transactional mail is sent and processed in the US either way. The choice cannot change later.
-- Data mode: isolated Dev and Prod databases, which the Skill recommends, or one shared database. Isolated is safer for Prod records and meters two databases.
+- Data mode: optional, shared by default, or isolated Dev and Prod data areas, which the Skill recommends for production work. Isolated meters databases separately. An Owner can later review `project_data_plan` and confirm `project_data_change`; the platform copies no records or files and charges ordinary usage. Sharing keeps Prod and permanently deletes the separate Dev data, files and deployment; resetting isolated Dev deletes its area and deployment.
 - Secrets: it hands you a command that reads the value from stdin. You paste the value into your terminal, never into the chat.
 - Plans: every deployment, promotion, rollback and deletion is a plan you confirm before it executes.
 - Money: it never starts a checkout without your request, and automatic recharge stays off unless the Owner turns it on.
@@ -58,7 +58,7 @@ A project ID in a prompt is context, not permission. Cursor checks its current a
 
 Every project gets two environments on a platform hostname of the form three-words.check.omh.st. Dev is protected by default: an anonymous request gets a 404, and Cursor opens it through the reusable share link from `project_dev_share_link_get`. The link has no automatic expiry; rotating or revoking it cuts off old links and sessions on their next request, and public Dev is an explicit choice at project creation. Prod is public. Promotion moves the verified Dev artifact to Prod without a rebuild; with isolated data it applies schema migrations and copies no Dev rows, so existing Prod records survive. With isolated data you can also build a commit straight into Prod; a project whose Dev and Prod share a database deploys to Dev and promotes.
 
-Each deployed script uses about {{ credits unit.deployedScriptMonth }} a month while it exists, and every deployment stages one that stays for rollback until cleanup. A customer-owned domain on Prod needs Paid and an active Prod deployment (otherwise the domain tools return `production_deployment_required`), and uses about {{ credits unit.customHostnameMonth }} a month; the domain Skill returns the exact DNS records, or authorizes Cloudflare DNS when you host the zone there. See [environments](https://docs.ohmyho.st/environments) and [domains](https://docs.ohmyho.st/domains).
+Each deployed script uses about {{ credits unit.deployedScriptMonth }} a month while it exists, and every deployment stages one that stays for rollback until cleanup. A customer-owned domain on Prod needs Paid, or on Free a project that shows the “Powered by ohmyho.st” flag, and an active Prod deployment (otherwise the domain tools return `production_deployment_required`). It uses about {{ credits unit.customHostnameMonth }} a month, nothing while the flag shows; the domain Skill returns the exact DNS records, or authorizes Cloudflare DNS when you host the zone there. See [environments](https://docs.ohmyho.st/environments) and [domains](https://docs.ohmyho.st/domains).
 
 ## Safety
 
@@ -72,7 +72,7 @@ Each deployed script uses about {{ credits unit.deployedScriptMonth }} a month w
 
 ## What it costs
 
-Free: {{ number plan.freeCredits }} credits per UTC month. Paid: {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period, which also unlocks a customer-owned domain and verified sender mail. Monthly credits expire at period end. Paid-only top-ups carry over until downgrade to Free ({{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }}, {{ number plan.topUpPerUsdAbove100 }} per dollar above). Every project draws from the organization's one balance and there is no per-project base fee, which is the point for a portfolio.
+Free: {{ number plan.freeCredits }} credits per UTC month. Paid: {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period, which also unlocks verified sender mail and a customer-owned domain. The domain also works on Free while the project shows the “Powered by ohmyho.st” flag, which waives domain credits on either plan. Monthly credits expire at period end. Paid-only top-ups carry over until downgrade to Free ({{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }}, {{ number plan.topUpPerUsdAbove100 }} per dollar above). Every project draws from the organization's one balance and there is no per-project base fee, which is the point for a portfolio.
 
 {{ table workload.threeStaticSites }}
 
@@ -90,7 +90,7 @@ No. Cursor runs `ohmyhost login`, posts a link and a code, and reuses that local
 
 ### Can I stay on Free for a portfolio?
 
-Yes, when the sites are static or quiet. {{ number plan.freeCredits }} credits a UTC month cover three static sites at about {{ credits workload.threeStaticSites }}, or one quiet project with a database at about {{ credits workload.quietProject }}. A customer-owned domain and sender mail need Paid, and the Free profile runs at {{ value profile.free.cu }} CU.
+Yes, when the sites are static or quiet. {{ number plan.freeCredits }} credits a UTC month cover three static sites at about {{ credits workload.threeStaticSites }}, or one quiet project with a database at about {{ credits workload.quietProject }}. Sender mail needs Paid; a customer-owned domain needs Paid or a project that shows the “Powered by ohmyho.st” flag, which waives domain credits. The Free profile runs at {{ value profile.free.cu }} CU.
 
 ### Where does the code come from?
 

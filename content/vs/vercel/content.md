@@ -31,7 +31,7 @@ This is hosting for vibe-coded apps priced by what the app measures. Here is the
 
 Read the table from the largest line down. Mail and the database are most of the bill. One active hour on the Paid standard profile ({{ value profile.standard.cu }} CU) is about {{ credits unit.activeDatabaseHourStandard }}; compute suspends after a minute of idle, so a project nobody visits stops paying for compute and pays only for what it keeps. Stored data is {{ rate neon.storage.root }}. Requests are {{ rate wfp.requests }}, and bandwidth from the Worker is not charged. Mail is {{ rate mail.sent }}, counted per sent recipient, so 2,000 recipients outweigh the database hours; sending needs Paid and a verified mail domain.
 
-Two things keep drawing credits while a project sits still: each deployed script, about {{ credits unit.deployedScriptMonth }} a month, and a linked custom hostname, about {{ credits unit.customHostnameMonth }} a month on Paid. A mail domain has no monthly fee. SQL exports are free. A quiet side project whose database wakes for one hour a month costs about {{ credits workload.quietProject }}. Five of them cost about {{ credits workload.fiveQuietProjects }}, which leaves most of the monthly {{ number plan.paidCredits }} unused.
+Two things keep drawing credits while a project sits still: each deployed script, about {{ credits unit.deployedScriptMonth }} a month, and a linked custom hostname, about {{ credits unit.customHostnameMonth }} a month, nothing while the project shows the “Powered by ohmyho.st” flag. A mail domain has no monthly fee. SQL exports are free. A quiet side project whose database wakes for one hour a month costs about {{ credits workload.quietProject }}. Five of them cost about {{ credits workload.fiveQuietProjects }}, which leaves most of the monthly {{ number plan.paidCredits }} unused.
 
 ## Side by side
 
@@ -77,9 +77,9 @@ What happens next, step by step:
 
 1. The agent checks what is installed and signed in. If nothing is, it sends you one browser link with a confirmation code; you sign in once and it verifies the session with a command.
 2. It connects GitHub once through `github_connect`, then runs `ohmyhost init --dry-run` on the repository and reports blockers and requirements before anything is built.
-3. It creates the project with `project_create`, asking once for US or EU and for isolated or shared Dev/Prod data, then asks for a `deployment_plan`. You read the plan, including the build cost it reserves, and confirm; `deployment_create` builds the commit. Secrets travel through the stdin-only CLI command returned by `secret_set_command`, never pasted into chat.
+3. It creates the project with `project_create`, choosing US or EU once. Data mode is optional and defaults to shared; isolated data keeps Dev and Prod separate, and an Owner can change the assignment later through a confirmed plan without copying data. It then asks for a `deployment_plan`. You read the plan, including the build cost it reserves, and confirm; `deployment_create` builds the commit. Secrets travel through the stdin-only CLI command returned by `secret_set_command`, never pasted into chat.
 4. Dev is protected by default. `project_dev_share_link_get` gives you a reusable share link; test login, a protected route and a real read and write. Then `promotion_plan` and `promotion_execute` publish to Prod at your project's three-word host on check.omh.st without a rebuild.
-5. On Paid, `domain_paid_plan` then `domain_paid_apply` link your own hostname, and `mail_setup` then `mail_status` set up the mail domain, return its DNS records and wait for verification. Move your DNS when Prod works, then cancel the Vercel Pro seat.
+5. After Prod works, `domain_paid_plan` then `domain_paid_apply` link your own hostname on Paid, or on Free while the project shows the “Powered by ohmyho.st” flag; the flag waives domain credits on either plan. Managed mail needs Paid: `mail_setup` then `mail_status` set up the sender domain, return its DNS records and wait for verification. Move your DNS when Prod works, then cancel the Vercel Pro seat.
 
 ## FAQ
 
@@ -93,7 +93,7 @@ Yes. The migration Skill converts only the capabilities you pick. If the app use
 
 ### Is there a free plan?
 
-Yes. Free gives {{ number plan.freeCredits }} credits per UTC month, a Dev and a Prod host on check.omh.st and a database on the {{ value profile.free.cu }} CU profile at the same rates as Paid. A custom domain and sending mail need Paid at {{ usd plan.paidUsd }} a month. Monthly credits expire at the end of their Free month or Paid billing period. Top-ups carry over while Paid and expire on downgrade to Free.
+Yes. Free gives {{ number plan.freeCredits }} credits per UTC month, a Dev and a Prod host on check.omh.st and a database on the {{ value profile.free.cu }} CU profile at the same rates as Paid. Sending mail needs Paid at {{ usd plan.paidUsd }} a month. A custom domain needs Paid as well, or on Free a project that shows the small “Powered by ohmyho.st” flag; the flag also waives domain credits. Monthly credits expire at the end of their Free month or Paid billing period. Top-ups carry over while Paid and expire on downgrade to Free.
 
 ### How do I get my database out?
 

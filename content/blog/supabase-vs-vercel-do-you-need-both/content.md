@@ -46,7 +46,7 @@ The portfolio builder's fifth app has a dozen users and a database that wakes up
 
 ## When one balance replaces both
 
-ohmyho.st is hosting for vibe-coded apps. Your coding agent deploys a Next.js, Vite/React or TanStack Start repository from GitHub through MCP tools (`deployment_plan`, then `deployment_create` once you confirm), and every project gets managed Postgres, a Dev host and a Prod host on a three-words.check.omh.st address and, on Paid, a custom domain and sender mail, both of which use credits. All of it is metered from one organization balance. There is no per-project base fee and no deploy dashboard; the portal at app.ohmyho.st shows projects, credits, budgets and API tokens.
+ohmyho.st is hosting for vibe-coded apps. Your coding agent deploys a Next.js, Vite/React or TanStack Start repository from GitHub through MCP tools (`deployment_plan`, then `deployment_create` once you confirm), and every project gets managed Postgres, a Dev host and a Prod host on a three-words.check.omh.st address and, on Paid, a custom domain and sender mail, both of which use credits; with the “Powered by ohmyho.st” flag a custom domain also works on Free and uses no domain credits. All of it is metered from one organization balance. There is no per-project base fee and no deploy dashboard; the portal at app.ohmyho.st shows projects, credits, budgets and API tokens.
 
 The plans are short. Free grants {{ number plan.freeCredits }} credits per UTC month. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period that expire at period end, and Paid-only top-ups at {{ number plan.topUpPerUsd }} credits per dollar carry over until downgrade to Free. One credit is {{ usd plan.usdPerCredit }} of credit value.
 

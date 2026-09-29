@@ -9,7 +9,7 @@ One credit has a nominal value of {{ usd plan.usdPerCredit }}, so {{ number plan
 Credits arrive three ways:
 
 - Free grants {{ number plan.freeCredits }} credits per UTC month. They expire at the end of that month.
-- Paid costs {{ usd plan.paidUsd }} a month before tax and grants {{ number plan.paidCredits }} credits per paid period. Unused monthly credits expire at the end of their billing period without rollover. Paid also unlocks a customer-owned domain and verified sender mail; both still use credits.
+- Paid costs {{ usd plan.paidUsd }} a month before tax and grants {{ number plan.paidCredits }} credits per paid period. Unused monthly credits expire at the end of their billing period without rollover. Verified sender mail needs Paid. A customer-owned domain needs Paid or, on Free, a project that shows the “Powered by ohmyho.st” flag; mail uses credits, and the domain uses none while the flag shows.
 - Top-ups never expire during uninterrupted Paid membership; remaining top-ups expire when you switch to Free. Only Paid users can buy them. A purchase grants {{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }} and {{ number plan.topUpPerUsdAbove100 }} credits per dollar for the part above that. Monthly credits are spent before top-ups.
 
 Every project draws from the organization's one balance. There is no per-project base fee and no project-count limit. A project may carry a monthly budget in continue mode (warn, keep going) or stop mode (reject new work past the line); a budget is a ceiling, not a second wallet. A zero balance starts a {{ number plan.graceDays }}-day grace period during which funded services keep running; after it, only unfunded services suspend, and data, export and buying credit stay available. Automatic recharge stays off unless the Owner turns it on.
@@ -26,7 +26,7 @@ The build row deserves a closer look. It reads {{ rate build.sandbox.standard-3 
 
 {{ figure creditBars }}
 
-The bars put the rate card in proportion. A million requests cost about {{ credits unit.millionRequests }}; one active database hour on Paid standard about {{ credits unit.activeDatabaseHourStandard }}; one stored gigabyte for a month {{ rate neon.storage.root }}. For a side project the database, not the traffic, is where the credits go: eight active hours cost more than a hundred thousand requests. The one Paid-only fixed line, a custom hostname at about {{ credits unit.customHostnameMonth }} a month, is what turns a quiet project into a client site. Mail has no fixed line: 1,000 sent recipients cost about {{ credits unit.thousandMailRecipients }}. The last bar is the small app, itemized in the next section.
+The bars put the rate card in proportion. A million requests cost about {{ credits unit.millionRequests }}; one active database hour on Paid standard about {{ credits unit.activeDatabaseHourStandard }}; one stored gigabyte for a month {{ rate neon.storage.root }}. For a side project the database, not the traffic, is where the credits go: eight active hours cost more than a hundred thousand requests. A custom hostname uses about {{ credits unit.customHostnameMonth }} a month unless the project shows the “Powered by ohmyho.st” flag. It needs Paid or that flag on Free, and an active Prod deployment. The examples here price the hostname without a flag. Mail has no fixed line: 1,000 sent recipients cost about {{ credits unit.thousandMailRecipients }}. The last bar is the small app, itemized in the next section.
 
 ## Four worked workloads
 
@@ -48,7 +48,7 @@ This is the homepage example: a real app with users, mail and regular deploys. T
 
 {{ table workload.clientSite }}
 
-Less traffic, half the database time and half the mail of the small app. The custom hostname is a Paid fixed line that runs whether or not the site is busy; mail costs only what the site sends.
+Less traffic, half the database time and half the mail of the small app. The custom hostname is a retained charge whether or not the site is busy, waived while the project shows the “Powered by ohmyho.st” flag; mail costs only what the site sends. The table prices a hostname without that flag.
 
 ### One busy production app
 
@@ -86,7 +86,7 @@ Three things keep using credits while nobody visits:
 
 - Stored data, at {{ rate neon.storage.root }}. Idle database compute suspends after 60 seconds on the standard profiles (five minutes on performance), so compute stops but storage does not, and the first query after a suspension is a cold start.
 - Each deployed script, about {{ credits unit.deployedScriptMonth }} a month. Every deployment stages one immutable script that stays for rollback until it is cleaned up or the project is deleted.
-- A linked custom hostname, about {{ credits unit.customHostnameMonth }} a month, Paid.
+- A linked custom hostname, about {{ credits unit.customHostnameMonth }} a month, nothing while the project shows the “Powered by ohmyho.st” flag. It needs Paid or that flag on Free.
 
 Periodic SQL health checks keep idle compute awake. The agent reads database state through database_compute_get, which does not wake the database.
 
@@ -128,7 +128,7 @@ Monthly credits do not roll over: the {{ number plan.freeCredits }} Free credits
 
 ### What does a project cost when nobody visits it?
 
-Only what it keeps. Stored data at {{ rate neon.storage.root }}, one deployed script at about {{ credits unit.deployedScriptMonth }} a month, and on Paid a custom hostname if you linked one. Database compute suspends after a minute of idle time and costs nothing until the next query wakes it.
+Only what it keeps. Stored data at {{ rate neon.storage.root }}, retained deployed scripts at about {{ credits unit.deployedScriptMonth }} a month each, and a custom hostname if you linked one, with domain credits waived while the “Powered by ohmyho.st” flag shows. Database compute suspends after a minute of idle time and costs nothing until the next query wakes it.
 
 ### Can I cap what one project spends?
 

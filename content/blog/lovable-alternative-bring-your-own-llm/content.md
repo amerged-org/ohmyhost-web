@@ -96,8 +96,8 @@ The full walk-through, from the prompt to a verified URL, is in the quickstart a
 ## What changes, and what stays in Lovable
 
 - **Lovable keeps working.** The sync is two-way, so you can still prompt there. Your agent deploys whichever commit you choose, and nothing in Lovable has to be switched off.
-- **Supabase can stay.** If the app uses Supabase, keep it for the first move. The three `VITE_SUPABASE_*` values stay in the repository's `.env`, and you add the new Dev and Prod hosts to Supabase's Redirect URLs. Moving to managed Postgres is a separate, later step.
-- **Client-side routes need a fallback.** A reload on `/dashboard` must serve `index.html`. The agent checks this on Dev and adds the Vite companion that `ohmyhost init` returns when it is missing. Framework notes: https://docs.ohmyho.st/frameworks/vite.
+- **Keeping Supabase needs verification.** The agent inventories the real export, declares its exact external browser origins in `runtime.browser` in `ohmyhost.yaml`, and declares server-side HTTPS calls separately in `runtime.egress.allow`. It checks the `VITE_SUPABASE_*` values and actual Dev and Prod redirect URLs, then verifies login, protected reads and writes, and any used files or backend functions on Dev before moving production traffic. Moving to managed Postgres is a separate, later step.
+- **Client-side routes need a fallback.** A reload on `/dashboard` must serve `index.html`. Vite artifacts already return that file for paths without a static file; the agent verifies the deep link on Dev. An edge companion is needed for the app's own server routes, rather than for the fallback alone. Framework notes: https://docs.ohmyho.st/frameworks/vite.
 - **Lovable Cloud data moves on its own schedule.** Export it before you switch anything off, and treat that move as its own step with its own check.
 
 The longer checklist for these seams, with Lovable's own wording for each, is in [Hosting a Lovable app after export](/blog/host-a-lovable-app-after-export).
@@ -108,7 +108,7 @@ Two separate lines, which is the point of the whole move.
 
 The model costs whatever you already pay for Claude, ChatGPT, Cursor or SuperGrok. ohmyho.st does not resell tokens and never needs your LLM key.
 
-Hosting runs on ohmyho.st credits. Free gives {{ number plan.freeCredits }} credits a UTC month with hosting, a database and Dev and Prod hosts, which is enough to deploy an exported Lovable app and click through it. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits and adds your own domain and transactional mail. Extra projects carry no base fee; each draws on the same balance. A Lovable frontend that keeps Supabase and runs on its own domain looks like this:
+Hosting runs on ohmyho.st credits. Free gives {{ number plan.freeCredits }} credits a UTC month with hosting, a database and Dev and Prod hosts at their published usage rates. Read the plan for your actual export and verify its backend on Dev before assuming that allowance covers a trial. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits and adds transactional mail and your own domain; the domain also works on Free while the project shows the “Powered by ohmyho.st” flag, which waives domain credits on either plan. Extra projects carry no base fee; each draws on the same balance. The example below prices a frontend that has passed those Supabase checks and uses a custom domain without the flag:
 
 {{ table workload.lovableFrontend }}
 
@@ -122,7 +122,7 @@ If you never want to see a file tree or a terminal, Lovable is simpler: chat, pr
 
 ### Is there a free Lovable alternative?
 
-Your coding agent needs its own plan, but hosting on ohmyho.st starts on Free with {{ number plan.freeCredits }} credits a UTC month, enough to deploy an exported Lovable app to Dev and Prod. Open-source builders such as [Dyad](https://www.dyad.sh/blog/free-lovable-alternative) also let you bring your own key; they replace the builder, not the host.
+Your coding agent needs its own plan, while hosting on ohmyho.st starts on Free with {{ number plan.freeCredits }} credits a UTC month at the published usage rates. The actual export still needs a deployment plan and verified backend flows on Dev; the allowance does not guarantee that every export can deploy or that its trial fits. Open-source builders such as [Dyad](https://www.dyad.sh/blog/free-lovable-alternative) also let you bring your own key; they replace the builder, not the host.
 
 ### Can I keep using Lovable after moving to Claude Code or Cursor?
 

@@ -33,7 +33,7 @@ This is the call order behind steps 2 to 5. Every name is a real tool in the [{{
 - `operation_get` reports the phase and the next poll interval. Claude Code waits instead of building again.
 - `project_status` returns both environment IDs and the deployment URLs.
 
-Secrets go through `secret_set_command`. It returns a stdin-only CLI command; you run it in your own terminal and the value never enters MCP or the chat. A customer domain goes through `domain_paid_plan`, which only returns the DNS records, and `domain_paid_apply`, which activates the hostname you named. Both need Paid, and both answer `production_deployment_required` without changing anything until Prod has an active deployment.
+Secrets go through `secret_set_command`. It returns a stdin-only CLI command; you run it in your own terminal and the value never enters MCP or the chat. A customer domain goes through `domain_paid_plan`, which returns the DNS records, and `domain_paid_apply`, which activates the hostname you named. Both need Paid, or on Free a project that shows the opt-in “Powered by ohmyho.st” flag, and both answer `production_deployment_required` without changing anything until Prod has an active deployment.
 
 ## What it asks you
 
@@ -41,9 +41,9 @@ Claude Code stops for five decisions and nothing else.
 
 - Sign-in. One browser page, with the code shown in the chat. Sign-up is open; there is no waitlist.
 - GitHub authorization. An Owner or Admin opens one `authorization_url` and picks the repositories the ohmyho.st App may read. A repository you did not select is added later from the same settings page, never with a pasted token.
-- Region and data mode, once. US is the default; EU places the database, files, build sandbox and build objects in the EU at the same prices. The region cannot change after creation, and shared or isolated Dev/Prod data is decided in the same call. Transactional mail is sent and processed in the US either way.
+- Region, once, and an initial data mode. US is the default; EU places the database, files, build sandbox and build objects in the EU at the same prices. The region cannot change after creation. Data mode is optional and defaults to shared; an Owner can change it later through a reviewed plan. Transactional mail is sent and processed in the US either way.
 - Secrets. The agent names each secret and hands you a command. You paste the value into your terminal, not into the chat.
-- Domain decisions. A custom hostname needs Paid and uses credits. Claude Code shows the CNAME and validation records, or offers a scoped Cloudflare DNS authorization when the zone is on Cloudflare. Until DNS is ready, the project answers on its platform hostname.
+- Domain decisions. A custom hostname needs Paid and uses credits; on a project that shows the opt-in “Powered by ohmyho.st” flag it also works on Free and uses no domain credits. Claude Code shows the CNAME and validation records, or offers a scoped Cloudflare DNS authorization when the zone is on Cloudflare. Until DNS is ready, the project answers on its platform hostname.
 
 ## Dev and Prod
 
@@ -51,11 +51,11 @@ Every project gets a Dev and a Prod environment on `<three-words>.check.omh.st`.
 
 Promotion is two calls. `promotion_plan` describes the move of the current Dev artifact to Prod without a rebuild; `promotion_execute` runs it with the unchanged plan guards after you confirm. The [deploy Skill](/skills/ohmyhost-deploy-github/SKILL.md) tells the agent to verify Dev first and to test that existing Prod rows survive.
 
-Data mode is chosen at `project_create`. Shared data means one physical database for both environments, so a schema change tested on Dev is already live for Prod. Isolated data means two databases, metered separately; promotion applies your migrations to Prod without copying Dev records. Isolated costs more while both databases are active and is still the recommendation for anything with real users. Changing the mode later is a data migration, so decide before the first deploy. The [environments guide](https://docs.ohmyho.st/environments) has the rest.
+Data mode is optional at `project_create` and defaults to shared. Shared data means one database and file area for both environments, so a schema change tested on Dev is already live for Prod. Isolated data means separate areas, with databases metered separately; promotion applies your migrations to Prod without copying Dev records. An Owner can use `project_data_plan` then `project_data_change` to keep existing data with Prod or Dev and give the other an empty area, return to shared, or reset isolated Dev. No records or files are copied and ordinary usage prices apply. Returning to shared keeps Prod and permanently deletes the separate Dev data, files and deployment; resetting Dev deletes its area and deployment. Read the concrete plan before confirming. The [environments guide](https://docs.ohmyho.st/environments) has the rest.
 
 ## Safety
 
-The catalog has {{ tools }} tools. 35 carry the MCP read-only annotation: status, usage, logs, plans and the secret command are reads that cannot change a project. 7 are marked destructive, and the expensive or irreversible actions only run as a pair: `deployment_plan` then `deployment_create`, `promotion_plan` then `promotion_execute`, `rollback_plan` then `rollback_execute`, `delete_plan` then `delete_execute`. The plan shows the cost and the effect; the execute call takes that plan and a saved idempotency key. Claude Code cannot delete a project or promote to Prod in one step.
+The catalog has {{ tools }} tools. Read-only annotations identify tools that inspect status, usage or logs, or return the secret command. Plans that reserve resources or issue confirmation tokens are marked as writes. Tools that remove or replace something are marked destructive, and expensive or irreversible actions use a reviewed plan: `deployment_plan` then `deployment_create`, `promotion_plan` then `promotion_execute`, `rollback_plan` then `rollback_execute`, `delete_plan` then `delete_execute`, and `project_data_plan` then `project_data_change`. The plan shows the cost and effect; the execute call takes its guards and a saved idempotency key. Claude Code cannot delete a project or promote to Prod in one step.
 
 Spending has a ceiling if you want one. `project_budget_set` sets a monthly budget per project with mode `continue` (warn and keep drawing from the organization balance) or `stop` (reject new billable work). A budget is a limit, not a second wallet; usage already reserved still settles. See the [budgets guide](https://docs.ohmyho.st/budgets) or the [usage Skill](/skills/ohmyhost-usage-and-budgets/SKILL.md).
 
@@ -69,7 +69,7 @@ A small app for one month uses about {{ credits workload.smallApp }}, about {{ u
 
 Free gives {{ number plan.freeCredits }} credits per UTC month. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period. Monthly credits expire at period end without rollover. Paid-only top-ups carry over until downgrade to Free and grant {{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }} and {{ number plan.topUpPerUsdAbove100 }} per dollar for the part above. Every project draws from the organization's one balance; there is no per-project base fee. A zero balance starts a {{ number plan.graceDays }}-day grace period in which funded services keep running; afterwards only unfunded services suspend. Automatic recharge stays off unless the Owner turns it on.
 
-A quiet month is cheaper. Idle database compute suspends; what remains is retained storage at {{ rate neon.storage.root }}, the deployed script at about {{ credits unit.deployedScriptMonth }} a month and a linked custom hostname at about {{ credits unit.customHostnameMonth }} a month (Paid). A mail domain has no monthly fee. {{ text workload.quietProject.name }} comes to about {{ credits workload.quietProject }}. Requests are {{ rate wfp.requests }}; Workers bandwidth is not charged and SQL exports are free. One active hour on the Paid standard {{ value profile.standard.cu }} CU database is about {{ credits unit.activeDatabaseHourStandard }}.
+A quiet month is cheaper. Idle database compute suspends; what remains is retained storage at {{ rate neon.storage.root }}, the deployed script at about {{ credits unit.deployedScriptMonth }} a month and a linked custom hostname at about {{ credits unit.customHostnameMonth }} a month, nothing while the project shows the “Powered by ohmyho.st” flag. A mail domain has no monthly fee. {{ text workload.quietProject.name }} comes to about {{ credits workload.quietProject }}. Requests are {{ rate wfp.requests }}; Workers bandwidth is not charged and SQL exports are free. One active hour on the Paid standard {{ value profile.standard.cu }} CU database is about {{ credits unit.activeDatabaseHourStandard }}.
 
 ## FAQ
 
@@ -95,6 +95,10 @@ Yes. The owner asks for an export and gets a password-encrypted ZIP with a porta
 
 ### Which apps can Claude Code deploy here?
 
-Next.js, Vite/React and TanStack Start, from a GitHub repository you authorize. GitHub is the only source and there are no containers. Better Auth and customer-owned WorkOS AuthKit are the verified application-auth integrations; you keep your own auth provider, and the platform login is separate from your app's users. The [deploy Skill](/skills/ohmyhost-deploy-github/SKILL.md) checks the repository before planning.
+Next.js, Vite/React, TanStack Start and plain Worker modules, from a GitHub repository you authorize. GitHub is the only source. The application must fit the Workers runtime: native addons, socket-based database drivers, persistent local files, listening servers and container applications require a different runtime or an adapter. The [deploy Skill](/skills/ohmyhost-deploy-github/SKILL.md) checks the repository before planning and preserves your application auth; the platform login is separate from your app's users.
+
+Vite can declare `runtime.mode: edge` for its own HTTP endpoints even without managed database, mail or file capabilities. Cron schedules additionally require a scheduled handler. Workers-compatible JavaScript, MJS and WASM modules use the same packaging contract across the framework adapters; that does not make an incompatible dependency run on Workers.
+
+Declare external browser services in `runtime.browser` in `ohmyhost.yaml`: exact HTTPS or WSS origins for connections, separate HTTPS origins for scripts, styles, images, fonts and frames, and explicit permissions for same-origin or blob workers. Resource declarations retain restrictive defaults for everything omitted. Server egress remains separate. Declared CORS support still needs the application's authorization checks and valid response headers. The agent verifies the required external flow on Dev before reporting that it works.
 
 [Deploy from Cursor](/for/cursor) · [Bring your app from Lovable](/from/lovable) · [Where your credits go](/pricing/breakdown) · [Six things that break when a vibe-coded app meets production](/blog/six-things-that-break-when-a-vibe-coded-app-meets-production)

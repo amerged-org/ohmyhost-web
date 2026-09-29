@@ -54,7 +54,7 @@ A finished side project keeps paying for three things: the data it stores, the s
 
 {{ table workload.quietProject }}
 
-One active database hour, two build minutes, a few thousand requests, a fifth of a gigabyte stored. The project stays on its Dev and Prod hosts under check.omh.st. A customer-owned domain is a Paid capability that uses credits, about {{ credits unit.customHostnameMonth }} a month per linked hostname; a quiet project can skip it.
+One active database hour, two build minutes, a few thousand requests, a fifth of a gigabyte stored. The project stays on its Dev and Prod hosts under check.omh.st. A customer-owned domain needs Paid, or on Free a project that shows the “Powered by ohmyho.st” flag, and uses about {{ credits unit.customHostnameMonth }} a month per linked hostname unless the flag shows; a quiet project can skip it.
 
 ### The small app
 
