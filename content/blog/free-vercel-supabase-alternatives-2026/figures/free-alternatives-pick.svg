@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="Pick a free plan by need: app plus Postgres on one account, ohmyho.st; an edge app where SQLite is fine, Cloudflare; only a database, Neon or Supabase; a personal project, Vercel Hobby with Neon.">
+  <rect width="1200" height="675" fill="#000"/>
+  <g fill="#0A0B0D" stroke="#26282C" stroke-width="2">
+    <rect x="50" y="100" width="520" height="225" rx="18"/>
+    <rect x="630" y="100" width="520" height="225" rx="18"/>
+    <rect x="50" y="345" width="520" height="225" rx="18"/>
+    <rect x="630" y="345" width="520" height="225" rx="18"/>
+  </g>
+  <g font-family="'JetBrains Mono', monospace" font-size="26" fill="#83878D">
+    <text x="90" y="170">App + Postgres, one account</text>
+    <text x="670" y="170">Edge app, SQLite is fine</text>
+    <text x="90" y="415">Only a database</text>
+    <text x="670" y="415">Personal project</text>
+  </g>
+  <g font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="44" fill="#F0F1F2">
+    <text x="90" y="255">ohmyho.st</text>
+    <text x="670" y="255">Cloudflare</text>
+    <text x="90" y="500">Neon or Supabase</text>
+    <text x="670" y="500">Vercel Hobby + Neon</text>
+  </g>
+</svg>

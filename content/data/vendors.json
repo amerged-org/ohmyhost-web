@@ -1,14 +1,14 @@
 {
   "vercel": {
     "name": "Vercel",
-    "checkedOn": "2026-09-19",
+    "checkedOn": "2026-09-28",
     "sourceUrl": "https://vercel.com/pricing",
-    "evidence": "evidence/before--vercel.com--pricing--1440x900@2--full.jpg",
+    "evidence": "evidence/free-tiers--vercel.com--pricing--1440x900@1--full.jpg",
     "facts": {
       "hobby": {
         "usd": 0,
         "unit": "per month",
-        "includes": "one developer seat, 100 GB fast data transfer, 1M edge requests and 1M function invocations a month"
+        "includes": "one developer seat, 100 GB fast data transfer, 1M CDN requests and 1M function invocations a month"
       },
       "pro": {
         "usd": 20,
@@ -27,10 +27,15 @@
   },
   "supabase": {
     "name": "Supabase",
-    "checkedOn": "2026-09-19",
+    "checkedOn": "2026-09-28",
     "sourceUrl": "https://supabase.com/pricing",
-    "evidence": "evidence/before--supabase.com--pricing--1440x900@2--full.jpg",
+    "evidence": "evidence/free-tiers--supabase.com--pricing--1440x900@1--full.jpg",
     "facts": {
+      "free": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "at most 2 active projects, a 500 MB database, 5 GB egress, 1 GB file storage and 50,000 monthly active users; free projects are paused after 1 week of inactivity"
+      },
       "pro": {
         "usd": 25,
         "unit": "per month, from",
@@ -60,9 +65,9 @@
   },
   "resend": {
     "name": "Resend",
-    "checkedOn": "2026-09-19",
+    "checkedOn": "2026-09-28",
     "sourceUrl": "https://resend.com/pricing",
-    "evidence": "evidence/before--resend.com--pricing--1440x900@2--table.png",
+    "evidence": "evidence/free-tiers--resend.com--pricing--1440x900@1--full.jpg",
     "facts": {
       "free": {
         "usd": 0,
@@ -91,14 +96,14 @@
   },
   "railway": {
     "name": "Railway",
-    "checkedOn": "2026-09-19",
+    "checkedOn": "2026-09-28",
     "sourceUrl": "https://railway.com/pricing",
-    "evidence": "evidence/before--railway.com--pricing--1440x900@2--table.png",
+    "evidence": "evidence/free-tiers--railway.com--pricing--1440x900@1--full.jpg",
     "facts": {
       "free": {
         "usd": 0,
         "unit": "per month",
-        "includes": "a 30-day trial with $5 of credits, then $1 per month; one project member"
+        "includes": "a 30-day trial with $5 credits, then $1 per month; up to 0.5 GB of RAM per service and 0.5 GB of volume storage"
       },
       "hobby": {
         "usd": 5,
@@ -111,11 +116,11 @@
         "includes": "$20 of monthly usage credits, unlimited workspace seats"
       },
       "vcpuSecond": {
-        "usd": 7.72e-6,
+        "usd": 0.00000772,
         "unit": "per vCPU per second"
       },
       "memoryGbSecond": {
-        "usd": 3.86e-6,
+        "usd": 0.00000386,
         "unit": "per GB of memory per second"
       },
       "volumeGbSecond": {
@@ -134,9 +139,9 @@
   },
   "fly": {
     "name": "Fly.io",
-    "checkedOn": "2026-09-19",
+    "checkedOn": "2026-09-28",
     "sourceUrl": "https://fly.io/pricing",
-    "evidence": "evidence/before--fly.io--pricing--1440x900@2--full.jpg",
+    "evidence": "evidence/free-tiers--fly.io--pricing--1440x900@1--full.jpg",
     "facts": {
       "sharedCpu1x": {
         "usd": 1.94,
@@ -168,11 +173,54 @@
       }
     }
   },
+  "cloudflare": {
+    "name": "Cloudflare Workers",
+    "checkedOn": "2026-09-28",
+    "sourceUrl": "https://developers.cloudflare.com/workers/platform/pricing/",
+    "evidence": "evidence/free-tiers--developers.cloudflare.com--workers-pricing--1440x900@1--full.jpg",
+    "facts": {
+      "free": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "100,000 requests a day and 10 ms of CPU time per invocation; requests to static assets are free"
+      },
+      "paid": {
+        "usd": 5,
+        "unit": "per month, the minimum for the Workers Paid plan"
+      }
+    }
+  },
+  "cloudflareD1": {
+    "name": "Cloudflare D1",
+    "checkedOn": "2026-09-28",
+    "sourceUrl": "https://developers.cloudflare.com/d1/platform/pricing/",
+    "evidence": "evidence/free-tiers--developers.cloudflare.com--d1-pricing--1440x900@1--full.jpg",
+    "facts": {
+      "free": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "5 million rows read and 100,000 rows written a day, 5 GB of storage in total"
+      }
+    }
+  },
+  "neon": {
+    "name": "Neon",
+    "checkedOn": "2026-09-28",
+    "sourceUrl": "https://neon.com/pricing",
+    "evidence": "evidence/free-tiers--neon.com--pricing--1440x900@1--full.jpg",
+    "facts": {
+      "free": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "100 CU-hours a month and 0.5 GB of storage per project; compute scales to zero after 5 minutes of inactivity"
+      }
+    }
+  },
   "render": {
     "name": "Render",
-    "checkedOn": "2026-09-19",
+    "checkedOn": "2026-09-28",
     "sourceUrl": "https://render.com/pricing",
-    "evidence": "evidence/before--render.com--pricing--1440x900@2--full.jpg",
+    "evidence": "evidence/free-tiers--render.com--pricing--1440x900@1--full.jpg",
     "facts": {
       "hobby": {
         "usd": 0,
@@ -219,6 +267,16 @@
       "buildMinutes": {
         "usd": 5,
         "unit": "per 1,000 build minutes beyond the plan"
+      },
+      "freeWebService": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "a web service with 512 MB RAM"
+      },
+      "freePostgres": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "a Postgres database with 256 MB RAM and 100 connections"
       }
     }
   },

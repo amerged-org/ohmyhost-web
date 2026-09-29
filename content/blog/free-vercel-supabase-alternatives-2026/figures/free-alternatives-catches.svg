@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="Four free-plan catches: a Render free web service sleeps after 15 idle minutes, a Supabase Free project pauses after a quiet week, Render free Postgres is deleted 30 days after creation, Vercel Hobby allows personal projects only.">
+  <rect width="1200" height="675" fill="#000"/>
+  <g fill="#0A0B0D" stroke="#26282C" stroke-width="2">
+    <rect x="50" y="100" width="520" height="225" rx="18"/>
+    <rect x="630" y="100" width="520" height="225" rx="18"/>
+    <rect x="50" y="345" width="520" height="225" rx="18"/>
+    <rect x="630" y="345" width="520" height="225" rx="18"/>
+  </g>
+  <g font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="40" fill="#F0F1F2">
+    <text x="90" y="180">Sleeps</text>
+    <text x="670" y="180">Pauses</text>
+    <text x="90" y="425">Deleted</text>
+    <text x="670" y="425">No business use</text>
+  </g>
+  <g font-family="'JetBrains Mono', monospace" font-size="26" fill="#F0F1F2">
+    <text x="90" y="235">Render web service</text>
+    <text x="670" y="235">Supabase project</text>
+    <text x="90" y="480">Render free Postgres</text>
+    <text x="670" y="480">Vercel Hobby</text>
+  </g>
+  <g font-family="'JetBrains Mono', monospace" font-size="24" fill="#83878D">
+    <text x="90" y="275">after 15 idle minutes</text>
+    <text x="670" y="275">after a quiet week</text>
+    <text x="90" y="520">30 days after creation</text>
+    <text x="670" y="520">personal projects only</text>
+  </g>
+</svg>

@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import { format } from "prettier";
 import { createHash } from "node:crypto";
-import { mkdir, readFile, writeFile, rm } from "node:fs/promises";
+import { mkdir, readdir, readFile, writeFile, rm } from "node:fs/promises";
 import { fileURLToPath, URL } from "node:url";
 import TurndownService from "turndown";
 import { WEBSITE } from "../src/site-identity.ts";
@@ -233,17 +233,7 @@ for (const [file, source] of Object.entries({
     await readFile(`${brandAssets}/${source}`),
   );
 await mkdir(`${output}/brand-assets`, { recursive: true });
-for (const file of [
-  "omega-light.svg",
-  "omega-dark.svg",
-  "omega-light.png",
-  "omega-dark.png",
-  "favicon.svg",
-  "favicon.ico",
-  "apple-touch-icon.png",
-  "founder.png",
-  "og.png",
-])
+for (const file of await readdir(brandAssets))
   await writeFile(
     `${output}/brand-assets/${file}`,
     await readFile(`${brandAssets}/${file}`),

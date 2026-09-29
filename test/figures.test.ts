@@ -71,7 +71,7 @@ it("renders every figure as one Markdown-safe block whose numbers come from the 
     ];
     expect(values(figureBills(competitor))).toEqual(expected);
     expect(figureBills(competitor)).toContain(
-      "List prices checked on September 19, 2026",
+      "List prices checked on September 28, 2026",
     );
     for (const vendor of new Set(scenario.parts.map((part) => part.vendor)))
       expect(figureBills(competitor)).toContain(

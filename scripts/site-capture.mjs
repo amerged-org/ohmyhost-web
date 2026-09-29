@@ -281,7 +281,12 @@ const RENDER_ORIGIN = "https://render.invalid";
  * Chromium refuses file:// fonts in a setContent page, which rendered every social card in fallback
  * fonts until 2026-09-25.
  */
-async function templatePage(browser, root, viewport, deviceScaleFactor = 1) {
+export async function templatePage(
+  browser,
+  root,
+  viewport,
+  deviceScaleFactor = 1,
+) {
   const page = await browser.newPage({ viewport, deviceScaleFactor });
   let markup = "";
   await page.route(`${RENDER_ORIGIN}/**`, (route) => {

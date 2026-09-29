@@ -112,10 +112,10 @@ it("formats prices, credits, rates and source lines the way pages quote them", (
   expect(creditValueUsd(552_441_601)).toBe("$5.52");
   expect(rate("wfp.requests")).toBe("98.571429 credits per 1,000,000 requests");
   expect(checkedLine(VENDORS.vercel)).toBe(
-    "List prices checked on 2026-09-19 — [Vercel pricing](https://vercel.com/pricing).",
+    "List prices checked on 2026-09-28 — [Vercel pricing](https://vercel.com/pricing).",
   );
   expect(sourcesSection(VENDORS.vercel, VENDORS.resend)).toContain(
-    "- List prices checked on 2026-09-19 — [Resend pricing]",
+    "- List prices checked on 2026-09-28 — [Resend pricing]",
   );
   const table = workloadTable(WORKLOADS.smallApp);
   expect(table).toContain("| 20 build minutes | 24.10 |");

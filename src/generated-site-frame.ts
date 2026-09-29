@@ -12,6 +12,7 @@ export const FIGURE_SCRIPT =
 export const OG_IMAGES: readonly string[] = [
   "about",
   "blog",
+  "blog-free-vercel-supabase-alternatives-2026",
   "blog-host-a-lovable-app-after-export",
   "blog-introducing-ohmyho-st",
   "blog-lovable-alternative-bring-your-own-llm",
