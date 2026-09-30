@@ -10,6 +10,8 @@ Lovable exports a Vite and React repository, which is the starting point for the
 
 Lovable's GitHub integration keeps the project "in continuous sync with your repository", and "external platforms deploy directly from GitHub" (https://docs.lovable.dev/tips-tricks/external-deployment-hosting, read 2026-09-20). The sync runs both ways: edits you make in Lovable land in the repository as commits, and commits from your agent show up in Lovable.
 
+You can also keep working on the exported code with the agent you already use. The [Lovable alternative guide](/blog/lovable-alternative-bring-your-own-llm) explains how Claude Code, Codex, Cursor and Grok Build fit that workflow and how to coordinate their edits with Lovable's sync.
+
 Three things to do in Lovable:
 
 1. Connect GitHub from your project's settings and let Lovable create the repository under your GitHub account.

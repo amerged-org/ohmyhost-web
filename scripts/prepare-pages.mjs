@@ -375,6 +375,8 @@ function applyApprovedHomepageChanges(html) {
       'Better Auth, WorkOS or anything else that speaks OAuth, OIDC or SAML — wire it in, we don\'t lock you into ours.</p>\n  <div class="cells logos stag" id="auth-logos" style="grid-template-columns:repeat(3,1fr)">',
     '<span class="avatar" aria-hidden="true"></span>':
       '<img src="/brand/assets/founder.png" width="96" height="96" loading="lazy" alt="Founder of ohmyho.st" style="border-radius:50%;flex:0 0 96px;object-fit:cover">',
+    "<b>Sebastian</b> · founder, ohmyho.st":
+      '<b><a href="https://www.linkedin.com/in/auto-mate/">Sebastian</a></b> · founder, ohmyho.st',
     // PRICING.md is the only price source: no AI product, and every example equals the rate card.
     '<text x="748" y="234">ai models</text>':
       '<text x="748" y="234">functions &amp; cron</text>',

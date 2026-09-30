@@ -8,6 +8,8 @@ Building an app has become easier. Getting it into production still involves dec
 
 ohmyho.st brings that work into the conversation you already have with your coding agent. The agent can inspect the project, prepare its deployment and work with the services the app needs. You keep the source in GitHub and use the same workflow as the project grows.
 
+ohmyho.st was founded by [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/). He built it after getting tired of separate subscriptions for small projects, with the aim of making deployment and costs easier to manage.
+
 ## Built for more than one project
 
 The platform is designed around solo builders, indie hackers and small teams shipping several apps. That includes side projects built with coding agents, client applications and projects exported from tools such as Lovable, Bolt or Replit.
@@ -38,4 +40,4 @@ The CLI, MCP server, TypeScript SDK, runtime clients and Better Auth integration
 
 ## Learn more
 
-Explore the [documentation](https://docs.ohmyho.st/), read the [changelog](/changelog), or use the [contact form](/contact) for questions. Operator information and legal terms are available in the [privacy notice](/privacy), [terms](/terms) and [data processing agreement](/dpa).
+Explore the [documentation](https://docs.ohmyho.st/), read the [blog](/blog) and [changelog](/changelog), or use the [contact form](/contact) for questions. Operator information and legal terms are available in the [privacy notice](/privacy), [terms](/terms) and [data processing agreement](/dpa).

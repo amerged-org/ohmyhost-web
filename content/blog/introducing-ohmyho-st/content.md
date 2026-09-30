@@ -1,10 +1,12 @@
 # Introducing ohmyho.st
 
-By Sebastian Mertens · September 13, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · September 13, 2026
 
 The first thing to try is simple: bring a GitHub app and ask your coding agent to deploy it. ohmyho.st provides the CLI, MCP tools and task Skills to plan the work, connect the repository and check the result.
 
 Your projects share an organization balance. You can ask which project used credits, whether a domain is ready or what a deployment is waiting for. Shared project notes keep the next action available when an agent session changes.
+
+The [five-side-project cost comparison](/blog/what-vercel-supabase-resend-cost-for-five-side-projects) shows how that shared balance works for a portfolio, alongside the separate Vercel, Supabase and Resend subscriptions.
 
 Start with the capabilities your app needs. A public Vite app can be public without a database or auth provider. A database-backed application needs its migrations and real data flows checked. Production promotion should preserve existing production records.
 

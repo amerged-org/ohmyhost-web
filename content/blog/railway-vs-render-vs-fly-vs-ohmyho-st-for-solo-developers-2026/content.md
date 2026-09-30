@@ -1,6 +1,6 @@
 # Railway vs Render vs Fly.io vs ohmyho.st for solo developers: 2026 pricing
 
-By Sebastian Mertens · September 20, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · September 20, 2026
 
 Railway starts at {{ usd vendor.railway.hobby }} a month minimum usage, Render is {{ usd vendor.render.hobby }} plus compute from {{ usd vendor.render.webService512 }} a month for a web service, and Fly.io bills a small machine from {{ usd vendor.fly.sharedCpu1x }} a month by the second. ohmyho.st is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits shared by every project; a small app uses about {{ credits workload.smallApp }}.
 
@@ -9,6 +9,8 @@ Railway starts at {{ usd vendor.railway.hobby }} a month minimum usage, Render i
 ## How each one bills
 
 Three models. Railway meters seconds against a monthly minimum. Render sells fixed-price instances on top of a plan. Fly.io meters machines by the second with no plan at all. ohmyho.st meters usage from one prepaid credit balance. Which one is cheapest depends on how much of the month your app is actually awake.
+
+If your priority is staying on a free plan, start with the [hosting and Postgres free-plan comparison](/blog/free-vercel-supabase-alternatives-2026). It distinguishes ongoing allowances from trials and covers sleep, data retention, custom domains and business-use restrictions.
 
 ### Railway
 

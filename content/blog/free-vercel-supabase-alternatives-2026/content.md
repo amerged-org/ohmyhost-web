@@ -1,12 +1,14 @@
 # Free alternatives to Vercel and Supabase in 2026: the free plans compared
 
-By Sebastian Mertens · September 28, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · September 28, 2026
 
 Vercel Hobby plus Supabase Free costs nothing, but it means two accounts, a Vercel plan that forbids business use and a database that pauses after a quiet week. This comparison puts the free plans of ohmyho.st, Cloudflare, Render, Railway, Neon and Fly.io next to them: what each one hosts, where it stops, and the catch you usually find later.
 
 <figure class="fig"><img src="/images/free-alternatives-two-accounts.png" alt="Free Vercel and Supabase alternative: Vercel Hobby plus Supabase Free means two accounts and two sets of limits, one free plan for app and database means one account" width="1200" height="675" fetchpriority="high" decoding="async"><figcaption>The usual free stack is two products. Every alternative below answers the same question: how much of the pair does one free plan replace?</figcaption></figure>
 
 We make ohmyho.st, so read this with that in mind. Everything about the other platforms was read on their own pricing and documentation pages on September 28, 2026; each claim links its page, and we keep dated screenshots of every one. Our own plan gets the same treatment, catches included.
+
+If you are still deciding what each half of that stack does, [Supabase vs Vercel: do you need both?](/blog/supabase-vs-vercel-do-you-need-both) explains the division between app hosting and backend services, and when combining them makes sense.
 
 ## What a free plan has to cover
 
@@ -98,6 +100,8 @@ Neon does not host your app, so it pairs with one of the app hosts above. Vercel
 ## Fly.io: a trial, not a free plan
 
 Fly.io still lists usage prices such as {{ usd vendor.fly.sharedCpu1x }} a month for a shared-cpu-1x machine, but new organizations get a trial: "2 hours of machine runtime or 7 days of access, whichever comes first". When it ends, apps "stop running" and you cannot deploy "until billing is set up" ([Fly.io free trial](https://docs.fly.io/about/free-trial/), read 2026-09-28). If you are searching for a Fly.io free tier alternative, every other plan on this page is one.
+
+For workloads that need a paid plan, the [Railway, Render, Fly.io and ohmyho.st comparison](/blog/railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026) sets out their billing models and prices the same small-app assumptions.
 
 {{ checked fly }}
 

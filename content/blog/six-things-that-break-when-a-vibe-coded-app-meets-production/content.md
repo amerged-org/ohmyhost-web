@@ -1,10 +1,12 @@
 # Six things that break when a vibe-coded app meets production
 
-By Sebastian Mertens · September 20, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · September 20, 2026
 
 Deploy a vibe-coded app and the same six things break: localhost URLs, CORS and callback URLs, SQLite, committed secrets, build-time configuration and mail without a verified sender. On ohmyho.st your coding agent fixes each through named MCP tools and deploys from GitHub. The example first month below costs about {{ credits workload.lovableFirstMonth }}; the Free plan grants {{ number plan.freeCredits }} credits a month.
 
 This list comes from watching agents deploy Lovable exports and weekend portfolio apps. The app runs on a laptop. It does not run anywhere else. None of the six is exotic, and all six are invisible in a preview window. ohmyho.st is hosting for vibe-coded apps that a coding agent operates through MCP. There is no deploy dashboard, and that is the point: the agent reads the blockers and fixes them in your repository, and you approve each plan before it runs.
+
+For a Lovable repository, the [export-to-hosting walkthrough](/blog/host-a-lovable-app-after-export) applies these checks to its Vite variables, Supabase connection, sign-in and client-side routes.
 
 ## 1. Environment variables and localhost URLs
 

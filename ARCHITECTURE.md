@@ -99,10 +99,16 @@ The footer bottom row is a sibling of the link grid, spanning its full width wit
 
 Every editorial fenced prompt or command has a keyboard-accessible copy icon which copies that block’s full text, with success/error feedback and the existing clipboard fallback. Text prompts wrap for narrow screens; Markdown content and metadata remain unchanged.
 
-The About page explains the product, intended builders, agent deployment, credits and portability; personal biography, founder photo, registration detail, the obsolete “Not yet” inventory and About-page Person markup are removed. Operator disclosures remain on legal pages, and the client/site/documentation licences are described accurately (2026-09-21).
+The About page explains the product, intended builders, agent deployment, credits and portability, with a short founder paragraph linking Sebastian Mertens to LinkedIn (owner revision, 2026-09-30); founder photos, registration detail, the obsolete “Not yet” inventory and About-page Person markup remain absent. Operator disclosures remain on legal pages, and the client/site/documentation licences are described accurately.
 
 The September 2026 copy audit corrects portal/CLI descriptions, default database idle timing, retained-resource costs, shared/isolated data and funded-service grace wording; deployment examples describe only actual plan/execute pairs. The owner supplied the homepage’s approximately 30-second deployment wording. Brand templates retain their original geometry but receive current copy, valid CLI examples and dated, data-derived plan prices. The changelog and open-source inventory cover verified releases and the MIT website repository. Billing availability and handle-rollout claims are outside this editorial release.
 
 ## Approved credit expiry copy — 2026-09-27
 
 The Paid pricing card retains “Top-ups never expire”. Monthly subscription credits have no rollover and expire at billing-period end. Only Paid users buy top-ups; unused top-ups carry across uninterrupted Paid membership and expire on the effective downgrade to Free, without returning after a later upgrade. Pricing, comparisons, agent discovery and the imported platform guidance use the same rules.
+
+## Editorial links and founder attribution — 2026-09-30
+
+Existing article bylines and the homepage founder signature link directly to Sebastian Mertens's LinkedIn; author metadata and structured data retain their current structure. The approved homepage source remains immutable and page preparation adds the founder link.
+
+Every published article needs an incoming link from another published editorial body; a read-only audit checks this separately from the blog index and shared navigation. An independent editorial linking pass revisits older relevant pages before publishing and checks the links afterwards. New articles have an editorial limit of one per day, with no daily quota or scheduler; updates retain the original publication date.

@@ -122,6 +122,15 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html).toContain("updatePlaybackRate(1.25)");
     expect(html).toContain("Your database, exported &amp; connected.");
     expect(html).toContain('width="96" height="96" loading="lazy"');
+    expect(html).toContain(
+      '<b><a href="https://www.linkedin.com/in/auto-mate/" rel="noopener">Sebastian</a></b> · founder, ohmyho.st',
+    );
+    expect(
+      await readFile(
+        new URL("../public/pages/index.md", import.meta.url),
+        "utf8",
+      ),
+    ).toContain("[Sebastian](https://www.linkedin.com/in/auto-mate/)");
     const pricing = html.slice(
       html.indexOf('<section id="price">'),
       html.indexOf('<div class="slid up">'),

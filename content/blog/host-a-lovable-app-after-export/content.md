@@ -1,6 +1,6 @@
 # Hosting a Lovable app after export: the exact path
 
-By Sebastian Mertens · September 20, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · September 20, 2026
 
 Exporting a Lovable project to GitHub is one click. Everything after it is the work: three `VITE_` values, OAuth redirect URLs, private secrets that must not ship to the browser, and a rewrite rule for client-side routes. This is that path, written out, and what a coding agent does instead of you.
 
@@ -9,6 +9,8 @@ Exporting a Lovable project to GitHub is one click. Everything after it is the w
 ## Why people leave
 
 Not because Lovable is bad at building. It is very good at building, and most people who move keep building there. They move because hosting inside the builder is priced with the same credits that write the code, so a month of real traffic competes with a month of prompting. Lovable's pricing page says hosting on Lovable Cloud draws from your credit balance as an app takes on traffic and size (https://lovable.dev/pricing, read 2026-09-20). Once an app has users, most people want its running costs on a bill that does not move when they stop prompting.
+
+If you also want to edit the exported app outside Lovable, the guide to [using your own coding agent as a Lovable alternative](/blog/lovable-alternative-bring-your-own-llm) covers Claude Code, Codex, Cursor and Grok Build, including how to keep the GitHub sync working.
 
 ## Export to GitHub
 
@@ -25,6 +27,8 @@ Four things, in the order they bite.
 **Private secrets.** A Stripe secret key or a service-role key must never carry the `VITE_` prefix, because Vite inlines prefixed variables into the client bundle at build time and ships them to every visitor. They belong in server-side configuration on the host.
 
 **SPA rewrites.** A React app with client-side routes needs the host to serve `/index.html` for unknown paths. Without it the home page works, and `/dashboard` returns a 404 the moment somebody refreshes.
+
+The [production deployment checklist](/blog/six-things-that-break-when-a-vibe-coded-app-meets-production) extends these checks to local databases, build-time configuration and transactional mail, including apps built outside Lovable.
 
 ## The prompt
 
