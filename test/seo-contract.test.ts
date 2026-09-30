@@ -190,7 +190,13 @@ it("publishes the SEO contract for every rendered page", async () => {
   expect(about.map((node) => node["@type"])).not.toContain("Person");
   const aboutHtml = customerDocument("/about")?.text ?? "";
   expect(aboutHtml).not.toMatch(
-    /Sebastian Mertens|42154221|founder\.png|Not yet|What is not there yet/u,
+    /42154221|founder\.png|Not yet|What is not there yet/u,
+  );
+  expect(aboutHtml).toContain(
+    '<a href="https://www.linkedin.com/in/auto-mate/" rel="noopener">Sebastian Mertens</a>',
+  );
+  expect(customerDocument("/about.md")?.text).toContain(
+    "[Sebastian Mertens](https://www.linkedin.com/in/auto-mate/)",
   );
   expect(aboutHtml).toContain("Apache-2.0");
   const blog = jsonLd(customerDocument("/blog")?.text ?? "").find(
@@ -203,6 +209,18 @@ it("publishes the SEO contract for every rendered page", async () => {
   );
   for (const path of paths.filter((path) => path.startsWith("/blog/")))
     expect(DOCUMENTATION["/blog"]).toContain(`](${path})`);
+});
+
+it("links every article's existing byline to the author's LinkedIn in HTML and Markdown", () => {
+  for (const [path, meta] of Object.entries(PAGE_META)) {
+    if (meta.kind !== "article") continue;
+    expect(customerDocument(path)?.text, path).toContain(
+      'By <a href="https://www.linkedin.com/in/auto-mate/" rel="noopener">Sebastian Mertens</a> · ',
+    );
+    expect(customerDocument(`${path}.md`)?.text, path).toContain(
+      "By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · ",
+    );
+  }
 });
 
 it("serves crawler, cache and transport metadata", async () => {

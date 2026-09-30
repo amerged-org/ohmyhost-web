@@ -1,6 +1,6 @@
 # Supabase vs Vercel: do you need both?
 
-By Sebastian Mertens · September 20, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · September 20, 2026
 
 For most small apps, yes: Vercel Pro is {{ usd vendor.vercel.pro }} a month and Supabase Pro starts at {{ usd vendor.supabase.pro }}, because neither one does the other's half. ohmyho.st puts hosting and Postgres on one balance: {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits shared by every project, and a quiet side project uses about {{ credits workload.quietProject }}.
 
@@ -60,6 +60,8 @@ On ohmyho.st, five side projects, one of them with real traffic and login mail, 
 
 That fits inside the {{ number plan.paidCredits }} credits the Paid plan grants each period. The fixed part is stored data and five scripts; everything else only accrues while someone uses an app. For comparison, our separate small-app workload sends more mail and costs about {{ credits workload.smallApp }} on its own; each quiet side project costs about {{ credits workload.quietProject }}. The headroom is real but not huge. If one app gets popular, give it a monthly budget through `project_budget_set` (continue or stop) so it cannot drain the others, and buy a top-up when the balance runs low. A zero balance starts a {{ value plan.graceDays }}-day grace period; funded services keep running, and only unfunded services suspend afterwards.
 
+The [five-side-project cost comparison](/blog/what-vercel-supabase-resend-cost-for-five-side-projects) includes the mail subscription and breaks down how that portfolio changes the bill.
+
 To try it, open your repository in Claude Code and paste this:
 
 ```text
@@ -83,6 +85,8 @@ Be honest about the other direction.
 **Your framework is not on the list.** Supported today: Next.js, Vite/React and TanStack Start, deployed from a GitHub repository you authorize. No containers, no other deployment source. SvelteKit, Nuxt, Astro or a Dockerfile do not run here yet; Vercel runs most of them.
 
 **Everything fits the free tiers.** A personal project with steady traffic on Vercel Hobby at {{ usd vendor.vercel.hobby }} plus a Supabase Free project that never pauses costs nothing, and no balance beats nothing. The case for one balance starts when the pauses, the non-commercial rule or the per-project instances start to hurt.
+
+Compare those constraints with the [free Vercel and Supabase alternatives](/blog/free-vercel-supabase-alternatives-2026) before moving: the free-plan guide covers app hosting, Postgres, business use and what happens at each limit.
 
 {{ checked vercel }}
 {{ checked supabase }}

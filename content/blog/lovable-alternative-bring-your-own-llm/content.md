@@ -1,6 +1,6 @@
 # A Lovable alternative with your own LLM: Claude Code, Codex, Cursor or Grok
 
-By Sebastian Mertens · September 25, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · September 25, 2026
 
 The Lovable alternative most builders need is not another app builder. It is the coding agent they already pay for (Claude Code, Codex, Cursor or Grok Build) working on the same repository, plus a host that agent can operate. Lovable exports to GitHub in a few clicks, and your agent deploys from there to ohmyho.st with one prompt.
 
@@ -113,6 +113,8 @@ Hosting runs on ohmyho.st credits. Free gives {{ number plan.freeCredits }} cred
 {{ table workload.lovableFrontend }}
 
 The line-by-line rates are on the [pricing page](/pricing) and in the [cost breakdown](/pricing/breakdown).
+
+To compare the hosting allowance with other options before choosing a host, see the [free Vercel and Supabase alternatives](/blog/free-vercel-supabase-alternatives-2026), including their database, domain and business-use limits.
 
 ## When Lovable is still the better choice
 

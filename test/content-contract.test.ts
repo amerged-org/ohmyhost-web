@@ -295,7 +295,7 @@ it("keeps every editorial page inside the words, numbers and sources contract", 
     }
     if (meta?.kind === "article")
       expect(markdown, `${path} byline`).toMatch(
-        /^By Sebastian Mertens · (?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, \d{4}$/mu,
+        /^By \[Sebastian Mertens\]\(https:\/\/www\.linkedin\.com\/in\/auto-mate\/\) · (?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, \d{4}$/mu,
       );
     expect(words(markdown), `${path} words`).toBeGreaterThanOrEqual(floor);
     // A section carries a vendor's date line when it quotes that vendor's price — through a

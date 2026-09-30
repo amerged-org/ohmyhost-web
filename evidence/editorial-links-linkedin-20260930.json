@@ -1,0 +1,49 @@
+{
+  "checkedOn": "2026-09-30",
+  "baseCommit": "8245a2007ea1b4c9149b669ccbbfcd8369c974ef",
+  "publishedArticles": 8,
+  "contextualInternalLinksAdded": 13,
+  "linkedAuthorBylines": 8,
+  "homepageFounderLinked": true,
+  "aboutFounderParagraphLinked": true,
+  "originalPublicationDatesPreserved": true,
+  "approvedHomepageAndBrandTemplatesUnchanged": true,
+  "readOnlyLinkAudit": {
+    "brokenInternalLinks": 0,
+    "articlesWithoutIncomingEditorialLinks": 0,
+    "excludes": [
+      "drafts",
+      "self-links",
+      "blog index",
+      "navigation",
+      "footer",
+      "code examples",
+      "image-only links"
+    ],
+    "imageOnlyDestinationsStillValidated": true
+  },
+  "validation": {
+    "testsPassed": 48,
+    "functionCoveragePercent": 100,
+    "format": "passed",
+    "lint": "passed",
+    "typecheck": "passed",
+    "workerDryRunBuild": "passed"
+  },
+  "visualCheck": {
+    "viewportWidths": [1440, 390],
+    "paths": [
+      "/",
+      "/about",
+      "/blog/host-a-lovable-app-after-export",
+      "/blog/lovable-alternative-bring-your-own-llm"
+    ],
+    "viewsChecked": 8,
+    "screenshotsInspected": true,
+    "linkedNamesKeyboardFocusable": true,
+    "horizontalOverflow": false,
+    "previewCompatibilityDate": "2026-08-27",
+    "productionCompatibilityDateUnchanged": "2026-09-05",
+    "previewNote": "The pinned local runtime uses its supported date for rendering checks; production configuration is unchanged. The local control-service binding is disconnected, so dynamic roadmap/status calls are outside this visual check."
+  }
+}

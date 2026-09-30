@@ -1,14 +1,18 @@
 # What Vercel, Supabase and Resend cost for five side projects
 
-By Sebastian Mertens · September 20, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · September 20, 2026
 
 One project on Vercel Pro, Supabase Pro and Resend Pro costs {{ usd scenario.threeSubscriptions }} a month. Five projects cost {{ usd scenario.fiveProjects }}, because Supabase adds {{ usd vendor.supabase.microProject }} a month for each extra project. On ohmyho.st the same five draw from one balance: {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits, and four quiet projects plus one small app use about {{ credits workload.fiveSideProjects }}.
 
 {{ figure bills.vercel }}
 
+The [original introduction to ohmyho.st](/blog/introducing-ohmyho-st) explains how an agent plans a deployment, connects GitHub and checks the result. Here, the question is what running those apps costs.
+
 ## One project, bought separately
 
 Start with the honest baseline: one project, one developer, the three Pro plans most tutorials assume. Three accounts, three invoices, three usage pages to check at the end of the month.
+
+The [Vercel and Supabase comparison](/blog/supabase-vs-vercel-do-you-need-both) explains why app hosting and backend services occupy separate parts of this stack, and which capabilities you would need to keep when moving.
 
 - Vercel Pro: {{ usd vendor.vercel.pro }} per month for one developer. It comes with {{ usd vendor.vercel.pro }} of usage credit each month and free viewer seats. A second person who deploys is another {{ usd vendor.vercel.developerSeat }} {{ text vendor.vercel.developerSeat.unit }}. Function invocations above the credit cost {{ usd vendor.vercel.functionInvocations }} per million.
 - Supabase Pro: from {{ usd vendor.supabase.pro }} per month. That covers {{ text vendor.supabase.pro.includes }}. Disk above that is {{ usd vendor.supabase.diskGb }} {{ text vendor.supabase.diskGb.unit }}.
