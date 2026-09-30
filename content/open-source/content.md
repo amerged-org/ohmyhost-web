@@ -28,7 +28,7 @@ The runtime and auth packages matter most for portability: they are the code you
 
 ## MIT: the documentation
 
-[amerged-org/docs](https://github.com/amerged-org/docs) holds the source of [docs.ohmyho.st](https://docs.ohmyho.st/) under the MIT licence. Fix a typo, add a framework note or improve a guide with a pull request.
+[amerged-org/ohmyhost-docs](https://github.com/amerged-org/ohmyhost-docs) holds the source of [docs.ohmyho.st](https://docs.ohmyho.st/) under the MIT licence. Fix a typo, add a framework note or improve a guide with a pull request.
 
 ## MIT: the website
 
@@ -53,6 +53,6 @@ An agent cannot work against a product it has to guess at, so the interface is p
 
 ## How to contribute
 
-Open a pull request on the [website repository](https://github.com/amerged-org/ohmyhost-web) for website changes or the [docs repository](https://github.com/amerged-org/docs) for documentation. Send product bugs and feature requests through your agent's `feedback_submit` tool, and read ohmyho.st's replies to your own report with `feedback_status`. Reports stay private; they are not published. Roadmap votes live on the [homepage](/).
+Open a pull request on the [website repository](https://github.com/amerged-org/ohmyhost-web) for website changes or the [docs repository](https://github.com/amerged-org/ohmyhost-docs) for documentation. Send product bugs and feature requests through your agent's `feedback_submit` tool, and read ohmyho.st's replies to your own report with `feedback_status`. Reports stay private; they are not published. Roadmap votes live on the [homepage](/).
 
 [Documentation](https://docs.ohmyho.st/) · [Philosophy](/philosophy) · [About](/about) · [Contact](/contact)
