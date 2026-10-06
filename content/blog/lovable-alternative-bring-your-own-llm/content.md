@@ -45,6 +45,8 @@ Claude Code, Codex and Cursor have documented setups in the [get-started Skill](
 
 ## Step 1: export your Lovable project to GitHub
 
+For the current click-by-click setup, read [How to export Lovable code to GitHub](/blog/how-to-export-lovable-code-to-github), our standalone guide with screenshots, sync checks and the ZIP-download option.
+
 Lovable's GitHub integration is available on all plans, and it creates the repository for you ([Lovable GitHub integration](https://docs.lovable.dev/integrations/github), read 2026-09-25). It can only export to a new repository, not connect an existing one, so do not create one on GitHub first.
 
 1. **Add a GitHub connection to the workspace**, once. A workspace admin or owner opens Workspace settings → Git → GitHub → Add connection and authorizes the GitHub account or organization.

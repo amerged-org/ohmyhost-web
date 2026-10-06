@@ -363,7 +363,9 @@ export default {
     const social = /^\/og\/[a-z0-9-]+\.png$/u.test(url.pathname);
     // Article illustrations, rendered from the SVG sources next to their post.
     const illustration = /^\/images\/[a-z0-9-]+\.png$/u.test(url.pathname);
-    const image = social || illustration;
+    // Owner-supplied screenshots retain their original pixels and dimensions.
+    const screenshot = /^\/shots\/[a-z0-9-]+\.png$/u.test(url.pathname);
+    const image = social || illustration || screenshot;
     if (!page && !logo && !font && !image) {
       const apiRequest = url.pathname.startsWith("/v1/");
       headers.set(

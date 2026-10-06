@@ -488,6 +488,60 @@ describe("public entry and unassigned Free-host fallback", () => {
     ).toBe(404);
   });
 
+  it("serves screenshot PNGs unchanged and rejects paths outside their directory", async () => {
+    const png = new Uint8Array(
+      await readFile(new URL("../public/og/blog.png", import.meta.url)),
+    );
+    const requests: string[] = [];
+    const assets = {
+      async fetch(request: Request) {
+        requests.push(request.url);
+        return new URL(request.url).pathname === "/shots/missing.png"
+          ? new Response(null, { status: 404 })
+          : new Response(png);
+      },
+    };
+    const url = "https://ohmyho.st/shots/lovable-github-settings.png";
+    for (const method of ["GET", "HEAD"]) {
+      const response = await worker.fetch(
+        new Request(`${url}?ticket=private-ticket`, { method }),
+        { ASSETS: assets },
+      );
+      expect(response.status).toBe(200);
+      expect(response.headers.get("content-type")).toBe("image/png");
+      expect(response.headers.get("cache-control")).toBe(
+        "public, max-age=86400",
+      );
+      expect(new Uint8Array(await response.arrayBuffer())).toEqual(
+        method === "HEAD" ? new Uint8Array() : png,
+      );
+    }
+    expect(
+      (
+        await worker.fetch(new Request("https://ohmyho.st/shots/missing.png"), {
+          ASSETS: assets,
+        })
+      ).status,
+    ).toBe(404);
+    expect(requests).toEqual([url, url, "https://ohmyho.st/shots/missing.png"]);
+    for (const path of [
+      "/shots/manifest.json",
+      "/shots/nested/screenshot.png",
+      "/shots/screenshot.PNG",
+      "/shots/screenshot_name.png",
+      "/shots/../pages/home.html",
+    ])
+      expect(
+        (
+          await worker.fetch(new Request(`https://ohmyho.st${path}`), {
+            ASSETS: assets,
+          })
+        ).status,
+        path,
+      ).toBe(404);
+    expect(requests).toHaveLength(3);
+  });
+
   it("moves legacy documentation directly to its canonical HTML or Markdown page", async () => {
     const routes: Record<string, string> = {
       "/docs": "/",

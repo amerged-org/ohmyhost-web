@@ -1,0 +1,26 @@
+{
+  "recordedOn": "2026-10-06",
+  "assets": [
+    {
+      "file": "public/shots/lovable-export-project-settings.png",
+      "width": 1052,
+      "height": 502,
+      "sha256": "c2596c68fd989a443eb24f848c7a0a2193afda9e39bca02503131cd12f2d7ca8",
+      "provenance": "Original screenshot supplied by the owner in this request; copied without edits."
+    },
+    {
+      "file": "public/shots/lovable-export-git-settings.png",
+      "width": 1782,
+      "height": 1098,
+      "sha256": "cf1e583506351917ac399451f25ffaabc249fe92f410f2de9b0b58af6541d7bc",
+      "provenance": "Original screenshot supplied by the owner in this request; copied without edits."
+    },
+    {
+      "file": "public/shots/lovable-export-github-connected.png",
+      "width": 1794,
+      "height": 1094,
+      "sha256": "71c4a08b45246263c753ca1cc70c7f821c636a2e6e285bf4120ea2e7ac6e684e",
+      "provenance": "Original screenshot supplied by the owner in this request; copied without edits."
+    }
+  ]
+}

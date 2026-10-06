@@ -14,6 +14,8 @@ If you also want to edit the exported app outside Lovable, the guide to [using y
 
 ## Export to GitHub
 
+Start with [How to export Lovable code to GitHub](/blog/how-to-export-lovable-code-to-github). The screenshot guide walks through Project settings → Git, GitHub authorization, the first sync and getting the code onto your computer.
+
 Lovable's GitHub integration keeps the project in continuous sync with a repository, and external platforms deploy from that repository (https://docs.lovable.dev/tips-tricks/external-deployment-hosting, read 2026-09-20). Connect GitHub in the project, let Lovable create the repository, and you have a normal Vite + React codebase with a normal commit history. Nothing is ejected and nothing is locked: you can keep prompting in Lovable, and every change still lands in the same repository you are about to deploy from.
 
 ## What breaks by hand

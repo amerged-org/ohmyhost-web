@@ -50,6 +50,11 @@ only that committed file, so a build is deterministic and offline.
 | W007 | Implemented | An article illustration is an SVG beside its post (`content/<path>/figures/<name>.svg`), rendered by `node scripts/site-capture.mjs figures` into `public/images/<name>.png` with a source-hash manifest and served at `/images/<name>.png`. |
 | W008 | Implemented | Support means the customer's agent reports a bug, issue or feature request with MCP `feedback_submit` or CLI `feedback submit` and follows it with `feedback_status`; the footer links the docs Support page, and `/contact` stays for what an agent cannot report. |
 
+Owner-supplied screenshots are copied unchanged to `public/shots/<name>.png` and served at
+`/shots/<name>.png`, using lowercase letters, digits and hyphens in the name. Articles declare each
+screenshot's original dimensions and descriptive alt text. This leaves the W007 SVG illustration
+sources, rendering and manifest unchanged.
+
 ## Editorial SEO and response caching
 
 The homepage and editorial JSON-LD graphs share the `WebSite` identity from

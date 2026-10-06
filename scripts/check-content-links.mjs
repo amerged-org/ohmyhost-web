@@ -49,6 +49,8 @@ const report = auditContentLinks(
     workerTargets.has(path) ||
     brandTargets.has(path) ||
     (path.startsWith("/images/") && existsSync(join(root, "public", path))) ||
+    (/^\/shots\/[a-z0-9-]+\.png$/u.test(path) &&
+      existsSync(join(root, "public", path))) ||
     (!generatedContentPaths.has(path.replace(/\.md$/u, "")) &&
       customerDocument(path) !== null),
 );

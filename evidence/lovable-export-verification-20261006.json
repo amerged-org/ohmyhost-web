@@ -1,0 +1,97 @@
+{
+  "checkedOn": "2026-10-06",
+  "scope": "Local preview HTTP checks after 39 tests, typecheck, lint and production bundle dry-run passed. No production deployment.",
+  "preview": "Compiled Worker served locally with a filesystem ASSETS binding and production origin on port8793; no provider calls. Installed workerd rejected checked-in compatibility_date, so browser rendering was checked with the compiled Worker in Node. Production configuration unchanged.",
+  "results": [
+    {
+      "path": "/blog/how-to-export-lovable-code-to-github",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 80769,
+      "screenshots": 3,
+      "fullSizeScreenshotLinks": 3
+    },
+    {
+      "path": "/blog/how-to-export-lovable-code-to-github.md",
+      "status": 200,
+      "contentType": "text/markdown; charset=utf-8",
+      "bytes": 9709
+    },
+    {
+      "path": "/blog",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 69740,
+      "containsGuideLink": true
+    },
+    {
+      "path": "/sitemap.xml",
+      "status": 200,
+      "contentType": "application/xml; charset=utf-8",
+      "bytes": 3304,
+      "containsGuideLink": true
+    },
+    {
+      "path": "/blog/lovable-alternative-bring-your-own-llm",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 89661,
+      "containsGuideLink": true
+    },
+    {
+      "path": "/blog/host-a-lovable-app-after-export",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 85678,
+      "containsGuideLink": true
+    },
+    {
+      "path": "/from/lovable",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 93195,
+      "containsGuideLink": true
+    },
+    {
+      "path": "/og/blog-how-to-export-lovable-code-to-github.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 185585
+    },
+    {
+      "path": "/shots/lovable-export-project-settings.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 97281,
+      "matchesOriginal": true
+    },
+    {
+      "path": "/shots/lovable-export-git-settings.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 223499,
+      "matchesOriginal": true
+    },
+    {
+      "path": "/shots/lovable-export-github-connected.png",
+      "status": 200,
+      "contentType": "image/png",
+      "bytes": 190417,
+      "matchesOriginal": true
+    }
+  ],
+  "checks": {
+    "tests": "39 passed across 11 files",
+    "typecheck": "passed",
+    "lint": "passed",
+    "productionBuild": "passed (dry-run, no upload)",
+    "formatting": "passed for touched code and JSON",
+    "whitespace": "git diff --check passed"
+  },
+  "browserReview": {
+    "desktop": "1280x720: original screenshot and prose fit article column; saved CUA screenshot at evidence/lovable-export-desktop-preview-20261006.jpg",
+    "mobile": "390x844: document width390, all three images width346, no horizontal page overflow; full-size screenshot links exposed in accessibility tree",
+    "screenshotEnlargementLinks": 3,
+    "browser": "Codex in-app browser using CUA"
+  }
+}

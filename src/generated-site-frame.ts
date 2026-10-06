@@ -14,6 +14,7 @@ export const OG_IMAGES: readonly string[] = [
   "blog",
   "blog-free-vercel-supabase-alternatives-2026",
   "blog-host-a-lovable-app-after-export",
+  "blog-how-to-export-lovable-code-to-github",
   "blog-introducing-ohmyho-st",
   "blog-lovable-alternative-bring-your-own-llm",
   "blog-railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026",

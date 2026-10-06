@@ -1,0 +1,86 @@
+{
+  "reviewedOn": "2026-10-06",
+  "method": "Google Search inspected through CUA in the Codex in-app browser; English queries; signed out. Observations are search-intent evidence, not search-volume estimates.",
+  "observations": [
+    {
+      "query": "how to export lovable code",
+      "url": "https://www.google.com/search?q=how+to+export+lovable+code",
+      "peopleAlsoAsk": [
+        "How do I export code from Lovable to GitHub?",
+        "How to download from Lovable AI?",
+        "Does Lovable give you source code?"
+      ],
+      "relatedSearches": [
+        "How to download code from Lovable without GitHub",
+        "How to download Lovable code",
+        "How to export Lovable code to GitHub",
+        "Lovable export"
+      ],
+      "resultPattern": "Short tutorial videos, official GitHub integration docs, community ZIP-download questions and export guides."
+    },
+    {
+      "query": "how to connect lovable to github",
+      "url": "https://www.google.com/search?q=how+to+connect+lovable+to+github",
+      "peopleAlsoAsk": [
+        "Does Lovable integrate with GitHub?",
+        "How to connect an existing GitHub project to Lovable?",
+        "How do I export code from Lovable to GitHub?"
+      ],
+      "relatedSearches": [
+        "Lovable GitHub connection not working",
+        "Install the Lovable GitHub app",
+        "No github connections available add a connection first lovable",
+        "Lovable github branch switching"
+      ],
+      "resultPattern": "Official Git sync setup ranks prominently; some results describe older menu paths or conflate the GitHub API connector with code sync."
+    },
+    {
+      "query": "how to download lovable code without github",
+      "url": "https://www.google.com/search?q=how+to+download+lovable+code+without+github",
+      "peopleAlsoAsk": [
+        "How to get code from Lovable to GitHub?",
+        "How to export from Lovable?"
+      ],
+      "relatedSearches": [
+        "Download Lovable project as ZIP",
+        "Export Lovable code to GitHub",
+        "Lovable export code"
+      ],
+      "resultPattern": "Many videos, downloader extensions and community questions; the built-in Download codebase button in the supplied screenshot directly answers this intent."
+    }
+  ],
+  "keywordMap": [
+    {
+      "priority": "primary",
+      "keyword": "how to export Lovable code to GitHub",
+      "placement": "Title, H1, opening answer, slug and incoming How to link anchors",
+      "intent": "Step-by-step code export with verification"
+    },
+    {
+      "priority": "secondary",
+      "keyword": "how to connect Lovable to GitHub",
+      "placement": "Setup steps and troubleshooting",
+      "intent": "First-time authorization and repository connection"
+    },
+    {
+      "priority": "secondary",
+      "keyword": "how to download Lovable code without GitHub",
+      "placement": "ZIP-download section and FAQ",
+      "intent": "One-time local source download"
+    },
+    {
+      "priority": "supporting",
+      "keyword": "Lovable GitHub connection not working",
+      "placement": "Troubleshooting",
+      "intent": "Missing connection, blocked popup or branch mismatch"
+    },
+    {
+      "priority": "supporting",
+      "keyword": "export Lovable project / download Lovable project as ZIP",
+      "placement": "Natural body copy and verification checklist",
+      "intent": "Obtain reusable project source"
+    }
+  ],
+  "editorialDecision": "Keep export/setup intent on the standalone guide. Existing alternative post owns agent-choice intent; existing hosting post owns deployment-after-export intent. Add descriptive How to links from both and the From Lovable page.",
+  "limitations": "No keyword-volume, difficulty, traffic or ranking forecasts were measured. Search results and related suggestions vary by time and location."
+}

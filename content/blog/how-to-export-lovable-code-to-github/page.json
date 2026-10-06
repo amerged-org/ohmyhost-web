@@ -1,0 +1,17 @@
+{
+  "title": "How to export Lovable code to GitHub: a step-by-step guide",
+  "description": "Export Lovable code to GitHub with screenshots: open Git settings, connect your account, check sync and clone your project. Includes the ZIP download option.",
+  "kind": "article",
+  "status": "published",
+  "crumb": "Export Lovable code",
+  "social": {
+    "image": "/og/blog-how-to-export-lovable-code-to-github.png",
+    "alt": "ohmyho.st. How to export Lovable code to GitHub: project settings, GitHub connection, sync verification and code download.",
+    "title": "ohmyho.st — How to export Lovable code to GitHub",
+    "description": "A screenshot guide to connect GitHub in Lovable, verify the export and clone or download your code."
+  },
+  "parent": "/blog",
+  "author": "Sebastian Mertens",
+  "published": "2026-10-06",
+  "modified": "2026-10-06"
+}

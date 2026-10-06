@@ -6,6 +6,8 @@ Export your Lovable project to GitHub, then ask a coding agent to check the Vite
 
 ## Export to GitHub
 
+Need the exact menu clicks? Follow [How to export Lovable code to GitHub](/blog/how-to-export-lovable-code-to-github), our screenshot guide to connecting GitHub, checking the sync and downloading your source code.
+
 Lovable exports a Vite and React repository, which is the starting point for the hosting review. The agent checks the exported source, build command and dependencies with `ohmyhost init --dry-run --json`. A frontend build alone does not establish that its external database, authentication or files work from the new host; test those flows on Dev before moving production traffic.
 
 Lovable's GitHub integration keeps the project "in continuous sync with your repository", and "external platforms deploy directly from GitHub" (https://docs.lovable.dev/tips-tricks/external-deployment-hosting, read 2026-09-20). The sync runs both ways: edits you make in Lovable land in the repository as commits, and commits from your agent show up in Lovable.
