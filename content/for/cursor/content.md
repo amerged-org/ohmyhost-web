@@ -1,6 +1,6 @@
 # Deploy an app built with Cursor
 
-Add one local MCP server to Cursor, paste one prompt, and Cursor deploys your GitHub repository to Dev and Prod on ohmyho.st with Postgres and a live URL. Free gives {{ number plan.freeCredits }} credits a UTC month; Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits shared by every project. Three static portfolio sites cost about {{ credits workload.threeStaticSites }} a month.
+Add one local MCP server to Cursor, paste one prompt, and Cursor deploys your app from its saved managed or GitHub source to Dev and Prod on ohmyho.st with Postgres and a live URL. Free gives {{ number plan.freeCredits }} credits a UTC month; Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits shared by every project. Three static portfolio sites cost about {{ credits workload.threeStaticSites }} a month.
 
 {{ figure flow.cursor }}
 
@@ -23,17 +23,19 @@ Open the repository in Cursor, open the agent chat and paste this. Cursor reads 
 5. Review the plan. `deployment_plan` returns the exact commit, the build hold (about {{ credits unit.buildReservation }} for 14 reserved minutes, settled to the measured seconds), required secrets and effects. Confirm, and Cursor calls `deployment_create`.
 6. Verify. Cursor polls `operation_get`, reads `project_status`, opens Dev through the reusable share link (or the clean URL, for public Dev) and tests a real read and write before it reports the URL. Ask it to promote once Dev works.
 
-The whole path is the [deployment Skill](/skills/ohmyhost-deploy-github/SKILL.md); Cursor follows it step by step.
+The whole path is the [deployment Skill](/skills/ohmyhost-deploy/SKILL.md); Cursor follows it step by step.
+
+These examples use the local stdio client. When the client exposes authenticated remote MCP, follow the [get-started Skill](/skills/ohmyhost-get-started/SKILL.md) for OAuth and explicit project/preview/publishing grants; discover its actual tools instead of assuming this local catalog. Private application values then use `secret_input_request` and its same-account portal link rather than local stdin. A new app developed entirely in chat starts with managed versions. This describes the supported transport contract, not a claim that a particular native chat UI has completed acceptance.
 
 ## What Cursor does next
 
 The sequence for a first deployment, in order (MCP tools unless marked CLI):
 
 1. `identity_get` reads who is signed in and which organization is selected. With several workspaces Cursor uses `organization_list` and `organization_use`; with none it asks you for a name and calls `organization_create`.
-2. CLI: `ohmyhost github status` for the workspace, then `ohmyhost github connect` once if it has no GitHub installation. You open one authorization link. Cursor never asks for a GitHub token or an installation ID.
-3. `project_create` with your region and data mode.
-4. `source_link` for the repository, then `source_get` for its state.
-5. `deployment_plan` for the pushed commit, then your confirmation.
+2. Read `project_context_get` and `source_get` for an existing project and continue its current binding. For an unbound checkout, honor your source choice; a selected GitHub repository keeps GitHub, otherwise choose once between managed versions and GitHub setup.
+3. Reuse the project, or call `project_create` with your region and data mode when you want a new app.
+4. Save current files with `source_publish` for managed versions. For a selected GitHub source, use workspace `github_status`/`github_connect` when needed, then `source_link` for the authorized repository. Confirm `source_get` before planning.
+5. `deployment_plan` for the exact saved managed or pushed GitHub commit, then your confirmation.
 6. `secret_set_command` for each required secret. It returns a CLI command that reads the value from stdin, so the value never passes through the chat or the MCP server.
 7. `deployment_create` with the reviewed plan and one saved idempotency key, then `operation_get` until the build finishes; `deployment_logs` if it fails.
 8. `project_status` and `project_dev_share_link_get` to verify Dev.
@@ -94,7 +96,7 @@ Yes, when the sites are static or quiet. {{ number plan.freeCredits }} credits a
 
 ### Where does the code come from?
 
-From a GitHub repository you authorize. GitHub is the only deployment source; there is no local upload and no container image. Supported frameworks are Next.js, Vite with React and TanStack Start. Cursor runs `ohmyhost init --dry-run` first and reports blockers before anything is provisioned.
+From the project's current managed source or a GitHub repository you authorize. Managed versions save the filtered current files; GitHub uses commits you push. Containers remain unsupported. Supported frameworks are Next.js, Vite with React and TanStack Start. Cursor runs `ohmyhost init --dry-run` first and reports blockers before anything is provisioned.
 
 ### What happens when the balance hits zero?
 
@@ -102,7 +104,7 @@ A seven-day grace period starts and the Owner gets one warning mail. Funded serv
 
 ### Can I take my data and leave?
 
-Yes. Ask Cursor for an export: `project_export_create` builds a password-encrypted ZIP with a portable SQL dump, one accepted request per project in any rolling 24 hours, downloaded through a signed link valid 24 hours. You choose the password and the archive is kept seven days. Files and source are not in it; the source is already in your GitHub repository.
+Yes. Ask Cursor for an export: `project_export_create` builds a password-encrypted ZIP with a portable SQL dump, one accepted request per project in any rolling 24 hours, downloaded through a signed link valid 24 hours. You choose the password and the archive is kept seven days. Files and source are not in it; source versions remain in the project's managed repository or selected GitHub repository.
 
 ### Does my app's login change?
 

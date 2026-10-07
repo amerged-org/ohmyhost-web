@@ -1,6 +1,6 @@
 # Deploy with Codex
 
-Paste one prompt into Codex and it deploys your GitHub repository to ohmyho.st through the {{ tools }} MCP tools: hosting, Postgres, a domain and mail from one balance. Free gives {{ number plan.freeCredits }} credits a month; Paid is {{ usd plan.paidUsd }} for {{ number plan.paidCredits }}. A non-expiring token and a stop budget let the agent run without you watching.
+Paste one prompt into Codex and it deploys your app from its saved managed or GitHub source through the {{ tools }} local MCP tools: hosting, Postgres, a domain and mail from one balance. Free gives {{ number plan.freeCredits }} credits a month; Paid is {{ usd plan.paidUsd }} for {{ number plan.paidCredits }}. A non-expiring token and a stop budget let the agent run without you watching.
 
 {{ figure flow.codex }}
 
@@ -12,19 +12,21 @@ Open Codex in the repository you want to deploy and paste this:
 {{ prompt }}
 ```
 
-Codex reads llms.txt and the get-started Skill, then follows the deployment Skill. It stops only for the things you alone can do: the browser sign-in, the GitHub authorization, and for a new project the region and whether Dev and Prod share data. Everything else is a tool call it plans and you confirm.
+Codex reads llms.txt and the get-started Skill, then follows the deployment Skill. It stops only for the things you alone can do: the browser sign-in, GitHub authorization when that source is selected, and for a new project the region and whether Dev and Prod share data. Everything else is a tool call it plans and you confirm.
 
 ## How to deploy with Codex
 
 1. Register the local MCP server: `codex mcp add ohmyho -- ohmyhost-mcp`. The Skill's harness reference adds `--env OHMYHOST_ENVIRONMENT=production` before the `--`. Codex writes the entry to `~/.codex/config.toml`, which the Codex CLI and the IDE extension share (learn.chatgpt.com, read 2026-09-20). If `ohmyhost --version` fails, install the CLI and MCP packages first from the [CLI and MCP guide](https://docs.ohmyho.st/agents/mcp).
 2. Paste the prompt above. Codex runs `ohmyhost whoami --json` and lists the `ohmyho` tools before it touches anything; a saved configuration alone is not a connection.
 3. Sign in once. Codex runs `ohmyhost login --json` and prints a link plus a confirmation code such as `ABCD-EFGH`. Open the link, check that the page shows the same code, then sign in or sign up. No password, email code or token value ever goes into the chat.
-4. Review the plan. Codex calls `project_create`, `source_link` and `deployment_plan`. The plan reserves 14 build minutes, about {{ credits unit.buildReservation }}, settles the measured seconds afterwards, and lists required secret names and blockers. Secrets go in through the stdin-only command returned by `secret_set_command`, never through the chat.
+4. Review the plan. Codex reuses the current project/source or calls `project_create` for a new one. It saves a managed version or uses `source_link` for the selected GitHub repository, then calls `deployment_plan` for that exact commit. The plan reserves 14 build minutes, about {{ credits unit.buildReservation }}, settles the measured seconds afterwards, and lists required secret names and blockers. Secrets go in through the stdin-only command returned by `secret_set_command`, never through the chat.
 5. Verify. After `deployment_create`, Codex polls `operation_get`, reads the URL from `project_status`, opens Dev through the owner's reusable share link from `project_dev_share_link_get` (or the clean URL, for public Dev) and tests login plus a real read and write before it reports a URL as working.
+
+These examples use the local stdio client. When the client exposes authenticated remote MCP, follow the [get-started Skill](/skills/ohmyhost-get-started/SKILL.md) for OAuth and explicit project/preview/publishing grants; discover its actual tools instead of assuming this local catalog. Private application values then use `secret_input_request` and its same-account portal link rather than local stdin. A new app developed entirely in chat starts with managed versions. This describes the supported transport contract, not a claim that a particular native chat UI has completed acceptance.
 
 ## What Codex does next
 
-The {{ tools }} tools cover the whole lifecycle, and the expensive or destructive ones come in pairs: `deployment_plan` → `deployment_create`, `promotion_plan` → `promotion_execute`, `rollback_plan` → `rollback_execute`, `delete_plan` → `delete_execute`. The plan is data you can read; the execute call carries the plan and one saved idempotency key, so a retry after an uncertain response cannot deploy twice.
+The {{ tools }} local tools cover the whole lifecycle, and the expensive or destructive ones come in pairs: `deployment_plan` → `deployment_create`, `promotion_plan` → `promotion_execute`, `rollback_plan` → `rollback_execute`, `delete_plan` → `delete_execute`. The plan is data you can read; the execute call carries the plan and one saved idempotency key, so a retry after an uncertain response cannot deploy twice.
 
 - Resuming: `project_context_get` returns status, DNS and mail next actions and shared notes, so a new session does not re-read the repository.
 - Auth: `deployment_plan` preserves your existing application auth, Better Auth or your own WorkOS AuthKit tenant. The platform login is separate and never becomes your app's users.
@@ -49,7 +51,7 @@ The trade-off: an unattended agent cannot buy credits. `billing_checkout_create`
 Four public files, no login required:
 
 - [llms.txt](https://ohmyho.st/llms.txt) — the index an agent reads first. It links the Skills, the docs and the tool catalog, and it never contains account data.
-- [/.well-known/agent-skills/index.json](https://ohmyho.st/.well-known/agent-skills/index.json) — the nine Skills with descriptions, each served at `/skills/<name>/SKILL.md`, for example [ohmyhost-usage-and-budgets](/skills/ohmyhost-usage-and-budgets/SKILL.md).
+- [/.well-known/agent-skills/index.json](https://ohmyho.st/.well-known/agent-skills/index.json) — the current Skills with descriptions, each served at `/skills/<name>/SKILL.md`, for example [ohmyhost-usage-and-budgets](/skills/ohmyhost-usage-and-budgets/SKILL.md).
 - [/mcp-tools.json](https://ohmyho.st/mcp-tools.json) — the {{ tools }} tools with their descriptions, the same catalog the local server exposes. It is a catalog, not a remote endpoint; `ohmyhost-mcp` runs on your machine.
 - The [OpenAPI 3.1 contract](https://ohmyho.st/api/openapi.json) — the REST `/v1` API behind the CLI, the MCP server and the SDK. An agent that prefers plain HTTP calls it with the same token.
 
@@ -85,7 +87,7 @@ A project budget. `project_budget_set` in `stop` mode rejects new billable work 
 
 ### Can Codex deploy something other than a GitHub repository?
 
-No. GitHub is the only deployment source, and the app must be Next.js, Vite/React or TanStack Start; there are no containers. `ohmyhost init --dry-run --json` reports blockers before any credit is reserved, and the [portable-app Skill](/skills/ohmyhost-build-portable-app/SKILL.md) covers the source changes a blocker usually needs.
+Yes. The current project binding can use managed versions or a GitHub repository you select. For an unbound checkout without GitHub, choose once whether to keep versions with ohmyho.st or set up GitHub; an explicit choice already counts. The app must still fit a supported Next.js, Vite/React or TanStack Start runtime; there are no containers. `ohmyhost init --dry-run --json` reports blockers before any credit is reserved, and the [portable-app Skill](/skills/ohmyhost-build-portable-app/SKILL.md) covers the source changes a blocker usually needs.
 
 ### Does this work with the Codex IDE extension too?
 

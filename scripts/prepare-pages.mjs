@@ -149,7 +149,7 @@ for (const [name, digest] of Object.entries(templates)) {
       .replaceAll("omh deploy", "ohmyhost project status --help");
     html = html.replaceAll(
       "Read https://ohmyho.st/llms.txt and set up hosting for this repo on ohmyho.st: create the project, provision Postgres, add the domain and deploy. Ask me only if you need a decision.",
-      "Read https://ohmyho.st/llms.txt and https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md. Connect this agent to ohmyho.st and deploy this GitHub project using only the capabilities it needs. After signing in, use the user and organization that whoami reports; never guess an account, organization or project ID. Follow the deployment Skill, keep my existing project decisions and verify the app.",
+      "Read https://ohmyho.st/llms.txt and https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md. Connect this agent to ohmyho.st and develop and deploy this application using only the capabilities it needs. Read the existing project source first and follow the get-started Skill to reuse GitHub or managed versions for this workspace. After signing in, use the user and organization that whoami reports; never guess an account, organization or project ID. Follow the deployment Skill, keep my existing project decisions and verify the app.",
     );
     html = html.replace(
       "</body>",

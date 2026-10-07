@@ -40,7 +40,7 @@ What breaks: `.env` is in the first commit with an OpenAI key, a Stripe secret a
 
 Why it breaks here: a committed key is a leaked key, and on ohmyho.st a committed `.env` does not configure anything anyway. The build sandbox holds no platform credential and no customer runtime-secret values, so the file is dead weight with a live key in it.
 
-What the agent does: it treats every committed key as burned and tells you to rotate it at the provider; the agent cannot do that for you and should not ask you to paste the new value into chat. It removes the file, adds it to `.gitignore` and pushes. Then it delivers each value with `secret_set_command`: the tool returns a stdin-only CLI command for the chosen environment ID, and the value never enters MCP, the conversation, a command argument or project notes. `secrets_list` shows names only; `secret_delete` removes one. Source lists secret names, never values. One reserved name: `BETTER_AUTH_SECRET` belongs to the platform-managed integration, so an app that owns its Better Auth setup uses its own name, for example `APP_AUTH_SECRET`, mapped to the library's `secret` option. The agent also never copies its own ohmyho.st token file into application secrets. Reference: [secrets](https://docs.ohmyho.st/secrets).
+What the agent does: it treats every committed key as burned and tells you to rotate it at the provider; the agent cannot do that for you and should not ask you to paste the new value into chat. It removes the file, adds it to `.gitignore` and saves a managed version or pushes the selected GitHub source. Each value uses the local stdin command from `secret_set_command` or supported remote private input from `secret_input_request`, for the chosen environment; it never enters conversation, a tool/command argument or project notes. `secrets_list` shows names only; `secret_delete` removes one. Source lists secret names, never values. One reserved name: `BETTER_AUTH_SECRET` belongs to the platform-managed integration, so an app that owns its Better Auth setup uses its own name, for example `APP_AUTH_SECRET`, mapped to the library's `secret` option. The agent also never copies its own ohmyho.st token file into application secrets. Reference: [secrets](https://docs.ohmyho.st/secrets).
 
 ## 5. Build-time versus runtime configuration
 
@@ -60,7 +60,7 @@ What the agent does, with two honest options. First: keep your external mail pro
 
 ## How to run this on your repository
 
-1. Push the exported source to a GitHub repository you can authorize. GitHub is the only deployment source; there is no upload path and no container.
+1. Continue the current project/source, or save the exported current files as managed versions or push them to a GitHub repository you authorize. Follow the [deploy Skill](/skills/ohmyhost-deploy/SKILL.md) for the selected route; containers remain unsupported.
 2. Open Claude Code, or another agent that speaks MCP, in that checkout and paste the prompt below. The agent installs the CLI and MCP server, sends you one sign-in link with a code, and runs `ohmyhost init --dry-run --json`.
 3. Work through the six items above as the returned blockers and requirements. The agent commits the fixes; you approve each `deployment_plan` before `deployment_create` runs.
 4. Check the protected Dev app through the share link from `project_dev_share_link_get`: sign-in, a protected route, one real write and one mail if you enabled it.

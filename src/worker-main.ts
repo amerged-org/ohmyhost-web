@@ -216,6 +216,19 @@ export default {
       );
       return new Response(null, { status: 302, headers });
     }
+    if (url.pathname === "/.well-known/openai-apps-challenge") {
+      headers.set("content-type", "text/plain; charset=utf-8");
+      if (!env?.ASSETS) return new Response(null, { status: 503, headers });
+      const asset = await env.ASSETS.fetch(
+        new Request(`${HOME.slice(0, -1)}${url.pathname}`, {
+          method: request.method,
+        }),
+      );
+      return new Response(
+        request.method === "HEAD" || !asset.ok ? null : asset.body,
+        { status: asset.status, headers },
+      );
+    }
     if (url.pathname === "/robots.txt") {
       headers.set("content-type", "text/plain; charset=utf-8");
       headers.set("cache-control", "public, max-age=3600");

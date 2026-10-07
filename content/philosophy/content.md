@@ -28,9 +28,9 @@ A project can carry a monthly budget if you want a ceiling: continue, which warn
 
 ## No dashboard runs your deploys
 
-There is no deploy dashboard. Your coding agent deploys through MCP: {{ tools }} tools, listed in the [tool catalog](https://docs.ohmyho.st/mcp-tools). It authorizes the GitHub repository with source_link, plans with deployment_plan, and you confirm before deployment_create runs. Every expensive or destructive action is that same pair: promotion_plan then promotion_execute, rollback_plan then rollback_execute, delete_plan then delete_execute. A plan quotes its build before it starts, so what you confirm is a price and a list of effects, not a spinner.
+There is no deploy dashboard. Your coding agent deploys through MCP: {{ tools }} tools, listed in the [tool catalog](https://docs.ohmyho.st/mcp-tools). It continues the current managed or GitHub source, saves/links the selected version, plans with deployment_plan, and you confirm before deployment_create runs. Every expensive or destructive action is that same pair: promotion_plan then promotion_execute, rollback_plan then rollback_execute, delete_plan then delete_execute. A plan quotes its build before it starts, so what you confirm is a price and a list of effects, not a spinner.
 
-Secrets never travel through the chat. secret_set_command returns a stdin-only CLI command; the value goes from your terminal to the environment and nowhere else. See [secrets](https://docs.ohmyho.st/secrets).
+Secrets never travel through the chat. A local agent uses stdin from secret_set_command; a supported remote connection uses the private portal input. Both keep values out of tool arguments and source. See [secrets](https://docs.ohmyho.st/secrets).
 
 The portal at app.ohmyho.st shows projects, credits, budgets and API tokens. It is a place to look, not a place to deploy: see what a project spent, set a budget, create a token. I wanted the thing that runs your deploy to be the same thing that wrote the code, because that is where the context is. Every tool call is a discrete, readable step, and a stalled operation is diagnosed with operation_get and deployment_logs rather than by refreshing a page.
 

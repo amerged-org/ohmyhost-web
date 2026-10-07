@@ -20,8 +20,11 @@ describe("public entry and unassigned Free-host fallback", () => {
     }))
       if (entry.isDirectory())
         expect(assetRules, `public/${entry.name} is not uploaded`).toContain(
-          `!${entry.name}/**`,
+          entry.name === ".well-known"
+            ? "!.well-known/openai-apps-challenge"
+            : `!${entry.name}/**`,
         );
+    expect(assetRules).not.toContain("!.well-known/**");
     const assets = new SiteAssetFixture();
     const home = await worker.fetch(
       new Request("https://ohmyho.st/?ticket=private-ticket"),
@@ -324,7 +327,13 @@ describe("public entry and unassigned Free-host fallback", () => {
     ).toContain("OHMYHOST_SIGNUP_SOURCE=''");
     expect(installerText).toContain(`omh_release='${CLIENT_RELEASE}'`);
     expect(installerText).toContain(
-      "using only my explicitly authorized GitHub repository",
+      "Read the current project source binding first and continue its saved source",
+    );
+    expect(installerText).toContain(
+      "honor an explicit source choice without asking again",
+    );
+    expect(installerText).toContain(
+      "only an unbound directory without one needs the single choice",
     );
     expect(installerText).not.toMatch(/upload source path|source uploads/u);
     expect(installerText).toContain(
@@ -505,7 +514,9 @@ describe("public entry and unassigned Free-host fallback", () => {
     for (const method of ["GET", "HEAD"]) {
       const response = await worker.fetch(
         new Request(`${url}?ticket=private-ticket`, { method }),
-        { ASSETS: assets },
+        {
+          ASSETS: assets,
+        },
       );
       expect(response.status).toBe(200);
       expect(response.headers.get("content-type")).toBe("image/png");
@@ -540,6 +551,71 @@ describe("public entry and unassigned Free-host fallback", () => {
         path,
       ).toBe(404);
     expect(requests).toHaveLength(3);
+  });
+
+  it("serves the exact plaintext domain challenge and strips request credentials", async () => {
+    const challenge = await readFile(
+      new URL("../public/.well-known/openai-apps-challenge", import.meta.url),
+      "utf8",
+    );
+    expect(challenge).toBe("Yg48eH8K2D6mhlVlVhLHj0s7Mdh_BGNd7bGZ4HHRxvE");
+    expect(new TextEncoder().encode(challenge)).toHaveLength(43);
+    const requests: Request[] = [];
+    const assets = {
+      async fetch(request: Request) {
+        requests.push(request);
+        return new Response(challenge);
+      },
+    };
+    const url = "https://ohmyho.st/.well-known/openai-apps-challenge";
+    for (const method of ["GET", "HEAD"]) {
+      const response = await worker.fetch(
+        new Request(url + "?token=private", {
+          method,
+          headers: { authorization: "Bearer private", cookie: "private" },
+        }),
+        { ASSETS: assets },
+      );
+      expect(response.status).toBe(200);
+      expect(response.headers.get("content-type")).toBe(
+        "text/plain; charset=utf-8",
+      );
+      expect(response.headers.get("cache-control")).toBe("no-store");
+      expect(await response.text()).toBe(method === "HEAD" ? "" : challenge);
+    }
+    expect(requests).toHaveLength(2);
+    for (const [index, request] of requests.entries()) {
+      expect(request.url).toBe(url);
+      expect(request.method).toBe(index === 0 ? "GET" : "HEAD");
+      expect(request.headers.has("authorization")).toBe(false);
+      expect(request.headers.has("cookie")).toBe(false);
+    }
+    expect((await worker.fetch(new Request(url))).status).toBe(503);
+    const missing = await worker.fetch(new Request(url), {
+      ASSETS: { fetch: async () => new Response("not found", { status: 404 }) },
+    });
+    expect(missing.status).toBe(404);
+    expect(await missing.text()).toBe("");
+    expect(
+      (
+        await worker.fetch(new Request(url, { method: "POST" }), {
+          ASSETS: assets,
+        })
+      ).status,
+    ).toBe(405);
+    for (const path of [
+      "/.well-known/openai-apps-challenge/",
+      "/.well-known/openai-apps-challenge.txt",
+      "/.well-known/other-challenge",
+    ])
+      expect(
+        (
+          await worker.fetch(new Request("https://ohmyho.st" + path), {
+            ASSETS: assets,
+          })
+        ).status,
+      ).toBe(404);
+    expect(requests).toHaveLength(2);
   });
 
   it("moves legacy documentation directly to its canonical HTML or Markdown page", async () => {
@@ -765,7 +841,13 @@ it("serves only pinned public client assets and strips credentials before the as
       new Request("https://ohmyho.st/.well-known/skills/index.json"),
     )
   ).json();
-  expect(index.skills).toHaveLength(9);
+  expect(index.skills).toHaveLength(10);
+  expect(index.skills).toContainEqual(
+    expect.objectContaining({
+      name: "ohmyhost-deploy",
+      url: "https://ohmyho.st/skills/ohmyhost-deploy/SKILL.md",
+    }),
+  );
   for (const entry of index.skills) {
     const document = await worker.fetch(new Request(entry.url));
     expect(document.status).toBe(200);

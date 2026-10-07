@@ -20,7 +20,7 @@ Three things to do in Lovable:
 2. Wait for the first push. Open the repository on github.com and check that `package.json`, `vite.config.ts` and a `.env` file are there.
 3. Leave Lovable connected. You can keep prompting there; each change becomes a commit your agent can deploy.
 
-GitHub is the only source ohmyho.st deploys from. Your agent asks for one authorization link (`github_connect`), you approve the repository in the browser once, and `source_link` ties it to the project. No ZIP uploads, no drag-and-drop. Details: https://docs.ohmyho.st/github.
+For this selected GitHub export, your agent uses `github_connect` when needed, you approve repository access in the browser, and `source_link` ties it to the project. An existing ohmyho.st project keeps its current source; accessible local files can instead be saved as managed versions through the [deploy Skill](/skills/ohmyhost-deploy/SKILL.md). No hosting dashboard upload is required. GitHub details: https://docs.ohmyho.st/github.
 
 ## What breaks after export
 
@@ -28,7 +28,7 @@ Lovable's own guide lists the seams. Read them once so the checklist further dow
 
 ### The three VITE_ values
 
-`VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` and `VITE_SUPABASE_PROJECT_ID` sit in the `.env` file "in Lovable's code editor or in your synced GitHub repository", and "environment variables prefixed with `VITE_` are embedded at build time, not runtime" (docs.lovable.dev, read 2026-09-20). Because Lovable commits that `.env`, a build from your repository sees the same values. The publishable key is public by design; it belongs in the browser bundle. If you keep the same Supabase project, these three lines do not change.
+`VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` and `VITE_SUPABASE_PROJECT_ID` sit in the `.env` file "in Lovable's code editor or in your synced GitHub repository", and "environment variables prefixed with `VITE_` are embedded at build time, not runtime" (docs.lovable.dev, read 2026-09-20). For a selected GitHub export, verify the public build values in that repository. Managed snapshots exclude `.env` files; preserve required non-secret build configuration in the supported source files instead. The publishable key is public by design; it belongs in the browser bundle. If you keep the same Supabase project, these three lines do not change.
 
 ### OAuth redirect URLs and Site URL
 
@@ -36,7 +36,7 @@ Lovable says: "If your app uses Google sign-in or other OAuth providers, add you
 
 ### Secrets
 
-Anything private (a service role key, a Stripe secret, a third-party API key) must never carry the `VITE_` prefix; Vite would ship it to every visitor. On ohmyho.st the agent asks for the command `secret_set_command` returns, which reads the value from stdin. You paste the value into your terminal once, not into the chat. That is the one moment this move touches a terminal. Details: https://docs.ohmyho.st/secrets.
+Anything private (a service role key, a Stripe secret, a third-party API key) must never carry the `VITE_` prefix; Vite would ship it to every visitor. A local agent uses the stdin command from `secret_set_command`; a supported remote connection uses the private portal input from `secret_input_request`. Enter the value through that private path, never in chat or source. Details: https://docs.ohmyho.st/secrets.
 
 ### SPA rewrites
 
@@ -66,21 +66,21 @@ Open your coding agent (Claude Code, Cursor or Codex), tell it the repository UR
 {{ prompt }}
 ```
 
-What happens next, in plain words. The agent reads two pages, installs the ohmyho.st CLI and MCP server, and prints a sign-in link with a short code. You open the link in your browser, check that the page shows the same code, and sign in or sign up. The agent then asks for one GitHub authorization, reviews a deployment plan with you, and only then builds. Every expensive step is a plan you confirm: `deployment_plan` before `deployment_create`, `promotion_plan` before `promotion_execute`. You never type a command yourself except the one secret command above, and only if your app has a private key.
+What happens next, in plain words. The agent reads two pages, installs the ohmyho.st CLI and MCP server, and prints a sign-in link with a short code. You open the link in your browser, check that the page shows the same code, and sign in or sign up. For a selected GitHub source it obtains repository access when needed; managed source saves the current files as a version. It reviews a deployment plan with you and only then builds. Every expensive step is a plan you confirm: `deployment_plan` before `deployment_create`, `promotion_plan` before `promotion_execute`. Private values use local stdin or the supported remote portal path above, only when the app needs them.
 
 ## How to move your app from Lovable
 
 1. Export: connect GitHub in Lovable and let it create the repository. Confirm the first push on github.com.
 2. Paste the prompt above into your agent. Sign in through the link it prints; check that the code matches.
-3. Inventory: the agent runs `ohmyhost init --dry-run` on the repository and reports the framework, the Supabase usage, the `.env` values and anything unsupported. Read its summary; ask questions.
+3. Inventory: the agent runs `ohmyhost init --dry-run` on the repository and reports the framework, the Supabase usage, required configuration names and anything unsupported without disclosing private values. Read its summary; ask questions.
 4. Decide: keep Supabase (default) or ask for the migration Skill. Say it in one sentence, because the agent keeps your existing decisions unless you change them.
-5. Secrets and callback URLs: the agent tells you which secrets it needs and gives you the stdin command. You add the new hosts to Supabase's Redirect URLs and Site URL.
-6. Deploy to Dev: the agent creates the project (US by default, EU if you say so at creation; the choice is permanent and prices are identical), links the repository, plans, and builds. Dev is protected by default; `project_dev_share_link_get` gives you a reusable share link, or you choose public Dev when the project is created.
+5. Secrets and callback URLs: the agent tells you which secrets it needs and gives you the local stdin command or supported remote private input link. You add the new hosts to Supabase's Redirect URLs and Site URL.
+6. Deploy to Dev: the agent reuses your project or creates one when requested (US by default, EU if you say so at creation; the choice is permanent and prices are identical), continues or saves the managed version or links the selected GitHub repository, then plans and builds. Dev is protected by default; `project_dev_share_link_get` gives you a reusable share link, or you choose public Dev when the project is created.
 7. Verify login on Dev: sign in with Google or email, open a protected page, reload it, sign out. Reload a deep link.
 8. Promote to Prod: `promotion_plan` then `promotion_execute` reuse the same build without a rebuild. Isolated projects keep Dev and Prod data apart; Prod records are never overwritten by Dev rows.
 9. Link the domain: after Prod works, `domain_paid_plan` returns the CNAME to set at your registrar and `domain_paid_apply` activates it on Paid, or on Free while the project shows the “Powered by ohmyho.st” flag; the flag waives domain credits on either plan (https://docs.ohmyho.st/domains). Add the domain to Supabase's Redirect URLs, then run the login check once more on the real address.
 
-Every step maps to a Skill the agent reads on its own: [get started](/skills/ohmyhost-get-started/SKILL.md), [deploy from GitHub](/skills/ohmyhost-deploy-github/SKILL.md), [domains and mail](/skills/ohmyhost-domains-and-mail/SKILL.md).
+Every step maps to a Skill the agent reads on its own: [get started](/skills/ohmyhost-get-started/SKILL.md), [deploy the selected source](/skills/ohmyhost-deploy/SKILL.md), [domains and mail](/skills/ohmyhost-domains-and-mail/SKILL.md).
 
 ## My login still works: the checklist
 
@@ -130,7 +130,7 @@ It can, but check the deployed flow before moving traffic. If Supabase stays, co
 
 ### Can I keep building in Lovable?
 
-Yes. Lovable's GitHub integration keeps the project in continuous sync with the repository, so prompts in Lovable become commits. Your agent deploys any commit you point it at with a fresh `deployment_plan`, and promotes it after you check Dev. Keep one rule: do not edit the same file in Lovable and in your agent at the same moment, or you will be resolving merge conflicts you did not need.
+Yes. Lovable's GitHub integration keeps the project in continuous sync with the repository, so prompts in Lovable become commits. With that GitHub source selected, your agent plans the pushed commit and promotes it after you check Dev. A project using managed versions saves the intended current files instead; switching source is an explicit choice on the existing project. Keep one rule: do not edit the same file in Lovable and in your agent at the same moment, or you will be resolving merge conflicts you did not need.
 
 ### What about Lovable Cloud data?
 
@@ -138,7 +138,7 @@ Lovable's guide says the backend "can remain on the built-in backend (Cloud) or 
 
 ### Do I have to use the terminal?
 
-Almost never. The agent installs the CLI, prints the sign-in link and runs every command. The single exception is a private secret: the agent hands you a command that reads the value from your keyboard, so the key never appears in the chat or in a file. If your Lovable app only uses the public Supabase publishable key, you will not even do that.
+Almost never. The agent installs the CLI, prints the sign-in link and runs every command. A private secret uses the local stdin command or the private portal link for a supported remote connection, keeping its value out of chat and source. If your Lovable app only uses the public Supabase publishable key, you will not even do that.
 
 {{ sources supabase lovable }}
 

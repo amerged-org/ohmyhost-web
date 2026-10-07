@@ -13,3 +13,5 @@
 !images/**
 !shots/
 !shots/**
+!.well-known/
+!.well-known/openai-apps-challenge

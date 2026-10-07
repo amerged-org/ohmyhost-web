@@ -2,25 +2,25 @@
 
 A Bolt.new export is an ordinary repository — usually Vite and React with Supabase — minus the one thing that made it run: the environment. The `.env` stays behind, so the first deploy of an export fails on missing values rather than on anything you built.
 
-Connect GitHub in Bolt, paste one prompt into your coding agent, and the agent recreates those values as secrets, builds the app, deploys it to a protected Dev host and promotes it to Prod once you have checked it. Free grants {{ number plan.freeCredits }} credits a month, Paid is {{ usd plan.paidUsd }} for {{ number plan.paidCredits }} credits shared by every project you run.
+Use your selected Bolt GitHub export or accessible downloaded files, paste one prompt into your coding agent, and the agent separates public build configuration from private runtime secrets, builds the app, deploys it to a protected Dev host and promotes it to Prod once you have checked it. Free grants {{ number plan.freeCredits }} credits a month, Paid is {{ usd plan.paidUsd }} for {{ number plan.paidCredits }} credits shared by every project you run.
 
 {{ figure flow.bolt-export }}
 
 ## Export from Bolt
 
-Bolt gives you two ways out, and only one of them lands where ohmyho.st can read it.
+Bolt gives you two ways out: keep its selected GitHub export or work with accessible downloaded files.
 
-**GitHub connection.** Connect GitHub from the project's settings. Bolt creates a private repository on a main branch and commits every change that does not break the project (support.bolt.new/integrations/git, read 2026-09-20). This is the path to use: GitHub is the only deployment source on ohmyho.st, so the repository Bolt just made is exactly what your agent links. Bolt keeps committing to that branch while the connection is on. Decide who owns main before your agent starts editing; two authors on one branch is how a working app ends up with a broken lockfile.
+**GitHub connection.** Connect GitHub from the project's settings. Bolt creates a private repository on a main branch and commits every change that does not break the project (support.bolt.new/integrations/git, read 2026-09-20). When GitHub is your selected source, the repository Bolt just made is what your agent links. Accessible ZIP contents can instead be saved as managed versions from a local checkout through the [deploy Skill](/skills/ohmyhost-deploy/SKILL.md). Keep an existing project's current source until you explicitly request a switch. Bolt keeps committing to that branch while the connection is on. Decide who owns main before your agent starts editing; two authors on one branch is how a working app ends up with a broken lockfile.
 
-**ZIP download.** The download gives you the code and nothing else: no .env values, no Supabase keys, no database rows, no uploaded files. To host it you create a private repository yourself, push the ZIP contents to it and continue with the same prompt.
+**ZIP download.** The download gives you the code and nothing else: no .env values, no Supabase keys, no database rows, no uploaded files. Extract it into the selected local checkout and save managed versions, or push those files to a GitHub repository when you choose that route. Continue with the same prompt.
 
-Either way, check the framework first. ohmyho.st runs Vite with React, Next.js and TanStack Start from a GitHub repository. A Bolt project built on Expo, Astro or SvelteKit is outside that set and will not deploy here. There are no containers.
+Either way, check the framework first. ohmyho.st runs Vite with React, Next.js and TanStack Start from managed versions or a selected GitHub repository. A Bolt project built on Expo, Astro or SvelteKit is outside that set and will not deploy here. There are no containers.
 
 ## What breaks after export
 
 Three things stop working the moment the code leaves Bolt. None of them is a surprise once you know where to look.
 
-**The .env must be recreated.** Bolt's Supabase integration kept the project URL and anon key in an environment file that the ZIP does not carry and the repository should not. Those two are public client values by design, so they can live in the repository's Vite environment file. Anything private, such as a third-party API key or a Supabase service-role key, is different: your agent asks for it with the stdin-only command from `secret_set_command`, per environment, and the value never enters the chat. A browser bundle cannot hold a private key at all; if your Bolt app called a service-role key from the browser, that is a bug to fix before hosting, not a secret to move. Read [secrets](https://docs.ohmyho.st/secrets) for the exact command shape.
+**The .env must be recreated.** Bolt's Supabase integration kept the project URL and anon key in an environment file that the ZIP does not carry and the repository should not. Those two are public client values by design. Verify their non-secret build configuration for the selected source; managed snapshots exclude `.env` files, so necessary public build values must be saved in the supported source configuration. Anything private, such as a third-party API key or a Supabase service-role key, is different: your agent uses the local stdin command from `secret_set_command` or the supported remote portal input from `secret_input_request`, per environment; the value never enters chat or source. A browser bundle cannot hold a private key at all; if your Bolt app called a service-role key from the browser, that is a bug to fix before hosting, not a secret to move. Read [secrets](https://docs.ohmyho.st/secrets) for the exact command shape.
 
 **Callback URLs point at the old host.** Every project gets a Dev and a Prod host on `<three-words>.check.omh.st`. Supabase Auth, Better Auth, WorkOS AuthKit and any OAuth provider still list Bolt's preview or Netlify URL. Add the Dev host first, the Prod host after promotion and your own domain last. The agent tests a real login on each one; the ohmyho.st login is separate from your app's users. Details in [application auth](https://docs.ohmyho.st/application-auth).
 
@@ -40,14 +40,14 @@ Every expensive step is two calls: `deployment_plan` shows the quoted build and 
 
 ## How to move your app from Bolt
 
-1. Export. Connect GitHub in Bolt, or push the ZIP contents to a new private repository. Confirm the main branch holds the version you want to host, then stop editing in Bolt or accept that its commits keep landing on main.
+1. Export. Keep Bolt's selected GitHub repository, or extract the ZIP into the local checkout you want to save as managed versions. Confirm the intended files/commit; if GitHub stays connected, stop editing in Bolt or account for its further commits on main.
 2. Inventory. The agent runs `ohmyhost init --dry-run` and reports blockers: framework and version, package manager pin, Netlify-only files and which Supabase capabilities the code actually uses. A package name alone is not a reason to replace anything.
 3. Decide about Supabase. Keep it after checking the export: declare the external browser origins it uses, update callback URLs and verify login, reads, writes and files on Dev. Or migrate the database to managed Postgres with the [Supabase migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md), which converts the capabilities you select and leaves your auth provider alone unless you ask.
-4. Create and link. The agent creates the project with `project_create`, choosing US or EU once (the region cannot change later and prices are identical), then authorizes the repository through `source_link` and one GitHub consent screen. Isolated Dev and Prod data is the recommendation; two databases consume credits separately.
-5. Plan, set secrets, deploy. `deployment_plan` quotes the build. You supply private values through the command from `secret_set_command` for the Dev environment. `deployment_create` starts the build; the agent polls `operation_get` until it is done.
+4. Create and link. The agent creates the project with `project_create`, choosing US or EU once (the region cannot change later and prices are identical), then saves the chosen managed version or links the selected GitHub repository through `source_link` and the GitHub consent flow. Isolated Dev and Prod data is the recommendation; two databases consume credits separately.
+5. Plan, set secrets, deploy. `deployment_plan` quotes the build. You supply Dev's private values through the local command from `secret_set_command` or the supported remote private input link. `deployment_create` starts the build; the agent polls `operation_get` until it is done.
 6. Verify Dev, then promote. Dev is protected by default: `project_dev_share_link_get` returns a reusable share link you can open again or pass to a tester. Test a deep-link reload, a login and one write. Then `promotion_plan` and `promotion_execute` move the same artifact to Prod without a rebuild and without copying Dev records over Prod data. Update the Prod callback URLs.
 
-Read the [deployment Skill](/skills/ohmyhost-deploy-github/SKILL.md) for every command and the [Vite guide](https://docs.ohmyho.st/frameworks/vite) for the runtime contract.
+Read the [deployment Skill](/skills/ohmyhost-deploy/SKILL.md) for every command and the [Vite guide](https://docs.ohmyho.st/frameworks/vite) for the runtime contract.
 
 ## Custom domain and mail (metered)
 
@@ -85,7 +85,7 @@ You can, but pick one author for main. Bolt commits every non-breaking change to
 
 ### Does the ZIP export include my database?
 
-No. The ZIP carries code only; database rows, uploaded files and secret values stay in Supabase and in Bolt's settings. To move rows, take a Supabase Postgres dump and let the migration Skill convert the schema you select. Files move through the runtime storage client, and secrets are re-entered per environment through the stdin-only command.
+No. The ZIP carries code only; database rows, uploaded files and secret values stay in Supabase and in Bolt's settings. To move rows, take a Supabase Postgres dump and let the migration Skill convert the schema you select. Files move through the runtime storage client, and secrets are re-entered per environment through local stdin or the supported remote private portal input.
 
 ### What happens when my credits run out?
 

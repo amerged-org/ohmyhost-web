@@ -67,7 +67,7 @@ The trade-off is metering with no quota to hide behind. One busy production app,
 
 Hosting moves first; the database moves only if you want it to. If your app uses Supabase purely as Postgres, the [migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md) converts the queries to the managed database binding, keeps the versioned migrations and verifies reads and writes on Dev. If it uses Supabase Auth, Storage, Realtime or Edge Functions, keep Supabase as an external service and point the hosted app at it: a database dump does not migrate those services, and the Skill says which capability stays external before it changes anything. Resend can stay the same way until you want mail metered here.
 
-Push the app to GitHub first; a GitHub repository you authorize is the only deployment source. Then paste this prompt into Claude Code, Cursor or Codex with the repository open:
+Keep the existing project's current source, or choose managed versions or an authorized GitHub repository for a new app. Push changes when GitHub is selected; managed source saves the filtered current files. Then paste this prompt into your available coding agent with the selected app open:
 
 ```text
 {{ prompt }}
@@ -76,8 +76,8 @@ Push the app to GitHub first; a GitHub repository you authorize is the only depl
 What happens next, step by step:
 
 1. The agent checks what is installed and signed in. If nothing is, it sends you one browser link with a confirmation code; you sign in once and it verifies the session with a command.
-2. It connects GitHub once through `github_connect`, then runs `ohmyhost init --dry-run` on the repository and reports blockers and requirements before anything is built.
-3. It creates the project with `project_create`, choosing US or EU once. Data mode is optional and defaults to shared; isolated data keeps Dev and Prod separate, and an Owner can change the assignment later through a confirmed plan without copying data. It then asks for a `deployment_plan`. You read the plan, including the build cost it reserves, and confirm; `deployment_create` builds the commit. Secrets travel through the stdin-only CLI command returned by `secret_set_command`, never pasted into chat.
+2. It reads the project/source binding first and inspects the available app files. For a local checkout it runs `ohmyhost init --dry-run`; GitHub is connected through `github_connect` only when selected and needed. Managed source saves an exact current-file version instead.
+3. It reuses the existing project or calls `project_create` when you request a new one, choosing US or EU once. Data mode is optional and defaults to shared; isolated data keeps Dev and Prod separate, and an Owner can change the assignment later through a confirmed plan without copying data. It then asks for a `deployment_plan`. You read the plan, including the build cost it reserves, and confirm; `deployment_create` builds the commit. Secrets use the local stdin command from `secret_set_command` or the supported remote private portal input, never pasted into chat or source.
 4. Dev is protected by default. `project_dev_share_link_get` gives you a reusable share link; test login, a protected route and a real read and write. Then `promotion_plan` and `promotion_execute` publish to Prod at your project's three-word host on check.omh.st without a rebuild.
 5. After Prod works, `domain_paid_plan` then `domain_paid_apply` link your own hostname on Paid, or on Free while the project shows the “Powered by ohmyho.st” flag; the flag waives domain credits on either plan. Managed mail needs Paid: `mail_setup` then `mail_status` set up the sender domain, return its DNS records and wait for verification. Move your DNS when Prod works, then cancel the Vercel Pro seat.
 

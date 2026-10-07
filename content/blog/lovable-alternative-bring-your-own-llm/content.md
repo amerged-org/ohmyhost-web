@@ -84,10 +84,10 @@ What happens next:
 
 1. The agent reads `llms.txt` and the get-started Skill, checks what is installed, and installs the ohmyho.st CLI and MCP server only if they are missing. Setup per harness: https://docs.ohmyho.st/agents/mcp.
 2. It signs you in. `ohmyhost login` returns a link and a code, and you confirm once in the browser. A new account starts on Free.
-3. It connects GitHub with `github_connect`. You open the authorization link and allow the repository. GitHub is the only deployment source, so nothing is uploaded from your machine.
-4. It creates the project. The region, US by default or EU if you ask, is chosen once and cannot change later.
-5. It links the repository with `source_link` and asks for a deployment plan: the commit, the framework it detected and any secret the app still needs.
-6. For each secret it hands you the command `secret_set_command` returns, which reads the value from stdin, so the key never enters the chat. Public `VITE_` values stay in the build; private keys never get that prefix. Details: https://docs.ohmyho.st/secrets.
+3. It continues the current source. For a selected GitHub export it connects with `github_connect` when needed and you approve repository access. Accessible current files can instead be saved as managed versions through the [deploy Skill](/skills/ohmyhost-deploy/SKILL.md).
+4. It reuses the current project or creates one when requested. The region, US by default or EU if you ask, is chosen once and cannot change later.
+5. It saves the chosen managed version or links the selected GitHub repository with `source_link`, then asks for a deployment plan: the commit, the framework it detected and any secret the app still needs.
+6. For each secret it provides local stdin from `secret_set_command` or the supported remote private portal input, so the value stays out of chat and source. Public `VITE_` values stay in the build; private keys never get that prefix. Details: https://docs.ohmyho.st/secrets.
 7. It deploys to Dev, opens the `dev-….check.omh.st` address and checks the app: a page, a deep link after a reload, and sign-in if the app has one.
 8. When you are happy, it promotes the verified artifact to Prod. Promotion moves the same build: it does not rebuild, and it does not copy Dev data into Prod. Details: https://docs.ohmyho.st/environments.
 

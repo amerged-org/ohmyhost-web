@@ -48,7 +48,7 @@ Review keeping the external backend and importing its database as separate paths
 
 ### Path 1: host on ohmyho.st, keep the Supabase project
 
-A Lovable export usually arrives as a Vite/React repository with a Supabase project behind it. Before retaining that backend, the agent inventories the real export and declares its exact browser connection origins in `runtime.browser` in `ohmyhost.yaml`; external scripts, images and other resource types have separate declarations. Server-side HTTPS calls use `runtime.egress.allow` instead, with at most {{ number 13 }} exact HTTPS origins and restrictive defaults for undeclared services. Public keys can stay in the browser bundle; private keys belong in server code and go through the stdin-only command from secret_set_command. A direct Postgres socket from the Worker to Supabase is not available, so server code uses the HTTPS API. Verify login, protected reads and writes, and any used files or backend functions on Dev before moving production traffic.
+A Lovable export usually arrives as a Vite/React repository with a Supabase project behind it. Before retaining that backend, the agent inventories the real export and declares its exact browser connection origins in `runtime.browser` in `ohmyhost.yaml`; external scripts, images and other resource types have separate declarations. Server-side HTTPS calls use `runtime.egress.allow` instead, with at most {{ number 13 }} exact HTTPS origins and restrictive defaults for undeclared services. Public keys can stay in the browser bundle; private keys belong in the private runtime and use local stdin from secret_set_command or the supported remote portal input. A direct Postgres socket from the Worker to Supabase is not available, so server code uses the HTTPS API. Verify login, protected reads and writes, and any used files or backend functions on Dev before moving production traffic.
 
 You keep paying Supabase for the database and ohmyho.st meters only the hosting: requests, CPU time, build seconds and the deployed script. The migration Skill's first step, an inventory of what the app actually calls, tells you whether this path is enough. A package name alone is not a reason to move anything.
 
@@ -117,9 +117,9 @@ One busy app reads differently from five quiet ones. {{ text workload.smallApp.n
 
 ## How to move with your agent
 
-1. Put the app on GitHub. GitHub is the only deployment source; a Lovable export syncs there, and a hand-written Next.js app already is.
-2. Paste the prompt below into Claude Code, Cursor or Codex. The agent reads llms.txt and the get-started Skill, sends you one sign-in link, and links the repository with source_link.
-3. Tell it which path: keep Supabase (it adds the origin to `runtime.egress.allow` and installs private keys through secret_set_command) or import (it follows the [migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md): inventory, schema dump to migration files, rows through a time-bound credential).
+1. Reuse the app's current project and source, or choose managed versions or GitHub for a new app. A selected Lovable GitHub export can keep its sync; accessible current files can be saved as a managed version.
+2. Paste the prompt below into Claude Code, Cursor or Codex. The agent reads llms.txt and the get-started Skill, sends you one sign-in link, then continues the current source, saving managed files or linking the selected GitHub repository with source_link.
+3. Tell it which path: keep Supabase (it adds the origin to `runtime.egress.allow` and delivers private keys through local stdin or the supported remote private portal input) or import (it follows the [migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md): inventory, schema dump to migration files, rows through a time-bound credential).
 4. Review the plan. deployment_plan quotes the build and lists requirements; deployment_create runs it. The agent verifies the Dev URL through the share link from project_dev_share_link_get with a real login and a real read and write.
 5. Promote with promotion_plan, then promotion_execute. Set a ceiling with project_budget_set if you want one.
 6. Take a Supabase backup first, cancel Supabase Pro only after Prod checks pass, and keep your ohmyho.st export password somewhere private.

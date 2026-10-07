@@ -44,9 +44,9 @@ Paste this into Claude Code, Cursor or Codex with the exported repository open:
 
 1. Reads the repository and reports what it found: the framework, the package manager, the auth provider, the database, and which external services the code calls.
 2. Signs you in. `ohmyhost login --json` returns a link and a confirmation code; you open it in a browser once.
-3. Creates the project and links the repository you authorize. GitHub is the only deployment source, so nothing is uploaded from your machine.
+3. Reuses the current project/source, or creates the project and links your selected GitHub export. Accessible current files can instead be saved as managed versions through the [deploy Skill](/skills/ohmyhost-deploy/SKILL.md).
 4. Plans the deployment before it runs anything. The plan names the commit, the framework it detected, the secrets it still needs and any blocker it found.
-5. Asks you for secret values and gives you a stdin-only command to set them, so no key is ever pasted into a chat transcript.
+5. Names required secrets and gives you the local stdin command or the supported remote private input link. No value is sent in chat or source.
 6. Deploys to Dev, returns a `check.omh.st` host, and waits while you test the real thing: sign in, a protected route, a read and a write.
 7. Promotes the verified artifact to Prod. Promotion moves the artifact that already passed; it does not rebuild and it does not copy Dev records over Prod data.
 
