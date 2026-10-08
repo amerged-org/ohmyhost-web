@@ -229,7 +229,10 @@ export default {
         { status: asset.status, headers },
       );
     }
-    if (url.pathname === "/review/2026-10-08/ohmyhost-review.mp4") {
+    if (
+      url.pathname === "/review/2026-10-08/ohmyhost-review.mp4" ||
+      url.pathname === "/review/2026-10-08/ohmyhost-review-v2.mp4"
+    ) {
       if (!env?.ASSETS) return new Response(null, { status: 503, headers });
       const assetHeaders = new Headers();
       for (const name of ["range", "if-range", "if-none-match"]) {

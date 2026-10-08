@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readdir, readFile } from "node:fs/promises";
 import { runInNewContext } from "node:vm";
 
@@ -555,7 +556,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(requests).toHaveLength(3);
   });
 
-  it("serves only the reviewed MP4 and preserves the asset response without forwarding credentials", async () => {
+  it("serves the original reviewed MP4 and preserves the asset response without forwarding credentials", async () => {
     const url = "https://ohmyho.st/review/2026-10-08/ohmyhost-review.mp4";
     const bytes = new Uint8Array([0, 0, 0, 24, 102, 116, 121, 112]);
     const requests: Request[] = [];
@@ -645,7 +646,9 @@ describe("public entry and unassigned Free-host fallback", () => {
       "/review/2026-10-08/raw.png",
       "/review/2026-10-08/manifest.json",
       "/review/2026-10-08/other.mp4",
+      "/review/2026-10-08/ohmyhost-review-v3.mp4",
       "/review/2026-10-08/ohmyhost-review.mp4/",
+      "/review/2026-10-08/ohmyhost-review-v2.mp4/",
       "/review/2026-10-09/ohmyhost-review.mp4",
     ])
       expect(
@@ -669,6 +672,51 @@ describe("public entry and unassigned Free-host fallback", () => {
     );
     expect(assetRules).toContain("!review/2026-10-08/ohmyhost-review.mp4");
     expect(assetRules).not.toContain("!review/**");
+  });
+
+  it("serves the revised review video while preserving the original immutable bytes", async () => {
+    const url = "https://ohmyho.st/review/2026-10-08/ohmyhost-review-v2.mp4";
+    const bytes = new Uint8Array([0, 0, 0, 24, 102, 116, 121, 112]);
+    const requests: Request[] = [];
+    const assets = {
+      async fetch(request: Request) {
+        requests.push(request);
+        return new Response(request.method === "HEAD" ? null : bytes);
+      },
+    };
+    for (const method of ["GET", "HEAD"]) {
+      const response = await worker.fetch(new Request(url, { method }), {
+        ASSETS: assets,
+      });
+      expect(response.status).toBe(200);
+      expect(response.headers.get("content-type")).toBe("video/mp4");
+      expect(response.headers.get("cache-control")).toBe(
+        "public, max-age=31536000, immutable",
+      );
+      expect(new Uint8Array(await response.arrayBuffer())).toEqual(
+        method === "HEAD" ? new Uint8Array() : bytes,
+      );
+    }
+    expect(requests.map((request) => [request.url, request.method])).toEqual([
+      [url, "GET"],
+      [url, "HEAD"],
+    ]);
+    const original = await readFile(
+      new URL(
+        "../public/review/2026-10-08/ohmyhost-review.mp4",
+        import.meta.url,
+      ),
+    );
+    expect(createHash("sha256").update(original).digest("hex")).toBe(
+      "5c85bca243f532b0b26162673f9ded7fbf73d6dadd7f04799d6af93a7134cb2f",
+    );
+    const rules = await readFile(
+      new URL("../public/.assetsignore", import.meta.url),
+      "utf8",
+    );
+    expect(rules).toContain("!review/2026-10-08/ohmyhost-review-v2.mp4");
+    expect(rules).not.toContain("!review/**");
+    expect(rules).not.toContain("!review/2026-10-08/**");
   });
 
   it("serves the exact plaintext domain challenge and strips request credentials", async () => {
