@@ -646,9 +646,10 @@ describe("public entry and unassigned Free-host fallback", () => {
       "/review/2026-10-08/raw.png",
       "/review/2026-10-08/manifest.json",
       "/review/2026-10-08/other.mp4",
-      "/review/2026-10-08/ohmyhost-review-v3.mp4",
+      "/review/2026-10-08/ohmyhost-review-v4.mp4",
       "/review/2026-10-08/ohmyhost-review.mp4/",
       "/review/2026-10-08/ohmyhost-review-v2.mp4/",
+      "/review/2026-10-08/ohmyhost-review-v3.mp4/",
       "/review/2026-10-09/ohmyhost-review.mp4",
     ])
       expect(
@@ -715,6 +716,48 @@ describe("public entry and unassigned Free-host fallback", () => {
       "utf8",
     );
     expect(rules).toContain("!review/2026-10-08/ohmyhost-review-v2.mp4");
+    expect(rules).not.toContain("!review/**");
+    expect(rules).not.toContain("!review/2026-10-08/**");
+  });
+
+  it("serves the comparison review video while preserving the second immutable version", async () => {
+    const url = "https://ohmyho.st/review/2026-10-08/ohmyhost-review-v3.mp4";
+    const bytes = new Uint8Array([0, 0, 0, 24, 102, 116, 121, 112]);
+    const requests: Request[] = [];
+    const assets = {
+      async fetch(request: Request) {
+        requests.push(request);
+        return new Response(request.method === "HEAD" ? null : bytes);
+      },
+    };
+    for (const method of ["GET", "HEAD"]) {
+      const response = await worker.fetch(new Request(url, { method }), {
+        ASSETS: assets,
+      });
+      expect(response.status).toBe(200);
+      expect(response.headers.get("content-type")).toBe("video/mp4");
+      expect(new Uint8Array(await response.arrayBuffer())).toEqual(
+        method === "HEAD" ? new Uint8Array() : bytes,
+      );
+    }
+    expect(requests.map((request) => [request.url, request.method])).toEqual([
+      [url, "GET"],
+      [url, "HEAD"],
+    ]);
+    const previous = await readFile(
+      new URL(
+        "../public/review/2026-10-08/ohmyhost-review-v2.mp4",
+        import.meta.url,
+      ),
+    );
+    expect(createHash("sha256").update(previous).digest("hex")).toBe(
+      "940ad3dd4d79fae4a1178fbbdcc5bc1faa844a872c8ef9d55b2afc7429a18a8b",
+    );
+    const rules = await readFile(
+      new URL("../public/.assetsignore", import.meta.url),
+      "utf8",
+    );
+    expect(rules).toContain("!review/2026-10-08/ohmyhost-review-v3.mp4");
     expect(rules).not.toContain("!review/**");
     expect(rules).not.toContain("!review/2026-10-08/**");
   });

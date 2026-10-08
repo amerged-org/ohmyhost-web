@@ -56,8 +56,9 @@ screenshot's original dimensions and descriptive alt text. This leaves the W007 
 sources, rendering and manifest unchanged.
 
 The reviewed OpenAI submission videos are immutable static MP4s at
-`/review/2026-10-08/ohmyhost-review.mp4` and `/review/2026-10-08/ohmyhost-review-v2.mp4`.
-The original video remains unchanged when the revised presentation is added. Only these exact files and their parent directories are admitted
+`/review/2026-10-08/ohmyhost-review.mp4`, `/review/2026-10-08/ohmyhost-review-v2.mp4` and
+`/review/2026-10-08/ohmyhost-review-v3.mp4`. Each previous video remains unchanged when another
+revision is added. Only these exact files and their parent directories are admitted
 by the asset upload rules; raw captures and internal review records are excluded. The Worker strips
 request credentials and query parameters, forwards only range and cache-validator headers, and
 preserves the asset response's status and headers. Static assets currently answer Range requests
