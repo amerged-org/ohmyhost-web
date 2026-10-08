@@ -229,6 +229,37 @@ export default {
         { status: asset.status, headers },
       );
     }
+    if (url.pathname === "/review/2026-10-08/ohmyhost-review.mp4") {
+      if (!env?.ASSETS) return new Response(null, { status: 503, headers });
+      const assetHeaders = new Headers();
+      for (const name of ["range", "if-range", "if-none-match"]) {
+        const value = request.headers.get(name);
+        if (value !== null) assetHeaders.set(name, value);
+      }
+      const asset = await env.ASSETS.fetch(
+        new Request(`${HOME.slice(0, -1)}${url.pathname}`, {
+          method: request.method,
+          headers: assetHeaders,
+        }),
+      );
+      const response = new Response(
+        request.method === "HEAD" ? null : asset.body,
+        asset,
+      );
+      for (const [name, value] of headers) response.headers.set(name, value);
+      if (response.ok || response.status === 304) {
+        response.headers.set("content-type", "video/mp4");
+        response.headers.set(
+          "cache-control",
+          "public, max-age=31536000, immutable",
+        );
+        response.headers.set(
+          "content-security-policy",
+          "default-src 'none'; media-src 'self'; base-uri 'none'; frame-ancestors 'none'",
+        );
+      }
+      return response;
+    }
     if (url.pathname === "/robots.txt") {
       headers.set("content-type", "text/plain; charset=utf-8");
       headers.set("cache-control", "public, max-age=3600");

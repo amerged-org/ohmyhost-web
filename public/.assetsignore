@@ -15,3 +15,6 @@
 !shots/**
 !.well-known/
 !.well-known/openai-apps-challenge
+!review/
+!review/2026-10-08/
+!review/2026-10-08/ohmyhost-review.mp4

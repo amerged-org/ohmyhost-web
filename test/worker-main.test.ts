@@ -22,7 +22,9 @@ describe("public entry and unassigned Free-host fallback", () => {
         expect(assetRules, `public/${entry.name} is not uploaded`).toContain(
           entry.name === ".well-known"
             ? "!.well-known/openai-apps-challenge"
-            : `!${entry.name}/**`,
+            : entry.name === "review"
+              ? "!review/2026-10-08/ohmyhost-review.mp4"
+              : `!${entry.name}/**`,
         );
     expect(assetRules).not.toContain("!.well-known/**");
     const assets = new SiteAssetFixture();
@@ -551,6 +553,122 @@ describe("public entry and unassigned Free-host fallback", () => {
         path,
       ).toBe(404);
     expect(requests).toHaveLength(3);
+  });
+
+  it("serves only the reviewed MP4 and preserves the asset response without forwarding credentials", async () => {
+    const url = "https://ohmyho.st/review/2026-10-08/ohmyhost-review.mp4";
+    const bytes = new Uint8Array([0, 0, 0, 24, 102, 116, 121, 112]);
+    const requests: Request[] = [];
+    const assets = {
+      async fetch(request: Request) {
+        requests.push(request);
+        return new Response(request.method === "HEAD" ? null : bytes, {
+          headers: {
+            "content-type": "video/mp4",
+            "content-length": String(bytes.length),
+            etag: '"review-video"',
+          },
+        });
+      },
+    };
+    for (const method of ["GET", "HEAD"]) {
+      const response = await worker.fetch(
+        new Request(`${url}?token=private`, {
+          method,
+          headers: {
+            authorization: "Bearer private",
+            cookie: "private",
+            range: "bytes=0-3",
+            "if-range": '"review-video"',
+            "if-none-match": '"different-video"',
+          },
+        }),
+        { ASSETS: assets },
+      );
+      // Static assets currently return the complete file for Range requests.
+      expect(response.status).toBe(200);
+      expect(response.headers.get("content-type")).toBe("video/mp4");
+      expect(response.headers.get("content-length")).toBe(String(bytes.length));
+      expect(response.headers.get("etag")).toBe('"review-video"');
+      expect(response.headers.get("content-range")).toBeNull();
+      expect(response.headers.get("cache-control")).toBe(
+        "public, max-age=31536000, immutable",
+      );
+      expect(response.headers.get("content-security-policy")).toContain(
+        "media-src 'self'",
+      );
+      expect(new Uint8Array(await response.arrayBuffer())).toEqual(
+        method === "HEAD" ? new Uint8Array() : bytes,
+      );
+    }
+    for (const [index, request] of requests.entries()) {
+      expect(request.url).toBe(url);
+      expect(request.method).toBe(index === 0 ? "GET" : "HEAD");
+      expect([...request.headers]).toEqual([
+        ["if-none-match", '"different-video"'],
+        ["if-range", '"review-video"'],
+        ["range", "bytes=0-3"],
+      ]);
+    }
+    const partial = await worker.fetch(new Request(url), {
+      ASSETS: {
+        fetch: async () =>
+          new Response(bytes.slice(0, 4), {
+            status: 206,
+            headers: {
+              "content-range": "bytes 0-3/8",
+              "content-length": "4",
+              "accept-ranges": "bytes",
+            },
+          }),
+      },
+    });
+    expect(partial.status).toBe(206);
+    expect(partial.headers.get("content-range")).toBe("bytes 0-3/8");
+    expect(partial.headers.get("content-length")).toBe("4");
+    expect(partial.headers.get("accept-ranges")).toBe("bytes");
+    expect(new Uint8Array(await partial.arrayBuffer())).toEqual(
+      bytes.slice(0, 4),
+    );
+    const unchanged = await worker.fetch(new Request(url), {
+      ASSETS: { fetch: async () => new Response(null, { status: 304 }) },
+    });
+    expect(unchanged.status).toBe(304);
+    expect(await unchanged.text()).toBe("");
+    expect((await worker.fetch(new Request(url))).status).toBe(503);
+    const missing = await worker.fetch(new Request(url), {
+      ASSETS: { fetch: async () => new Response(null, { status: 404 }) },
+    });
+    expect(missing.status).toBe(404);
+    expect(missing.headers.get("cache-control")).toBe("no-store");
+    for (const path of [
+      "/review/2026-10-08/raw.png",
+      "/review/2026-10-08/manifest.json",
+      "/review/2026-10-08/other.mp4",
+      "/review/2026-10-08/ohmyhost-review.mp4/",
+      "/review/2026-10-09/ohmyhost-review.mp4",
+    ])
+      expect(
+        (
+          await worker.fetch(new Request(`https://ohmyho.st${path}`), {
+            ASSETS: assets,
+          })
+        ).status,
+      ).toBe(404);
+    expect(requests).toHaveLength(2);
+    expect(
+      (
+        await worker.fetch(new Request(url, { method: "POST" }), {
+          ASSETS: assets,
+        })
+      ).status,
+    ).toBe(405);
+    const assetRules = await readFile(
+      new URL("../public/.assetsignore", import.meta.url),
+      "utf8",
+    );
+    expect(assetRules).toContain("!review/2026-10-08/ohmyhost-review.mp4");
+    expect(assetRules).not.toContain("!review/**");
   });
 
   it("serves the exact plaintext domain challenge and strips request credentials", async () => {

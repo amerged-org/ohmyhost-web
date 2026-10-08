@@ -55,6 +55,15 @@ Owner-supplied screenshots are copied unchanged to `public/shots/<name>.png` and
 screenshot's original dimensions and descriptive alt text. This leaves the W007 SVG illustration
 sources, rendering and manifest unchanged.
 
+The reviewed OpenAI submission video is an immutable static MP4 at
+`/review/2026-10-08/ohmyhost-review.mp4`. Only this exact file and its parent directories are admitted
+by the asset upload rules; raw captures and internal review records are excluded. The Worker strips
+request credentials and query parameters, forwards only range and cache-validator headers, and
+preserves the asset response's status and headers. Static assets currently answer Range requests
+with the complete file and status 200; the small MP4 uses faststart, and publication requires an
+exact file-hash readback and observed browser playback. This is a website asset, independent of the
+platform's immutable client downloads.
+
 ## Editorial SEO and response caching
 
 The homepage and editorial JSON-LD graphs share the `WebSite` identity from
