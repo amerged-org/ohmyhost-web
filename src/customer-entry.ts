@@ -76,9 +76,21 @@ export const DOCUMENTATION: Record<string, string> = {
   ...CONTENT_PAGES,
   "/auth.md": `# Authenticate an ohmyho.st agent
 
-Run ohmyhost login --json, open its sign-in link and use ohmyhost whoami --json to confirm the selected account and organization. One computer can keep several saved logins; name the customer's account with --profile-name, MCP profile_name or OHMYHOST_PROFILE, then verify whoami before acting. Each saved login belongs to one account in one workspace; add a login for another workspace. The local MCP server uses that CLI login.
+Before continuing an existing app, inspect the execution environment, reachable checkout and saved project binding; reuse a matching local CLI/MCP profile or private token source unless the user explicitly chooses remote access. The availability of remote tools or connection_request alone does not choose a route; verify the chosen identity and workspace before requesting grants, and stop on a mismatch.
 
-For an automation platform, create a user API token from Profile → API Tokens or the interactive CLI. New tokens do not expire and remain valid until revoked. The full token is shown once; keep it in a private environment file or the automation platform's secret field. Set it as OHMYHOST_TOKEN for the CLI and MCP server, where it overrides any saved login, or send it as a Bearer token to the API. Never put it in a URL, project notes or a prompt.
+## Connected chat
+
+For a chat that supports authenticated remote MCP, connect https://app.ohmyho.st/mcp and complete the client's OAuth sign-in. Confirm the intended account with identity_get, then approve the workspace and selected projects in the signed-in portal. Editing and previews are separate from permission to publish. A new app developed entirely in chat keeps its versions with ohmyho.st; GitHub is needed only when it is the selected source. No copied API token or device-code login is needed for this connection.
+
+The get-started Skill handles workspace setup and project approval. The portal must be signed in as the same person as the chat connection. Use its private portal input link for application secrets; keep values out of chat, source and tool arguments. Verify an authenticated tool call after approval before proceeding.
+
+## Local CLI and MCP
+
+Run ohmyhost login --json, open its sign-in link and confirmation code, then use ohmyhost whoami --json to confirm the selected organization. The local stdio MCP server uses that saved CLI login. Reuse the selected account and the project's current source.
+
+## Private automation
+
+For an automation platform, create a user API token from Profile → API Tokens or the interactive CLI. New tokens do not expire and remain valid until revoked. The full token is shown once; keep it in a private environment file or the automation platform's secret field. Send it as a Bearer token to the API. Never put it in a URL, project notes or a prompt.
 
 Existing tokens keep their original expiry. Browser and CLI login sessions have separate lifetimes. Use an interactive-login process without OHMYHOST_TOKEN for organization or token management; do not delete the saved token file.
 
@@ -95,45 +107,44 @@ Ask your agent for project status, usage and changes.
 /** Instructions for a coding agent that meets ohmyho.st in a repository or a prompt. */
 export const PUBLIC_AGENTS = `# AGENTS.md — working with ohmyho.st
 
-ohmyho.st hosts Next.js, Vite/React and TanStack Start apps or a plain Worker module from a GitHub repository the customer authorizes, with optional cron schedules, Postgres, domains, transactional mail and credits on one organization balance. Applications must fit the Workers runtime. You operate it through the ohmyhost CLI, the local MCP server or the REST /v1 API.
+ohmyho.st hosts Next.js, Vite/React and TanStack apps, keeps their versions with ohmyho.st or connects a GitHub repository the customer authorizes. Postgres, domains, transactional mail and credits use one organization balance. Operate through authenticated remote MCP, the ohmyhost CLI, local stdio MCP or the REST /v1 API, using the capabilities available in this client.
 
-1. Read https://ohmyho.st/llms.txt first, then the get-started Skill at https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md.
-2. Install the published clients and register the MCP server in your harness; sign in through the link and confirmation code returned by \`ohmyhost login --json\`. Never paste credentials into chat.
-3. Read the project's context before acting, plan before you deploy (deployment_plan, then deployment_create), and verify the live application before reporting a URL; protected Dev, the default, answers 404 until you open the owner's link from project_dev_share_link_get.
-4. Keep the customer's decisions: their authentication provider, their region choice, their data. Set secrets only through the stdin-only command from secret_set_command.
-5. Read the tool catalog at https://ohmyho.st/mcp-tools.json and the API errors at https://docs.ohmyho.st/limits.md; reuse idempotency keys after an uncertain outcome.
+1. Read https://ohmyho.st/llms.txt, the get-started Skill at https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md and the source-routing Skill at https://ohmyho.st/skills/ohmyhost-deploy/SKILL.md.
+2. Inspect the execution environment, reachable checkout and saved project binding; reuse a matching local CLI/MCP profile or private token source unless the user explicitly chooses remote access. The availability of remote tools or connection_request alone does not choose a route; verify the chosen identity and workspace with identity_get before requesting grants, and stop on a mismatch. A supported remote chat connects https://app.ohmyho.st/mcp through OAuth and approves its project/create/publish access in the portal. A local agent installs current clients when needed and keeps the sign-in link/code flow from \`ohmyhost login --json\`. Never paste credentials into chat.
+3. Reuse the existing project; read project_context_get and source_get before acting. The server's current source binding comes first. Choose a new source from the actual checkout and the customer's preference: a new app developed entirely in chat keeps versions with ohmyho.st; an explicitly selected GitHub repository uses GitHub. For an unbound local checkout without GitHub, ask once whether to keep versions with ohmyho.st or set up GitHub. An explicit choice skips that question. Source choice follows the app across local and cloud agents.
+4. Keep the customer's authentication provider, region, data and existing project URLs. Deliver remote-chat secrets through secret_input_request and its private portal link; local agents use the stdin command from secret_set_command. Plan the exact saved commit with deployment_plan, run deployment_create, observe its accepted operation and verify Dev. Publish only when requested and authorized, using the deployment Skill's guarded promotion flow. A remote chat also requires its separate publishing grant.
+5. Discover remote tools from the connected server; read the local catalog at https://ohmyho.st/mcp-tools.json and API errors at https://docs.ohmyho.st/limits.md. Reuse the original operation and idempotency key after uncertainty. Connection, source saving and a successful build each need their own returned proof; report a working address only after app verification.
 
-Pricing and limits: https://ohmyho.st/pricing.md · https://docs.ohmyho.st/limits.md · Support: report a bug, issue or feature request with feedback_submit, give the customer the receipt ID and read status and replies with feedback_status (https://docs.ohmyho.st/support.md).
+Pricing and limits: https://ohmyho.st/pricing.md · https://docs.ohmyho.st/limits.md · Report a defect: the feedback_submit tool.
 `;
 
 export const AGENT_INDEX = `# ohmyho.st
 
-> Hosting for agents. Deploy GitHub-connected Next.js, Vite/React and TanStack Start apps or a plain Worker module within the Workers runtime, with optional cron schedules, then manage databases, domains, email, credits and SQL exports through the CLI, MCP or REST API.
+> Hosting for agents. Develop and save app versions with ohmyho.st or connect the GitHub repository you choose. Preview and publish Next.js, Vite/React and TanStack apps, then manage databases, domains, email, credits and SQL exports through connected chat, CLI, MCP or REST API.
 
 ## When to use ohmyho.st
 
-- Deploy or update an app from a GitHub repository the customer authorizes, with its database, files and builds in the US or the EU (chosen once per project).
-- Resume a project: authenticate as the account the customer names (one computer can keep several saved logins), identify its organization and read project context before acting.
-- Connect a domain or sender, follow DNS, TLS and mail readiness, diagnose a failed deployment, or report a bug or feature request to ohmyho.st support and follow its replies.
+- Develop or update an app using its saved ohmyho.st or authorized GitHub source.
+- Resume the same project: authenticate, identify its workspace and read project context and current source before acting.
+- Connect a domain or sender, follow DNS/TLS/DKIM readiness, or diagnose a failed deployment.
 - Check measured consumption, change a monthly project budget, or request an encrypted SQL export.
-- Query or update Dev and Prod data, open a time-limited psql login, or run scheduled jobs declared in functions.crons.
-- Share a protected Dev page, publish to Prod, roll back a release, or move the project to an address the customer chooses.
-- Show the opt-in ohmyho.st flag so a Free workspace can connect its own domain, read the workspace's referral link, or follow a support report's status.
 - Keep the app's existing authentication provider; enable only the hosting capabilities it needs.
 
 ## Get started
 
 - [AGENTS.md](https://ohmyho.st/AGENTS.md): Five rules for a coding agent that operates ohmyho.st.
-- [Agent setup playbook](https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md): Install clients, connect MCP, sign in and reuse the customer's workspace.
-- [Quickstart](https://docs.ohmyho.st/quickstart.md): Deploy the selected GitHub app.
-- [Authentication](https://ohmyho.st/auth.md): Browser login, saved logins for several accounts and user-owned API tokens.
+- [Agent setup playbook](https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md): Connect the available client, verify its account and reuse the customer's workspace.
+- [Develop and deploy](https://ohmyho.st/skills/ohmyhost-deploy/SKILL.md): Reuse the saved source or choose managed versions or GitHub once, then verify Dev and publish when requested.
+- [Quickstart](https://docs.ohmyho.st/quickstart.md): Select the app's source, deploy one version and verify it.
+- [Authentication](https://ohmyho.st/auth.md): Connected-chat OAuth, local CLI sessions and private automation tokens.
 - [Account portal](https://app.ohmyho.st/login): Projects, profile, credits and billing after sign-in.
 
-## CLI, MCP and REST
+## Connected chat, CLI, MCP and REST
 
+- [Remote product MCP](https://app.ohmyho.st/mcp): For clients that support authenticated remote MCP, complete OAuth and approve the selected workspace/projects. Editing and previews need their own grant; publishing is a separate choice. Verify actual tool access after connecting.
 - [CLI installation and commands](https://docs.ohmyho.st/cli.md): Install the published npm archive and run ohmyhost login.
-- [MCP setup](https://docs.ohmyho.st/agents/mcp.md): Connect the local stdio npm server to your harness.
-- [MCP tool reference](https://docs.ohmyho.st/mcp-tools.md): Actual tool names and input schemas.
+- [MCP setup](https://docs.ohmyho.st/agents/mcp.md): Connect through the client's supported transport; preserve the local stdio workflow for terminal agents.
+- [Local MCP tool reference](https://docs.ohmyho.st/mcp-tools.md): Actual local-client tool names and input schemas; discover remote tools from the connected server.
 - [MCP client configuration](https://ohmyho.st/mcp.json): Token-free local server settings to merge into your harness.
 - [MCP machine-readable catalog](https://ohmyho.st/mcp-tools.json): Discover the current tools; this is not an authenticated remote endpoint.
 - [OpenAPI JSON](https://ohmyho.st/api/openapi.json): Canonical REST /v1 schemas; production API base https://app.ohmyho.st.
@@ -142,7 +153,7 @@ export const AGENT_INDEX = `# ohmyho.st
 - [Current release](https://ohmyho.st/client-release.json): Current version and immutable manifest URL.
 - [Release manifest](https://ohmyho.st${RELEASE_PATH}/manifest.json): Exact CLI, MCP and SDK archives with integrity hashes.
 
-New user API tokens have no expiry and remain valid until revoked; existing keys retain their recorded expiry. Browser and CLI sessions are separate. Use Bearer authentication for private REST requests. Public discovery and project/user IDs grant no authority. Product access is checked for the current user, organization, project and action. Read the operation's returned polling guidance and reuse mutation idempotency keys after uncertainty.
+Connected chats use client-managed OAuth and signed-in portal approval, with no copied platform token. A new app developed entirely in chat starts with managed versions; the existing server binding and an explicit source choice remain authoritative. Private application values go through the portal secret-input link. Local agents retain their CLI login or private automation credential. New user API tokens have no expiry and remain valid until revoked; existing keys retain their recorded expiry. Browser and CLI sessions are separate. Use Bearer authentication for private REST requests. Public discovery and project/user IDs grant no authority. Product access is checked for the current user, organization, project and action. Read the operation's returned polling guidance and reuse mutation idempotency keys after uncertainty.
 
 ## Task Skills
 
@@ -159,28 +170,21 @@ ${skills
 
 - [Documentation index](https://docs.ohmyho.st/llms.txt): All product guides with titles.
 - [Full product documentation](https://docs.ohmyho.st/llms-full.txt): Complete published guides and API reference.
-- [Connect GitHub](https://docs.ohmyho.st/github.md): Connect GitHub once per workspace, link repositories and deploy a commit.
-- [Dev and Prod](https://docs.ohmyho.st/environments.md): Optional data mode (shared by default), isolated data, Owner-confirmed data changes without copying, protected or public Dev and its share link, US or EU region, Prod deploys, promotion, rollback and deletion.
-- [Databases and compute](https://docs.ohmyho.st/database.md): The app's database client, Dev and Prod queries and writes, time-limited psql access and compute profiles.
-- [Schema migrations](https://docs.ohmyho.st/migrations.md): Expand-only SQL migrations and their promotion to Prod.
-- [Private files](https://docs.ohmyho.st/files.md): Private Cloudflare R2 files, signed transfers, streamed bulk reads and idempotent bulk deletion.
-- [Functions and cron](https://docs.ohmyho.st/functions.md): Cron schedules for Next.js, TanStack Start and Vite apps, and Worker modules without a framework.
-- [Runtime secrets](https://docs.ohmyho.st/secrets.md): Per-environment private values, reserved names and build-time values.
-- [Application auth](https://docs.ohmyho.st/application-auth.md): Managed Better Auth with its database and optional mail, or customer-owned auth, callbacks, Resend integration and secrets.
-- [Domains](https://docs.ohmyho.st/domains.md) and [email](https://docs.ohmyho.st/email.md): Project addresses, custom hostnames, the opt-in ohmyho.st flag for a Free workspace's own domain, sender domains, inbound webhooks and readiness checks.
-- [Support](https://docs.ohmyho.st/support.md): Report a bug, issue or feature request with feedback_submit and follow it with feedback_status; use the contact form when sign-in fails, a billing answer names contact_support, or for privacy and DPA questions.
+- [Selected GitHub sources](https://docs.ohmyho.st/github.md): Repository consent and deployment when GitHub is the app's source.
+- [Databases and compute](https://docs.ohmyho.st/database.md): Profiles, Dev/Prod choices and migrations.
+- [Domains and mail](https://docs.ohmyho.st/domains.md): Setup and follow-up checks.
 - [Usage and budgets](https://docs.ohmyho.st/usage.md): Shared credits, measured costs and project limits.
-- [Billing](https://docs.ohmyho.st/billing.md): Plan access, monthly credits that expire at period end and Paid-only top-ups that expire when Paid access ends. An unpaid renewal keeps Paid features for up to fourteen days without issuing new Paid monthly credits or Free allowances.
+- [Billing](https://docs.ohmyho.st/billing.md): Plan access, monthly and non-expiring credits, Stripe when enabled.
 - [SQL exports](https://docs.ohmyho.st/backups.md): Asynchronous password-encrypted ZIP exports and downloads.
 - [Troubleshooting](https://docs.ohmyho.st/troubleshooting.md): Actionable errors and customer-agent feedback.
 
 ## Pricing and comparisons
 
-- [Pricing](https://ohmyho.st/pricing.md): Free 200 credits a month; Paid $10 for 1,000 credits per paid billing period without rollover; the opt-in Powered by ohmyho.st flag waives domain credits and also enables a Free workspace's own domain, and adds 250 credits per paid Stripe period; referral credits; one balance for every project.
+- [Pricing](https://ohmyho.st/pricing.md): Free 200 credits a month; Paid $10 for 1,000 monthly credits; one balance for every project.
 - [Cost breakdown](https://ohmyho.st/pricing/breakdown.md): Every published rate, worked workloads in credits and the same workloads as separate subscriptions.
 - [ohmyho.st vs Vercel](https://ohmyho.st/vs/vercel.md): Dated list prices, the same small app priced both ways, where Vercel is the better choice.
 - [ohmyho.st vs Supabase](https://ohmyho.st/vs/supabase.md): Postgres compute and storage by usage against Supabase Pro and per-project compute.
-- [ohmyho.st vs Resend](https://ohmyho.st/vs/resend.md): Mail per sent recipient against Resend plans; break-even by volume.
+- [ohmyho.st vs Resend](https://ohmyho.st/vs/resend.md): Mail per recipient plus a sender zone against Resend plans; break-even by volume.
 - [ohmyho.st vs Railway](https://ohmyho.st/vs/railway.md): Requests, CPU time and database credits against per-second vCPU, memory and volumes.
 
 ## Deploy from your agent
@@ -195,12 +199,11 @@ ${skills
 
 ## Company and legal
 
-- [About](https://ohmyho.st/about.md): The product, the agent workflow and how the service runs.
+- [About](https://ohmyho.st/about.md): Amerged B.V., Venray, Netherlands; founder Sebastian Mertens; how the service runs.
 - [Philosophy](https://ohmyho.st/philosophy.md): Buy in bulk, add a small margin, one balance for every project, take your database and go.
-- [Open source](https://ohmyho.st/open-source.md): Apache-2.0 CLI, MCP, SDK, runtime and Better Auth packages on npm, with the MCP server's source mirrored at github.com/amerged-org/ohmyhost-mcp; MIT website and docs; public Skills, MCP catalog and OpenAPI contract; the hosted platform is private.
+- [Open source](https://ohmyho.st/open-source.md): The MIT-licensed docs, the public Skills, llms.txt, MCP catalog and OpenAPI contract; the platform is private.
 - [Blog](https://ohmyho.st/blog.md): Notes from the build with dated, priced comparisons and migration guides.
 - [Brand](https://ohmyho.st/brand.md)
-- [Terms](https://ohmyho.st/terms.md)
 - [Privacy](https://ohmyho.st/privacy.md)
 - [DPA](https://ohmyho.st/dpa.md)
 - [Contact](https://ohmyho.st/contact)

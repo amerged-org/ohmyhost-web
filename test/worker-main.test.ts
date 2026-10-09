@@ -908,6 +908,61 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(text).toContain("https://docs.ohmyho.st/quickstart.md");
     expect(text).not.toContain("https://ohmyho.st/docs/");
     expect(text).toContain("https://ohmyho.st/mcp.json");
+    expect(text).toContain("Develop and save app versions with ohmyho.st");
+    expect(text).toContain("https://app.ohmyho.st/mcp");
+    expect(text).toContain("For clients that support authenticated remote MCP");
+    expect(text).toContain("Connected chats use client-managed OAuth");
+    expect(text).toContain(
+      "A new app developed entirely in chat starts with managed versions",
+    );
+    expect(text).toContain(
+      "existing server binding and an explicit source choice remain authoritative",
+    );
+    expect(text).toContain(
+      "Local agents retain their CLI login or private automation credential",
+    );
+    const rulesResponse = await worker.fetch(
+      new Request("https://ohmyho.st/AGENTS.md"),
+    );
+    const authResponse = await worker.fetch(
+      new Request("https://ohmyho.st/auth.md"),
+    );
+    for (const response of [rulesResponse, authResponse]) {
+      expect(response.status).toBe(200);
+      expect(response.headers.get("content-type")).toContain("text/markdown");
+    }
+    const rules = await rulesResponse.text();
+    const authentication = await authResponse.text();
+    const authRouting = authentication.slice(
+      0,
+      authentication.indexOf("## Connected chat"),
+    );
+    const entryRule = rules.match(/^2\. (.+)$/mu)?.[1] ?? "";
+    for (const guidance of [authRouting, entryRule]) {
+      expect(guidance).toMatch(
+        /execution environment.*reachable checkout.*saved project binding/u,
+      );
+      expect(guidance).toMatch(
+        /matching local CLI\/MCP profile or private token source.*explicitly chooses remote/u,
+      );
+      expect(guidance).toMatch(
+        /remote tools or connection_request alone does not choose/u,
+      );
+      expect(guidance).toMatch(
+        /verify.*identity and workspace.*grants.*stop.*mismatch/u,
+      );
+    }
+    expect(rules).toContain("server's current source binding comes first");
+    expect(rules).toContain("An explicit choice skips that question");
+    expect(rules).toContain("secret_input_request and its private portal link");
+    expect(rules).toContain("stdin command from secret_set_command");
+    expect(authentication).toContain(
+      "No copied API token or device-code login is needed",
+    );
+    expect(authentication).toContain("same person as the chat connection");
+    expect(authentication).toContain(
+      "local stdio MCP server uses that saved CLI login",
+    );
     const sitemap = await worker.fetch(
       new Request("https://ohmyho.st/sitemap.xml"),
     );
