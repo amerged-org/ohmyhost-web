@@ -4,6 +4,8 @@ The Vercel plus Supabase stack is the default for a reason: it works. What it al
 
 Here, one prepaid balance covers hosting, Postgres, transactional mail and a custom domain for every project you run: {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, no per-project fee. You do not have to move the database to move the app — most people shouldn't, on the first pass.
 
+Still choosing your destination? The [integrated alternatives to Vercel and Supabase](/blog/all-in-one-vercel-supabase-alternatives) compare Appwrite, Firebase, Nhost and ohmyho.st before you start migrating.
+
 ## What actually breaks when you move
 
 None of this is hard, but all of it is easy to forget. Your agent works through the list; the list is the point.

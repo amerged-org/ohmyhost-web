@@ -4,6 +4,8 @@ By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · September 20, 
 
 For most small apps, yes: Vercel Pro is {{ usd vendor.vercel.pro }} a month and Supabase Pro starts at {{ usd vendor.supabase.pro }}, because neither one does the other's half. ohmyho.st puts hosting and Postgres on one balance: {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits shared by every project, and a quiet side project uses about {{ credits workload.quietProject }}.
 
+For a hosting and backend platform in one place, compare [Appwrite, Firebase and Nhost alongside ohmyho.st](/blog/all-in-one-vercel-supabase-alternatives). The choice depends on your database model, application services and deployment workflow.
+
 {{ figure bills.supabase }}
 
 ## What Vercel does and what it charges
