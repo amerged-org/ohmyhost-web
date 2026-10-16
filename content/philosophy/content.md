@@ -1,6 +1,6 @@
 # Hosting not per project: why one balance
 
-ohmyho.st prices hosting per organization, not per project. One balance funds every project: Free gives {{ number plan.freeCredits }} credits a month, Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, and each project draws what it uses. No per-project base fee, no deploy dashboard, and an export that works without asking. Rates are the provider's cost plus a small margin.
+ohmyho.st (ohmyhost) prices hosting per organization, not per project. One balance funds every project: Free gives {{ number plan.freeCredits }} credits a month, Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, and each project draws what it uses. No per-project base fee, no deploy dashboard, and an export that works without asking. Rates are the provider's cost plus a small margin.
 
 Short version: I got tired of paying five bills for two live projects and seven parked ones. ohmyho.st buys hosting, Postgres, domains and transactional mail from the providers underneath, adds a small margin, and meters what your projects actually use from one prepaid balance. This page is the reasoning, so you can decide whether it fits you before you connect an agent.
 

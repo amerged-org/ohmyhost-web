@@ -70,6 +70,9 @@ platform's immutable client downloads.
 
 The homepage and editorial JSON-LD graphs share the `WebSite` identity from
 `src/site-identity.ts`. Editorial metadata accepts ISO dates or explicit timestamps with timezones.
+The primary website and organization name remains `ohmyho.st`; `ohmyhost` is their shared
+`alternateName`. The homepage description and three visible passages (homepage FAQ, About and
+Philosophy) connect the unpunctuated spelling to that brand.
 Existing dates retain their original day and are serialized at the UTC day boundary for schema and
 Open Graph; midnight represents the stored day's precision, not a recovered publication clock time.
 Explicit timestamps retain their clock time. Build time never substitutes for publication time.
@@ -88,12 +91,15 @@ validators. Dynamic API, contact and login responses retain their existing polic
 
 The small-app workload includes its deployed script and mail sender zone. The five-project example
 adds four quiet workloads to that complete workload; its prose states when the monthly credits
-need a top-up. The homepage links to the generated breakdown instead of repeating a hardcoded total.
+need a top-up. The homepage links to the generated breakdown and derives its rounded small-app
+total from the same workload, pricing functions and rate card.
 
 ## Approved alternative-positioning copy — 2026-09-21
 
-The homepage names app hosting and the entry price in its H1, keeps competitor names in a scoped
-alternative comparison, and states credit and tax terms by pricing. The original design template
+The homepage H1 names Vercel, Supabase and Resend and positions one alternative from the Paid entry
+price. Its lead pairs the sum of those three Pro plans with hosting, Postgres and email on one
+balance and deployment started through one coding-agent prompt (owner-approved copy, 2026-10-16).
+The comparison and pricing retain their credit, usage and tax terms. The original design template
 stays immutable; approved copy is applied in `scripts/prepare-pages.mjs`. Social titles and short
 card descriptions live in each page's `social` metadata independently of its longer SEO description;
 `src/og-pages.ts` uses those same values and gives ohmyho.st a prominent brand label. Both Open Graph

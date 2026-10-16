@@ -1,6 +1,6 @@
 # Hosting for the apps you build
 
-ohmyho.st brings app hosting, managed Postgres, transactional email and custom domain connections into one platform. It is built for people who create software with Claude Code, Cursor, Codex or other coding agents and want to take a GitHub project through deployment without assembling a separate hosting workflow for every app.
+ohmyho.st (ohmyhost) brings app hosting, managed Postgres, transactional email and custom domain connections into one platform. It is built for people who create software with Claude Code, Cursor, Codex or other coding agents and want to take a GitHub project through deployment without assembling a separate hosting workflow for every app.
 
 ## Why ohmyho.st exists
 

@@ -107,6 +107,14 @@ it("publishes the SEO contract for every rendered page", async () => {
         `${path} ${imagePath}`,
       ).toBe(true);
     const graph = jsonLd(html);
+    for (const type of ["WebSite", "Organization"])
+      expect(
+        graph.find((node) => node["@type"] === type),
+        `${path} ${type}`,
+      ).toMatchObject({
+        name: "ohmyho.st",
+        alternateName: "ohmyhost",
+      });
     const types = graph.map((node) => node["@type"]);
     expect(types, path).toContain("BreadcrumbList");
     expect(types, path).toContain("Organization");

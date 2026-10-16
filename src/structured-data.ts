@@ -126,6 +126,7 @@ export function jsonLdGraph(
       "@type": "Organization",
       "@id": ORGANIZATION_ID,
       name: "ohmyho.st",
+      alternateName: "ohmyhost",
       url: `${SITE_ORIGIN}/`,
       logo: `${SITE_ORIGIN}/logo.png`,
     },

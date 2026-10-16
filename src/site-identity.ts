@@ -4,6 +4,7 @@ export const WEBSITE = {
   "@type": "WebSite",
   "@id": `${SITE_ORIGIN}/#website`,
   name: "ohmyho.st",
+  alternateName: "ohmyhost",
   url: `${SITE_ORIGIN}/`,
   publisher: { "@id": `${SITE_ORIGIN}/#org` },
 } as const;

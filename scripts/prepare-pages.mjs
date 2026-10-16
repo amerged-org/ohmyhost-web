@@ -1,4 +1,5 @@
 import { existsSync } from "node:fs";
+import { registerHooks } from "node:module";
 import { format } from "prettier";
 import { createHash } from "node:crypto";
 import { mkdir, readdir, readFile, writeFile, rm } from "node:fs/promises";
@@ -21,6 +22,18 @@ const output = `${directory}public/pages`;
 const plans = JSON.parse(
   await readFile(`${directory}content/data/plans.json`, "utf8"),
 );
+// Reuse the content compiler's pricing functions for approved homepage copy.
+registerHooks({
+  resolve(specifier, context, next) {
+    if (
+      specifier.startsWith(".") &&
+      specifier.endsWith(".js") &&
+      context.parentURL?.endsWith(".ts")
+    )
+      return next(`${specifier.slice(0, -3)}.ts`, context);
+    return next(specifier, context);
+  },
+});
 const brandAssets = `${directory}brand/assets`;
 await mkdir(output, { recursive: true });
 await writeFile(
@@ -36,6 +49,17 @@ await writeFile(
   `${directory}src/generated-mcp-tools.json`,
   `${JSON.stringify(mcpTools(), null, 2)}\n`,
 );
+const { number, priceWorkload, scenarioUsd } = await import(
+  "../src/content/format.ts"
+);
+const { SCENARIOS, WORKLOADS } = await import("../src/content/sources.ts");
+const stackPrice = scenarioUsd(SCENARIOS.threeSubscriptions);
+const smallAppCredits = Math.round(
+  priceWorkload(WORKLOADS.smallApp).microcredits / 1_000_000,
+);
+const smallAppEmails = WORKLOADS.smallApp.lines.find(
+  (line) => line.meter === "mail.sent",
+).quantity;
 await writeFile(
   `${directory}src/generated-skills.ts`,
   await format(
@@ -269,8 +293,7 @@ await writeFile(
 function applyApprovedHomepageChanges(html) {
   const socialTitle =
     "ohmyho.st — An alternative to Vercel, Supabase &amp; Resend";
-  const socialDescription =
-    "An alternative stack for app hosting, managed Postgres and transactional email. Deploy with your coding agent. One credit balance across projects.";
+  const socialDescription = `ohmyho.st (ohmyhost): app hosting, Postgres and email from $${plans.paidUsd}/month. Start deployment with one prompt in Codex, Claude Code or Cursor.`;
   html = html
     .replace(
       /(<meta (?:property="og:title"|name="twitter:title") content=")[^"]*(">)/gu,
@@ -278,7 +301,7 @@ function applyApprovedHomepageChanges(html) {
     )
     .replace(
       /(<meta (?:property="og:description"|name="twitter:description") content=")[^"]*(">)/gu,
-      `$1${socialDescription}$2`,
+      (_match, open, close) => `${open}${socialDescription}${close}`,
     );
   // The card carries the copy as text; the brand image alone showed only the mark.
   html = html
@@ -308,18 +331,20 @@ function applyApprovedHomepageChanges(html) {
     "<span>© 2026 ohmyho.st</span>\n    <span>Made in the EU</span>":
       "<span>© 2026 ohmyho.st — Made in Europe</span>",
 
-    "Built it with <b>Claude Code, Cursor, Codex or Lovable</b>? Paste one prompt. Your agent deploys it — skip Vercel, Resend and Supabase.":
-      "An alternative to the Vercel, Supabase and Resend stack for app hosting, managed Postgres and transactional email.",
+    "Built it with <b>Claude Code, Cursor, Codex or Lovable</b>? Paste one prompt. Your agent deploys it — skip Vercel, Resend and Supabase.": `Their three Pro plans total $${stackPrice}/month. ohmyho.st brings hosting, Postgres and email into one balance. Start with one prompt in your coding agent.`,
 
     "header{text-align:center;padding:80px 0 0}":
       "header{text-align:center;padding:48px 0 0}",
     "h1{font-size:clamp(44px,9vw,80px)": "h1{font-size:clamp(36px,7.2vw,64px)",
     ".art{margin:40px auto 0;max-width:900px;width:100%}":
       ".art{margin:40px auto 0;max-width:855px;width:95%}",
-    '<span class="thin">Ten dollars.</span><br>Host your vibe-coded apps.': `<span class="thin">Host your app.</span><br>All-in-one hosting from $${plans.paidUsd}/month.`,
+    '<span class="thin">Ten dollars.</span><br>Host your vibe-coded apps.': `<span class="thin">Vercel, Supabase &amp; Resend.</span><br>One alternative from $${plans.paidUsd}/month.`,
     "<title>Hosting for vibe-coded apps — $10/mo for all your projects, not per project | ohmyho.st</title>": `<title>${socialTitle}</title><meta name="description" content="${socialDescription}">`,
     '"logo": "https://ohmyho.st/logo.png",':
-      '"logo": "https://ohmyho.st/logo.png", "legalName": "Amerged B.V.", "identifier": {"@type":"PropertyValue","propertyID":"KVK","value":"42154221"}, "contactPoint": {"@type":"ContactPoint","contactType":"Customer support","url":"https://ohmyho.st/contact"},',
+      '"logo": "https://ohmyho.st/logo.png", "alternateName": "ohmyhost", "legalName": "Amerged B.V.", "identifier": {"@type":"PropertyValue","propertyID":"KVK","value":"42154221"}, "contactPoint": {"@type":"ContactPoint","contactType":"Customer support","url":"https://ohmyho.st/contact"},',
+    "ohmyho.st is prepaid-credit hosting for apps built with":
+      "ohmyho.st (ohmyhost) is prepaid-credit hosting for apps built with",
+    "second project <em>0 extra</em>": "second project: <em>usage only</em>",
     "Hosting, Postgres, email, domain, AI models and backups behind one command. Built for AI coding agents via MCP.":
       "Hosting, Postgres, domains, email and encrypted SQL exports for GitHub apps, operated through an agent, CLI or API.",
     'class="cta hero-a" id="hero-cta" style="animation-delay:2.4s"':
@@ -397,8 +422,7 @@ function applyApprovedHomepageChanges(html) {
       "Custom domains, email and database exports come with the $10 plan.",
     "(2,000 emails ≈ $7 from your balance vs a $20 Resend Pro plan) and more expensive at high volume (50,000 emails ≈ $175 vs $20)":
       "(2,000 emails ≈ $4 from your balance vs a $20 Resend Pro plan) and more expensive at high volume (50,000 emails ≈ $90 vs $20)",
-    "1,000 credits. 2,000 emails ≈ 700 credits, a small app's":
-      "1,000 credits. 2,000 emails ≈ 360 credits, a small app's",
+    "1,000 credits. 2,000 emails ≈ 700 credits, a small app's hosting and Postgres ≈ 100–200. Busy months use more; the slider below shows what.": `${number(plans.paidCredits)} credits. Our small-app example uses ≈ ${number(smallAppCredits)}, including ${number(smallAppEmails)} emails. Every project shares the balance. Higher usage needs more credits.`,
     "<span><h3>10,000 db reads</h3><u>8 credits</u></span>":
       "<span><h3>1 active database hour</h3><u>36 credits</u></span>",
     "<span><h3>1,000 emails</h3><u>350 credits</u></span>":

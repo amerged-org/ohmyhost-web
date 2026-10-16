@@ -139,7 +139,9 @@ it("keeps the pinned homepage's bill and credit examples equal to the data modul
     `<h3>1 database GB-month</h3><u>${round(priceLine("neon.storage.root", 1))}</u>`,
   );
   expect(credits(priceLine("mail.sent", 2000), 0)).toBe("360 credits");
-  expect(home).toContain("2,000 emails ≈ 360 credits");
+  expect(home).toContain(
+    `Our small-app example uses ≈ ${Math.round(priceWorkload(WORKLOADS.smallApp).microcredits / MICROCREDITS)}, including 2,000 emails.`,
+  );
   expect(home).toContain("including the deployed script and mail");
   expect(home).toContain("mail_status");
   expect(home).not.toContain("mail_domain_status");

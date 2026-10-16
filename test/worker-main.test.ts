@@ -41,7 +41,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html).toContain('</a></div>\n  </div>\n  <div class="fbot">');
     expect(html).toContain("<span>© 2026 ohmyho.st — Made in Europe</span>");
     expect(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/u)?.[1]).toBe(
-      '<span class="thin">Host your app.</span><br>All-in-one hosting from $10/month.',
+      '<span class="thin">Vercel, Supabase &amp; Resend.</span><br>One alternative from $10/month.',
     );
     for (const [attribute, name] of [
       ["property", "og:title"],
@@ -55,8 +55,29 @@ describe("public entry and unassigned Free-host fallback", () => {
       ["name", "twitter:description"],
     ])
       expect(html).toContain(
-        `<meta ${attribute}="${name}" content="An alternative stack for app hosting, managed Postgres and transactional email. Deploy with your coding agent. One credit balance across projects.">`,
+        `<meta ${attribute}="${name}" content="ohmyho.st (ohmyhost): app hosting, Postgres and email from $10/month. Start deployment with one prompt in Codex, Claude Code or Cursor.">`,
       );
+    expect(html).toContain(
+      "Their three Pro plans total $65/month. ohmyho.st brings hosting, Postgres and email into one balance. Start with one prompt in your coding agent.",
+    );
+    expect(html).toContain(
+      "ohmyho.st (ohmyhost) is prepaid-credit hosting for apps built with",
+    );
+    expect(html).toContain(
+      "1,000 credits. Our small-app example uses ≈ 814, including 2,000 emails. Every project shares the balance. Higher usage needs more credits.",
+    );
+    expect(html).not.toContain("Postgres ≈ 100–200");
+    expect(html).toContain("second project: <em>usage only</em>");
+    const graph = JSON.parse(
+      html.match(
+        /<script type="application\/ld\+json">([\s\S]*?)<\/script>/u,
+      )?.[1] ?? "{}",
+    )["@graph"] as Array<Record<string, unknown>>;
+    for (const type of ["WebSite", "Organization"])
+      expect(graph.find((node) => node["@type"] === type)).toMatchObject({
+        name: "ohmyho.st",
+        alternateName: "ohmyhost",
+      });
     expect(html).toContain(
       "<title>ohmyho.st — An alternative to Vercel, Supabase &amp; Resend</title>",
     );
