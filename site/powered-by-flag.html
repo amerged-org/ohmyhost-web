@@ -1,1 +1,15 @@
-<ohmyhost-flag><template shadowrootmode="open"><style>:host{all:initial;position:fixed;right:0;bottom:96px;z-index:2147483647}a{display:flex;align-items:center;height:32px;padding:0 8px;border-radius:10px 0 0 10px;background:#000;color:#F0F1F2;font:500 12px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;text-decoration:none;box-shadow:0 0 0 1px rgba(240,241,242,.18),0 2px 8px rgba(0,0,0,.24)}svg{width:16px;height:16px;flex:none}span{max-width:0;margin-left:0;overflow:hidden;white-space:nowrap;transition:max-width .2s ease,margin-left .2s ease}a:hover span,a:focus-visible span{max-width:220px;margin-left:8px}a:focus-visible{outline:2px solid #F0F1F2;outline-offset:-4px}@media (prefers-reduced-motion:reduce){span{transition:none}}@media print{:host{display:none}}</style><a href="/pricing" aria-label="Show this flag, get {{flagBonusPercent}}% more"><svg viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="12.5" stroke-linecap="round" stroke-linejoin="round"><path d="M30 87 H14 L27 63 A31 31 0 1 1 73 63 L86 87 H70"/></svg><span>Show this flag, get {{flagBonusPercent}}% more</span></a></template></ohmyhost-flag>
+<ohmyhost-flag><template shadowrootmode="open"><style>
+:host{all:initial;position:fixed;right:0;bottom:96px;z-index:2147483647;color-scheme:dark}
+details{position:relative;font:500 12px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#F0F1F2}
+summary{display:flex;align-items:center;justify-content:center;box-sizing:border-box;list-style:none;width:44px;height:44px;border-radius:10px 0 0 10px;background:#000;box-shadow:0 0 0 1px rgba(240,241,242,.18),0 2px 8px rgba(0,0,0,.24);cursor:pointer}
+summary::-webkit-details-marker{display:none}
+svg{width:16px;height:16px;flex:none}
+.close{display:none;font-size:22px;line-height:1}
+details[open] summary{border-radius:0}
+details[open] .omega{display:none}
+details[open] .close{display:block}
+a{position:absolute;right:44px;bottom:0;display:flex;align-items:center;box-sizing:border-box;min-height:44px;width:max-content;max-width:min(320px,calc(100vw - 68px));padding:10px 12px;border-radius:10px 0 0 10px;background:#000;color:inherit;font:inherit;text-decoration:none;overflow-wrap:anywhere;box-shadow:0 0 0 1px rgba(240,241,242,.18),0 2px 8px rgba(0,0,0,.24)}
+summary:focus-visible,a:focus-visible{outline:2px solid #F0F1F2;outline-offset:-4px}
+a:hover{text-decoration:underline}
+@media print{:host{display:none}}
+</style><details><summary aria-label="Open affiliate information"><svg class="omega" viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="12.5" stroke-linecap="round" stroke-linejoin="round"><path d="M30 87 H14 L27 63 A31 31 0 1 1 73 63 L86 87 H70"/></svg><span class="close" aria-hidden="true">&gt;</span></summary><a href="https://docs.ohmyho.st/affiliate" rel="noopener">{{affiliateCredits}} credits for free - affiliate</a></details></template></ohmyhost-flag>

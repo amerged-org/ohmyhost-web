@@ -26,7 +26,7 @@ Ask your agent to show a small “Powered by ohmyho.st” flag on the right edge
 
 ## Refer and earn
 
-Copy your referral link with the Refer and earn button in your account menu, or ask your agent for it. A new user's first workspace created through your link or your flag starts with {{ number plan.flagReferralPaidDays }} days of Paid and {{ number plan.flagReferralCredits }} credits. When that workspace first pays, you receive {{ number plan.flagReferralCredits }} credits, plus {{ number plan.flagReferralPaidDays }} days of Paid unless an active Paid subscription or an indefinite Paid grant already covers you. Your existing Stripe billing period stays unchanged. Direct signup or an invalid referral value starts Free without a referral reward. These promotional benefits may change or end; see the [Terms](/terms).
+Copy your referral link with the Refer and earn button in your account menu, or ask your agent for it. A new user's first workspace created through your link or your flag starts with {{ number plan.flagReferralPaidDays }} days of Paid and {{ number plan.flagReferralCredits }} credits. When that workspace first pays, you receive {{ number plan.flagReferralCredits }} credits, plus {{ number plan.flagReferralPaidDays }} days of Paid unless an active Paid subscription or an indefinite Paid grant already covers you. Your existing Stripe billing period stays unchanged. Direct signup or an invalid referral value starts Free without a referral reward. Read the [affiliate guide](https://docs.ohmyho.st/affiliate) for both benefits and a prompt that gets your personal code and link. These promotional benefits may change or end; see the [Terms](/terms).
 
 ## Control your spending
 

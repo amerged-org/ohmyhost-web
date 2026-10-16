@@ -83,18 +83,15 @@ const templates = {
   brand: "d2a49d8a4b9d979c72958eebb2f2db4b7637405ccacd27100ce77e405a01bebe",
 };
 const fontCss = await readFile(`${directory}site/fonts.css`, "utf8");
-// Every page ends with the analytics consent UI and the same "Powered by ohmyho.st" flag our
-// customers can show, here advertising the flag's own reward: its Paid bonus on a Paid month's
-// credits, taken from the plan data.
+// The website affiliate tab links to the guide for both the flag bonus and referral rewards.
+// Customer-site powered-by flags and their attribution stay owned by the platform.
 const privacyUi =
   `<style>${await readFile(`${directory}site/analytics.css`, "utf8")}</style><script>${await readFile(`${directory}site/analytics.js`, "utf8")}</script>` +
   `${await readFile(`${directory}site/privacy-ui.html`, "utf8")}<script>${await readFile(`${directory}site/privacy-ui.js`, "utf8")}</script>` +
   (await readFile(`${directory}site/powered-by-flag.html`, "utf8"))
     .trim()
-    .replaceAll(
-      "{{flagBonusPercent}}",
-      String((100 * plans.flagPaidBonusCredits) / plans.paidCredits),
-    );
+    .replaceAll("{{affiliateCredits}}", String(plans.flagReferralCredits)) +
+  `<script>${await readFile(`${directory}site/affiliate-flag.js`, "utf8")}</script>`;
 const approvedHome = await readFile(`${directory}site/home.html`, "utf8");
 const sharedCss = approvedHome.match(/<style>([\s\S]*?)<\/style>/u)?.[1];
 const navigationCss =

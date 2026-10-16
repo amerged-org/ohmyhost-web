@@ -136,10 +136,11 @@ it("keeps the plan constants and the agent prompt equal to their sources", async
     "utf8",
   );
   expect(prepare).toContain(`"${CTA_PROMPT}"`);
-  // The flag's reward is its Paid bonus on a Paid month's credits: 250 on 1,000 is 25% more.
-  const flagReward = `Show this flag, get ${(100 * PLANS.flagPaidBonusCredits) / PLANS.paidCredits}% more`;
-  expect(PRIVACY_UI).toContain(`aria-label="${flagReward}"`);
-  expect(PRIVACY_UI).toContain(`<span>${flagReward}</span>`);
+  // The affiliate guide explains both benefits; this tab advertises the referral credit amount.
+  const flagReward = `${PLANS.flagReferralCredits} credits for free - affiliate`;
+  expect(PRIVACY_UI).toContain(flagReward);
+  expect(PRIVACY_UI).toContain('href="https://docs.ohmyho.st/affiliate"');
+  expect((100 * PLANS.flagPaidBonusCredits) / PLANS.paidCredits).toBe(25);
   for (const vendor of Object.values(VENDORS)) {
     expect(vendor.checkedOn).toMatch(/^\d{4}-\d{2}-\d{2}$/u);
     expect(vendor.sourceUrl.startsWith("https://")).toBe(true);

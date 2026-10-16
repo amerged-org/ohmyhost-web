@@ -50,6 +50,8 @@ only that committed file, so a build is deterministic and offline.
 | W007 | Implemented | An article illustration is an SVG beside its post (`content/<path>/figures/<name>.svg`), rendered by `node scripts/site-capture.mjs figures` into `public/images/<name>.png` with a source-hash manifest and served at `/images/<name>.png`. |
 | W008 | Implemented | Support means the customer's agent reports a bug, issue or feature request with MCP `feedback_submit` or CLI `feedback submit` and follows it with `feedback_status`; the footer links the docs Support page, and `/contact` stays for what an agent cannot report. |
 
+| W009 | Implemented | The website affiliate tab uses a native collapsed `details` disclosure in its Shadow DOM. Click or keyboard activation pins it open; the Ω becomes `>` to close, and outside pointers or Escape also close it. Its separate link opens `docs.ohmyho.st/affiliate`. The amount comes from `plans.flagReferralCredits`; the guide explains the existing flag bonus and referral reward without new enrollment or reward rules. The inline controller is included in each page's existing CSP hash calculation and uses no storage or network. Customer-site powered-by flags and their attribution are unchanged. |
+
 Owner-supplied screenshots are copied unchanged to `public/shots/<name>.png` and served at
 `/shots/<name>.png`, using lowercase letters, digits and hyphens in the name. Articles declare each
 screenshot's original dimensions and descriptive alt text. This leaves the W007 SVG illustration
