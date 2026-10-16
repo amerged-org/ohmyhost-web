@@ -112,6 +112,10 @@ The homepage social card uses the owner-selected migration motif, adding Resend 
 
 The homepage omits the extra credit-balance paragraph beneath its lead to keep the primary Copy prompt action higher in the initial viewport (owner correction, 2026-09-21).
 
+The homepage hero renders its text, complete diagram and primary action immediately, without an
+entry sequence or waiting for the diagram. Header-scoped overrides preserve the ambient dots and
+halo, scroll animations and post-copy feedback (owner-approved, 2026-10-16).
+
 The homepage preserves the original comparison heading/lead/cards hierarchy: attribution is a
 single short line below the cards, pricing has one concise metering/reset note linking to usage
 rates, and the closing CTA says “No card required.” (owner layout correction, 2026-09-21).

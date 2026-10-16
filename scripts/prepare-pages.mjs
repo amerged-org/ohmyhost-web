@@ -531,12 +531,15 @@ function applyApprovedHomepageChanges(html) {
     ) +
     '<div class="cta up" id="pricing-cta"><button class="btn nochev primary" data-copy><svg class="ohm" viewBox="0 0 100 100" aria-hidden="true"><path d="M30 87 H14 L27 63 A31 31 0 1 1 73 63 L86 87 H70"/></svg><span>Copy prompt for your agent</span></button></div>\n' +
     html.slice(end);
-  const intro = `<style>header.intro-pending #hero-cta,header.intro-pending #under{visibility:hidden}</style><script>(()=>{const header=document.querySelector('header'),art=header?.querySelector('.art > svg');if(!header||!art?.getAnimations||matchMedia('(prefers-reduced-motion: reduce)').matches)return;header.classList.add('intro-pending');try{const animations=art.getAnimations({subtree:true}).filter(a=>a.effect&&Number.isFinite(a.effect.getComputedTiming().endTime));animations.forEach(a=>a.updatePlaybackRate(1.25));Promise.allSettled(animations.map(a=>a.finished)).finally(()=>header.classList.remove('intro-pending'));}catch{header.classList.remove('intro-pending');}})();</script>`;
-  return html.replace(
-    "</header>",
-    '<noscript><p class="under"><a href="/docs/quickstart">Read the getting-started guide for your agent →</a></p></noscript></header>' +
-      intro,
-  );
+  // Show the complete hero on first paint; its ambient dots and halo keep their original timing.
+  const heroReady =
+    "<style>header .hero-a,header .art .fadein{opacity:1;transform:none;animation:none}header .art .wire{stroke-dashoffset:0;animation:none}</style>";
+  return html
+    .replace("</head>", `${heroReady}</head>`)
+    .replace(
+      "</header>",
+      '<noscript><p class="under"><a href="/docs/quickstart">Read the getting-started guide for your agent →</a></p></noscript></header>',
+    );
 }
 
 /** Search and social hardening of the approved homepage: landmark, one description, shared footer, image sizes. */

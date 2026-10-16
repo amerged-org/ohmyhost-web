@@ -146,7 +146,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html.match(/rel="icon"/gu)).toHaveLength(1);
     expect(html).not.toContain("fetch('/stats.json'");
     expect(html).not.toContain('id="proof"');
-    expect(html).toContain("updatePlaybackRate(1.25)");
+    expect(html).not.toContain("intro-pending");
     expect(html).toContain("Your database, exported &amp; connected.");
     expect(html).toContain('width="96" height="96" loading="lazy"');
     expect(html).toContain(
