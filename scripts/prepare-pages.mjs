@@ -564,8 +564,7 @@ function hardenHomepageMarkup(html) {
       '        <button class="btn nochev startfree navcopy" id="navcopy" data-copy>\n',
     "It includes hosting, a Postgres database and a you.ohmyho.st subdomain. Custom domains, email and database exports come with the $10 plan.":
       "It includes hosting, a Postgres database and a Dev and a Prod host, each on a generated three-word address such as humble-kiwis-find.check.omh.st, or your own domain on the $10 plan. Encrypted SQL exports are on every plan; linking your own domain and sending mail use credits.",
-    "<li>you.ohmyho.st</li>":
-      "<li>A host like humble-kiwis-find.check.omh.st</li>",
+    "<li>you.ohmyho.st</li>": "",
     "Worked example: six quiet projects plus one with real users ≈ 600 credits a month. Ten dollars covers it.":
       'The worked example includes hosting, database usage and transactional mail, including the deployed script and mail. See the <a href="/pricing/breakdown">full cost breakdown</a>.',
     "When usage reaches it, ohmyho.st stops the project before it costs more; the site stays up and read-only.":
