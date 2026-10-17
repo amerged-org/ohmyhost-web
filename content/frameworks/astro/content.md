@@ -1,52 +1,84 @@
-# Astro hosting for the way you build
+# Astro Hosting for Static Sites and Cloudflare SSR
 
-Host a static Astro site or an Astro application that renders on the server. Your coding agent inspects the repository, prepares a deployment, opens a Dev preview and publishes the verified version to Prod. Keep your content and framework code in your existing project, with hosting managed through the same agent workflow.
+Deploy Astro static sites and server-rendered applications on ohmyho.st. Your coding agent builds a Dev preview, checks the application and publishes the same tested version to Production. Astro SSR runs on Cloudflare Workers with the official Cloudflare adapter.
 
-## Static pages, request-time rendering, or both
+Start with {{ number plan.freeCredits }} Free credits. Paid costs {{ usd plan.paidUsd }} a month before tax and adds {{ number plan.paidCredits }} credits per paid period. Builds, hosting and any optional services consume credits; see [Astro hosting pricing](#astro-hosting-pricing).
 
-A portfolio, publication or documentation site can render its pages during the build. Visitors receive the resulting HTML and assets; interactive islands load browser code only where the page needs it. Content changes become a new deployment, with the previous version retained for rollback.
+[Deploy your Astro site](https://docs.ohmyho.st/quickstart) · [Read the Astro configuration guide](https://docs.ohmyho.st/frameworks/astro)
 
-An application that depends on the current request can use Astro SSR. The official Cloudflare adapter produces a Worker for dynamic pages, middleware and API endpoints. Pages marked for prerendering remain static. These modes have different runtime needs, and the deployment inspection reports which mode your repository selects.
+## A live Astro site: sebmer.com
 
-Start with the architecture the application actually needs. A static publication does not need a database because its host offers one. A private account page cannot be made static merely to pass a build. Your agent should keep that distinction visible while preparing the application.
+[Seb Builds](https://sebmer.com) runs on our Astro hosting. We migrated the existing publication from Next.js while retaining its project pages, essays, build logs, feeds, public JSON and URLs. We checked the generated pages, metadata, images and browser theme controls before publishing the tested Dev build to Production.
 
-## Seb Builds as a production migration case
+The [Astro migration source](https://github.com/sebmer-com/sebbuilds/tree/ohmyhost-poc-astro) is public. It shows the content pipeline and static output behind the live site. A separate hosted SSR application verified request-dependent pages, middleware, an API endpoint, prerendered output and an interactive React island. Those checks cover both static delivery and server rendering.
 
-[Seb Builds](https://sebmer.com) is our production migration case: an existing publication with project pages, essays, build logs, public JSON, discovery files, images and RSS. Its Astro migration keeps the existing editorial design and public URLs.
+## Static Astro hosting or server-side rendering?
 
-The static publication and our separate SSR acceptance application exercise different paths. The SSR case checks request-dependent output, middleware, an API endpoint, a prerendered page and a React island. We distinguish a successful framework build from a working hosted application and verify both before calling the integration ready.
+| Rendering mode | Use it for | What ohmyho.st deploys |
+| --- | --- | --- |
+| Static Astro site | Blogs, documentation, portfolios and marketing pages updated when you publish | Generated HTML, CSS, images and browser scripts from the Astro build |
+| Astro SSR | Pages or endpoints that read the current request | A Cloudflare Worker built with the official Astro adapter, plus public assets |
+| SSR with prerendered pages | An application with public content and dynamic routes | Static output for prerendered routes and a Worker for request-time routes |
 
-## How to deploy Astro with your coding agent
+An interactive React component does not require the whole site to use SSR. Astro can render the page during the build and hydrate that component in the browser. Use server rendering when the response needs request-time information.
 
-1. Inspect the existing repository, rendering mode and source connection.
-2. Prepare a plan for the exact source commit and resolve any reported blockers.
-3. Build Dev and verify pages, endpoints, assets and browser interactions.
-4. Promote the verified artifact to Prod and check the public routes.
+Keep your existing rendering mode when moving hosts. Deployment inspection checks your Astro configuration and lockfile before the build, then reports the supported runtime and any concrete blockers.
 
-Use your existing supported source connection. Ask the agent to inspect the repository before creating another project or replacing a configuration file:
+## How to deploy Astro from your repository
+
+Use an existing GitHub connection or managed source project. Your agent can inspect a local checkout and continue the project already associated with that workspace.
+
+1. **Inspect the application.** Check the Astro rendering mode, source connection, dependencies and required services.
+2. **Build a Dev preview.** Prepare a deployment plan for the exact source version, then build it in Dev.
+3. **Test the site.** Open nested pages, images, feeds and browser interactions. For SSR, exercise dynamic routes and API endpoints.
+4. **Publish the tested version.** Promote the verified Dev artifact to Production without rebuilding, then connect or check your custom domain.
+
+Paste this into the coding agent working on your repository:
 
 ```text
-Read https://ohmyho.st/llms.txt and the get-started Skill. Deploy this Astro application on ohmyho.st using its existing project and source connection where present. Keep its rendering mode, content and integrations. Run the repository inspection, resolve its concrete blockers, verify Dev, then publish the verified artifact to Prod.
+Read https://ohmyho.st/llms.txt and the get-started Skill. Deploy this Astro application using its existing project and source connection. Preserve its rendering mode and integrations. Inspect the repository, resolve deployment blockers, build and verify Dev, then publish the tested artifact to Production.
 ```
 
-For a local checkout, the first inspection is:
+For a local inspection, your agent starts with:
 
 ```sh
 ohmyhost init --dry-run --json
 ```
 
-The agent reads the pinned package manager and lockfile, Astro configuration and required runtime capabilities. A deployment plan then names the exact source version and its effects. After the build, open Dev and test the paths your visitors use. Promotion publishes that verified artifact without changing its application bytes.
+The deployment plan identifies the source and resource effects before execution. Hosting uses the standard supported Astro output, so you do not need to create a Dockerfile for the application.
 
-## What the first integration supports
+## Astro hosting pricing
 
-Use normal Astro static output or the official Cloudflare adapter for Workers SSR. Keep the standard source and output directories. For SSR, disable native KV sessions and select image passthrough; customer-defined Cloudflare resources, provider cache and Cloudflare Images are outside this initial integration.
+Free starts with {{ number plan.freeCredits }} credits and a project address. Paid costs {{ usd plan.paidUsd }} a month before tax and grants {{ number plan.paidCredits }} monthly credits shared across your projects. Usage above that allowance needs more credits. Monthly credits expire at the end of the paid period without rollover.
 
-The application can keep its chosen authentication provider. Any declared private database, file or mail integration must follow its own supported runtime contract and pass a real application check. SSR runs in Workers, so a Node package must be compatible with that runtime. Your agent should report an incompatible dependency instead of removing a required feature silently.
+Builds, deployed scripts, requests and any database, file or mail service use the published usage rates. Your total depends on what the site consumes. A static publication and a busy SSR application can have different costs on the same plan.
 
-The [Astro guide](https://docs.ohmyho.st/frameworks/astro) contains the exact configuration and current boundaries. The [hosting comparison](/blog/best-astro-hosting-2027) explains when another deployment workflow may suit you better.
+Bring your own custom domain on Paid. Free can also use a customer-owned domain while the project's “Powered by ohmyho.st” flag remains enabled. Read the [current plans](/pricing) and [itemized hosting cost breakdown](/pricing/breakdown) before choosing an allowance.
 
-## One balance for the capabilities you use
+## Astro SSR compatibility and limits
 
-Hosting, builds and any enabled services use the existing credit model. Read the current [pricing](/pricing) and [worked cost breakdown](/pricing/breakdown) for the meters and assumptions. The relevant cost is the application's workload, including dynamic requests where used, rather than its framework name.
+SSR uses the official Cloudflare adapter and requires Worker-compatible server dependencies. A package that runs in Node during a build may need a different implementation at request time.
 
-[Connect your agent](https://docs.ohmyho.st/quickstart) · [Read the Astro setup](https://docs.ohmyho.st/frameworks/astro) · [See Seb Builds](https://sebmer.com)
+Use standard Astro source and output directories. Disable native KV sessions and use image passthrough for SSR. Additional customer-defined Cloudflare bindings, provider cache and Cloudflare Images are outside this integration. The [Astro deployment guide](https://docs.ohmyho.st/frameworks/astro) lists the exact configuration.
+
+Your application can keep its authentication provider. Optional database, file and mail integrations follow their own supported runtime contracts. Check the integration you actually use before publishing.
+
+## Astro hosting questions
+
+### Can I host a static Astro site without a database?
+
+Yes. Publish the generated HTML and assets. Add a database only when the application needs one; a blog or portfolio can read its content entirely during the build.
+
+### Does Astro SSR run on Cloudflare Workers?
+
+Yes. ohmyho.st supports Astro SSR built with the official Cloudflare adapter. Request-dependent pages, middleware and API endpoints run in Workers, while prerendered routes remain static.
+
+### Can I test an Astro deployment before publishing it?
+
+Yes. Build and check Dev first, then promote that same artifact to Production. This keeps the application bytes you tested and the version your visitors receive aligned.
+
+### Which Astro hosting provider should I choose?
+
+Choose ohmyho.st if you want your coding agent to handle deployment and publication. For direct Cloudflare configuration or a different Git and dashboard workflow, compare the options in [Best Astro Hosting for 2027](/blog/best-astro-hosting-2027).
+
+[Deploy Astro on ohmyho.st](https://docs.ohmyho.st/quickstart) · [Check the Astro setup](https://docs.ohmyho.st/frameworks/astro)

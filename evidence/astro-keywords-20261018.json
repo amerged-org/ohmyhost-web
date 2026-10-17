@@ -1,0 +1,159 @@
+{
+  "observed_at": "2026-10-17T23:08:29.923828+00:00",
+  "source": "Ahrefs Free Keyword Generator public browser UI",
+  "source_url": "https://ahrefs.com/keyword-generator/",
+  "country": "United States",
+  "engine": "Google",
+  "measure": "Vendor-estimated monthly search volume, displayed range; not actual visits or Search Console impressions",
+  "queries": [
+    {
+      "seed": "astro hosting",
+      "result_count": 2,
+      "displayed_rows": [
+        {
+          "keyword": "astro hosting",
+          "volume": "<100",
+          "kd": "Easy",
+          "updated_display": "12 September"
+        },
+        {
+          "keyword": "cloudflare astro hosting",
+          "volume": "<100",
+          "kd": "N/A",
+          "updated_display": null
+        }
+      ]
+    },
+    {
+      "seed": "best astro hosting",
+      "result": "No keyword ideas",
+      "numeric_volume": null
+    },
+    {
+      "seed": "astro ssr hosting",
+      "result": "No keyword ideas",
+      "numeric_volume": null
+    },
+    {
+      "seed": "hosting for astro",
+      "result_count": 1,
+      "displayed_rows": [
+        {
+          "keyword": "what is the best hosting for astro",
+          "volume": "<100",
+          "kd": "N/A",
+          "updated_display": null
+        }
+      ]
+    },
+    {
+      "seed": "astro cloudflare",
+      "result_count": 52,
+      "displayed_count": 20,
+      "all_displayed_volumes": "<100",
+      "relevant_rows": [
+        {
+          "keyword": "astro cloudflare",
+          "volume": "<100",
+          "kd": "Hard",
+          "updated_display": "8 October"
+        },
+        {
+          "keyword": "astro cloudflare pages",
+          "volume": "<100",
+          "kd": "Hard",
+          "updated_display": "1 October"
+        },
+        {
+          "keyword": "astro cloudflare workers",
+          "volume": "<100",
+          "kd": "N/A"
+        },
+        {
+          "keyword": "astro cloudflare adapter",
+          "volume": "<100",
+          "kd": "N/A"
+        },
+        {
+          "keyword": "astro cloudflare deploy",
+          "volume": "<100"
+        }
+      ]
+    },
+    {
+      "seed": "cloudflare vs vercel astro",
+      "result": "No keyword ideas",
+      "numeric_volume": null
+    }
+  ],
+  "serp_observations": [
+    {
+      "query": "Astro hosting framework",
+      "intent": "Product/hosting selection and setup",
+      "examples": [
+        "https://g7cloud.com/astro-hosting",
+        "https://www.smarterasp.net/astro_hosting",
+        "https://xcloud.host/astro-hosting/",
+        "https://sliplane.io/astro-hosting-europe"
+      ]
+    },
+    {
+      "query": "best Astro hosting / hosting for Astro",
+      "intent": "Provider comparison and recommendation",
+      "examples": [
+        "https://www.pandastack.ai/blog/best-astro-hosting-platforms-2026/",
+        "https://instapods.com/blog/astro-hosting/",
+        "https://doancongtuan.com/blog/best-hosting-for-astro-sites/"
+      ]
+    },
+    {
+      "query": "Astro hosting game server",
+      "intent": "Unrelated game-hosting brand and games",
+      "primary_example": "https://astro-hosting.com/"
+    },
+    {
+      "query": "quoted best Astro hosting 2026 vs quoted best Astro hosting 2027",
+      "observation": "Several explicitly dated 2026 hosting-comparison pages appeared; no matching explicitly titled 2027 Astro hosting comparison was returned in this retrieval. This is coverage evidence, not a search-demand estimate."
+    }
+  ],
+  "keyword_mapping": [
+    {
+      "page": "https://ohmyho.st/frameworks/astro",
+      "primary": "Astro hosting",
+      "supporting": [
+        "static Astro hosting",
+        "Astro SSR hosting",
+        "Cloudflare Astro hosting",
+        "deploy Astro"
+      ],
+      "intent": "Choose and deploy a supported Astro framework application"
+    },
+    {
+      "page": "https://ohmyho.st/blog/best-astro-hosting-2027",
+      "primary": "best Astro hosting",
+      "supporting": [
+        "hosting for Astro",
+        "what is the best hosting for Astro",
+        "Cloudflare vs Vercel Astro",
+        "Astro hosting 2027"
+      ],
+      "intent": "Compare providers and select by static output, SSR, workflow and pricing model"
+    }
+  ],
+  "limitations": [
+    "United States only; no global or DACH extrapolation.",
+    "The bare Astro hosting estimate is not disambiguated between the framework and an unrelated game-hosting brand.",
+    "No keyword ideas means missing vendor result data, not measured zero searches.",
+    "Do not sum closely related query ranges as traffic opportunity.",
+    "Web search results are retrieval examples, not reliable Google ranking positions or proof of search volume.",
+    "No trustworthy public quantitative 2026-vs-2027 demand comparison was obtained.",
+    "Google Trends exploration was inaccessible through web extraction; even a zero would not prove zero searches.",
+    "Keyword Planner needs an appropriately configured Google Ads account; no signup, purchase or billing changes were made.",
+    "Root is separately checking first-party Search Console and site analytics for actual traffic."
+  ],
+  "primary_metrics_documentation": [
+    "https://ahrefs.com/keyword-generator",
+    "https://support.google.com/google-ads/answer/3022575?hl=en",
+    "https://support.google.com/trends/answer/4365533?hl=en"
+  ]
+}

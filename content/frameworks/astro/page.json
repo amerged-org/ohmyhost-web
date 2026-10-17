@@ -1,8 +1,8 @@
 {
-  "title": "Astro hosting: static sites and SSR | ohmyho.st",
-  "description": "Deploy Astro static sites and SSR with your coding agent. Preview on Dev, publish to Prod and see the real sebmer.com migration on ohmyho.st.",
+  "title": "Astro Hosting: Static Sites and Cloudflare SSR | ohmyho.st",
+  "description": "Astro hosting for static sites and Cloudflare SSR. Preview in Dev, publish the tested build and connect your domain. Start with Free credits on ohmyho.st.",
   "kind": "howto",
   "status": "published",
   "crumb": "Astro hosting",
-  "modified": "2026-10-17"
+  "modified": "2026-10-18"
 }
