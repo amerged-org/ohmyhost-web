@@ -138,7 +138,7 @@ For quiet projects, usually. A quiet project is about {{ credits workload.quietP
 
 ### Can I run a Docker container or a Python app on ohmyho.st?
 
-No. ohmyho.st runs Next.js, Vite with React and TanStack Start on Workers, deployed from a GitHub repository you authorize. There is no container runtime, no Dockerfile path and no Python, Go, Rust, Ruby or PHP. An app that needs a native addon is rejected at plan time with the reason named. Keep those on Railway.
+No. ohmyho.st runs Astro, Next.js, Vite with React and TanStack Start on Workers, deployed from a GitHub repository you authorize. There is no container runtime, no Dockerfile path and no Python, Go, Rust, Ruby or PHP. An app that needs a native addon is rejected at plan time with the reason named. Keep those on Railway.
 
 ### What happens when my credits run out?
 

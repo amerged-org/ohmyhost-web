@@ -14,7 +14,7 @@ ohmyho.st was founded by [Sebastian Mertens](https://www.linkedin.com/in/auto-ma
 
 The platform is designed around solo builders, indie hackers and small teams shipping several apps. That includes side projects built with coding agents, client applications and projects exported from tools such as Lovable, Bolt or Replit.
 
-The supported application frameworks are Next.js, Vite/React and TanStack Start. Migration starts with checking the actual project: its dependencies, authentication, data and external services. An exported repository can still need changes before it is ready to deploy. The [migration guides](/from/lovable) explain that process, including what to check after an app goes live.
+The supported application frameworks are Astro, Next.js, Vite/React and TanStack Start. Migration starts with checking the actual project: its dependencies, authentication, data and external services. An exported repository can still need changes before it is ready to deploy. The [migration guides](/from/lovable) explain that process, including what to check after an app goes live.
 
 ## Deploy through your coding agent
 

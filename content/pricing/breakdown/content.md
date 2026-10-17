@@ -98,7 +98,7 @@ The busy app. One busy production app uses about {{ credits workload.busyApp }} 
 
 Resend at high volume. Resend Pro is {{ usd vendor.resend.pro }} a month for 50,000 emails. The same 50,000 recipients on ohmyho.st cost about {{ credits workload.fiftyThousandRecipients }}, {{ usdValue workload.fiftyThousandRecipients }} of credit value, and Resend Scale is {{ usd vendor.resend.scale }} a month for 100,000. Up to about 10,000 recipients a month the per-recipient meter is cheaper than Resend Pro because there is no plan to buy; above that, Resend is.
 
-Railway for containers. Railway runs any container and bills CPU and memory by the second above a {{ usd vendor.railway.pro }} a month minimum on Pro. ohmyho.st runs no containers. It deploys Next.js, Vite/React and TanStack Start from a GitHub repository the customer authorizes, and nothing else. A long-running process, a websocket server you manage yourself or a binary dependency belongs on Railway, whatever the credits say.
+Railway for containers. Railway runs any container and bills CPU and memory by the second above a {{ usd vendor.railway.pro }} a month minimum on Pro. ohmyho.st runs no containers. It deploys Astro, Next.js, Vite/React and TanStack Start from a GitHub repository the customer authorizes, and nothing else. A long-running process, a websocket server you manage yourself or a binary dependency belongs on Railway, whatever the credits say.
 
 {{ checked vercel }}
 

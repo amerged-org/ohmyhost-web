@@ -38,6 +38,7 @@ const DOCS_SLUGS = new Set([
   "login-tokens",
   "sdk",
   "github",
+  "frameworks/astro",
   "frameworks/nextjs",
   "frameworks/vite",
   "frameworks/tanstack",

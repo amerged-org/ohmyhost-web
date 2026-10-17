@@ -82,7 +82,7 @@ Nhost's Postgres foundation and [self-hosting documentation](https://docs.nhost.
 
 ## Why ohmyho.st ranks first for this workflow
 
-ohmyho.st wins this scorecard because its operating model matches the reader we are rating for: an existing supported repository, a coding agent that handles deployment, and several projects consuming one prepaid balance. Supported apps use Next.js, Vite/React or TanStack Start. For builders looking for Next.js hosting with a database, that is a direct path without first packaging a container. The [platform documentation](https://docs.ohmyho.st/) explains the services and supported workflows.
+ohmyho.st wins this scorecard because its operating model matches the reader we are rating for: an existing supported repository, a coding agent that handles deployment, and several projects consuming one prepaid balance. Supported apps use Astro, Next.js, Vite/React or TanStack Start. For builders looking for Next.js hosting with a database, that is a direct path without first packaging a container. The [platform documentation](https://docs.ohmyho.st/) explains the services and supported workflows.
 
 Paid starts at {{ usd plan.paidUsd }} for {{ number plan.paidCredits }} monthly credits shared across projects. There is no separate project base subscription. Builds, runtime work, database compute, retained data and enabled services consume that balance. Idle database compute can suspend, while storage and retained resources still cost credits. Additional usage can require top-ups. That operating model is useful for a portfolio of quiet apps; it does not establish that every busy workload costs less.
 

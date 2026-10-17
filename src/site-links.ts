@@ -42,6 +42,7 @@ export const SITE_LINKS: readonly SiteLinkGroup[] = [
     heading: "developers",
     links: [
       ["Docs", "https://docs.ohmyho.st/"],
+      ["Astro hosting", "/frameworks/astro"],
       ["MCP server", "https://docs.ohmyho.st/agents/mcp"],
       ["CLI", "https://docs.ohmyho.st/cli"],
       ["API", "https://docs.ohmyho.st/api"],

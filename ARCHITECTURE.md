@@ -140,3 +140,7 @@ The Paid pricing card retains “Top-ups never expire”. Monthly subscription c
 Existing article bylines and the homepage founder signature link directly to Sebastian Mertens's LinkedIn; author metadata and structured data retain their current structure. The approved homepage source remains immutable and page preparation adds the founder link.
 
 Every published article needs an incoming link from another published editorial body; a read-only audit checks this separately from the blog index and shared navigation. An independent editorial linking pass revisits older relevant pages before publishing and checks the links afterwards. New articles have an editorial limit of one per day, with no daily quota or scheduler; updates retain the original publication date.
+
+## Astro hosting launch
+
+The Astro landing page and criteria-based 2027 comparison use the existing content tree, metadata, Markdown mirror and sitemap pipeline. The shared developers footer links Astro hosting without changing the approved homepage/brand geometry. Framework discovery and documentation aliases include Astro. Support and case-study publication are held until the platform and Seb Builds Production acceptance succeed; article dates are actual 2026 publication dates, and the title targets the coming year. The comparison states the operator affiliation and contains no unverified benchmark winner or hardcoded competitor prices.

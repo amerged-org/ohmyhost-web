@@ -48,7 +48,7 @@ The portfolio builder's fifth app has a dozen users and a database that wakes up
 
 ## When one balance replaces both
 
-ohmyho.st is hosting for vibe-coded apps. Your coding agent deploys a Next.js, Vite/React or TanStack Start repository from GitHub through MCP tools (`deployment_plan`, then `deployment_create` once you confirm), and every project gets managed Postgres, a Dev host and a Prod host on a three-words.check.omh.st address and, on Paid, a custom domain and sender mail, both of which use credits; with the “Powered by ohmyho.st” flag a custom domain also works on Free and uses no domain credits. All of it is metered from one organization balance. There is no per-project base fee and no deploy dashboard; the portal at app.ohmyho.st shows projects, credits, budgets and API tokens.
+ohmyho.st is hosting for vibe-coded apps. Your coding agent deploys a Astro, Next.js, Vite/React or TanStack Start repository from GitHub through MCP tools (`deployment_plan`, then `deployment_create` once you confirm), and every project gets managed Postgres, a Dev host and a Prod host on a three-words.check.omh.st address and, on Paid, a custom domain and sender mail, both of which use credits; with the “Powered by ohmyho.st” flag a custom domain also works on Free and uses no domain credits. All of it is metered from one organization balance. There is no per-project base fee and no deploy dashboard; the portal at app.ohmyho.st shows projects, credits, budgets and API tokens.
 
 The plans are short. Free grants {{ number plan.freeCredits }} credits per UTC month. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period that expire at period end, and Paid-only top-ups at {{ number plan.topUpPerUsd }} credits per dollar carry over until downgrade to Free. One credit is {{ usd plan.usdPerCredit }} of credit value.
 
@@ -84,7 +84,7 @@ Be honest about the other direction.
 
 **You want previews and a dashboard.** Vercel builds a preview for every branch and lets viewers in for free. ohmyho.st gives each project a Dev host and a Prod host, promotes Dev to Prod through `promotion_plan` and `promotion_execute`, and has no per-branch previews. Deploys go through the agent, not through a web UI.
 
-**Your framework is not on the list.** Supported today: Next.js, Vite/React and TanStack Start, deployed from a GitHub repository you authorize. No containers, no other deployment source. SvelteKit, Nuxt, Astro or a Dockerfile do not run here yet; Vercel runs most of them.
+**Your framework is not on the list.** Supported today: Astro, Next.js, Vite/React and TanStack Start, deployed from a GitHub repository you authorize. No containers, no other deployment source. SvelteKit, Nuxt or a Dockerfile do not run here yet; Vercel runs most of them.
 
 **Everything fits the free tiers.** A personal project with steady traffic on Vercel Hobby at {{ usd vendor.vercel.hobby }} plus a Supabase Free project that never pauses costs nothing, and no balance beats nothing. The case for one balance starts when the pauses, the non-commercial rule or the per-project instances start to hurt.
 

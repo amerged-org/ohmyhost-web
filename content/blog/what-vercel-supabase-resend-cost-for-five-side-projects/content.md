@@ -100,7 +100,7 @@ That is about {{ usdValue workload.busyApp }} of credit value, most of it bought
 - Mail. Twenty thousand recipients cost about {{ credits unit.twentyThousandMailRecipients }}. Resend Pro's {{ usd vendor.resend.pro }} covers {{ text vendor.resend.pro.includes }}, so above about 10,000 recipients a month Resend wins, and the gap grows: {{ text workload.fiftyThousandRecipients.name }} costs about {{ credits workload.fiftyThousandRecipients }} here.
 - Requests. Neither bill is decided here. The busy app's requests line is small, and Vercel Pro bills {{ usd vendor.vercel.functionInvocations }} per million function invocations above its credit.
 - Team and auth. Vercel Pro's viewer seats are free. Supabase Pro authenticates its monthly active users for you. ohmyho.st runs neither: application auth stays with Better Auth or your own WorkOS AuthKit, and every extra collaborator needs nothing from the balance because there are no seats to buy.
-- Previews and runtimes. Every ohmyho.st project has a Dev host and a Prod host, not a preview per branch. It deploys Next.js, Vite/React and TanStack Start from a GitHub repository you authorize, and nothing else; no containers.
+- Previews and runtimes. Every ohmyho.st project has a Dev host and a Prod host, not a preview per branch. It deploys Astro, Next.js, Vite/React and TanStack Start from a GitHub repository you authorize, and nothing else; no containers.
 
 Rule of thumb: many quiet projects, meter them. One busy project with an always-awake database, buy the instance.
 

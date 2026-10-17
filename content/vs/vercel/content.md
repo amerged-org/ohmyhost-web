@@ -46,7 +46,7 @@ The trade-off is metering with no quota to hide behind. One busy production app,
 ## When Vercel is the better choice
 
 - One loud app instead of many quiet ones. Once your database is awake most of the day, a fixed-price Supabase instance beats per-hour metering: the busy workload above is {{ usdValue workload.busyApp }} of credit value a month, and it grows with traffic.
-- A framework ohmyho.st does not run. The runtime takes Next.js, Vite with React and TanStack Start from a GitHub repository; nothing else, and no containers. Astro, SvelteKit, Nuxt and Remix deploy on Vercel and not here.
+- A framework ohmyho.st does not run. The runtime takes Astro, Next.js, Vite with React and TanStack Start from a GitHub repository; nothing else, and no containers. Astro, SvelteKit, Nuxt and Remix deploy on Vercel and not here.
 - The newest Next.js features. Next.js is Vercel's framework, and its Vercel-specific features land there first. ohmyho.st builds Next.js with its own adapter for Cloudflare Workers, so check a feature on Dev before you depend on it.
 - A team that wants a dashboard. Vercel previews every branch and gives the whole team a dashboard with free viewer seats. ohmyho.st has exactly two environments per project, Dev and Prod, and no deploy dashboard; a coding agent runs the deploy through MCP, and the portal only shows projects, credits, budgets and tokens.
 - A non-commercial site with no database. Vercel Hobby at {{ usd vendor.vercel.hobby }} carries {{ text vendor.vercel.hobby.includes }}. ohmyho.st Free is {{ number plan.freeCredits }} credits a month at the same rates as Paid, with requests at {{ rate wfp.requests }}. For a static portfolio with no database both cost nothing; compare the two allowances against your real traffic.

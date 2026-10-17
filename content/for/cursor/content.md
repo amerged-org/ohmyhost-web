@@ -96,7 +96,7 @@ Yes, when the sites are static or quiet. {{ number plan.freeCredits }} credits a
 
 ### Where does the code come from?
 
-From the project's current managed source or a GitHub repository you authorize. Managed versions save the filtered current files; GitHub uses commits you push. Containers remain unsupported. Supported frameworks are Next.js, Vite with React and TanStack Start. Cursor runs `ohmyhost init --dry-run` first and reports blockers before anything is provisioned.
+From the project's current managed source or a GitHub repository you authorize. Managed versions save the filtered current files; GitHub uses commits you push. Containers remain unsupported. Supported frameworks are Astro, Next.js, Vite with React and TanStack Start. Cursor runs `ohmyhost init --dry-run` first and reports blockers before anything is provisioned.
 
 ### What happens when the balance hits zero?
 

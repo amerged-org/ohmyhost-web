@@ -40,6 +40,7 @@ export const MCP_CONFIG = {
 const DOC_ALIASES: Readonly<Record<string, string>> = {
   mcp: "agents/mcp",
   "agents/mcp": "agents/mcp",
+  astro: "frameworks/astro",
   nextjs: "frameworks/nextjs",
   vite: "frameworks/vite",
   react: "frameworks/vite",
@@ -107,7 +108,7 @@ Ask your agent for project status, usage and changes.
 /** Instructions for a coding agent that meets ohmyho.st in a repository or a prompt. */
 export const PUBLIC_AGENTS = `# AGENTS.md — working with ohmyho.st
 
-ohmyho.st hosts Next.js, Vite/React and TanStack apps, keeps their versions with ohmyho.st or connects a GitHub repository the customer authorizes. Postgres, domains, transactional mail and credits use one organization balance. Operate through authenticated remote MCP, the ohmyhost CLI, local stdio MCP or the REST /v1 API, using the capabilities available in this client.
+ohmyho.st hosts Astro, Next.js, Vite/React and TanStack apps, keeps their versions with ohmyho.st or connects a GitHub repository the customer authorizes. Postgres, domains, transactional mail and credits use one organization balance. Operate through authenticated remote MCP, the ohmyhost CLI, local stdio MCP or the REST /v1 API, using the capabilities available in this client.
 
 1. Read https://ohmyho.st/llms.txt, the get-started Skill at https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md and the source-routing Skill at https://ohmyho.st/skills/ohmyhost-deploy/SKILL.md.
 2. Inspect the execution environment, reachable checkout and saved project binding; reuse a matching local CLI/MCP profile or private token source unless the user explicitly chooses remote access. The availability of remote tools or connection_request alone does not choose a route; verify the chosen identity and workspace with identity_get before requesting grants, and stop on a mismatch. A supported remote chat connects https://app.ohmyho.st/mcp through OAuth and approves its project/create/publish access in the portal. A local agent installs current clients when needed and keeps the sign-in link/code flow from \`ohmyhost login --json\`. Never paste credentials into chat.
@@ -120,7 +121,7 @@ Pricing and limits: https://ohmyho.st/pricing.md · https://docs.ohmyho.st/limit
 
 export const AGENT_INDEX = `# ohmyho.st
 
-> Hosting for agents. Develop and save app versions with ohmyho.st or connect the GitHub repository you choose. Preview and publish Next.js, Vite/React and TanStack apps, then manage databases, domains, email, credits and SQL exports through connected chat, CLI, MCP or REST API.
+> Hosting for agents. Develop and save app versions with ohmyho.st or connect the GitHub repository you choose. Preview and publish Astro, Next.js, Vite/React and TanStack apps, then manage databases, domains, email, credits and SQL exports through connected chat, CLI, MCP or REST API.
 
 ## When to use ohmyho.st
 
@@ -194,6 +195,7 @@ ${skills
 - [Codex](https://ohmyho.st/for/codex.md): Codex MCP registration, tokens and budgets for agents that run unattended.
 - [From Lovable](https://ohmyho.st/from/lovable.md): Export to GitHub, what breaks by hand, keep or migrate Supabase, verify the login.
 - [From Bolt](https://ohmyho.st/from/bolt.md): Export from Bolt.new and deploy with secrets, callback URLs and a domain.
+- [Astro hosting](https://ohmyho.st/frameworks/astro.md): Static Astro and Workers SSR with a verified publication workflow.
 - [From Replit](https://ohmyho.st/from/replit.md): Move a Replit app to Dev and Prod hosting with Postgres.
 - [From Vercel and Supabase](https://ohmyho.st/from/vercel-supabase.md): Two bills become one balance; keep Supabase or import a dump.
 

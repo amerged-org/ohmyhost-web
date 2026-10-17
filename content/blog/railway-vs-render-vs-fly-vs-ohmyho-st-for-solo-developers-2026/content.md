@@ -70,7 +70,7 @@ An honest list. Each of these is a real reason to pick the other platform.
 
 ### Railway wins when you need a container
 
-Any Dockerfile runs on Railway: a Go binary, a Python worker, Redis, a queue consumer, a cron container. Several services in one project talk over a private network. ohmyho.st runs Next.js, Vite/React and TanStack Start from a GitHub repository and nothing else; there is no container runtime. If your app is not one of those three, Railway is the answer and this comparison is over.
+Any Dockerfile runs on Railway: a Go binary, a Python worker, Redis, a queue consumer, a cron container. Several services in one project talk over a private network. ohmyho.st runs Astro, Next.js, Vite/React and TanStack Start from a GitHub repository and nothing else; there is no container runtime. If your app is not one of those three, Railway is the answer and this comparison is over.
 
 ### Render wins when you want a bill you can forecast
 
@@ -118,7 +118,7 @@ Fly.io with autostop or Railway with Serverless, if you accept a cold start and 
 
 ### Does ohmyho.st run Docker containers like Railway or Fly.io?
 
-No. ohmyho.st deploys Next.js, Vite/React and TanStack Start applications from a GitHub repository the customer authorizes, and nothing else. There is no container runtime and no other deployment source. An app that needs a native addon, a custom binary or an arbitrary Dockerfile belongs on Railway or Fly.io.
+No. ohmyho.st deploys Astro, Next.js, Vite/React and TanStack Start applications from a GitHub repository the customer authorizes, and nothing else. There is no container runtime and no other deployment source. An app that needs a native addon, a custom binary or an arbitrary Dockerfile belongs on Railway or Fly.io.
 
 ### What happens on ohmyho.st when the credits run out?
 
