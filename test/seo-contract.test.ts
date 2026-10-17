@@ -332,6 +332,10 @@ it("hardens the approved homepage markup for search and social", async () => {
   expect(home).toContain('href="/philosophy"');
   expect(home).toContain('href="/open-source"');
   expect(home).not.toContain("github.com/amerged/docs");
+  expect(home).toContain(
+    "Next.js, Astro, Vite, TanStack and React on Postgres",
+  );
+  expect(home).toContain('src="logos/astro.svg" alt="Astro logo"');
   for (const [img] of home.matchAll(/<img src="logos\/[^"]+"[^>]*>/gu))
     expect(img).toMatch(/width="\d+" height="\d+"/u);
   for (const [anchor] of home.matchAll(

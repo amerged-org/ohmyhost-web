@@ -288,6 +288,20 @@ await writeFile(
 
 /** P30: approved changes are applied without rewriting the supplied v97 source. */
 function applyApprovedHomepageChanges(html) {
+  // Owner-approved stack addition, 2026-10-17; keep the supplied template immutable.
+  html = html
+    .replaceAll(
+      "Next.js, Vite, TanStack and React",
+      "Next.js, Astro, Vite, TanStack and React",
+    )
+    .replaceAll(
+      "Next.js, Vite.js, TanStack and React",
+      "Next.js, Astro, Vite.js, TanStack and React",
+    )
+    .replace(
+      '    <span class="st"><span class="tile" data-c="#336791">',
+      '    <span class="st"><span class="tile" data-c="#FF5D01"><img src="logos/astro.svg" alt="Astro logo" loading="lazy"></span>Astro</span>\n    <span class="st"><span class="tile" data-c="#336791">',
+    );
   const socialTitle =
     "ohmyho.st — An alternative to Vercel, Supabase &amp; Resend";
   const socialDescription = `ohmyho.st (ohmyhost): app hosting, Postgres and email from $${plans.paidUsd}/month. Start deployment with one prompt in Codex, Claude Code or Cursor.`;

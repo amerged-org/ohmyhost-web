@@ -144,3 +144,5 @@ Every published article needs an incoming link from another published editorial 
 ## Astro hosting launch
 
 The Astro landing page and criteria-based 2027 comparison use the existing content tree, metadata, Markdown mirror and sitemap pipeline. The shared developers footer links Astro hosting without changing the approved homepage/brand geometry. Framework discovery and documentation aliases include Astro. Support and case-study publication are held until the platform and Seb Builds Production acceptance succeed; article dates are actual 2026 publication dates, and the title targets the coming year. The comparison states the operator affiliation and contains no unverified benchmark winner or hardcoded competitor prices.
+
+The owner explicitly approved adding Astro to the homepage stack paragraph, FAQ and logo grid on 2026-10-17. Page preparation applies this addition to the immutable source; the sixth logo uses the existing grid and the official Astro gradient logomark from https://astro.build/press/.
