@@ -150,3 +150,5 @@ The owner explicitly approved adding Astro to the homepage stack paragraph, FAQ 
 ## Homepage PageSpeed corrections — 2026-10-18
 
 The [mobile report](https://pagespeed.web.dev/analysis/https-ohmyho-st/bmwgzzaomx?form_factor=mobile) identified low-contrast secondary labels, ambiguous Details links, a synchronous initial scroll measurement and competing SVG animations. Preparation keeps the approved source immutable, applies contrast to existing text selectors, gives the comparison and cookie links distinct accessible names, preloads the existing hero fonts and updates scroll progress through a transform after first paint. The moving SVG dots retain their motion without an additional entrance animation; the halo uses equivalent ellipse opacity instead of animating gradient stop-opacity. Reduced-motion behavior remains. Cookie consent and analytics loading rules are unchanged.
+
+The same audit pass gives the existing brand-page demo switch and range their accessible names through preparation, with a proper switch role and button type. The immutable brand template and visible component styling remain unchanged.

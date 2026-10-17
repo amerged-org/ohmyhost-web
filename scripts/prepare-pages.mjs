@@ -180,6 +180,21 @@ for (const [name, digest] of Object.entries(templates)) {
     );
   }
   if (name === "brand") {
+    // Accessible names for the existing design-system control demos.
+    for (const [before, after] of [
+      [
+        '<button class="sw-toggle" aria-checked=',
+        '<button class="sw-toggle" type="button" role="switch" aria-label="Auto top-up" aria-checked=',
+      ],
+      [
+        '<input type="range" min="0" max="10"',
+        '<input type="range" aria-label="Monthly budget" min="0" max="10"',
+      ],
+    ]) {
+      if (!html.includes(before))
+        throw new Error(`Brand control boundary missing: ${before}`);
+      html = html.replace(before, after);
+    }
     const vendors = JSON.parse(
       await readFile(`${directory}content/data/vendors.json`, "utf8"),
     );

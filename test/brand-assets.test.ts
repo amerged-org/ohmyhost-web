@@ -45,6 +45,10 @@ it("offers every brand file, at its stated size, on the brand page and from the 
       },
     } as never)
   ).text();
+  expect(page).toContain(
+    'role="switch" aria-label="Auto top-up" aria-checked="false"',
+  );
+  expect(page).toContain('<input type="range" aria-label="Monthly budget"');
   for (const file of BRAND_ASSET_FILES.filter(
     (name) =>
       !/^(?:founder|og|omega-.*png)/u.test(name) || name === "omega-light.png",
