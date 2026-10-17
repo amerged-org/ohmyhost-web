@@ -336,6 +336,15 @@ it("hardens the approved homepage markup for search and social", async () => {
     "Next.js, Astro, Vite, TanStack and React on Postgres",
   );
   expect(home).toContain('src="logos/astro.svg" alt="Astro logo"');
+  for (const [, source] of home.matchAll(/<img src="(logos\/[^"]+)"/gu)) {
+    const response = await worker.fetch(
+      new Request(`https://ohmyho.st/${source}`),
+      { ASSETS: assets },
+    );
+    expect(response.status, source).toBe(200);
+    expect(response.headers.get("content-type"), source).toBe("image/svg+xml");
+  }
+
   for (const [img] of home.matchAll(/<img src="logos\/[^"]+"[^>]*>/gu))
     expect(img).toMatch(/width="\d+" height="\d+"/u);
   for (const [anchor] of home.matchAll(
