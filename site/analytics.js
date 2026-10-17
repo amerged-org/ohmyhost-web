@@ -53,7 +53,7 @@
     notice.setAttribute('aria-label', 'Cookie preferences');
     notice.innerHTML = '';
     const text = document.createElement('span');
-    text.innerHTML = 'Optional cookies help us improve the site. <a href="https://ohmyho.st/cookies">Details</a>';
+    text.innerHTML = 'Optional cookies help us improve the site. <a href="https://ohmyho.st/cookies" aria-label="Cookie policy details">Details</a>';
     notice.appendChild(text);
 
     const dialog = document.createElement('dialog');

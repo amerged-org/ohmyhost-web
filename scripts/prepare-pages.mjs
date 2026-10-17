@@ -94,6 +94,8 @@ const privacyUi =
   `<script>${await readFile(`${directory}site/affiliate-flag.js`, "utf8")}</script>`;
 const approvedHome = await readFile(`${directory}site/home.html`, "utf8");
 const sharedCss = approvedHome.match(/<style>([\s\S]*?)<\/style>/u)?.[1];
+const contrastCss =
+  ".mark i,.eyebrow,.fcol .fh,.fbot{color:var(--muted-foreground)}footer .fslogan{opacity:1!important}";
 const navigationCss =
   '@media(max-width:760px){nav{gap:10px}nav .r{gap:8px}nav .btn.nochev{min-width:0;padding:9px 10px;font-size:13px}}@media(max-width:360px){nav a[href="https://docs.ohmyho.st/"]{display:none}}footer .fbot{align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:12px}footer .fbot>span{white-space:nowrap}';
 if (!sharedCss) throw new Error("The approved design stylesheet is missing");
@@ -101,7 +103,7 @@ await writeFile(
   `${directory}src/generated-site-frame.ts`,
   await format(
     "// Generated from the approved template and site request assets.\n" +
-      `export const SITE_CSS = ${JSON.stringify(fontCss + sharedCss + navigationCss)};\n` +
+      `export const SITE_CSS = ${JSON.stringify(fontCss + sharedCss + navigationCss + contrastCss)};\n` +
       `export const SITE_ICON = ${JSON.stringify(await readFile(`${brandAssets}/favicon.svg`, "utf8"))};\n` +
       `export const PRIVACY_UI = ${JSON.stringify(privacyUi)};\n` +
       `export const SITE_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/site-requests.js`, "utf8"))};\n` +
@@ -125,7 +127,7 @@ for (const [name, digest] of Object.entries(templates)) {
     )
     .replace(
       "</head>",
-      `<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style>${fontCss}${navigationCss}</style></head>`,
+      `<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style>${fontCss}${navigationCss}${contrastCss}</style></head>`,
     );
   if (name === "home") {
     html = applyApprovedHomepageChanges(html).replace(
@@ -549,7 +551,56 @@ function applyApprovedHomepageChanges(html) {
     ) +
     '<div class="cta up" id="pricing-cta"><button class="btn nochev primary" data-copy><svg class="ohm" viewBox="0 0 100 100" aria-hidden="true"><path d="M30 87 H14 L27 63 A31 31 0 1 1 73 63 L86 87 H70"/></svg><span>Copy prompt for your agent</span></button></div>\n' +
     html.slice(end);
-  // Show the complete hero on first paint; its ambient dots and halo keep their original timing.
+  // PageSpeed 2026-10-18: preserve the visual geometry and SVG path motion while
+  // avoiding layout writes and incompatible simultaneous entrance animations.
+  for (const [before, after] of [
+    [
+      "bar.style.width=(max>0?y/max*100:0)+'%';",
+      "bar.style.transform='scaleX('+(max>0?Math.max(0,Math.min(1,y/max)):0)+')';",
+    ],
+    [
+      "  onScroll();",
+      "  requestAnimationFrame(function(){requestAnimationFrame(onScroll);});",
+    ],
+    [
+      '<a href="/vs/vercel">Details</a>',
+      '<a href="/vs/vercel" aria-label="Vercel comparison details">Details</a>',
+    ],
+    [
+      '<stop id="halostop" offset="0%" stop-color="currentColor" stop-opacity=".08"/>',
+      '<stop id="halostop" offset="0%" stop-color="currentColor" stop-opacity=".11"/>',
+    ],
+    [
+      '<ellipse cx="410" cy="160" rx="200" ry="100" fill="url(#halo)"/>',
+      '<ellipse class="hero-halo" cx="410" cy="160" rx="200" ry="100" fill="url(#halo)"/>',
+    ],
+  ]) {
+    if (!html.includes(before))
+      throw new Error(`Homepage audit boundary missing: ${before}`);
+    html = html.replace(before, after);
+  }
+  // Measure sticky cards after first paint and schedule resize work without
+  // clearing transforms before reading their layout geometry.
+  for (const [before, after] of [
+    [
+      "  addEventListener('resize', () => { cards.forEach(c => c.style.transform = ''); frame(); });",
+      "  addEventListener('resize', () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } });",
+    ],
+    [
+      "  frame();\n})();\n</script>",
+      "  requestAnimationFrame(() => requestAnimationFrame(frame));\n})();\n</script>",
+    ],
+  ]) {
+    if (!html.includes(before))
+      throw new Error(`Homepage stack audit boundary missing: ${before}`);
+    html = html.replace(before, after);
+  }
+  const loadingStyles =
+    "<style>.bar{width:100%;transform:scaleX(0);transform-origin:left}header .art .dot{opacity:1;animation:none}#halostop{animation:none}.hero-halo{opacity:.7272727;animation:haloBreath 6s ease-in-out 1.6s infinite}@keyframes haloBreath{0%,100%{opacity:.4545455}50%{opacity:1}}@media(prefers-reduced-motion:reduce){.hero-halo{animation:none}}</style>";
+  const heroFonts =
+    '<link rel="preload" href="/fonts/ec926d5065eaca49.ttf" as="font" type="font/ttf" crossorigin><link rel="preload" href="/fonts/3e756954468ff1cb.ttf" as="font" type="font/ttf" crossorigin>';
+  html = html.replace("</head>", `${loadingStyles}${heroFonts}</head>`);
+  // Show the complete hero on first paint; continuous dot motion and halo breathing remain.
   const heroReady =
     "<style>header .hero-a,header .art .fadein{opacity:1;transform:none;animation:none}header .art .wire{stroke-dashoffset:0;animation:none}</style>";
   return html
