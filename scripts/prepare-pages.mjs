@@ -290,6 +290,10 @@ await writeFile(
 function applyApprovedHomepageChanges(html) {
   // Owner-approved stack addition, 2026-10-17; keep the supplied template immutable.
   html = html
+    .replace(
+      ".stackrow{grid-template-columns:repeat(5,1fr)}",
+      ".stackrow{grid-template-columns:repeat(6,1fr)}",
+    )
     .replaceAll(
       "Next.js, Vite, TanStack and React",
       "Next.js, Astro, Vite, TanStack and React",
