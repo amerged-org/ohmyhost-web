@@ -24,7 +24,7 @@ An interactive React component does not require the whole site to use SSR. Astro
 
 Keep your existing rendering mode when moving hosts. Deployment inspection checks your Astro configuration and lockfile before the build, then reports the supported runtime and any concrete blockers.
 
-## How to deploy Astro from your repository
+## How to host an Astro website
 
 Use an existing GitHub connection or managed source project. Your agent can inspect a local checkout and continue the project already associated with that workspace.
 
@@ -65,13 +65,21 @@ Your application can keep its authentication provider. Optional database, file a
 
 ## Astro hosting questions
 
+### Is Astro free to use?
+
+Yes. The Astro framework is free and open source under the [MIT license](https://github.com/withastro/astro/blob/main/LICENSE). Hosting is a separate service: ohmyho.st starts with Free credits, and builds, hosting and optional services consume the allowance. The [pricing section](#astro-hosting-pricing) explains the hosting costs.
+
 ### Can I host a static Astro site without a database?
 
 Yes. Publish the generated HTML and assets. Add a database only when the application needs one; a blog or portfolio can read its content entirely during the build.
 
-### Does Astro SSR run on Cloudflare Workers?
+### Is Astro only for static websites?
 
-Yes. ohmyho.st supports Astro SSR built with the official Cloudflare adapter. Request-dependent pages, middleware and API endpoints run in Workers, while prerendered routes remain static.
+No. Astro supports static output and server-side rendering. On ohmyho.st, request-dependent pages, middleware and API endpoints run on Cloudflare Workers with the official Astro adapter. Prerendered routes remain static, and client islands can be interactive in either mode.
+
+### Can I choose EU hosting for an Astro project?
+
+Yes. Select the EU project region when creating the project. This places builds and any managed database and file storage in the EU; an existing project's region stays fixed. Static assets use Cloudflare's global delivery network, while transactional mail is processed in the US. The [hosting region guide](https://docs.ohmyho.st/environments#choose-a-hosting-region-once) explains the scope.
 
 ### Can I test an Astro deployment before publishing it?
 

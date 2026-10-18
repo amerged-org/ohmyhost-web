@@ -6,7 +6,7 @@ The best Astro hosting depends on your rendering mode and deployment workflow. C
 
 We build ohmyho.st. We also migrated our own publication, [Seb Builds](https://sebmer.com), from Next.js to Astro and run it in production on ohmyho.st. This comparison draws on that migration and the providers' official documentation. It was published in October 2026 and updated on October 18, 2026, as a buying guide for 2027. We have not benchmarked the same application across these providers.
 
-## Best Astro hosting: recommendations at a glance
+## Where to host an Astro website: static and SSR options
 
 | Host | Static sites | Astro SSR runtime | Choose it when |
 | --- | --- | --- | --- |
@@ -74,9 +74,15 @@ A static publication and an SSR application use different resources. Estimate ho
 
 For ohmyho.st, Free starts with {{ number plan.freeCredits }} credits and Paid costs {{ usd plan.paidUsd }} a month before tax and grants {{ number plan.paidCredits }} monthly credits. Usage consumes that balance; additional credits cost extra. The [itemized pricing breakdown](/pricing/breakdown) explains the calculation. Provider prices and plan rules can change before 2027, so use the linked rate cards when making a purchase.
 
+## Hosting Astro with Sanity or Payload
+
+An Astro frontend can read content from a headless CMS such as Sanity or Payload. Content can be fetched during the build, while rendering a response on the server, or in browser-side components. Build-time content needs a new deployment after publishing changes. Server-rendered content needs a compatible runtime and access to the CMS API.
+
+Include the CMS backend, its media storage and any publishing triggers when comparing hosting costs. If you self-host Payload, account for its server runtime and database separately from the Astro frontend. Keep private API credentials out of browser code and verify the integration your application uses. Astro's [Sanity guide](https://docs.astro.build/en/guides/cms/sanity/) and [Payload guide](https://docs.astro.build/en/guides/cms/payload/) explain how the frontend connects to each system.
+
 ## Moving an existing website to Astro
 
-Preserve what search engines and readers already use: public URLs, canonical tags, titles, descriptions, feeds and redirects. Export the route list from the existing site and compare it with the Astro deployment. A framework migration should not silently change the address of a successful article or return a home page for an unknown URL.
+When moving from WordPress or Next.js to Astro, preserve what search engines and readers already use: public URLs, canonical tags, titles, descriptions, feeds and redirects. Export the route list from the existing site and compare it with the Astro deployment. A framework migration should not silently change the address of a successful article or return a home page for an unknown URL.
 
 Our Seb Builds migration used static output because the publication did not need request-time rendering. We checked its content routes, feeds, metadata, assets and browser interactions before publishing the tested Dev artifact to Prod. That experience supports our recommendation for this kind of publication; it does not make static output the right choice for an account portal or live inventory page.
 

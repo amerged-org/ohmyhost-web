@@ -1,0 +1,59 @@
+{
+  "receivedOn": "2026-10-18",
+  "source": "User-provided cropped mobile Google result screenshots",
+  "capturedAt": null,
+  "query": null,
+  "market": null,
+  "rankingPositions": null,
+  "images": [
+    {
+      "name": "1-Photo-1.jpg",
+      "sha256": "6af17f93c1b937c60b10bd1149cdcdd4a7ab4a20ca61346c150ae6aab07b350a"
+    },
+    {
+      "name": "2-Photo-2.jpg",
+      "sha256": "e956a991180de76c22704f24abc9b4c0d2a01f9096285df219941cd192e7947e"
+    },
+    {
+      "name": "3-Photo-3.jpg",
+      "sha256": "170b917c318ade9c02c91497ab67ba2dca1c4c960c270aec0646bdc51c9a3a7f"
+    }
+  ],
+  "observedTopics": [
+    "Is Astro free to use?",
+    "What is Astro vs WordPress?",
+    "Is Astro better than NextJS?",
+    "Is Astro only for static websites?",
+    "How to host Astro websites",
+    "where to host astro js site",
+    "Astro Deployment/Hosting Options",
+    "European Hosting Provider for Astro",
+    "Astro with Sanity or Payload",
+    "Deploy your Astro Site"
+  ],
+  "decisions": [
+    {
+      "page": "/frameworks/astro",
+      "change": "Direct how-to heading plus FAQs for free framework vs hosting costs, static/SSR and EU project region scope."
+    },
+    {
+      "page": "/blog/best-astro-hosting-2027",
+      "change": "Where-to-host heading, separate CMS hosting requirements and explicit WordPress/Next.js migration context."
+    }
+  ],
+  "limits": [
+    "Screenshots establish visible topics, not query volume, exact query, geography or stable ranking positions.",
+    "Sponsored listings are not organic ranking evidence.",
+    "Competitor price snippets are not adopted as verified current prices.",
+    "Existing Ahrefs US estimates are unchanged.",
+    "No CMS-backend production compatibility is claimed from frontend hosting support."
+  ],
+  "primarySources": [
+    "https://docs.astro.build/en/guides/deploy/",
+    "https://github.com/withastro/astro/blob/main/LICENSE",
+    "https://docs.astro.build/en/guides/cms/sanity/",
+    "https://docs.astro.build/en/guides/cms/payload/",
+    "https://docs.ohmyho.st/environments",
+    "https://developers.cloudflare.com/workers/configuration/placement/"
+  ]
+}
