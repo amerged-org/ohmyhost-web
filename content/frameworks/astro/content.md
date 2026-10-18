@@ -2,7 +2,7 @@
 
 Deploy Astro static sites and server-rendered applications on ohmyho.st. Your coding agent builds a Dev preview, checks the application and publishes the same tested version to Production. Astro SSR runs on Cloudflare Workers with the official Cloudflare adapter.
 
-Start with {{ number plan.freeCredits }} Free credits. Paid costs {{ usd plan.paidUsd }} a month before tax and adds {{ number plan.paidCredits }} credits per paid period. Builds, hosting and any optional services consume credits; see [Astro hosting pricing](#astro-hosting-pricing).
+Start with {{ number plan.freeCredits }} Free credits. Paid costs {{ usd plan.paidUsd }} a month before tax and adds {{ number plan.paidCredits }} credits per paid period. Builds, hosting and any optional services consume credits; see [Astro hosting pricing](/pricing).
 
 [Deploy your Astro site](https://docs.ohmyho.st/quickstart) · [Read the Astro configuration guide](https://docs.ohmyho.st/frameworks/astro)
 
@@ -67,7 +67,7 @@ Your application can keep its authentication provider. Optional database, file a
 
 ### Is Astro free to use?
 
-Yes. The Astro framework is free and open source under the [MIT license](https://github.com/withastro/astro/blob/main/LICENSE). Hosting is a separate service: ohmyho.st starts with Free credits, and builds, hosting and optional services consume the allowance. The [pricing section](#astro-hosting-pricing) explains the hosting costs.
+Yes. The Astro framework is free and open source under the [MIT license](https://github.com/withastro/astro/blob/main/LICENSE). Hosting is a separate service: ohmyho.st starts with Free credits, and builds, hosting and optional services consume the allowance. The [pricing page](/pricing) explains the hosting costs.
 
 ### Can I host a static Astro site without a database?
 
