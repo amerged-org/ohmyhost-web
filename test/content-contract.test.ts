@@ -294,10 +294,16 @@ it("keeps every editorial page inside the words, numbers and sources contract", 
       expect(questions.length, `${path} FAQ count`).toBeGreaterThanOrEqual(3);
       expect(questions.length, `${path} FAQ count`).toBeLessThanOrEqual(6);
     }
-    if (meta?.kind === "article")
+    if (meta?.kind === "article") {
+      const bylineDate =
+        "(?:January|February|March|April|May|June|July|August|September|October|November|December) \\d{1,2}, \\d{4}";
       expect(markdown, `${path} byline`).toMatch(
-        /^By \[Sebastian Mertens\]\(https:\/\/www\.linkedin\.com\/in\/auto-mate\/\) · (?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, \d{4}$/mu,
+        new RegExp(
+          `^By \\[Sebastian Mertens\\]\\(https:\\/\\/www\\.linkedin\\.com\\/in\\/auto-mate\\/\\) · (?:${bylineDate}|Published ${bylineDate} · Updated ${bylineDate})$`,
+          "mu",
+        ),
       );
+    }
     expect(words(markdown), `${path} words`).toBeGreaterThanOrEqual(floor);
     // A section carries a vendor's date line when it quotes that vendor's price — through a
     // VENDORS.<key>.facts expression or a SCENARIO that sums them — not when it merely names it.
