@@ -57,6 +57,7 @@ export const SITE_LINKS: readonly SiteLinkGroup[] = [
       ["Philosophy", "/philosophy"],
       ["Blog", "/blog"],
       ["Open source", "/open-source"],
+      ["Seb Builds", "https://sebmer.com"],
     ],
   },
   {
