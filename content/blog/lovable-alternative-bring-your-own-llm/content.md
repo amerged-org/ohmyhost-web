@@ -1,157 +1,90 @@
-# A Lovable alternative with your own LLM: Claude Code, Codex, Cursor or Grok
+# A Lovable alternative with your own LLM
 
-By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · September 25, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 25, 2026 · Updated October 20, 2026
 
-The Lovable alternative most builders need is not another app builder. It is the coding agent they already pay for (Claude Code, Codex, Cursor or Grok Build) working on the same repository, plus a host that agent can operate. Lovable exports to GitHub in a few clicks, and your agent deploys from there to ohmyho.st with one prompt.
+You can keep a Lovable project's code and edit it with your own coding agent, without choosing a new host first. That separates the tool that writes the app from the services that run it. The useful question is which part you want to change: editing, hosting, or the backend. Each has a different migration cost.
 
-<figure class="fig"><img src="/images/lovable-alternative-flow.png" alt="Lovable alternative with your own LLM: Lovable, then a private GitHub repository, then your agent (Claude Code, Codex, Cursor or Grok Build), then ohmyho.st hosting" width="1200" height="675" fetchpriority="high" decoding="async"><figcaption>Lovable builds, GitHub holds the code, your own agent changes it, ohmyho.st runs it.</figcaption></figure>
+I build ohmyho.st. This guide explains which parts of a Lovable workflow you can change separately, and the work each change creates.
 
-## Why builders look for a Lovable alternative
+## Choose what you want to change
 
-Lovable is very good at the first version. You describe the app, watch the preview, and get a working Vite and React codebase in an afternoon. The friction starts later, and it is almost always about the meter, not the code.
+An existing app does not have to move all at once. Start with the problem you actually have.
 
-Lovable measures everything in workspace credits. Its pricing page says credits from your balance are used "for building by sending messages to Lovable, hosting with Cloud, and offering AI features to users", and in the default mode each message costs a variable amount that depends on how complex the task is ([Lovable pricing](https://lovable.dev/pricing), read 2026-09-25). Paid plans add a monthly allowance and small daily grants. That is a fair model for prototyping. It gets awkward once the app has users: every fix is a message, every message is metered, and the balance that pays for your prompts is the same balance that pays for your traffic.
+| Your priority | A possible next step | What you take responsibility for |
+| --- | --- | --- |
+| Keep the browser editor, visual changes and integrated publishing | Keep building in Lovable | Its current plan, workflow and available integrations |
+| Use a coding agent you already prefer | Edit a synced copy of the project outside Lovable | Reviewing code changes, running the project and coordinating writes |
+| Choose hosting separately from the builder | Deploy the inspected project to a compatible host | Runtime configuration, secrets, release checks and availability |
+| Replace the backend as well | Plan a separate migration | Data, authentication, files, server functions and application behavior |
 
-The second limit is the model. Lovable's documentation separates the models it offers inside your app from the agent that builds it: those models "are not the models Lovable uses to write, edit, or reason about your code" ([Lovable AI features](https://docs.lovable.dev/integrations/ai), read 2026-09-25). Nothing on the pricing page lets you pay for that building with a Claude, ChatGPT or SuperGrok subscription you already have. If you pay for one of those anyway, you are paying twice for the same kind of work.
+If your frustration is how changes are made, try another coding tool before moving production hosting. If the editor is working well but you want a different hosting arrangement, there is no requirement to replace the editor too. A backend migration is another decision again.
 
-## What bring your own LLM means here
+Lovable's [GitHub integration](https://docs.lovable.dev/integrations/github) supports changes in both directions on the active branch. You can therefore keep using Lovable while also reviewing or editing the repository externally. Agree on which tool is writing, pull the latest changes before starting, and inspect the resulting diff before merging. Those habits matter more than the name of the agent.
 
-Bring your own LLM (sometimes called BYOK, bring your own key) means the model that edits your code is paid for by a plan you choose, not by the platform that runs the result. In practice that is one of four coding agents:
+## Your coding agent is not your app's AI
 
-- **Claude Code** signs in with a Claude Pro, Max, Team or Enterprise plan or a Console API key, and can also run on Amazon Bedrock, Google Cloud or Microsoft Foundry ([Claude Code setup](https://code.claude.com/docs/en/setup), read 2026-09-25).
-- **Codex** lets you "sign in with ChatGPT for subscription access" or "sign in with an API key for usage-based access" ([Codex authentication](https://developers.openai.com/codex/auth), read 2026-09-25).
-- **Cursor** runs on a Cursor plan and accepts your own keys for OpenAI, Anthropic, Google, Azure OpenAI and AWS Bedrock. Those keys drive the chat models; Tab completion stays on Cursor's own models ([Cursor API keys](https://cursor.com/docs/settings/api-keys), read 2026-09-25).
-- **Grok Build** is xAI's terminal coding agent, open to all SuperGrok and X Premium+ subscribers since May 25, 2026 ([Grok Build announcement](https://x.ai/news/grok-build-cli), read 2026-09-25).
+“Bring your own LLM” can describe different arrangements. Here, it means choosing the coding agent and model access you use to work on source files. It does not mean supplying a key to replace Lovable's internal development agent.
 
-The point is separation. Your agent's plan pays for thinking and typing. The host pays for running. A slow week of prompting does not touch your hosting balance, and a busy week of traffic does not eat into your prompts.
+**A coding-agent subscription and BYOK are different.** Your chosen tool may offer subscription access, provider API access, or both. Which models, features and usage allowances are available depends on that tool and its current plan. A subscription you already have can be useful, but it does not make every additional task free.
 
-<figure class="fig"><img src="/images/lovable-alternative-two-meters.png" alt="Lovable credits versus your own LLM plan: in Lovable one credit balance pays for building, hosting and in-app AI; with your own LLM the LLM plan pays for building and ohmyho.st credits pay for running" width="1200" height="675" loading="lazy" decoding="async"><figcaption>Building and running on two separate meters. Lovable's billing as described on lovable.dev/pricing, read 2026-09-25.</figcaption></figure>
+**AI inside the deployed app is a separate service.** A customer-facing chatbot or image feature still needs its own model connection. Lovable explicitly distinguishes its [app AI connector](https://docs.lovable.dev/features/ai) from the agent that builds the project. If you move that feature to a direct provider API, it may need a server-side key and separate usage billing.
 
-## Lovable vs Claude Code, Codex, Cursor and Grok Build
+ohmyho.st hosts the result independently of your development agent's LLM credentials. An app that calls a model provider directly can store its provider key separately as a [runtime secret](https://docs.ohmyho.st/secrets).
 
-These are not the same kind of tool, which is exactly why they work well together.
+## What stays with the code, and what does not
 
-| Tool        | Where you work                     | Who pays for the model                       | How it deploys to ohmyho.st        |
-| ----------- | ---------------------------------- | -------------------------------------------- | ---------------------------------- |
-| Lovable     | Browser: chat and live preview     | Lovable workspace credits                    | Through the GitHub repository      |
-| Claude Code | Terminal, IDE, desktop app         | Your Claude plan or API key                  | MCP server or the `ohmyhost` CLI   |
-| Codex       | CLI, IDE extension, ChatGPT app    | Your ChatGPT plan or API key                 | MCP server or the `ohmyhost` CLI   |
-| Cursor      | Editor and CLI                     | Cursor plan, or your own keys for chat       | MCP server from `mcp.json`         |
-| Grok Build  | Terminal                           | SuperGrok or X Premium+                      | MCP server or the `ohmyhost` CLI   |
+A repository gives you source files you can inspect and change with another tool. It does not, by itself, recreate the services those files call.
 
-Which one should you pick? If you like the chat-and-preview feel of Lovable, Cursor is the smallest jump: an editor with the agent in a side panel, and your app running next to it. If you would rather describe a goal and review the result, Claude Code, Codex and Grok Build work from a terminal and feel closer to Lovable's own loop of asking and checking. All four read the same repository, so you can switch later without moving anything.
+| Part of the app | What to check before changing hosts |
+| --- | --- |
+| Source and build configuration | The actual framework, package manager, dependencies and build output |
+| Database | Where the records live and whether you are keeping that service or migrating it |
+| Sign-in | The auth provider, allowed callback URLs, sessions and protected routes |
+| Uploaded files | Storage location, permissions and any signed-download behavior |
+| Server functions and integrations | Required runtime, external calls, scheduled work and private secrets |
+| AI features | Whether they use a builder-managed connector or a provider connection you operate |
 
-Claude Code, Codex and Cursor have documented setups in the [get-started Skill](/skills/ohmyhost-get-started/SKILL.md) and at https://docs.ohmyho.st/agents/mcp. Grok Build says "MCP servers all work out of the box", but we have not published a Grok-specific setup yet. Let the agent read the Skill and check its own installed help instead of guessing a command; any agent that can run a terminal command can also use the `ohmyhost` CLI directly.
+Do not assume every export is a static Vite app. Lovable's current [external-hosting guide](https://docs.lovable.dev/tips-tricks/external-deployment-hosting) distinguishes older React/Vite projects from TanStack Start projects, which also run server code. Inspect `package.json` and the actual build before selecting a runtime. A successful homepage load is not enough to verify an application.
 
-## Step 1: export your Lovable project to GitHub
+Keeping an existing Supabase backend may reduce the scope of the first move, but it still needs verification. Test sign-in, a protected read and write, file access if used, and any backend function the app depends on. Declare required external connections on the new host and verify them on its real addresses. Moving the data can wait until those flows work.
 
-For the current click-by-click setup, read [How to export Lovable code to GitHub](/blog/how-to-export-lovable-code-to-github), our standalone guide with screenshots, sync checks and the ZIP-download option.
+### What “no vendor lock-in” means in practice
 
-Lovable's GitHub integration is available on all plans, and it creates the repository for you ([Lovable GitHub integration](https://docs.lovable.dev/integrations/github), read 2026-09-25). It can only export to a new repository, not connect an existing one, so do not create one on GitHub first.
+Choosing another coding agent is easier when it can read the same files and you can review the changes in version control. That is a useful form of independence. It does not make a provider-specific database API, authentication system or AI connector portable without work.
 
-1. **Add a GitHub connection to the workspace**, once. A workspace admin or owner opens Workspace settings → Git → GitHub → Add connection and authorizes the GitHub account or organization.
-2. **Open the project's Git settings.** In the project, go to Project settings → Git → GitHub. The chat's + menu has the same entry under Project → GitHub.
-3. **Click Connect** next to the account or organization that should own the new repository.
-4. **Wait for the first sync.** Lovable creates the repository, private by default, and starts two-way sync on the default branch, usually `main`. Open it on github.com and check that `package.json` and `vite.config.ts` are there.
+A practical portability check is whether you can explain the app's dependencies, run it outside its original preview, and recover its data through a documented export. Keep the provider choices that are working; replace a dependency when you have a reason and a test for the replacement. Treat source ownership, hosting choice and backend portability as separate capabilities.
 
-From then on, every change in Lovable lands as a commit, and every commit pushed to that branch shows up in Lovable. If you rename the repository, sync continues; if you delete it, sync breaks. The ohmyho.st side of the connection is described at https://docs.ohmyho.st/github.
+## Compare the complete cost
 
-<figure class="fig"><img src="/images/lovable-alternative-github-export.png" alt="How to move a Lovable project to GitHub in three steps: Project settings, Git, GitHub; connect your GitHub account; Lovable creates a private repository synced both ways" width="1200" height="675" loading="lazy" decoding="async"><figcaption>The three steps in Lovable. Menu labels from docs.lovable.dev/integrations/github, read 2026-09-25.</figcaption></figure>
+Compare the same work on both arrangements, including services you would keep paying for after a move:
 
-## Step 2: open the repository in Claude Code, Codex, Cursor or Grok Build
+- **Development:** the coding tool's plan or API usage, including additional usage and any tools it calls.
+- **Hosting:** builds, requests, compute, retained storage and deployed resources at the host you choose.
+- **Existing backend:** a database, storage or mail service that stays in place keeps its own bill.
+- **App AI:** calls made by your visitors are separate from the model usage involved in writing the code.
 
-Clone the repository and start your agent in its folder:
+Lovable currently documents a general credit balance covering building and running, with usage-specific grants consumed before general credits. Check [its usage breakdown](https://docs.lovable.dev/introduction/credits-and-usage) for the project you actually have. A shared balance is an accounting arrangement; it is not proof that a different setup costs less.
 
-```bash
-git clone https://github.com/you/your-lovable-app.git
-cd your-lovable-app
-claude
-```
+For example, keeping the same backend while changing editors may mostly change development costs. Moving only the frontend changes the hosting cost while leaving the backend bill in place. Moving the backend as well changes the comparison again and adds migration work. A cheap frontend estimate does not establish the total cost of the application.
 
-`claude` starts Claude Code and `codex` starts Codex; in Cursor you open the folder, and Grok Build starts from the same folder in your terminal. Nothing about the code is Lovable-specific. It is a standard Vite and React project, so the agent can install and run it locally with the package manager its lockfile names.
+On ohmyho.st, a shared credit balance pays for running the app and the managed services it uses. It does not pay for the coding agent's tokens. Free provides {{ number plan.freeCredits }} credits per UTC month; Paid provides {{ number plan.paidCredits }} credits for {{ usd plan.paidUsd }} per month. These are usage allowances, not a promise that a particular export will fit. Read the [rates and plan terms](/pricing) and the plan for your inspected app before deciding.
 
-If you keep prompting in Lovable, both sides write to the same branch. Pull before your agent starts a larger change, and let one tool write at a time. That is the whole discipline a two-way sync asks for.
+## Try a small change before moving production
 
-## Step 3: set up ohmyho.st with one prompt
+Try a modest experiment to decide whether the external-agent workflow suits you:
 
-Paste this into the agent, in the repository folder:
+1. **Get the current source.** Use the [export and sync guide](/blog/how-to-export-lovable-code-to-github). Keep GitHub sync if you want continued edits in Lovable to reach that repository.
+2. **Run it locally.** Use the project's package manager and build scripts. Identify required configuration before asking an agent to change it.
+3. **Make a contained change.** Ask for a form label, validation rule or small layout adjustment. Read the diff and check that unrelated files and dependencies stayed under control.
+4. **Verify the behavior.** Run the build and relevant tests, then exercise the changed flow. If it involves a backend, verify the real integration rather than accepting a screenshot as proof.
+5. **Choose the next move.** If this workflow helps, decide separately whether to keep the current host or try another one. If it adds friction, continuing in Lovable remains a reasonable outcome.
 
-```text
-{{ prompt }}
-```
+For editor setup and access, use the documentation for [Claude Code](https://code.claude.com/docs/en/setup), [Codex](https://developers.openai.com/codex/auth), [Cursor](https://cursor.com/docs) or the coding tool you choose. Check its model access, usage allowances and ability to run the project's commands before committing to that workflow.
 
-What happens next:
+## Where ohmyho.st fits
 
-1. The agent reads `llms.txt` and the get-started Skill, checks what is installed, and installs the ohmyho.st CLI and MCP server only if they are missing. Setup per harness: https://docs.ohmyho.st/agents/mcp.
-2. It signs you in. `ohmyhost login` returns a link and a code, and you confirm once in the browser. A new account starts on Free.
-3. It continues the current source. For a selected GitHub export it connects with `github_connect` when needed and you approve repository access. Accessible current files can instead be saved as managed versions through the [deploy Skill](/skills/ohmyhost-deploy/SKILL.md).
-4. It reuses the current project or creates one when requested. The region, US by default or EU if you ask, is chosen once and cannot change later.
-5. It saves the chosen managed version or links the selected GitHub repository with `source_link`, then asks for a deployment plan: the commit, the framework it detected and any secret the app still needs.
-6. For each secret it provides local stdin from `secret_set_command` or the supported remote private portal input, so the value stays out of chat and source. Public `VITE_` values stay in the build; private keys never get that prefix. Details: https://docs.ohmyho.st/secrets.
-7. It deploys to Dev, opens the `dev-….check.omh.st` address and checks the app: a page, a deep link after a reload, and sign-in if the app has one.
-8. When you are happy, it promotes the verified artifact to Prod. Promotion moves the same build: it does not rebuild, and it does not copy Dev data into Prod. Details: https://docs.ohmyho.st/environments.
+ohmyho.st is a host that compatible coding agents operate through [MCP or CLI](https://docs.ohmyho.st/agents/mcp). It can use the GitHub repository you authorize or [managed source versions](/skills/ohmyhost-deploy/SKILL.md). GitHub is useful when you want to preserve the Lovable sync; it is not the only source route the host supports.
 
-<figure class="fig"><img src="/images/lovable-alternative-agent-session.png" alt="Deploy a Lovable app from Claude Code, Codex, Cursor or Grok Build: paste one prompt, approve sign-in, GitHub and secrets, get a Dev URL and then the live Prod URL" width="1200" height="675" loading="lazy" decoding="async"><figcaption>One prompt, then the agent stops only where you have to decide: the sign-in, the GitHub authorization and the secret values.</figcaption></figure>
+An agent can inspect the selected source, plan a deployment and prepare a Dev preview. After the app has been checked, the verified artifact can be promoted to Prod. The agent's model access remains separate from the app's hosting usage. This provides another workflow to evaluate, not a substitute for checking the exported application's dependencies.
 
-The full walk-through, from the prompt to a verified URL, is in the quickstart at https://docs.ohmyho.st/quickstart.
-
-## What changes, and what stays in Lovable
-
-- **Lovable keeps working.** The sync is two-way, so you can still prompt there. Your agent deploys whichever commit you choose, and nothing in Lovable has to be switched off.
-- **Keeping Supabase needs verification.** The agent inventories the real export, declares its exact external browser origins in `runtime.browser` in `ohmyhost.yaml`, and declares server-side HTTPS calls separately in `runtime.egress.allow`. It checks the `VITE_SUPABASE_*` values and actual Dev and Prod redirect URLs, then verifies login, protected reads and writes, and any used files or backend functions on Dev before moving production traffic. Moving to managed Postgres is a separate, later step.
-- **Client-side routes need a fallback.** A reload on `/dashboard` must serve `index.html`. Vite artifacts already return that file for paths without a static file; the agent verifies the deep link on Dev. An edge companion is needed for the app's own server routes, rather than for the fallback alone. Framework notes: https://docs.ohmyho.st/frameworks/vite.
-- **Lovable Cloud data moves on its own schedule.** Export it before you switch anything off, and treat that move as its own step with its own check.
-
-The longer checklist for these seams, with Lovable's own wording for each, is in [Hosting a Lovable app after export](/blog/host-a-lovable-app-after-export).
-
-## What it costs
-
-Two separate lines, which is the point of the whole move.
-
-The model costs whatever you already pay for Claude, ChatGPT, Cursor or SuperGrok. ohmyho.st does not resell tokens and never needs your LLM key.
-
-Hosting runs on ohmyho.st credits. Free gives {{ number plan.freeCredits }} credits a UTC month with hosting, a database and Dev and Prod hosts at their published usage rates. Read the plan for your actual export and verify its backend on Dev before assuming that allowance covers a trial. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits and adds transactional mail and your own domain; the domain also works on Free while the project shows the “Powered by ohmyho.st” flag, which waives domain credits on either plan. Extra projects carry no base fee; each draws on the same balance. The example below prices a frontend that has passed those Supabase checks and uses a custom domain without the flag:
-
-{{ table workload.lovableFrontend }}
-
-The line-by-line rates are on the [pricing page](/pricing) and in the [cost breakdown](/pricing/breakdown).
-
-To compare the hosting allowance with other options before choosing a host, see the [free Vercel and Supabase alternatives](/blog/free-vercel-supabase-alternatives-2026), including their database, domain and business-use limits.
-
-## When Lovable is still the better choice
-
-If you never want to see a file tree or a terminal, Lovable is simpler: chat, preview and publish, all in one tab. Visual edits, the instant preview and Lovable Cloud's built-in backend are real strengths, and a first prototype is faster there than almost anywhere else. Many people use both: Lovable for the first screens, their own agent once the app has users and changes need more care. Because the GitHub sync runs both ways, that is a choice you can revisit every week, not a migration you make once.
-
-## FAQ
-
-### Is there a free Lovable alternative?
-
-Your coding agent needs its own plan, while hosting on ohmyho.st starts on Free with {{ number plan.freeCredits }} credits a UTC month at the published usage rates. The actual export still needs a deployment plan and verified backend flows on Dev; the allowance does not guarantee that every export can deploy or that its trial fits. Open-source builders such as [Dyad](https://www.dyad.sh/blog/free-lovable-alternative) also let you bring your own key; they replace the builder, not the host.
-
-### Can I keep using Lovable after moving to Claude Code or Cursor?
-
-Yes. The GitHub sync is two-way on one active branch, so prompts in Lovable still land in the repository you deploy from. Let one tool write at a time and pull before a larger change.
-
-### Do I need an API key for Claude Code or Codex?
-
-No. Claude Code signs in with a Claude plan and Codex with a ChatGPT sign-in; both also accept an API key if you prefer usage-based billing. ohmyho.st never needs that key. The agent signs in to ohmyho.st on its own, with a browser login or an ohmyho.st API token (https://docs.ohmyho.st/login-tokens).
-
-### Does Grok Build work with ohmyho.st?
-
-Grok Build runs terminal commands and supports MCP servers, so it can use the same ohmyho.st MCP server or CLI as the other agents. We publish documented setups for Claude Code, Codex and Cursor, not yet for Grok Build, so let the agent follow the Skill and its own installed help rather than a guessed command.
-
-### Will my Lovable repository become public?
-
-No. Lovable creates it private by default, and ohmyho.st reads it only through the GitHub App installation you authorize for that repository.
-
-## Sources
-
-- [Lovable pricing](https://lovable.dev/pricing), read 2026-09-25
-- [Lovable GitHub integration](https://docs.lovable.dev/integrations/github), read 2026-09-25
-- [Lovable AI features for your app](https://docs.lovable.dev/integrations/ai), read 2026-09-25
-- [Claude Code setup and authentication](https://code.claude.com/docs/en/setup), read 2026-09-25
-- [Codex authentication](https://developers.openai.com/codex/auth), read 2026-09-25
-- [Cursor API keys](https://cursor.com/docs/settings/api-keys), read 2026-09-25
-- [Introducing Grok Build](https://x.ai/news/grok-build-cli), read 2026-09-25
-
-[Bring your app from Lovable](/from/lovable) · [Deploy from Claude Code](/for/claude-code) · [Deploy from Codex](/for/codex) · [Deploy from Cursor](/for/cursor)
+If you are ready to try hosting, the [Lovable hosting guide](/blog/host-a-lovable-app-after-export) covers the technical handoff, and [Bring your app from Lovable](/from/lovable) gives the ohmyho.st entry prompt. If you prefer the integrated browser editor and publishing workflow, you can keep using Lovable. Choosing the smallest change that solves your problem is a better starting point than replacing the entire stack.
