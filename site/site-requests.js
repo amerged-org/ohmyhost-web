@@ -12,9 +12,71 @@
     "Keep existing projects in their current region. " +
     "Follow the deployment Skill, keep my existing project decisions and verify the app.";
 
-  const buttons = "[data-copy], #copy, #shcopy2, #shcopy, [data-wincopy], [data-copy-prompt], [data-copy-code]";
+  let articleCopyAttempt = 0;
+  let articleCopyPending = false;
+  async function copyArticle(button) {
+    if (articleCopyPending) return;
+    const toolbar = button.closest("[data-article-tools]");
+    const label = button.querySelector("span");
+    const feedback = toolbar.querySelector("[data-article-copy-status]");
+    const attempt = ++articleCopyAttempt;
+    articleCopyPending = true;
+    // Keep keyboard focus on the button while ignoring repeated activation.
+    button.setAttribute("aria-disabled", "true");
+    button.setAttribute("aria-busy", "true");
+    toolbar.classList.remove("copy-error");
+    label.textContent = "Copying…";
+    feedback.textContent = "Copying article Markdown…";
+    try {
+      const value = JSON.parse(toolbar.querySelector("[data-article-markdown]")?.textContent ?? "null");
+      if (typeof value !== "string") throw Error("Missing article Markdown");
+      let copied = false;
+      if (navigator.clipboard?.writeText) {
+        try {
+          await navigator.clipboard.writeText(value);
+          copied = true;
+        } catch {
+          // Local file previews and denied clipboard permissions can need the fallback.
+        }
+      }
+      if (!copied) {
+        const previousFocus = document.activeElement;
+        const field = document.createElement("textarea");
+        field.value = value;
+        field.readOnly = true;
+        field.style.cssText = "position:fixed;left:-9999px;top:0;font-size:16px";
+        field.setAttribute("aria-hidden", "true");
+        document.body.append(field);
+        try {
+          field.select();
+          copied = document.execCommand("copy");
+        } finally {
+          field.remove();
+          previousFocus?.focus?.({ preventScroll: true });
+        }
+      }
+      if (!copied) throw Error("Copy failed");
+      label.textContent = "Copied";
+      feedback.textContent = "Article Markdown copied. Paste it into your agent.";
+      setTimeout(() => {
+        if (attempt !== articleCopyAttempt) return;
+        label.textContent = "Copy .md for agent";
+        feedback.textContent = "";
+      }, 2500);
+    } catch {
+      label.textContent = "Copy .md for agent";
+      feedback.textContent = "Copy failed. Open .md and copy the article there.";
+      toolbar.classList.add("copy-error");
+    } finally {
+      articleCopyPending = false;
+      button.removeAttribute("aria-disabled");
+      button.removeAttribute("aria-busy");
+    }
+  }
+
+  const buttons = "[data-copy], #copy, #shcopy2, #shcopy, [data-wincopy], [data-copy-prompt], [data-copy-code], [data-copy-article]";
   document.querySelectorAll(buttons).forEach((button) => {
-    if (button.matches("[data-copy-code]")) return;
+    if (button.matches("[data-copy-code], [data-copy-article]")) return;
     const label = button.querySelector("span");
     const text = button.closest("nav") ? "Copy prompt" : "Copy prompt for your agent";
     if (label) label.textContent = text;
@@ -28,6 +90,10 @@
       if (!button) return;
       event.preventDefault();
       event.stopImmediatePropagation();
+      if (button.dataset?.copyArticle !== undefined) {
+        await copyArticle(button);
+        return;
+      }
       const label = button.querySelector("span") || button;
       const block = button.closest(".copy-block");
       const value = block ? block.querySelector("pre code").textContent : prompt;

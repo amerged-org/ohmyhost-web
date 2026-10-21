@@ -146,6 +146,8 @@ it("publishes the SEO contract for every rendered page", async () => {
           href.startsWith("/brand/assets/") ||
           href.startsWith("/og/") ||
           href.startsWith("/shots/") ||
+          (/^\/images\/[a-z0-9-]+\.png$/u.test(href) &&
+            existsSync(new URL(`.${href}`, publicDir))) ||
           href === "/api" ||
           href === "/favicon.svg" ||
           href === "/favicon.ico" ||

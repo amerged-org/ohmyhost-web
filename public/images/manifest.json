@@ -26,5 +26,13 @@
   "lovable-alternative-two-meters": {
     "sourceSha256": "4bd399373b5f5e7ec31647cd544d2a08c3dbf268d86e83864c59b4cf48eb7d1c",
     "renderedAt": "2026-09-25T18:25:21.310Z"
+  },
+  "lovable-cloud-export-bridge": {
+    "sourceSha256": "8ea8221c22ee8551b7f0754de39c0ee52832edb32c9baeb22e2b9436530d5671",
+    "renderedAt": "2026-10-21T15:06:07.767Z"
+  },
+  "lovable-local-development-map": {
+    "sourceSha256": "109f56788a6540795113d71dbf2701291c4098b6227381ec87d7207c4e7cd2a9",
+    "renderedAt": "2026-10-21T13:15:00.074Z"
   }
 }

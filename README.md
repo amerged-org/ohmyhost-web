@@ -31,6 +31,18 @@ pnpm test       # rendering, structured data and the content truth gate
 
 ## Editorial publication workflow
 
+Blog posts are written for people who give the work to their coding Agent. Explain what the reader
+wants to achieve, what to ask their Agent and what result they should check. Use short, direct
+headings and plain language. Put concise, task-specific prompts at useful handoff points, even
+when an outline has no explicit prompt placeholder. Keep the technical evidence and limitations,
+but let the Agent inspect the repository and choose its commands. Do not repeat a generic prompt
+in place of explaining the task. Preserve owner-supplied wording exactly when it is marked for
+preservation; adding a prompt or copy formatting is not permission to rewrite that prose.
+
+Each article has a top-of-page **Copy .md for agent** action and an **Open .md** link. The copy
+action contains the complete Markdown article, including its task prompts. Individual fenced
+prompts also have their own copy button.
+
 Publish at most one new blog article per day. This is an editorial limit, not a daily quota or a
 search-engine requirement. Keep existing publication dates when revising articles; update only the
 modification date for substantive changes. Existing articles may be improved together.

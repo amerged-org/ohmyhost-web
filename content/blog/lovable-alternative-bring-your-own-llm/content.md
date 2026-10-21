@@ -1,90 +1,124 @@
 # A Lovable alternative with your own LLM
 
-By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 25, 2026 · Updated October 20, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 25, 2026 · Updated October 21, 2026
 
-You can keep a Lovable project's code and edit it with your own coding agent, without choosing a new host first. That separates the tool that writes the app from the services that run it. The useful question is which part you want to change: editing, hosting, or the backend. Each has a different migration cost.
+You can open your Lovable project in the coding tool you prefer and ask your Agent to work on it. You do not need to choose a new host or move your database first. Get the current code, run it locally and try a change you can review. That gives you something useful to compare with the workflow you already know.
 
-I build ohmyho.st. This guide explains which parts of a Lovable workflow you can change separately, and the work each change creates.
+Maybe you prefer how your Agent explains a bug. Maybe you want to work in your own editor, review changes before accepting them or use model access you already pay for. Those are good reasons to try the workflow. Whether you also want different hosting is a decision you can make later.
 
-## Choose what you want to change
+I build ohmyho.st. This guide explains how to try your own coding agent with a Lovable project, what still needs to run elsewhere and where our hosting fits if you decide to move.
 
-An existing app does not have to move all at once. Start with the problem you actually have.
+## Start with the part you want to change
 
-| Your priority | A possible next step | What you take responsibility for |
+Before asking your Agent to migrate anything, tell it what is bothering you about the current setup. “I want to edit this app in my own editor” is a much smaller job than “move everything away from Lovable.” It also gives you a clearer way to judge the result.
+
+| What you want | What to try | What you will need to check |
 | --- | --- | --- |
-| Keep the browser editor, visual changes and integrated publishing | Keep building in Lovable | Its current plan, workflow and available integrations |
-| Use a coding agent you already prefer | Edit a synced copy of the project outside Lovable | Reviewing code changes, running the project and coordinating writes |
-| Choose hosting separately from the builder | Deploy the inspected project to a compatible host | Runtime configuration, secrets, release checks and availability |
-| Replace the backend as well | Plan a separate migration | Data, authentication, files, server functions and application behavior |
+| Keep the browser editor and integrated publishing | Continue building in Lovable | Whether its workflow and plan still fit your work |
+| Use your preferred coding agent | Open a synced copy outside Lovable | Local setup, code review and coordination between editors |
+| Choose where the app runs | Try a compatible host | Build output, secrets, external connections and release checks |
+| Move the backend too | Plan a separate migration | Data, accounts, files, functions and application behavior |
 
-If your frustration is how changes are made, try another coding tool before moving production hosting. If the editor is working well but you want a different hosting arrangement, there is no requirement to replace the editor too. A backend migration is another decision again.
+For editor setup and access, use the documentation for [Claude Code](https://code.claude.com/docs/en/setup), [Codex](https://developers.openai.com/codex/auth), [Cursor](https://cursor.com/docs) or the tool you choose. Check the model access and usage allowance available to your account. Start with a tool you are comfortable using; a comparison of model names will not tell you whether you like reviewing its work on your app.
 
-Lovable's [GitHub integration](https://docs.lovable.dev/integrations/github) supports changes in both directions on the active branch. You can therefore keep using Lovable while also reviewing or editing the repository externally. Agree on which tool is writing, pull the latest changes before starting, and inspect the resulting diff before merging. Those habits matter more than the name of the agent.
+## Get the current code into your Agent
 
-## Your coding agent is not your app's AI
+Use the [export and sync guide](/blog/how-to-export-lovable-code-to-github) if your project is not connected yet. In Lovable, check the repository, selected branch and sync status. Wait for any current edit to finish before handing that version to your Agent.
 
-“Bring your own LLM” can describe different arrangements. Here, it means choosing the coding agent and model access you use to work on source files. It does not mean supplying a key to replace Lovable's internal development agent.
+Lovable's [GitHub integration](https://docs.lovable.dev/integrations/github) syncs changes in both directions on the active branch. You can keep working in Lovable and also edit the repository externally. Coordinate those sessions so the tools are not changing the same files at the same time. Ask your Agent to work on a separate feature branch and review its changes before bringing them back to the synced branch.
 
-**A coding-agent subscription and BYOK are different.** Your chosen tool may offer subscription access, provider API access, or both. Which models, features and usage allowances are available depends on that tool and its current plan. A subscription you already have can be useful, but it does not make every additional task free.
+Here a prompt:
 
-**AI inside the deployed app is a separate service.** A customer-facing chatbot or image feature still needs its own model connection. Lovable explicitly distinguishes its [app AI connector](https://docs.lovable.dev/features/ai) from the agent that builds the project. If you move that feature to a direct provider API, it may need a server-side key and separate usage billing.
+```text
+Open my Lovable project from [GitHub repository URL], starting from
+[branch name], and create a separate branch for this trial. Follow the
+project's setup, install its dependencies and start it locally. Return the
+working local URL, or name the missing setup without exposing secrets.
+Do not change application code or write to production data.
+```
 
-ohmyho.st hosts the result independently of your development agent's LLM credentials. An app that calls a model provider directly can store its provider key separately as a [runtime secret](https://docs.ohmyho.st/secrets).
+Replace the brackets with your repository and the branch shown in Lovable. A private repository needs an authenticated account with access. Once your Agent has opened it, compare a recent visible change with the version you expected. This is a quick way to catch the wrong branch before you start debugging an old copy.
 
-## What stays with the code, and what does not
+## Your coding LLM and your app's AI are separate
 
-A repository gives you source files you can inspect and change with another tool. It does not, by itself, recreate the services those files call.
+In this guide, “your own LLM” means the model access used by your coding tool to read and edit source files. It does not mean adding a key that replaces Lovable's internal development agent. You are opening the code in another tool and using that tool's workflow.
 
-| Part of the app | What to check before changing hosts |
+A coding subscription and bringing your own API key are also different arrangements. The tool you select may support subscription access, provider API access or both. Check what your account actually includes. An existing subscription may cover your trial, but additional usage and features can have their own limits or charges.
+
+Now consider a chatbot inside your app. When a visitor sends it a message, that request needs an AI connection at runtime. Paying for an Agent to write the chatbot does not pay for the visitor's request. Lovable makes this distinction in its [app AI documentation](https://docs.lovable.dev/features/ai): the built-in connector powers features inside the app, separately from the agent that builds it.
+
+Keep in mind: changing your editor does not automatically replace that connector. If you later switch the app to a direct provider API, your Agent needs to implement the connection, keep its credentials on the server and verify the feature. On ohmyho.st, a compatible app can keep that provider key in a [runtime secret](https://docs.ohmyho.st/secrets). Its API usage is still a separate cost from your development tool and hosting.
+
+## Ask what the exported app depends on
+
+Your Agent should inspect the actual project before choosing how to run or host it. Lovable's [external-hosting guide](https://docs.lovable.dev/tips-tricks/external-deployment-hosting) distinguishes older React/Vite apps from TanStack Start apps. A dependency on `@tanstack/react-start` in `package.json` identifies the latter. TanStack Start includes server execution, so uploading only static files will not run its server features. The presence of `vite.config.ts` alone is not enough to classify the project.
+
+Have your Agent give you a short inventory you can understand:
+
+| Part | What you need to know |
 | --- | --- |
-| Source and build configuration | The actual framework, package manager, dependencies and build output |
-| Database | Where the records live and whether you are keeping that service or migrating it |
-| Sign-in | The auth provider, allowed callback URLs, sessions and protected routes |
-| Uploaded files | Storage location, permissions and any signed-download behavior |
-| Server functions and integrations | Required runtime, external calls, scheduled work and private secrets |
-| AI features | Whether they use a builder-managed connector or a provider connection you operate |
+| Code and build | Which framework, package manager and scripts the repository uses |
+| Database | Where the records live and which environment local code will contact |
+| Login | Who handles authentication and which callback addresses are allowed |
+| Files | Where uploads live and how private downloads are authorized |
+| Functions and integrations | Which features need server code, secrets, scheduled work or external APIs |
+| App AI | Whether calls use a managed connector or your own provider account |
 
-Do not assume every export is a static Vite app. Lovable's current [external-hosting guide](https://docs.lovable.dev/tips-tricks/external-deployment-hosting) distinguishes older React/Vite projects from TanStack Start projects, which also run server code. Inspect `package.json` and the actual build before selecting a runtime. A successful homepage load is not enough to verify an application.
+The source export does not include the records in your database or the files in storage. Keeping your code gives you editing options, but provider-specific APIs still need attention when you replace a service. Check the data export and recovery path before planning a complete move.
 
-Keeping an existing Supabase backend may reduce the scope of the first move, but it still needs verification. Test sign-in, a protected read and write, file access if used, and any backend function the app depends on. Declare required external connections on the new host and verify them on its real addresses. Moving the data can wait until those flows work.
+Here a prompt:
 
-### What “no vendor lock-in” means in practice
+```text
+Inspect this project's configuration and API calls. Explain which database, auth service, file storage and AI services it uses. Show variable names, never secret values. Tell me whether local development would contact production and what test configuration is missing. Do not migrate or replace any service.
+```
 
-Choosing another coding agent is easier when it can read the same files and you can review the changes in version control. That is a useful form of independence. It does not make a provider-specific database API, authentication system or AI connector portable without work.
+This matters before you click around locally. A Git branch separates code changes; it does not create a separate database. Existing environment files may connect to live records. Use a development backend for a trial that writes data, and ask your Agent to confirm that destination.
 
-A practical portability check is whether you can explain the app's dependencies, run it outside its original preview, and recover its data through a documented export. Keep the provider choices that are working; replace a dependency when you have a reason and a test for the replacement. Treat source ownership, hosting choice and backend portability as separate capabilities.
+There can also be a gap between a working local page and working integrations. On TanStack Start projects, Lovable-managed AI and connector credentials may be unavailable to the server running on your machine. Test those features in Lovable's preview until you configure an independent integration. Lovable describes this limitation in its [local workflow documentation](https://docs.lovable.dev/integrations/git-sync-overview#work-locally-in-your-ide).
 
-## Compare the complete cost
+## Give your Agent a small, reversible job
 
-Compare the same work on both arrangements, including services you would keep paying for after a move:
+Once the app starts, choose a change you can judge yourself. A clearer empty state, an awkward form label or a small mobile layout problem works well. Avoid using a full authentication rewrite as your first test of a new coding workflow; it makes the result harder to assess and undo.
 
-- **Development:** the coding tool's plan or API usage, including additional usage and any tools it calls.
-- **Hosting:** builds, requests, compute, retained storage and deployed resources at the host you choose.
-- **Existing backend:** a database, storage or mail service that stays in place keeps its own bill.
-- **App AI:** calls made by your visitors are separate from the model usage involved in writing the code.
+Here a prompt:
 
-Lovable currently documents a general credit balance covering building and running, with usage-specific grants consumed before general credits. Check [its usage breakdown](https://docs.lovable.dev/introduction/credits-and-usage) for the project you actually have. A shared balance is an accounting arrangement; it is not proof that a different setup costs less.
+```text
+On [page or route], replace the empty-state message with “[new message]”. Keep the existing behavior and styling. Run the relevant checks and show me the page locally. Then summarize the files changed and anything you could not verify. Leave the change on this branch for review.
+```
 
-For example, keeping the same backend while changing editors may mostly change development costs. Moving only the frontend changes the hosting cost while leaving the backend bill in place. Moving the backend as well changes the comparison again and adds migration work. A cheap frontend estimate does not establish the total cost of the application.
+Open the local page yourself. Does the message appear in the right situation? Is it readable on your phone-sized screen? Ask your Agent to show the diff, which is the before-and-after view of the changed files. For this example, you should be able to connect each change to the message you requested. An unrelated dependency update needs an explanation.
 
-On ohmyho.st, a shared credit balance pays for running the app and the managed services it uses. It does not pay for the coding agent's tokens. Free provides {{ number plan.freeCredits }} credits per UTC month; Paid provides {{ number plan.paidCredits }} credits for {{ usd plan.paidUsd }} per month. These are usage allowances, not a promise that a particular export will fit. Read the [rates and plan terms](/pricing) and the plan for your inspected app before deciding.
+For a later change involving saved data, check the complete flow with a test account: sign in, perform the action and confirm the expected record appears. Check access while signed out too. Use harmless test records, and keep track of anything that sends mail or calls a paid API. A screenshot can show the interface; it cannot establish that permissions and integrations work.
 
-## Try a small change before moving production
+Judge the workflow as well as the output. Could you explain the task naturally? Did you understand the changes? Could you recover when the Agent took a wrong turn? If the experience works for you, try a slightly larger task. If it adds friction, you can keep using Lovable while retaining your repository and the work you want to keep.
 
-Try a modest experiment to decide whether the external-agent workflow suits you:
+## Compare the costs you will actually keep
 
-1. **Get the current source.** Use the [export and sync guide](/blog/how-to-export-lovable-code-to-github). Keep GitHub sync if you want continued edits in Lovable to reach that repository.
-2. **Run it locally.** Use the project's package manager and build scripts. Identify required configuration before asking an agent to change it.
-3. **Make a contained change.** Ask for a form label, validation rule or small layout adjustment. Read the diff and check that unrelated files and dependencies stayed under control.
-4. **Verify the behavior.** Run the build and relevant tests, then exercise the changed flow. If it involves a backend, verify the real integration rather than accepting a screenshot as proof.
-5. **Choose the next move.** If this workflow helps, decide separately whether to keep the current host or try another one. If it adds friction, continuing in Lovable remains a reasonable outcome.
+Changing editors may leave most of your app's running costs untouched. Moving its frontend can leave the database bill untouched too. Write down what stays before comparing monthly totals.
 
-For editor setup and access, use the documentation for [Claude Code](https://code.claude.com/docs/en/setup), [Codex](https://developers.openai.com/codex/auth), [Cursor](https://cursor.com/docs) or the coding tool you choose. Check its model access, usage allowances and ability to run the project's commands before committing to that workflow.
+- **Development:** your coding tool's subscription, API usage and additional tool usage.
+- **Hosting:** builds, requests, compute, storage and retained deployments at the selected host.
+- **Backend services:** the database, files, mail or other services you continue using.
+- **App AI:** model calls made by visitors or background jobs inside the deployed app.
 
-## Where ohmyho.st fits
+Lovable currently documents a general credit balance covering building and running, with usage-specific grants consumed first. Read [its usage breakdown](https://docs.lovable.dev/introduction/credits-and-usage) for the account and project you have. A shared balance does not mean the activities have the same cost, and moving an activity does not remove charges for the services left behind.
 
-ohmyho.st is a host that compatible coding agents operate through [MCP or CLI](https://docs.ohmyho.st/agents/mcp). It can use the GitHub repository you authorize or [managed source versions](/skills/ohmyhost-deploy/SKILL.md). GitHub is useful when you want to preserve the Lovable sync; it is not the only source route the host supports.
+On ohmyho.st, a shared credit balance pays for running the app and the managed services it uses. It does not pay for your coding Agent's tokens. Free provides {{ number plan.freeCredits }} credits per UTC month; Paid provides {{ number plan.paidCredits }} credits for {{ usd plan.paidUsd }} per month. These are usage allowances. Check the [rates and plan terms](/pricing) against your app's requirements before assuming it will fit.
 
-An agent can inspect the selected source, plan a deployment and prepare a Dev preview. After the app has been checked, the verified artifact can be promoted to Prod. The agent's model access remains separate from the app's hosting usage. This provides another workflow to evaluate, not a substitute for checking the exported application's dependencies.
+Include your time in the decision. If you already have a working app, migrating accounts and files is work you need a reason to take on. You can prefer another editor without deciding that every service must move with it. Keep the dependencies that are doing their job until you have a clear benefit and a way to test a replacement.
 
-If you are ready to try hosting, the [Lovable hosting guide](/blog/host-a-lovable-app-after-export) covers the technical handoff, and [Bring your app from Lovable](/from/lovable) gives the ohmyho.st entry prompt. If you prefer the integrated browser editor and publishing workflow, you can keep using Lovable. Choosing the smallest change that solves your problem is a better starting point than replacing the entire stack.
+## Try a Dev preview when you are ready to change hosting
+
+ohmyho.st is a host that compatible Agents operate through [MCP or CLI](https://docs.ohmyho.st/agents/mcp). It can use an authorized GitHub repository or [managed source versions](/skills/ohmyhost-deploy/SKILL.md). Keeping GitHub is useful when you want continued sync with Lovable. Choose the source route deliberately, especially if the project already has one configured.
+
+Start with a Dev preview you can open and test. Tell your Agent which services you intend to keep and ask it to explain any compatibility changes before applying them. Have it declare the external connections the app needs on the new host. Keep in mind that a preview address does not establish data isolation: check whether Dev and Prod share a backend before making test writes.
+
+Here a prompt:
+
+```text
+Prepare an ohmyho.st deployment plan for this version of my app. Keep the existing backend and auth provider. Identify runtime compatibility, required secrets and callback URLs. Explain the cost estimate and whether Dev data is isolated. After I approve the plan, deploy to Dev and give me the preview to test. Wait for my approval before promoting to Prod.
+```
+
+In Dev, check login, protected reads and writes, uploads and any AI features your app uses. When those checks pass, your Agent can prepare promotion of that verified artifact to Prod. Review the release and approve it when you are ready for users to receive it.
+
+The [Lovable hosting guide](/blog/host-a-lovable-app-after-export) covers this handoff in more detail, and [Bring your app from Lovable](/from/lovable) provides the ohmyho.st entry prompt. Start with the local trial if your immediate goal is to work with your preferred Agent. You will have a better basis for the hosting decision after you have made and reviewed a real change.

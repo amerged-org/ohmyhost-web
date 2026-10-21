@@ -1,107 +1,147 @@
 # How to export Lovable code to GitHub: a step-by-step guide
 
-By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · October 6, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published October 6, 2026 · Updated October 21, 2026
 
-To export Lovable code to GitHub, open your project settings, choose **Git**, then **GitHub**, and connect the account that should own the repository. Check that the project says **Connected** and **In sync with GitHub** before downloading or cloning it. This guide shows the settings with real screenshots, including the separate ZIP download option if you only want a copy.
+To export your Lovable code, open **Project settings → Git → GitHub** and connect the account that should own it. Once the project shows **Connected** and **In sync with GitHub**, give the repository URL to your Agent. It can get the files onto your computer and check what the app needs to run.
 
-## Choose GitHub sync or a code download
+You handle the account choice and sign-in. Your Agent handles the code. The screenshots below show where to look, and the prompts give you a starting point for the handoff. If you just want a ZIP of the files, there is a separate download option too.
 
-Start with what you want to do with the code. If you plan to keep building, hand the project to a developer, or connect it to a host, use GitHub. The **Git** settings describe a connection that carries changes between Lovable and your repository in both directions.
+## Choose the kind of export
 
-If you only want to inspect the files or save a snapshot, use **Download codebase** instead. A ZIP is convenient to open and share, but it does not give that folder an ongoing connection to your Lovable project. Keep this distinction in mind when someone asks you to “export”: they may mean a download, a repository, or a complete move to another host.
+Use GitHub if you want to keep building with your Agent, share the project with a developer or deploy from the repository. It gives you somewhere to review changes and keep the project's history. You can return to that same repository for the next change instead of passing another folder around.
 
-You need access to the Lovable project and the GitHub account you intend to use. Decide whether the repository belongs in your personal account or your team's organization before starting. That makes the account selection easier to check later.
+Use **Download codebase** if you want a snapshot to inspect or save. That gives you a ZIP. It is useful for a quick review, but editing the extracted folder will not automatically send changes back to Lovable.
 
-## Step one: open Lovable project settings
+Keep in mind: getting the code, moving the database and changing the live website are separate jobs. For this guide, the goal is to get the right source files into an account you control and make them available to your Agent. You can decide where to host the app afterwards.
 
-Open the project you want to export. At the top left, click the project name to expand its menu. Click the gear beside the project name; the tooltip in the screenshot calls it **Project settings**.
+Before connecting anything, choose the repository owner. A personal experiment can live in your account. A client or team project may belong in an organization. Make that choice now so you do not have to untangle the ownership later.
+
+## Open project settings
+
+Open the project you want to export. Click its name at the top left, then the gear beside the name. The tooltip in this screenshot says **Project settings**.
 
 <figure class="fig"><a href="/shots/lovable-export-project-settings.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Lovable project dropdown with the gear icon labelled Project settings beside the project name"><img src="/shots/lovable-export-project-settings.png" alt="Lovable project dropdown with the gear icon labelled Project settings beside the project name" width="1052" height="502" fetchpriority="high" decoding="async"></a><figcaption>Open the project menu, then click the gear beside its name.</figcaption></figure>
 
-Select any screenshot to open it at full size. Check the project name before continuing, particularly if you have several similar prototypes. You are opening settings for this project, so the repository you create will contain this project's code. The **Code** tab visible in the screenshot is useful for browsing files; the gear is the route used in this guide.
+Check the name before you continue. It is easy to have an original app, a remix and a client copy that look similar. Pick a recent change you recognize, such as a heading or a new form. You can use it later to confirm that your Agent received the version you meant to export.
 
-## Step two: choose Settings → Git → GitHub
+You can open each screenshot at full size. The **Code** tab helps you browse files; the gear opens the settings used here. There is no need to download individual files from the code editor.
 
-In the settings sidebar, find **Settings**, then select **Git**. You should see a Git provider card and a **Download codebase** section. Click the **GitHub** card to open its connection settings.
+## Find the GitHub connection
+
+In the settings sidebar, choose **Git**, then open the **GitHub** card. The same screen also contains **Download codebase**.
 
 <figure class="fig"><a href="/shots/lovable-export-git-settings.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Lovable Settings Git page showing the GitHub two-way sync card and Download codebase ZIP button"><img src="/shots/lovable-export-git-settings.png" alt="Lovable Settings Git page showing the GitHub two-way sync card and Download codebase ZIP button" width="1782" height="1098" loading="lazy" decoding="async"></a><figcaption>The Git screen contains both the GitHub connection and the separate ZIP download.</figcaption></figure>
 
-This screenshot comes from a project that already syncs with GitHub. It shows where to open the GitHub settings, rather than the initial authorization screen. If your account has never been connected, complete the setup below before looking for the connected status.
+This screenshot shows an existing GitHub connection. Your screen may first ask you to add an account. If the project is already connected, check who owns the repository before adding anything else. You may already have everything you need.
 
-The text beneath the card also explains that a project uses a Git provider at a time. If your screen shows another provider, check the current setup before changing it. For an existing team project, ask whoever manages its repository which account and connection to use.
+If you see a different Git provider, check with the person who manages that connection. Do not disconnect a working team repository just to make your screen match this guide. Tell your Agent which provider is already in use and what you want to do with the code.
 
-## Step three: authorize GitHub and connect the project
+## Connect the right account
 
-For first-time setup, a workspace owner or admin opens **Workspace settings → Git → GitHub → Add connection**. Choose **Add account**, select your GitHub account or organization, and finish **Install & Authorize** in GitHub. If a connection already exists, use it.
+For an initial connection, a workspace owner or admin opens **Workspace settings → Git → GitHub → Add connection**. Choose **Add account**, select the intended account or organization, then complete **Install & Authorize** on GitHub.
 
-Back in **Project settings → Git → GitHub**, a workspace or project owner or admin selects **Connect** beside the desired account. Lovable creates a new repository, private by default. You do not need to create an empty repository first. These are the setup steps in [Lovable's GitHub documentation](https://docs.lovable.dev/integrations/github), checked October 6, 2026.
+Back in **Project settings → Git → GitHub**, a workspace or project owner or admin can connect the project to that account. Lovable creates the repository, private by default. You do not need to create an empty repository first. These steps follow [Lovable's GitHub documentation](https://docs.lovable.dev/integrations/github), checked October 21, 2026.
 
-Before approving, read the GitHub account or organization name. A personal prototype and a client project may belong in different places. Once you return to Lovable, check the repository owner displayed in the connection screen against that choice.
+Read the account name on the authorization screen. If it is your personal account but this is company work, stop there and select the right organization. Your Agent can explain an unfamiliar permission, but you should make the decision about which account gets access.
 
-## Step four: verify the repository and sync status
+Once you return to Lovable, look at the repository owner again. That small check catches a wrong account before anyone starts working in the exported copy.
 
-A connected project should show the repository name, a **Branch** picker, and **Connected**. The screenshot below also shows **In sync with GitHub** and explains that Lovable and GitHub are on the same commit.
+## Check the export
+
+The connection screen shows the repository name, the selected **Branch** and the connection status. In this example, **In sync with GitHub** means Lovable and GitHub are on the same commit.
 
 <figure class="fig"><a href="/shots/lovable-export-github-connected.png" target="_blank" rel="noopener" aria-label="Open full-size screenshot: Lovable GitHub repository connection showing Connected, main branch, In sync with GitHub, Re-check and HTTPS clone URL"><img src="/shots/lovable-export-github-connected.png" alt="Lovable GitHub repository connection showing Connected, main branch, In sync with GitHub, Re-check and HTTPS clone URL" width="1794" height="1094" loading="lazy" decoding="async"></a><figcaption>Check the repository, branch and in-sync status before taking a local copy.</figcaption></figure>
 
-The example has `main` selected. Your branch may have another name. Lovable syncs the active branch; work pushed to another branch appears after you merge it or select that branch. **Re-check** checks the status again; it does not trigger a sync. See [Lovable's Git sync overview](https://docs.lovable.dev/integrations/git-sync-overview), checked October 6, 2026.
+The screenshot uses `main`; your branch may have another name. Write down the selected name with the repository URL. Lovable syncs its active branch. **Re-check** refreshes the status; it does not start a sync. [Lovable's Git sync overview](https://docs.lovable.dev/integrations/git-sync-overview) explains those controls.
 
-Open the repository on GitHub and inspect the file list. Look for your project files and `package.json`, then compare a recent change with what you see in Lovable's editor. This is a useful completion check: an account authorization alone does not prove that you have exported the intended project.
+Open the repository on GitHub and look for the recent change you picked earlier. Seeing a file list proves that a repository exists. Seeing the change you expected helps establish that it is the right copy. If it is missing, check the branch before downloading again.
 
-## Step five: clone your Lovable code to your computer
+## Let your Agent get the code
 
-Below the connection status, **Clone repository** offers **HTTPS**, **SSH**, and **GitHub CLI**. Use the copy button beside your own repository's address. The address in the screenshot belongs to the example project.
+Copy your repository's clone URL from the connection screen. HTTPS, SSH and GitHub CLI are supported options. Your Agent can use the authentication method available on your computer; [GitHub's cloning guide](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) explains them.
 
-For HTTPS, open a terminal in the folder where you keep projects and run:
+Here a prompt:
 
-```bash
-git clone https://github.com/YOUR-ACCOUNT/YOUR-REPOSITORY.git
-cd YOUR-REPOSITORY
+```text
+Clone [REPOSITORY URL] from branch [BRANCH] into my projects folder.
+Check the repository owner and latest commit, then create a working branch
+for local changes. Tell me the folder to open. Do not push changes yet.
 ```
 
-Replace the example address with the copied URL. A clone creates a local copy with Git history, which lets you commit changes and push them back. Access to a private repository requires GitHub authentication; use the sign-in method your Git client supports. [GitHub's cloning guide](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) covers HTTPS, SSH and GitHub CLI.
+Replace the brackets with the URL and branch you checked. If this is a private repository, your Agent may need you to sign in through GitHub. Complete that sign-in through the supported browser or credential flow. You do not need to paste an access token into the conversation.
 
-Open the resulting folder in your editor or coding agent. Read its README and `package.json` to find the install and start commands. Follow the package manager named by the project rather than copying commands from an unrelated tutorial. Keep your first local change small so you can review what your editor changed before pushing it.
+A clone includes Git history as well as the files. Ask your Agent to show you the folder and the branch it selected. If a folder for this project already exists, have it inspect that folder before creating another copy. That avoids the familiar problem of editing one folder while running another.
 
-## How to download Lovable code without GitHub
+## Check what you received
 
-Return to **Project settings → Git** and find **Download codebase**, shown in the second screenshot. Click **Download**, then extract the ZIP and open the resulting folder. You do not need a repository for this route. Lovable documents direct code downloads for paid plans in its [Git sync overview](https://docs.lovable.dev/integrations/git-sync-overview), checked October 6, 2026.
+Now give your Agent a specific inspection task. The useful result is a short explanation of how this app works and what is needed to run it, not a long list of files.
 
-Name the extracted folder so you can recognize which project and snapshot it contains. If you download again later, keep the folders distinct until you have compared them. Editing an extracted ZIP does not send those changes back to Lovable automatically.
+Here a prompt:
 
-## If the Lovable GitHub connection is not working
+```text
+Inspect this exported Lovable project. Identify its framework, package
+manager, start command and connected backend. Check that [RECENT CHANGE]
+is present. List any missing setup by name, without showing secret values.
+Do not modify the app or its database.
+```
 
-- **No GitHub connections available:** return to the workspace connection setup and check the selected account with the workspace owner or admin.
-- **Authorization never opens:** check whether your browser blocked the GitHub popup, then try again. Lovable lists this in its [GitHub troubleshooting](https://docs.lovable.dev/integrations/github#troubleshooting).
-- **The repository opens, but a change is missing:** compare the branch names and latest commit before downloading again.
-- **Saved Lovable work needs recovery:** the connection screen includes **Check for saved Lovable work**. Review any offered recovery with the project owner; it is separate from checking sync status. [Lovable's recovery instructions](https://docs.lovable.dev/integrations/git-sync-overview#restore-lovable-work-after-a-push-replaces-it) explain the choices.
+Your Agent should read the README and `package.json`, then follow the code to its services. Ask it to explain unfamiliar terms in the context of your app. “The contact form calls this hosted function” is more useful than “the project has a backend.”
 
-Write down the exact message and repository name if you need help. “Connected but showing an older change on this branch” gives a teammate much more to work with than “export failed.”
+Keep in mind that the app may still call the same database and file storage as the live website. Get that destination clear before asking your Agent to submit forms or create test accounts. Open the local URL your Agent gives you and test the parts you use.
+
+Use [How to run a Lovable project locally](/blog/run-lovable-project-locally) for the setup prompts and the checks to make before working with real data.
+
+For your first change, pick something visible and small. A heading or button label is easy to compare with the original. Once you are comfortable reviewing the result, move on to changes that affect data or user accounts.
+
+## Download a ZIP instead
+
+For a snapshot, return to **Project settings → Git → Download codebase**. Download and extract the ZIP, then open the folder in your Agent. Lovable documents direct downloads for paid plans in its [Git sync overview](https://docs.lovable.dev/integrations/git-sync-overview).
+
+Give the extracted folder a recognizable name. If you download a newer copy later, keep the folders separate until your Agent has compared them. Otherwise an old snapshot can quietly become the version you continue developing.
+
+You can use the inspection prompt above on a ZIP too. Tell your Agent it came from a download so it does not assume there is a Git connection. If you later want a repository, ask it to prepare that as a separate step and confirm the destination account.
+
+## Fix a stuck connection
+
+If the export looks wrong, give your Agent the exact message and the point where you got stuck. A screenshot of the connection status is useful; private credentials are not.
+
+Here a prompt:
+
+```text
+Help me diagnose this Lovable export: [EXACT MESSAGE].
+The intended repository is [URL] and branch [BRANCH]. Check access,
+branch and recent commits first. Explain the smallest fix; do not
+disconnect the repository, overwrite history or restore a backup yet.
+```
+
+For missing GitHub connections, check the workspace account with its owner or admin. If authorization never opens, check whether the browser blocked the popup; Lovable includes that in its [GitHub troubleshooting](https://docs.lovable.dev/integrations/github#troubleshooting).
+
+If the repository opens but an edit is missing, compare the selected branch and latest commit. If Lovable offers saved-work recovery, involve the project owner and follow its [recovery instructions](https://docs.lovable.dev/integrations/git-sync-overview#restore-lovable-work-after-a-push-replaces-it). Recovery is a different action from refreshing sync status.
 
 ## FAQ
 
-### Does Lovable give you source code?
+### Does Lovable give me source code?
 
-Yes. The GitHub route gives you the project files in a repository, and **Download codebase** gives you a ZIP snapshot. Check the exported files before handing them to your developer.
+Yes. You can get a repository through Git sync or a ZIP through Download codebase. Have your Agent check the actual files and a recent change before treating the handoff as complete.
 
-### Can I connect an existing GitHub project to Lovable?
+### Can I connect an existing GitHub project?
 
-The Git sync flow creates a new repository; importing an existing repository is unsupported. Export your Lovable project first. [Lovable's GitHub limitations](https://docs.lovable.dev/integrations/github#limitations), checked October 6, 2026.
+This Git sync flow creates a new repository; it does not import an existing one. See [Lovable's GitHub limitations](https://docs.lovable.dev/integrations/github#limitations). Check the current connection before asking your Agent to reorganize repositories.
 
-### Does exporting also move my database and live website?
+### Does exporting move the live app?
 
-No. The repository contains code, not database records, and syncing changes does not publish the live site. [Lovable's Git sync FAQ](https://docs.lovable.dev/integrations/git-sync-overview#faq) separates these steps.
+No. Code export does not copy database records or publish a website. [Lovable's Git sync FAQ](https://docs.lovable.dev/integrations/git-sync-overview#faq) separates those actions. Treat hosting and data migration as follow-up work with their own checks.
 
-## Now host your Lovable app for free on ohmyho.st
+## Try hosting when you are ready
 
-Your code is in GitHub. Now give your app a live URL. Open the repository in Claude Code, Codex or Cursor and let your agent deploy it to ohmyho.st. You can keep building in Lovable while hosting from the same repository.
+Once your Agent has checked the export, you can ask it to prepare a Dev preview on ohmyho.st. Keep building in Lovable if that workflow still suits you. Choose when a reviewed version should become live.
 
-Start on the [Free plan](/pricing) with {{ number plan.freeCredits }} credits per UTC month. Builds and app usage draw from that balance; your agent's deployment plan shows what your app needs before you publish.
+The [Free plan](/pricing) includes {{ number plan.freeCredits }} credits per UTC month. Builds and app usage draw from that balance. Ask your Agent to inspect the app and explain its deployment plan before assuming the allowance covers your use.
 
-Paste this into your coding agent with the repository open:
+Use this entry prompt with the repository open:
 
 ```text
 {{ prompt }}
 ```
 
-Follow [How to host a Lovable app after export](/blog/host-a-lovable-app-after-export) for the full hosting walkthrough. To continue development with your own coding agent, see [A Lovable alternative with your own LLM](/blog/lovable-alternative-bring-your-own-llm).
+Follow [How to host a Lovable app after export](/blog/host-a-lovable-app-after-export) for the hosting walkthrough. To choose your development tool first, see [A Lovable alternative with your own LLM](/blog/lovable-alternative-bring-your-own-llm).

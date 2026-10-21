@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="Lovable Cloud application tables pass through a temporary read-only API to your Agent, which creates a local export for the destination database. The API requires a private server key. Public openapi.json describes the API contract only, with no data or key. Files, login and functions need their own move.">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#83878D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="675" fill="#000"/>
+  <g font-family="'Space Grotesk', sans-serif">
+    <text x="60" y="83" font-size="44" font-weight="700" fill="#F0F1F2">Move your data with your Agent.</text>
+    <text x="60" y="130" font-size="27" font-weight="500" fill="#83878D">Export app tables through a temporary bridge.</text>
+  </g>
+  <g fill="#0A0B0D" stroke="#26282C" stroke-width="2">
+    <rect x="60" y="285" width="220" height="165" rx="18"/>
+    <rect x="340" y="285" width="270" height="165" rx="18" stroke="#83878D"/>
+    <rect x="660" y="285" width="200" height="165" rx="18"/>
+    <rect x="920" y="260" width="220" height="110" rx="18"/>
+    <rect x="920" y="425" width="220" height="110" rx="18"/>
+    <rect x="340" y="175" width="370" height="70" rx="12"/>
+  </g>
+  <g fill="none" stroke="#83878D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M290 367 H330" marker-end="url(#arrow)"/>
+    <path d="M620 367 H650" marker-end="url(#arrow)"/>
+    <path d="M870 367 H890 V315 H910" marker-end="url(#arrow)"/>
+    <path d="M1030 380 V415" marker-end="url(#arrow)"/>
+    <path d="M475 255 V275" stroke-dasharray="3 6"/>
+  </g>
+  <g font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="31" fill="#F0F1F2" text-anchor="middle">
+    <text x="170" y="334" font-size="28">Lovable Cloud</text>
+    <text x="170" y="378">app tables</text>
+    <text x="475" y="337">Temporary</text>
+    <text x="475" y="379">read-only API</text>
+    <text x="760" y="378">Your Agent</text>
+    <text x="1030" y="325">Local export</text>
+    <text x="1030" y="474">Destination</text>
+    <text x="1030" y="512">database</text>
+  </g>
+  <g font-family="'JetBrains Mono', monospace" font-size="20" fill="#83878D">
+    <text x="170" y="418" text-anchor="middle">selected data</text>
+    <text x="475" y="418" text-anchor="middle">key required</text>
+    <text x="360" y="202" fill="#F0F1F2">public openapi.json</text>
+    <text x="360" y="229" font-size="16">API contract only · no data or key</text>
+  </g>
+  <g font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="500" fill="#83878D" text-anchor="middle">
+    <text x="475" y="490">Private server key</text>
+    <text x="475" y="523">Never put it in the docs.</text>
+  </g>
+  <path d="M60 580 H1140" stroke="#26282C" stroke-width="2"/>
+  <text x="60" y="627" font-family="'Space Grotesk', sans-serif" font-size="27" font-weight="500" fill="#83878D">Files, login and functions need their own move.</text>
+</svg>

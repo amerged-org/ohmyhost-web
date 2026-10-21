@@ -1,0 +1,17 @@
+{
+  "title": "How to Run a Lovable Project Locally: Setup Guide",
+  "description": "Run a Lovable project locally with the right dependencies, environment variables and login settings. Check what still uses the cloud before you edit.",
+  "kind": "article",
+  "status": "published",
+  "crumb": "Run Lovable locally",
+  "parent": "/blog",
+  "author": "Sebastian Mertens",
+  "published": "2026-10-21",
+  "modified": "2026-10-21",
+  "social": {
+    "image": "/og/blog-run-lovable-project-locally.png",
+    "alt": "Run a Lovable project locally. Your app code runs on your computer while connected backend services can remain hosted.",
+    "title": "ohmyho.st — How to run a Lovable project locally",
+    "description": "Start the app on your computer, check its environment and understand which backend services still run elsewhere."
+  }
+}

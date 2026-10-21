@@ -2,14 +2,22 @@
 
 By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · September 13, 2026
 
-The first thing to try is simple: bring a GitHub app and ask your coding agent to deploy it. ohmyho.st provides the CLI, MCP tools and task Skills to plan the work, connect the repository and check the result.
+Bring a GitHub app and ask your Agent to deploy it. ohmyho.st gives your coding agent the CLI, MCP tools and task Skills to check the project, connect the repository and prepare a deployment you can review.
 
-Your projects share an organization balance. You can ask which project used credits, whether a domain is ready or what a deployment is waiting for. Shared project notes keep the next action available when an agent session changes.
+Signup is open, with no invitation or access code. Copy the agent prompt from the homepage. Your Agent sends back a sign-in link where you can sign in or create an account. Once connected, tell it which app you want to deploy.
 
-The [five-side-project cost comparison](/blog/what-vercel-supabase-resend-cost-for-five-side-projects) shows how that shared balance works for a portfolio, alongside the separate Vercel, Supabase and Resend subscriptions.
+Here a prompt:
 
-Start with the capabilities your app needs. A public Vite app can be public without a database or auth provider. A database-backed application needs its migrations and real data flows checked. Production promotion should preserve existing production records.
+```text
+Check my GitHub app and prepare an ohmyho.st Dev deployment. Identify the services it needs, check its main flows and give me the preview URL. Explain anything I need to review before publishing to Prod, and preserve any existing production data.
+```
 
-Signup is open, with no invitation or access code. Copy the agent prompt from the homepage; your agent sends back a sign-in link where you sign in or create your account. The docs describe the currently available paths; upcoming features remain separate.
+## Check your app before publishing
+
+Open the preview and try the parts people will use. A public Vite app may not need a database or login provider. An app with a database needs its migrations and real data flows checked. If it has accounts, forms or uploads, try those too before asking your Agent to publish.
+
+Your projects share an organization balance. You can ask your Agent which project used credits, whether a domain is ready or what a deployment is waiting for. Shared project notes help the next agent session pick up the work. The [five-side-project cost comparison](/blog/what-vercel-supabase-resend-cost-for-five-side-projects) explains the shared balance alongside separate Vercel, Supabase and Resend subscriptions.
+
+The docs describe the currently available setup paths. Start there with the app you already have, then review the deployment before sending people to it.
 
 [Start with your agent](https://docs.ohmyho.st/quickstart) · [Explore the Skills](https://docs.ohmyho.st/skills) · [Home](/)

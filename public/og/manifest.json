@@ -27,9 +27,17 @@
     "templateSha256": "cf4bbef6968dce57f54d01936cc22bcc544f7e59acc52dfa5cc0ab97c3a08192",
     "renderedAt": "2026-10-20T07:25:39.974Z"
   },
+  "blog-move-out-of-lovable-cloud": {
+    "templateSha256": "813032abda0e6b8601d96eee3346f6be06dd93d560f59199c3866dad54770ecd",
+    "renderedAt": "2026-10-21T15:06:07.975Z"
+  },
   "blog-railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026": {
     "templateSha256": "d83210cc6e4dc0b91999a8f7164d383b8e685d7e8b4276501d2e3a4f25a3be0c",
     "renderedAt": "2026-09-25T18:22:15.312Z"
+  },
+  "blog-run-lovable-project-locally": {
+    "templateSha256": "f9fbf0c90b4a98715c2a08373f9b1c1b8fb9fa6091a297feefa4ccf1886fbcd2",
+    "renderedAt": "2026-10-21T13:14:36.919Z"
   },
   "blog-six-things-that-break-when-a-vibe-coded-app-meets-production": {
     "templateSha256": "d11ac4319217e88861b34a62cff406b817879fcdcf0ee593625af4f7e63b5ac8",

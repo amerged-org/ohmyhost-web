@@ -1,0 +1,17 @@
+{
+  "title": "How to Move Out of Lovable Cloud: Data Export Guide",
+  "description": "Move out of Lovable Cloud with your Agent: check the database export, create a private API bridge when needed, and copy your data into a verified new backend.",
+  "kind": "article",
+  "status": "published",
+  "crumb": "Move out of Lovable Cloud",
+  "parent": "/blog",
+  "author": "Sebastian Mertens",
+  "published": "2026-10-21",
+  "modified": "2026-10-21",
+  "social": {
+    "image": "/og/blog-move-out-of-lovable-cloud.png",
+    "alt": "Move out of Lovable Cloud with your Agent using a database export or a temporary protected API for application data.",
+    "title": "ohmyho.st — Move out of Lovable Cloud",
+    "description": "Give your Agent a clear path from hosted data to your own backend, with export prompts and a temporary API bridge."
+  }
+}

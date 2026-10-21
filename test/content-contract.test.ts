@@ -282,12 +282,16 @@ it("keeps every editorial page inside the words, numbers and sources contract", 
         `${path} prompt block`,
       ).toHaveLength(1);
     }
-    expect(
-      (markdown.match(/```text\n([^\n]*)\n```/gu) ?? []).length,
-      `${path} prompt blocks`,
-    ).toBeLessThanOrEqual(1);
-    for (const [, prompt] of markdown.matchAll(/```text\n([^\n]*)\n```/gu))
-      expect(prompt).toBe(CTA_PROMPT);
+    // Landing pages share the connection CTA. Articles carry their own task-specific
+    // prompts so readers can hand the actual work described in a post to an Agent.
+    if (meta?.kind !== "article") {
+      expect(
+        (markdown.match(/```text\n([^\n]*)\n```/gu) ?? []).length,
+        `${path} prompt blocks`,
+      ).toBeLessThanOrEqual(1);
+      for (const [, prompt] of markdown.matchAll(/```text\n([^\n]*)\n```/gu))
+        expect(prompt).toBe(CTA_PROMPT);
+    }
     if (/^## FAQ$/mu.test(markdown)) {
       const faq = markdown.split(/^## FAQ$/mu)[1]?.split(/^## /mu)[0] ?? "";
       const questions = faq.match(/^### .+\?$/gmu) ?? [];

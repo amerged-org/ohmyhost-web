@@ -2,33 +2,59 @@
 
 By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · September 20, 2026
 
-Railway starts at {{ usd vendor.railway.hobby }} a month minimum usage, Render is {{ usd vendor.render.hobby }} plus compute from {{ usd vendor.render.webService512 }} a month for a web service, and Fly.io bills a small machine from {{ usd vendor.fly.sharedCpu1x }} a month by the second. ohmyho.st is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits shared by every project; a small app uses about {{ credits workload.smallApp }}.
+You have an app ready to host. Before you choose a plan, ask your Agent what the app needs to keep running: a web server, a database, background work, file storage and email. The cheapest web-service price only answers part of that question.
+
+Railway starts at {{ usd vendor.railway.hobby }} a month minimum usage. Render is {{ usd vendor.render.hobby }} plus compute from {{ usd vendor.render.webService512 }} a month for a web service. Fly.io bills a small machine from {{ usd vendor.fly.sharedCpu1x }} a month by the second. ohmyho.st is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits shared by every project; the small-app example below uses about {{ credits workload.smallApp }}.
+
+The competitor prices in this article are a dated snapshot, with the checked dates and sources below. Use them to understand the bill, then have your Agent check the selected plan before you pay.
 
 {{ figure bills.railway }}
 
-## How each one bills
+## Check what your app needs
 
-Three models. Railway meters seconds against a monthly minimum. Render sells fixed-price instances on top of a plan. Fly.io meters machines by the second with no plan at all. ohmyho.st meters usage from one prepaid credit balance. Which one is cheapest depends on how much of the month your app is actually awake.
+Start with the repository. A static site, a server-rendered app and a worker that runs continuously need different hosting. A small homepage can also depend on a database or an email service that has its own bill.
 
-If your priority is staying on a free plan, start with the [hosting and Postgres free-plan comparison](/blog/free-vercel-supabase-alternatives-2026). It distinguishes ongoing allowances from trials and covers sleep, data retention, custom domains and business-use restrictions.
+Here a prompt:
+
+```text
+Inspect this repository and list what must run in production: the app, database, files, email and background work. Explain which requirements Railway, Render, Fly.io and ohmyho.st can meet. Flag anything you cannot verify. Do not create services yet.
+```
+
+Read the result as a description of your app. If it mentions a database you thought you had removed, ask your Agent to show which feature still uses it. If it proposes a rewrite just to fit a host, decide whether that work is worth doing before comparing prices.
+
+If your priority is staying on a free plan, start with the [hosting and Postgres free-plan comparison](/blog/free-vercel-supabase-alternatives-2026). It covers ongoing allowances, trials, sleep, data retention, custom domains and business-use restrictions.
+
+## Read the bill
+
+Railway has a monthly minimum with usage included. Render charges for the instances you choose alongside its workspace plan. Fly.io charges for machines and related resources. ohmyho.st deducts metered usage from a prepaid credit balance shared across projects.
+
+Your Agent can calculate from these rules, but it needs assumptions. Tell it whether a slow first request is acceptable, whether the database must always be available, and whether the app already has real users. Those choices affect which services can sleep.
 
 ### Railway
 
-Railway is a plan floor plus usage. The Free tier is {{ text vendor.railway.free.includes }}. Hobby is {{ usd vendor.railway.hobby }} a month minimum usage and carries the same amount of usage credit for a single developer workspace. Pro is {{ usd vendor.railway.pro }} a month minimum usage with {{ usd vendor.railway.pro }} of usage credit and team seats. Usage above the credit is added to the bill; the minimum is not charged on top of every dollar again.
+Railway's Free tier is {{ text vendor.railway.free.includes }}. Hobby is {{ usd vendor.railway.hobby }} a month minimum usage, with the same amount of usage credit for a single-developer workspace. Pro is {{ usd vendor.railway.pro }} a month minimum usage with {{ usd vendor.railway.pro }} of usage credit and team seats. You pay for usage above that credit. The minimum is not added again to every dollar of usage.
 
-Compute is metered per second on what the service actually uses. Over a full 30-day month, one vCPU lists at {{ usdPerMonth vendor.railway.vcpuSecond }}, one GB of memory at {{ usdPerMonth vendor.railway.memoryGbSecond }} and one GB of volume at {{ usdPerMonth vendor.railway.volumeGbSecond }}. Service egress is {{ usd vendor.railway.egressGb }} per GB; object storage is {{ usd vendor.railway.objectStorageGbMonth }} per GB-month. Railway can put an inactive service to sleep when you enable Serverless for that service, and wakes it on the next request (docs.railway.com/deployments/serverless, read 2026-09-20). A sleeping web service costs less; a Postgres service stays up.
+Compute is metered per second. Over a full month, a vCPU lists at {{ usdPerMonth vendor.railway.vcpuSecond }}, a GB of memory at {{ usdPerMonth vendor.railway.memoryGbSecond }} and a GB of volume at {{ usdPerMonth vendor.railway.volumeGbSecond }}. Service egress is {{ usd vendor.railway.egressGb }} per GB; object storage is {{ usd vendor.railway.objectStorageGbMonth }} per GB-month.
+
+Railway can sleep an inactive service when Serverless is enabled and wake it for the next request. Ask your Agent to check which services can actually sleep; do not assume the database follows the web app. Background activity can also affect whether a service becomes inactive. The original comparison checked docs.railway.com/deployments/serverless on September 20, 2026; the [Serverless documentation](https://docs.railway.com/deployments/serverless) explains the behavior.
 
 ### Render
 
-Render is a plan plus fixed-price instances. Hobby is {{ usd vendor.render.hobby }} a month plus compute and covers {{ text vendor.render.hobby.includes }}. Pro is {{ usd vendor.render.pro }} a month plus compute and adds seats, bandwidth, domains and build minutes. A web service with 0.5 CPU and 512 MB is {{ usd vendor.render.webService512 }} a month; one with 1 CPU and 2 GB is {{ usd vendor.render.webService2g }} a month. Postgres starts at {{ usd vendor.render.postgres256 }} a month for 0.1 CPU and 256 MB, or {{ usd vendor.render.postgres1g }} a month for 0.5 CPU and 1 GB; expandable storage is {{ usd vendor.render.postgresStorageGb }} per GB. Beyond the plan, bandwidth is {{ usd vendor.render.bandwidthGb }} per GB, an extra custom domain is {{ usd vendor.render.domainOverage }} per month and build minutes are {{ usd vendor.render.buildMinutes }} per {{ number 1000 }} minutes. Persistent disk is {{ usd vendor.render.diskGbMonth }} per GB per month.
+Render's Hobby plan is {{ usd vendor.render.hobby }} a month plus compute and covers {{ text vendor.render.hobby.includes }}. Pro is {{ usd vendor.render.pro }} a month plus compute and adds seats, bandwidth, domains and build minutes.
 
-Render's free web service instance spins down after a period without traffic and spins up again on the next request, with a delay; its free Postgres expires after a set period unless upgraded (render.com/docs/free, read 2026-09-20). The instance rows above are the ones that stay awake.
+A small web service is {{ usd vendor.render.webService512 }} a month; the larger row in this comparison is {{ usd vendor.render.webService2g }}. Postgres starts at {{ usd vendor.render.postgres256 }} a month, with the next checked size at {{ usd vendor.render.postgres1g }}. Expandable database storage is {{ usd vendor.render.postgresStorageGb }} per GB.
+
+Check the other lines too. Beyond the plan allowance, bandwidth is {{ usd vendor.render.bandwidthGb }} per GB, an extra custom domain is {{ usd vendor.render.domainOverage }} per month, and build minutes are {{ usd vendor.render.buildMinutes }} per {{ number 1000 }} minutes. Persistent disk is {{ usd vendor.render.diskGbMonth }} per GB per month.
+
+The free web service sleeps without traffic and takes time to restart. Free Postgres expires unless upgraded. Those limits make a free demo different from the paid instances priced here. The original comparison checked render.com/docs/free on September 20, 2026; see [Render's free-instance limits](https://render.com/docs/free).
 
 ### Fly.io
 
-Fly.io has no plan floor on the page we checked. You pay for machines by the second. A shared-cpu-1x machine with 256 MB in Ashburn lists at {{ usd vendor.fly.sharedCpu1x }} a month if it runs the whole month; a performance-1x with 2 GB lists at {{ usd vendor.fly.performance1x }} a month. Additional RAM is {{ usd vendor.fly.additionalRamGb }} per GB per month. A stopped machine keeps paying {{ usd vendor.fly.stoppedMachineGb }} per GB of root filesystem per month. Volumes are {{ usd vendor.fly.volumeGbMonth }} per GB per month and snapshots are {{ usd vendor.fly.snapshotGbMonth }} per GB per month after a free allowance. Egress in North America and Europe is {{ usd vendor.fly.egressGb }} per GB.
+The checked Fly.io price list has no plan floor. A small shared-CPU machine in Ashburn lists at {{ usd vendor.fly.sharedCpu1x }} a month if it runs throughout the month; the checked performance machine lists at {{ usd vendor.fly.performance1x }}. Additional RAM is {{ usd vendor.fly.additionalRamGb }} per GB per month.
 
-Fly.io's proxy can stop machines when the app has spare capacity and start them again when a request arrives; a stopped machine is not charged for CPU and RAM (fly.io/docs/launch/autostop-autostart, read 2026-09-20). Postgres on Fly.io is not in our checked price list, so this page prices only the machine.
+Stopping a machine stops its CPU and RAM charges, but its root filesystem still costs {{ usd vendor.fly.stoppedMachineGb }} per GB per month. Volumes are {{ usd vendor.fly.volumeGbMonth }} per GB per month. Snapshots are {{ usd vendor.fly.snapshotGbMonth }} per GB per month after the free allowance, and egress in North America and Europe is {{ usd vendor.fly.egressGb }} per GB.
+
+Your Agent can configure autostop and autostart, then test the first request after the app has been idle. The original comparison checked fly.io/docs/launch/autostop-autostart on September 20, 2026; see [Fly.io's current explanation](https://fly.io/docs/launch/autostop-autostart/). Postgres is outside our checked Fly.io price list, so the machine price is not a complete app-and-database total.
 
 {{ checked railway }}
 
@@ -36,25 +62,39 @@ Fly.io's proxy can stop machines when the app has spare capacity and start them 
 
 {{ checked fly }}
 
-## The same small app on each
+## Price the same workload
 
-The assumptions, stated once. One Next.js app with a Postgres database. About 1 GB of stored data. 100,000 requests a month. 20 build minutes. 2,000 transactional mail recipients. The database is active for about 8 hours in the month and idle the rest. That is exactly the ohmyho.st workload itemized in the next section. For the three competitors we give the list-price formula and the fixed rows; we do not invent a usage total, because their meters measure what your container actually consumes.
+The example is a Next.js app with Postgres, a small amount of stored data, occasional database activity, builds and transactional mail. The ohmyho.st table below states the quantities and rates. For the competitors, we use their checked price rows and billing formulas. We have not measured their containers, so we cannot turn the same feature list into an exact usage bill.
+
+Here a prompt:
+
+```text
+Estimate a quiet month and a busy month for this app on the compatible hosts. Include the database, storage, builds, traffic and email. Cite the current prices and show every assumption. Keep measured usage, fixed prices and estimates separate, and identify missing costs.
+```
+
+Check the assumptions yourself. An app that sends a message after every form submission has a different mail workload from a portfolio with no forms. A scheduled task may keep a database active even when nobody visits the site. Ask your Agent to explain what happens during an idle month as well.
 
 ### On Railway
 
-Start from the Hobby minimum of {{ usd vendor.railway.hobby }} a month, which covers the first {{ usd vendor.railway.hobby }} of usage. Then add vCPU-seconds, memory GB-seconds and volume GB-seconds for two services (the app and Postgres) at the per-second rates, plus egress at {{ usd vendor.railway.egressGb }} per GB. Two always-on services with a full vCPU each would list above the Hobby credit; two small idle containers may stay inside it. Serverless can sleep the web app, not the database. Railway has no mail product, so add a mail provider: the figure above shows Railway Pro with Resend Pro at {{ usd scenario.railwayStack }} a month before usage above the credits.
+Start with the Hobby minimum of {{ usd vendor.railway.hobby }}, covering the first {{ usd vendor.railway.hobby }} of usage. Add the app's and database's CPU, memory and storage usage, plus egress at {{ usd vendor.railway.egressGb }} per GB. Whether the total stays within the minimum depends on their measured resource use.
+
+Budget for a mail provider separately. The figure above shows Railway Pro with Resend Pro at {{ usd scenario.railwayStack }} a month before usage above the included credits. That combination is a reference scenario, not a requirement for every Railway project.
 
 ### On Render
 
-Render is the easiest to price because the rows are fixed. Hobby at {{ usd vendor.render.hobby }}, one 0.5 CPU / 512 MB web service at {{ usd vendor.render.webService512 }} and one 0.1 CPU / 256 MB Postgres at {{ usd vendor.render.postgres256 }} sum to {{ usd scenario.renderSmallApp }} a month at list price. Our 1 GB of data sits at the edge of that instance's SSD; growth costs {{ usd vendor.render.postgresStorageGb }} per GB. Bandwidth above the Hobby allowance is {{ usd vendor.render.bandwidthGb }} per GB. Mail is again a separate provider.
+The checked combination is Hobby at {{ usd vendor.render.hobby }}, a small web service at {{ usd vendor.render.webService512 }} and the smallest checked Postgres instance at {{ usd vendor.render.postgres256 }}. Together they list at {{ usd scenario.renderSmallApp }} a month.
+
+Database growth adds storage at {{ usd vendor.render.postgresStorageGb }} per GB, and bandwidth beyond the Hobby allowance adds {{ usd vendor.render.bandwidthGb }} per GB. Add mail separately. Ask your Agent to confirm the selected database has room for your existing data and expected growth.
 
 ### On Fly.io
 
-Machine seconds times the machine rate. One shared-cpu-1x that never stops lists at {{ usd vendor.fly.sharedCpu1x }} a month; with autostop it drops toward {{ usd vendor.fly.stoppedMachineGb }} per GB of root filesystem for the stopped hours. Add {{ usd vendor.fly.volumeGbMonth }} per GB of volume if the app keeps files, and {{ usd vendor.fly.egressGb }} per GB out. Postgres means a second machine plus a volume, or a managed option; neither is in our checked list, so there is no total here. Mail is a separate provider.
+An always-running small machine lists at {{ usd vendor.fly.sharedCpu1x }} a month. With autostop, stopped hours retain the root-filesystem charge of {{ usd vendor.fly.stoppedMachineGb }} per GB instead of CPU and RAM charges. Add volumes at {{ usd vendor.fly.volumeGbMonth }} per GB and outbound traffic at {{ usd vendor.fly.egressGb }} per GB.
+
+You still need to price the database and mail. Our checked list does not include a Fly.io database price, so there is no full-stack total here. Have your Agent fill that gap before comparing it with a price that already includes database usage.
 
 ### On ohmyho.st
 
-The same app is about {{ credits workload.smallApp }}, with mail and database active time counted in the metered lines, against the {{ number plan.paidCredits }} credits a Paid month grants for {{ usd plan.paidUsd }}. The line items are in the next section.
+The example uses about {{ credits workload.smallApp }}, including its mail and database active time. Paid provides {{ number plan.paidCredits }} credits for {{ usd plan.paidUsd }} per month. The table below shows the assumptions so you can replace them with your own.
 
 {{ checked railway }}
 
@@ -64,73 +104,73 @@ The same app is about {{ credits workload.smallApp }}, with mail and database ac
 
 {{ checked resend }}
 
-## Where each one wins
+## Choose what you want to manage
 
-An honest list. Each of these is a real reason to pick the other platform.
+Railway is worth considering when your repository needs containers, several connected services or a runtime outside ohmyho.st's supported application frameworks. Render suits people who want to choose fixed instance sizes and understand their baseline bill before traffic arrives. Fly.io suits people who need control over machines and placement and are comfortable owning more of the setup.
 
-### Railway wins when you need a container
+ohmyho.st is designed for using your Agent to operate supported Astro, Next.js, Vite/React and TanStack Start apps. It has no container runtime. Ask your Agent to check compatibility before treating it as a destination for a custom binary, native addon or long-running container.
 
-Any Dockerfile runs on Railway: a Go binary, a Python worker, Redis, a queue consumer, a cron container. Several services in one project talk over a private network. ohmyho.st runs Astro, Next.js, Vite/React and TanStack Start from a GitHub repository and nothing else; there is no container runtime. If your app is not one of those three, Railway is the answer and this comparison is over.
+The practical advantage for several small projects is a shared balance with no per-project base plan. Hosting, Postgres, transactional mail and linked domains draw from that balance. The trade-off is that you still need to understand usage, supported runtimes and feature access. Mail needs Paid. A custom domain needs Paid or, on Free, the “Powered by ohmyho.st” flag; that flag waives domain credits on either plan.
 
-### Render wins when you want a bill you can forecast
+Your choice should also include the work after launch. Decide who will investigate a failed login, restore data, update dependencies and check a cost increase. Your Agent can help with each task, but you need a way to verify its work and recover if a change goes wrong.
 
-Render's compute rows are fixed monthly prices. A web service and a Postgres instance cost the same in a quiet month and a busy one, which some people prefer to any meter. Background workers and cron jobs are first-class service types. A free static site or a spin-down web service is fine for a demo.
+## Check the ohmyho.st costs
 
-### Fly.io wins on placement and raw machines
+Free grants {{ number plan.freeCredits }} credits per UTC month. Paid grants {{ number plan.paidCredits }} for {{ usd plan.paidUsd }} per period. Monthly credits expire at period end without rollover. Paid-only top-ups carry over until a downgrade to Free, starting at {{ number plan.topUpPerUsd }} credits per dollar with better rates on larger packs. A credit has a nominal value of {{ usd plan.usdPerCredit }}.
 
-Fly.io lets you put machines in specific regions, or several regions at once, close to your users. You get a real VM: your own Postgres, custom binaries, long-lived processes, WebSockets that hold state. Per-second billing with no monthly floor rewards a machine that stops when idle.
-
-### ohmyho.st wins when you have several small apps and a coding agent
-
-No per-project base fee: five side projects draw from the same balance, and a dead one only pays for its stored data and one deployed script. Hosting, Postgres, transactional mail and a linked domain are metered from that one balance, so you are not stacking a hosting plan, a database plan and a mail plan. Your agent deploys through MCP; there is no dashboard to babysit. And you can leave: an on-demand export gives you a password-encrypted ZIP with a portable SQL dump.
-
-The trade-offs run the other way too. ohmyho.st is young. Mail needs Paid. A custom domain needs Paid or, on Free, the “Powered by ohmyho.st” flag; the flag waives domain credits on either plan. Exports are SQL only, one accepted request per project in any rolling 24-hour window, and the signed download link lasts 24 hours.
-
-## Where ohmyho.st fits
-
-The model in a few lines. Free is {{ number plan.freeCredits }} credits per UTC month. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period. Monthly credits expire at period end without rollover. Paid-only top-ups carry over until downgrade to Free and come at {{ number plan.topUpPerUsd }} credits per dollar with a better rate on larger packs. One credit has a nominal value of {{ usd plan.usdPerCredit }}. Every project in the organization draws from the same balance. A project may carry a monthly budget that either continues with warnings or stops new work. A zero balance starts a grace period of {{ number plan.graceDays }} days; funded services keep running, and only unfunded services suspend afterwards. Details on [pricing](https://docs.ohmyho.st/pricing) and [budgets](https://docs.ohmyho.st/budgets).
-
-Here is the small app from the section above, line by line.
+Every project in the organization uses that balance. You can give a project a monthly budget that warns or stops new work. A zero balance starts a grace period of {{ number plan.graceDays }} days. Funded services continue; unfunded services suspend after an unresolved grace period. Review [pricing](https://docs.ohmyho.st/pricing) and [budgets](https://docs.ohmyho.st/budgets) with your Agent before choosing a limit.
 
 {{ table workload.smallApp }}
 
-That total sits under the Paid grant. The biggest line is database active time: {{ rate neon.compute.scale }} on the Paid standard profile of {{ value profile.standard.cu }} CU, so one active hour is about {{ credits unit.activeDatabaseHourStandard }}. Idle database compute suspends and stops that meter; retained storage keeps billing at {{ rate neon.storage.root }}. The Free profile is {{ value profile.free.cu }} CU; the Paid performance profile is {{ value profile.performance.cu }} CU at {{ rate neon.compute.performance }}.
+Database active time is the largest line in this example. Paid standard uses {{ value profile.standard.cu }} CU at {{ rate neon.compute.scale }}, making an active hour about {{ credits unit.activeDatabaseHourStandard }}. Idle database compute suspends; retained storage continues at {{ rate neon.storage.root }}. Free uses {{ value profile.free.cu }} CU, while the Paid performance profile uses {{ value profile.performance.cu }} CU at {{ rate neon.compute.performance }}.
 
-A side project you rarely touch looks different.
+For a project you rarely use, inspect the quiet-project example:
 
 {{ table workload.quietProject }}
 
-That fits inside the Free grant. What keeps drawing credits when nothing happens: stored data, each deployed script at about {{ credits unit.deployedScriptMonth }} a month, and a linked custom hostname at about {{ credits unit.customHostnameMonth }} a month, nothing while the project shows the “Powered by ohmyho.st” flag. A mail domain has no monthly fee. Workers bandwidth is not charged. SQL exports are free. Mail is metered per sent recipient at {{ rate mail.sent }}, one recipient per message; the small-app table shows what 2,000 recipients cost.
+This example fits within the Free grant. Storage remains billable, as does each deployed script at about {{ credits unit.deployedScriptMonth }} a month. A linked custom hostname uses about {{ credits unit.customHostnameMonth }} a month unless the project shows the “Powered by ohmyho.st” flag. A mail domain has no monthly fee. Workers bandwidth and SQL exports are not charged. Sent mail uses {{ rate mail.sent }} per recipient; the table's mail line shows the effect of its stated volume.
 
-How a deploy actually happens when you deploy from Claude Code, Codex or Cursor: the agent reads the Skill, reuses the current project/source or creates a project and saves a managed version or links the GitHub repository you select, then deployment_plan, which quotes the build and its credits before deployment_create runs it. Promotion to Prod is promotion_plan then promotion_execute; rollback is rollback_plan then rollback_execute. Secrets use local stdin from secret_set_command or the supported remote private portal input, never chat or source. Every project gets Dev and Prod hosts on a three-word check.omh.st address; a customer-owned domain needs Paid or, on Free, the “Powered by ohmyho.st” flag and uses credits unless the flag shows, set up through domain_paid_plan and domain_paid_apply, and a mail domain through mail_setup and mail_status. US hosting is the default; EU is a per-project choice made once at creation, at the same prices. The portal at app.ohmyho.st shows projects, credits, budgets and API tokens; it does not deploy. The full {{ tools }}-tool catalog is on the [MCP tools](https://docs.ohmyho.st/mcp-tools) page.
+## Test before you move
 
-To try it, paste this into your agent:
+Give your Agent the existing project and source. It can continue that source, save a managed version or use the GitHub repository you select. It prepares a deployment plan that quotes the build before running it. You review the Dev app before promoting that version to Prod.
+
+You do not need to memorize the tool names. Ask for the planned cost, the version being tested and the Dev link. Supply secrets through the private input flow. US hosting is the default; EU is a project-creation choice at the same prices. The portal at app.ohmyho.st shows projects, credits, budgets and API tokens. Deployment runs through your Agent; the [MCP tools](https://docs.ohmyho.st/mcp-tools) reference documents the {{ tools }}-tool catalog.
+
+Here a prompt:
+
+```text
+Prepare this app on Dev using its current source. Show the build quote, required settings and expected ongoing costs. Give me a link and a short checklist for login, data, files and email. Keep the current production site serving while I review the result.
+```
+
+Open that link yourself. Sign in with a test account, save something, reload the page and retrieve it. Check an email if the app sends mail. Then ask your Agent to explain the traffic switch and rollback before moving your domain.
+
+For the initial connection to ohmyho.st, use this prompt:
 
 ```text
 {{ prompt }}
 ```
 
-## FAQ
+## Common questions
 
-### Which is cheapest for one small app that is mostly idle?
+### Which host is cheapest for an idle app?
 
-Fly.io with autostop or Railway with Serverless, if you accept a cold start and run Postgres yourself. Render's fixed rows land at {{ usd scenario.renderSmallApp }} a month for a small web service and Postgres. On ohmyho.st the quiet project above is about {{ credits workload.quietProject }}, inside the Free grant of {{ number plan.freeCredits }} credits, because idle database compute suspends.
+There is no complete answer from the web-service price alone. Consider Fly.io autostop or Railway Serverless where the workload supports sleeping, then price the database and other services. Render's checked small web service and Postgres combination is {{ usd scenario.renderSmallApp }} a month. The ohmyho.st quiet-project example uses about {{ credits workload.quietProject }}, within the {{ number plan.freeCredits }} Free grant.
 
-### Does ohmyho.st run Docker containers like Railway or Fly.io?
+### Can ohmyho.st run my Dockerfile?
 
-No. ohmyho.st deploys Astro, Next.js, Vite/React and TanStack Start applications from a GitHub repository the customer authorizes, and nothing else. There is no container runtime and no other deployment source. An app that needs a native addon, a custom binary or an arbitrary Dockerfile belongs on Railway or Fly.io.
+No. It supports the application frameworks described above, not arbitrary containers. Ask your Agent to inspect the runtime requirements. If keeping the Dockerfile and its services is central to the project, compare container hosts before planning a port.
 
-### What happens on ohmyho.st when the credits run out?
+### What happens when credits run out?
 
-The first zero balance starts a grace period of {{ number plan.graceDays }} days. Funded services keep running. Any refill clears it. After an unresolved grace period only unfunded services suspend; your data, diagnosis, cancellation, buying credit and export stay available. Automatic recharge stays off unless the Owner turns it on, so a top-up is a deliberate purchase.
+The first zero balance starts a {{ number plan.graceDays }}-day grace period. A refill clears it. Funded services keep running; only unfunded services suspend after an unresolved period. Data, diagnosis, cancellation, credit purchase and export remain available. Automatic recharge stays off unless the Owner enables it.
 
-### Can I leave ohmyho.st with my data?
+### Can I take my data elsewhere?
 
-Yes. The organization Owner requests an export with project_export_create; the platform builds a password-encrypted ZIP with a portable SQL dump asynchronously and returns a signed download link valid for 24 hours. One accepted request per project in any rolling 24-hour window, free, even at zero credits. Restore it on any PostgreSQL host. Files and source are not in the archive. See [backups](https://docs.ohmyho.st/backups).
+The organization Owner can request a free password-encrypted ZIP containing a portable SQL dump, including at zero credits. It is built asynchronously, with a time-limited signed link and a rolling request limit described in [backups](https://docs.ohmyho.st/backups). Files and source are outside the archive. Have your Agent test restoration to the intended PostgreSQL destination before relying on it as your exit plan.
 
-### Do I need Paid for a custom domain or transactional mail?
+### Do domains and mail need Paid?
 
-Managed mail needs Paid. A customer-owned hostname needs Paid or, on Free, a project that shows the “Powered by ohmyho.st” flag, and an active Prod deployment. It draws about {{ credits unit.customHostnameMonth }} a month, nothing while the flag shows. A verified mail domain has no monthly fee and draws only the per-recipient mail rate. Paid itself is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits.
+Managed transactional mail needs Paid. A customer-owned hostname needs Paid or, on Free, a project displaying the “Powered by ohmyho.st” flag and an active Prod deployment. It uses about {{ credits unit.customHostnameMonth }} a month without the flag. A verified mail domain has no monthly fee; sending is metered per recipient. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits.
 
 {{ sources railway render fly resend }}
 

@@ -1,100 +1,149 @@
 # Hosting a Lovable app after export: the exact path
 
-By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · September 20, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 20, 2026 · Updated October 21, 2026
 
-Exporting a Lovable project to GitHub is one click. Everything after it is the work: three `VITE_` values, OAuth redirect URLs, private secrets that must not ship to the browser, and a rewrite rule for client-side routes. This is that path, written out, and what a coding agent does instead of you.
+Your Lovable code is in GitHub. Now ask your Agent to check what it needs and prepare a Dev preview on the new host. Open that preview, test the important parts of your app and decide when to make it live.
+
+The work between export and a working app depends on your project. Login needs the right return URLs. Server functions need their secrets. The database may still be with Lovable or Supabase. This guide gives you prompts for those jobs so you can review the result without working through deployment commands yourself.
 
 {{ figure flow.lovable-export }}
 
-## Why people leave
+## Decide what you want to move
 
-Not because Lovable is bad at building. It is very good at building, and most people who move keep building there. They move because hosting inside the builder is priced with the same credits that write the code, so a month of real traffic competes with a month of prompting. Lovable's pricing page says hosting on Lovable Cloud draws from your credit balance as an app takes on traffic and size (https://lovable.dev/pricing, read 2026-09-20). Once an app has users, most people want its running costs on a bill that does not move when they stop prompting.
+You can change hosting while continuing to build in Lovable. You can also use another coding tool while leaving the current hosting alone. Start with the part you want to change, then tell your Agent what should stay in place.
 
-If you also want to edit the exported app outside Lovable, the guide to [using your own coding agent as a Lovable alternative](/blog/lovable-alternative-bring-your-own-llm) covers Claude Code, Codex, Cursor and Grok Build, including how to keep the GitHub sync working.
+If cost is your reason, compare the full app. Lovable's [pricing page](https://lovable.dev/pricing), checked October 21, 2026, describes credits used for building and running apps, with included grants. A different host does not automatically make the same app cheaper. Any database, storage, email or AI service you keep will still have its own usage.
 
-## Export to GitHub
+For a first hosting trial, aim for a working preview. You do not need to move production data or point your existing domain at it to find out whether the app works there.
 
-Start with [How to export Lovable code to GitHub](/blog/how-to-export-lovable-code-to-github). The screenshot guide walks through Project settings → Git, GitHub authorization, the first sync and getting the code onto your computer.
+If you also want a different editor, [using your own coding agent as a Lovable alternative](/blog/lovable-alternative-bring-your-own-llm) explains that decision separately. Pick the Agent you want to work with, then let it inspect the app before you choose the rest.
 
-Lovable's GitHub integration keeps the project in continuous sync with a repository, and external platforms deploy from that repository (https://docs.lovable.dev/tips-tricks/external-deployment-hosting, read 2026-09-20). Connect GitHub in the project, let Lovable create the repository, and you have a normal Vite + React codebase with a normal commit history. Nothing is ejected and nothing is locked: you can keep prompting in Lovable, and every change still lands in the same repository you are about to deploy from.
+## Give your Agent the export
 
-## What breaks by hand
+Start with [How to export Lovable code to GitHub](/blog/how-to-export-lovable-code-to-github) if you do not have the repository yet. Check its owner, active branch and sync status, then share that repository URL with your Agent.
 
-Four things, in the order they bite.
+Keep in mind that a Lovable export is not always a static frontend. Its [external-hosting guide](https://docs.lovable.dev/tips-tricks/external-deployment-hosting) distinguishes older React + Vite apps from TanStack Start apps that run server code. Your Agent should identify the actual framework and build output before choosing how to deploy it.
 
-**The three `VITE_` values.** `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` and `VITE_SUPABASE_PROJECT_ID` live in the `.env` file in Lovable's editor and in the synced repository (docs.lovable.dev, read 2026-09-20). A host that does not have them builds an app that loads and then cannot reach its backend.
+Here a prompt:
 
-**OAuth redirect URLs and the Site URL.** Lovable's guide is explicit: if the app uses Google sign-in or another OAuth provider, add the new production domain to the provider's allowed redirect URLs. For a Supabase app that is Authentication → URL Configuration, where the Site URL is the address Supabase sends people back to and the Redirect URLs list every host allowed to complete a sign-in. Miss it and login fails only in production, which is the worst place to discover it.
+```text
+Inspect my Lovable export at [REPOSITORY URL], branch [BRANCH], for hosting
+on ohmyho.st. Identify the framework, build, backend, login, files and
+external services. Explain what can stay as it is and what needs adapting.
+Prepare a Dev deployment plan without changing production or moving data.
+```
 
-**Private secrets.** A Stripe secret key or a service-role key must never carry the `VITE_` prefix, because Vite inlines prefixed variables into the client bundle at build time and ships them to every visitor. They belong in server-side configuration on the host.
+Ask for the result in terms of your app. “Uploads still go to your existing storage” helps you understand the plan. A list of package names alone does not. Your Agent should also name the source version it inspected so the later preview can be traced back to the same code.
 
-**SPA rewrites.** A React app with client-side routes needs the host to serve `/index.html` for unknown paths. Without it the home page works, and `/dashboard` returns a 404 the moment somebody refreshes.
+## Check the configuration
 
-The [production deployment checklist](/blog/six-things-that-break-when-a-vibe-coded-app-meets-production) extends these checks to local databases, build-time configuration and transactional mail, including apps built outside Lovable.
+Ask your Agent to handle the configuration and show you what works. These are the results to look for when you open the preview.
 
-## The prompt
+**The right data appears.** Your Agent should confirm which database the preview uses before testing a write. Open a page that reads a known test record, then check that a new test record appears in the intended place. Missing data is something for the Agent to investigate before publication.
 
-Paste this into Claude Code, Cursor or Codex with the exported repository open:
+**Login returns to the preview.** Sign in and check that you land on the new app, then reload a protected page and sign out. If login sends you to the old website, ask your Agent to fix the preview's return address while preserving the live site's login. It can follow [Supabase's redirect guidance](https://supabase.com/docs/guides/auth/redirect-urls) or check the settings in Lovable if that is where your authentication runs.
+
+**Private keys stay private.** Your Agent should check that private credentials stay on the server and request missing values through the host's private input flow. Ask it to report which checks passed without showing the values. [Vite's environment documentation](https://vite.dev/guide/env-and-mode) is the reference for its browser-exposure check.
+
+**Links survive a refresh.** Open a page inside the app directly, then refresh it. Your Agent should fix the hosting configuration if that fails while the homepage works. Give it the exact page address so it can repeat the same check for your app's framework.
+
+Give your Agent an example of each feature that matters: the customer login, a file upload, a booking form or a payment test. That turns a general deployment review into a concrete list of things it can verify. The [production deployment checklist](/blog/six-things-that-break-when-a-vibe-coded-app-meets-production) covers more cases, including transactional mail and database configuration.
+
+## Connect your Agent to the host
+
+Open the repository in your coding tool and use the ohmyho.st entry prompt:
 
 ```text
 {{ prompt }}
 ```
 
-## What your agent does, step by step
+Your Agent uses the supported connection flow for its environment. A local tool may set up the CLI or MCP connection; a supported native chat can use its connected tools. You complete the account sign-in and any GitHub authorization. There is no reason to paste private keys into the chat.
 
-1. Reads the repository and reports what it found: the framework, the package manager, the auth provider, the database, and which external services the code calls.
-2. Signs you in. `ohmyhost login --json` returns a link and a confirmation code; you open it in a browser once.
-3. Reuses the current project/source, or creates the project and links your selected GitHub export. Accessible current files can instead be saved as managed versions through the [deploy Skill](/skills/ohmyhost-deploy/SKILL.md).
-4. Plans the deployment before it runs anything. The plan names the commit, the framework it detected, the secrets it still needs and any blocker it found.
-5. Names required secrets and gives you the local stdin command or the supported remote private input link. No value is sent in chat or source.
-6. Deploys to Dev, returns a `check.omh.st` host, and waits while you test the real thing: sign in, a protected route, a read and a write.
-7. Promotes the verified artifact to Prod. Promotion moves the artifact that already passed; it does not rebuild and it does not copy Dev records over Prod data.
+If this app already has an ohmyho.st project, tell your Agent to use it. The [deploy Skill](/skills/ohmyhost-deploy/SKILL.md) supports the saved source and project rather than starting over for each release. GitHub is useful when you want to keep the Lovable sync. Accessible source files can also be saved as managed versions when that is the selected workflow.
 
-The agent stops at the points where only you can decide: the browser sign-in, the workspace on first use, the GitHub authorization, the secret values, and the region, which is chosen once per project and cannot be changed afterwards.
+Before a new project is created, check the workspace and region with your Agent. Before a build, read the plan: it should identify the source version, the intended environment, required secrets, any blockers and the costs or effects it reports. If the plan describes a database move you did not ask for, narrow the task back to the hosting preview.
 
-## Keep your Supabase or move it
+## Test the Dev preview
 
-Keeping Supabase is a separate option to verify against the real export. Before moving production traffic, the agent inventories its browser calls, declares exact external origins in `runtime.browser` in `ohmyhost.yaml`, and checks the backend functions, login, protected reads and writes, and files on Dev. Browser connections and resource types have separate declarations; server-side calls use `runtime.egress.allow`. Check that the exported `VITE_` values identify the intended Supabase project and add the actual Dev and Prod hosts to its Redirect URLs and Site URL. The backend stays external only when those flows pass.
+Your Agent can deploy to Dev and return its working address. If Dev is protected, it should give you the supported access link. An accepted build request is not the same as a working app, so wait for the completed deployment and open the actual preview.
 
-Moving the database is the second step, once the app is live and calm. Export from Supabase, import into the project's managed Postgres, and switch the application to the database binding the platform provides. Do it as its own change, with its own verification, and not on the same evening as the move.
+Here a prompt:
 
-## Custom domain and mail
+```text
+Deploy the inspected version to Dev. Use test data and confirm which
+backend Dev will reach before writing records. Check sign-in, a protected
+page, refresh, a read and write, and uploads if used. Return the preview
+link, source version and any failed checks. Leave Prod and my domain alone.
+```
 
-Transactional mail needs Paid. A custom domain needs Paid or, on Free, a project that shows the “Powered by ohmyho.st” flag; the flag waives domain credits on either plan. The domain serves Prod, so deploy or promote to Prod first; until then both domain steps answer `production_deployment_required`. `domain_paid_plan` returns the CNAME to set at your registrar and `domain_paid_apply` activates the hostname once DNS resolves; a linked hostname costs about {{ credits unit.customHostnameMonth dp=0 }} a month without the flag. Transactional mail needs a verified sender domain that the agent configures with `mail_setup`; you add the DNS records `mail_status` returns, and it reports when sending is ready. The sender domain has no monthly fee; each 1,000 sent recipients cost about {{ credits unit.thousandMailRecipients dp=0 }}.
+Try the app yourself too. Use the account type your customers use, follow the main flow and reload a page after signing in. If an action fails, tell your Agent what you clicked, which page you were on and what happened. It can use that detail with the deployment logs.
 
-## What it costs
+Check where the test data went. A Dev URL does not by itself prove that every connected service has a separate development environment. This matters for emails, payments, scheduled jobs and existing external databases as much as it does for a simple form.
 
-A Lovable frontend that keeps Supabase and runs on its own domain pays for the deployment, the traffic and the hostname, and nothing for a database it does not use here:
+When you are happy with the preview, you can ask for publication. Promotion uses the verified artifact; it does not rebuild it or copy Dev records into Prod. Your Agent still needs to check the project's data arrangement and Prod secrets before publishing. After publication, repeat the important checks on the public address.
+
+## Keep the backend or move it
+
+Keeping an existing Supabase backend can make the initial hosting task smaller. Ask your Agent to verify its login, database access, functions and files from the new host. The existing backend remains part of the app even though the frontend address has changed.
+
+Ask your Agent to configure the connections ohmyho.st needs to reach those services, then verify them in Dev. You should be able to sign in, load your test data and upload or download a file if the app supports it. Have the Agent name any service that still fails and explain which feature that prevents you from testing.
+
+Moving to managed Postgres is a separate job. A database import alone does not replace Supabase Auth, Storage, Realtime or Edge Functions. Your Agent needs to identify which of those your app uses, propose replacements where required and test the resulting behavior. Keep the current app available while that work is prepared.
+
+Here a prompt:
+
+```text
+Plan a separate backend migration for this app. Inventory database records,
+users, files, functions, scheduled jobs and integrations. Explain the
+replacement for each service, how to test the restore and how to switch
+safely later. Do not move production data or change live connections yet.
+```
+
+The same distinction applies to data in Lovable Cloud. Its [external-hosting guide](https://docs.lovable.dev/tips-tricks/external-deployment-hosting) describes separate work for data, storage, authentication and integrations. Export and verify what you need before removing any existing service. Ask your Agent to account for records that could change between a rehearsal and the eventual switch.
+
+For that backend move, use [How to move out of Lovable Cloud](/blog/move-out-of-lovable-cloud), with prompts for the export, the API bridge and importing your data.
+
+## Add your domain and email
+
+Connect the domain after you have a clear publication plan. A custom domain serves Prod. It can be prepared before the first production deployment, but activation needs a working Prod version. Your Agent should report whether the domain is waiting for deployment, DNS or HTTPS rather than calling an accepted request finished.
+
+A custom domain requires Paid, or a Free project showing the “Powered by ohmyho.st” flag. The flag waives domain credits on either plan. Without it, a linked hostname costs about {{ credits unit.customHostnameMonth dp=0 }} per month. Decide whether to show the flag before asking your Agent to configure the domain.
+
+Your Agent can handle supported Cloudflare DNS after you authorize the connection, or give you the exact records for another DNS provider. Tell it if the hostname already serves a live site. Changing its DNS is the point where visitors can move to the new app; keep that step for the release you have approved.
+
+Managed transactional email needs Paid and a verified sender domain. A website domain alone does not enable sending. Your Agent sets up the sender, checks the DNS records and reports when sending is ready. The sender domain has no monthly fee; each thousand sent recipients costs about {{ credits unit.thousandMailRecipients dp=0 }}. If you already use the domain for company inboxes, tell your Agent so it preserves that mail routing.
+
+## Read the cost estimate
+
+A frontend that keeps its existing Supabase backend pays ohmyho.st for the resources it uses here. The external backend keeps its own bill. This worked example includes deployment, traffic and a custom hostname:
 
 {{ table workload.lovableFrontend }}
 
-A first month that also brings Postgres and managed mail across looks like this:
+The next example also includes managed Postgres and mail:
 
 {{ table workload.lovableFirstMonth }}
 
-Both sit inside the {{ number plan.paidCredits }} credits that {{ usd plan.paidUsd }} a month buys, and both leave room for the extra deployments a move always needs. For comparison, the same app on separate subscriptions starts at {{ usd scenario.threeSubscriptions }} a month before any usage. {{ checked vercel }} {{ checked supabase }} {{ checked resend }}
+These example workloads fit within the {{ number plan.paidCredits }} credits included with Paid at {{ usd plan.paidUsd }} per month. They are examples, not a quote for every exported app. Ask your Agent which rows apply to your project, which services remain external and what changes when traffic grows.
+
+For the separate-subscription comparison, the selected plans total {{ usd scenario.threeSubscriptions }} before additional usage. {{ checked vercel }} {{ checked supabase }} {{ checked resend }} Compare those services with the same workload and requirements before deciding that either arrangement is cheaper.
 
 ## FAQ
 
 ### Will my Google login keep working?
 
-It can, after verification on the new hosts. Confirm that Google still calls back into the intended Supabase project, declare the browser origins the export needs, set its Site URL and Redirect URLs, and test sign-in, a protected page, reload and sign-out on Dev before promotion. Repeat that check on Prod and any custom domain.
+Have your Agent verify it on the actual new address. It should check the provider callback, the app's return URL, a protected page, reload and sign-out. Repeat that check after adding a custom domain. A successful homepage load does not establish that login works.
 
-### Can I keep building in Lovable after I move?
+### Can I keep building in Lovable?
 
-Yes. The GitHub sync is two-way, so prompting in Lovable still lands commits in the same repository you deploy from. Ask your agent to deploy the new commit when you want the change live; the build runs from the repository, not from your machine.
-
-### What about data that lives in Lovable Cloud?
-
-Export it before you switch anything off. Lovable's guide describes exporting data from the project's Cloud settings. Keeping that backend is an option to check with its actual functions, login and file access on Dev before moving production traffic. Treat a data move as a separate step with its own verification.
+Yes. Keep the repository connection and agree on the branch used for reviewed releases. Ask your Agent to deploy the version you want live. New edits and a new production release are separate decisions.
 
 ### Do I have to use the terminal?
 
-You need it once, to install the clients and register the MCP server; the get-started Skill gives your agent the exact commands for your harness. After that the work happens in the agent, and the browser handles sign-in, GitHub authorization and your registrar's DNS.
+That depends on your Agent's connection. Local tools may need initial client setup; supported connected chats can use their integration. Ask your Agent to follow the get-started Skill for its environment and give you only the sign-in or authorization steps it needs you to complete.
 
 ### What does it cost to try?
 
-Free gives {{ number plan.freeCredits }} credits a UTC month with hosting, a database and Dev and Prod hosts at their published usage rates. Sending managed mail needs Paid. A custom domain needs Paid or, on Free, the “Powered by ohmyho.st” flag and an active Prod deployment; the flag waives domain credits on either plan. Read the deployment plan and verify the export's backend before assuming the allowance covers your test.
+Free includes {{ number plan.freeCredits }} credits per UTC month. Builds, hosting and managed services use that balance at their published rates. Managed mail needs Paid; a Free custom domain needs the powered-by flag. Have your Agent explain the plan for your actual app before starting the trial.
 
 {{ sources vercel supabase resend }}
 
