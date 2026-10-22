@@ -121,7 +121,7 @@ Pricing and limits: https://ohmyho.st/pricing.md · https://docs.ohmyho.st/limit
 
 export const AGENT_INDEX = `# ohmyho.st
 
-> Hosting for agents. Develop and save app versions with ohmyho.st or connect the GitHub repository you choose. Preview and publish Astro, Next.js, Vite/React and TanStack apps, then manage databases, domains, email, credits and SQL exports through connected chat, CLI, MCP or REST API.
+> Hosting for agents. Develop and save app versions with ohmyho.st or connect the GitHub repository you choose. Preview and publish Astro, Next.js, Vite/React and TanStack apps, then manage databases, domains, email, credits and SQL exports through connected chat, CLI, MCP or REST API. App hosting and managed Postgres on one balance, an alternative to Vercel, Supabase and Resend. Free: 200 credits every month, no card.
 
 ## When to use ohmyho.st
 
@@ -187,6 +187,8 @@ ${skills
 - [ohmyho.st vs Supabase](https://ohmyho.st/vs/supabase.md): Postgres compute and storage by usage against Supabase Pro and per-project compute.
 - [ohmyho.st vs Resend](https://ohmyho.st/vs/resend.md): Mail per recipient plus a sender zone against Resend plans; break-even by volume.
 - [ohmyho.st vs Railway](https://ohmyho.st/vs/railway.md): Requests, CPU time and database credits against per-second vCPU, memory and volumes.
+- [Free Vercel and Supabase alternatives](https://ohmyho.st/blog/free-vercel-supabase-alternatives-2026.md): The free plans of ohmyho.st, Vercel Hobby, Supabase, Cloudflare, Render, Railway, Neon and Fly.io side by side, with limits and catches.
+- [Vercel and Supabase in one platform](https://ohmyho.st/blog/all-in-one-vercel-supabase-alternatives.md): ohmyho.st, Appwrite, Netlify, InsForge, Firebase and Nhost compared by capability and free-plan limits, without scores.
 
 ## Deploy from your agent
 

@@ -1,0 +1,53 @@
+{
+  "capturedAt": "2026-10-22T11:19:41.756Z",
+  "label": "all-in-one-20261022-b",
+  "tool": {
+    "playwright": "1.62.1",
+    "chromium": "151.0.7922.34",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+  },
+  "context": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "deviceScaleFactor": 1,
+    "locale": "en-US",
+    "timezoneId": "America/New_York"
+  },
+  "entries": [
+    {
+      "file": "all-in-one-20261022-b--docs.netlify.com--manage-security-secure-access-to-sites-identity-overview--1440x900@1--full.jpg",
+      "url": "https://docs.netlify.com/manage/security/secure-access-to-sites/identity/overview/",
+      "finalUrl": "https://docs.netlify.com/manage/security/secure-access-to-sites/identity/overview/",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-22T11:19:46.517Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 277196,
+      "sha256": "398f8066a5b340effda0c3ff2cc81b6540948a71b1adff95371ee7768fdf49c0"
+    },
+    {
+      "file": "all-in-one-20261022-b--www.netlify.com--platform-database--1440x900@1--full.jpg",
+      "url": "https://www.netlify.com/platform/database/",
+      "finalUrl": "https://www.netlify.com/platform/database/",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-22T11:19:55.971Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 409785,
+      "sha256": "80156a4b6803b5372bd8f7719b32d7137a16a2b539a3bd7aa2f29cb47f9ccb82"
+    },
+    {
+      "file": "all-in-one-20261022-b--docs.netlify.com--visitor-access-identity-usage-and-billing--1440x900@1--full.jpg",
+      "url": "https://docs.netlify.com/visitor-access/identity/usage-and-billing",
+      "finalUrl": "https://docs.netlify.com/manage/security/secure-access-to-sites/identity/plans-and-pricing/",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-22T11:20:00.125Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 218724,
+      "sha256": "feb62f757748ae06d43ccc1e175a01366de94bdfb6536eda13c89a97df7f6f2b"
+    }
+  ]
+}

@@ -79,13 +79,13 @@ describe("public entry and unassigned Free-host fallback", () => {
         alternateName: "ohmyhost",
       });
     expect(html).toContain(
-      "<title>ohmyho.st — An alternative to Vercel, Supabase &amp; Resend</title>",
+      "<title>ohmyho.st — Vercel, Supabase &amp; Resend alternative, free plan</title>",
     );
     expect(html).toContain(
       "Independent comparison; no affiliation or endorsement.",
     );
     expect(html).not.toContain("An alternative. Know the differences.");
-    expect(html).toContain("200 credits, free. No card required.");
+    expect(html).toContain("200 credits, free every month. No card required.");
     const pricingSection = html.slice(
       html.indexOf('<section id="price">'),
       html.indexOf('<section id="from">'),

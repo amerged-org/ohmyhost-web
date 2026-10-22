@@ -314,5 +314,54 @@
         "unit": "credits for one authentication prompt"
       }
     }
+  },
+  "appwrite": {
+    "name": "Appwrite",
+    "checkedOn": "2026-10-22",
+    "sourceUrl": "https://appwrite.io/pricing",
+    "evidence": "evidence/all-in-one-20261022--appwrite.io--pricing--1440x900@1--full.jpg",
+    "facts": {
+      "free": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "a limit of 2 projects, each with 1 database, 1 bucket and 2 functions, plus 5GB bandwidth, 2GB storage, 750K executions and 75K monthly active users; free projects are paused after 1 week of inactivity"
+      },
+      "pro": {
+        "usd": 25,
+        "unit": "per month",
+        "includes": "no project pausing, $10 of compute credits for database usage each month, 2TB bandwidth, 150GB storage and 200K monthly active users"
+      },
+      "dedicatedDatabase": {
+        "usd": 10,
+        "unit": "per month per database, from",
+        "includes": "dedicated databases offer PostgreSQL, MySQL, DocumentsDB, VectorsDB or an upgraded TablesDB; serverless databases use TablesDB with no monthly compute fee"
+      }
+    }
+  },
+  "netlify": {
+    "name": "Netlify",
+    "checkedOn": "2026-10-22",
+    "sourceUrl": "https://www.netlify.com/pricing/",
+    "evidence": "evidence/all-in-one-20261022--www.netlify.com--pricing--1440x900@1--full.jpg",
+    "facts": {
+      "free": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "a 300 credit limit a month shared by builds, compute, bandwidth and requests, with custom domains and SSL, Functions, Netlify Database and Blob storage; a production deploy costs 15 credits, compute 10 credits per GB-hour, bandwidth 20 credits per GB and web requests 2 credits per 10k requests"
+      }
+    }
+  },
+  "insforge": {
+    "name": "InsForge",
+    "checkedOn": "2026-10-22",
+    "sourceUrl": "https://insforge.dev/pricing",
+    "evidence": "evidence/all-in-one-20261022--insforge.dev--pricing--1440x900@1--full.jpg",
+    "facts": {
+      "free": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "50,000 monthly active users, a 500 MB database, 5 GB bandwidth, 1 GB file storage, 100,000 edge function calls, 600 minutes of site build time and 120 hours of custom compute; free projects are paused after 1 week of inactivity"
+      }
+    }
   }
 }

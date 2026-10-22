@@ -1,6 +1,6 @@
 # One balance for your projects
 
-Free starts with 200 credits. Paid starts at $10 for 1,000 monthly credits. Projects use the same organization balance; there is no separate project base subscription.
+Free gives {{ number plan.freeCredits }} credits every month, with no card. Paid starts at {{ usd plan.paidUsd }} for {{ number plan.paidCredits }} monthly credits. Projects use the same organization balance; there is no separate project base subscription.
 
 Free credits expire at UTC month end. Paid monthly credits expire at billing-period end without rollover. Only Paid users can buy top-ups; they carry over during uninterrupted Paid membership and expire on downgrade to Free. Connect your own domain; domain registration is not included. Usage is metered; additional credits cost extra. Applicable taxes are added.
 
@@ -32,4 +32,4 @@ Copy your referral link with the Refer and earn button in your account menu, or 
 
 Ask your agent for remaining credits, measured usage and optional project budgets. A top-up adds credits but does not extend a subscription. A top-up above $100 adds 125 credits per dollar for the part above $100; consumption prices stay the same. Automatic recharge stays off unless the Owner turns it on with a monthly spending limit.
 
-[All usage rates](https://docs.ohmyho.st/pricing) · [Worked cost example](/pricing/breakdown) · [Usage guide](https://docs.ohmyho.st/usage) · [Compare Vercel](/vs/vercel)
+[All usage rates](https://docs.ohmyho.st/pricing) · [Worked cost example](/pricing/breakdown) · [Usage guide](https://docs.ohmyho.st/usage) · [Compare Vercel](/vs/vercel) · [Free Vercel and Supabase alternatives](/blog/free-vercel-supabase-alternatives-2026) · [Vercel and Supabase in one platform](/blog/all-in-one-vercel-supabase-alternatives)

@@ -12,6 +12,7 @@ import { BRAND_ASSET_FILES } from "./brand-assets.js";
 import { SITE_ICON } from "./generated-site-frame.js";
 import { sitemapEntries } from "./page-meta.js";
 import { editorialResponse, prefersMarkdown } from "./editorial-response.js";
+import { websiteIndexNowKey } from "./indexnow.js";
 const EDITORIAL_PATHS = new Set(sitemapEntries().map((page) => page.path));
 // A shell-single-quoted assignment carries this value into the installer script.
 const SHELL_SAFE_SOURCE = /^[a-z0-9][a-z0-9_-]{0,63}$/u;
@@ -263,6 +264,14 @@ export default {
         );
       }
       return response;
+    }
+    const indexNowKey = websiteIndexNowKey(url.pathname);
+    if (indexNowKey) {
+      headers.set("content-type", "text/plain; charset=utf-8");
+      headers.set("cache-control", "public, max-age=86400");
+      return new Response(request.method === "HEAD" ? null : indexNowKey, {
+        headers,
+      });
     }
     if (url.pathname === "/robots.txt") {
       headers.set("content-type", "text/plain; charset=utf-8");

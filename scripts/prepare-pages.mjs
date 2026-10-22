@@ -326,6 +326,11 @@ function applyApprovedHomepageChanges(html) {
   const socialTitle =
     "ohmyho.st — An alternative to Vercel, Supabase &amp; Resend";
   const socialDescription = `ohmyho.st (ohmyhost): app hosting, Postgres and email from $${plans.paidUsd}/month. Start deployment with one prompt in Codex, Claude Code or Cursor.`;
+  // Owner-approved 2026-10-22: the free plan is part of the search title and description only;
+  // the approved Open Graph and X copy above stays as it is.
+  const seoTitle =
+    "ohmyho.st — Vercel, Supabase &amp; Resend alternative, free plan";
+  const seoDescription = `ohmyho.st (ohmyhost): app hosting, Postgres and email. Free: ${plans.freeCredits} credits every month, no card. Paid from $${plans.paidUsd}/month. One prompt in Codex, Claude Code or Cursor.`;
   html = html
     .replace(
       /(<meta (?:property="og:title"|name="twitter:title") content=")[^"]*(">)/gu,
@@ -371,7 +376,7 @@ function applyApprovedHomepageChanges(html) {
     ".art{margin:40px auto 0;max-width:900px;width:100%}":
       ".art{margin:40px auto 0;max-width:855px;width:95%}",
     '<span class="thin">Ten dollars.</span><br>Host your vibe-coded apps.': `<span class="thin">Vercel, Supabase &amp; Resend.</span><br>One alternative from $${plans.paidUsd}/month.`,
-    "<title>Hosting for vibe-coded apps — $10/mo for all your projects, not per project | ohmyho.st</title>": `<title>${socialTitle}</title><meta name="description" content="${socialDescription}">`,
+    "<title>Hosting for vibe-coded apps — $10/mo for all your projects, not per project | ohmyho.st</title>": `<title>${seoTitle}</title><meta name="description" content="${seoDescription}">`,
     '"logo": "https://ohmyho.st/logo.png",':
       '"logo": "https://ohmyho.st/logo.png", "alternateName": "ohmyhost", "legalName": "Amerged B.V.", "identifier": {"@type":"PropertyValue","propertyID":"KVK","value":"42154221"}, "contactPoint": {"@type":"ContactPoint","contactType":"Customer support","url":"https://ohmyho.st/contact"},',
     "ohmyho.st is prepaid-credit hosting for apps built with":
@@ -422,6 +427,20 @@ function applyApprovedHomepageChanges(html) {
     '<p class="note">Credits reset on your billing day. Quiet projects burn almost nothing. Busy ones take credits as they go — top up any time.</p>':
       '<p class="note" style="color:var(--muted-foreground)">Monthly credits expire at period end. Top-ups carry over while Paid and expire when you switch to Free. Usage is metered. <a href="https://docs.ohmyho.st/pricing">See all usage rates</a>.</p>',
     "No card, no dashboard.": "No card required.",
+    // Owner-approved 2026-10-22: the Free plan is the recurring monthly allowance it is, not a trial.
+    "200 credits, free. No card required.":
+      "200 credits, free every month. No card required.",
+    '    <div class="plan">\n      <h3>Free</h3>\n      <p class="price">200 <u>credits</u></p>':
+      '    <div class="plan" id="free-plan">\n      <h3>Free</h3>\n      <p class="price">200 <u>credits every month</u></p>',
+    "<b>Free to try.</b> 200 credits, hosting and a database — no card.":
+      "<b>Always free.</b> 200 credits every month, hosting and a database — no card.",
+    '        <li class="no">Your own domain</li>\n':
+      "        <li>Your own domain <em>with the Powered by flag</em></li>\n",
+    '        <li class="no">Backups</li>\n      </ul>':
+      '        <li class="no">Backups</li>\n      </ul>\n      <p class="free-more"><a href="/blog/free-vercel-supabase-alternatives-2026">What 200 credits cover</a> · <a href="/blog/all-in-one-vercel-supabase-alternatives">Compare all-in-one platforms</a></p>',
+    '"description": "200 credits, hosting and a database"':
+      '"description": "200 credits every UTC month, hosting and a database; no card required", "priceSpecification": {"@type": "UnitPriceSpecification", "price": "0", "priceCurrency": "USD", "billingIncrement": 1, "unitText": "MONTH"}',
+    "Yes: 200 credits, no card.": "Yes: 200 credits every month, no card.",
     "<span><h3>a quiet month</h3><u>≈ 0 credits</u></span>":
       "<span><h3>1 database GB-month</h3><u>115 credits</u></span>",
     "Off. If you run out, the site stays up and read-only.":
@@ -618,8 +637,19 @@ function applyApprovedHomepageChanges(html) {
   // Show the complete hero on first paint; continuous dot motion and halo breathing remain.
   const heroReady =
     "<style>header .hero-a,header .art .fadein{opacity:1;transform:none;animation:none}header .art .wire{stroke-dashoffset:0;animation:none}</style>";
+  // Owner-approved 2026-10-22: a slim band above the navigation links down to the Free plan card.
+  const freeBar =
+    '<a class="freebar" href="#free-plan"><b>Always Free</b><span> · no credit card</span><i aria-hidden="true">›</i></a>';
+  const freeBarCss =
+    "<style>.freebar{display:flex;justify-content:center;align-items:center;gap:6px;padding:9px 16px;font-size:13.5px;line-height:1.3;text-align:center;color:var(--foreground);background:var(--accent-soft);border-bottom:1px solid var(--border);text-decoration:none}.freebar b{font-weight:600}.freebar i{font-style:normal;transition:transform .15s}.freebar:hover i{transform:translateX(3px)}.freebar:focus-visible{outline:2px solid var(--foreground);outline-offset:-2px}#free-plan{scroll-margin-top:96px}.free-more{margin:14px 0 0;font-size:13.5px;color:var(--muted-foreground)}.free-more a{color:var(--foreground);text-decoration:underline;text-underline-offset:3px}@media(prefers-reduced-motion:reduce){.freebar i{transition:none}}</style>";
+  if (!html.includes('<div class="top" id="top">'))
+    throw new Error("Homepage navigation boundary missing for the Free band");
+  html = html.replace(
+    '<div class="top" id="top">',
+    `${freeBar}<div class="top" id="top">`,
+  );
   return html
-    .replace("</head>", `${heroReady}</head>`)
+    .replace("</head>", `${heroReady}${freeBarCss}</head>`)
     .replace(
       "</header>",
       '<noscript><p class="under"><a href="/docs/quickstart">Read the getting-started guide for your agent →</a></p></noscript></header>',
@@ -647,7 +677,7 @@ function hardenHomepageMarkup(html) {
       '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>\n' +
       '        <button class="btn nochev startfree navcopy" id="navcopy" data-copy>\n',
     "It includes hosting, a Postgres database and a you.ohmyho.st subdomain. Custom domains, email and database exports come with the $10 plan.":
-      "It includes hosting, a Postgres database and a Dev and a Prod host, each on a generated three-word address such as humble-kiwis-find.check.omh.st, or your own domain on the $10 plan. Encrypted SQL exports are on every plan; linking your own domain and sending mail use credits.",
+      "It includes hosting, a Postgres database and a Dev and a Prod host, each on a generated three-word address such as humble-kiwis-find.check.omh.st. Your own domain works on Free while the Powered by ohmyho.st flag shows, and on Paid. Email needs Paid. Encrypted SQL exports are on every plan; linking your own domain and sending mail use credits.",
     "<li>you.ohmyho.st</li>": "",
     "Worked example: six quiet projects plus one with real users ≈ 600 credits a month. Ten dollars covers it.":
       'The worked example includes hosting, database usage and transactional mail, including the deployed script and mail. See the <a href="/pricing/breakdown">full cost breakdown</a>.',

@@ -1,0 +1,108 @@
+{
+  "capturedAt": "2026-10-22T11:18:09.587Z",
+  "label": "all-in-one-20261022",
+  "tool": {
+    "playwright": "1.62.1",
+    "chromium": "151.0.7922.34",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+  },
+  "context": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "deviceScaleFactor": 1,
+    "locale": "en-US",
+    "timezoneId": "America/New_York"
+  },
+  "entries": [
+    {
+      "file": "all-in-one-20261022--appwrite.io--pricing--1440x900@1--full.jpg",
+      "url": "https://appwrite.io/pricing",
+      "finalUrl": "https://appwrite.io/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-22T11:18:13.642Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 831227,
+      "sha256": "5f22555c86330b03bbd817af3df833f4ff4d49d251b1c5dbb4427946499add1f"
+    },
+    {
+      "file": "all-in-one-20261022--appwrite.io--changelog-entry-2026-02-20-1--1440x900@1--full.jpg",
+      "url": "https://appwrite.io/changelog/entry/2026-02-20-1",
+      "finalUrl": "https://appwrite.io/changelog/entry/2026-02-20-1",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-22T11:18:17.060Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 159379,
+      "sha256": "34aab991387cf4ff1c18e648215537f4ac47683f6050154eec16f0fce2e8e854"
+    },
+    {
+      "file": "all-in-one-20261022--appwrite.io--changelog-entry-2026-06-29--1440x900@1--full.jpg",
+      "url": "https://appwrite.io/changelog/entry/2026-06-29",
+      "finalUrl": "https://appwrite.io/changelog/entry/2026-06-29",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-22T11:18:20.336Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 131530,
+      "sha256": "7277aa65842b696e6dfcb098a19a6f26a547470d87747cdb58fc8f8a95794bd2"
+    },
+    {
+      "file": "all-in-one-20261022--appwrite.io--docs-products-databases-postgresql--1440x900@1--full.jpg",
+      "url": "https://appwrite.io/docs/products/databases/postgresql",
+      "finalUrl": "https://appwrite.io/docs/products/databases/postgresql",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-22T11:18:23.788Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 468176,
+      "sha256": "1671c0f1f146e1d70c6b5ed37e00b8219874ec44bce2da2af00c7234fce782df"
+    },
+    {
+      "file": "all-in-one-20261022--www.netlify.com--pricing--1440x900@1--full.jpg",
+      "url": "https://www.netlify.com/pricing/",
+      "finalUrl": "https://www.netlify.com/pricing/",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-22T11:18:27.951Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 316259,
+      "sha256": "9f282303f2477e37962ebe8a5b43532d4398350ee623994fa6e5f3e2692356b9"
+    },
+    {
+      "file": "all-in-one-20261022--www.netlify.com--pricing-personal-vs-free--1440x900@1--full.jpg",
+      "url": "https://www.netlify.com/pricing/personal-vs-free",
+      "finalUrl": "https://www.netlify.com/pricing/personal-vs-free/",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-22T11:18:32.446Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 455008,
+      "sha256": "7620668f0deed08b76e87b80ed12bd178827a6aad12102b522962ea75e9e585d"
+    },
+    {
+      "file": "all-in-one-20261022--insforge.dev--pricing--1440x900@1--full.jpg",
+      "url": "https://insforge.dev/pricing",
+      "finalUrl": "https://insforge.dev/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-22T11:18:37.059Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 488703,
+      "sha256": "646c92df44c1d863b5966bdf9db40b9d599544591fd5e280cedda7e322b5cfb4"
+    },
+    {
+      "file": "all-in-one-20261022--docs.insforge.dev--core-concepts-deployments-overview--1440x900@1--full.jpg",
+      "url": "https://docs.insforge.dev/core-concepts/deployments/overview",
+      "finalUrl": "https://docs.insforge.dev/core-concepts/sites/overview",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-22T11:18:41.775Z",
+      "kind": "full",
+      "hiddenSelectors": ["cookie/consent banners"],
+      "bytes": 359020,
+      "sha256": "3825ab918dbc1ac42ff1d7aaf8ed0a7fef95a55603fb8e64ae948cafaae4fb6d"
+    }
+  ]
+}

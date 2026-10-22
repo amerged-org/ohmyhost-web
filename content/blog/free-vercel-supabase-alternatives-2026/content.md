@@ -1,8 +1,8 @@
 # Free alternatives to Vercel and Supabase in 2026: the free plans compared
 
-By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 28, 2026 · Updated October 21, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 28, 2026 · Updated October 22, 2026
 
-A free plan is useful only if your app fits its limits and terms. Ask your Agent to check both before deploying. Vercel Hobby and Supabase Free cover different jobs, and the alternatives do too. This guide compares ohmyho.st, Cloudflare, Render, Railway, Neon and Fly.io so you can decide what to try and what happens when the allowance runs out.
+A free plan is useful only if your app fits its limits and terms. Ask your Agent to check both before deploying. Vercel Hobby and Supabase Free cover different jobs, and the alternatives do too. This guide compares ohmyho.st, Appwrite, Netlify, InsForge, Cloudflare, Render, Railway, Neon and Fly.io so you can decide what to try and what happens when the allowance runs out.
 
 <figure class="fig"><img src="/images/free-alternatives-two-accounts.png" alt="Free Vercel and Supabase alternative: Vercel Hobby plus Supabase Free means two accounts and two sets of limits, one free plan for app and database means one account" width="1200" height="675" fetchpriority="high" decoding="async"><figcaption>The usual free stack is two products. Every alternative below answers the same question: how much of the pair does one free plan replace?</figcaption></figure>
 
@@ -40,8 +40,11 @@ Your Agent should name the actual database engine and external services it finds
 | Railway Free | Yes, on $1 a month | Yes, on a 0.5 GB volume | Pro recommended for commercial apps | Services stop | No, after the trial |
 | Neon Free | No | Yes, scales to zero | No restriction found | Compute suspended, data kept | Not applicable |
 | Fly.io | Trial only | Not free | Not applicable | Apps stop until billing is set up | Not applicable |
+| Appwrite Free | Yes, with Sites | No, Free uses TablesDB; PostgreSQL is a dedicated database | Not checked | Project freezes at a limit and pauses after a quiet week | Not checked |
+| Netlify Free | Yes | Yes, Netlify Database | Not checked | Projects pause until the next billing cycle | Yes, with SSL |
+| InsForge Free | Yes, built on Vercel | Yes, the project pauses after 1 week of inactivity | Not checked | Not checked | Not checked |
 
-Each row has sources below. “No restriction found” means we did not find a rule against business use in the pages we read; it is not written permission from the provider. Keep in mind: a no-cost allowance and a recommendation for production use are different things. Your Agent should show you the applicable terms, and you decide whether the plan suits the app.
+Each row has sources below. “No restriction found” means we did not find a rule against business use in the pages we read; it is not written permission from the provider. “Not checked” means we did not read that provider's terms or limit page for the column, so ask your Agent to check it. Keep in mind: a no-cost allowance and a recommendation for production use are different things. Your Agent should show you the applicable terms, and you decide whether the plan suits the app.
 
 <figure class="fig"><img src="/images/free-alternatives-catches.png" alt="Four free-plan catches: Render web services sleep after 15 idle minutes, Supabase Free projects pause after a quiet week, Render free Postgres is deleted after 30 days, Vercel Hobby forbids business use" width="1200" height="675" loading="lazy" decoding="async"><figcaption>The four catches that matter most for a small real app. Read on each vendor's documentation, September 28, 2026.</figcaption></figure>
 
@@ -105,6 +108,24 @@ This database plan still needs an app host from elsewhere in the comparison. Ask
 
 {{ checked neon }}
 
+## Appwrite Free: check the pause
+
+Appwrite hosts frontends with Sites and adds login, storage and functions. Its pricing page lists {{ text vendor.appwrite.free.includes }}. The changelog is explicit about the pause: a Free project with no development activity for 7 consecutive days is paused, and one that stays paused for 90 days is deleted after email alerts ([pause policy](https://appwrite.io/changelog/entry/2026-02-20-1), [deletion notice](https://appwrite.io/changelog/entry/2026-06-29), read 2026-10-22). Free projects use TablesDB; native PostgreSQL is a dedicated database that starts at {{ usd vendor.appwrite.dedicatedDatabase.usd }} a month. The [all-in-one comparison](/blog/all-in-one-vercel-supabase-alternatives) covers Sites, login and storage in more detail.
+
+{{ checked appwrite }}
+
+## Netlify Free: one credit pool
+
+Netlify's Free card lists {{ text vendor.netlify.free.includes }}. Netlify Database is a managed Postgres database, and Netlify Identity covers login on every credit-based plan. Deploys, compute, bandwidth and requests share the same credits, and Netlify's own Personal comparison states the limit: "When you reach that limit, projects pause until the next billing cycle." ([Personal vs Free](https://www.netlify.com/pricing/personal-vs-free), read 2026-10-22). Custom domains with SSL are on the Free card, while ohmyho.st Free needs the Powered by flag for yours. See the [all-in-one comparison](/blog/all-in-one-vercel-supabase-alternatives) for what else it covers.
+
+{{ checked netlify }}
+
+## InsForge Free: check the pause and the host
+
+InsForge's free plan lists {{ text vendor.insforge.free.includes }}. Frontend hosting runs through Vercel: the CLI uploads your source and InsForge creates a Vercel production deployment ([InsForge Sites](https://docs.insforge.dev/core-concepts/deployments/overview), read 2026-10-22). One account therefore does not remove the Vercel dependency. Ask your Agent to read InsForge's terms and its behaviour at the limit before you rely on the free plan.
+
+{{ checked insforge }}
+
 ## Fly.io: budget after the trial
 
 Fly.io still lists usage prices such as {{ usd vendor.fly.sharedCpu1x }} a month for a shared-cpu-1x machine, but new organizations get a trial: "2 hours of machine runtime or 7 days of access, whichever comes first". When it ends, apps "stop running" and you cannot deploy "until billing is set up" ([Fly.io free trial](https://docs.fly.io/about/free-trial/), read 2026-09-28). Use the trial to test a deployment, then make a separate decision about ongoing usage. Your Agent should not count the trial as a recurring allowance.
@@ -126,6 +147,7 @@ Compare the shortlisted free plans against this app and my usage estimate. Check
 You are choosing an acceptable set of limits. A generous request allowance does not help if the app needs an unsupported database, and a working demo does not prove its data will remain available next month.
 
 - **A personal project already on Vercel.** Stay on Hobby and add Neon or Supabase for data. Move the day it turns into a business, because Hobby forbids that.
+- **An app that also needs hosted login on a free account.** Netlify with Identity or Appwrite include it; accept Netlify's credit pool or Appwrite's quiet-week pause. ohmyho.st leaves login to Better Auth or WorkOS AuthKit.
 - **A business app that needs Postgres, on one free account.** ohmyho.st hosts the app and the database under one balance and lets your coding agent run it; use the flag if you want your domain on Free.
 - **An edge app that works with SQLite.** Compare Cloudflare Workers and D1, and account for the Cloudflare DNS requirement for a Worker custom domain.
 - **Only a database.** Neon if you want plain Postgres that never pauses into a manual restore; Supabase if you want its auth and storage and can live with the weekly pause.
@@ -163,10 +185,14 @@ Yes. Free Render Postgres databases expire 30 days after creation, and after a 1
 
 Not for new organizations. Fly.io offers a trial of 2 hours of machine runtime or 7 days, whichever comes first, and apps stop when it ends until billing is set up.
 
+### Which free plans include hosting, Postgres and login?
+
+Netlify's Free card lists hosting, Netlify Database and, through Identity, login with no cap on active users. Appwrite offers Sites and login, but its Free database is TablesDB rather than PostgreSQL. InsForge combines a Postgres backend and login with frontend hosting that runs on Vercel. ohmyho.st Free has hosting and Postgres, and your app brings its own login. The [all-in-one comparison](/blog/all-in-one-vercel-supabase-alternatives) shows what each one covers.
+
 ### Which free plans need no credit card?
 
 Railway's and Neon's pricing pages both say no credit card is required, and ohmyho.st Free needs none either. Fly.io requires billing after its trial.
 
-{{ sources vercel supabase cloudflare cloudflareD1 render railway neon fly }}
+{{ sources vercel supabase cloudflare cloudflareD1 render railway neon fly appwrite netlify insforge }}
 
 [ohmyho.st vs Vercel](/vs/vercel) · [ohmyho.st vs Supabase](/vs/supabase) · [Railway vs Render vs Fly.io](/blog/railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026) · [Pricing](/pricing)
