@@ -1,0 +1,49 @@
+{
+  "capturedAt": "2026-10-27T21:36:07.853Z",
+  "label": "free-tiers-20261027",
+  "tool": {
+    "playwright": "1.62.1",
+    "chromium": "151.0.7922.34"
+  },
+  "context": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "deviceScaleFactor": 1,
+    "locale": "en-US",
+    "timezoneId": "America/New_York"
+  },
+  "entries": [
+    {
+      "file": "free-tiers-20261027--vercel.com--pricing--1440x900@1--full.jpg",
+      "url": "https://vercel.com/pricing",
+      "finalUrl": "https://vercel.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-27T21:36:22.837Z",
+      "kind": "full",
+      "bytes": 880062,
+      "sha256": "896b7739ea9baf45c2351f508733d4afefb16059b9f36c6b7c19455b1196b8cf"
+    },
+    {
+      "file": "free-tiers-20261027--vercel.com--docs-postgres--1440x900@1--full.jpg",
+      "url": "https://vercel.com/docs/postgres",
+      "finalUrl": "https://vercel.com/docs/postgres",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-27T21:36:30.647Z",
+      "kind": "full",
+      "bytes": 170559,
+      "sha256": "4ac182227fd14048bfbe13de4dd0cd40b31340344e8767119fde117edbff8fd0"
+    },
+    {
+      "file": "free-tiers-20261027--supabase.com--docs-guides-functions-limits--1440x900@1--full.jpg",
+      "url": "https://supabase.com/docs/guides/functions/limits",
+      "finalUrl": "https://supabase.com/docs/guides/functions/limits",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-27T21:36:35.013Z",
+      "kind": "full",
+      "bytes": 196657,
+      "sha256": "186a5d85555b297a4bfbc24b349b0bab4761c141cd65600209fd39a81f96fa60"
+    }
+  ]
+}

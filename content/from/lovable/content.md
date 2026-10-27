@@ -1,6 +1,18 @@
-# Host a Lovable app after you export it to GitHub
+# Deploy your exported Lovable app on ohmyho.st
 
-Export your Lovable project to GitHub, then ask a coding agent to check the Vite app, its external services and login before deploying it to ohmyho.st. Keeping Supabase and moving to managed Postgres are separate choices, each requiring verification. Free gives {{ number plan.freeCredits }} credits a month; Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, and a small app uses about {{ credits workload.smallApp }}.
+You have exported your Lovable project to GitHub. Paste the prompt below into your coding agent: it reads the repository, plans a Dev deployment on ohmyho.st, and only after you have tried the preview promotes it to Prod. Keeping Supabase and moving to managed Postgres are separate choices, each requiring verification. Free gives {{ number plan.freeCredits }} credits a month; Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, and a small app uses about {{ credits workload.smallApp }}.
+
+**What this page is for:** deploying the exported app here. If you are still deciding whether to move, or want a checklist of what Lovable's own documentation says you must redo, read the guide [Hosting a Lovable app after export: a migration checklist](/blog/host-a-lovable-app-after-export) first. To get the repository, follow [How to export Lovable code to GitHub](/blog/how-to-export-lovable-code-to-github).
+
+## Deploy it: paste this prompt
+
+Open your coding agent (Claude Code, Cursor or Codex), tell it the repository URL, and paste this. If the repository is not on your machine yet, the agent clones it.
+
+```text
+{{ prompt }}
+```
+
+What happens next, in plain words. The agent reads two pages, installs the ohmyho.st CLI and MCP server, and prints a sign-in link with a short code. You open the link in your browser, check that the page shows the same code, and sign in or sign up. For a selected GitHub source it obtains repository access when needed; managed source saves the current files as a version. It reviews a deployment plan with you and only then builds. Every expensive step is a plan you confirm: `deployment_plan` before `deployment_create`, `promotion_plan` before `promotion_execute`. Private values use local stdin or the supported remote portal path below, only when the app needs them.
 
 {{ figure flow.lovable-export }}
 
@@ -8,11 +20,11 @@ Export your Lovable project to GitHub, then ask a coding agent to check the Vite
 
 Need the exact menu clicks? Follow [How to export Lovable code to GitHub](/blog/how-to-export-lovable-code-to-github), our screenshot guide to connecting GitHub, checking the sync and downloading your source code.
 
-Lovable exports a Vite and React repository, which is the starting point for the hosting review. The agent checks the exported source, build command and dependencies with `ohmyhost init --dry-run --json`. A frontend build alone does not establish that its external database, authentication or files work from the new host; test those flows on Dev before moving production traffic.
+Lovable's external-hosting guide (read 2026-10-27) names two stacks: older React + Vite apps that build to static files in `dist/`, and TanStack Start apps created from May 13, 2026 that also run server code. Both are supported frameworks here ([Vite](https://docs.ohmyho.st/frameworks/vite), [TanStack Start](https://docs.ohmyho.st/frameworks/tanstack)); the agent tells you which one your repository is before it plans anything. The agent checks the exported source, build command and dependencies with `ohmyhost init --dry-run --json`. A frontend build alone does not establish that its external database, authentication or files work from the new host; test those flows on Dev before moving production traffic.
 
 Lovable's GitHub integration keeps the project "in continuous sync with your repository", and "external platforms deploy directly from GitHub" (https://docs.lovable.dev/tips-tricks/external-deployment-hosting, read 2026-09-20). The sync runs both ways: edits you make in Lovable land in the repository as commits, and commits from your agent show up in Lovable.
 
-You can also keep working on the exported code with the agent you already use. The [Lovable alternative guide](/blog/lovable-alternative-bring-your-own-llm) explains how Claude Code, Codex, Cursor and Grok Build fit that workflow and how to coordinate their edits with Lovable's sync.
+You can also keep working on the exported code with the agent you already use. The [Lovable alternative guide](/blog/lovable-alternative-bring-your-own-llm) explains how Claude Code, Codex, Cursor and Grok Build fit that workflow and how to coordinate their edits with Lovable's sync. To try the exported app on your own computer first, follow [How to run a Lovable project locally](/blog/run-lovable-project-locally).
 
 Three things to do in Lovable:
 
@@ -57,16 +69,6 @@ If you want off Supabase, the agent follows the [Supabase migration Skill](/skil
 Either way your data stays portable. An Owner can request a password-encrypted ZIP with a SQL dump (`project_export_create`): one accepted request for each project in any 24-hour window, download link valid 24 hours. SQL exports are free, even at zero credits.
 
 {{ checked supabase }}
-
-## Paste this prompt
-
-Open your coding agent (Claude Code, Cursor or Codex), tell it the repository URL, and paste this. If the repository is not on your machine yet, the agent clones it.
-
-```text
-{{ prompt }}
-```
-
-What happens next, in plain words. The agent reads two pages, installs the ohmyho.st CLI and MCP server, and prints a sign-in link with a short code. You open the link in your browser, check that the page shows the same code, and sign in or sign up. For a selected GitHub source it obtains repository access when needed; managed source saves the current files as a version. It reviews a deployment plan with you and only then builds. Every expensive step is a plan you confirm: `deployment_plan` before `deployment_create`, `promotion_plan` before `promotion_execute`. Private values use local stdin or the supported remote portal path above, only when the app needs them.
 
 ## How to move your app from Lovable
 
@@ -134,7 +136,7 @@ Yes. Lovable's GitHub integration keeps the project in continuous sync with the 
 
 ### What about Lovable Cloud data?
 
-Lovable's guide says the backend "can remain on the built-in backend (Cloud) or run elsewhere", and that you export data under More → Cloud → Overview → Advanced settings → Export data (docs.lovable.dev, read 2026-09-20). Table contents and storage files move manually; user passwords cannot be exported, so moved users need a password reset. Before choosing to keep Cloud behind a hosted frontend, verify its actual functions, login and file access on Dev. Keep the data move separate from the hosting change.
+Lovable's guide says the backend "can remain on the built-in backend (Cloud) or run elsewhere" (docs.lovable.dev, read 2026-09-20). Its current [database export](https://docs.lovable.dev/features/database-backups#export-your-database) is under More → Database → Manage → Settings → Export project data. It contains the database structure, records and user accounts with their password hashes, so users restored into a Supabase project keep their passwords. Storage files, function code, secrets and sign-in provider settings are not included and move separately (read 2026-10-27). [How to move out of Lovable Cloud](/blog/move-out-of-lovable-cloud) walks through that move. Before choosing to keep Cloud behind a hosted frontend, verify its actual functions, login and file access on Dev. Keep the data move separate from the hosting change.
 
 ### Do I have to use the terminal?
 

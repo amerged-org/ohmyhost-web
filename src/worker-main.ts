@@ -517,7 +517,10 @@ export default {
       );
       headers.set(
         "link",
-        `<${markdownPath}>; rel="alternate"; type="text/markdown"`,
+        page === "brand.html"
+          ? // The approved /brand artifact is hash-locked and has no canonical tag of its own.
+            `<https://ohmyho.st/brand>; rel="canonical", <${markdownPath}>; rel="alternate"; type="text/markdown"`
+          : `<${markdownPath}>; rel="alternate"; type="text/markdown"`,
       );
       if (page === "home.html" && source)
         body = body.replace("</head>", () => signupSourceMeta(source));

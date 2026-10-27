@@ -60,7 +60,7 @@ Open the repository on GitHub and look for the recent change you picked earlier.
 
 Copy your repository's clone URL from the connection screen. HTTPS, SSH and GitHub CLI are supported options. Your Agent can use the authentication method available on your computer; [GitHub's cloning guide](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) explains them.
 
-Here a prompt:
+Give your Agent the URL and branch with this prompt:
 
 ```text
 Clone [REPOSITORY URL] from branch [BRANCH] into my projects folder.
@@ -76,7 +76,7 @@ A clone includes Git history as well as the files. Ask your Agent to show you th
 
 Now give your Agent a specific inspection task. The useful result is a short explanation of how this app works and what is needed to run it, not a long list of files.
 
-Here a prompt:
+Then ask for a short inspection:
 
 ```text
 Inspect this exported Lovable project. Identify its framework, package
@@ -105,7 +105,7 @@ You can use the inspection prompt above on a ZIP too. Tell your Agent it came fr
 
 If the export looks wrong, give your Agent the exact message and the point where you got stuck. A screenshot of the connection status is useful; private credentials are not.
 
-Here a prompt:
+Describe the problem precisely, for example:
 
 ```text
 Help me diagnose this Lovable export: [EXACT MESSAGE].

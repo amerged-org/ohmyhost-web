@@ -14,7 +14,7 @@ The competitor prices in this article are a dated snapshot, with the checked dat
 
 Start with the repository. A static site, a server-rendered app and a worker that runs continuously need different hosting. A small homepage can also depend on a database or an email service that has its own bill.
 
-Here a prompt:
+Ask your Agent to describe what must run in production:
 
 ```text
 Inspect this repository and list what must run in production: the app, database, files, email and background work. Explain which requirements Railway, Render, Fly.io and ohmyho.st can meet. Flag anything you cannot verify. Do not create services yet.
@@ -66,7 +66,7 @@ Your Agent can configure autostop and autostart, then test the first request aft
 
 The example is a Next.js app with Postgres, a small amount of stored data, occasional database activity, builds and transactional mail. The ohmyho.st table below states the quantities and rates. For the competitors, we use their checked price rows and billing formulas. We have not measured their containers, so we cannot turn the same feature list into an exact usage bill.
 
-Here a prompt:
+Then ask it to price a quiet month and a busy month:
 
 ```text
 Estimate a quiet month and a busy month for this app on the compatible hosts. Include the database, storage, builds, traffic and email. Cite the current prices and show every assumption. Keep measured usage, fixed prices and estimates separate, and identify missing costs.
@@ -136,7 +136,7 @@ Give your Agent the existing project and source. It can continue that source, sa
 
 You do not need to memorize the tool names. Ask for the planned cost, the version being tested and the Dev link. Supply secrets through the private input flow. US hosting is the default; EU is a project-creation choice at the same prices. The portal at app.ohmyho.st shows projects, credits, budgets and API tokens. Deployment runs through your Agent; the [MCP tools](https://docs.ohmyho.st/mcp-tools) reference documents the {{ tools }}-tool catalog.
 
-Here a prompt:
+To test on ohmyho.st without touching the live site, use:
 
 ```text
 Prepare this app on Dev using its current source. Show the build quote, required settings and expected ongoing costs. Give me a link and a short checklist for login, data, files and email. Keep the current production site serving while I review the result.

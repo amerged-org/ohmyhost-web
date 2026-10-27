@@ -1,6 +1,6 @@
 {
-  "title": "Free Vercel and Supabase alternatives compared (2026)",
-  "description": "Vercel Hobby and Supabase Free compared with ohmyho.st, Appwrite, Netlify, InsForge, Cloudflare, Render, Railway, Neon and Fly.io: hosting, Postgres, limits.",
+  "title": "Supabase Free and Vercel Hobby limits vs alternatives",
+  "description": "Supabase Free: 2 active projects, a 500 MB database, a pause after a quiet week. Vercel Hobby: non-commercial only. Compared with nine alternatives.",
   "kind": "article",
   "status": "published",
   "crumb": "Free Vercel and Supabase alternatives",
@@ -13,5 +13,5 @@
   "parent": "/blog",
   "author": "Sebastian Mertens",
   "published": "2026-09-28",
-  "modified": "2026-10-22"
+  "modified": "2026-10-27"
 }

@@ -90,3 +90,5 @@ Yes. Build and check Dev first, then promote that same artifact to Production. T
 Choose ohmyho.st if you want your coding agent to handle deployment and publication. For direct Cloudflare configuration or a different Git and dashboard workflow, compare the options in [Best Astro Hosting for 2027](/blog/best-astro-hosting-2027).
 
 [Deploy Astro on ohmyho.st](https://docs.ohmyho.st/quickstart) · [Check the Astro setup](https://docs.ohmyho.st/frameworks/astro)
+
+Other frameworks: [Next.js](/frameworks/nextjs) · [Vite and React](/frameworks/vite) · [TanStack Start](/frameworks/tanstack)

@@ -1,0 +1,59 @@
+{
+  "capturedAt": "2026-10-27T21:34:04.342Z",
+  "label": "free-tiers-20261027",
+  "tool": {
+    "playwright": "1.62.1",
+    "chromium": "151.0.7922.34"
+  },
+  "context": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "deviceScaleFactor": 1,
+    "locale": "en-US",
+    "timezoneId": "America/New_York"
+  },
+  "entries": [
+    {
+      "file": "free-tiers-20261027--supabase.com--pricing--1440x900@1--full.jpg",
+      "url": "https://supabase.com/pricing",
+      "finalUrl": "https://supabase.com/pricing",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-27T21:34:10.407Z",
+      "kind": "full",
+      "bytes": 880915,
+      "sha256": "dcb9f1d3ad2d87aab9d36be8613fa6d6638fa9c6764a7f31051d58367ba35aec"
+    },
+    {
+      "file": "free-tiers-20261027--supabase.com--docs-guides-platform-free-project-pausing--1440x900@1--full.jpg",
+      "url": "https://supabase.com/docs/guides/platform/free-project-pausing",
+      "finalUrl": "https://supabase.com/docs/guides/platform/free-project-pausing",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-27T21:34:14.923Z",
+      "kind": "full",
+      "bytes": 234002,
+      "sha256": "db52213c6e9009843be4a0ffe379bb05a89194e4a526fd52a4652cc25eda503c"
+    },
+    {
+      "file": "free-tiers-20261027--vercel.com--docs-plans-hobby--1440x900@1--full.jpg",
+      "url": "https://vercel.com/docs/plans/hobby",
+      "finalUrl": "https://vercel.com/docs/plans/hobby",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-27T21:34:22.579Z",
+      "kind": "full",
+      "bytes": 404219,
+      "sha256": "651c36f7cfa3db9c4d45e857dc14cdc9be8a56905170f9be8a8fee75eefa7bd6"
+    },
+    {
+      "file": "free-tiers-20261027--vercel.com--docs-limits-fair-use-guidelines--1440x900@1--full.jpg",
+      "url": "https://vercel.com/docs/limits/fair-use-guidelines",
+      "finalUrl": "https://vercel.com/docs/limits/fair-use-guidelines",
+      "httpStatus": 200,
+      "capturedAt": "2026-10-27T21:34:27.554Z",
+      "kind": "full",
+      "bytes": 384287,
+      "sha256": "0c751c45d0a2d175070dd7db86a4fa0ef2c23981dc57f96a08b91aab2b1e0aa7"
+    }
+  ]
+}

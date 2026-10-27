@@ -30,6 +30,8 @@ export const FOUNDER = {
   name: "Sebastian Mertens",
   path: "/about",
   image: "/brand/assets/founder.png",
+  /** The founder's own profile, linked from the About page; it is not the organization's. */
+  profile: "https://www.linkedin.com/in/auto-mate/",
 } as const;
 
 const LEGAL_MODIFIED = "2026-09-19";

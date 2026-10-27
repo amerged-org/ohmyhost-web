@@ -20,7 +20,7 @@ The [Vercel and Supabase comparison](/blog/supabase-vs-vercel-do-you-need-both) 
 
 Total: {{ usd scenario.threeSubscriptions }} a month before usage above the allowances. Check what those subscriptions do for you before treating the total as money you could save. Supabase Pro also provides application auth for its monthly active users. With ohmyho.st, application auth needs its own setup, such as Better Auth or your own WorkOS AuthKit; platform login is separate from your app’s users. Vercel Pro also supplies a team workflow you might rely on.
 
-Here a prompt:
+Give your Agent the invoices and usage, then ask:
 
 ```text
 Review the plan names, invoices and usage I provide. Separate subscriptions, seats, per-project compute and overages. Connect each service to the features my apps use, and flag missing costs. Keep unknown usage explicit instead of filling it with estimates.
@@ -90,7 +90,7 @@ Compare that workload with the {{ usd scenario.fiveProjects }} subscription scen
 
 Give your Agent the app inventory and billing breakdown from earlier. It should inspect the repositories to see whether they fit the proposed runtime, then estimate their usage. If you do not have measurements yet, ask for a range with visible assumptions. A precise-looking total based on guessed activity is still a guess.
 
-Here a prompt:
+Then price the same usage on ohmyho.st:
 
 ```text
 Estimate this portfolio on ohmyho.st using its current rate card and the usage we collected. Include builds, active database time, retained data, deployed scripts, mail and domains. Keep external services in the total, identify required migrations, and show a monthly breakdown per project for quiet and busier usage with clear assumptions.
@@ -124,7 +124,7 @@ Keep in mind: you can keep a service that suits the workload. Moving app hosting
 
 Once the estimate looks useful, choose a project for a test. You decide how much usage is acceptable and what should happen at a limit. Your Agent can configure and read back the budget, but it needs that preference from you. A warning is useful for a live app that must keep running; a stop setting may fit an experiment you are happy to pause.
 
-Here a prompt:
+Before a real deployment, ask about budgets:
 
 ```text
 Explain the current balance and project-budget options for this test app. Ask me to choose the amount and whether to warn or stop, then apply and read back that choice. Keep automatic recharge off unless I explicitly choose it, and show which retained or delayed charges can remain.

@@ -33,7 +33,7 @@ There is no rule that every small app needs both paid plans. Your hosting plan, 
 
 You do not need to identify every dependency yourself. Open the repository with your Agent and ask for a plain-language inventory. It should connect the technical parts to things you recognize: signing in, uploading a file, getting an email or seeing a live update. That gives you something useful to check against the platform descriptions below.
 
-Here a prompt:
+Ask your Agent for that inventory with this prompt:
 
 ```text
 Inspect this app without changing it. List its framework, server routes, database, login, files, realtime features and background jobs. For each, explain what the user would notice if it stopped working and whether it depends on a provider-specific service.
@@ -121,7 +121,7 @@ For database portability, [encrypted SQL exports](https://docs.ohmyho.st/backups
 
 Now use the inventory from your Agent. Pick the providers that look suitable and ask it to compare the same app on each. You want to see what stays, what needs changing and what is unsupported, with links you can check.
 
-Here a prompt:
+Use this prompt to compare the shortlist against that inventory:
 
 ```text
 Compare my current setup with the platforms I shortlisted using the app inventory above. Show required code changes, login and data migration work, preview isolation and costs at my actual usage. Check current official docs and dated pricing. Explain any unknowns before recommending a move.
@@ -139,7 +139,7 @@ Use the recommendation as a decision aid. If it says a feature is unsupported, d
 
 Once you choose, start with a test deployment. For ohmyho.st, your Agent can follow the [getting started Skill](/skills/ohmyhost-get-started/SKILL.md). You check the result in the browser: sign in, open a protected page, save a record and use any file or realtime feature that matters.
 
-Here a prompt:
+When you have picked one, ask for a test deployment:
 
 ```text
 Prepare a test deployment on the platform I chose. Explain the data and login setup first, keep production traffic on the current host, and give me a short browser checklist for the features we marked as required. Show remaining migration work before we plan the live move.

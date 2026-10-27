@@ -71,7 +71,17 @@ An agent loop spends on builds, requests, database time and whatever it keeps. O
 
 Compare that total with {{ number plan.freeCredits }} Free or {{ number plan.paidCredits }} Paid credits a month, and set the stop budget from it. The full rate card is at [/pricing/breakdown](/pricing/breakdown) and [docs.ohmyho.st/pricing](https://docs.ohmyho.st/pricing).
 
+## What we have tested, and what we have not
+
+On October 27, 2026 we started the locally installed `ohmyhost-mcp` (version 0.1.36) over stdio from a script, sent `initialize` and `tools/list`, and read the answer. It listed `identity_get`, `source_inspect`, `deployment_plan`, `deployment_create`, `deployment_logs`, `promotion_plan`, `promotion_execute` and `secret_set_command`. The [captured result](https://github.com/amerged-org/ohmyhost-web/blob/main/evidence/mcp-stdio-session-20261027.json) is in our public repository.
+
+That is a protocol check of the shared tool server, not a Codex session. We have not published a transcript of Codex deploying an app, tested an unattended run, or checked the Codex IDE extension. The same check applies to Claude Code and Cursor.
+
 ## FAQ
+
+### Is there a recorded Codex deployment I can look at?
+
+Not yet. When we record a real Codex run with its commands and resulting address, it will be added here with its date.
 
 ### Does Codex need a human for every deployment?
 

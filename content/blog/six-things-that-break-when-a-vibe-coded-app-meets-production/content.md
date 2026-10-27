@@ -16,7 +16,7 @@ A local app can call an API or database on your computer. Once deployed, those a
 
 Ask your Agent to find localhost addresses and identify the service behind each one. Some should become same-origin app routes. Others need the address of a hosted service. An example environment file lists required settings, but it does not prove the real values have been supplied.
 
-Here a prompt:
+Ask your Agent to look for deployment blockers:
 
 ```text
 Check this app for deployment blockers. Find local URLs, missing configuration, login callbacks and external API calls. Explain which feature each affects, fix the code where needed, and list the account settings I must supply. Use a development environment for checks that write data.
@@ -48,7 +48,7 @@ Look for a local database file before deploying. Your Agent may find SQLite conf
 
 On ohmyho.st, the app runs on Workers and persistent application data belongs in the managed database or another supported service. A native database addon may also need replacement. The compatibility check should explain the issue before your Agent starts changing the application.
 
-Here a prompt:
+To find where data lives and plan the move, use:
 
 ```text
 Inspect where this app stores data. Prepare a supported production setup while preserving its features and existing records. Explain what will change, use isolated development data for the trial, and show how you will verify record counts, relationships and new writes before any production switch.
@@ -74,7 +74,7 @@ On ohmyho.st, local secret input reads from stdin, and the supported remote flow
 
 Your Agent should also check that local secret files are ignored by Git and that credentials are absent from browser code, screenshots and notes. It should not copy its own hosting credentials into your application. The [secrets guide](https://docs.ohmyho.st/secrets) describes the supported input paths and reserved names.
 
-Here a prompt:
+To separate public settings from secrets, ask:
 
 ```text
 Review secrets and environment variables in this project without printing their values. Separate public browser settings from private server settings. Identify credentials that need rotation, prepare the private input flow for replacements, and verify that the production build does not expose them.
@@ -112,7 +112,7 @@ Managed mail uses {{ rate mail.sent }} per sent recipient, with no monthly mail-
 
 Continue the source you already have, whether it is managed source or a GitHub repository you authorize. The [deploy Skill](/skills/ohmyhost-deploy/SKILL.md) guides your Agent through that route. Containers remain outside the supported runtime.
 
-Here a prompt:
+To connect your Agent and start the Dev deployment, use:
 
 ```text
 {{ prompt }}

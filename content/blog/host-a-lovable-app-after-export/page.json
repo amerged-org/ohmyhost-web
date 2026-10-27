@@ -1,6 +1,6 @@
 {
-  "title": "Hosting a Lovable app after export: the exact path",
-  "description": "What Lovable's own docs make you redo by hand after exporting to GitHub, what a coding agent does instead, and what the first month of hosting actually costs.",
+  "title": "Lovable app after export: a migration checklist",
+  "description": "A checklist for moving a Lovable app to another host after exporting to GitHub: stack, backend, login URLs, secrets, data and testing before the domain moves.",
   "kind": "article",
   "status": "published",
   "crumb": "Host a Lovable app",
@@ -13,5 +13,5 @@
   "parent": "/blog",
   "author": "Sebastian Mertens",
   "published": "2026-09-20",
-  "modified": "2026-10-21"
+  "modified": "2026-10-27"
 }

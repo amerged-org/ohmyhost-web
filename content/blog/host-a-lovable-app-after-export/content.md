@@ -1,8 +1,25 @@
-# Hosting a Lovable app after export: the exact path
+# Lovable app after export: a migration checklist
 
-By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 20, 2026 · Updated October 21, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 20, 2026 · Updated October 27, 2026
 
-Your Lovable code is in GitHub. Now ask your Agent to check what it needs and prepare a Dev preview on the new host. Open that preview, test the important parts of your app and decide when to make it live.
+Your Lovable code is in GitHub. Before you pick a host, work through this checklist with your Agent. It applies to any host, not only ours. If you have already decided to deploy on ohmyho.st, the short path is [Deploy your exported Lovable app on ohmyho.st](/from/lovable).
+
+## The checklist
+
+Lovable's [external-hosting guide](https://docs.lovable.dev/tips-tricks/external-deployment-hosting), read October 27, 2026, is the source for the Lovable-specific items. Check each one before you move traffic.
+
+1. **Identify the stack.** Older React + Vite apps build to static files in `dist/` and need a static host with a fallback to `index.html`. TanStack Start apps created from May 13, 2026 also need a host that runs their server part. Open `package.json`: a TanStack Start project lists `@tanstack/react-start`.
+2. **Decide what moves.** Hosting, the built-in backend (Cloud) and your data are separate. You can move the frontend and leave the backend where it is.
+3. **Set the three `VITE_` values.** `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY` and `VITE_SUPABASE_PROJECT_ID` are embedded at build time. A TanStack Start app also needs the server-side `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY` and `SUPABASE_PROJECT_ID`. Rebuild after changing them.
+4. **Add redirect URLs.** If login uses Google or another OAuth provider, add the new address to the provider's allowed redirect URLs. Users who are signed in will need to sign in again.
+5. **Fix single-page routing.** If opening a deep link directly returns 404, the host needs a fallback rewrite that serves `/index.html`.
+6. **Export data if the backend moves.** Request the full database export under More → Database → Manage → Settings. Lovable says it includes user accounts with their password hashes, so users keep their passwords when restored into a Supabase project. Storage files, secrets and sign-in provider settings are manual. Users who are signed in need to sign in again.
+7. **Recreate secrets and scheduled jobs.** Edge Function code is in `supabase/functions/`; secrets are set separately; inventory scheduled jobs and recreate missing ones. App connectors keep working through Lovable only while the project uses the built-in backend.
+8. **Test before switching.** Deploy to a separate address, sign in, read and write a test record, then reload a deep link. Only then point your domain at it.
+
+The sections below turn each item into prompts for your Agent.
+
+After the checklist, ask your Agent to check what it needs and prepare a Dev preview on the new host. Open that preview, test the important parts of your app and decide when to make it live.
 
 The work between export and a working app depends on your project. Login needs the right return URLs. Server functions need their secrets. The database may still be with Lovable or Supabase. This guide gives you prompts for those jobs so you can review the result without working through deployment commands yourself.
 
@@ -20,11 +37,11 @@ If you also want a different editor, [using your own coding agent as a Lovable a
 
 ## Give your Agent the export
 
-Start with [How to export Lovable code to GitHub](/blog/how-to-export-lovable-code-to-github) if you do not have the repository yet. Check its owner, active branch and sync status, then share that repository URL with your Agent.
+Start with [How to export Lovable code to GitHub](/blog/how-to-export-lovable-code-to-github) if you do not have the repository yet. Check its owner, active branch and sync status, then share that repository URL with your Agent. If you want to try the app on your computer before choosing a host, [run the Lovable project locally](/blog/run-lovable-project-locally) first.
 
 Keep in mind that a Lovable export is not always a static frontend. Its [external-hosting guide](https://docs.lovable.dev/tips-tricks/external-deployment-hosting) distinguishes older React + Vite apps from TanStack Start apps that run server code. Your Agent should identify the actual framework and build output before choosing how to deploy it.
 
-Here a prompt:
+Start the inspection with this prompt:
 
 ```text
 Inspect my Lovable export at [REPOSITORY URL], branch [BRANCH], for hosting
@@ -67,7 +84,7 @@ Before a new project is created, check the workspace and region with your Agent.
 
 Your Agent can deploy to Dev and return its working address. If Dev is protected, it should give you the supported access link. An accepted build request is not the same as a working app, so wait for the completed deployment and open the actual preview.
 
-Here a prompt:
+When the inspection is done, ask for the Dev deployment:
 
 ```text
 Deploy the inspected version to Dev. Use test data and confirm which
@@ -90,7 +107,7 @@ Ask your Agent to configure the connections ohmyho.st needs to reach those servi
 
 Moving to managed Postgres is a separate job. A database import alone does not replace Supabase Auth, Storage, Realtime or Edge Functions. Your Agent needs to identify which of those your app uses, propose replacements where required and test the resulting behavior. Keep the current app available while that work is prepared.
 
-Here a prompt:
+If you decide to move the backend as well, plan it as a separate job:
 
 ```text
 Plan a separate backend migration for this app. Inventory database records,

@@ -198,6 +198,9 @@ ${skills
 - [From Lovable](https://ohmyho.st/from/lovable.md): Export to GitHub, what breaks by hand, keep or migrate Supabase, verify the login.
 - [From Bolt](https://ohmyho.st/from/bolt.md): Export from Bolt.new and deploy with secrets, callback URLs and a domain.
 - [Astro hosting](https://ohmyho.st/frameworks/astro.md): Static Astro and Workers SSR with a verified publication workflow.
+- [Next.js hosting](https://ohmyho.st/frameworks/nextjs.md): Supported versions, the build command, a public example and Workers limits.
+- [Vite and React hosting](https://ohmyho.st/frameworks/vite.md): Static apps, client-route reloads and the optional API companion.
+- [TanStack Start hosting](https://ohmyho.st/frameworks/tanstack.md): Static and edge modes, the Vite plugin setup and limits.
 - [From Replit](https://ohmyho.st/from/replit.md): Move a Replit app to Dev and Prod hosting with Postgres.
 - [From Vercel and Supabase](https://ohmyho.st/from/vercel-supabase.md): Two bills become one balance; keep Supabase or import a dump.
 

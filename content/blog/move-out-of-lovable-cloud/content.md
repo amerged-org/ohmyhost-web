@@ -20,7 +20,7 @@ If asking for a SQL password or connection address gets you nowhere, ask for the
 
 Lovable currently documents a full database export under **More → Database → Manage → Settings → Export project data**. It includes the database structure, records and authentication accounts with their password hashes. Files in storage and other service configuration are separate. The database must be running, and export size and frequency limits apply. Check the [current export documentation](https://docs.lovable.dev/features/database-backups#export-your-database) for your project.
 
-Here a prompt for your Agent:
+Ask your Agent to compare the two routes:
 
 ```text
 I want to move this app out of Lovable Cloud. Inspect the repository and list the backend services it actually uses.
@@ -42,7 +42,7 @@ Tell Lovable what you need. You want to export your own application data. If you
 
 You can ask for all of your application tables. Have Lovable list them first, including the fields it proposes to expose. That makes “all” something you can check. System tables, login credentials and private service settings do not belong in this general export interface.
 
-Here a prompt to paste into Lovable:
+Paste this request into Lovable:
 
 ```text
 I own this project and want to export its application data to a backend I control.
@@ -65,7 +65,7 @@ This custom key is also different from a privileged database credential. The API
 
 You should end this step with a working API address and a privately configured key. You do not need to paste the key into the next prompt.
 
-Here a prompt for your Agent:
+Then ask your Agent to set and test the key:
 
 ```text
 Help me set the same fresh, strong random export key in Lovable's server secret configuration and your private local configuration. Use the supported private input flow and do not print the key here.
@@ -78,7 +78,7 @@ Once it is set, verify an authenticated read and check that the same request wit
 
 Now ask Lovable for an `openapi.json` file. This tells your Agent which endpoints exist, how to authenticate and how to read the responses. You do not need a documentation website for this handoff.
 
-Here a prompt for Lovable:
+Ask Lovable for the document:
 
 ```text
 Create a valid OpenAPI JSON document for the export API you just built and make it available at /openapi.json.
@@ -96,7 +96,7 @@ If the endpoint still needs a platform gateway or an extra authentication header
 
 Before filling the new database, have your Agent save a local copy. That gives you a checkpoint if an import fails or you need to change the table mapping.
 
-Here a prompt for your Agent:
+Ask your Agent for the local copy:
 
 ```text
 Use the export API described at [OpenAPI URL]. Read the approved read endpoints and use the export credential from my private configuration. Do not print the credential or put it in a URL.
@@ -118,7 +118,7 @@ If your Agent already created the destination and applied the migrations, tell i
 
 If the destination is not ready yet, ask the Agent to prepare an isolated development database from the repository's migration history. Have it compare that history with the approved source tables before importing. Lovable documents the migration layouts in its [database guide](https://docs.lovable.dev/features/database).
 
-Here a prompt:
+Ask your Agent to import the export into that database:
 
 ```text
 Use the destination database you prepared and the export we downloaded. Check both before importing the approved application data into an isolated development destination. If the destination is not clear, ask me which one to use.
@@ -158,7 +158,7 @@ If your destination is plain PostgreSQL or ohmyho.st, ask the Agent how it will 
 
 Point a test version at the new backend first. Keep the current app available while you test the replacement.
 
-Here a prompt:
+Then ask for a test version connected to the new backend:
 
 ```text
 Give me a test version of the app connected to the new backend. Check migrated records, login, protected access, uploads, functions and scheduled jobs. List remaining Lovable Cloud, AI and connector gateway dependencies.

@@ -84,7 +84,17 @@ Where Vercel wins: Vercel Hobby costs {{ usd vendor.vercel.hobby }} a month for 
 
 {{ checked vercel }}
 
+## What we have tested, and what we have not
+
+On October 27, 2026 we started the locally installed `ohmyhost-mcp` (version 0.1.36) over stdio from a script, sent `initialize` and `tools/list`, and read the answer. It listed `identity_get`, `source_inspect`, `deployment_plan`, `deployment_create`, `deployment_logs`, `promotion_plan`, `promotion_execute` and `secret_set_command`. The [captured result](https://github.com/amerged-org/ohmyhost-web/blob/main/evidence/mcp-stdio-session-20261027.json) is in our public repository.
+
+That is a protocol check of the shared tool server, not a Cursor session. We have not published a transcript of Cursor deploying an app and make no claim about how Cursor's agent chat or its MCP settings screen behave. The same check applies to Claude Code and Codex.
+
 ## FAQ
+
+### Is there a recorded Cursor deployment I can look at?
+
+Not yet. When we record a real Cursor run with its commands and resulting address, it will be added here with its date.
 
 ### Does Cursor need an API token?
 
@@ -97,10 +107,6 @@ Yes, when the sites are static or quiet. {{ number plan.freeCredits }} credits a
 ### Where does the code come from?
 
 From the project's current managed source or a GitHub repository you authorize. Managed versions save the filtered current files; GitHub uses commits you push. Containers remain unsupported. Supported frameworks are Astro, Next.js, Vite with React and TanStack Start. Cursor runs `ohmyhost init --dry-run` first and reports blockers before anything is provisioned.
-
-### What happens when the balance hits zero?
-
-A seven-day grace period starts and the Owner gets one warning mail. Funded services keep running during grace, and any refill clears it. After an unresolved grace period only unfunded services suspend; data, exports, diagnosis and buying credit stay available. Automatic recharge stays off unless the Owner turns it on.
 
 ### Can I take my data and leave?
 

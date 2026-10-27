@@ -73,7 +73,17 @@ Free gives {{ number plan.freeCredits }} credits per UTC month. Paid is {{ usd p
 
 A quiet month is cheaper. Idle database compute suspends; what remains is retained storage at {{ rate neon.storage.root }}, the deployed script at about {{ credits unit.deployedScriptMonth }} a month and a linked custom hostname at about {{ credits unit.customHostnameMonth }} a month, nothing while the project shows the “Powered by ohmyho.st” flag. A mail domain has no monthly fee. {{ text workload.quietProject.name }} comes to about {{ credits workload.quietProject }}. Requests are {{ rate wfp.requests }}; Workers bandwidth is not charged and SQL exports are free. One active hour on the Paid standard {{ value profile.standard.cu }} CU database is about {{ credits unit.activeDatabaseHourStandard }}.
 
+## What we have tested, and what we have not
+
+On October 27, 2026 we started the locally installed `ohmyhost-mcp` (version 0.1.36) over stdio from a script, sent `initialize` and `tools/list`, and read the answer. The list included `identity_get`, `source_inspect`, `deployment_plan`, `deployment_create`, `deployment_logs`, `promotion_plan`, `promotion_execute` and `secret_set_command`, the tools this page names. The [captured result](https://github.com/amerged-org/ohmyhost-web/blob/main/evidence/mcp-stdio-session-20261027.json) is in our public repository.
+
+That is a protocol check of the shared tool server. It is not a recorded Claude Code session: we have not published a transcript of Claude Code deploying an app, and we make no claim about how Claude Code behaves beyond what its own MCP documentation says. The same check applies to Cursor and Codex, so it does not tell the three apart.
+
 ## FAQ
+
+### Is there a recorded Claude Code deployment I can look at?
+
+Not yet. The evidence above shows that the MCP server answers and lists the deployment tools. When we record a real Claude Code run with its commands and resulting address, it will be added here with its date.
 
 ### Do I need anything besides Claude Code?
 
@@ -86,10 +96,6 @@ No. `secret_set_command` returns a CLI command that reads the value from stdin. 
 ### Can I run this in CI without the browser login?
 
 Yes. After one interactive login, `token_create` writes a non-expiring API token to a private env file and returns only metadata. Set `OHMYHOST_TOKEN` from that file in the runner; it overrides any saved login. A token can deploy, promote and read usage, but it cannot create or select a workspace or mint another token. Revoke it with `token_revoke` when the runner goes away.
-
-### What does a project cost when nobody visits it?
-
-{{ text workload.quietProject.name }} comes to about {{ credits workload.quietProject }}: two build minutes, a few thousand requests, one active database hour, a fifth of a gigabyte of storage and the deployed script. Idle database compute suspends; storage at {{ rate neon.storage.root }} and the script at about {{ credits unit.deployedScriptMonth }} a month keep using credits. Workers bandwidth is not charged.
 
 ### Can I leave with my data?
 

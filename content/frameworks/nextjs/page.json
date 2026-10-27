@@ -1,0 +1,8 @@
+{
+  "title": "Next.js Hosting on Cloudflare Workers | ohmyho.st",
+  "description": "Host a Next.js App Router app on ohmyho.st: supported versions, the exact build command, a public example repository, and what Workers cannot do. Start free.",
+  "kind": "howto",
+  "status": "published",
+  "crumb": "Next.js hosting",
+  "modified": "2026-10-27"
+}

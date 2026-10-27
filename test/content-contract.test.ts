@@ -26,7 +26,7 @@ import { CONTENT_PAGE_LIST } from "../src/pages/index.js";
 const root = new URL("../", import.meta.url);
 const MICROCREDITS = 1_000_000;
 /** Bump on the monthly price re-check; every vendor's checkedOn must be within 45 days of it. */
-const CONTENT_REVIEW_DATE = "2026-10-22";
+const CONTENT_REVIEW_DATE = "2026-10-27";
 const DOCS_SLUGS = new Set([
   "",
   "index",
@@ -87,6 +87,8 @@ const FORBIDDEN = [
   /smertens@/u,
   /@amerged\.com/u,
   /\boh my host\b/iu,
+  // Introduce each prompt with what it does; the bare template line read as a draft.
+  /\bHere a prompt\b/iu,
   /\boh,myho\.st\b/iu,
   /\bohmyoh\.st\b/iu,
   /\b(?:Vercel|Resend) charges per project\b/iu,

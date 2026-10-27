@@ -129,6 +129,16 @@ export function jsonLdGraph(
       alternateName: "ohmyhost",
       url: `${SITE_ORIGIN}/`,
       logo: `${SITE_ORIGIN}/logo.png`,
+      legalName: "Amerged B.V.",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Venray",
+        addressRegion: "Limburg",
+        addressCountry: "NL",
+      },
+      founder: { "@id": FOUNDER_ID },
+      // Organization profiles only. The founder's personal profile is on the Person node.
+      sameAs: ["https://github.com/amerged-org"],
     },
     {
       "@type": pageType,
@@ -159,7 +169,14 @@ export function jsonLdGraph(
     image: `${SITE_ORIGIN}${FOUNDER.image}`,
     jobTitle: "Founder",
     worksFor: { "@id": ORGANIZATION_ID },
+    sameAs: [FOUNDER.profile],
   };
+  if (meta.kind === "about") {
+    // The About page deliberately carries no founder photo; the node links the profile only.
+    const { image: _omitted, ...withoutImage } = person;
+    void _omitted;
+    graph.push(withoutImage);
+  }
   if (meta.kind === "article")
     graph.push(
       {

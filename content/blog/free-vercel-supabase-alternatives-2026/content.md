@@ -1,12 +1,30 @@
 # Free alternatives to Vercel and Supabase in 2026: the free plans compared
 
-By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 28, 2026 · Updated October 22, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 28, 2026 · Updated October 27, 2026
 
 A free plan is useful only if your app fits its limits and terms. Ask your Agent to check both before deploying. Vercel Hobby and Supabase Free cover different jobs, and the alternatives do too. This guide compares ohmyho.st, Appwrite, Netlify, InsForge, Cloudflare, Render, Railway, Neon and Fly.io so you can decide what to try and what happens when the allowance runs out.
 
 <figure class="fig"><img src="/images/free-alternatives-two-accounts.png" alt="Free Vercel and Supabase alternative: Vercel Hobby plus Supabase Free means two accounts and two sets of limits, one free plan for app and database means one account" width="1200" height="675" fetchpriority="high" decoding="async"><figcaption>The usual free stack is two products. Every alternative below answers the same question: how much of the pair does one free plan replace?</figcaption></figure>
 
-We make ohmyho.st. The comparison below uses the providers’ pricing and documentation from September 28, 2026, with links and dated screenshots. Those dates matter: ask your Agent to check the current terms before you create an account. We include the limits of our own Free plan too.
+We make ohmyho.st. The Supabase and Vercel answers below were re-read on October 27, 2026; the other providers carry the date of their own source (September 28 or October 22, 2026). Every row links to its source and has a dated screenshot. Those dates matter: ask your Agent to check the current terms before you create an account. We include the limits of our own Free plan too.
+
+## Supabase Free vs Vercel Hobby: the short answer
+
+Read on October 27, 2026 from each vendor's own pages. Use it as a first filter, then follow the source for the exact wording.
+
+| Question | Supabase Free | Vercel Hobby |
+| --- | --- | --- |
+| How many projects? | {{ text vendor.supabaseFree.projects.includes }} | {{ text vendor.vercelHobby.projects.includes }} |
+| What database do you get? | {{ text vendor.supabaseFree.database.includes }} | {{ text vendor.vercelHobby.database.includes }} |
+| Does it pause or stop? | {{ text vendor.supabaseFree.pausing.includes }} | {{ text vendor.vercelHobby.atLimit.includes }} |
+| Can you use it commercially? | No rule against it on the pricing and pausing pages. We did not read the full terms. | {{ text vendor.vercelHobby.commercial.includes }} |
+| Source | [Supabase pricing](https://supabase.com/pricing), [project pausing](https://supabase.com/docs/guides/platform/free-project-pausing) | [Vercel Hobby plan](https://vercel.com/docs/plans/hobby), [fair use guidelines](https://vercel.com/docs/limits/fair-use-guidelines) |
+
+Supabase Free is a backend, not an app host, and Vercel Hobby is an app host without its own database. Pairing them means two accounts, each with its own limits. The sections below explain each rule and compare the other free plans.
+
+{{ checked supabaseFree }}
+
+{{ checked vercelHobby }}
 
 If you are still deciding what each half of that stack does, [Supabase vs Vercel: do you need both?](/blog/supabase-vs-vercel-do-you-need-both) explains the division between app hosting and backend services, and when combining them makes sense.
 
@@ -20,7 +38,7 @@ Open the repository with your Agent and explain who the app is for. A personal e
 4. **What happens at the limit.** Decide whether you can accept a paused app, and check whether the chosen setup can incur charges.
 5. **Your own domain.** Decide whether a provider address is enough or whether your domain must work from the start.
 
-Here a prompt:
+To build that inventory, start with this prompt:
 
 ```text
 Inspect this app and list the hosting, database, login, files and mail it needs. Ask me whether it is personal or commercial and whether it needs a custom domain. Separate required services from optional ones before comparing free plans.
@@ -48,19 +66,19 @@ Each row has sources below. “No restriction found” means we did not find a r
 
 <figure class="fig"><img src="/images/free-alternatives-catches.png" alt="Four free-plan catches: Render web services sleep after 15 idle minutes, Supabase Free projects pause after a quiet week, Render free Postgres is deleted after 30 days, Vercel Hobby forbids business use" width="1200" height="675" loading="lazy" decoding="async"><figcaption>The four catches that matter most for a small real app. Read on each vendor's documentation, September 28, 2026.</figcaption></figure>
 
-## Vercel Hobby: check business use
+## Vercel Hobby limits and commercial use
 
-For a personal frontend, Vercel Hobby offers {{ text vendor.vercel.hobby.includes }}. Before comparing traffic allowances, check the use restriction in its fair use guidelines: "Hobby teams are restricted to non-commercial personal use only. All commercial usage of the platform requires either a Pro or Enterprise plan" ([Vercel fair use guidelines](https://vercel.com/docs/limits/fair-use-guidelines), read 2026-09-28).
+For a personal frontend, Vercel Hobby offers {{ text vendor.vercel.hobby.includes }}. Before comparing traffic allowances, check the use restriction in its fair use guidelines: "Hobby teams are restricted to non-commercial personal use only. All commercial usage of the platform requires either a Pro or Enterprise plan" ([Vercel fair use guidelines](https://vercel.com/docs/limits/fair-use-guidelines), read 2026-10-27).
 
-There is no database of its own any more: "Vercel Postgres is no longer available", and Postgres now comes from a Marketplace integration such as Neon or Supabase, each on that provider's own free plan ([Vercel Postgres docs](https://vercel.com/docs/postgres), read 2026-09-28). At the limit Vercel stops rather than bills: "if you exceed your usage limits on the Hobby plan, you will have to wait until 30 days have passed before you can use the feature again" ([Vercel Hobby plan](https://vercel.com/docs/plans/hobby), read 2026-09-28).
+There is no database of its own: Vercel says it lets you "connect external Postgres databases through the Marketplace", so the database comes from a provider such as Neon or Supabase on that provider's own plan ([Postgres on Vercel](https://vercel.com/docs/postgres), read 2026-10-27). At the limit Vercel stops rather than bills: "if you exceed your usage limits on the Hobby plan, you will have to wait until 30 days have passed before you can use the feature again" ([Vercel Hobby plan](https://vercel.com/docs/plans/hobby), read 2026-10-27).
 
 {{ checked vercel }}
 
-## Supabase Free: check inactivity
+## Supabase Free plan limits and pausing
 
-If your app already uses Supabase login, files or realtime features, count those when comparing databases. Its Free plan gives you Postgres plus auth, storage and realtime: {{ text vendor.supabase.free.includes }}. Supabase states the pause rule plainly: it "pauses Free Plan projects that show low activity over a 7-day period", and a paused project can be restored "for up to 1 year" ([Supabase free project pausing](https://supabase.com/docs/guides/platform/free-project-pausing), read 2026-09-28).
+If your app already uses Supabase login, files or realtime features, count those when comparing databases. Its Free plan gives you Postgres plus auth, storage and realtime: {{ text vendor.supabase.free.includes }}. Supabase states the pause rule plainly: it "pauses Free Plan projects that show low activity over a 7-day period", and a paused project can be restored "for up to 1 year" ([Supabase free project pausing](https://supabase.com/docs/guides/platform/free-project-pausing), read 2026-10-27).
 
-Keep a separate app host in the plan. Supabase Free provides the backend, while Edge Functions run server code, but "Serving of HTML content is only supported with custom domains (Otherwise GET requests that return text/html will be rewritten to text/plain)" ([Supabase function limits](https://supabase.com/docs/guides/functions/limits), read 2026-09-28), and custom domains are a paid add-on that the pricing page lists as not included on Free. Your Agent should price the frontend host as well. Also decide who will restore a paused project if you leave the app unused for a while.
+Keep a separate app host in the plan. Supabase Free provides the backend, while Edge Functions run server code, but "Serving of HTML content is only supported with custom domains (Otherwise GET requests that return text/html will be rewritten to text/plain)" ([Supabase function limits](https://supabase.com/docs/guides/functions/limits), read 2026-10-27), and custom domains are a paid add-on that the pricing page lists as not included on Free. Your Agent should price the frontend host as well. Also decide who will restore a paused project if you leave the app unused for a while.
 
 {{ checked supabase }}
 
@@ -138,7 +156,7 @@ For workloads that need a paid plan, the [Railway, Render, Fly.io and ohmyho.st 
 
 Pick the options that support the app you actually have. Then give your Agent a usage estimate: expected visitors, database activity, stored files and mail. If you do not know, ask it to show a quiet case and a busier case with the assumptions written out.
 
-Here a prompt:
+With the inventory and estimate ready, ask your Agent to check the shortlist:
 
 ```text
 Compare the shortlisted free plans against this app and my usage estimate. Check current official terms for commercial use, inactivity, data expiry, custom domains and charges at the limit. Show which services remain external and explain what would stop working if an allowance runs out.
@@ -159,7 +177,7 @@ You are choosing an acceptable set of limits. A generous request allowance does 
 
 Once you have chosen a plan, let your Agent prepare the app. It should explain the services it will create and any account steps you need to complete. You do not need to copy a set of terminal commands to prove the app works; use the test address and exercise its real features.
 
-Here a prompt:
+To prepare the test deployment, use:
 
 ```text
 Prepare this app on the free plan I selected. Confirm the connected database and use test data. Give me the test URL and a short checklist for login, saving records, file access and page reloads where those features exist. Explain the plan limits I need to remember after the test.
@@ -193,6 +211,6 @@ Netlify's Free card lists hosting, Netlify Database and, through Identity, login
 
 Railway's and Neon's pricing pages both say no credit card is required, and ohmyho.st Free needs none either. Fly.io requires billing after its trial.
 
-{{ sources vercel supabase cloudflare cloudflareD1 render railway neon fly appwrite netlify insforge }}
+{{ sources supabaseFree vercelHobby vercel supabase cloudflare cloudflareD1 render railway neon fly appwrite netlify insforge }}
 
 [ohmyho.st vs Vercel](/vs/vercel) · [ohmyho.st vs Supabase](/vs/supabase) · [Railway vs Render vs Fly.io](/blog/railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026) · [Pricing](/pricing)

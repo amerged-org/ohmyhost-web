@@ -27,7 +27,7 @@ Use the [export and sync guide](/blog/how-to-export-lovable-code-to-github) if y
 
 Lovable's [GitHub integration](https://docs.lovable.dev/integrations/github) syncs changes in both directions on the active branch. You can keep working in Lovable and also edit the repository externally. Coordinate those sessions so the tools are not changing the same files at the same time. Ask your Agent to work on a separate feature branch and review its changes before bringing them back to the synced branch.
 
-Here a prompt:
+Point your Agent at the repository and branch:
 
 ```text
 Open my Lovable project from [GitHub repository URL], starting from
@@ -66,7 +66,7 @@ Have your Agent give you a short inventory you can understand:
 
 The source export does not include the records in your database or the files in storage. Keeping your code gives you editing options, but provider-specific APIs still need attention when you replace a service. Check the data export and recovery path before planning a complete move.
 
-Here a prompt:
+Then ask what the app depends on:
 
 ```text
 Inspect this project's configuration and API calls. Explain which database, auth service, file storage and AI services it uses. Show variable names, never secret values. Tell me whether local development would contact production and what test configuration is missing. Do not migrate or replace any service.
@@ -80,7 +80,7 @@ There can also be a gap between a working local page and working integrations. O
 
 Once the app starts, choose a change you can judge yourself. A clearer empty state, an awkward form label or a small mobile layout problem works well. Avoid using a full authentication rewrite as your first test of a new coding workflow; it makes the result harder to assess and undo.
 
-Here a prompt:
+A first job could look like this:
 
 ```text
 On [page or route], replace the empty-state message with “[new message]”. Keep the existing behavior and styling. Run the relevant checks and show me the page locally. Then summarize the files changed and anything you could not verify. Leave the change on this branch for review.
@@ -113,7 +113,7 @@ ohmyho.st is a host that compatible Agents operate through [MCP or CLI](https://
 
 Start with a Dev preview you can open and test. Tell your Agent which services you intend to keep and ask it to explain any compatibility changes before applying them. Have it declare the external connections the app needs on the new host. Keep in mind that a preview address does not establish data isolation: check whether Dev and Prod share a backend before making test writes.
 
-Here a prompt:
+When you are ready to try another host, ask for a plan first:
 
 ```text
 Prepare an ohmyho.st deployment plan for this version of my app. Keep the existing backend and auth provider. Identify runtime compatibility, required secrets and callback URLs. Explain the cost estimate and whether Dev data is isolated. After I approve the plan, deploy to Dev and give me the preview to test. Wait for my approval before promoting to Prod.

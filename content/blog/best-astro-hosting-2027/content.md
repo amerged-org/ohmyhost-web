@@ -21,7 +21,7 @@ For a portfolio, you may care most about how easily you can review and publish a
 
 Give your Agent the repository and ask it to explain the choice using your actual pages.
 
-Here a prompt:
+To sort your routes into static and server-rendered pages, ask:
 
 ```text
 Check my Astro project and explain which routes can be built as static pages and which need server rendering. Identify the adapter, server dependencies and external services each hosting option would need. Recommend a setup using examples from my project.
@@ -96,7 +96,7 @@ After your Agent connects the CMS, make a small content edit and follow it throu
 
 A successful build is the start of your review. Ask your Agent to test the deployed site and give you links to named example pages from your project. It should check how server-rendered pages respond to different requests and whether middleware behaves as intended. You can then open an article, sign in to an account page and submit a test form where those features exist.
 
-Here a prompt:
+To get a preview you can review, use this prompt:
 
 ```text
 Deploy this Astro project to preview or Dev. Test static pages, images and interactive components. Vary requests to server-rendered routes and check middleware redirects, access control and headers. Test existing login and form flows. Report failures and give me named example-page links with a short checklist: open the article, sign in and submit a test form.
@@ -110,7 +110,7 @@ When moving from WordPress or Next.js, keep the public URLs, canonical tags, tit
 
 Our Seb Builds migration used static output because the publication did not need request-time rendering. We checked content routes, feeds, metadata, assets and browser interactions before publishing the tested Dev artifact to Prod. An account portal or a live inventory page may need a different setup. Use your site's behavior to make that choice.
 
-Here a prompt:
+Before switching traffic, ask your Agent to compare the two versions:
 
 ```text
 Compare the existing website with this Astro preview. Check public URLs, redirects, missing pages, canonical tags, titles, descriptions, feeds and assets. Report anything that changed unexpectedly. Give me representative pages to review and keep the current production deployment available until I approve the move.

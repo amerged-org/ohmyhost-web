@@ -6,7 +6,7 @@ Bring a GitHub app and ask your Agent to deploy it. ohmyho.st gives your coding 
 
 Signup is open, with no invitation or access code. Copy the agent prompt from the homepage. Your Agent sends back a sign-in link where you can sign in or create an account. Once connected, tell it which app you want to deploy.
 
-Here a prompt:
+For example:
 
 ```text
 Check my GitHub app and prepare an ohmyho.st Dev deployment. Identify the services it needs, check its main flows and give me the preview URL. Explain anything I need to review before publishing to Prod, and preserve any existing production data.

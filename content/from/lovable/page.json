@@ -1,6 +1,6 @@
 {
-  "title": "Host a Lovable app after export to GitHub — ohmyho.st",
-  "description": "Export your Lovable project to GitHub, keep Supabase or import a dump, and let a coding agent deploy the Vite app to ohmyho.st. Login, domain and costs.",
+  "title": "Deploy your exported Lovable app on ohmyho.st",
+  "description": "Paste one prompt and your coding agent deploys your exported Lovable repository to ohmyho.st: Dev preview first, then Prod. Free plan, Supabase kept or moved.",
   "kind": "howto",
   "status": "published",
   "crumb": "From Lovable",
@@ -10,5 +10,5 @@
     "title": "ohmyho.st — An alternative home for your Lovable app",
     "description": "Export to GitHub and deploy supported apps with your coding agent."
   },
-  "modified": "2026-10-06"
+  "modified": "2026-10-27"
 }

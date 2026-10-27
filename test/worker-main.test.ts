@@ -391,6 +391,10 @@ describe("public entry and unassigned Free-host fallback", () => {
     const brand = await worker.fetch(new Request("https://ohmyho.st/brand"), {
       ASSETS: assets,
     });
+    // The approved artifact carries no <link rel="canonical">, so the header supplies it.
+    expect(brand.headers.get("link")).toBe(
+      '<https://ohmyho.st/brand>; rel="canonical", </brand.md>; rel="alternate"; type="text/markdown"',
+    );
     expect(await brand.text()).toBe(
       await readFile(
         new URL("../public/pages/brand.html", import.meta.url),

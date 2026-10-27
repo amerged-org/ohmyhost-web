@@ -52,7 +52,9 @@ it("canonicalizes every Markdown mirror and negotiates it separately from HTML",
     const htmlEtag = html.headers.get("etag");
     expect(htmlEtag).toMatch(/^W\/"[a-f0-9]{64}"$/u);
     expect(html.headers.get("link")).toBe(
-      `<${mirror}>; rel="alternate"; type="text/markdown"`,
+      path === "/brand"
+        ? `<https://ohmyho.st/brand>; rel="canonical", <${mirror}>; rel="alternate"; type="text/markdown"`
+        : `<${mirror}>; rel="alternate"; type="text/markdown"`,
     );
     for (const method of ["GET", "HEAD"]) {
       for (const url of [mirror, path]) {

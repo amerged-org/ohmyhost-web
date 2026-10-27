@@ -197,7 +197,7 @@ it("publishes the SEO contract for every rendered page", async () => {
   }
   const about = jsonLd(customerDocument("/about")?.text ?? "");
   expect(about.map((node) => node["@type"])).toContain("AboutPage");
-  expect(about.map((node) => node["@type"])).not.toContain("Person");
+  expect(about.map((node) => node["@type"])).toContain("Person");
   const aboutHtml = customerDocument("/about")?.text ?? "";
   expect(aboutHtml).not.toMatch(
     /42154221|founder\.png|Not yet|What is not there yet/u,
@@ -377,6 +377,35 @@ it("hardens the approved homepage markup for search and social", async () => {
   );
 });
 
+it("gives every sitemap URL a self-referencing canonical in its HTML or Link header", async () => {
+  const assets = new PagesFixture();
+  const sitemap = await (
+    await worker.fetch(new Request("https://ohmyho.st/sitemap.xml"), {
+      ASSETS: assets,
+    })
+  ).text();
+  const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/gu)].map(
+    ([, loc]) => loc ?? "",
+  );
+  expect(locs.length).toBeGreaterThan(10);
+  for (const loc of locs) {
+    const response = await worker.fetch(new Request(loc), { ASSETS: assets });
+    expect(response.status, loc).toBe(200);
+    expect(response.headers.get("x-robots-tag") ?? "", loc).not.toMatch(
+      /noindex/iu,
+    );
+    const html = await response.text();
+    expect(html, loc).not.toMatch(
+      /<meta name="robots" content="[^"]*noindex/iu,
+    );
+    const tag = html.includes(`<link rel="canonical" href="${loc}">`);
+    const header = (response.headers.get("link") ?? "").includes(
+      `<${loc}>; rel="canonical"`,
+    );
+    expect(tag || header, `${loc} canonical`).toBe(true);
+  }
+});
+
 class PagesFixture {
   async fetch(request: Request) {
     const path = new URL(request.url).pathname;
@@ -391,3 +420,25 @@ class PagesFixture {
     return new Response(new Uint8Array(await readFile(file)));
   }
 }
+
+it("describes the organization with its legal entity and official profile, and the founder separately", async () => {
+  const response = await worker.fetch(new Request("https://ohmyho.st/about"), {
+    ASSETS: new PagesFixture(),
+  } as never);
+  const graph = jsonLd(await response.text());
+  const organization = graph.find((node) => node["@type"] === "Organization");
+  const person = graph.find((node) => node["@type"] === "Person");
+  expect(organization).toMatchObject({
+    legalName: "Amerged B.V.",
+    address: { addressLocality: "Venray", addressCountry: "NL" },
+    founder: { "@id": "https://ohmyho.st/about#founder" },
+    sameAs: ["https://github.com/amerged-org"],
+  });
+  // The founder's personal profile belongs to the person, never to the organization.
+  expect(JSON.stringify(organization)).not.toContain("linkedin.com");
+  expect(person).toMatchObject({
+    "@id": "https://ohmyho.st/about#founder",
+    name: "Sebastian Mertens",
+    sameAs: ["https://www.linkedin.com/in/auto-mate/"],
+  });
+});

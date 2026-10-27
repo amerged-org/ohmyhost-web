@@ -1,15 +1,16 @@
 # How to run a Lovable project locally
 
-By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · October 21, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published October 21, 2026 · Updated October 27, 2026
 
-To run a Lovable project locally, clone its connected repository into GitHub, ask your Agent eg codex, claude code etc. to Therefore you need to install the dependencies you are lucky this is just a prompt. 
+To run a Lovable project locally, connect it to GitHub, then ask your Agent, such as Codex, Claude Code or Cursor, to clone the repository, install its dependencies and start the development server. Open the local address it gives you. The code now runs on your computer, while the database, login and files usually stay where they were.
 
-Here a prompt: 
+One prompt is enough to start:
+
 ```text
-Start my Lovable project from this github URL locally
+Start my Lovable project from [GitHub URL] locally.
 ```
 
-Open the local address printed in your terminal from your Agent. Then check login and data access, you might need to install SupaBase locally to have a Database - just as your Agent: a page loading on your computer does not mean its database, files or integrations have moved there too - keep this in mind the DB stays with Lovable if you used lovabale cloud. You can find here prompts and a how to export lovable cloud data into an existing project.
+Then check login and data access. A page loading on your computer does not mean its database, files or integrations have moved there too. If the project uses Lovable Cloud, the data stays with Lovable; if it uses your own Supabase project, it stays there. For separate test data you may need a development database, such as a local Supabase instance, and your Agent can set that up. To move the data itself, use [How to move out of Lovable Cloud](/blog/move-out-of-lovable-cloud).
 
 This guide is for taking over everyday development in your own editor. You can make that change before deciding whether to move hosting. If you still need to get the source code, start with our [Lovable GitHub export walkthrough](/blog/how-to-export-lovable-code-to-github).
 
@@ -28,7 +29,7 @@ Keep in mind:
 - Which backend (Database, Functions etc.) will the local app connect to?
 - Which features call a hosted function, an AI service or another external API?
 
-Here a prompt:
+Ask your Agent to map those connections first:
 
 ```text
 Check which parts of this app will run locally and which still use hosted services. List the database, login, files, functions and AI calls.
@@ -72,7 +73,7 @@ Now ask your Agent to start the app. You do not need to work out whether this pr
 
 Keep in mind: the Agent still needs to know which backend you want to use. If the project needs environment variables, ask it for the names and where to enter them. Private keys do not belong in a prompt or in GitHub. [Vite's environment guide](https://vite.dev/guide/env-and-mode) explains which values end up in the browser.
 
-Here a prompt:
+Ask your Agent to start the app and check the basics:
 
 ```text
 Start this project locally. Read its README and package.json, use the package manager it already uses and install the required dependencies.
@@ -90,7 +91,7 @@ Once that works, ask for the production build to be checked too. Starting a deve
 
 This can happen when login still points to your published app. Ask your Agent to check the return URL before changing the authentication setup.
 
-Here a prompt:
+Give your Agent the address you land on:
 
 ```text
 Login from my local app sends me to [the URL you land on]. Find out why.
@@ -118,7 +119,7 @@ Give your Agent the error and the step that caused it. You do not need to diagno
 | An AI feature fails | Check where the request runs and which credentials it needs |
 | A local test changes live data | Stop writes and set up a development backend before testing again |
 
-Here a prompt:
+Describe the step that failed:
 
 ```text
 I tried [what you did] at [local URL] and expected [result]. Instead I got [error or screenshot].
@@ -133,7 +134,7 @@ Do not ask the Agent to replace every service just because a feature fails once.
 
 When the app works locally, ask your Agent to show you what changed. Check the changes before sending them back to the repository.
 
-Here a prompt:
+Before committing, ask for a review of the changes:
 
 ```text
 Show me the changes we made to get this app running locally. Check that private keys and local environment files are not included.
@@ -166,7 +167,7 @@ For that next step, use [How to move out of Lovable Cloud](/blog/move-out-of-lov
 
 Your app now runs locally. If you want other people to use it, it also needs a hosted version. Tell your Agent whether you want to keep working locally or prepare a deployment to ohmyho.st.
 
-Here a prompt:
+When you are ready to deploy, use:
 
 ```text
 I want this app on ohmyho.st. Read https://docs.ohmyho.st/quickstart and follow the current deployment Skill.

@@ -63,6 +63,57 @@
       }
     }
   },
+  "supabaseFree": {
+    "name": "Supabase Free",
+    "checkedOn": "2026-10-27",
+    "sourceUrl": "https://supabase.com/pricing",
+    "evidence": "evidence/free-tiers-20261027--supabase.com--pricing--1440x900@1--full.jpg",
+    "facts": {
+      "projects": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "a limit of 2 active projects"
+      },
+      "database": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "a 500 MB database on shared CPU with 500 MB RAM"
+      },
+      "pausing": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "projects with low activity over 7 days are paused; a paused project can be restored for up to 1 year"
+      }
+    }
+  },
+  "vercelHobby": {
+    "name": "Vercel Hobby",
+    "checkedOn": "2026-10-27",
+    "sourceUrl": "https://vercel.com/docs/plans/hobby",
+    "evidence": "evidence/free-tiers-20261027--vercel.com--docs-plans-hobby--1440x900@1--full.jpg",
+    "facts": {
+      "projects": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "up to 200 projects"
+      },
+      "database": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "no database of its own: Postgres comes from an external provider through the Marketplace"
+      },
+      "atLimit": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "in most cases you wait until 30 days have passed before you can use the feature again"
+      },
+      "commercial": {
+        "usd": 0,
+        "unit": "per month",
+        "includes": "restricted to non-commercial personal use only; all commercial usage requires a Pro or Enterprise plan; asking for donations is not commercial usage"
+      }
+    }
+  },
   "resend": {
     "name": "Resend",
     "checkedOn": "2026-09-28",

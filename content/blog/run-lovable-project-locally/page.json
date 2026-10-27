@@ -7,7 +7,7 @@
   "parent": "/blog",
   "author": "Sebastian Mertens",
   "published": "2026-10-21",
-  "modified": "2026-10-21",
+  "modified": "2026-10-27",
   "social": {
     "image": "/og/blog-run-lovable-project-locally.png",
     "alt": "Run a Lovable project locally. Your app code runs on your computer while connected backend services can remain hosted.",
