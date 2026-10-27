@@ -64,7 +64,19 @@ Release tree: branch `seo/onpage-release-20261027`, created from `origin/main` `
 
 ## Release checks
 
-Run on the exact tree that is published: `pnpm format:check`, `pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm test` (77 tests: 76 prior plus one new regression test for the Organization and Person nodes, written failing first). Results and the live probes are in `final-report.txt` in the task scratch directory.
+Run on the exact tree that is published (commit `928e35645d4104642ccd1eae30ed0d6b17d0aa62`, working tree clean after `pnpm prepare:all`): `pnpm format:check`, `pnpm lint`, `pnpm typecheck`, `pnpm content:links`, `pnpm build`, `pnpm test` (18 files, 77 tests: 76 prior plus one regression test for the Organization and Person nodes, written failing first). GitHub Actions CI run 40591916231 passed on the same SHA.
+
+## Deployment (live)
+
+- Remote `main` read back as `928e35645d4104642ccd1eae30ed0d6b17d0aa62` after a normal fast-forward push (no force; `main` was unprotected, no rulesets).
+- Deployed with Wrangler 4.125.0 to account `amerged` (`9e753b729403274e3c62ea1ffd4fddd7`, matching `wrangler.jsonc`), Worker `ohmyho-web-production`, version `63096e8e-c62f-4b8c-bc69-ffd1b280b6d8`, tag `928e356`, 100% of traffic at 2026-10-27T22:05:34Z.
+- Live probes on https://ohmyho.st: all 12 changed or related pages return 200 with the new titles and canonical self-URLs and no noindex; the three new framework pages are in `sitemap.xml` and `llms.txt`; `/about` serves `legalName`, the GitHub organization `sameAs` and a Person node; the free-tier article serves the short-answer table. The Astro 2027 URL and title are unchanged. Raw probe output: `live-probes.txt` and `live-content-probes.txt` in the task scratch directory.
+
+## Not done, and why
+
+- Hosted deployments of the three framework examples, and recorded Claude Code, Cursor and Codex deployments (blocked on a named demo workspace; see sections 3 and 4).
+- Fresh Lovable screenshots (needs a logged-in Lovable account outside this scope).
+- No Search Console or IndexNow submissions, no listing submissions, no outreach.
 
 ## Rollback
 
