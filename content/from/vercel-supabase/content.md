@@ -27,7 +27,7 @@ If Supabase keeps the database and the login, this side meters the front end onl
 
 {{ table workload.lovableFrontend }}
 
-If the database moves here too, the month includes its active hours and its stored data:
+If the database moves here too, the month includes its active database hours, with disk and seven-day backups included:
 
 {{ table workload.smallApp }}
 

@@ -112,7 +112,7 @@ Railway for containers. Railway runs any container and bills CPU and memory by t
 
 Ask the agent; whether you deploy from Claude Code or another MCP client, it has the tools. organization_usage_get returns posted UTC-month usage by project, environment and published meter, in microcredits (one credit is a million). organization_credits_get returns the shared balance, any grace-period dates and the published rate cards. organization_account_get shows the effective plan and which credits expire. project_budget_get reads a project's monthly ceiling and project_budget_set changes it, in continue or stop mode; the portal's Usage page edits the same setting.
 
-Two things to know when reading a report. Posted usage lags measurement: Worker requests and CPU arrive in two to three minutes, database hours about an hour later, scripts and hostnames up to a day, so a fresh deploy that shows nothing has not cost nothing. And a project budget is a limit on that project, not a wallet; the credits still come from the organization's one balance.
+Two things to know when reading a report. Posted usage lags measurement: Worker requests and CPU arrive in two to three minutes, database hours after the provider finalizes the hour, at least two hours after it ends, scripts and hostnames up to a day, so a fresh deploy that shows nothing has not cost nothing. And a project budget is a limit on that project, not a wallet; the credits still come from the organization's one balance.
 
 Read more in [Usage](https://docs.ohmyho.st/usage), [Budgets](https://docs.ohmyho.st/budgets), [Billing](https://docs.ohmyho.st/billing) and the [usage and budgets Skill](/skills/ohmyhost-usage-and-budgets/SKILL.md).
 

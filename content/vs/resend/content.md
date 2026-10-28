@@ -88,7 +88,7 @@ A zero balance starts a grace period of {{ number plan.graceDays }} days during 
 
 ### Is there a monthly cost at zero sends?
 
-Not for mail. The mail domain has no monthly fee; credits are used only per sent recipient and per received message. The project around it still keeps its own small costs, such as its deployed script and stored data.
+Not for mail. The mail domain has no monthly fee; credits are used only per sent recipient and per received message. The project around it still keeps its own small costs, such as its deployed script and any customer files.
 
 {{ sources resend }}
 

@@ -62,11 +62,11 @@ The rate card shows what your Agent should use in its estimate. Requests use {{ 
 
 ### A quiet app
 
-An app can be quiet and still cost something. Stored data and the deployed script remain, and the database uses compute when it is awake. Idle database compute suspends on its own. A deployed script is about {{ credits unit.deployedScriptMonth }} a month. Here is the quiet workload used in this comparison:
+An app can be quiet and still cost something. The deployed script remains, and the database charges for RAM only when it is awake. Idle database RAM stops charging on its own, and allocated disk and seven-day backups are included. A deployed script is about {{ credits unit.deployedScriptMonth }} a month. Here is the quiet workload used in this comparison:
 
 {{ table workload.quietProject }}
 
-One active database hour, two build minutes, a few thousand requests, a fifth of a gigabyte stored. You can use the project’s Dev and Prod hosts under check.omh.st for this setup. A customer-owned domain needs Paid, or on Free a project that shows the “Powered by ohmyho.st” flag, and uses about {{ credits unit.customHostnameMonth }} a month per linked hostname unless the flag shows; a quiet project can skip it.
+One active database hour, two build minutes, a few thousand requests and one deployed script. You can use the project’s Dev and Prod hosts under check.omh.st for this setup. A customer-owned domain needs Paid, or on Free a project that shows the “Powered by ohmyho.st” flag, and uses about {{ credits unit.customHostnameMonth }} a month per linked hostname unless the flag shows; a quiet project can skip it.
 
 ### An app people use
 
@@ -136,11 +136,11 @@ After you have real usage, compare the report with the estimate. Investigate a s
 
 ### Does ohmyho.st charge a base fee per project?
 
-No. Every project draws from the organization's one balance: {{ number plan.freeCredits }} credits a UTC month on Free, {{ number plan.paidCredits }} credits per period for {{ usd plan.paidUsd }} on Paid. A project pays for what it keeps and uses: stored data, a deployed script, active database time, requests, mail and any linked domain. A monthly budget per project is optional and is a limit, not a second wallet.
+No. Every project draws from the organization's one balance: {{ number plan.freeCredits }} credits a UTC month on Free, {{ number plan.paidCredits }} credits per period for {{ usd plan.paidUsd }} on Paid. A project pays for what it keeps and uses: customer files, a deployed script, active database time, requests, mail and any linked domain. A monthly budget per project is optional and is a limit, not a second wallet.
 
 ### What does a quiet side project cost a month?
 
-About {{ credits workload.quietProject }}, or {{ usdValue workload.quietProject }} of credit value: one active database hour, two build minutes, a few thousand requests, a fifth of a gigabyte stored and one deployed script. Idle database compute suspends by itself. Storage and the deployed script are the parts that keep using credits while nobody visits.
+About {{ credits workload.quietProject }}, or {{ usdValue workload.quietProject }} of credit value: one active database hour, two build minutes, a few thousand requests and one deployed script. Idle database RAM stops charging by itself, with disk and seven-day backups included. The deployed script and any customer files are the parts that keep using credits while nobody visits.
 
 ### Why does Supabase cost more with five projects?
 

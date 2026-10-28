@@ -128,7 +128,7 @@ Here is the example first month with managed mail, itemized from the published r
 
 {{ table workload.lovableFirstMonth }}
 
-Database activity and storage make up much of this example. Keeping an external mail provider removes the managed-mail line from this bill, while that provider keeps its own charges. A static site without a database does not need these database rows. Ask your Agent to adapt the example to the features your app actually uses.
+Active database hours make up much of this example, and the selected database size includes its disk and seven-day backups. Keeping an external mail provider removes the managed-mail line from this bill, while that provider keeps its own charges. A static site without a database does not need these database rows. Ask your Agent to adapt the example to the features your app actually uses.
 
 ## Common questions
 

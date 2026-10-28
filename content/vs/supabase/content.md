@@ -22,9 +22,9 @@ Hosting the app itself is not on this bill. A Supabase project still needs a sep
 
 ohmyho.st runs your Astro, Next.js, Vite/React or TanStack Start app on Workers and provisions a managed Postgres next to it when the app declares one. Nothing carries a base price. Free gets {{ number plan.freeCredits }} credits per UTC month. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period. Monthly credits expire at period end. Paid-only top-ups carry over until downgrade to Free and grant {{ number plan.topUpPerUsd }} credits per dollar, rising to {{ number plan.topUpPerUsdAbove100 }} per dollar on the part of one checkout above the first hundred dollars.
 
-The database meters two things: compute while it is awake and storage while it exists.
+The database meters RAM while it is awake. Allocated disk and seven-day backups are included in the selected size.
 
-### Three compute profiles
+### Five database sizes
 
 {{ table databaseSizes }}
 
@@ -136,7 +136,7 @@ It is an option to verify against your actual application. Declare browser conne
 
 ### What does an idle project cost on ohmyho.st?
 
-Storage and the deployed script. One project with 1 GB stored and nothing happening costs about {{ credits workload.idleDatabase }} a month, because compute suspends a minute after the last query and Workers bandwidth is not charged. Five quiet projects that each wake for an hour cost about {{ credits workload.fiveQuietProjects }} together, inside the {{ number plan.paidCredits }} credits a Paid month grants.
+The deployed script. One project with a sleeping database and nothing happening costs about {{ credits workload.idleDatabase }} a month, because database RAM stops charging after five idle minutes, allocated disk and seven-day backups are included, and Workers bandwidth is not charged. Customer files keep their own rates. Five quiet projects that each wake for an hour cost about {{ credits workload.fiveQuietProjects }} together, inside the {{ number plan.paidCredits }} credits a Paid month grants.
 
 ### How do I get my data out again?
 
@@ -144,7 +144,7 @@ Ask your agent for an export. project_export_create returns an asynchronous, pas
 
 ### Is there a per-project fee?
 
-No. Every project draws from the organization's one balance, so a second or fifth project adds only what it uses: build seconds, requests, CPU time, active database hours, stored gigabytes and one deployed script. A project may carry a monthly budget that continues with warnings or stops new work, and the portal at app.ohmyho.st shows credits and budgets per project.
+No. Every project draws from the organization's one balance, so a second or fifth project adds only what it uses: build seconds, requests, CPU time, active database hours, customer files and one deployed script. A project may carry a monthly budget that continues with warnings or stops new work, and the portal at app.ohmyho.st shows credits and budgets per project.
 
 ### Can I choose the EU for my database?
 

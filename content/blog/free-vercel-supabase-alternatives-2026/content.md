@@ -90,7 +90,7 @@ The allowance is shared across metered services, so ask your Agent which ones yo
 
 {{ table workload.freePlanApp }}
 
-Keep in mind: database compute is the largest line here. An app that keeps its database busy can outgrow Free quickly: the small app from our pricing pages uses about {{ credits workload.smallApp }} a month, which needs Paid at {{ usd plan.paidUsd }} for {{ number plan.paidCredits }} credits. Stored data is metered too; keeping 1 GB for a month uses about {{ credits workload.idleDatabase }}. Your own domain works on Free only while the project shows the small Powered by ohmyho.st flag, and transactional mail needs Paid. At a zero balance a {{ number plan.graceDays }}-day grace period starts, after which unfunded execution stops; Free cannot buy top-ups, so it cannot produce a bill.
+Keep in mind: database compute is the largest line here. An app that keeps its database busy can outgrow Free quickly: the small app from our pricing pages uses about {{ credits workload.smallApp }} a month, which needs Paid at {{ usd plan.paidUsd }} for {{ number plan.paidCredits }} credits. A sleeping database's RAM, disk and seven-day backups add no charge; an otherwise idle project with its deployed script uses about {{ credits workload.idleDatabase }} a month. Your own domain works on Free only while the project shows the small Powered by ohmyho.st flag, and transactional mail needs Paid. At a zero balance a {{ number plan.graceDays }}-day grace period starts, after which unfunded execution stops; Free cannot buy top-ups, so it cannot produce a bill.
 
 ## Cloudflare: check the database
 

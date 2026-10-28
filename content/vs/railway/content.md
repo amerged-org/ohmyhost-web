@@ -27,7 +27,7 @@ Memory is the line to watch. A container holds its memory whether or not a reque
 
 ## What ohmyho.st charges
 
-There is no memory meter. An app is billed for requests and CPU milliseconds. A database is billed for the hours it is awake and the gigabytes it keeps. Every project in your organization draws from the same balance, and no project carries a base fee.
+There is no memory meter. An app is billed for requests and CPU milliseconds. A database is billed for the RAM-hours it is awake, with its disk and seven-day backups included. Every project in your organization draws from the same balance, and no project carries a base fee.
 
 Plans first:
 
@@ -90,7 +90,7 @@ A request that never arrives uses no request credits. A retained script still us
 
 ### Postgres and mail on the same balance
 
-Railway Pro plus Resend Pro is {{ usd scenario.railwayStack }} a month before any usage above the plan credits, across two accounts. Here Postgres compute, storage and transactional mail come off the same credits as hosting: mail at {{ rate mail.sent }} on Paid, with no monthly fee for the mail domain. Resend Pro is {{ usd vendor.resend.pro }} {{ text vendor.resend.pro.unit }} and covers {{ text vendor.resend.pro.includes }}. At that volume a dedicated mail plan is cheaper per message. The saving here is not the per-message price, it is the second account and the second plan: you send from the balance and the agent that already deployed the app.
+Railway Pro plus Resend Pro is {{ usd scenario.railwayStack }} a month before any usage above the plan credits, across two accounts. Here Postgres RAM, customer files and transactional mail come off the same credits as hosting: mail at {{ rate mail.sent }} on Paid, with no monthly fee for the mail domain. Resend Pro is {{ usd vendor.resend.pro }} {{ text vendor.resend.pro.unit }} and covers {{ text vendor.resend.pro.includes }}. At that volume a dedicated mail plan is cheaper per message. The saving here is not the per-message price, it is the second account and the second plan: you send from the balance and the agent that already deployed the app.
 
 ### Bandwidth
 
