@@ -29,7 +29,7 @@ This is hosting for vibe-coded apps priced by what the app measures. Here is the
 
 {{ table workload.smallApp }}
 
-Read the table from the largest line down. Mail and the database are most of the bill. One active hour on the Paid standard profile ({{ value profile.standard.cu }} CU) is about {{ credits unit.activeDatabaseHourStandard }}; compute suspends after a minute of idle, so a project nobody visits stops paying for compute and pays only for what it keeps. Stored data is {{ rate neon.storage.root }}. Requests are {{ rate wfp.requests }}, and bandwidth from the Worker is not charged. Mail is {{ rate mail.sent }}, counted per sent recipient, so 2,000 recipients outweigh the database hours; sending needs Paid and a verified mail domain.
+Read the table from the largest line down. Mail and the database account for much of this example. One active database hour at {{ number 512 }} MiB RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB size available on Free costs {{ credits unit.activeDatabaseHour256 }}. Databases sleep after five idle minutes, with no active-RAM charge while asleep. Allocated disk and seven-day backups are included. Customer files and retained Worker scripts keep their separate rates. Requests use {{ rate wfp.requests }}; Worker bandwidth is not charged. Mail is {{ rate mail.sent }}, counted per sent recipient, and needs Paid plus a verified mail domain.
 
 Two things keep drawing credits while a project sits still: each deployed script, about {{ credits unit.deployedScriptMonth }} a month, and a linked custom hostname, about {{ credits unit.customHostnameMonth }} a month, nothing while the project shows the “Powered by ohmyho.st” flag. A mail domain has no monthly fee. SQL exports are free. A quiet side project whose database wakes for one hour a month costs about {{ credits workload.quietProject }}. Five of them cost about {{ credits workload.fiveQuietProjects }}, which leaves most of the monthly {{ number plan.paidCredits }} unused.
 
@@ -93,7 +93,7 @@ Yes. The migration Skill converts only the capabilities you pick. If the app use
 
 ### Is there a free plan?
 
-Yes. Free gives {{ number plan.freeCredits }} credits per UTC month, a Dev and a Prod host on check.omh.st and a database on the {{ value profile.free.cu }} CU profile at the same rates as Paid. Sending mail needs Paid at {{ usd plan.paidUsd }} a month. A custom domain needs Paid as well, or on Free a project that shows the small “Powered by ohmyho.st” flag; the flag also waives domain credits. Monthly credits expire at the end of their Free month or Paid billing period. Top-ups carry over while Paid and expire on downgrade to Free.
+Yes. Free gives {{ number plan.freeCredits }} credits per UTC month, a Dev and a Prod host on check.omh.st and a database on the {{ number 256 }} MiB RAM size with {{ number 500 }} MiB disk and seven-day backups included at the same rates as Paid. Sending mail needs Paid at {{ usd plan.paidUsd }} a month. A custom domain needs Paid as well, or on Free a project that shows the small “Powered by ohmyho.st” flag; the flag also waives domain credits. Monthly credits expire at the end of their Free month or Paid billing period. Top-ups carry over while Paid and expire on downgrade to Free.
 
 ### How do I get my database out?
 

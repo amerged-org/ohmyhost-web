@@ -1,18 +1,19 @@
 # Provider register
 
-Annex III to the ohmyho.st DPA. Version: September 24, 2026. The contracted entity and applicable service terms govern each engagement.
+Annex III to the ohmyho.st DPA. Version: October 26, 2026. The contracted entity and applicable service terms govern each engagement.
 
 ## Customer-workload subprocessors
 
 | Provider | Role and data | Processing locations / applicable documents |
 | --- | --- | --- |
 | Cloudflare | Website/edge delivery and security, application builds and execution, SQL export jobs, storage (including build artifacts and SQL export archives) and relevant request/content data for the configured services | Global edge and support operations, including the US; storage placement follows the configured resource. [Cloudflare DPA](https://www.cloudflare.com/cloudflare-customer-dpa/) and its subprocessor register |
-| Neon | Managed Postgres and its associated storage/history, containing the database records submitted by Customer | Neon runs a project's database on AWS infrastructure in US East by default, or EU Central when EU is chosen at project creation; existing control databases have separate EU placement. [Neon terms](https://neon.com/platform-terms) and [published data-processing clauses](https://neon.com/pdf/DPA.pdf), subject to the agreement applicable to the account |
+| Contabo GmbH, Germany | Hosts the PGCF infrastructure for active managed PostgreSQL databases | US or EU for new projects according to their selected region. Existing application databases migrated with their owner's authorization use US infrastructure; recorded R2 object locations remain unchanged. [Legal notice](https://contabo.com/en-us/legal/impressum/) · [DPA documentation](https://docs.contabo.com/docs/dpa/dpa/) |
+| Neon | Active platform control databases for account, project, deployment and usage records; retained application databases and associated records from before migration | Control databases retain their existing EU placement. Retained application databases keep their original recorded US or EU location; migration does not itself delete retained Neon data. [Neon terms](https://neon.com/platform-terms) and [published data-processing clauses](https://neon.com/pdf/DPA.pdf), subject to the agreement applicable to the account |
 | Resend (Plus Five Five, Inc.) | Transactional mail for projects that configure a mail domain: outgoing messages with sender, recipient, subject and content; for domains with receiving turned on, incoming messages and attachments; delivery events, logs and mail-domain DNS records | United States. Resend states that it stores customer data, including message content, delivery logs and webhook payloads, in the US, and it publishes a 30-day retention of email and log data for the Scale plan that ohmyho.st uses. Resend uses its own subprocessors, including Amazon Web Services for hosting and sending. [Resend DPA](https://resend.com/legal/dpa) · [Resend subprocessors](https://resend.com/legal/subprocessors) · [Resend GDPR information](https://resend.com/security/gdpr) |
 
 The selected capabilities determine which providers receive workload data. Provider data-centre, support and onward-processing arrangements are not established solely by selecting a region. Subprocessor changes follow the notice and objection procedure in the DPA.
 
-Changes in this version (September 24, 2026): Resend is listed for the transactional mail it processes for projects that use managed mail; Cloudflare now also runs customer builds and SQL export jobs; Neon placement reflects the US or EU choice made at project creation. ohmyho.st no longer uses AWS directly: the earlier project SES and Route 53 mail resources and the AWS export job have been removed. Neon and Resend continue to run parts of their services on AWS, as described in their rows.
+Changes in this version (October 26, 2026): Contabo GmbH is listed for active PGCF database infrastructure. New projects retain their US or EU database choice. Existing application databases migrated with their owner's authorization use US infrastructure; retained R2 objects remain at their recorded locations. Neon remains in active use for platform control databases and retains pre-migration application databases until separately deleted. Cloudflare stores database backups and SQL export archives in R2. Earlier project SES, Route 53 and AWS export resources remain retired; Neon and Resend can use their own AWS infrastructure.
 
 ## Account, business and customer-selected services
 

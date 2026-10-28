@@ -14,31 +14,6 @@
     "quantity": 20000,
     "label": "20,000 sent mail recipients"
   },
-  "activeDatabaseHourFree": {
-    "meter": "neon.compute.scale",
-    "quantity": 0.25,
-    "label": "one active database hour on the Free 0.25 CU profile"
-  },
-  "activeDatabaseHourStandard": {
-    "meter": "neon.compute.scale",
-    "quantity": 0.5,
-    "label": "one active database hour on the Paid standard 0.5 CU profile"
-  },
-  "activeDatabaseHourPerformance": {
-    "meter": "neon.compute.performance",
-    "quantity": 1,
-    "label": "one active database hour on the Paid performance 1 CU profile"
-  },
-  "hundredDatabaseCuHours": {
-    "meter": "neon.compute.scale",
-    "quantity": 100,
-    "label": "100 database CU-hours"
-  },
-  "databaseGbMonth": {
-    "meter": "neon.storage.root",
-    "quantity": 1,
-    "label": "1 database GB-month"
-  },
   "deployedScriptMonth": {
     "meter": "wfp.script",
     "quantity": 1,
@@ -63,5 +38,35 @@
     "meter": "build.sandbox.standard-3",
     "quantity": 175,
     "label": "the exact 175-second build rational from the rate card"
+  },
+  "activeDatabaseHour256": {
+    "meter": "pgcf.memory.active",
+    "quantity": 256,
+    "label": "one active database hour at 256 MiB RAM, including disk and backups"
+  },
+  "activeDatabaseHour512": {
+    "meter": "pgcf.memory.active",
+    "quantity": 512,
+    "label": "one active database hour at 512 MiB RAM, including disk and backups"
+  },
+  "activeDatabaseHour1024": {
+    "meter": "pgcf.memory.active",
+    "quantity": 1024,
+    "label": "one active database hour at 1024 MiB RAM, including disk and backups"
+  },
+  "activeDatabaseHour2048": {
+    "meter": "pgcf.memory.active",
+    "quantity": 2048,
+    "label": "one active database hour at 2048 MiB RAM, including disk and backups"
+  },
+  "activeDatabaseHour4096": {
+    "meter": "pgcf.memory.active",
+    "quantity": 4096,
+    "label": "one active database hour at 4096 MiB RAM, including disk and backups"
+  },
+  "twoHundredDatabaseHours4096": {
+    "meter": "pgcf.memory.active",
+    "quantity": 819200,
+    "label": "200 active database hours at 4 GiB RAM, including 8 GiB total disk"
   }
 }

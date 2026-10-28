@@ -17,6 +17,7 @@ const inputs = JSON.parse(
 for (const field of [
   "creditPricingTable",
   "creditRates",
+  "databaseSizes",
   "skills",
   "mcpTools",
   "clientRelease",
@@ -31,6 +32,9 @@ export const creditPricingTable = () => inputs.creditPricingTable;
 
 /** Every meter and its price, used to resolve `{{ credits … }}` and `{{ rate … }}` tokens. */
 export const creditPricingRates = () => inputs.creditRates;
+
+/** Fixed managed database recipes from the canonical product contract. */
+export const databaseSizes = () => inputs.databaseSizes;
 
 /** The installable Skills this site serves under /skills. */
 export const skillResources = () => inputs.skills;

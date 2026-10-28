@@ -65,7 +65,7 @@ At `project_create`, data mode is optional and defaults to shared: one database 
 
 Free: {{ number plan.freeCredits }} credits per UTC month. Paid: {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period. Monthly credits expire at period end without rollover. Paid-only top-ups carry over until downgrade to Free and come at {{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }} and {{ number plan.topUpPerUsdAbove100 }} per dollar above. Every project draws from the organization's one balance; there is no per-project base fee.
 
-An agent loop spends on builds, requests, database time and whatever it keeps. One active hour on the Paid standard profile ({{ value profile.standard.cu }} CU) is about {{ credits unit.activeDatabaseHourStandard }}. Idle compute suspends, but stored data stays at {{ rate neon.storage.root }} and each deployed script at about {{ credits unit.deployedScriptMonth }} a month. Workers bandwidth is not charged.
+An agent loop spends on builds, requests, database activity and retained resources. One active database hour at {{ number 512 }} MiB RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB size available on Free costs {{ credits unit.activeDatabaseHour256 }}. Databases sleep after five idle minutes, with no active-RAM charge while asleep. Allocated disk and seven-day backups are included. Customer files and retained Worker scripts keep their separate rates. Each deployed script uses about {{ credits unit.deployedScriptMonth }} a month. Workers bandwidth is not charged.
 
 {{ table workload.agentLoop }}
 

@@ -1,5 +1,5 @@
 import {
-  DATABASE_PROFILES,
+  DATABASE_SIZES,
   SCENARIOS,
   VENDORS,
   WORKLOADS,
@@ -128,15 +128,15 @@ export function creditBarRows(): Array<{
       microcredits: priceLine("mail.sent", 1000),
     },
     {
-      label: "1 active database hour, Paid standard (0.5 CU)",
+      label: "1 active database hour, 512 MiB RAM",
       microcredits: priceLine(
-        "neon.compute.scale",
-        DATABASE_PROFILES.standard.cu,
+        "pgcf.memory.active",
+        DATABASE_SIZES[1].memoryMiB,
       ),
     },
     {
-      label: "1 database GB-month",
-      microcredits: priceLine("neon.storage.root", 1),
+      label: "Included database disk and seven-day backups",
+      microcredits: 0,
     },
     {
       label: "1 custom hostname, per month",

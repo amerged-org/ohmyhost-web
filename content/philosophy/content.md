@@ -8,7 +8,7 @@ Short version: I got tired of paying five bills for two live projects and seven 
 
 Every credit you spend is priced by one formula: the provider's list cost times 1.15, divided by 0.0035. That is the whole business model. It is published as a rate card in the [pricing reference](https://docs.ohmyho.st/pricing), and your agent can read the active cards through organization_credits_get. One credit is {{ usd plan.usdPerCredit }} of nominal value. {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits that expire at period end. A top-up buys {{ number plan.topUpPerUsd }} credits per dollar and carries over while Paid, until downgrade to Free; the part of a checkout above the first hundred dollars earns {{ number plan.topUpPerUsdAbove100 }} per dollar. Consumption rates never change with how much you buy.
 
-The card reads like a receipt: {{ rate wfp.requests }}, {{ rate neon.storage.root }}, {{ rate wfp.script }}. One unfamiliar unit is the CU-hour, a database's compute size multiplied by the time it is awake. One active hour on the Paid standard profile ({{ value profile.standard.cu }} CU) is about {{ credits unit.activeDatabaseHourStandard }}; the same hour on the Free profile ({{ value profile.free.cu }} CU) is about {{ credits unit.activeDatabaseHourFree }}.
+The card reads like a receipt: {{ rate wfp.requests }}, {{ rate pgcf.memory.active }}, {{ rate wfp.script }}. One active database hour at {{ number 512 }} MiB RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB size available on Free costs {{ credits unit.activeDatabaseHour256 }}. The database size includes its disk and seven-day backups; there is no separate database CPU, network or connection charge.
 
 What the formula rules out matters as much as what it charges. There is no minimum charge on any meter. Bandwidth from Workers costs the provider nothing, so it costs you nothing. SQL exports are free. A failed or unperformed provider action is never charged. And the trade-off, stated plainly: provider free tiers stay with the platform, and you pay the list-cost rate from the first unit. That allowance, plus fifteen percent, is the margin, and it is written down.
 
@@ -72,7 +72,7 @@ No. Every project draws from the organization's one balance, and there is no fix
 
 ### What does a parked side project cost per month?
 
-About {{ credits workload.quietProject }} for the quiet project itemized above, most of it one active database hour and stored data. With no requests at all, the only lines left are storage at {{ rate neon.storage.root }} and the script at {{ rate wfp.script }}. Bandwidth from Workers is not charged.
+About {{ credits workload.quietProject }} for the quiet project itemized above, including one active database hour and a retained script. Databases sleep after five idle minutes, with no active-RAM charge while asleep. Allocated disk and seven-day backups are included. Customer files and retained Worker scripts keep their separate rates. Bandwidth from Workers is not charged.
 
 ### Can I leave with my data?
 
@@ -84,7 +84,7 @@ Because the agent that wrote the code has the context a dashboard lacks. It depl
 
 ### Does choosing the EU region cost more?
 
-No. Region is a per-project choice made once at project creation, and US is the default. EU places the project's database, files and builds in the EU. Prices are identical in both regions. Transactional mail is sent and processed in the US regardless of the project's choice, so mail placement is not part of that decision.
+No. Region is a per-project choice made once at project creation, and US is the default. New projects provision databases, new files and builds in their selected region. Existing projects moved to US with their owner's authorization use US databases; recorded R2 locations remain unchanged. Read database_compute_get for actual database location. Prices are identical in both regions. Transactional mail is sent and processed in the US regardless of the project's choice, so mail placement is not part of that decision.
 
 ### How do I know a comparison price is still right?
 

@@ -40,7 +40,13 @@ it("generates the typed rate card from the published inputs and prices workloads
     { quantity: number; unit: string; credits: string }
   >;
   expect(rates).toEqual(CREDIT_RATES);
-  expect(Object.keys(rates).length).toBeGreaterThanOrEqual(19);
+  expect(Object.keys(rates).some((meter) => meter.startsWith("neon."))).toBe(
+    false,
+  );
+  expect(rates["pgcf.memory.active"]).toMatchObject({
+    quantity: 256,
+    credits: "10",
+  });
   expect(rates).not.toHaveProperty(["route53.zone"]);
   expect(rates["wfp.requests"]).toEqual({
     quantity: 1_000_000,
@@ -51,12 +57,11 @@ it("generates the typed rate card from the published inputs and prices workloads
   expect(creditMicros("115")).toBe(115_000_000);
   expect(priceLine("build.sandbox.standard-3", 1200)).toBe(24_098_743);
   expect(priceLine("wfp.requests", 100_000)).toBe(9_857_143);
-  expect(priceLine("neon.compute.scale", 0.5)).toBe(36_471_429);
+  expect(priceLine("pgcf.memory.active", 512)).toBe(20_000_000);
   const small = priceWorkload(WORKLOADS.smallApp);
-  expect(small.microcredits).toBe(813_870_172);
+  expect(small.microcredits).toBe(567_098_744);
   expect(small.lines.map((line) => line.microcredits)).toEqual([
-    24_098_743, 9_857_143, 6_571_429, 291_771_428, 115_000_000, 360_000_000,
-    6_571_429,
+    24_098_743, 9_857_143, 6_571_429, 160_000_000, 360_000_000, 6_571_429,
   ]);
   expect(scenarioUsd(SCENARIOS.threeSubscriptions)).toBe(65);
   expect(scenarioUsd(SCENARIOS.fiveProjects)).toBe(105);
@@ -92,8 +97,8 @@ it("includes retained hosting charges, meters mail per sent recipient and adds t
     ),
   ).toEqual(Object.fromEntries(combinedMeters));
   const five = priceWorkload(WORKLOADS.fiveSideProjects);
-  expect(credits(five.microcredits)).toBe("1,090.97 credits");
-  expect(five.microcredits).toBeGreaterThan(PLANS.paidCredits * 1_000_000);
+  expect(credits(five.microcredits)).toBe("646.31 credits");
+  expect(five.microcredits).toBeLessThan(PLANS.paidCredits * 1_000_000);
 });
 
 it("formats prices, credits, rates and source lines the way pages quote them", () => {
@@ -120,9 +125,9 @@ it("formats prices, credits, rates and source lines the way pages quote them", (
   const table = workloadTable(WORKLOADS.smallApp);
   expect(table).toContain("| 20 build minutes | 24.10 |");
   expect(table).toContain(
-    "| **Total: A small app for one month** | **about 813.87** |",
+    "| **Total: A small app for one month** | **about 567.10** |",
   );
-  expect(table).toContain("About $8.14 of credit value");
+  expect(table).toContain("About $5.67 of credit value");
 });
 
 it("keeps the plan constants and the agent prompt equal to their sources", async () => {

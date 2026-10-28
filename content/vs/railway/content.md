@@ -39,8 +39,8 @@ Then the meters a side project touches:
 
 - Requests: {{ rate wfp.requests }}.
 - CPU: {{ rate wfp.cpu }}. Time spent waiting on the database or on a fetch is not CPU time.
-- Database compute: {{ rate neon.compute.scale }}. Free runs at {{ value profile.free.cu }} CU, Paid standard at {{ value profile.standard.cu }} CU, Paid performance at {{ value profile.performance.cu }} CU. One active hour on the standard profile is about {{ credits unit.activeDatabaseHourStandard }}. Free and standard suspend after a minute without queries; performance waits five minutes and charges 2.5 times standard compute for each active minute.
-- Database storage: {{ rate neon.storage.root }}, charged whether the database is awake or not.
+- Database RAM and active time: {{ rate pgcf.memory.active }}. Free supports {{ number 256 }} MiB RAM; larger sizes require Paid. The {{ number 512 }} MiB size costs {{ credits unit.activeDatabaseHour512 }} per active hour. All sizes sleep after five idle minutes.
+- Allocated database disk and seven-day backups are included. Database CPU, network and connections have no separate charges. Customer-uploaded files retain their R2 rates.
 - Files: {{ rate r2.storage.standard }}.
 - Builds: {{ rate build.sandbox.standard-3 }}, measured from the start of your build to its end.
 - Mail: {{ rate mail.sent }}, one recipient per message. Sending needs Paid and a verified mail domain; the domain itself has no monthly fee.
@@ -86,7 +86,7 @@ That sits well inside the {{ number plan.paidCredits }} credits that {{ usd plan
 
 ### No per-service floor
 
-A request that never arrives costs nothing. An app with no traffic keeps only its script (about {{ credits unit.deployedScriptMonth }} a month) and its stored data; the database suspends a minute after the last query and its storage keeps costing {{ rate neon.storage.root }}. Nothing rents memory while nothing runs.
+A request that never arrives uses no request credits. A retained script still uses about {{ credits unit.deployedScriptMonth }} a month and customer files keep their rates. The database sleeps after five idle minutes, with no active-RAM charge; its disk and seven-day backups remain included.
 
 ### Postgres and mail on the same balance
 
@@ -146,7 +146,7 @@ The first zero balance starts a {{ number plan.graceDays }}-day grace period. Fu
 
 ### Does an idle database cost anything?
 
-Compute stops after a minute without queries on the Free and standard profiles, so an idle database pays only for storage at {{ rate neon.storage.root }}. When it wakes, an active hour on the Paid standard profile is about {{ credits unit.activeDatabaseHourStandard }}. The performance profile waits five minutes before suspending and charges more for each active minute.
+Database RAM stops charging after five idle minutes. Disk and seven-day backups remain included while it sleeps. When it wakes, an hour at {{ number 512 }} MiB RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB size costs {{ credits unit.activeDatabaseHour256 }}. Choose a size from the [database table](https://docs.ohmyho.st/database) and account for background queries that keep it awake.
 
 ### Can I take my database and leave?
 

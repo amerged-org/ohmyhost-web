@@ -2,7 +2,7 @@
 
 The moment that hurts on Supabase is the fourth project. Pro starts at {{ usd vendor.supabase.pro }} a month and covers the first project's instance, then every further project adds {{ usd vendor.supabase.microProject }} a month for its own Micro instance — whether or not a single person used it that month.
 
-Here there is no per-project fee. {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits that every project shares, a database costs about {{ credits unit.activeDatabaseHourStandard }} for each hour it is actually awake, stored data {{ rate neon.storage.root }}, and idle compute suspends after a minute. Idle compute can suspend; each project still pays for the storage and deployed resources it retains.
+Here there is no per-project fee. {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits shared by every project. The {{ number 512 }} MiB database costs {{ credits unit.activeDatabaseHour512 }} per active hour, with its disk and seven-day backups included. After five idle minutes its RAM stops charging. Customer files and retained Worker resources keep their separate rates.
 
 {{ figure bills.supabase }}
 
@@ -26,15 +26,11 @@ The database meters two things: compute while it is awake and storage while it e
 
 ### Three compute profiles
 
-| Profile | Compute | RAM | Suspends after | One active hour |
-| --- | --- | --- | --- | --- |
-| Free | {{ value profile.free.cu }} CU | 1 GB | 1 minute idle | about {{ credits unit.activeDatabaseHourFree }} |
-| Paid standard | {{ value profile.standard.cu }} CU | 2 GB | 1 minute idle | about {{ credits unit.activeDatabaseHourStandard }} |
-| Paid performance | {{ value profile.performance.cu }} CU | 4 GB | 5 minutes idle | about {{ credits unit.activeDatabaseHourPerformance }} |
+{{ table databaseSizes }}
 
-The rates behind the table are {{ rate neon.compute.scale }} for Free and standard, and {{ rate neon.compute.performance }} for performance, which is 2.5 times standard compute for the same active minute. A CU-hour is one compute unit busy for one hour, so an hour of queries on the standard profile meters {{ value profile.standard.cu }} CU-hours. A database that answers a burst at 09:00, suspends a minute later and wakes again at noon meters minutes, not the day. Your agent switches profiles with database_compute_set after reading database_compute_get; the first query after a suspend pays a cold start. Details are in the [database docs](https://docs.ohmyho.st/database).
+The fixed RAM tariff is {{ rate pgcf.memory.active }}, prorated over active time. The selected size includes total disk and seven-day backups; CPU, network and connections have no separate database charge. A burst of queries wakes the database; five minutes without work allows sleep. Use database_compute_get to observe the actual size and state without waking it, and memory_mib with database_compute_set for an authorized increase. In-place disk shrink is refused. Read the [database docs](https://docs.ohmyho.st/database) for the local psql helper and migration boundaries.
 
-Storage is {{ rate neon.storage.root }} from the first gigabyte; there is no allowance. A deployed script meters {{ rate wfp.script }}. So a project that does nothing still pays for what it keeps: one idle project with 1 GB stored costs about {{ credits workload.idleDatabase }} a month.
+Included disk is the whole PostgreSQL volume, including WAL and filesystem overhead. It is not all available for application rows. A deployed script uses {{ rate wfp.script }}, so the idle project example costs about {{ credits workload.idleDatabase }} a month even though sleeping database RAM, allocated disk and backups add no charge.
 
 ### Five quiet projects for a month
 
@@ -83,8 +79,8 @@ Your own login to ohmyho.st, and your agent's, runs through WorkOS and is a sepa
 | --- | --- | --- |
 | Base price | {{ usd vendor.supabase.pro }} a month, from | {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits |
 | Second project | {{ usd vendor.supabase.microProject }} a month for its Micro instance | no base fee; it draws from the same balance |
-| Database compute | first Micro instance covered, runs all month | {{ rate neon.compute.scale }} on the {{ value profile.standard.cu }} CU standard profile; suspends when idle |
-| Disk | {{ usd vendor.supabase.diskGb }} {{ text vendor.supabase.diskGb.unit }} | {{ rate neon.storage.root }} from the first gigabyte |
+| Database compute | first Micro instance covered, runs all month | {{ rate pgcf.memory.active }}; selected RAM charged only while active |
+| Disk | {{ usd vendor.supabase.diskGb }} {{ text vendor.supabase.diskGb.unit }} | Included nominal volume depends on RAM size; PostgreSQL/WAL uses part of it |
 | Egress | {{ usd vendor.supabase.egressGb }} {{ text vendor.supabase.egressGb.unit }} | Workers bandwidth is not charged |
 | App hosting | a separate account | Next.js, Vite/React, TanStack Start from GitHub |
 | Auth | Supabase Auth | yours: Better Auth or WorkOS AuthKit |
@@ -109,10 +105,10 @@ One busy app reads differently from five quiet ones. {{ text workload.smallApp.n
 ## When ohmyho.st is
 
 - **Several small projects.** The five quiet projects above cost about {{ credits workload.fiveQuietProjects }} together; on Supabase each one needs its own instance. Nine side projects and two live ones is the normal shape of a builder's account, and no base fee punishes it.
-- **Databases that idle.** A portfolio site, an internal tool, a demo for a client: hours of activity a month, not hundreds. Compute suspends a minute after the last query, and storage is the only steady cost.
+- **Databases that idle.** A portfolio site, internal tool or client demo can have hours of activity rather than hundreds. After five idle minutes database RAM stops charging; included disk and backups remain available.
 - **One balance for hosting, Postgres, mail and a domain.** The app, its database, its transactional mail (Paid, metered at {{ rate mail.sent }} per sent recipient) and a linked custom hostname ({{ rate domain.custom_hostname }}) all draw from the same {{ number plan.paidCredits }} credits a month. The hostname needs Paid or, on Free, a project that shows the “Powered by ohmyho.st” flag; the flag waives domain credits on either plan. No second and third account.
 - **You deploy from Claude Code, Cursor or Codex.** There is no deploy dashboard. The agent plans, you confirm, it executes: deployment_plan then deployment_create, promotion_plan then promotion_execute, rollback_plan then rollback_execute.
-- **EU data per project.** Choose `eu` once at project creation and the database, files and builds live in the EU at the same prices. Transactional mail is sent and processed in the US.
+- **Choose the location you need.** A new EU project places its database, new files and builds in the EU. Existing projects moved to US with their owner's authorization use US databases; existing R2 locations stay recorded. Transactional mail is processed in the US.
 - **A ceiling per project.** project_budget_set gives a project a monthly budget that warns or stops. A zero balance starts a seven-day grace period; funded services keep running.
 
 ## How to move with your agent

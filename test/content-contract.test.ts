@@ -12,7 +12,7 @@ import {
   scenarioUsd,
 } from "../src/content/format.js";
 import {
-  DATABASE_PROFILES,
+  DATABASE_SIZES,
   PLANS,
   SCENARIOS,
   VENDORS,
@@ -75,7 +75,7 @@ const FORBIDDEN = [
   /\bflat[- ]rate\b/iu,
   /\bagent hosting\b/iu,
   /\bfree hosting\b/iu,
-  /\b(?:domain|email|database|postgres|backups?) included\b/iu,
+  /\b(?:domain|email|database|postgres) included\b/iu,
   /\bunlimited\b(?! (?:workspace )?seats)/iu,
   /\bone bill for everything\b/iu,
   /\bnightly\b/iu,
@@ -157,11 +157,13 @@ function knownNumbers(): number[] {
   }
   for (const scenario of Object.values(SCENARIOS))
     known.add(scenarioUsd(scenario));
-  for (const profile of Object.values(DATABASE_PROFILES)) {
-    known.add(profile.cu);
-    addCredits(
-      priceLine(profile.meter as keyof typeof CREDIT_RATES, profile.cu),
-    );
+  for (const size of DATABASE_SIZES) {
+    known.add(size.memoryMiB);
+    known.add(size.memoryMiB / 1024);
+    known.add(size.storageMiB);
+    known.add(size.storageMiB / 1024);
+    known.add(size.creditsPerAwakeHour);
+    addCredits(priceLine("pgcf.memory.active", size.memoryMiB));
   }
   for (const meter of Object.keys(CREDIT_RATES) as Array<
     keyof typeof CREDIT_RATES

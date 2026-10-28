@@ -8,15 +8,13 @@ An unpaid subscription renewal keeps Paid features and usable top-ups for at mos
 
 ## What uses credits
 
-Measured builds, worker requests and CPU time, database compute and storage, file storage and operations, and enabled mail use their published rates. An idle database can suspend its compute; retained storage still uses credits.
+Measured builds, Worker requests and CPU time, database RAM while active, customer file storage and operations, and enabled mail use their published rates.
 
-| Database profile | Size | Sleep after idle |
-| --- | --- | --- |
-| Free | 0.25 CU / 1 GB | 1 minute |
-| Paid standard | 0.5 CU / 2 GB | 1 minute |
-| Paid performance | 1 CU / 4 GB | 5 minutes |
+{{ table databaseSizes }}
 
-Performance uses 2.5 times standard database-compute credits for equal active time. Shared Dev/Prod uses one database; isolated data uses two independently metered databases. Prices are identical in the US and EU hosting regions.
+Active database time is prorated. Each size includes the total disk shown and seven-day backups, also while sleeping. Total disk includes PostgreSQL, WAL and filesystem overhead. There are no separate database CPU, network or connection charges. The database sleeps after five idle minutes and then has no active-RAM charge. Customer file storage and Worker usage retain their separate rates.
+
+Prices are identical in US and EU. Shared Dev/Prod uses one physical database; isolated data uses two independently metered databases. New projects provision databases, new files and builds in their selected region. Existing projects moved to US with their owner's authorization use US databases; recorded R2 locations remain unchanged. An increase preserves data; in-place disk shrink requires a separate authorized data migration.
 
 Data mode is optional and defaults to shared. An Owner can later keep an existing data area with Dev or Prod, return to shared data, or reset isolated Dev. No records or files are copied and no special data-change price applies. Returning to shared keeps Prod and permanently deletes the separate Dev data, files and deployment; resetting Dev deletes that Dev area. Review the plan and keep any copies you need before confirming.
 

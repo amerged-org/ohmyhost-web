@@ -84,7 +84,7 @@ Keep a separate app host in the plan. Supabase Free provides the backend, while 
 
 ## ohmyho.st Free: estimate the usage
 
-Free starts every UTC month with {{ number plan.freeCredits }} credits and no card. The app runs on an edge runtime that does not sleep, the managed Postgres database uses the Free profile of {{ number profile.free dp=2 }} CU and suspends after one idle minute, and it wakes on the next query with its data intact. Every project gets a Dev and a Prod address. Your Agent operates the platform through the CLI or MCP; you check the app at the address it returns.
+Free starts every UTC month with {{ number plan.freeCredits }} credits and no card. The app runs on an edge runtime that does not sleep. Its managed database uses {{ number 256 }} MiB RAM with {{ number 500 }} MiB total disk and seven-day backups included, sleeps after five idle minutes, and wakes on the next query with its data intact. Every project gets a Dev and a Prod address. Your Agent operates the platform through CLI or MCP; you check the app at its returned address.
 
 The allowance is shared across metered services, so ask your Agent which ones your app will use. The example below is a quiet app with a small database, deployed twice a month. Use it as a starting point for your own estimate:
 

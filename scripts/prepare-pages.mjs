@@ -9,6 +9,7 @@ import { WEBSITE } from "../src/site-identity.ts";
 import {
   clientRelease,
   creditPricingRates,
+  databaseSizes,
   creditPricingTable,
   mcpTools,
   openapiJson,
@@ -41,7 +42,8 @@ await writeFile(
   await format(
     "// Generated from PRICING.md by pages:prepare.\n" +
       `export const CREDIT_PRICING_TABLE = ${JSON.stringify(creditPricingTable())};\n` +
-      `export const CREDIT_RATES = ${JSON.stringify(creditPricingRates())} as const;\n`,
+      `export const CREDIT_RATES = ${JSON.stringify(creditPricingRates())} as const;\n` +
+      `export const DATABASE_SIZES = ${JSON.stringify(databaseSizes())} as const;\n`,
     { parser: "typescript", printWidth: 100 },
   ),
 );
@@ -49,7 +51,7 @@ await writeFile(
   `${directory}src/generated-mcp-tools.json`,
   `${JSON.stringify(mcpTools(), null, 2)}\n`,
 );
-const { number, priceWorkload, scenarioUsd } = await import(
+const { number, priceLine, priceWorkload, scenarioUsd } = await import(
   "../src/content/format.ts"
 );
 const { SCENARIOS, WORKLOADS } = await import("../src/content/sources.ts");
@@ -355,7 +357,7 @@ function applyApprovedHomepageChanges(html) {
   const exportAnswer =
     "Request a portable SQL dump in a password-encrypted ZIP through your agent, CLI or API. Exports run asynchronously, with one accepted request per project every 24 hours and a signed download link valid for 24 hours. Keep your password and restore on another Postgres host, or let your automation tool copy the encrypted file to your own storage.";
   const euAnswer =
-    "Yes. Choose EU when you create the project; the default is US. An EU project keeps its Postgres database, its files and its builds in the EU, and the application runs next to its database. The region cannot be changed later, and prices are identical in both regions. Transactional mail is processed in the US by the platform's mail provider in either case.";
+    "Choose EU for a new project's database, files and builds; US is the default. Existing projects moved to US with their owner's authorization use US databases, while recorded R2 object locations remain unchanged. The customer API cannot change region later, and prices are identical. Transactional mail is processed in the US.";
   for (const [before, after] of Object.entries({
     "And you don't get a dashboard. Ask Codex, Claude, whatever you run — <b>our MCP hands back your usage and your data.</b> No UI. This was built for agents.":
       "Deploy through Codex, Claude or the agent you already use. <b>The portal shows your projects, credits and budgets.</b> The same information is available through MCP.",
@@ -439,16 +441,16 @@ function applyApprovedHomepageChanges(html) {
     '        <li class="no">Your own domain</li>\n':
       "        <li>Your own domain <em>with the Powered by flag</em></li>\n",
     '        <li class="no">Backups</li>\n      </ul>':
-      '        <li class="no">Backups</li>\n      </ul>\n      <p class="free-more"><a href="/blog/free-vercel-supabase-alternatives-2026">What 200 credits cover</a> · <a href="/blog/all-in-one-vercel-supabase-alternatives">Compare all-in-one platforms</a></p>',
+      '        <li>Seven-day database backups <em>included</em></li>\n      </ul>\n      <p class="free-more"><a href="/blog/free-vercel-supabase-alternatives-2026">What 200 credits cover</a> · <a href="/blog/all-in-one-vercel-supabase-alternatives">Compare all-in-one platforms</a></p>',
     '"description": "200 credits, hosting and a database"':
       '"description": "200 credits every UTC month, hosting and a database; no card required", "priceSpecification": {"@type": "UnitPriceSpecification", "price": "0", "priceCurrency": "USD", "billingIncrement": 1, "unitText": "MONTH"}',
     "Yes: 200 credits, no card.": "Yes: 200 credits every month, no card.",
     "<span><h3>a quiet month</h3><u>≈ 0 credits</u></span>":
-      "<span><h3>1 database GB-month</h3><u>115 credits</u></span>",
+      "<span><h3>Database disk and backups</h3><u>included</u></span>",
     "Off. If you run out, the site stays up and read-only.":
       "Off. A zero balance starts a seven-day grace period. Refill to keep funded services running.",
     "ohmyho.st bills nothing while a project is idle, and email and domain are in the $10 base price.":
-      "Idle database compute can suspend on ohmyho.st, while retained resources still use credits. Paid access enables email and custom domains; their usage is metered.",
+      "Database RAM stops charging after five idle minutes, with disk and seven-day backups included; customer files and retained Worker resources keep their own rates. Paid access enables email and custom domains; their usage is metered.",
     'WorkOS, Better Auth, Auth0 or anything else that speaks OAuth or SAML — wire it in, we don\'t lock you into ours.</p>\n  <div class="cells logos stag" style="grid-template-columns:repeat(4,1fr)">':
       'Better Auth, WorkOS or anything else that speaks OAuth, OIDC or SAML — wire it in, we don\'t lock you into ours.</p>\n  <div class="cells logos stag" id="auth-logos" style="grid-template-columns:repeat(3,1fr)">',
     '<span class="avatar" aria-hidden="true"></span>':
@@ -476,8 +478,7 @@ function applyApprovedHomepageChanges(html) {
     "(2,000 emails ≈ $7 from your balance vs a $20 Resend Pro plan) and more expensive at high volume (50,000 emails ≈ $175 vs $20)":
       "(2,000 emails ≈ $4 from your balance vs a $20 Resend Pro plan) and more expensive at high volume (50,000 emails ≈ $90 vs $20)",
     "1,000 credits. 2,000 emails ≈ 700 credits, a small app's hosting and Postgres ≈ 100–200. Busy months use more; the slider below shows what.": `${number(plans.paidCredits)} credits. Our small-app example uses ≈ ${number(smallAppCredits)}, including ${number(smallAppEmails)} emails. Every project shares the balance. Higher usage needs more credits.`,
-    "<span><h3>10,000 db reads</h3><u>8 credits</u></span>":
-      "<span><h3>1 active database hour</h3><u>36 credits</u></span>",
+    "<span><h3>10,000 db reads</h3><u>8 credits</u></span>": `<span><h3>1 active database hour, ${databaseSizes()[1].memoryMiB} MiB</h3><u>${number(priceLine("pgcf.memory.active", databaseSizes()[1].memoryMiB) / 1_000_000)} credits</u></span>`,
     "<span><h3>1,000 emails</h3><u>350 credits</u></span>":
       "<span><h3>1,000 emails</h3><u>180 credits</u></span>",
     "<span><h3>1 GB served</h3><u>40 credits</u></span>":

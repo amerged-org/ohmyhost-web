@@ -31,7 +31,7 @@ If the database moves here too, the month includes its active hours and its stor
 
 {{ table workload.smallApp }}
 
-A quiet project costs close to nothing: a deployed script is about {{ credits unit.deployedScriptMonth }} a month, stored data {{ rate neon.storage.root }}, and idle database compute suspends after a minute. That is the difference from two base fees that do not care how quiet the month was.
+A quiet project keeps only its separately metered resources: a script at about {{ credits unit.deployedScriptMonth }} a month and any customer files. Database RAM stops charging after five idle minutes, while its allocated disk and seven-day backups stay included. Read the workload assumptions before comparing the shared balance with separate base subscriptions.
 
 {{ sources vercel supabase }}
 

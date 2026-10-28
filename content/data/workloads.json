@@ -18,14 +18,9 @@
         "label": "1M CPU-ms"
       },
       {
-        "meter": "neon.compute.scale",
-        "quantity": 4,
-        "label": "4 database CU-hours (8 active hours on the Paid standard 0.5 CU profile)"
-      },
-      {
-        "meter": "neon.storage.root",
-        "quantity": 1,
-        "label": "1 database GB-month"
+        "meter": "pgcf.memory.active",
+        "quantity": 4096,
+        "label": "8 active database hours at 512 MiB RAM, including disk and seven-day backups"
       },
       {
         "meter": "mail.sent",
@@ -58,14 +53,9 @@
         "label": "50,000 CPU-ms"
       },
       {
-        "meter": "neon.compute.scale",
-        "quantity": 0.5,
-        "label": "1 active database hour on the Paid standard 0.5 CU profile"
-      },
-      {
-        "meter": "neon.storage.root",
-        "quantity": 0.2,
-        "label": "0.2 database GB-month"
+        "meter": "pgcf.memory.active",
+        "quantity": 256,
+        "label": "1 active database hour at 256 MiB RAM, including disk and seven-day backups"
       },
       {
         "meter": "wfp.script",
@@ -93,14 +83,9 @@
         "label": "500,000 CPU-ms"
       },
       {
-        "meter": "neon.compute.scale",
-        "quantity": 2,
-        "label": "2 database CU-hours (4 active hours on the Paid standard profile)"
-      },
-      {
-        "meter": "neon.storage.root",
-        "quantity": 1,
-        "label": "1 database GB-month"
+        "meter": "pgcf.memory.active",
+        "quantity": 2048,
+        "label": "4 active database hours at 512 MiB RAM, including disk and seven-day backups"
       },
       {
         "meter": "mail.sent",
@@ -138,14 +123,9 @@
         "label": "50M CPU-ms"
       },
       {
-        "meter": "neon.compute.scale",
-        "quantity": 100,
-        "label": "100 database CU-hours (200 active hours on the Paid standard profile)"
-      },
-      {
-        "meter": "neon.storage.root",
-        "quantity": 10,
-        "label": "10 database GB-months"
+        "meter": "pgcf.memory.active",
+        "quantity": 819200,
+        "label": "200 active database hours at 4096 MiB RAM, including disk and seven-day backups"
       },
       {
         "meter": "mail.sent",
@@ -168,9 +148,9 @@
     "name": "One idle project for one month",
     "lines": [
       {
-        "meter": "neon.storage.root",
-        "quantity": 1,
-        "label": "1 database GB-month"
+        "meter": "pgcf.memory.active",
+        "quantity": 0,
+        "label": "Sleeping database, including allocated disk and seven-day backups"
       },
       {
         "meter": "wfp.script",
@@ -183,14 +163,9 @@
     "name": "A database that never suspends for one month",
     "lines": [
       {
-        "meter": "neon.compute.scale",
-        "quantity": 372,
-        "label": "372 database CU-hours (744 active hours on the Paid standard 0.5 CU profile)"
-      },
-      {
-        "meter": "neon.storage.root",
-        "quantity": 8,
-        "label": "8 database GB-months"
+        "meter": "pgcf.memory.active",
+        "quantity": 3047424,
+        "label": "744 active database hours at 4096 MiB RAM, including disk and seven-day backups"
       }
     ]
   },
@@ -213,14 +188,9 @@
         "label": "250,000 CPU-ms"
       },
       {
-        "meter": "neon.compute.scale",
-        "quantity": 2.5,
-        "label": "5 active database hours on the Paid standard 0.5 CU profile (2.5 CU-hours)"
-      },
-      {
-        "meter": "neon.storage.root",
-        "quantity": 1,
-        "label": "1 database GB-month (0.2 GB each)"
+        "meter": "pgcf.memory.active",
+        "quantity": 1280,
+        "label": "5 active database hours at 256 MiB RAM, including disk and seven-day backups"
       },
       {
         "meter": "wfp.script",
@@ -273,14 +243,9 @@
         "label": "1.2M CPU-ms"
       },
       {
-        "meter": "neon.compute.scale",
-        "quantity": 6,
-        "label": "6 database CU-hours (12 active hours on the Paid standard 0.5 CU profile across five databases)"
-      },
-      {
-        "meter": "neon.storage.root",
-        "quantity": 1.8,
-        "label": "1.8 database GB-months"
+        "meter": "pgcf.memory.active",
+        "quantity": 5120,
+        "label": "4 active hours across four 256 MiB databases, plus 8 hours at 512 MiB; disk and seven-day backups included"
       },
       {
         "meter": "mail.sent",
@@ -313,14 +278,9 @@
         "label": "1.2M CPU-ms"
       },
       {
-        "meter": "neon.compute.scale",
-        "quantity": 6,
-        "label": "6 database CU-hours (12 active hours on the Paid standard 0.5 CU profile across five databases)"
-      },
-      {
-        "meter": "neon.storage.root",
-        "quantity": 1.8,
-        "label": "1.8 database GB-months"
+        "meter": "pgcf.memory.active",
+        "quantity": 5120,
+        "label": "4 active hours across four 256 MiB databases, plus 8 hours at 512 MiB; disk and seven-day backups included"
       },
       {
         "meter": "mail.sent",
@@ -363,14 +323,9 @@
         "label": "200,000 CPU-ms"
       },
       {
-        "meter": "neon.compute.scale",
-        "quantity": 1,
-        "label": "1 database CU-hour (2 active hours on the Paid standard 0.5 CU profile)"
-      },
-      {
-        "meter": "neon.storage.root",
-        "quantity": 0.5,
-        "label": "0.5 database GB-month"
+        "meter": "pgcf.memory.active",
+        "quantity": 1024,
+        "label": "2 active database hours at 512 MiB RAM, including disk and seven-day backups"
       },
       {
         "meter": "wfp.script",
@@ -428,14 +383,9 @@
         "label": "200,000 CPU-ms"
       },
       {
-        "meter": "neon.compute.scale",
-        "quantity": 2,
-        "label": "2 database CU-hours (4 active hours on the Paid standard profile)"
-      },
-      {
-        "meter": "neon.storage.root",
-        "quantity": 0.5,
-        "label": "0.5 database GB-month"
+        "meter": "pgcf.memory.active",
+        "quantity": 2048,
+        "label": "4 active database hours at 512 MiB RAM, including disk and seven-day backups"
       },
       {
         "meter": "mail.sent",
@@ -493,14 +443,9 @@
         "label": "200,000 CPU-ms"
       },
       {
-        "meter": "neon.compute.scale",
-        "quantity": 1,
-        "label": "1 database CU-hour (2 active hours on the Paid standard 0.5 CU profile)"
-      },
-      {
-        "meter": "neon.storage.root",
-        "quantity": 0.5,
-        "label": "0.5 database GB-month"
+        "meter": "pgcf.memory.active",
+        "quantity": 1024,
+        "label": "2 active database hours at 512 MiB RAM, including disk and seven-day backups"
       },
       {
         "meter": "wfp.script",
@@ -573,14 +518,9 @@
         "label": "200,000 CPU-ms"
       },
       {
-        "meter": "neon.compute.scale",
-        "quantity": 1,
-        "label": "1 database CU-hour (4 active hours on the Free 0.25 CU profile)"
-      },
-      {
-        "meter": "neon.storage.root",
-        "quantity": 0.25,
-        "label": "0.25 database GB-month"
+        "meter": "pgcf.memory.active",
+        "quantity": 1024,
+        "label": "4 active database hours at 256 MiB RAM, including disk and seven-day backups"
       },
       {
         "meter": "wfp.script",

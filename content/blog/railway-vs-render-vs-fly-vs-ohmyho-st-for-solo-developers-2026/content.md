@@ -122,7 +122,7 @@ Every project in the organization uses that balance. You can give a project a mo
 
 {{ table workload.smallApp }}
 
-Database active time is the largest line in this example. Paid standard uses {{ value profile.standard.cu }} CU at {{ rate neon.compute.scale }}, making an active hour about {{ credits unit.activeDatabaseHourStandard }}. Idle database compute suspends; retained storage continues at {{ rate neon.storage.root }}. Free uses {{ value profile.free.cu }} CU, while the Paid performance profile uses {{ value profile.performance.cu }} CU at {{ rate neon.compute.performance }}.
+The database line uses explicit RAM and active time. One active database hour at {{ number 512 }} MiB RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB size available on Free costs {{ credits unit.activeDatabaseHour256 }}. Databases sleep after five idle minutes, with no active-RAM charge while asleep. Allocated disk and seven-day backups are included. Customer files and retained Worker scripts keep their separate rates. Larger sizes require Paid; the [database table](https://docs.ohmyho.st/database) shows each included allocation. A workload comparison needs an actual size and activity estimate, not an assumption that different providers' instances are equivalent.
 
 For a project you rarely use, inspect the quiet-project example:
 

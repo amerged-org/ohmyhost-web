@@ -62,7 +62,7 @@ Each project gets Dev and Prod hosts under check.omh.st. Custom domains and send
 
 Keep the subscription and usage allowance separate when comparing the price. Free grants {{ number plan.freeCredits }} credits per UTC month. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period that expire at period end, and Paid-only top-ups at {{ number plan.topUpPerUsd }} credits per dollar carry over until downgrade to Free. One credit is {{ usd plan.usdPerCredit }} of credit value.
 
-These are the rates your Agent should use for a small-app estimate: {{ rate wfp.requests }}; {{ rate neon.compute.scale }}, so one active hour on the Paid standard {{ value profile.standard.cu }} CU profile is about {{ credits unit.activeDatabaseHourStandard }}; stored data is {{ rate neon.storage.root }}; each deployed script is about {{ credits unit.deployedScriptMonth }} a month. Bandwidth from Workers is not charged. Database compute suspends after a minute idle, so a project nobody visits pays for its stored data and its script, nothing else. Ask your Agent how often your actual database is active. An app can look quiet in the browser while background work still uses its backend.
+Use {{ rate wfp.requests }} for requests. One active database hour at {{ number 512 }} MiB RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB size available on Free costs {{ credits unit.activeDatabaseHour256 }}. Databases sleep after five idle minutes, with no active-RAM charge while asleep. Allocated disk and seven-day backups are included. Customer files and retained Worker scripts keep their separate rates. Each deployed script is about {{ credits unit.deployedScriptMonth }} a month; Worker bandwidth is not charged. Ask how often the actual database is active: an app can look quiet in the browser while background work keeps its database awake.
 
 For the published example, the subscription comparison is: Bought separately, one project on Vercel Pro and Supabase Pro is {{ usd scenario.vercelSupabase }} a month before usage; with Resend Pro for mail it is the {{ usd scenario.threeSubscriptions }} in the figure. Five projects on the same Vercel and Supabase accounts are {{ usd scenario.vercelSupabaseFiveProjects }} a month, because four extra Micro instances run around the clock.
 
@@ -133,7 +133,7 @@ A database dump alone does not recreate your sign-in system. ohmyho.st does not 
 
 ### What does a quiet side project cost on ohmyho.st?
 
-About {{ credits workload.quietProject }} a month, or about {{ usdValue workload.quietProject }} of credit value: one active database hour, a little stored data, a few thousand requests and one deployed script. Idle database compute suspends after a minute; stored data at {{ rate neon.storage.root }} and the script keep using credits while the project exists.
+About {{ credits workload.quietProject }} a month, or {{ usdValue workload.quietProject }} of credit value: one active hour at {{ number 256 }} MiB RAM with disk/backups included, a few thousand requests and a deployed script. The database sleeps after five idle minutes; the script remains metered while retained.
 
 ### Can I take my database with me later?
 

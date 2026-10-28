@@ -1,5 +1,5 @@
 {
-  "title": "Deploy a Bolt.new export: host your Bolt app — ohmyho.st",
+  "title": "Deploy a Bolt.new export: host your Bolt app \u2014 ohmyho.st",
   "description": "Exported from Bolt.new? Connect GitHub or push the ZIP, paste one prompt, and your agent recreates the .env, deploys to Dev and promotes to Prod on ohmyho.st.",
   "kind": "howto",
   "status": "published",
@@ -7,8 +7,8 @@
   "social": {
     "image": "/og/from-bolt.png",
     "alt": "ohmyho.st. An alternative home for your Bolt app. Bring your exported app and prepare it for deployment.",
-    "title": "ohmyho.st — An alternative home for your Bolt app",
+    "title": "ohmyho.st \u2014 An alternative home for your Bolt app",
     "description": "Bring your exported app and prepare it for deployment."
   },
-  "modified": "2026-09-28"
+  "modified": "2026-10-26"
 }

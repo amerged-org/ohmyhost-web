@@ -1,5 +1,4 @@
 import checkedOn from "../../content/data/checked-on.json" with { type: "json" };
-import databaseProfiles from "../../content/data/database-profiles.json" with { type: "json" };
 import plans from "../../content/data/plans.json" with { type: "json" };
 import scenarioData from "../../content/data/scenarios.json" with { type: "json" };
 import units from "../../content/data/units.json" with { type: "json" };
@@ -27,8 +26,8 @@ export const LIST_PRICES_CHECKED_ON = checkedOn.listPricesCheckedOn;
 /** Plans and purchase rules from PRICING.md; the rate card itself is generated. */
 export const PLANS = plans;
 
-/** Database compute profiles in CU; an active hour costs profile × the CU-hour rate. */
-export const DATABASE_PROFILES = databaseProfiles;
+/** Fixed RAM, total disk and included-backup recipes from the product contract. */
+export { DATABASE_SIZES } from "../generated-pricing.js";
 
 export const WORKLOADS = workloads as unknown as {
   [Name in keyof typeof workloads]: Workload;

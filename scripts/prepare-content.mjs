@@ -137,21 +137,12 @@ async function main() {
             lookup(data.PLANS, first.split(".")[1], "plan value"),
             decimals,
           );
-        if (first.startsWith("profile."))
-          return format.number(
-            lookup(data.DATABASE_PROFILES, first.split(".")[1], "profile").cu,
-            decimals,
-          );
         if (first.startsWith("unit."))
           return format.number(unitCredits(first) / 1_000_000, decimals);
         throw new Error(`number cannot read ${first}`);
       case "value": {
         if (first.startsWith("plan."))
           return String(lookup(data.PLANS, first.split(".")[1], "plan value"));
-        if (first.startsWith("profile."))
-          return String(
-            lookup(data.DATABASE_PROFILES, first.split(".")[1], "profile").cu,
-          );
         const { fact, field } = vendorFact(first);
         return String(fact[field ?? "usd"]);
       }
@@ -180,6 +171,22 @@ async function main() {
         return String(fact[third]);
       }
       case "table":
+        if (first === "databaseSizes")
+          return [
+            "| RAM | Included total disk | Credits per active hour | Access |",
+            "| --- | --- | ---: | --- |",
+            ...data.DATABASE_SIZES.map((size) => {
+              const memory =
+                size.memoryMiB < 1024
+                  ? `${size.memoryMiB} MiB`
+                  : `${size.memoryMiB / 1024} GiB`;
+              const disk =
+                size.storageMiB < 1024
+                  ? `${size.storageMiB} MiB`
+                  : `${size.storageMiB / 1024} GiB`;
+              return `| ${memory} | ${disk} | ${format.number(size.creditsPerAwakeHour)} | ${size.paidRequired ? "Paid" : "Free or Paid"} |`;
+            }),
+          ].join("\n");
         if (first === "rates") return CREDIT_PRICING_TABLE_TEXT;
         return format.workloadTable(
           lookup(data.WORKLOADS, first.split(".")[1], "workload"),

@@ -79,7 +79,7 @@ No. Astro supports static output and server-side rendering. On ohmyho.st, reques
 
 ### Can I choose EU hosting for an Astro project?
 
-Yes. Select the EU project region when creating the project. This places builds and any managed database and file storage in the EU; an existing project's region stays fixed. Static assets use Cloudflare's global delivery network, while transactional mail is processed in the US. The [hosting region guide](https://docs.ohmyho.st/environments#choose-a-hosting-region-once) explains the scope.
+Yes. Select the EU project region when creating the project. New projects provision their database, new files and builds in that region. Existing projects moved to US with their owner's authorization use US databases; recorded R2 object locations remain unchanged. Read database_compute_get for actual database location. The customer API cannot change an existing project's region. Static assets use Cloudflare's global delivery network, while transactional mail is processed in the US. The [hosting region guide](https://docs.ohmyho.st/environments#choose-a-hosting-region-once) explains the scope.
 
 ### Can I test an Astro deployment before publishing it?
 

@@ -62,7 +62,7 @@ At project creation, decide whether Dev and Prod share data and whether to use t
 
 The [database Skill](/skills/ohmyhost-manage-database/SKILL.md), [database guide](https://docs.ohmyho.st/database) and [migrations guide](https://docs.ohmyho.st/migrations) cover the supported operations. After the trial, open an existing record, create a disposable record, reload and verify both. If the app has related records, test that relationship too.
 
-Database cost depends on activity as well as storage. An active hour on Paid standard is about {{ credits unit.activeDatabaseHourStandard }}. Idle compute suspends, while retained data continues at {{ rate neon.storage.root }}. Ask your Agent to check scheduled jobs and health checks before assuming the database will stay idle. Repeated database requests can keep it awake.
+Database cost depends on selected RAM and activity. One active database hour at {{ number 512 }} MiB RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB size available on Free costs {{ credits unit.activeDatabaseHour256 }}. Databases sleep after five idle minutes, with no active-RAM charge while asleep. Allocated disk and seven-day backups are included. Customer files and retained Worker scripts keep their separate rates. Ask your Agent to check scheduled jobs and health checks before assuming the database will stay idle; repeated requests can keep it awake.
 
 ## Replace committed secrets
 

@@ -48,7 +48,7 @@ A later session starts with `project_context_get`, which returns status, DNS and
 Cursor asks for decisions, not credentials.
 
 - Sign-in: open one link and check the code. Sign-up is open; there is no invitation and no waitlist.
-- Region: US or EU, once, at project creation. US is the default. EU places the database, files and builds in the EU at identical prices; transactional mail is sent and processed in the US either way. The choice cannot change later.
+- Region: US or EU, once, at project creation. US is the default. New projects provision databases, new files and builds in their selected region. Existing projects moved to US with their owner's authorization use US databases; recorded R2 locations remain unchanged. Read database_compute_get for actual database location. Transactional mail is processed in the US either way. The customer API cannot change region later.
 - Data mode: optional, shared by default, or isolated Dev and Prod data areas, which the Skill recommends for production work. Isolated meters databases separately. An Owner can later review `project_data_plan` and confirm `project_data_change`; the platform copies no records or files and charges ordinary usage. Sharing keeps Prod and permanently deletes the separate Dev data, files and deployment; resetting isolated Dev deletes its area and deployment.
 - Secrets: it hands you a command that reads the value from stdin. You paste the value into your terminal, never into the chat.
 - Plans: every deployment, promotion, rollback and deletion is a plan you confirm before it executes.
@@ -78,7 +78,7 @@ Free: {{ number plan.freeCredits }} credits per UTC month. Paid: {{ usd plan.pai
 
 {{ table workload.threeStaticSites }}
 
-Add a database and the numbers move. One active hour on the Paid standard profile ({{ value profile.standard.cu }} CU) is about {{ credits unit.activeDatabaseHourStandard }}; on the Free profile ({{ value profile.free.cu }} CU) about {{ credits unit.activeDatabaseHourFree }}. Idle compute suspends, but stored data is {{ rate neon.storage.root }} whether the compute is awake or not. A quiet side project with a database costs about {{ credits workload.quietProject }} a month. A small app with 100,000 requests, eight active database hours and 2,000 mail recipients costs about {{ credits workload.smallApp }}. Requests are {{ rate wfp.requests }}; Workers bandwidth is not charged. Mail needs Paid and a verified mail domain and is metered per sent recipient at {{ rate mail.sent }}, one recipient per message; the domain has no monthly fee.
+Add a database and the numbers move. One active database hour at {{ number 512 }} MiB RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB size available on Free costs {{ credits unit.activeDatabaseHour256 }}. Databases sleep after five idle minutes, with no active-RAM charge while asleep. Allocated disk and seven-day backups are included. Customer files and retained Worker scripts keep their separate rates. A quiet side project with a database costs about {{ credits workload.quietProject }} a month. The small app example uses about {{ credits workload.smallApp }}, including its requests, database activity and mail. Requests are {{ rate wfp.requests }}; Workers bandwidth is not charged. Mail needs Paid and a verified mail domain, with {{ rate mail.sent }} and no monthly domain fee.
 
 Where Vercel wins: Vercel Hobby costs {{ usd vendor.vercel.hobby }} a month for one developer seat, and for a static portfolio with no database and no mail it is the cheaper answer. Vercel Pro is {{ usd vendor.vercel.pro }} a month before you add a database or a mail provider. ohmyho.st fits once a project needs Postgres, transactional mail or a domain, or once you run several small projects and want one balance instead of one plan each.
 
@@ -102,7 +102,7 @@ No. Cursor runs `ohmyhost login`, posts a link and a code, and reuses that local
 
 ### Can I stay on Free for a portfolio?
 
-Yes, when the sites are static or quiet. {{ number plan.freeCredits }} credits a UTC month cover three static sites at about {{ credits workload.threeStaticSites }}, or one quiet project with a database at about {{ credits workload.quietProject }}. Sender mail needs Paid; a customer-owned domain needs Paid or a project that shows the “Powered by ohmyho.st” flag, which waives domain credits. The Free profile runs at {{ value profile.free.cu }} CU.
+Yes, when the sites are static or quiet. {{ number plan.freeCredits }} credits a UTC month cover three static sites at about {{ credits workload.threeStaticSites }}, or one quiet project with a database at about {{ credits workload.quietProject }}. Sender mail needs Paid; a customer-owned domain needs Paid or a project that shows the “Powered by ohmyho.st” flag, which waives domain credits. Free supports {{ number 256 }} MiB RAM with {{ number 500 }} MiB disk and seven-day backups included.
 
 ### Where does the code come from?
 

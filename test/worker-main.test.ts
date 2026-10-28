@@ -64,7 +64,7 @@ describe("public entry and unassigned Free-host fallback", () => {
       "ohmyho.st (ohmyhost) is prepaid-credit hosting for apps built with",
     );
     expect(html).toContain(
-      "1,000 credits. Our small-app example uses ≈ 814, including 2,000 emails. Every project shares the balance. Higher usage needs more credits.",
+      "1,000 credits. Our small-app example uses ≈ 567, including 2,000 emails. Every project shares the balance. Higher usage needs more credits.",
     );
     expect(html).not.toContain("Postgres ≈ 100–200");
     expect(html).toContain("second project: <em>usage only</em>");
@@ -488,7 +488,7 @@ describe("public entry and unassigned Free-host fallback", () => {
       await (
         await worker.fetch(new Request("https://ohmyho.st/pricing"))
       ).text(),
-    ).toContain("Prices are identical in the US and EU hosting regions.");
+    ).toContain("Prices are identical in US and EU.");
     const breakdown = await (
       await worker.fetch(new Request("https://ohmyho.st/pricing/breakdown.md"))
     ).text();
@@ -500,7 +500,10 @@ describe("public entry and unassigned Free-host fallback", () => {
     const privacy = await (
       await worker.fetch(new Request("https://ohmyho.st/privacy"))
     ).text();
-    expect(privacy).toContain("US East or the EU");
+    expect(privacy).toContain(
+      "US or EU region for their PGCF application database",
+    );
+    expect(privacy).toContain("Contabo infrastructure in the US");
     expect(privacy).not.toContain(
       "New customer application/database placements are in US East.",
     );

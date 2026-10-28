@@ -11,7 +11,7 @@ import {
   scenarioUsd,
 } from "../src/content/format.js";
 import {
-  DATABASE_PROFILES,
+  DATABASE_SIZES,
   SCENARIOS,
   WORKLOADS,
 } from "../src/content/sources.js";
@@ -93,14 +93,14 @@ it("renders every figure as one Markdown-safe block whose numbers come from the 
   expect(creditBarRows().map((row) => row.microcredits)).toEqual([
     priceLine("wfp.requests", 1_000_000),
     priceLine("mail.sent", 1000),
-    priceLine("neon.compute.scale", DATABASE_PROFILES.standard.cu),
-    priceLine("neon.storage.root", 1),
+    priceLine("pgcf.memory.active", DATABASE_SIZES[1].memoryMiB),
+    0,
     priceLine("domain.custom_hostname", 1),
     priceLine("build.sandbox.standard-3", 1200),
     priceWorkload(WORKLOADS.smallApp).microcredits,
   ]);
   expect(figureCreditBars()).toContain(
-    'data-count-to="813.87" data-suffix=" credits"',
+    `data-count-to="${number(priceWorkload(WORKLOADS.smallApp).microcredits / MICROCREDITS, 2)}" data-suffix=" credits"`,
   );
   const catalog = new Set(
     mcpTools.tools.map((tool: { name: string }) => tool.name),
@@ -127,7 +127,7 @@ it("keeps the pinned homepage's bill and credit examples equal to the data modul
   const round = (microcredits: number) =>
     `${Math.round(microcredits / MICROCREDITS)} credits`;
   expect(home).toContain(
-    `<h3>1 active database hour</h3><u>${round(priceLine("neon.compute.scale", DATABASE_PROFILES.standard.cu))}</u>`,
+    `<h3>1 active database hour, 512 MiB</h3><u>${round(priceLine("pgcf.memory.active", DATABASE_SIZES[1].memoryMiB))}</u>`,
   );
   expect(home).toContain(
     `<h3>1,000 emails</h3><u>${round(priceLine("mail.sent", 1000))}</u>`,
@@ -135,9 +135,7 @@ it("keeps the pinned homepage's bill and credit examples equal to the data modul
   expect(home).toContain(
     `<h3>1M requests</h3><u>${round(priceLine("wfp.requests", 1_000_000))}</u>`,
   );
-  expect(home).toContain(
-    `<h3>1 database GB-month</h3><u>${round(priceLine("neon.storage.root", 1))}</u>`,
-  );
+  expect(home).toContain("<h3>Database disk and backups</h3><u>included</u>");
   expect(credits(priceLine("mail.sent", 2000), 0)).toBe("360 credits");
   expect(home).toContain(
     `Our small-app example uses ≈ ${Math.round(priceWorkload(WORKLOADS.smallApp).microcredits / MICROCREDITS)}, including 2,000 emails.`,

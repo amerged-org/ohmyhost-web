@@ -1,5 +1,5 @@
 {
-  "title": "Deploy a Claude Code app in one prompt — ohmyho.st",
+  "title": "Deploy a Claude Code app in one prompt \u2014 ohmyho.st",
   "description": "Paste one prompt into Claude Code: it connects to ohmyho.st over MCP, links your GitHub repo, plans the deployment, sets secrets and verifies the live app.",
   "kind": "howto",
   "status": "published",
@@ -7,8 +7,8 @@
   "social": {
     "image": "/og/for-claude-code.png",
     "alt": "ohmyho.st. Your Claude Code hosting workflow. Connect Claude Code to ohmyho.st and deploy a supported GitHub app.",
-    "title": "ohmyho.st — Your Claude Code hosting workflow",
+    "title": "ohmyho.st \u2014 Your Claude Code hosting workflow",
     "description": "Connect Claude Code to ohmyho.st and deploy a supported GitHub app."
   },
-  "modified": "2026-09-28"
+  "modified": "2026-10-26"
 }

@@ -4,7 +4,7 @@ Yes for several small projects, no for one busy app. {{ usd plan.paidUsd }} a mo
 
 ## What a credit is
 
-One credit has a nominal value of {{ usd plan.usdPerCredit }}, so {{ number plan.topUpPerUsd }} credits represent {{ usd 1 }} of credit value. Every rate on this page comes from one formula: the provider's list cost in dollars times 1.15, divided by 0.0035. That is the whole margin. Each rate rounds up to the next microcredit (one credit is a million microcredits), no meter has a minimum charge, and a balance never goes negative. Provider free tiers are not passed through: you pay the list-cost rate from the first unit, which is also why nothing on this page depends on a quota you might exceed.
+One credit has a nominal value of {{ usd plan.usdPerCredit }}, so {{ number plan.topUpPerUsd }} credits represent {{ usd 1 }} of credit value. The published rate card sets each price. Managed database RAM uses the fixed size tariff shown on the pricing page; other meters use their published provider-derived rates. Each rate rounds up to the next microcredit (one credit is a million microcredits), no meter has a minimum charge, and a balance never goes negative. Provider free tiers are not passed through: you pay the list-cost rate from the first unit, which is also why nothing on this page depends on a quota you might exceed.
 
 Credits arrive three ways:
 
@@ -18,7 +18,7 @@ Every project draws from the organization's one balance. There is no per-project
 
 {{ table rates }}
 
-How to read it: the Credits column is what you pay for the measured quantity, and a charge is that rate times the measured amount, rounded up. Requests and CPU are two separate meters, so a request that burns CPU costs more than one that returns quickly. Functions and crons have no meter of their own; each run is one request plus its CPU-ms. The two compute rows are database profiles. Free runs at {{ number profile.free.cu }} CU and Paid standard at {{ number profile.standard.cu }} CU, so one active hour on Paid standard is half a CU-hour, about {{ credits unit.activeDatabaseHourStandard }}. The performance profile is {{ number profile.performance.cu }} CU on its own row, about {{ credits unit.activeDatabaseHourPerformance }} per active hour, which is 2.5 times Paid standard for the same active minute. The r2 rows meter uploaded files: storage by daily peak, then writes and reads by operation. Sent mail is charged on the `mail.sent` row per sent recipient, and received mail on the `mail.received` row per received message; webhook retries add no mail charge. A mail domain has no monthly fee.
+How to read it: the Credits column is what you pay for the measured quantity, rounded up to microcredits. Worker requests and CPU are separate meters; functions and crons use those same meters. Database RAM is multiplied by active time, with allocated disk and seven-day backups included. Database CPU, network and connections have no separate charge. The R2 rows meter customer-uploaded files: storage by daily peak, then writes and reads by operation. Sent mail is charged per sent recipient and received mail per message; webhook retries add no mail charge. A mail domain has no monthly fee.
 
 The build row deserves a closer look. It reads {{ rate build.sandbox.standard-3 }}, but the code does not store a per-second decimal. It stores the exact sandbox rational, {{ number unit.buildRateUnit dp=4 }} for every {{ number 175 }} build seconds, and prices each build from its measured seconds, rounded up to the full second. Sandbox start-up time is not billed. A deployment plan holds the build price before the build starts and releases what the build did not use. So 20 build minutes cost {{ credits unit.twentyBuildMinutes dp=6 }}, and the workloads below all use that figure.
 
@@ -26,7 +26,7 @@ The build row deserves a closer look. It reads {{ rate build.sandbox.standard-3 
 
 {{ figure creditBars }}
 
-The bars put the rate card in proportion. A million requests cost about {{ credits unit.millionRequests }}; one active database hour on Paid standard about {{ credits unit.activeDatabaseHourStandard }}; one stored gigabyte for a month {{ rate neon.storage.root }}. For a side project the database, not the traffic, is where the credits go: eight active hours cost more than a hundred thousand requests. A custom hostname uses about {{ credits unit.customHostnameMonth }} a month unless the project shows the “Powered by ohmyho.st” flag. It needs Paid or that flag on Free, and an active Prod deployment. The examples here price the hostname without a flag. Mail has no fixed line: 1,000 sent recipients cost about {{ credits unit.thousandMailRecipients }}. The last bar is the small app, itemized in the next section.
+The bars put the rate card in proportion. A million requests cost about {{ credits unit.millionRequests }}; an active database hour at {{ number 512 }} MiB costs {{ credits unit.activeDatabaseHour512 }}, including allocated disk and backups. Eight active hours cost more than a hundred thousand requests. A custom hostname uses about {{ credits unit.customHostnameMonth }} a month unless the project shows the “Powered by ohmyho.st” flag. It needs Paid or that flag on Free, and an active Prod deployment. The examples price a hostname without a flag. Mail has no fixed line: a thousand sent recipients cost {{ credits unit.thousandMailRecipients }}. The last bar is the small app, itemized below.
 
 ## Four worked workloads
 
@@ -36,7 +36,7 @@ Each table prices one month of measured usage at the published rates. The quanti
 
 {{ table workload.quietProject }}
 
-This is a project you deploy twice a month and open a few times a week. Most of it is the one active database hour and the fifth of a gigabyte it keeps; the stored data and the deployed script are the only lines that would remain if nobody ever opened it.
+This is a project you deploy twice a month and open a few times a week. The database line is one active hour at {{ number 256 }} MiB RAM with its total disk and backups included. If no query wakes it, only the retained script in this example continues to use credits. Customer-uploaded files, if added, would have their own storage and operation charges.
 
 ### A small app
 
@@ -54,7 +54,7 @@ Less traffic, half the database time and half the mail of the small app. The cus
 
 {{ table workload.busyApp }}
 
-Two hundred active database hours dominate; mail and ten stored gigabytes come next, then traffic. This is the workload where the {{ number plan.paidCredits }} monthly credits are a small fraction of the total and the rest is bought as top-ups, which is the honest way to say ohmyho.st is not the cheapest place for it.
+Two hundred active database hours at four GiB RAM, including eight GiB total disk, dominate; mail and traffic follow. This is the workload where the {{ number plan.paidCredits }} monthly credits are a small fraction of the total and the rest is bought as top-ups, which is the honest way to say ohmyho.st is not the cheapest place for it.
 
 ## The three subscriptions, bought separately
 
@@ -84,7 +84,7 @@ Three things a pricing-showdown reader expects to pay for cost nothing here:
 
 Three things keep using credits while nobody visits:
 
-- Stored data, at {{ rate neon.storage.root }}. Idle database compute suspends after 60 seconds on the standard profiles (five minutes on performance), so compute stops but storage does not, and the first query after a suspension is a cold start.
+- Customer-uploaded files use their R2 storage and operation rates. Database disk and seven-day backups stay included while the database sleeps; there is no separate database-storage charge.
 - Each deployed script, about {{ credits unit.deployedScriptMonth }} a month. Every deployment stages one immutable script that stays for rollback until it is cleaned up or the project is deleted.
 - A linked custom hostname, about {{ credits unit.customHostnameMonth }} a month, nothing while the project shows the “Powered by ohmyho.st” flag. It needs Paid or that flag on Free.
 
@@ -94,7 +94,7 @@ Periodic SQL health checks keep idle compute awake. The agent reads database sta
 
 Three cases, with the numbers.
 
-The busy app. One busy production app uses about {{ credits workload.busyApp }} a month, {{ usdValue workload.busyApp }} of credit value, most of it in database compute and storage. At that scale Vercel Pro at {{ usd vendor.vercel.pro }} a month with its usage allowance and Supabase Pro from {{ usd vendor.supabase.pro }} a month with a fixed compute instance can come out cheaper, and a usage meter stops being an advantage. Compare a concrete quote before moving a busy app.
+The busy app. One busy production app uses about {{ credits workload.busyApp }} a month, {{ usdValue workload.busyApp }} of credit value, most of it in active database RAM and mail. At that scale Vercel Pro at {{ usd vendor.vercel.pro }} a month with its usage allowance and Supabase Pro from {{ usd vendor.supabase.pro }} a month with a fixed compute instance can come out cheaper, and a usage meter stops being an advantage. Compare a concrete quote before moving a busy app.
 
 Resend at high volume. Resend Pro is {{ usd vendor.resend.pro }} a month for 50,000 emails. The same 50,000 recipients on ohmyho.st cost about {{ credits workload.fiftyThousandRecipients }}, {{ usdValue workload.fiftyThousandRecipients }} of credit value, and Resend Scale is {{ usd vendor.resend.scale }} a month for 100,000. Up to about 10,000 recipients a month the per-recipient meter is cheaper than Resend Pro because there is no plan to buy; above that, Resend is.
 
@@ -128,7 +128,7 @@ Monthly credits do not roll over: the {{ number plan.freeCredits }} Free credits
 
 ### What does a project cost when nobody visits it?
 
-Only what it keeps. Stored data at {{ rate neon.storage.root }}, retained deployed scripts at about {{ credits unit.deployedScriptMonth }} a month each, and a custom hostname if you linked one, with domain credits waived while the “Powered by ohmyho.st” flag shows. Database compute suspends after a minute of idle time and costs nothing until the next query wakes it.
+Only separately metered resources: customer files, retained deployed scripts at about {{ credits unit.deployedScriptMonth }} a month each, and a custom hostname if you linked one, with domain credits waived while the “Powered by ohmyho.st” flag shows. Database RAM stops charging after five idle minutes; allocated disk and seven-day backups remain included.
 
 ### Can I cap what one project spends?
 
