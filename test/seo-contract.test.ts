@@ -442,3 +442,32 @@ it("describes the organization with its legal entity and official profile, and t
     sameAs: ["https://www.linkedin.com/in/auto-mate/"],
   });
 });
+
+it("gives the homepage search description the free alternative intent and the unpunctuated brand", async () => {
+  const response = await worker.fetch(new Request("https://ohmyho.st/"), {
+    ASSETS: new PagesFixture(),
+  } as never);
+  const html = await response.text();
+  const description = attribute(html, 'name="description"');
+  expect(description).toBe(
+    "Free Supabase, Vercel and Resend alternative: ohmyhost puts hosting, Postgres and email on one balance. Start free with 200 credits a month and deploy with your coding agent.",
+  );
+  expect(description.length).toBeGreaterThanOrEqual(150);
+  expect(description.length).toBeLessThanOrEqual(180);
+  expect(description.match(/[.!?](?:\s|$)/gu)).toHaveLength(2);
+  expect(description).toContain("ohmyhost");
+  expect(description).not.toContain("ohmyho.st");
+  expect(description).not.toMatch(/\$\d|\bTheir\b/u);
+  // Only the description moved: title, H1, canonical, robots and social copy keep their approved text.
+  expect(html).toContain(
+    "<title>ohmyho.st — Vercel, Supabase &amp; Resend alternative, free plan</title>",
+  );
+  expect(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/u)?.[1]).toBe(
+    '<span class="thin">Vercel, Supabase &amp; Resend.</span><br>One alternative from $10/month.',
+  );
+  expect(html).toContain('<link rel="canonical" href="https://ohmyho.st/">');
+  expect(html).not.toMatch(/<meta name="robots" content="[^"]*noindex/u);
+  expect(attribute(html, 'property="og:title"')).toBe(
+    "ohmyho.st — An alternative to Vercel, Supabase &amp; Resend",
+  );
+});
