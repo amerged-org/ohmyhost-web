@@ -4,7 +4,7 @@ Free gives {{ number plan.freeCredits }} credits every month, with no card. Paid
 
 Free credits expire at UTC month end. Paid monthly credits expire at billing-period end without rollover. Top-ups, automatic recharge, signup-bonus and referral credits never expire and are spent after the monthly credits. Only a Paid workspace can buy top-ups or turn on automatic recharge; credit you bought stays usable after a downgrade to Free. Connect your own domain; domain registration is not included. Usage is metered; additional credits cost extra. Applicable taxes are added.
 
-An unpaid subscription renewal keeps Paid features for at most {{ number plan.renewalGraceDays }} days after the paid period ends. That window grants no new Free allowance or Paid monthly credits; payment is required for a new Paid allocation. Cancellation ends Paid at the stated period end. Previously expired monthly credits stay expired.
+An unpaid subscription renewal keeps Paid features for at most {{ number plan.renewalGraceDays }} days after the paid period ends. Payment within that window continues coverage; otherwise the workspace returns to Free and keeps its top-ups. Cancellation ends Paid at the stated period end. Previously expired monthly credits stay expired.
 
 ## What uses credits
 

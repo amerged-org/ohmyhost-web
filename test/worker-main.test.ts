@@ -92,7 +92,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     );
     expect(pricingSection.match(/class="note"/gu)).toHaveLength(1);
     expect(pricingSection).toContain(
-      "Monthly credits expire at period end. Top-ups carry over while Paid and expire when you switch to Free. Usage is metered.",
+      "Monthly credits expire at period end. Top-ups never expire. Usage is metered.",
     );
     // The $10 card carries one small corner chip; the copy repeats it in bold.
     const paidCard = pricingSection.slice(

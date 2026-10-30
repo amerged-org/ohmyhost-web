@@ -429,7 +429,7 @@ function applyApprovedHomepageChanges(html) {
     "Dev and prod environments are included for each project, not billed as two. Quiet projects use close to zero credits.":
       "Every project has Dev and Prod. Isolated data uses two independently metered databases; retained resources use credits even when traffic is quiet.",
     '<p class="note">Credits reset on your billing day. Quiet projects burn almost nothing. Busy ones take credits as they go — top up any time.</p>':
-      '<p class="note" style="color:var(--muted-foreground)">Monthly credits expire at period end. Top-ups carry over while Paid and expire when you switch to Free. Usage is metered. <a href="https://docs.ohmyho.st/pricing">See all usage rates</a>.</p>',
+      '<p class="note" style="color:var(--muted-foreground)">Monthly credits expire at period end. Top-ups never expire. Usage is metered. <a href="https://docs.ohmyho.st/pricing">See all usage rates</a>.</p>',
     "No card, no dashboard.": "No card required.",
     // Owner-approved 2026-10-22: the Free plan is the recurring monthly allowance it is, not a trial.
     "200 credits, free. No card required.":
