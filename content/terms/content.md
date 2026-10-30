@@ -1,6 +1,6 @@
 # Terms of Service — Master Services Agreement
 
-Version: September 28, 2026 — MSA revision 4.
+Version: October 30, 2026 — MSA revision 5.
 
 ## 1. Your agreement
 
@@ -42,9 +42,9 @@ You are responsible for your application code, dependencies, user notices and au
 
 Projects use their organisation’s shared credit balance. The current rate card and deployment plan describe measured charges. Prices, tax and credit consumption are different quantities. Retained database or file storage can use credits while compute is idle.
 
-Free monthly allowance credits expire at the end of their UTC month. Paid monthly credits and that period’s powered-by bonus expire at the end of their billing period without rollover; monthly credits are spent before top-ups. Top-up and automatic-recharge credits have no time limit while the workspace keeps active Paid access; they expire when Paid access effectively ends, not when cancellation is requested, and a later upgrade does not restore them.
+Free monthly allowance credits expire at the end of their UTC month. Paid monthly credits and that period’s powered-by bonus expire at the end of their billing period without rollover; monthly credits are spent before one-time credits. Top-up, automatic-recharge, signup-bonus and referral credits have no time limit: they do not expire when Paid access ends or when a subscription is cancelled.
 
-When an uncancelled Stripe subscription has an unpaid renewal, Paid features and usable top-ups continue for at most {{ number plan.renewalGraceDays }} days after the paid billing period ends. No new Paid monthly credits or Free monthly allowance are issued during that renewal grace period; new Paid monthly credits require payment. If Paid access ends when the grace period expires, remaining top-ups expire too. A subscription cancelled for the period end has no unpaid-renewal grace: its Paid access ends at that period end, unless another valid Paid entitlement covers the workspace.
+When an uncancelled Stripe subscription has an unpaid renewal, Paid features continue for at most {{ number plan.renewalGraceDays }} days after the paid billing period ends, and monthly credits continue at the Paid amount until that grace period expires. If Paid access ends when the grace period expires, the Free monthly allowance applies from then on; credits that you bought or were granted remain. A subscription cancelled for the period end has no unpaid-renewal grace: its Paid access ends at that period end, unless another valid Paid entitlement covers the workspace.
 
 Configured signup/referral bonuses and manual grants keep their recorded terms. Existing payment, grant, spending, correction and expired-credit records are retained; this revision does not restore previously expired credits. Credits are service-use units, not money, a deposit or an investment. They are not transferable between customers or redeemable for cash except where law or an expressly agreed refund requires it. Corrections, refunds and disputes can adjust associated credit entries; one payment does not earn credit twice.
 
