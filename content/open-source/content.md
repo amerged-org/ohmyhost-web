@@ -1,6 +1,6 @@
 # Open source at ohmyho.st
 
-Every client you run is open source. The command-line client, the MCP server, the TypeScript SDK, the application runtime and the Better Auth integration are published on npm under Apache-2.0, with their source and third-party notices inside the package. The website and documentation are MIT. The hosted platform that runs your projects is private, and this page says exactly which part is which.
+Every client you run is open source. The command-line client, the MCP server, the TypeScript SDK, the application runtime and the Better Auth integration are published on npm under Apache-2.0, with their source and third-party notices inside the package. The website and documentation are MIT. The PostgreSQL platform under every database, PGCF, is Apache-2.0 too. The hosted platform that runs your projects is private, and this page says exactly which part is which.
 
 ## Apache-2.0: the client packages
 
@@ -26,6 +26,10 @@ The MCP server's source is also on GitHub: with every release, [amerged-org/ohmy
 
 The runtime and auth packages matter most for portability: they are the code your application imports, so the parts of your app that touch our platform are readable, forkable and licensed to you.
 
+## Apache-2.0: the PostgreSQL platform
+
+[amerged-org/cloudflare-postgres](https://github.com/amerged-org/cloudflare-postgres) (PGCF) is the open-source serverless PostgreSQL platform every ohmyho.st database runs on: real PostgreSQL on Contabo servers, reachable only through Cloudflare, backed up to R2 with point-in-time recovery. Its own code is Apache-2.0; the upstream components it runs keep their own licences.
+
 ## MIT: the documentation
 
 [amerged-org/ohmyhost-docs](https://github.com/amerged-org/ohmyhost-docs) holds the source of [docs.ohmyho.st](https://docs.ohmyho.st/) under the MIT licence. Fix a typo, add a framework note or improve a guide with a pull request.
@@ -45,7 +49,7 @@ The runtime and auth packages matter most for portability: they are the code you
 
 ## Private: the platform
 
-The service that provisions Postgres, runs your Workers, sends your mail and keeps the credit ledger is a private repository. It holds provider credentials and the isolation between tenants, and it is a small team's product rather than a community project. Saying that plainly is better than a half-open repository nobody can run.
+The service that places your databases on PGCF, runs your Workers, sends your mail and keeps the credit ledger is a private repository. It holds provider credentials and the isolation between tenants, and it is a small team's product rather than a community project. Saying that plainly is better than a half-open repository nobody can run.
 
 ## Why the split is here and not elsewhere
 

@@ -74,7 +74,7 @@ Each deployed script uses about {{ credits unit.deployedScriptMonth }} a month w
 
 ## What it costs
 
-Free: {{ number plan.freeCredits }} credits per UTC month. Paid: {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period, which also unlocks verified sender mail and a customer-owned domain. The domain also works on Free while the project shows the “Powered by ohmyho.st” flag, which waives domain credits on either plan. Monthly credits expire at period end. Paid-only top-ups carry over until downgrade to Free ({{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }}, {{ number plan.topUpPerUsdAbove100 }} per dollar above). Every project draws from the organization's one balance and there is no per-project base fee, which is the point for a portfolio.
+Free: {{ number plan.freeCredits }} credits per UTC month. Paid: {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period, which also unlocks verified sender mail and a customer-owned domain. The domain also works on Free while the project shows the “Powered by ohmyho.st” flag, which waives domain credits on either plan. Monthly credits expire at period end. Top-ups never expire and are bought on Paid only ({{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }}, {{ number plan.topUpPerUsdAbove100 }} per dollar above). Every project draws from the organization's one balance and there is no per-project base fee, which is the point for a portfolio.
 
 {{ table workload.threeStaticSites }}
 

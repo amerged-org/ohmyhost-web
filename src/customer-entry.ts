@@ -208,7 +208,7 @@ ${skills
 
 - [About](https://ohmyho.st/about.md): Amerged B.V., Venray, Netherlands; founder Sebastian Mertens; how the service runs.
 - [Philosophy](https://ohmyho.st/philosophy.md): Buy in bulk, add a small margin, one balance for every project, take your database and go.
-- [Open source](https://ohmyho.st/open-source.md): The MIT-licensed docs, the public Skills, llms.txt, MCP catalog and OpenAPI contract; the platform is private.
+- [Open source](https://ohmyho.st/open-source.md): The Apache-2.0 clients and PGCF PostgreSQL platform, the MIT-licensed docs and website, the public Skills, llms.txt, MCP catalog and OpenAPI contract; the hosted platform is private.
 - [Blog](https://ohmyho.st/blog.md): Notes from the build with dated, priced comparisons and migration guides.
 - [Brand](https://ohmyho.st/brand.md)
 - [Privacy](https://ohmyho.st/privacy.md)

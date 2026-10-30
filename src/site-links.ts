@@ -57,6 +57,10 @@ export const SITE_LINKS: readonly SiteLinkGroup[] = [
       ["Philosophy", "/philosophy"],
       ["Blog", "/blog"],
       ["Open source", "/open-source"],
+      [
+        "PostgreSQL platform",
+        "https://github.com/amerged-org/cloudflare-postgres",
+      ],
       ["Seb Builds", "https://sebmer.com"],
     ],
   },

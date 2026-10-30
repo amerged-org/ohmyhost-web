@@ -132,9 +132,9 @@ The About page explains the product, intended builders, agent deployment, credit
 
 The September 2026 copy audit corrects portal/CLI descriptions, default database idle timing, retained-resource costs, shared/isolated data and funded-service grace wording; deployment examples describe only actual plan/execute pairs. The owner supplied the homepage’s approximately 30-second deployment wording. Brand templates retain their original geometry but receive current copy, valid CLI examples and dated, data-derived plan prices. The changelog and open-source inventory cover verified releases and the MIT website repository. Billing availability and handle-rollout claims are outside this editorial release.
 
-## Approved credit expiry copy — 2026-09-27
+## Approved credit expiry copy — 2026-10-30
 
-The Paid pricing card retains “Top-ups never expire”. Monthly subscription credits have no rollover and expire at billing-period end. Only Paid users buy top-ups; unused top-ups carry across uninterrupted Paid membership and expire on the effective downgrade to Free, without returning after a later upgrade. Pricing, comparisons, agent discovery and the imported platform guidance use the same rules.
+Monthly subscription credits (Free and Paid) have no rollover and expire at the end of their period, and they are spent before one-time credits. One-time credits (top-ups, automatic recharge, signup bonus and referral) never expire and stay usable after a downgrade to Free; only an effective Paid workspace buys top-ups or turns on automatic recharge. The Paid pricing card keeps its “Top-ups never expire” chip. The usage report (MCP `organization_usage_get`, CLI `ohmyhost credits usage`) takes no month and no cursor: it lists the billed charges of the last 14 UTC days by day, project and meter, plus what each project used so far this month, and older days are not kept. Pricing, comparisons, agent discovery and the imported platform guidance use the same rules. This replaces the 2026-09-27 rule under which top-ups expired on the effective downgrade to Free.
 
 ## Editorial links and founder attribution — 2026-09-30
 

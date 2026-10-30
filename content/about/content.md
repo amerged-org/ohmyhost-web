@@ -28,7 +28,7 @@ The [quickstart](https://docs.ohmyho.st/quickstart) covers the steps. Existing a
 
 Every project draws from the same organization credit balance. There is no separate base subscription for each project; the services you use consume credits at published rates.
 
-Free provides {{ number plan.freeCredits }} monthly credits. Paid is {{ usd plan.paidUsd }} per month with {{ number plan.paidCredits }} credits per billing period. Monthly credits expire at the end of their Free month or Paid billing period. Top-ups carry over while Paid and expire on downgrade to Free. Retained resources can still use credits when an app is quiet.
+Free provides {{ number plan.freeCredits }} monthly credits. Paid is {{ usd plan.paidUsd }} per month with {{ number plan.paidCredits }} credits per billing period. Monthly credits expire at the end of their Free month or Paid billing period. Top-ups never expire. Retained resources can still use credits when an app is quiet.
 
 See [pricing](/pricing) for the plans and the [cost breakdown](/pricing/breakdown) for a worked example with its usage assumptions.
 
@@ -36,7 +36,7 @@ See [pricing](/pricing) for the plans and the [cost breakdown](/pricing/breakdow
 
 Your application source remains in your GitHub repository. Database exports provide portable SQL, and application authentication follows the choices made for your project.
 
-The CLI, MCP server, TypeScript SDK, runtime clients and Better Auth integration are available under Apache-2.0. The website and documentation are MIT-licensed; the hosted platform is private. The [open-source page](/open-source) explains the boundaries and links to the packages.
+The CLI, MCP server, TypeScript SDK, runtime clients and Better Auth integration are available under Apache-2.0. The website and documentation are MIT-licensed; the hosted platform is private. Every database runs on [PGCF](https://github.com/amerged-org/cloudflare-postgres), an open-source PostgreSQL platform on Contabo servers that is reachable only through Cloudflare. The [open-source page](/open-source) explains the boundaries and links to the packages.
 
 ## Learn more
 

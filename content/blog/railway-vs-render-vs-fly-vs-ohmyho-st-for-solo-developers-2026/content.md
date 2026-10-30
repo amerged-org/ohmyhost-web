@@ -116,7 +116,7 @@ Your choice should also include the work after launch. Decide who will investiga
 
 ## Check the ohmyho.st costs
 
-Free grants {{ number plan.freeCredits }} credits per UTC month. Paid grants {{ number plan.paidCredits }} for {{ usd plan.paidUsd }} per period. Monthly credits expire at period end without rollover. Paid-only top-ups carry over until a downgrade to Free, starting at {{ number plan.topUpPerUsd }} credits per dollar with better rates on larger packs. A credit has a nominal value of {{ usd plan.usdPerCredit }}.
+Free grants {{ number plan.freeCredits }} credits per UTC month. Paid grants {{ number plan.paidCredits }} for {{ usd plan.paidUsd }} per period. Monthly credits expire at period end without rollover. Top-ups never expire, are bought on Paid only and start at {{ number plan.topUpPerUsd }} credits per dollar with better rates on larger packs. A credit has a nominal value of {{ usd plan.usdPerCredit }}.
 
 Every project in the organization uses that balance. You can give a project a monthly budget that warns or stops new work. A zero balance starts a grace period of {{ number plan.graceDays }} days. Funded services continue; unfunded services suspend after an unresolved grace period. Review [pricing](https://docs.ohmyho.st/pricing) and [budgets](https://docs.ohmyho.st/budgets) with your Agent before choosing a limit.
 

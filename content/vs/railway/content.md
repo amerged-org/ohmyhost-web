@@ -33,7 +33,7 @@ Plans first:
 
 - Free: {{ number plan.freeCredits }} credits per UTC month. They expire at month end.
 - Paid: {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period. Unused monthly credits expire at period end without rollover.
-- Top-ups: {{ number plan.topUpPerUsd }} credits per dollar for the first hundred dollars of a purchase, {{ number plan.topUpPerUsdAbove100 }} per dollar above that. Top-ups are only available on Paid and expire on downgrade to Free.
+- Top-ups: {{ number plan.topUpPerUsd }} credits per dollar for the first hundred dollars of a purchase, {{ number plan.topUpPerUsdAbove100 }} per dollar above that. Top-ups are only available on Paid and never expire; credit you bought stays usable after a downgrade to Free.
 
 Then the meters a side project touches:
 

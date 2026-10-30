@@ -23,7 +23,7 @@ One developer with one project on all three accounts: {{ usd scenario.threeSubsc
 
 ## What ohmyho.st charges for the same small app
 
-One balance, every project, no seat price. {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} monthly credits that expire at billing-period end without rollover. Free gets {{ number plan.freeCredits }} credits per UTC month. Paid-only top-ups carry over until downgrade to Free: {{ number plan.topUpPerUsd }} credits per dollar, and {{ number plan.topUpPerUsdAbove100 }} per dollar on the part of a larger purchase. A credit has a nominal value of {{ usd plan.usdPerCredit }}. There is no per-project base fee and no seat price: an organization has one balance, every project draws from it, and a second person who deploys costs nothing extra.
+One balance, every project, no seat price. {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} monthly credits that expire at billing-period end without rollover. Free gets {{ number plan.freeCredits }} credits per UTC month. Top-ups never expire, and neither do recharge, signup-bonus and referral credits; only Paid workspaces buy top-ups, at {{ number plan.topUpPerUsd }} credits per dollar, and {{ number plan.topUpPerUsdAbove100 }} per dollar on the part of a larger purchase. A credit has a nominal value of {{ usd plan.usdPerCredit }}. There is no per-project base fee and no seat price: an organization has one balance, every project draws from it, and a second person who deploys costs nothing extra.
 
 This is hosting for vibe-coded apps priced by what the app measures. Here is the workload the [rate card](https://docs.ohmyho.st/pricing) prices for a small app with some traffic, some mail and a database that is awake for eight hours across the month:
 
@@ -93,7 +93,7 @@ Yes. The migration Skill converts only the capabilities you pick. If the app use
 
 ### Is there a free plan?
 
-Yes. Free gives {{ number plan.freeCredits }} credits per UTC month, a Dev and a Prod host on check.omh.st and a database on the {{ number 256 }} MiB RAM size with {{ number 500 }} MiB disk and seven-day backups included at the same rates as Paid. Sending mail needs Paid at {{ usd plan.paidUsd }} a month. A custom domain needs Paid as well, or on Free a project that shows the small “Powered by ohmyho.st” flag; the flag also waives domain credits. Monthly credits expire at the end of their Free month or Paid billing period. Top-ups carry over while Paid and expire on downgrade to Free.
+Yes. Free gives {{ number plan.freeCredits }} credits per UTC month, a Dev and a Prod host on check.omh.st and a database on the {{ number 256 }} MiB RAM size with {{ number 500 }} MiB disk and seven-day backups included at the same rates as Paid. Sending mail needs Paid at {{ usd plan.paidUsd }} a month. A custom domain needs Paid as well, or on Free a project that shows the small “Powered by ohmyho.st” flag; the flag also waives domain credits. Monthly credits expire at the end of their Free month or Paid billing period. Top-ups, recharge, signup-bonus and referral credits never expire.
 
 ### How do I get my database out?
 

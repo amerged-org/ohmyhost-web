@@ -20,7 +20,7 @@ Hosting the app itself is not on this bill. A Supabase project still needs a sep
 
 ## Postgres on ohmyho.st: profiles and credits
 
-ohmyho.st runs your Astro, Next.js, Vite/React or TanStack Start app on Workers and provisions a managed Postgres next to it when the app declares one. Nothing carries a base price. Free gets {{ number plan.freeCredits }} credits per UTC month. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period. Monthly credits expire at period end. Paid-only top-ups carry over until downgrade to Free and grant {{ number plan.topUpPerUsd }} credits per dollar, rising to {{ number plan.topUpPerUsdAbove100 }} per dollar on the part of one checkout above the first hundred dollars.
+ohmyho.st runs your Astro, Next.js, Vite/React or TanStack Start app on Workers and provisions a managed Postgres next to it when the app declares one. Nothing carries a base price. Free gets {{ number plan.freeCredits }} credits per UTC month. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period. Monthly credits expire at period end. Top-ups never expire, are bought on Paid only and grant {{ number plan.topUpPerUsd }} credits per dollar, rising to {{ number plan.topUpPerUsdAbove100 }} per dollar on the part of one checkout above the first hundred dollars.
 
 The database meters RAM while it is awake. Allocated disk and seven-day backups are included in the selected size.
 

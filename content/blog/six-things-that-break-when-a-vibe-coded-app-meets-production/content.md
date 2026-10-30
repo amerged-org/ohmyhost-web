@@ -122,7 +122,7 @@ After the Agent connects, ask it to prepare Dev and give you a short test list b
 
 Promote the tested version when you are ready. With isolated data, promotion applies migrations without copying your test rows into Prod. Confirm which database the promoted version will use, then repeat the important checks on the production address.
 
-Set a monthly budget if you want a project limit. The budget can warn while work continues or stop new work. Every project draws from the organization's balance. Paid costs {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits. Monthly credits expire at period end; Paid-only top-ups carry over until a downgrade to Free.
+Set a monthly budget if you want a project limit. The budget can warn while work continues or stop new work. Every project draws from the organization's balance. Paid costs {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits. Monthly credits expire at period end; top-ups never expire.
 
 Here is the example first month with managed mail, itemized from the published rate card:
 

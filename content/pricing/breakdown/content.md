@@ -10,7 +10,7 @@ Credits arrive three ways:
 
 - Free grants {{ number plan.freeCredits }} credits per UTC month. They expire at the end of that month.
 - Paid costs {{ usd plan.paidUsd }} a month before tax and grants {{ number plan.paidCredits }} credits per paid period. Unused monthly credits expire at the end of their billing period without rollover. Verified sender mail needs Paid. A customer-owned domain needs Paid or, on Free, a project that shows the “Powered by ohmyho.st” flag; mail uses credits, and the domain uses none while the flag shows.
-- Top-ups never expire during uninterrupted Paid membership; remaining top-ups expire when you switch to Free. Only Paid users can buy them. A purchase grants {{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }} and {{ number plan.topUpPerUsdAbove100 }} credits per dollar for the part above that. Monthly credits are spent before top-ups.
+- Top-ups never expire, and neither do automatic recharge, signup-bonus and referral credits: all one-time credits stay until you spend them, also after a downgrade to Free. Only Paid users can buy top-ups or turn on automatic recharge. A purchase grants {{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }} and {{ number plan.topUpPerUsdAbove100 }} credits per dollar for the part above that. Monthly credits are spent before top-ups.
 
 Every project draws from the organization's one balance. There is no per-project base fee and no project-count limit. A project may carry a monthly budget in continue mode (warn, keep going) or stop mode (reject new work past the line); a budget is a ceiling, not a second wallet. A zero balance starts a {{ number plan.graceDays }}-day grace period during which funded services keep running; after it, only unfunded services suspend, and data, export and buying credit stay available. Automatic recharge stays off unless the Owner turns it on.
 
@@ -110,9 +110,9 @@ Railway for containers. Railway runs any container and bills CPU and memory by t
 
 ## How to read your own usage
 
-Ask the agent; whether you deploy from Claude Code or another MCP client, it has the tools. organization_usage_get returns posted UTC-month usage by project, environment and published meter, in microcredits (one credit is a million). organization_credits_get returns the shared balance, any grace-period dates and the published rate cards. organization_account_get shows the effective plan and which credits expire. project_budget_get reads a project's monthly ceiling and project_budget_set changes it, in continue or stop mode; the portal's Usage page edits the same setting.
+Ask the agent; whether you deploy from Claude Code or another MCP client, it has the tools. organization_usage_get returns the billed usage of the last 14 days by day, project and published meter, and each project's use this month, in microcredits (one credit is a million); older days are not kept. organization_credits_get returns the shared balance, any grace-period dates and the published rate cards. organization_account_get shows the effective plan, the monthly credits that expire at period end and the one-time credits (top-up, recharge, signup-bonus, referral) that never expire. project_budget_get reads a project's monthly ceiling and project_budget_set changes it, in continue or stop mode; the portal's Usage page edits the same setting.
 
-Two things to know when reading a report. Posted usage lags measurement: Worker requests and CPU arrive in two to three minutes, database hours after the provider finalizes the hour, at least two hours after it ends, scripts and hostnames up to a day, so a fresh deploy that shows nothing has not cost nothing. And a project budget is a limit on that project, not a wallet; the credits still come from the organization's one balance.
+Two things to know when reading a report. Posted usage lags measurement: Worker requests and CPU are posted once an hour, a few minutes after the hour ends, database hours about two hours after the hour ends, and storage, R2 requests, scripts and hostnames once a day, after the UTC day ends, so a fresh deploy that shows nothing has not cost nothing. And a project budget is a limit on that project, not a wallet; the credits still come from the organization's one balance.
 
 Read more in [Usage](https://docs.ohmyho.st/usage), [Budgets](https://docs.ohmyho.st/budgets), [Billing](https://docs.ohmyho.st/billing) and the [usage and budgets Skill](/skills/ohmyhost-usage-and-budgets/SKILL.md).
 
@@ -124,7 +124,7 @@ For several small projects, yes: {{ usd plan.paidUsd }} a month buys {{ number p
 
 ### Do unused credits roll over?
 
-Monthly credits do not roll over: the {{ number plan.freeCredits }} Free credits expire at UTC month end and the {{ number plan.paidCredits }} Paid credits and any flag bonus at billing-period end. Top-ups carry over while you stay on Paid. Remaining top-ups expire when your workspace switches to Free and do not return after a later upgrade. Monthly credits are spent before top-ups.
+Monthly credits do not roll over: the {{ number plan.freeCredits }} Free credits expire at UTC month end and the {{ number plan.paidCredits }} Paid credits and any flag bonus at billing-period end. Top-up, recharge, signup-bonus and referral credits never expire, also after a downgrade to Free. Monthly credits are spent before them, so a top-up is the way to bank credits for a busy month later.
 
 ### What does a project cost when nobody visits it?
 

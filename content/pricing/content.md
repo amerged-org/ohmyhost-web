@@ -2,9 +2,9 @@
 
 Free gives {{ number plan.freeCredits }} credits every month, with no card. Paid starts at {{ usd plan.paidUsd }} for {{ number plan.paidCredits }} monthly credits. Projects use the same organization balance; there is no separate project base subscription.
 
-Free credits expire at UTC month end. Paid monthly credits expire at billing-period end without rollover. Only Paid users can buy top-ups; they carry over during uninterrupted Paid membership and expire on downgrade to Free. Connect your own domain; domain registration is not included. Usage is metered; additional credits cost extra. Applicable taxes are added.
+Free credits expire at UTC month end. Paid monthly credits expire at billing-period end without rollover. Top-ups, automatic recharge, signup-bonus and referral credits never expire and are spent after the monthly credits. Only a Paid workspace can buy top-ups or turn on automatic recharge; credit you bought stays usable after a downgrade to Free. Connect your own domain; domain registration is not included. Usage is metered; additional credits cost extra. Applicable taxes are added.
 
-An unpaid subscription renewal keeps Paid features and usable top-ups for at most {{ number plan.renewalGraceDays }} days after the paid period ends. That window grants no new Free allowance or Paid monthly credits; payment is required for a new Paid allocation. Cancellation ends Paid at the stated period end. Previously expired credits stay expired.
+An unpaid subscription renewal keeps Paid features for at most {{ number plan.renewalGraceDays }} days after the paid period ends. That window grants no new Free allowance or Paid monthly credits; payment is required for a new Paid allocation. Cancellation ends Paid at the stated period end. Previously expired monthly credits stay expired.
 
 ## What uses credits
 
@@ -28,6 +28,6 @@ Copy your referral link with the Refer and earn button in your account menu, or 
 
 ## Control your spending
 
-Ask your agent for remaining credits, measured usage and optional project budgets. A top-up adds credits but does not extend a subscription. A top-up above $100 adds 125 credits per dollar for the part above $100; consumption prices stay the same. Automatic recharge stays off unless the Owner turns it on with a monthly spending limit.
+Ask your agent for remaining credits, the billed usage of the last 14 days and optional project budgets. A top-up adds credits that never expire but does not extend a subscription. A top-up above $100 adds 125 credits per dollar for the part above $100; consumption prices stay the same. Automatic recharge stays off unless the Owner turns it on with a monthly spending limit.
 
 [All usage rates](https://docs.ohmyho.st/pricing) · [Worked cost example](/pricing/breakdown) · [Usage guide](https://docs.ohmyho.st/usage) · [Compare Vercel](/vs/vercel) · [Free Vercel and Supabase alternatives](/blog/free-vercel-supabase-alternatives-2026) · [Vercel and Supabase in one platform](/blog/all-in-one-vercel-supabase-alternatives)

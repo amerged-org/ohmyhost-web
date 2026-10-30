@@ -1,5 +1,17 @@
 # Changelog
 
+## October 30, 2026
+
+Release 0.1.41 is a breaking client release: the credit account was rebuilt, and every customer database now runs on [PGCF](https://github.com/amerged-org/cloudflare-postgres), the open-source PostgreSQL platform. Neon is retired. Update the CLI and MCP server together to 0.1.41 or newer; clients older than 0.1.41 no longer match the credits and usage responses and must update.
+
+Credits you buy never expire. Top-up, automatic recharge, signup-bonus and referral credits stay until they are spent, also after a downgrade to Free. Monthly credits ({{ number plan.freeCredits }} on Free per UTC month, {{ number plan.paidCredits }} on Paid per billing period) still expire at the end of their period and are spent before one-time credits. Only an effective Paid workspace buys top-ups or turns on automatic recharge. This replaces the rule of the September 27 entry below under which top-ups expired on a downgrade to Free.
+
+The credits response (`organization_credits_get`, `GET /v1/organizations/{id}/credits`) no longer returns `spent`, `expired` or `platform_overrun`. `available_micros` is the monthly credit plus the one-time credit minus open reservations, `reserved_micros` shows the reservations, and the response keeps the grace dates, the active meters and the published rate cards.
+
+The usage report changed shape. `organization_usage_get` and `ohmyhost credits usage` take no month and no cursor any more, and `--month` and `--cursor` are gone from the CLI. The report lists the billed charges of the last 14 UTC days grouped by day, project and meter, plus what each project has used so far this month. Older days are not kept.
+
+Databases run on real PostgreSQL on Contabo servers that are reachable only through Cloudflare, with backups in R2 and point-in-time recovery. The [open-source page](/open-source) links the PGCF repository, and [pricing](/pricing) lists the database sizes and what they include.
+
 ## September 28, 2026
 
 Release 0.1.24 adds Owner-confirmed Dev/Prod data changes. Data mode stays optional and shared by default. Keep existing data with Prod or Dev, return to shared, or reset isolated Dev; the platform copies no records or files and applies ordinary usage rates. Returning to shared preserves Prod and permanently removes the separate Dev data, files and deployment. A reset removes the isolated Dev area and deployment. Review the concrete plan before confirming; changing back does not restore deleted data.

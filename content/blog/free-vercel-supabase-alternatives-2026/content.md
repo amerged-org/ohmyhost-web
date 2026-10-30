@@ -122,7 +122,7 @@ Ask your Agent to estimate the service after the trial ends. The ongoing credit 
 
 Look at Neon when you need PostgreSQL itself. Compare the other Supabase services separately if your app uses them. Neon Free provides {{ text vendor.neon.free.includes }}, with no credit card. The free plan has clear edges and keeps your data at every one of them: "when you run out of CU-hours or public network transfer, your compute is suspended until the next billing period", storage-increasing writes fail at the storage cap, and "None of these limits delete your data" ([Neon plans](https://neon.com/docs/introduction/plans), read 2026-09-28).
 
-This database plan still needs an app host from elsewhere in the comparison. Ask your Agent to name both parts of the proposed setup so the deployment plan is complete. Vercel moved its former Postgres databases to Neon, and ohmyho.st runs its managed Postgres on Neon as well.
+This database plan still needs an app host from elsewhere in the comparison. Ask your Agent to name both parts of the proposed setup so the deployment plan is complete. Vercel moved its former Postgres databases to Neon, while ohmyho.st runs its managed Postgres on [PGCF](https://github.com/amerged-org/cloudflare-postgres), an open-source PostgreSQL platform.
 
 {{ checked neon }}
 
