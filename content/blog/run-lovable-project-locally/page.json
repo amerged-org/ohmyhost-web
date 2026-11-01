@@ -1,6 +1,6 @@
 {
   "title": "How to Run a Lovable Project Locally: Setup Guide",
-  "description": "Run a Lovable project locally with the right dependencies, environment variables and login settings. Check what still uses the cloud before you edit.",
+  "description": "Run a Lovable project locally with the right dependencies, environment variables and login settings. Check what still uses the cloud before you edit it.",
   "kind": "article",
   "status": "published",
   "crumb": "Run Lovable locally",

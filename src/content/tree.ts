@@ -64,8 +64,8 @@ export function readPage(directory: string, url: string): ContentSource {
     fail("status must be published or draft");
   if (title.length > 60)
     fail(`title is ${title.length} characters, at most 60`);
-  if (description.length < 120 || description.length > 160)
-    fail(`description is ${description.length} characters, needs 120 to 160`);
+  if (description.length < 150 || description.length > 160)
+    fail(`description is ${description.length} characters, needs 150 to 160`);
   if (kind === "article" && (!meta["author"] || !meta["published"]))
     fail("an article needs author and published");
   if (kind !== "article" && (meta["author"] || meta["published"]))

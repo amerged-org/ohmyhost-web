@@ -6,7 +6,7 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = [
     path: "/about",
     title: "About ohmyho.st — Hosting for vibe-coded apps",
     description:
-      "Hosting for apps built with coding agents: GitHub deployments, managed Postgres and one credit balance across projects. Learn how ohmyho.st works.",
+      "Hosting for apps built with coding agents: GitHub deployments, managed Postgres and one credit balance across projects. Learn how ohmyho.st works and why.",
     kind: "about",
     crumb: "About",
     modified: "2026-10-30",
@@ -22,7 +22,7 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = [
     path: "/blog/all-in-one-vercel-supabase-alternatives",
     title: "Vercel and Supabase in One Platform: 2026 Comparison",
     description:
-      "Which platforms combine Vercel and Supabase? Compare ohmyho.st, Appwrite, Netlify, InsForge, Firebase and Nhost by capability, free plan and catches.",
+      "Which platforms combine Vercel and Supabase? Compare ohmyho.st, Appwrite, Netlify, InsForge, Firebase and Nhost by capability, free plan and the catches.",
     kind: "article",
     crumb: "All in one hosting",
     parent: "/blog",
@@ -39,7 +39,7 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = [
     path: "/blog/best-astro-hosting-2027",
     title: "Best Astro Hosting for 2027: Static and SSR Compared",
     description:
-      "Compare the best hosting for Astro: ohmyho.st, Cloudflare Workers, Vercel and Netlify. See static vs SSR support, adapters, deployment and costs.",
+      "Compare the best hosting for Astro: ohmyho.st, Cloudflare Workers, Vercel and Netlify. See static vs SSR support, adapters, deployment and ongoing costs.",
     kind: "article",
     crumb: "Best Astro hosting for 2027",
     parent: "/blog",
@@ -53,7 +53,7 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = [
     path: "/blog/free-vercel-supabase-alternatives-2026",
     title: "Supabase Free and Vercel Hobby limits vs alternatives",
     description:
-      "Supabase Free: 2 active projects, a 500 MB database, a pause after a quiet week. Vercel Hobby: non-commercial only. Compared with nine alternatives.",
+      "Supabase Free: 2 active projects, a 500 MB database, a pause after a quiet week. Vercel Hobby: non-commercial only. Compared with nine free alternatives.",
     kind: "article",
     crumb: "Free Vercel and Supabase alternatives",
     parent: "/blog",
@@ -132,7 +132,7 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = [
     path: "/blog/lovable-alternative-bring-your-own-llm",
     title: "Lovable alternative: use your own LLM and keep your code",
     description:
-      "Use your own coding agent with a Lovable project. Compare what stays, what moves, and the separate costs of editing, hosting and AI inside your app.",
+      "Use your own coding agent with a Lovable project. Compare what stays, what moves, and the separate costs of editing, hosting and AI inside your own app.",
     kind: "article",
     crumb: "Lovable alternative",
     parent: "/blog",
@@ -192,7 +192,7 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = [
     path: "/blog/run-lovable-project-locally",
     title: "How to Run a Lovable Project Locally: Setup Guide",
     description:
-      "Run a Lovable project locally with the right dependencies, environment variables and login settings. Check what still uses the cloud before you edit.",
+      "Run a Lovable project locally with the right dependencies, environment variables and login settings. Check what still uses the cloud before you edit it.",
     kind: "article",
     crumb: "Run Lovable locally",
     parent: "/blog",
@@ -250,7 +250,7 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = [
     path: "/blog/what-vercel-supabase-resend-cost-for-five-side-projects",
     title: "What Vercel, Supabase and Resend cost for 5 side projects",
     description:
-      "Vercel Pro, Supabase Pro and Resend Pro cost $105 a month for five projects. Compare an itemized ohmyho.st workload with hosting, Postgres and mail.",
+      "Vercel Pro, Supabase Pro and Resend Pro cost $105 a month for five projects. Compare an itemized ohmyho.st workload with hosting, Postgres and mail usage.",
     kind: "article",
     crumb: "Five side projects, priced",
     parent: "/blog",
@@ -270,7 +270,7 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = [
     path: "/changelog",
     title: "ohmyho.st changelog: what shipped and when",
     description:
-      "Release notes for ohmyho.st: client releases, hosting runtime changes, new MCP tools and Skills, pricing updates and the dates they went live.",
+      "Release notes for ohmyho.st: client releases, hosting runtime changes, new MCP tools and Skills, pricing updates and the dates they went live, newest first.",
     kind: "page",
     crumb: "Changelog",
     modified: "2026-10-30",
@@ -285,7 +285,7 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = [
     path: "/contact",
     title: "Contact ohmyho.st: questions, privacy, billing",
     description:
-      "Use the contact form for questions about ohmyho.st, privacy requests, billing and the data processing agreement. Amerged B.V., Venray, Netherlands.",
+      "Use the contact form for questions about ohmyho.st, privacy requests, billing and the DPA. For bugs, ask your agent. Amerged B.V., Venray, Netherlands.",
     kind: "page",
     crumb: "Contact",
     modified: "2026-09-21",
@@ -301,7 +301,7 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = [
     path: "/cookies",
     title: "Cookie policy: the cookies ohmyho.st sets and why",
     description:
-      "Which cookies ohmyho.st uses, what each one stores, how long it lasts, which ones need consent and how you withdraw that consent later.",
+      "Which cookies ohmyho.st uses, what each one stores, how long it lasts, which ones need consent and how you withdraw that consent later. Technical and optional.",
     kind: "page",
     crumb: "Cookies",
     modified: "2026-09-24",
@@ -399,7 +399,7 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = [
     path: "/for/codex",
     title: "Codex deploy: hosting for vibe-coded apps — ohmyho.st",
     description:
-      "Deploy from Codex with a saved ohmyho.st login and reviewed plans. Add an optional API token and stop budget for unattended runs.",
+      "Deploy from Codex with a saved ohmyho.st login and reviewed plans. Add an optional API token and stop budget for unattended runs, and see Dev versus Prod.",
     kind: "howto",
     crumb: "Codex",
     modified: "2026-10-30",
@@ -464,7 +464,7 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = [
     path: "/frameworks/vite",
     title: "Vite and React Hosting: Static Apps and API | ohmyho.st",
     description:
-      "Host a Vite and React app on ohmyho.st: static by default, an optional same-origin API companion, client-route reloads, a public example and limits.",
+      "Host a Vite and React app on ohmyho.st: static by default, an optional same-origin API companion, client-route reloads, a public example and its limits.",
     kind: "howto",
     crumb: "Vite and React hosting",
     modified: "2026-10-26",
@@ -539,7 +539,7 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = [
     path: "/open-source",
     title: "Open source — ohmyho.st clients, website and docs",
     description:
-      "Explore the Apache-2.0 client packages and the MIT-licensed website and documentation of ohmyho.st. The hosted platform remains private.",
+      "Explore the Apache-2.0 client packages and the MIT-licensed website and documentation of ohmyho.st. The hosted platform remains private. See how to contribute.",
     kind: "page",
     crumb: "Open source",
     modified: "2026-10-30",
@@ -667,7 +667,7 @@ export const CONTENT_PAGE_LIST: readonly ContentPage[] = [
     path: "/vs/resend",
     title: "Resend alternative: transactional mail by usage — ohmyho.st",
     description:
-      "Resend Pro is $20 a month for 50,000 emails. ohmyho.st meters mail per sent recipient, from the same balance as your hosting.",
+      "Resend Pro is $20 a month for 50,000 emails. ohmyho.st meters mail per sent recipient, from the same balance as your hosting. See the break-even by volume.",
     kind: "page",
     crumb: "vs Resend",
     modified: "2026-10-30",

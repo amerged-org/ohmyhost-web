@@ -1,6 +1,6 @@
 {
   "title": "Lovable alternative: use your own LLM and keep your code",
-  "description": "Use your own coding agent with a Lovable project. Compare what stays, what moves, and the separate costs of editing, hosting and AI inside your app.",
+  "description": "Use your own coding agent with a Lovable project. Compare what stays, what moves, and the separate costs of editing, hosting and AI inside your own app.",
   "kind": "article",
   "status": "published",
   "crumb": "Lovable alternative",

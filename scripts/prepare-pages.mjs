@@ -248,7 +248,7 @@ for (const [name, digest] of Object.entries(templates)) {
       .replace("</aside>", "</nav></aside>")
       .replace(
         "</head>",
-        '<meta name="description" content="The ohmyho.st design system: colour tokens, type, the Ω mark, components and the drawing rules behind every page and figure."><meta property="og:title" content="ohmyho.st — Design System"><meta property="og:description" content="The ohmyho.st design system: colour tokens, type, the Ω mark, components and the drawing rules behind every page and figure."><meta property="og:image" content="https://ohmyho.st/og.png"><meta name="twitter:card" content="summary_large_image">' +
+        '<meta name="description" content="The ohmyho.st design system: colour tokens, type, the Ω mark, components and the drawing rules behind every page and figure, with interactive component demos."><meta property="og:title" content="ohmyho.st — Design System"><meta property="og:description" content="The ohmyho.st design system: colour tokens, type, the Ω mark, components and the drawing rules behind every page and figure, with interactive component demos."><meta property="og:image" content="https://ohmyho.st/og.png"><meta name="twitter:card" content="summary_large_image">' +
           "<style>.side,.main{min-width:0}.shell{grid-template-columns:236px minmax(0,1fr)}@media(max-width:900px){.shell{grid-template-columns:minmax(0,1fr)}.side{padding:20px}.side .tag{margin-bottom:14px}.brand-toc{display:flex;gap:18px;overflow-x:auto;white-space:nowrap;padding-bottom:8px}.brand-toc h5{display:none}.brand-toc a{flex:none}.side .mark{margin-right:48px}}</style></head>",
       );
   }

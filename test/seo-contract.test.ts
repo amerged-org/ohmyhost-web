@@ -70,7 +70,7 @@ it("publishes the SEO contract for every rendered page", async () => {
     expect(
       description.length,
       `${path} description length`,
-    ).toBeGreaterThanOrEqual(120);
+    ).toBeGreaterThanOrEqual(150);
     expect(
       description.length,
       `${path} description length`,

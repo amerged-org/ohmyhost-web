@@ -82,7 +82,7 @@ it("refuses page metadata that would ship a broken page", async () => {
   };
   const good = {
     title: "A page title",
-    description: "d".repeat(140),
+    description: "d".repeat(155),
     kind: "page",
     status: "published",
     modified: "2026-09-20",
@@ -98,7 +98,7 @@ it("refuses page metadata that would ship a broken page", async () => {
     ["status must be published or draft", { ...good, status: "live" }],
     ["title is 61 characters, at most 60", { ...good, title: "t".repeat(61) }],
     [
-      "description is 60 characters, needs 120 to 160",
+      "description is 60 characters, needs 150 to 160",
       { ...good, description: "d".repeat(60) },
     ],
     ["an article needs author and published", { ...good, kind: "article" }],

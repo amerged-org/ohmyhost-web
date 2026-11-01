@@ -1,6 +1,6 @@
 {
   "title": "Codex deploy: hosting for vibe-coded apps — ohmyho.st",
-  "description": "Deploy from Codex with a saved ohmyho.st login and reviewed plans. Add an optional API token and stop budget for unattended runs.",
+  "description": "Deploy from Codex with a saved ohmyho.st login and reviewed plans. Add an optional API token and stop budget for unattended runs, and see Dev versus Prod.",
   "kind": "howto",
   "status": "published",
   "crumb": "Codex",

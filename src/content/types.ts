@@ -8,7 +8,7 @@ export interface ContentPage {
   readonly path: string;
   /** Full `<title>` text, 40–60 characters. */
   readonly title: string;
-  /** The only `<meta name="description">`, 120–160 characters. */
+  /** The only `<meta name="description">`, 150–160 characters. */
   readonly description: string;
   readonly kind: PageKind;
   /** ISO date of the last content change: sitemap lastmod and dateModified. */

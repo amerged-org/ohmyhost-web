@@ -1,6 +1,6 @@
 {
   "title": "Vite and React Hosting: Static Apps and API | ohmyho.st",
-  "description": "Host a Vite and React app on ohmyho.st: static by default, an optional same-origin API companion, client-route reloads, a public example and limits.",
+  "description": "Host a Vite and React app on ohmyho.st: static by default, an optional same-origin API companion, client-route reloads, a public example and its limits.",
   "kind": "howto",
   "status": "published",
   "crumb": "Vite and React hosting",

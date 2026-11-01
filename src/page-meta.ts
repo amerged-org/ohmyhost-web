@@ -5,7 +5,7 @@ import { BLOG_POSTS, CONTENT_PAGE_LIST } from "./pages/index.js";
 export interface PageMeta {
   /** Full `<title>` text, 40–60 characters. */
   readonly title: string;
-  /** The only `<meta name="description">`, 120–160 characters. */
+  /** The only `<meta name="description">`, 150–160 characters. */
   readonly description: string;
   readonly kind: PageKind;
   /** ISO date: sitemap lastmod and dateModified. */
