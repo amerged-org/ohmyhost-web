@@ -1,65 +1,65 @@
 # Vite and React Hosting for Static Apps
 
-A public Vite and React app deploys as static files. ohmyho.st builds it, serves the output behind Cloudflare's network, and sends any path that matches no file to `index.html` with HTTP 200, so a reload on a client-side route works. If the app needs server code, a same-origin API companion covers it.
+A public Vite and React app is deployed as static files. ohmyho.st builds them, serves the output through the Cloudflare network, and sends any path that  doesn't match a file with an HTTP 200 response to `index.html`. This is why reloadinng a client-side route works. If the app requires server-side code, an API companion with same-origin handles it.
 
-Start with {{ number plan.freeCredits }} Free credits. Paid costs {{ usd plan.paidUsd }} a month before tax and adds {{ number plan.paidCredits }} credits per paid period. See [pricing](/pricing).
+Start with {{ number plan.freeCredits }} free credits. The paid plan costs {{ usd plan.paidUsd }} per  month before taxes and adds {{ number plan.paidCredits }} credits for each paid period. See [Priciing](/pricing).
 
-[Read the Vite guide in the docs](https://docs.ohmyho.st/frameworks/vite) · [Open the example repository](https://github.com/amerged-org/ohmyhost-framework-examples/tree/main/vite-react)
+[Read the Vite Guide in the documentation](https://docs.ohmyho.st/frameworks/vite) · [Open the sample repository](https://github.com/amerged-org/ohmyhost-framework-examples/tree/main/vite-react)
 
-## What we checked, and what we did not
+## What We Reviewed and What We Didn't
 
-The [public example](https://github.com/amerged-org/ohmyhost-framework-examples/tree/main/vite-react) is a Vite 8 and React 19 page with a counter and a path display.
+The [public example](https://github.com/amerged-org/ohmyhost-framework-examples/tree/main/vite-react) is a  page built with Vite 8 and React 19 that featurees a counter and a path indicator.
 
-| Check | Result | Where to see it |
+| Exam | Result | Wherever you see it |
 | --- | --- | --- |
-| Local production build | Built to `dist/` with one HTML file and one script | `pnpm run build` in the folder |
-| `ohmyhost init --root vite-react --dry-run --json` | Status `analyzed`, framework `vite`, version admitted, no blockers, runtime `static` | Same command, offline, no sign-in |
-| A hosted build and live URL | **Not done for this example.** The inspection says the real build runs only on ohmyho.st | No live URL is claimed |
+| Local Production Build | Built based on `dist/`, using an HTML file and a script | `pnpm run build` in the folder |
+| `ohmyhost init --root vite-react --dry-run --json` | Status `analyzed`, Framework `vite`, Version approved, no blockers, Runtime `static` | The same command, offline, without logging in |
+| A hosted build and a live URL | **Not done for this example.** The test says that the real build only runs on ohmyho.st | No live URL is claimed |
 
 ## How to host a Vite and React app
 
-1. **Inspect it.** Run `ohmyhost init --dry-run --json` in the project. For a repository that holds several apps, add `--root` with the app folder.
-2. **Pin the package manager** and commit its lockfile. Vite must be at least 5.4.6; the version your lockfile resolves is the one that counts.
-3. **Keep `base` unset** or `/` in `vite.config`.
-4. **Build in Dev**, open the preview, click through the app and reload a nested route directly.
-5. **Publish** the tested version to Production and connect your domain.
+1. **Test them.** Run `ohmyhost init --dry-run --json` in the project. If a reopsitory contains multiple apps , replace `--root` with the app's folder.
+2. **Lock the package manager** and commit its lock file. Vite must be at least version 5.4.6; the version that rseolves your lock file is the  one that matters.
+3. **Leave `base` unsset** or  set it in `vite.config` to `/`.
+4. **Build in Dev**, open the preview , click through the app, and relooad a nested route directly.
+5. **Deply** the tested version to  production and connect your domain.
 
-Paste this into the coding agent working on your repository:
+Passte this into the  coding agent that's working on your repository:
 
 ```text
 Read https://ohmyho.st/llms.txt and the get-started Skill. Deploy this Vite application using its existing project and source connection. Inspect the repository, resolve deployment blockers, build and verify Dev including a direct reload of a nested route, then publish the tested artifact to Production.
 ```
 
-## When the app needs a server
+## If the app needs a server
 
-Inspection returns the companion contract for your app. Implement the same-origin `/api/*` routes the browser calls, and keep private values in runtime secrets. `VITE_` variables are public build-time values and must never hold a private credential. Scheduled work is declared in `ohmyhost.yaml` and runs from the companion.
+The test generates the companion contract for your app. Implement the same-origin `/api/*` routes that the browser calls , and store private values in runtime secrets. `VITE_` variables are public values at build time and must never contain a priavte credential. Scheduled work is declared in `ohmyhost.yaml` and runs from the companion.
 
-## Limits
+## Borders
 
-From the [Vite documentation](https://docs.ohmyho.st/frameworks/vite), read on October 27, 2026:
+From the [Vite documentation](https://docs.ohmyho.st/frameworks/vite), accessed  on Occtober 27, 2026:
 
-- **No inline code.** Vite pages permit no inline script or style code. External resources need declared browser origins.
-- **Keep `base` at `/`.** A non-root base is not supported.
-- **Router packages do not make it a server app.** React, TanStack Router and TanStack Query can be part of a Vite frontend without turning it into [TanStack Start](/frameworks/tanstack).
-- **Not-found pages are yours.** Unknown paths answer `index.html`, so render the not-found view in your client router.
-- **A clean inspection is not a build.** It cannot prove the hosted build succeeds, or that your login and data work from the new host.
+- **No inline  code.** Vite pages do not allow inline scrpit or style code. External resources must have declared browser origins.
+- **Place `base` on  top of `/`.** An base ohter than / is not supported.
+- **Router packages do not turn it into a server app.** React, TanStack Router , and TanStack Query can be part of a Vite frontend without it becmoing [TanStack Start](/frameworks/tanstack).
+- **"Not Found" pages belong to you.** Unknown  paths return `index.html`, so render the "Not Founnd" view in your client router.
+- **A successful test is not a build.** It cannot prove that the hoted build will succeed or that  your login and data will work on the new host.
 
-## Vite and React hosting questions
+## Questions About Vite and React Hosting
 
 ### Do I need a server for client-side routing?
 
-No. Unknown paths already return `index.html`.
+No. Unknown  paths already reeturn `index.html`.
 
 ### Can I move a Lovable app here?
 
-Yes, if it is a React and Vite app. The checklist is in [Lovable app after export](/blog/host-a-lovable-app-after-export), and the short deployment path is [Deploy your exported Lovable app](/from/lovable).
+Yes, if it's a React and Vite app. You can find the checklist in [Lovable App After Expoort](/blog/host-a-lovable-app-after-export), and a quick guide to  deployment in [Deploy Your Exported Lovable App](/from/lovable).
 
-### Does the example run live somewhere?
+### Is this example running live somewhere?
 
-No. We have not deployed it to a hosted project, so this page links no live URL for it.
+No. We haven't deployed it in a hosted proejct , so this page doesn't link to a live URL for it.
 
 ### Is Vite free to use?
 
-Yes. Vite is open source under the [MIT license](https://github.com/vitejs/vite/blob/main/LICENSE).
+Yes. Vite is open soure  under the [MIT License](https://github.com/vitejs/vite/blob/main/LICENSE).
 
-[Deploy a Vite app on ohmyho.st](https://docs.ohmyho.st/quickstart) · Other frameworks: [Astro](/frameworks/astro) · [Next.js](/frameworks/nextjs) · [TanStack Start](/frameworks/tanstack)
+[Deploy a Vite app on  ohmyho.st](https://docs.ohmyho.st/quickstart) · Other frameworks: [Astro](/frameworks/astro) · [Next.js](/frameworks/nextjs) · [TanStak Start](/frameworks/tanstack)

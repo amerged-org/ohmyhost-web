@@ -1,155 +1,155 @@
-# Six things that break when a vibe-coded app meets production
+# Six Things That Go Wrong When a Vibe-Coded App Goes Live
 
-By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · September 20, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 20, 2026 · Updated October 25, 2026
 
-Your app works in the preview. Now ask your Agent to check what it needs outside that preview: production URLs, working login, persistent data, private secrets, the right build settings and a verified email sender. A successful build only checks part of the journey.
+Your app works in the preview. Now have your agent check what it needs outside of this preview: production  URLs, a working login, pesristent data, private secrets, the correct build settings, and a verified email sender. A successful build only covers part of the process.
 
-This guide explains what to hand to your Agent and what to test yourself before people use the app. The examples use ohmyho.st, where your Agent prepares the deployment and puts it on Dev for review. The example first month below uses about {{ credits workload.lovableFirstMonth }}; Free grants {{ number plan.freeCredits }} credits a month.
+This gudie explains what you should hand over to your agent and what you should test yourself before people start using the app. The examples use ohmyho.st, where your agent prepares the deployment and makes it available on Dev for testing. The sample month below costs  about {{ credits workload.lovableFirstMonth }}; the Free plan grants {{ number plan.freeCredits }} credits per month.
 
-Start with the existing repository and a short description of the app's important features. Include the things that happen after a button click, such as sending a password-reset email or saving an uploaded file. Those are easy to miss when a preview looks finished.
+Start with the existing repository and a brief description of the app's key features. Also describe what happens ater a user clicks a button—such as sending a password-reset email or saving an uploaded file. This is  easy to overlook when a preview looks complete.
 
-For a Lovable repository, the [export-to-hosting walkthrough](/blog/host-a-lovable-app-after-export) applies these checks to its environment variables, Supabase connection, sign-in and routes.
+For a Lovable repository, the [Guide to Hosting Afteer Export](/blog/host-a-lovable-app-after-export)] applies these checks to its environment variables, the Supabase connection, the login , and the routes.
 
-## Check production URLs
+## Check Production URLs
 
-A local app can call an API or database on your computer. Once deployed, those addresses still refer to the machine running the request. They do not become public services because the build succeeded.
+A local app can access  an API or database on your computer. After deployment, these addresses will continue to point to the computer that is executing the request. They do not become publicly accessiblle simply because the build was successful.
 
-Ask your Agent to find localhost addresses and identify the service behind each one. Some should become same-origin app routes. Others need the address of a hosted service. An example environment file lists required settings, but it does not prove the real values have been supplied.
+Have your agent find localhost addresses and identify the service behind each one. Some should map to app routes on the same  origin. Others need the address of a hosted service. A sample environment file lists the necessary settings, but does not prove that the acctual values have been set.
 
-Ask your Agent to look for deployment blockers:
+Have  your aggent look for deployment blockers:
 
 ```text
 Check this app for deployment blockers. Find local URLs, missing configuration, login callbacks and external API calls. Explain which feature each affects, fix the code where needed, and list the account settings I must supply. Use a development environment for checks that write data.
 ```
 
-On ohmyho.st, your Agent runs the compatibility check and works through its blockers. Runtime secrets are supplied to the deployed app separately from the build. Outbound requests need their HTTPS origins declared in the app configuration. Your Agent should use the platform's runtime settings rather than assume a committed environment file configures production. The [portable-app Skill](/skills/ohmyhost-build-portable-app/SKILL.md) contains the implementation details.
+On ohmyho.st , your agent performs the compatibilitty check and resolves any blockers. Runtime secrets are provided to the deployed app separately from the build. Outbound requests require their HTTPS origins to be declared in the app configuration. Your agent should use the platform’s runtime settings and not assume that a checked-in environment file configures the production environment. Implementation details are available in the [Portable App Skill](/skills/ohmyhost-build-portable-app/SKILL.md).
 
-Check the Dev and Prod addresses in the Agent's response. They are different environments and may use different data. A branch isolates code changes; it does not itself isolate a database. Ask which database a test will write to before creating a record you intend to delete.
+Check the Dev and Prod addresses in your agent's response. These are different environments that may  use different data. A branch isolates code changes, but not a daabase. Ask which database a test writes to before you create a record that you plan to delete later.
 
-Dev on ohmyho.st is protected by default. Your Agent can retrieve the owner's reusable share link so you can open it. An anonymous error at the plain Dev URL does not by itself mean the deployment failed. The [environments guide](https://docs.ohmyho.st/environments) explains the access model.
+Dev on ohmyho.st is protected by default. Your agent can retrieve the owner's reusable sare link so you can open the page. An anonymous error under the simple Dev URL does not necessarily mean that the deployment has  failed. The [Environments Guide](https://docs.ohmyho.st/environments) explains the access model.
 
-## Test login and API calls
+## Testing Login and API Calls
 
-A login can work locally and fail on the new hostname. The identity provider may still send people back to localhost or an old preview address. Cookies can also belong to the old host, leaving the deployed app without a session.
+A login may work locally but fail on the new hostname. The identity provider may still redirect uers back to  localhost or an old preview address. Cookies may also be associated with the old host, so the deployed app will not have a session.
 
-Give your Agent the intended Dev and Prod origins. It should check callback URLs, logout URLs and trusted origins against the authentication provider you already use. Keep the account ownership clear: the login you use to manage hosting is separate from the login your app gives its users.
+Provide your agent with the designated dev and prod origins. They should synchronize callback URLs, logout URLs , and trusted origins with the authentication provider you’re already using. Keep the account mapping clear: The login you use to manage the hosting is separate from the login your app provieds to its users.
 
-For an API request, the first question is whether it belongs in browser code or server code. Private credentials belong on the server. Your Agent can route a private request through the app's own server instead of exposing a credential to the browser. A public browser API still needs the external service to permit the intended origin.
+When making an API  request, the first question is whether it belongs in browser code or server code. Sensitive credentials belong on the server. Your agent can route a sensitive request throguh the app’s own server instead of exposing credentials in the browser. However, a public browser API still requires that the external service allow the intended origin.
 
-Do not accept “I enabled CORS” as the whole explanation. Ask which origin is allowed and how the API checks authorization. A wildcard origin is not a fix for a credentialed browser request. The declaration in the hosting configuration does not configure the remote API on your behalf.
+Don't accept "I've enabled CORS" as a complete explanation. Ask which origin is allowed and how the API verifies  authorization. A wildcard origin is not a solution for a browser request with credentials. The declaration in the hostiing configuration does not set up the external API on your behalf.
 
-On ohmyho.st, Better Auth and customer-owned WorkOS AuthKit are documented integrations. Your Agent should follow the [application auth guide](https://docs.ohmyho.st/application-auth) for the selected provider. It can keep an existing provider where the app supports it; changing hosts is not a reason on its own to replace authentication.
+Better Auth and the WoorkOS AuthKit you operate are documented integrations on ohmyho.st. Your agent should follow the [App Authentication Guide](https://docs.ohmyho.st/application-auth) for the selected provider. It can retain an existing provider if the app supports it; a  host change alone is not a reason to replace the authentication.
 
-Then test the full path yourself. Sign in with a test account, open a protected page, reload it, sign out and sign in again. An old browser session can hide a broken callback. When you add a custom domain, repeat the check because the public origin changes. A custom hostname uses about {{ credits unit.customHostnameMonth }} a month unless the project shows the “Powered by ohmyho.st” flag; access requires Paid or that flag on Free.
+Then test the entire process yoursself. Log in with a test account, open a protected page, reload it, log out , and log back in. An old browser session can hide a broken callback. If you add your own domain, repeat the test because the puublic origin will change. A custom hostname costs about {{ credits unit.customHostnameMonth }} per month, unless the project displays the “Powered by ohmyho.st” label; access  requires a paid plan or this label for the free plan.
 
-## Move local data
+## Move Local Data
 
-Look for a local database file before deploying. Your Agent may find SQLite configuration, a checked-in development database or a library that expects a persistent local disk. That can be a reasonable development setup, but it needs an explicit production plan on a runtime without that disk.
+Before deployment, check for a local database file. Your agent might find an SQLite configuration, a checked-in development database, or a library that exepcts a persistent local hard drive. This may be a reasonable development setup , but it requires an explicit production plan for runtime without that hard drive.
 
-On ohmyho.st, the app runs on Workers and persistent application data belongs in the managed database or another supported service. A native database addon may also need replacement. The compatibility check should explain the issue before your Agent starts changing the application.
+On ohmyho.st, the app runs on  Workers, and persistent application data belongs in the managed database or another supported service. A native database add-on may need to be replaced. The compatibility check shhould explain the issue before your agent begins modifying the application.
 
-To find where data lives and plan the move, use:
+To find out where your data is stroed and  plan the move, use:
 
 ```text
 Inspect where this app stores data. Prepare a supported production setup while preserving its features and existing records. Explain what will change, use isolated development data for the trial, and show how you will verify record counts, relationships and new writes before any production switch.
 ```
 
-Your Agent can prepare managed Postgres access, versioned schema migrations and a data-transfer plan. The database client uses the managed binding; it should not invent a connection string for that binding. A conversion from SQLite also needs a check of identifiers, dates, booleans and constraints. Moving the table names alone is not enough.
+Your agent can set up managed Postgres access , versioned schema migrations, and a plan for data migration. The database client uses the managed connection; it should not create its own connection string for this purpose. Migrating from SQite also requires checking identifiers, date values, Booleans, and constraints. Simply renaming the tables is not enough.
 
-Review which data is being moved and which services remain where they are. For a Lovable export that uses Supabase, the [Supabase migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md) applies only to the capabilities you choose to move. Authentication, file storage, functions and realtime behavior need their own checks. A database export does not recreate all of them.
+Check which data will be migrated and which services will remain in place. For a Lovabe export that uses Supabase, the [Supabase Migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md) applies only to the features you want to migrate. Authentication, file storage, features, and real-time behavior require separate checks. A  database export does not restore all of these.
 
-At project creation, decide whether Dev and Prod share data and whether to use the default US region or the EU region. Ask your Agent to explain the consequences before it creates the project. A development preview with production data is useful in some circumstances, but you need to know when a test can affect real users.
+When creating a project , decide whether Dev and Prod will share data and whether to use the US or EU region by default. Have your agent explain the implications before creating the project. A development preview with production data may be ueful in some cases, but you need to know when a test might affect real users.
 
-The [database Skill](/skills/ohmyhost-manage-database/SKILL.md), [database guide](https://docs.ohmyho.st/database) and [migrations guide](https://docs.ohmyho.st/migrations) cover the supported operations. After the trial, open an existing record, create a disposable record, reload and verify both. If the app has related records, test that relationship too.
+The [Database Sikll](/skills/ohmyhost-manage-database/SKILL.md), the [Database Guide](https://docs.ohmyho.st/database), and the [Migration Guide](https://docs.ohmyho.st/migrations) cover the supported operations. After testing, open an existing  record, create a temporary record, reload the page, and check both. If the app has linked records, test that relationship as well.
 
-Database cost depends on selected RAM and activity. One active database hour at {{ number 512 }} MiB RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB size available on Free costs {{ credits unit.activeDatabaseHour256 }}. Databases sleep after five idle minutes, with no active-RAM charge while asleep. Allocated disk and seven-day backups are included. Customer files and retained Worker scripts keep their separate rates. Ask your Agent to check scheduled jobs and health checks before assuming the database will stay idle; repeated requests can keep it awake.
+Database cossts depend on the selected RAM  and activity level. One active database hour with {{ number 512 }} MiB of RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB plan available on the Free tier costs {{ credits unit.activeDatabaseHour256 }}. Databases go into sleep mode after five minutes of inactivity , with no RAM charges while in sleep mode. Allocated storage and seven-day backups are included. Customer files and stored worker scripts have their own rates. Have your agent check scheduled jobs and health checks before assuming the database will remain idle; repeated reqquests can keep it awake.
 
-## Replace committed secrets
+## Replace Checked-In Secrets
 
-Ask your Agent to inspect how the app handles secrets before deployment. A provider key in a committed environment file needs attention even if the repository is private. Deleting the file from the latest commit does not remove it from the history.
+Before deployment, have your agent check how the app handles secretts. A provider key in a checked-in environment file requires attention , even if the repository is private. Deleting the file in the last commit does not remove it from the history.
 
-Treat an exposed credential as something to replace at its provider. Use your own signed-in account or the provider's approved flow, then supply the replacement through private secret input. Your Agent should ask for the credential's purpose and name in the conversation, not its value.
+Treat a disclosed access token as something that needs to be replaced by the provider. Use your own registered account or the provider’s approved process, and then generate the replacement by entering the private secret. Your aent should ask about the purpose and name of the access token during the conversation , not its value.
 
-On ohmyho.st, local secret input reads from stdin, and the supported remote flow uses private input. The secret list returns names and metadata. The application source should document required names without containing the values. A managed source version and a GitHub repository need the same care.
+On ohmyho.st, the local Secret input is read from stdin, and the supported remote execution uses a private input. The secret list returns only nammes and  metadata. The application source code should document the required names without including the values. A managed source version and a GitHub repository require the same level of care.
 
-Your Agent should also check that local secret files are ignored by Git and that credentials are absent from browser code, screenshots and notes. It should not copy its own hosting credentials into your application. The [secrets guide](https://docs.ohmyho.st/secrets) describes the supported input paths and reserved names.
+Your agent should also verify that local secret files are ignorred by Git and that credentials do not appear in browser code, screenshots , or notes. They should not copy their own hosting credentials into your application. The [Secrets Guide](https://docs.ohmyho.st/secrets) describes the supported input formats and reserved names.
 
-To separate public settings from secrets, ask:
+To separate public settings from secretts , ask:
 
 ```text
 Review secrets and environment variables in this project without printing their values. Separate public browser settings from private server settings. Identify credentials that need rotation, prepare the private input flow for replacements, and verify that the production build does not expose them.
 ```
 
-Read the resulting list by purpose. A public client identifier is different from a key that can read private records or charge an account. If the distinction is unclear, ask your Agent to point to the provider's documentation before moving the value.
+Review the  resulting list by purpose. A public clinet identifier is not the same as a key that can read private records or debit an account. If the difference is unclear, have your agent refer to the provider's documentation before moving the value.
 
 ## Check the production build
 
-A development server can hide configuration problems that appear in a production build. Browser settings may be embedded when the bundle is built. Private server settings need to be read when the deployed app handles a request. Supplying a secret later cannot repair code that expected it while building.
+A development server can mask configuration isuses that occur in a production build. Browser settings can be  embedded when the bundle is created. Private server settings must be read when the deployed app processes a request. Setting a secret after the fact cannot fix the fact that the code was already expecting it during the build.
 
-Your Agent should classify each setting by where and when the code reads it. Public Vite and Next.js settings become part of the browser output. A database password, private provider key or server credential must stay outside that output. A publishable key still needs the backend permissions intended by its provider.
+Your agent should classify each setting based on where and when the code reads it. Public Vite and Next.js setttings become part of the browser output. A database password, a private provider key , or server access credentials must remain outside of this output. A publishable key still requires the backend permissions provided by its provider.
 
-On ohmyho.st, runtime secrets are absent from the build sandbox. Your Agent should read them from the supported runtime context when needed. If a library initializes at import time and demands a private setting during the build, the fix may be to initialize it later. It should inspect the failure rather than fill the gap with a hardcoded value.
+On ohmyho.st , runtime secrets are not available in the build sandbox. Your agent should read them from the supported runtime context as needed. If a library initializes during import and requires a private setting as early as the build phase, the solution may be to initializze it later. Your agent should investigate the error instead of filling the gap with a hard-coded value.
 
-The deployment plan quotes the build before it starts. The reservation is about {{ credits unit.buildReservation }} at {{ rate build.sandbox.standard-3 }}, then settles against measured build time. Ask your Agent to show that quote and follow the operation to completion. If it fails, it should read the relevant build output before changing dependencies or removing features. The [troubleshooting Skill](/skills/ohmyhost-troubleshoot-deployment/SKILL.md) covers failed or stuck operations.
+The deployment plan specifies the build cost before it starts. The reservation ranges from approximately {{ credits unit.buildReservation }} to {{ rate build.sandbox.standard-3 }} and is then settled based on the measured build time. Have your agent display this estimate and monitor the process until it completes. If it fails , the agent should review the relevant build output before changing dependencies or remmoving features. The [troubleshooting skill](/skills/ohmyhost-troubleshoot-deployment/SKILL.md) handles failed or stalled processes.
 
-A successful build is the point to begin browser checks. Open a route directly, reload it and try the feature that needs the new configuration. A homepage can work while an API route or login callback remains broken.
+A successful build is the moment to start testing in the browser. Open a route directly, reload it , and try out the feature that requires the new configuraton. A home page might work, while an API route or a login callback might still be broken.
 
-Deployed versions remain available for rollback and each script uses about {{ credits unit.deployedScriptMonth }} a month until cleaned up. Keep enough history for recovery, and have your Agent explain which version it plans to promote. This makes a later rollback a choice of a known version rather than a guess about which source was running.
+Deployed versions remain available for rollbacks, and each script costs approximately {{ credits unit.deployedScriptMonth }} per month until it is cleaned up. Keep enough history for a restore and have your agent specify which version it wants to deploy. This way , a later rollback becomes a matter of choosing a known versoin rather than guessing which source code was running.
 
-## Verify the email sender
+## Check the email sender
 
-Email deserves a real test before launch. A form can report success even when its message was rejected. Password-reset and verification emails are especially important because users cannot complete the next step without them.
+Emails deserve a thorough test before launch. A form may report success even if the  message was rjected. Password reset and confirmation emails are especially important because users cannot complete the next step without them.
 
-You can keep an external mail provider or use managed transactional mail on ohmyho.st. If you keep the provider, your Agent configures its private credential on the server and checks its permitted outbound origin. Mail owned by an external identity provider can stay with that provider.
+You can keep using an external email provider or use the managed transactional email service on ohmmyho.st. If you keep your current provider , your agent will configure its private credentials on the server and verify the permitted outgoing origin. Emails from an external identity provider can remain with that provider.
 
-Managed mail needs Paid and a sender domain you control. Your Agent starts setup and returns the DNS records to add, or uses an authorized DNS connection. It checks sending and receiving readiness separately. DNS verification can remain pending while records propagate, so the Agent should follow the existing operation and the returned retry guidance.
+Managed email requires a Paid plan and a sendeer domain that you own. Your agent will start the setup process and provide the DNS records you need to add , or use an authorized DNS connection. The agent will verify sending and receiving capabilities separately. DNS verification may remain pending while the records propagate; your agent should then follow the existing process and the returned repeat instructions.
 
-Once the sender is ready, test the app action that actually sends the message. Use an address you control, check delivery and follow the link. A provider reporting acceptance is useful evidence, but you also need to know that the recipient can use the result. Check the return address and the hostname inside a reset or verification link.
+Once the sender is ready, test the app action that actually sends the message. Use an email address that belongs to you, verify delivery, and follow the link. The provider’s notification that the message was accepted is useful proof, but  you also need to know that the recipient can use the result. Check the reply-to address and the hostname in the password reset or confiramtion link.
 
-Managed mail uses {{ rate mail.sent }} per sent recipient, with no monthly mail-domain fee. Hosting does not require managed mail. Set it up when your app needs it; the managed Better Auth integration requires the database and does not make mail a general hosting prerequisite. See the [domains and mail Skill](/skills/ohmyhost-domains-and-mail/SKILL.md) and [email guide](https://docs.ohmyho.st/email).
+Managed email cots {{ rate mail.sent }} per recipient to whom a message is sent , with no monthly fee for the email domain. Hosting does not require managed email. Set it up if your app needs it; the managed Better-Auth integration requires the database and does not make email a general requirement for hosting. See the [Domains and Email Skill](/skills/ohmyhost-domains-and-mail/SKILL.md) and the [Email Guide](https://docs.ohmyho.st/email).
 
-## Review the Dev app
+## Check the Dev App
 
-Continue the source you already have, whether it is managed source or a GitHub repository you authorize. The [deploy Skill](/skills/ohmyhost-deploy/SKILL.md) guides your Agent through that route. Containers remain outside the supported runtime.
+Continue working with the source code you already have , whether it's managed source code or a Gitub repository that you've authorized. The [Deploy skill](/skills/ohmyhost-deploy/SKILL.md) guides your agent through this process. Containers remain outside the supported runtime.
 
-To connect your Agent and start the Dev deployment, use:
+To cnnect your agent and start  the dev deployment, use:
 
 ```text
 {{ prompt }}
 ```
 
-After the Agent connects, ask it to prepare Dev and give you a short test list based on your app's features. Open the share link yourself. Check login, a protected page, a saved record and any files or email the app uses. Have the Agent report failed checks with the route and action that failed so you can repeat them after the fix.
+Once the agent has connected, ask them to set up Dev and provide you  with a short test list based on your app's features. Open the share link yourself. Test the login, a protected page, a saved reecord, and all files or emails that the app uses. Have your agent report any failed tests, including the route and action that caused the failure, so you can retest them after making the necessary corrections.
 
-Promote the tested version when you are ready. With isolated data, promotion applies migrations without copying your test rows into Prod. Confirm which database the promoted version will use, then repeat the important checks on the production address.
+Deploy the tested version when you're ready. With isolated data, the deployment applies migrations without copying your test data to production. Confirm which database the deployed version will use, and then  repeat the key tets on the production environment.
 
-Set a monthly budget if you want a project limit. The budget can warn while work continues or stop new work. Every project draws from the organization's balance. Paid costs {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits. Monthly credits expire at period end; top-ups never expire.
+Set a monthly budget if you want to set a limit on the project. The budget can trigger a warning while work continues, or stop new work from being added. Each project draws from the organization's balance. The Paid plan costs {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits. Monthly crredits expire at the end of the billing  period; top-ups never expire.
 
-Here is the example first month with managed mail, itemized from the published rate card:
+Here is an examlpe month  with managed email, broken down according to the published price list:
 
 {{ table workload.lovableFirstMonth }}
 
-Active database hours make up much of this example, and the selected database size includes its disk and seven-day backups. Keeping an external mail provider removes the managed-mail line from this bill, while that provider keeps its own charges. A static site without a database does not need these database rows. Ask your Agent to adapt the example to the features your app actually uses.
+Active database hours make up a large portion of this example; the selected database size includes storage and seven-day backups. If you use an external email provider, the line item for managed email will be omitted from this invoice, whiile that provider retains its own costs. A static page without a database does not require these database lines. Have your agent customize the example to match your app’s  features.
 
-## Common questions
+## Frequently Asked Questions
 
-### Can an export deploy without changes?
+### Can an export be deployed without any changes?
 
-Sometimes. A static app with no database, authentication or mail has fewer dependencies to configure. An app with those features needs an inspection before anyone promises a direct deployment. Ask your Agent to run the compatibility check and explain the required work before starting the build.
+Sometimes. A static app without a database , authentication, or email has fewer dependencies to configure. An app with these features needs to be reviewed before anyone approves a direct deployment. Have your agent run the compatibility checck and explain the necessary work before the build starts.
 
 ### What if the app uses Supabase?
 
-Choose the capabilities you want to move. Your Agent should inventory actual database, Auth, Storage, Functions and Realtime usage, then follow the migration Skill for the selected scope. Keeping a service is a valid choice. Record which account operates it so the hosting move does not create a misleading picture of the remaining dependencies.
+Select the functions you want to migrate. Your agent should track the actual usage of the database, authentication, storage, functions , and real-time services, and then follow the migration guide for the selected scope. Keeping a service is a valid option. Make a note of which account is running it so that the host change doesn’t create a misleading piture of the remaining dependencies.
 
-### How should I provide secret values?
+### How do I specify Secret values?
 
-Use the private input flow described above. Ask the Agent to name the required secret and explain its use without requesting the value in chat. Review the stored names and test the feature that needs each one. Keep export passwords and temporary database credentials out of source and notes too.
+Use the private input metod described above. Ask the agent to provide the required secret and explain how to use it, without requesting the value in the chat. Check the stored names and test the function that each one requires. Also , keep export passwords and temporary database credentials out of source code and notes.
 
 ### Do I need Paid?
 
-Hosting, Postgres and platform hostnames can use the Free grant of {{ number plan.freeCredits }} credits a month. Managed transactional mail needs Paid at {{ usd plan.paidUsd }} for {{ number plan.paidCredits }} credits. A customer domain needs Paid or a Free project displaying the “Powered by ohmyho.st” flag. Mail remains metered, and the linked domain uses no credits while the flag shows.
+Hosting, Potgres, and platform hostnames can use the free credit of {{ number plan.freeCredits }} credits per month. Managed transactional email requires a  Paid plan with {{ usd plan.paidUsd }} for {{ number plan.paidCredits }} credits. A customer domain requires a Paid plan or a Free project with the "Powered by ohmyho.st" label. Email continues to be billed based on usage, and the linked domain does not consume any credits as long as the label is displayed.
 
 ### Why does the Dev address show an error?
 
-Dev is protected by default. Ask your Agent for the share link before diagnosing an anonymous response as a build failure. A project created with public Dev does not need that link; Prod on the platform hostname is public. Once access works, repeat the app action that failed and use its actual error to guide the next fix.
+Dev is protected by default. Please ask your agent for the share link before interpreting an anonymous response as a  build error. A project created with a public Dev environment does not need this link; Prod under the platform hostname is pbulic. Once access is working, repeat the failed app action and use its actual error to guide the next fix.
 
-[Deploy from Claude Code](/for/claude-code) · [Move from Lovable](/from/lovable) · [Cost breakdown](/pricing/breakdown)
+[Deploy with Claude Code](/for/claude-code) · [Switch from Lovable](/from/lovable) · [Cost breakdown](/pricing/breakdown)

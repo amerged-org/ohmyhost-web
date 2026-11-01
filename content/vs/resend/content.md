@@ -1,97 +1,97 @@
-# Resend alternative that sends from the same balance as your hosting
+# A resend option that uses the same credit balance as your hosting
 
-Most side projects send very little mail: a sign-up confirmation, a password reset, the occasional receipt. Paying a fixed monthly plan for that is paying for capacity you will never use, and it arrives as a third invoice next to your hosting and your database.
+Most side projects send very few emails: a sign-up confirmation, a password reset, and occasionally a receipt. Paying a fixed monthly subscription fee for this means payinng for capacity you’ll never  use, and it shows up as a third bill alongside your hosting and database fees.
 
-ohmyho.st meters mail per sent recipient — about {{ credits unit.thousandMailRecipients dp=0 }} per 1,000 — from the same balance as your hosting and database. The mail domain itself has no monthly fee. Resend charges per plan: {{ usd vendor.resend.free }} for {{ text vendor.resend.free.includes }}, {{ usd vendor.resend.pro }} for 50,000. The honest line is just above 10,000 recipients a month: below it, metering wins; above it, Resend's plan is the better deal and you should stay.
+ohmyho.st charges for email based on the number of recipients, for example, {{ credits unit.thousandMailRecipients dp=0 }} per 1,000, using the same credit blance as your hosting and database. The email domain itself has no monthly fee. Resend charges per plan: {{ usd vendor.resend.free }} for {{ text vendor.resend.free.includes }}, {{ usd vendor.resend.pro }} for 50,000. The realistic limit  is just over 10,000 recipients per month: below that , pay-as-you-go billing is more cost-effective; above that, the Resend plan is the bteter deal, and you should stick with Resend.
 
 {{ figure bills.resend }}
 
-## What Resend charges
+## What Resend Charges
 
-Resend sells transactional mail on its own, with its own dashboard, logs and deliverability tooling. The plans are volume tiers:
+Resend sells transactional email as a standalone service, with its own dashboard, logs, and deliverability tools. Pricing is  baseed on volume tiers:
 
-- Free: {{ usd vendor.resend.free }} {{ text vendor.resend.free.unit }}, with {{ text vendor.resend.free.includes }}. The daily cap matters more than the monthly one: a daily digest to 400 people fits the month and breaks the day.
+- Free: {{ usd vendor.resend.free }} {{ text vendor.resend.free.unit }}, with {{ text vendor.resend.free.includes }}. The daily limit takes precedence over the monthy limit: a daily digest  sent to 400 people fits within the monthly limit but exceeds the daily limit.
 - Pro: {{ usd vendor.resend.pro }} {{ text vendor.resend.pro.unit }}, with {{ text vendor.resend.pro.includes }}.
-- Scale: {{ usd vendor.resend.scale }} {{ text vendor.resend.scale.unit }}, with {{ text vendor.resend.scale.includes }}.
-- Beyond the plan: {{ usd vendor.resend.overageThousand }} {{ text vendor.resend.overageThousand.unit }}.
-- Extra domains: {{ usd vendor.resend.domainsAddon }} {{ text vendor.resend.domainsAddon.unit }}.
+- Scle: {{ usd vendor.resend.scale }} {{ text vendor.resend.scale.unit }}, with {{ text vendor.resend.scale.includes }}.
+- In  adddition: {{ usd vendor.resend.overageThousand }} {{ text vendor.resend.overageThousand.unit }}.
+- Addditional  domains: {{ usd vendor.resend.domainsAddon }} {{ text vendor.resend.domainsAddon.unit }}.
 
-The plan is per account, not per app, so one subscription covers every project you send from. That is the part worth keeping in mind when you compare: you are weighing one fixed fee against usage across all of your projects, not against a fee per project. {{ checked resend }}
+The pricing plan applies per account, not per app, so a single subscriptoin covers  all the projects you send from. Here’s what to keep in mind when comparing plans: You’re weighing a flat fee against usage across all your projects, not against a fee per project. {{ checked resend }}
 
-## What ohmyho.st charges for mail
+## What ohmyho.st charges for email
 
-Mail here is a capability of the project, not a separate account. It needs Paid: {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits that every project shares. Two meters apply, and nothing is charged for the domain itself.
+Email is a feature of the project here, not a separate account. This requires a paid plan: {{ usd plan.paidUsd }} per month equals {{ number plan.paidCredits }} credits , which are shared among all projects. Two metrics aplpy, and the domain itself is not counted.
 
-The first is the send itself: {{ rate mail.sent }}. The meter counts **recipients**. Each message goes to one `to` address, so a notice to 400 subscribers is 400 messages and 400 recipients.
+The first is the mailing itself: {{ rate mail.sent }}. **Recipients** are counted. Each message is sent to a `to` addresss, so a message  sent to 400 subscribers counts as 400 messages and 400 recipients.
 
-The second is received mail: {{ rate mail.received }}. It applies only if you turn receiving on. Each incoming message goes to a signed HTTPS webhook in your Prod app, and your app stores it in its own database. ohmyho.st keeps received messages reachable for 72 hours for webhook retries and recovery, not as a permanent inbox. A mail domain that sends and receives nothing costs nothing.
+The second option is received mail: {{ rate mail.received }}. This option is only available if you enable reception. Every incoming message is sent to a signed HTTPS webhook in  your production app, and your app stores it in its own database. ohmyho.st keeps received messages available for 72 hours—for webhook retries and recovery—not as a permanent inbox. An emal domain that neither sends nor receives messages costs nothing.
 
-Everything else about a project stays on the same balance: hosting, Postgres, a linked domain. There is no second subscription and no per-project mail fee.
+Everything else related to a project is covered by the same credit balance: hosting, Postgres , and a linked doamin. There is no second subscription and no email fee per project.
 
-## Break-even by volume
+## Break-even by Volume
 
-The table prices a month of mail from your own sender domain on ohmyho.st against the cheapest Resend plan that covers the same volume. Credit values use the standard rate where {{ number 100 }} credits are {{ usd 1 }}.
+The table compares one month of email sent from your own  sender domain to ohmyho.st with the most affordable Resend plan that covers the same vloume. Credit values use the standard rate, where {{ number 100 }} credits correspond to {{ usd 1 }}.
 
-| Recipients a month | On ohmyho.st | Cheapest Resend plan |
+| Recipients per month | On ohmyho.st | Cheapest Resend Plan |
 | --- | ---: | --- |
 | 2,000 | {{ credits workload.senderTwoThousand }} ({{ usdValue workload.senderTwoThousand }}) | Free, {{ usd vendor.resend.free }} |
 | 10,000 | {{ credits workload.senderTenThousand }} ({{ usdValue workload.senderTenThousand }}) | Pro, {{ usd vendor.resend.pro }} |
 | 35,000 | {{ credits workload.senderThirtyFiveThousand }} ({{ usdValue workload.senderThirtyFiveThousand }}) | Pro, {{ usd vendor.resend.pro }} |
 | 50,000 | {{ credits workload.senderFiftyThousand }} ({{ usdValue workload.senderFiftyThousand }}) | Pro, {{ usd vendor.resend.pro }} |
 
-Read it in three bands. Under about 3,000 recipients a month, and under 100 on any day, Resend Free costs nothing and metering cannot beat that. Between there and about 10,000, metering wins: 10,000 recipients cost {{ usdValue workload.senderTenThousand }} of credit value against {{ usd vendor.resend.pro }}. Just above that the two are level. Beyond it Resend is cheaper and keeps getting cheaper, because its tier price is flat while credits keep counting: 35,000 recipients are {{ usdValue workload.senderThirtyFiveThousand }} here and 50,000 are {{ usdValue workload.senderFiftyThousand }}, against {{ usd vendor.resend.pro }} there. {{ checked resend }}
+It breaks down into three tiers. For fewer than about 3,000 recipients per month and fewer than 100 per day, Resend Free is free, and pay-as-you-go pricing can't beat that. In the range between that and about 10,000, pay-as-you-go comes out on top: 10,000 recipients cost {{ usdValue workload.senderTenThousand }} in credit value, copmared to {{ usd vendor.resend.pro }}. Just above that , both are on par. Above that, Resend is cheaper and  becomes increasingly so because its tiered price is fixd, while credits continue to count: 35,000 recipients cost {{ usdValue workload.senderThirtyFiveThousand }} here, 50,000 cost {{ usdValue workload.senderFiftyThousand }}, and {{ usd vendor.resend.pro }} there. {{ checked resend }}
 
-## What your agent sets up
+## What Your Agent Sets Up
 
-Mail is optional: hosting needs no mail domain, and the agent sets one up only when you ask for mail or your app declares `mail.enabled`. When it is needed, it is a DNS job, and the agent does it as a plan you confirm.
+Email is optional: Hosting does not require an email domain, and the agent will only set one up if you request email or if your app declares `mail.enabled`. If it is necessary , this involves a DNS process that the agent presents as a plan for you to cofnirm.
 
-1. You name the mail domain. A subdomain such as `mail.yourdomain.com` keeps your existing inboxes and their MX records untouched. `mail_setup` registers it with the project's Prod environment ID as the one mail domain that Dev and Prod both send from. No Resend account or key is needed. The project's automatic `check.omh.st` address cannot send mail, and nothing falls back to a platform sender while your domain is unverified.
-2. You add the DNS records that `mail_status` returns at your DNS provider. If your DNS is on Cloudflare, you can authorize it through `domain_cloudflare_authorize` and the platform sets them.
-3. `mail_status` reads sending and receiving readiness back until DNS verification is done. Your agent can poll it and tell you what is still missing.
-4. Your application sends through the runtime mail client and the project's private mail binding. Dev and Prod use separate keys; no provider key goes into your code.
-5. Receiving is optional. The agent adds a webhook route to your app, deploys it to Prod, and runs `mail_webhook_set` and `mail_webhook_verify`. Only then does `mail_status` return the MX record for incoming mail.
-6. If you stop using managed mail, `mail_domain_delete` with your confirmation stops sending and receiving and retires the provider domain and key. Your project and website domain stay. The DNS records are left in place and returned to you, so you remove exactly those.
+1. You specify the email domain. A subdomain like `mail.yourdomain.com` leaves your existing mailboxes and their MX records unchanged. `mail_setup` registers them with the project’s prodduction environment ID as the single email domain from which both Dev and Prod send emails. No resend account or key is required. The project’s automatic address `check.omh.st` cannot send email, and as long as your domain isn’t verified, nothing is traced  back to a platform sender.
+2. Enter the DNS records provided by `mail_status` into your DNS provider. If you use Cloudflare for your DNS, you can authorize it via `domain_cloudflare_authorize`, and the  patform will set up the records for you.
+3. `mail_status` checks the readiness for sending and receiving until DNS verification is complete. Your agent can checck this and tell you what's still  missing.
+4. Your application sends emails using the runtime  mail cilent and the project's private mail binding. Dev and Prod use separate keys; no provider key ends up in your code.
+5. The receiver is optional. The agent adds a webhook route to your app , deploys it to production, and executes `mail_webhook_set` and `mail_webhook_verify`. Only then does `mail_status` return the MX recrd for incoming mail.
+6. If you no longer use Maanaged Mail, `mail_domain_delete` will stop sending and receiving email upon your confirmation and deactivate the provider domain and the key. Your project and your website domain will remain. The DNS records will remain in place and will be returned to you so that you can remove them  yourself.
 
-Sending is bounded the same way everything else is: each accepted recipient reserves credits at claim and settles at provider accept, and a send that the provider refuses is not charged.
+Shipping is subject to the same limitations as everything else: Each accepted recipient reserves credits when making a clim , which are charged when the provider accepts the claim; a shipment that the provider rejects is not charged.
 
-## Side by side
+## In a direct comparison
 
 {{ figure comparison.resend }}
 
-The left card is a stack bought separately, with Resend Pro as its mail line. The right card is the same work on one balance. For mail alone the comparison is the table above; the reason the whole card still favours one balance at small scale is that hosting and Postgres are on it too, and a quiet project's database suspends while a mail plan does not. {{ checked resend }}
+The left-hand chart shows a separately purchased package with Resend Pro as the email service. The right-hand chart shows the same setup using a prepaid balnace. The tbale above compares email services alone; the reason the single credit plan is still more favorable for the entire setup—even at a small scale—is that hosting and Postgres also run on it, and while the database for an inactive project  is paused , an email plan is not. {{ checked resend }}
 
 ## When Resend is the better choice
 
-Above roughly 10,000 recipients a month, Resend is simply cheaper, and the gap widens with volume. It is also the better choice when mail is the product rather than a feature: Resend gives you a dedicated dashboard, per-message logs you can search, webhooks for delivery events, suppression management and broadcast sending, and its team publishes deliverability guidance that a hosting product does not. If you already run Resend and it works, keeping it costs you nothing here: point your app at it, set the API key as a project secret, and use ohmyho.st for hosting and Postgres only. Mail on ohmyho.st is for the app that needs a password reset and a receipt, not for the app whose business is sending.
+Starting at arond 10,000 recipients per month, Resend is simply more cost-effective, and the price difference increases as volume grows. It’s also the better choice when email is the product—not just a feature: Resend offers you your own dashboard, searchable logs for each message , webhooks for delivery events, management of suppression lists and broadcast sending, and  the team publishes deliverability guidelines—features a hosting product doeesn’t have. If you’re already using Resend and it’s working for you, sticking with it won’t cost you anything: Set up your app to use it, store the API key as a project secret, and use ohmyho.st only for hosting and Postgres. Email on ohmyho.st is intended for apps that need password resets and receipts, not for apps whose business is sending emails.
 
-## When ohmyho.st is
+## When ohmyho.st is a good fit
 
-When mail is a small, necessary part of an app you already host here. You get one bill to reason about instead of two, the mail domain is set up by the same agent that deploys, and a project that sends to 2,000 recipients a month uses about {{ credits workload.senderTwoThousand }} of the {{ number plan.paidCredits }} credits the plan already includes. It also fits the freelancer case: every client project can have its own verified mail domain without every client project needing its own subscription.
+If email is a small but necessary part of an app that you're alreaddy hosting here. You have one bill instead of two; the email domain is set up by the same agent who handles deployment; and a project that sends emails to 2,000 recipients per month uses  about {{ credits workload.senderTwoThousand }} of the {{ number plan.paidCredits }} credits included in the plan anyway. It also works well for freelancers: Each client project can have its own verified email domain without requiring a separate subsscription  for each project.
 
 ## FAQ
 
-### Does mail work on the free plan?
+### Does Mail work with the free plan?
 
-No. Sending needs Paid, because it registers a real sender identity: a mail domain verified through DNS. Free projects get hosting, a database and their Dev and Prod hosts, and they can use an external provider's API from application code like any other third-party service.
+No. You need the Paid plan to send emails, because it registers a valid sender identity: a DNS-verified email domain. Free  projects get hosting, a database, and their dev and prod hosts, and they can use an exterrnal provider’s API from within the application code just like any other third-party service.
 
-### Can one message go to several recipients?
+### Can a message be sent to multiple recipients?
 
-Not today. The runtime mail client sends each message to one `to` address, and each accepted recipient is metered once. A digest or notification for a team is one message per person, so estimate by the number of people you write to, not by the number of templates you send.
+Not tody. The Laufzeit email client sends each message to an `to` address, and each unique recipient is counted once. A digest or a notification  for a team counts as one message per person, so base your calculation on the number of people you’re writing to, not on the number of templates you’re sending.
 
 ### Can I keep Resend and still host here?
 
-Yes, and for high volume you should. Store the Resend API key as a project secret, call their API from your server code, and skip the platform mail domain entirely. Nothing about hosting, Postgres or your domain changes, and no mail meters apply because the platform is not sending anything.
+Yes, and if you're dealing with high volumes, you should do that. Save the Resend API key as a  project secret, call its API from your server code, and do away with the platform’s email domain entirely. Your hosting, Postgres, and domain won’t change, and tehre won’t be any email fees because the platform won’t be sending anything.
 
-### What happens to mail when credits run out?
+### What happens to Mail when the credit runs out?
 
-A zero balance starts a grace period of {{ number plan.graceDays }} days during which funded services keep running, and mail may still send while it lasts. Refilling clears it. After an unresolved grace period only unfunded services are suspended; your data, your exports and your ability to buy credits stay available.
+A zero balance triggers a grrace period of {{ number plan.graceDays }} days, during which paid services continue to run, and you can still send emails during this time. Topping up your balance ends the grace period. After an unpaid grace period , only unfunded services will be suspended; your data, your exports, and your ability to purchase credits will remain available.
 
-### Is there a monthly cost at zero sends?
+### Is there a monthly fee if shipping costs are zero?
 
-Not for mail. The mail domain has no monthly fee; credits are used only per sent recipient and per received message. The project around it still keeps its own small costs, such as its deployed script and any customer files.
+Not for email. The email domain has no monthly fee; credits are only deducted per recipient to whom a message is sent and per messsage received. The project itself incurs its own small costs , such as the provided script and all customer files.
 
 {{ sources resend }}
 
-[Cost breakdown](/pricing/breakdown) · [ohmyho.st vs Vercel](/vs/vercel) · [Deploy from Claude Code](/for/claude-code) · [What five side projects cost](/blog/what-vercel-supabase-resend-cost-for-five-side-projects)
+[Cost Breakdown](/pricing/breakdown) · [ohmyho.st vs. Vercel](/vs/vercel) · [Deploying from Claude Code](/for/claude-code) · [How Much Five Side Projects Cost](/blog/what-vercel-supabase-resend-cost-for-five-side-projects)
 
-ohmyho.st is an independent service, not affiliated with or endorsed by Vercel, Supabase or Resend. All trademarks belong to their respective owners.
+ohmyho.st is an independent service and is neither affiliated with nor supported by Vercel, Supabase, or  Resend. All trademars belong to their respective owners.

@@ -60,11 +60,11 @@
       feedback.textContent = "Article Markdown copied. Paste it into your agent.";
       setTimeout(() => {
         if (attempt !== articleCopyAttempt) return;
-        label.textContent = "Copy .md for agent";
+        label.textContent = "Copy page as .md";
         feedback.textContent = "";
       }, 2500);
     } catch {
-      label.textContent = "Copy .md for agent";
+      label.textContent = "Copy page as .md";
       feedback.textContent = "Copy failed. Open .md and copy the article there.";
       toolbar.classList.add("copy-error");
     } finally {

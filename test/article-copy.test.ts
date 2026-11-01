@@ -17,25 +17,23 @@ function payload(html: string): string | undefined {
   )?.[1];
 }
 
-it("offers the complete Markdown mirror only on articles, before their body", () => {
-  for (const [path, meta] of Object.entries(PAGE_META)) {
+it("offers the complete Markdown mirror on every page, before the body", () => {
+  let pages = 0;
+  for (const path of Object.keys(PAGE_META)) {
     const html = customerDocument(path)?.text ?? "";
-    if (meta.kind !== "article") {
-      expect(payload(html), path).toBeUndefined();
-      expect(html, path).not.toMatch(/<aside\b[^>]*\bdata-article-tools/u);
-      continue;
-    }
+    if (!html.includes('<main class="docs-content">')) continue;
+    pages += 1;
     expect(JSON.parse(payload(html) ?? "null"), path).toBe(
       customerDocument(`${path}.md`)?.text,
     );
-    expect(html, path).toContain(
-      "Tell your Agent to move to ohmyho.st or locally",
-    );
-    expect(html, path).toContain(`href="${path}.md">Open .md</a>`);
+    expect(html, path).toContain("<span>Copy page as .md</span>");
+    expect(html, path).toContain(`href="${path}.md">${path}.md</a>`);
+    expect(html, path).toMatch(/Updated <time datetime="\d{4}-\d{2}-\d{2}">/u);
     expect(html.indexOf("data-article-tools"), path).toBeLessThan(
       html.indexOf("<h1>"),
     );
   }
+  expect(pages).toBeGreaterThan(30);
 });
 
 it("preserves injected draft Markdown exactly and prevents a payload script from closing early", () => {
@@ -76,7 +74,7 @@ function browser(
   fallback = false,
 ) {
   let click: ((event: unknown) => Promise<void>) | undefined;
-  const label = { textContent: "Copy .md for agent" };
+  const label = { textContent: "Copy page as .md" };
   const feedback = { textContent: "" };
   const timers: Array<() => void> = [];
   const classes = new Set<string>();
@@ -200,7 +198,7 @@ it("copies exact article text once per pending action and ignores older feedback
   await second;
   expect(copies).toEqual([value, value]);
   page.timers[1]?.();
-  expect(page.label.textContent).toBe("Copy .md for agent");
+  expect(page.label.textContent).toBe("Copy page as .md");
 });
 
 it.each([true, false])(

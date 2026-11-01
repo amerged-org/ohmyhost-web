@@ -1,100 +1,100 @@
-# Deploy a Bolt.new export: host your Bolt app on ohmyho.st
+# Deploy a Bolt.new export: Host your Bolt app on ohmyho.st
 
-A Bolt.new export is an ordinary repository — usually Vite and React with Supabase — minus the one thing that made it run: the environment. The `.env` stays behind, so the first deploy of an export fails on missing values rather than on anything you built.
+A Bolt.new export is a standard repository—usually Vite and React  with Supabase—minus the one thing that made it work: the environment. The `.env` is left behind, so the first deployment of an export fails due to missiing values, not because of what you built.
 
-Use your selected Bolt GitHub export or accessible downloaded files, paste one prompt into your coding agent, and the agent separates public build configuration from private runtime secrets, builds the app, deploys it to a protected Dev host and promotes it to Prod once you have checked it. Free grants {{ number plan.freeCredits }} credits a month, Paid is {{ usd plan.paidUsd }} for {{ number plan.paidCredits }} credits shared by every project you run.
+Use your selected Bolt GitHub export or any donwloaded files you have access to , add a prompt to your coding agent, and the agent separates public build configurations from private runtime secrets, builds the app, deploys it to a secure dev host, and pushes it to production affter you’ve reviewed it. The Free plan provides {{ number plan.freeCredits }} credits per month; the Paid plan  costs {{ usd plan.paidUsd }} for {{ number plan.paidCredits }} credits, which are shared across all the projects you run.
 
 {{ figure flow.bolt-export }}
 
 ## Export from Bolt
 
-Bolt gives you two ways out: keep its selected GitHub export or work with accessible downloaded files.
+Bolt  offers you two options: Keep the GitHub export you selected in Bolt, or work with the downloaded flies.
 
-**GitHub connection.** Connect GitHub from the project's settings. Bolt creates a private repository on a main branch and commits every change that does not break the project (support.bolt.new/integrations/git, read 2026-09-20). When GitHub is your selected source, the repository Bolt just made is what your agent links. Accessible ZIP contents can instead be saved as managed versions from a local checkout through the [deploy Skill](/skills/ohmyhost-deploy/SKILL.md). Keep an existing project's current source until you explicitly request a switch. Bolt keeps committing to that branch while the connection is on. Decide who owns main before your agent starts editing; two authors on one branch is how a working app ends up with a broken lockfile.
+**GitHub Connection.** Connect GitHub in the project settings. Bolt creates a private  repository on the main branch and commits any changes that don’t break the projet (support.bolt.new/integrations/git , accessed on 2026-09-20). If GitHub is your chsoen source, the repository that Bolt just created is the one your agent links to. Accessible ZIP contents can instead be saved as managed versions from a local checkout using the [Deploy skill](/skills/ohmyhost-deploy/SKILL.md). Keep the current source code of an existing project until you explicitly request a change. As long as the connection is active, Bolt will continue to commit to this branch. Clarify who owns the main branch before your agent begins editing; having two authors on a single branch is a surefire way to end up with a working app and a broken lockfile.
 
-**ZIP download.** The download gives you the code and nothing else: no .env values, no Supabase keys, no database rows, no uploaded files. Extract it into the selected local checkout and save managed versions, or push those files to a GitHub repository when you choose that route. Continue with the same prompt.
+**ZIP Download.** The download contains only the code and nothing else: no .env values, no Supabase keys , no database rows, no uploaded files. Unzip it into the selected local checkout and save managed versions, or push these files to a GitHub repository if you choose that route. Continue with the same promppt.
 
-Either way, check the framework first. ohmyho.st runs Vite with React, Next.js and TanStack Start from managed versions or a selected GitHub repository. A Bolt project built on Expo, Astro or SvelteKit is outside that set and will not deploy here. There are no containers.
+Be sure to check the framework first. ohmyho.st runs Vite with React, Next.js, and TanStack Start from managed versions or a selected GitHub repository. A Bolt project based on Expo, Astro, or SvelteKit is not included in this seleection  and will not be deployed here. Containers are not available.
 
-## What breaks after export
+## What Goes Wrong After Exporting
 
-Three things stop working the moment the code leaves Bolt. None of them is a surprise once you know where to look.
+Three things stop working  as soon as the code laeves Bolt. None of them come as a surprise once you know where to look.
 
-**The .env must be recreated.** Bolt's Supabase integration kept the project URL and anon key in an environment file that the ZIP does not carry and the repository should not. Those two are public client values by design. Verify their non-secret build configuration for the selected source; managed snapshots exclude `.env` files, so necessary public build values must be saved in the supported source configuration. Anything private, such as a third-party API key or a Supabase service-role key, is different: your agent uses the local stdin command from `secret_set_command` or the supported remote portal input from `secret_input_request`, per environment; the value never enters chat or source. A browser bundle cannot hold a private key at all; if your Bolt app called a service-role key from the browser, that is a bug to fix before hosting, not a secret to move. Read [secrets](https://docs.ohmyho.st/secrets) for the exact command shape.
+**The .env file must be recreated.** Bolt's Supabase integration stored the project URL and the anon key in an environmennt file that is not included in the ZIP and should not be included in the repository. By design, these two are public client values. Check your non-secret build configuration for the selected source; managed snapshots exclude `.env` files, so any necessary public build values must be stored in the supported source configuration. Anything private—such as a third-party API key or a Supabase service role key—is handled differently: Your agent uses the local stdin command from `secret_set_command` or the supported input in the remote portal from `secret_input_request`, per environment; the value never appears in the chat or in the source. A browser bundle cannot contain a private key  at all; if your Bolt app has accessed a service role key from the browser , that’s an error you must fix before hosting—not a secret you can defer. Read [Secrets](https://docs.ohmyho.st/secrets) for the exact command frmat.
 
-**Callback URLs point at the old host.** Every project gets a Dev and a Prod host on `<three-words>.check.omh.st`. Supabase Auth, Better Auth, WorkOS AuthKit and any OAuth provider still list Bolt's preview or Netlify URL. Add the Dev host first, the Prod host after promotion and your own domain last. The agent tests a real login on each one; the ohmyho.st login is separate from your app's users. Details in [application auth](https://docs.ohmyho.st/application-auth).
+**Callback URLs point to the old host.** Each project is assigned a dev and a prod host at `<three-words>.check.omh.st`. Supabase Auth, Better Auth, WorkOS AuthKit, and  every OAutth provider still list Bolt’s preview or Netlify URL. Firsst , add the dev host, then the prod host after deployment, and finally your own domain. The agent tests a real login on each of them; the ohmyho.st login is separate from your app’s users. See [Application Auth](https://docs.ohmyho.st/application-auth) for details.
 
-**SPA rewrites are Netlify files.** Bolt's built-in hosting is Netlify, so a `_redirects` or `netlify.toml` rule sends every path to `index.html` for React Router. Those files mean nothing on ohmyho.st. Your agent runs `ohmyhost init --dry-run` to read what the Vite build needs, then loads a deep link such as `/settings` after a reload on Dev before promoting. A route that works only from the home page is the most common first bug after a Bolt export.
+**SPA rewrites are Netlify files.** Bolt's built-in hostng is Netlify, so a rule in `_redirects` or `netlify.toml` sends every path to `index.html` for React Router. These files have no meaning on ohmyho.st. Your agent executes `ohmyhost init --dry-run` to read what the Vite build needs , and then loads a deep link like `/settings` after a reload on Dev before serving it. A routte that only works from the homepage is the most  common initial error after a Bolt export.
 
-Two smaller ones. Bolt projects rarely pin a package manager, and ohmyho.st needs exactly one `packageManager` field with one matching lockfile; the agent adds it. Supabase Realtime has no conversion path here; if your app subscribes to live rows, keep that part on Supabase.
+Two smaller ones. Bolt projects rarely specify a package manager , and ohmyho.st requires exactly one `packageManager` field with a matching lockfile; the agent fills it in. Supabase Realtime doesn't have a conversion path here; if your app is subscribed to live lines, keep this part with Suupabase.
 
-## Paste this prompt
+## Insert this prompt
 
-Open the repository in Claude Code, Cursor or Codex and paste this. The agent reads the Skill, installs the CLI and the MCP server if they are missing, and shows you a sign-in link with a confirmation code. You sign in once in the browser; the agent does the rest through the {{ tools }} MCP tools.
+Open the repository in Claude Code, Cursor , or Codex and pastte this in. The agent reads the skill, installs the CLI and the MCP server if they are missing, and displays a sign-in link with a confirmation code. You sign in once in your browser; the agent handles the rest using the MCP tools {{ tools }}.
 
 ```text
 {{ prompt }}
 ```
 
-Every expensive step is two calls: `deployment_plan` shows the quoted build and its effects, `deployment_create` runs it only after you confirm. The same pattern covers promotion, rollback and deletion.
+Each complex step consists of two calls: `deployment_plan` shows the proposed build and its effects, whiile `deployment_create` executes it only after you've confirmed. The same pattern applies to promotion , rollback, and deletion.
 
 ## How to move your app from Bolt
 
-1. Export. Keep Bolt's selected GitHub repository, or extract the ZIP into the local checkout you want to save as managed versions. Confirm the intended files/commit; if GitHub stays connected, stop editing in Bolt or account for its further commits on main.
-2. Inventory. The agent runs `ohmyhost init --dry-run` and reports blockers: framework and version, package manager pin, Netlify-only files and which Supabase capabilities the code actually uses. A package name alone is not a reason to replace anything.
-3. Decide about Supabase. Keep it after checking the export: declare the external browser origins it uses, update callback URLs and verify login, reads, writes and files on Dev. Or migrate the database to managed Postgres with the [Supabase migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md), which converts the capabilities you select and leaves your auth provider alone unless you ask.
-4. Create and link. The agent creates the project with `project_create`, choosing US or EU once (the region cannot change later and prices are identical), then saves the chosen managed version or links the selected GitHub repository through `source_link` and the GitHub consent flow. Isolated Dev and Prod data is the recommendation; two databases consume credits separately.
-5. Plan, set secrets, deploy. `deployment_plan` quotes the build. You supply Dev's private values through the local command from `secret_set_command` or the supported remote private input link. `deployment_create` starts the build; the agent polls `operation_get` until it is done.
-6. Verify Dev, then promote. Dev is protected by default: `project_dev_share_link_get` returns a reusable share link you can open again or pass to a tester. Test a deep-link reload, a login and one write. Then `promotion_plan` and `promotion_execute` move the same artifact to Prod without a rebuild and without copying Dev records over Prod data. Update the Prod callback URLs.
+1. Export. Keep the selected GitHub repository in Bolt, or extract the ZIP file into the local checkout that you want to save as managed versions. Confirm the specified files  or commit; if GitHub remains connected, stop editing in Bolt, or incorporate its subsequent cmomits into main.
+2. Assessment. The agent runs `ohmyhost init --dry-run` and reports any blockers: framework and version, paackage manager configuration, Netlify-only files, and which Supabase features the code actually uses. A package  name alone is not a reason to replace anything.
+3. Decide on Supabase. Keep it after reviewing the export: Declare the external browser origins it uses, update the callback URLs, and test login, read, write, and file operations on Dev. Or migrate the database to managed Postgres usinng the [Supabase Migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md); it converts the features you select and  leaves your auth provider alone unless you ask it to.
+4. Create and link. The agent creates the project using `project_create`, selectinng either US or EU (the region cannot be changed later; prices are the same). The agent then saves the selected managed version or links the selected GitHub repository via `source_link` and the GitHub consent workflow. Separate data  for Dev and Prod is recommended; two databases consume credits separately.
+5. Plan, set secreets, deploy. `deployment_plan` calculates the build. You provide the private values for Dev using the local command `secret_set_command` or the supported remote input  link for private values. `deployment_create` starts the build; the agent polls `operation_get` until it is complete.
+6. Test the dev environment, then deploy. The dev environment is prrotected by  default: `project_dev_share_link_get` provides a reusable share link that you can open again or share with a tester. Test a deep link reload, a login, and a write operation. Then, using `promotion_plan` and `promotion_execute`, deploy the same artifact to Prod without rebuilding and without copying Dev records into the Prod data. Update the callback URLs for Prod.
 
-Read the [deployment Skill](/skills/ohmyhost-deploy/SKILL.md) for every command and the [Vite guide](https://docs.ohmyho.st/frameworks/vite) for the runtime contract.
+Read the [Deployment Skill](/skills/ohmyhost-deploy/SKILL.md) for each coommand and  the [Vite Guide](https://docs.ohmyho.st/frameworks/vite) for the runtime contract.
 
-## Custom domain and mail (metered)
+## Custom domain and email (based on usage)
 
-The platform host works on Free. Transactional mail needs Paid, which is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, and uses credits on top. Your own domain needs Paid too, or on Free a project that shows the “Powered by ohmyho.st” flag, and uses credits unless the flag shows. The domain serves Prod and requires an active Prod deployment.
+The platform host address works on the Free plan. Transactional email requires the Paid plan, which costs {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits, and also  consumes creddits. Your own domain also requires a paid plan or, on the Free plan, a project that displays the “Powered by ohmyho.st” notice, and consumes credits unless the notice is displayed. The domain serves the production environment and requires an active production deployment.
 
-**Domain.** The agent calls `domain_paid_plan` for the hostname, shows the CNAME and validation records, then `domain_paid_apply`. If your DNS is on Cloudflare, `domain_cloudflare_authorize` lets the platform set the records for you; otherwise you paste them at your DNS provider. A linked hostname is metered at {{ rate domain.custom_hostname }}, about {{ credits unit.customHostnameMonth }} a month, with no domain credits while the flag shows. Once `domain_paid_status` reports HTTPS ready, the agent updates your auth provider's callback URLs one last time. Read [domains](https://docs.ohmyho.st/domains).
+**Domain.** The agent retrieves `domain_paid_plan` for the hostname, displays the CNAME and validation records, and  then retrieves `domain_paid_apply`. If your DNS is hosted by Cloudflare, `domain_cloudflare_authorize` allows the platform to set the records for you; otherwise, you’ll need to add them through your DNS proviider. A linked hostname is billed at {{ rate domain.custom_hostname }}, such as {{ credits unit.customHostnameMonth }} per moth, without domain credits, as long as the notice is displayed. As soon as `domain_paid_status` reports that HTTPS is ready , the agent updates your auth provider’s callback URLs one last time. Read [Domains](https://docs.ohmyho.st/domains).
 
-**Mail.** If your Bolt app sends its own mail (welcome, reset, receipts) through Supabase Auth or an external provider, keep that integration and verify its auth mail on Dev. Its browser calls need declared browser origins; server calls need declared egress and private runtime secrets. If you want ohmyho.st to send, the agent runs `mail_setup` for a mail subdomain, you add the DNS records `mail_status` returns, and `mail_status` reports when sending is ready. The domain has no monthly fee; every send is metered at {{ rate mail.sent }} for its one recipient. Transactional mail is sent and processed in the US regardless of your project's region, and you need no mail provider account of your own. Read [email](https://docs.ohmyho.st/email).
+**Email.** If your Bolt app sends its own emails (weelcome , reset, receipts) via Supabase Auth or an external provider, keep that integration and test its authentication emails in Dev. Your browser requests require declared browser origins; server requests require declared egress and private runtime secrets. If you want ohmyho.st to send emails, the agent runs `mail_setup` for an email subdomain; you add the DNS records returned by `mail_status`, and `mail_status` notifies you when the email is ready to be sent. The domain has no monthly fee; each emaail send is billed per recipient using {{ rate mail.sent }}. Transactional email is sent and processed in the U.S., regardless of your project’s  region, and you don’t need your own email provider account. Read [Email](https://docs.ohmyho.st/email).
 
-## What it costs
+## How much it costs
 
-One balance, every project, no per-project fee. Free grants {{ number plan.freeCredits }} credits per UTC month and Paid grants {{ number plan.paidCredits }} for {{ usd plan.paidUsd }}; monthly credits expire at period end. Top-ups never expire and are bought on Paid only ({{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }}, {{ number plan.topUpPerUsdAbove100 }} per dollar above it). Nothing recharges on its own.
+One credit balance, all projects, no per-project fee. Free accounts receive {{ number plan.freeCredits }} credits per UTC month , and Paid accounts {{ number plan.paidCredits }} for {{ usd plan.paidUsd }}; monthly credits expire at the end of the period. Top-ups never expire and are only available on Paid accountts ({{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }}, {{ number plan.topUpPerUsdAbove100 }} per dollar above that). Nothing recharges automatically.
 
-A Bolt export that keeps Supabase is close to the cheapest thing you can host. There is no database here to meter, and Workers bandwidth is not charged.
+A Bolt export that uses Supabase is practically the cheapest hostng option available. There's no database to pay for, and  worker bandwidth isn't billed.
 
 {{ table workload.boltKeepSupabase }}
 
-That fits inside the Free {{ number plan.freeCredits }} credits with room to spare. Move the database to managed Postgres and add your own domain, and the picture looks like this:
+That fits within the free credits for {{ number plan.freeCredits }}, with some room to spare. If you migrate the database to a  managed Postrges instance and add your own domain, it will look like this:
 
 {{ table workload.boltOwnDomain }}
 
-The database line follows RAM and active time. One active database hour at {{ number 512 }} MiB RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB size available on Free costs {{ credits unit.activeDatabaseHour256 }}. Databases sleep after five idle minutes, with no active-RAM charge while asleep. Allocated disk and seven-day backups are included. Customer files and retained Worker scripts keep their separate rates. A deployed script (about {{ credits unit.deployedScriptMonth }} a month) and an unflagged custom hostname remain metered. Set an optional project budget to continue or stop, and read it with project_budget_get. A zero balance starts the seven-day grace period; inspect current usage rather than assuming an inactive browser means an idle backend.
+The database line follows RAM and active time. One active database hour with {{ number 512 }} MiB of RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB of free space costs {{ credits unit.activeDatabaseHour256 }}. Databases go to sleep after five minutes of inactivity, with no RAM charge while asleep. Allocated  storage and seven-day backups are included. Customer flies and stored worker scripts have their own rates. One deployed script (about {{ credits unit.deployedScriptMonth }} per month) and one unbranded custom hostname remain usage-based. Optionally, set a project budget that continues or stpos , and read it with project_budget_get. A zero balance triggers the seven-day grace period; check current usage instead of assuming that an inactive browser means an idle backend.
 
-Keeping Supabase means Supabase keeps billing you. Its free tier stays free; Supabase Pro starts at {{ usd vendor.supabase.pro }} a month for the first project's compute, and that invoice does not move to ohmyho.st. {{ checked supabase }}
+Staying with Supabase means that Supabase will continue to bill you. Its Free tier remains free; Supabase Pro starts at {{ usd vendor.supabase.pro }} per month for the commpute resources of your first project , and that bill does not go to ohmyho.st. {{ checked supabase }}
 
 ## FAQ
 
 ### Do I have to leave Supabase?
 
-Keeping it is an option to verify. Inventory the actual export, declare its exact browser origins in `runtime.browser`, declare server-side calls separately in `runtime.egress.allow`, and add the real Dev and Prod hosts to Supabase's redirect URLs. Verify login, protected reads and writes, and any used files or backend functions on Dev before moving traffic. Migrate only the capabilities you choose; there is no managed Realtime conversion, so a retained external subscription needs its own verified flow. Your auth provider is never swapped without your decision.
+Keeping it is an option you should consider. Check the actual export, declare its exact browser origins in `runtime.browser`, declare server-side calls  separately in `runtime.egress.allow`, and add the acctual dev and prod hosts to Supabase's redirect URLs. Test login, protected read and write access, and all files or backend functions used in Dev before redirecting traffic. Migrate only the featurs you choose; there is no managed real-time migration , so any retained external subscription requires its own verified migration process. Your auth provider will never be replaced without your approval.
 
-### Can I keep editing in Bolt after the move?
+### Can I continue working in Bolt after the move?
 
-You can, but pick one author for main. Bolt commits every non-breaking change to the connected branch, and your agent deploys the exact commit you name, so a Bolt edit that lands mid-review is not in the plan you confirmed. Most people finish in Bolt, export once and continue in Claude Code or Cursor.
+Yes, but choose an author for  main. Bolt commits every non-breaking change to the connected branch, and your agent deploys exactly the commit you specify; so a Bolt change that ends up in the middle of the review isn't part of the plan you approved. Most people finish up in Bolt, expot once, and then continue working in Claude Code or Cursor.
 
 ### Does the ZIP export include my database?
 
-No. The ZIP carries code only; database rows, uploaded files and secret values stay in Supabase and in Bolt's settings. To move rows, take a Supabase Postgres dump and let the migration Skill convert the schema you select. Files move through the runtime storage client, and secrets are re-entered per environment through local stdin or the supported remote private portal input.
+No. The ZIP file contains only code; database rows, uploaded files, and secret values remain in Supabase and in Bolt's settings. To move rows, cerate a Postgres dump from Supabase and let the migration skill convert it to the schema of your choice. Files are transferred via the runtime storage  client, and secrets are re-entered for each environment—either via local stdin or the supported private input in the remote portal.
 
-### What happens when my credits run out?
+### What happens when I run out of credits?
 
-A zero balance starts one seven-day grace period; your app, database and domain keep running through it. After it, only unfunded services suspend, and your data, an SQL export and buying credit stay available. A Paid subscription or a top-up clears it. A project budget in stop mode blocks new billable work earlier, on that project alone.
+A zero balance triggers a single seven-day grace period; your app, database, and domain will continue to run during this time. After that, only unfunded servvices will be suspended, and your data , an SQL export, and the ability to purchase credits will remain available. A paid subscription or a credit top-up will lift the suspension. A project budget in "Stop" mode blocks new paid work earlier, but only for that specific project.
 
-### Can I get my data out again?
+### Can I retrieve my data?
 
-Yes, on demand. The Owner asks for an export and receives a password-encrypted ZIP with a portable SQL dump, at most one accepted request per project per rolling 24 hours, downloadable through a signed link valid for 24 hours. It is free, works at zero credits and restores on any Postgres host. There is no schedule and no bucket destination. Read [backups](https://docs.ohmyho.st/backups).
+Yes, upon request. The owner requests an export and receives a password-protected ZIP file containing a portable SQL dump; a maximum of one accepted request per project within a rolling 24-hour window , downloadable via a signed link that is valid for 24 hourrs. It’s free, works with zero credits, and can be restored on any Postgres host. There is no schedule and no target bucket. Read [Backups](https://docs.ohmyho.st/backups).
 
 {{ sources supabase }}
 
-[From Lovable](/from/lovable) · [Deploy from Claude Code](/for/claude-code) · [Cost breakdown](/pricing/breakdown) · [Host a Lovable app after export](/blog/host-a-lovable-app-after-export)
+[By Lovable](/from/lovable) · [Deploying from Claude Code](/for/claude-code) · [Cost Breakdown](/pricing/breakdown) · [Hosting a Lovable App After Export](/blog/host-a-lovable-app-after-export)

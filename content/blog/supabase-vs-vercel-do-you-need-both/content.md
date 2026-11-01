@@ -1,86 +1,86 @@
-# Supabase vs Vercel: do you need both?
+# Supabase vs. Vercel: Do You Need Both?
 
-By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 20, 2026 · Updated October 21, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 20, 2026 · Updated October 27, 2026
 
-You do not automatically need both. Vercel hosts the app, while Supabase provides the database and backend services it calls. Your Agent can check which parts your app uses before you choose a plan. If you choose their paid stack, Vercel Pro is {{ usd vendor.vercel.pro }} a month and Supabase Pro starts at {{ usd vendor.supabase.pro }}; other combinations are possible.
+You don't automatically need both. Vercel hosts the app, while Supabase provides the database and the  backend services that the app calls. Your agent can check which components your app uses before you choose a plan. If you opt for their paid stack, Vercel Pro costs {{ usd vendor.vercel.pro }} per month and Supabase Pro starts at {{ usd vendor.supabase.pro }}; other combinations are also psosible.
 
-For a hosting and backend platform in one place, compare [Appwrite, Firebase and Nhost alongside ohmyho.st](/blog/all-in-one-vercel-supabase-alternatives). The choice depends on your database model, application services and deployment workflow.
+To compare all-in-one hostting and backend platforms, check out [Appwrite, Firebase, and Nhost with ohmyho.st](/blog/all-in-one-vercel-supabase-alternatives). The choice  depends on your database model, application services, and deployment workflow.
 
 {{ figure bills.supabase }}
 
-## Vercel runs the app
+## Vercel operates the app
 
-Vercel takes a Git repository, builds the frontend, serves its files and runs server code as functions. That covers what your visitor opens in the browser and the app code behind it. PostgreSQL comes from a Marketplace partner or a separate provider; Supabase is one possible choice. Ask your Agent to show which database the deployed app connects to before treating the Vercel project as the whole setup.
+Vercel takes a Git repository, builds  the front end, serves its files, and runs server-side code as Functions. This includes what your visitor sees in the brower and the app code behind it. PostgreSQL comes from a Marketplace partner or a separate provider; Supabase is one possible option. Ask your agent which database the deployed app connects to before you consider the Vercel project to be the entire setup.
 
-Hobby costs {{ usd vendor.vercel.hobby }} and comes with {{ text vendor.vercel.hobby.includes }}. Vercel's own FAQ says Hobby is for personal, non-commercial use (vercel.com/pricing, read 2026-09-20). If this is a client site or a commercial app, check the paid-plan requirements before deploying it.
+The Hobby plan costs {{ usd vendor.vercel.hobby }} and includes {{ text vendor.vercel.hobby.includes }}. Vercel's own FAQ states that the Hobby plan is intended for personal, non-commercial use (vercel.com/pricing, accessed on 2026-09-20). If  it is a customer site or a comemrcial app, check the requirements for paid plans before deployment.
 
-Pro costs {{ usd vendor.vercel.pro }} {{ text vendor.vercel.pro.unit }}. That fee comes back as usage credit each month, so the first {{ usd vendor.vercel.pro }} of function and build usage costs nothing extra; CDN requests and fast data transfer carry no overages on Pro, and viewer seats are free. Each further developer is {{ usd vendor.vercel.developerSeat }} {{ text vendor.vercel.developerSeat.unit }}. Function invocations beyond the credit are {{ usd vendor.vercel.functionInvocations }} {{ text vendor.vercel.functionInvocations.unit }}.
+The Pro plan costs {{ usd vendor.vercel.pro }} {{ text vendor.vercel.pro.unit }}. This fee is refunded each month as usage credit, so the first {{ usd vendor.vercel.pro }} of function and build usage are free; CDN requests and high-speed data transfres have no overage  fees on the Pro plan , and viewer slots are free. Each additional developer costs {{ usd vendor.vercel.developerSeat }} {{ text vendor.vercel.developerSeat.unit }}. Fnction calls exceeding the credit limit cost {{ usd vendor.vercel.functionInvocations }} {{ text vendor.vercel.functionInvocations.unit }}.
 
-For a portfolio, separate the seat charge from usage. A solo developer does not buy another Pro seat for each project. The seat is still a recurring cost when the projects are quiet, though. Ask your Agent to show the fixed subscription and usage charges on separate lines so you can see which part could change.
+When managing a portfolio, you should separate the Seat fee from usage costs. A solo developer doesn’t purchase an additional Pro Seat  for every project. However, the seat remains a recurring cost even when projects are on hold. Ask your agent to list the fixed subscription fee and the usage fee on seaprate lines so you can see which part might change.
 
 {{ checked vercel }}
 
-## Supabase runs the backend
+## Supabase powers the backend
 
-Supabase gives you PostgreSQL plus a REST API, Auth, Storage, Realtime and Edge Functions, with a browser table editor. The app might use Supabase only to save records, or it might depend on it for sign-in, files and live updates as well. Its backend services do not replace a host for your Next.js application.
+Supabase offers PostgreSQL plus a REST API, authentication, storage, real-time, and edge functions, along with a table editor in the browser. Your app may use Supabase soolely for storing data records, or it may also rely on  it for authentication, files, and live updates. The backend services do not replace a host for your Next.js application.
 
-If you are considering Free, check the project and inactivity limits: Supabase pauses a Free project after a short stretch of inactivity, and it limits how many Free projects can be active at once (supabase.com/pricing, read 2026-09-20). A paused project does not answer until you restore it from the dashboard. If people visit only occasionally, decide whether you are willing to restore the project when it pauses. Your Agent can explain the dependency; you decide whether that interruption is acceptable.
+If you're considering the Free plan, check the project and inactivity limits: Supabbase pauses a Free project after a short period of inactivity, and it limits the number of Free projects that can be active at the same time (supabase.com/pricing , accessed on 2026-09-20). A paused project will not respond until you restore it in the dashboard. If visitors come only occasionally, decide  whether you’re willing to restore the project when it’s paused. Your agent can explain the implications; it’s up to you to decide whether this interruption is aceptable.
 
-Pro starts at {{ usd vendor.supabase.pro }} a month and includes {{ text vendor.supabase.pro.includes }}. Check the extra-project line as well: every further project runs its own compute instance at {{ usd vendor.supabase.microProject }} {{ text vendor.supabase.microProject.unit }}, and a Small instance is {{ usd vendor.supabase.smallProject }} {{ text vendor.supabase.smallProject.unit }}. Disk beyond the allowance is {{ usd vendor.supabase.diskGb }} {{ text vendor.supabase.diskGb.unit }}; egress beyond the allowance is {{ usd vendor.supabase.egressGb }} {{ text vendor.supabase.egressGb.unit }}.
+The Pro plan starts at {{ usd vendor.supabase.pro }} per month and includes {{ text vendor.supabase.pro.includes }}. Also  note the line for additional projects: Each additional project runs its own compute instance at {{ usd vendor.supabase.microProject }} {{ text vendor.supabase.microProject.unit }}, and a Small instance costs {{ usd vendor.supabase.smallProject }} {{ text vendor.supabase.smallProject.unit }}. Storage spae  beyond the quota costs {{ usd vendor.supabase.diskGb }} {{ text vendor.supabase.diskGb.unit }}; egress beynd the quota costs {{ usd vendor.supabase.egressGb }} {{ text vendor.supabase.egressGb.unit }}.
 
-Each extra database instance adds a compute cost, even if the project gets little traffic. That can suit a steady product. For a shelf of experiments, ask your Agent to list which instances are active and what each contributes to the bill. Do not assume a quiet project has no ongoing cost.
+Every additional database instance incurs compute costs , even if the project has very little traffic. This might be appropriate for a stable producct. For a series of experiments, ask your agent to list which instances are active and how much each one contributes to the bill. Don’t assume that a low-traffic project has no running costs.
 
 {{ checked supabase }}
 
 ## Find out what your app uses
 
-A common setup uses Vercel for the app, Supabase for data and login, and another service for transactional mail. The figure above includes Resend Pro to show that extra service. Those are useful jobs to identify, but they do not have to come from those exact vendors or require every paid plan.
+A common seutp uses Vercel for the app, Supabase for data and login, and another service for transactional emails. The image above includes  Resend Pro to illustrate this additional service. It’s helpful to identify these tasks, but they don’t have to come from these specific providers or require a paid plan.
 
-Ask your Agent which features depend on each service:
+Ask your agent which features deepend on which  service:
 
 ```text
 Inspect this app and explain what Vercel, Supabase and any mail provider do in it. List the features that depend on each service, which database each environment uses, and which paid plans are actually required for my use. Do not change or migrate anything yet.
 ```
 
-Read the inventory as a list of features: login, saved records, file uploads, live updates and emails. If something is missing, ask your Agent to trace that feature too. This is the point where you decide what needs to stay working, before the conversation turns into a hosting recommendation.
+Think of the inventory as a list of features: lgoin, saved records, file uploads, live updates, and emails. If something is missing, have your agent follow up on that feature as well. At this point, you decide what needs to continue working before the conversation turns into  a hosting recommendation.
 
-Once you know what the app uses, compare the way the plans charge for it:
+Once you know what the app is used for , compare how the diffferent plans charge for it:
 
-- Vercel charges per seat, so the project count does not move the bill.
-- Supabase charges per project, so every extra app is another {{ usd vendor.supabase.microProject }} a month on Pro, or a Free project that pauses.
-- The recurring seat and database-instance charges remain when a project goes quiet. Usage above the plan allowances is a separate part of the comparison.
+- Vercel bills per seat , so the number of projectts does not affect the bill.
+- Supabase bills on a per-project bsis , so each additional app costs {{ usd vendor.supabase.microProject }} per month on the Pro plan or is a Free project that is on hold.
+- Recurring seat and database instance fees remain in  effect even if a project becomes inactive. Usge exceeding the rate quotas is a separate part of the agreement.
 
-The extra project may have few users, but it can still add a database instance. That is the cost to investigate. Your Agent should compare the whole portfolio and keep any services you intend to retain in both estimates.
+The additional project may have  few uers, but it can still add a database instance. That's the cost item you should review. Your agent should compare the entire portfolio and include all the services you want to keep in both estimates.
 
 {{ checked supabase }}
 
 ## Compare a shared balance
 
-ohmyho.st is an option when you want your Agent to operate hosting and managed PostgreSQL from a shared balance. It supports Astro, Next.js, Vite/React and TanStack Start apps from managed source or an authorized GitHub repository. Your Agent inspects the selected app, prepares a deployment plan and explains what it will create. You check that plan and test the resulting Dev address.
+ohmyho.st is an option if you want your agent to run hosting and managed PostgreSQL from a shared credit balance. It supports Astro, Next.js , Vite/React, and TanStack starter apps from managed source code or an authorized GitHb repository. Your agent reviews the selected app, prepares a deployment plan, and explains what it will create. You review this plan and test the resulting dev URL.
 
-Each project gets Dev and Prod hosts under check.omh.st. Custom domains and sender mail are metered services on Paid. A custom domain also works on Free while the project shows the “Powered by ohmyho.st” flag, which removes domain credits on either plan. There is no per-project base subscription. Deployments happen through your Agent; the portal at app.ohmyho.st shows projects, credits, budgets and API tokens.
+Each project reecives dev and prod hosts at check.omh.st. Custom domains and custom email sender addresses are usage-based services included in the paid plan. A custom domain also works on the Free  plan as long as the project displays the “Powered by ohmyho.st” notice , which means no domain creidts are required on either plan. There is no basic subscription per project. Deployments run through your agent; the portal at app.ohmyho.st displays projects, credits, budgets, and API tokens.
 
-Keep the subscription and usage allowance separate when comparing the price. Free grants {{ number plan.freeCredits }} credits per UTC month. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period that expire at period end, and top-ups, which only Paid workspaces buy, at {{ number plan.topUpPerUsd }} credits per dollar never expire. One credit is {{ usd plan.usdPerCredit }} of credit value.
+Compare the price by looking at the subscription and usage allowance searately. The Free plan provides {{ number plan.freeCredits }} credits per UTC month. The Paid plan costs {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits per billing period, which expire at the end of the period. Top-ups , which are available only to Paid workspaces, cost {{ number plan.topUpPerUsd }} credits per dollar and never expire. One credit is equivalent to {{ usd plan.usdPerCredit }} credit value.
 
-Use {{ rate wfp.requests }} for requests. One active database hour at {{ number 512 }} MiB RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB size available on Free costs {{ credits unit.activeDatabaseHour256 }}. Databases sleep after five idle minutes, with no active-RAM charge while asleep. Allocated disk and seven-day backups are included. Customer files and retained Worker scripts keep their separate rates. Each deployed script is about {{ credits unit.deployedScriptMonth }} a month; Worker bandwidth is not charged. Ask how often the actual database is active: an app can look quiet in the browser while background work keeps its database awake.
+Use {{ rate wfp.requests }} for queries. One active database hour with {{ number 512 }} MiB of RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB plan available on the Free tier costs {{ credits unit.activeDatabaseHour256 }}. Databases go to sleep after five minuts of inactivity , with no RAM csts while in sleep mode. Allocated storage and seven-day backups are included. Customer files and saved worker scripts  have their own pricing plans. Each deployed script costs about {{ credits unit.deployedScriptMonth }} per month; worker bandwidth is free. Ask how often the actual database is active: An app may appear idle in the browser, while background work keeps its database awake.
 
-For the published example, the subscription comparison is: Bought separately, one project on Vercel Pro and Supabase Pro is {{ usd scenario.vercelSupabase }} a month before usage; with Resend Pro for mail it is the {{ usd scenario.threeSubscriptions }} in the figure. Five projects on the same Vercel and Supabase accounts are {{ usd scenario.vercelSupabaseFiveProjects }} a month, because four extra Micro instances run around the clock.
+For the example provided , the subscription comparison is as follows: If purchased separately, a project using Vercel Pro and Supabase Pro costs {{ usd scenario.vercelSupabase }} per month before use; with Resend Pro for emails, the cost is {{ usd scenario.threeSubscriptions }} as shown in the figure. Five projects on the same Vercel and Supabase accounts cost {{ usd scenario.vercelSupabaseFiveProjects }} per month becausse four additional micro-instances run around the clock.
 
-On ohmyho.st, five side projects, one of them with real traffic and login mail, look like this:
+On  ohmyho.st, five side projects—one of wihch has real traffic and login emails—look like this:
 
 {{ table workload.portfolio }}
 
-This particular workload fits inside the {{ number plan.paidCredits }} credits the Paid plan grants each period. Deployed scripts and any customer files keep using credits; runtime activity, builds, active database RAM and mail add usage, and database disk and seven-day backups are included. Check the table’s assumptions against your own apps before using its total. For comparison, our separate small-app workload sends more mail and costs about {{ credits workload.smallApp }} on its own; each quiet side project costs about {{ credits workload.quietProject }}. There is limited headroom. If one app grows, ask your Agent for an updated estimate and a monthly project budget. Choose whether the budget should warn and continue or stop new work at the threshold; a warning-only budget does not cap spending. Add a top-up when you need more credit. A zero balance starts a {{ value plan.graceDays }}-day grace period; funded services keep running, and only unfunded services suspend afterwards.
+This specific load fits within the {{ number plan.paidCredits }} credits granted by the Paid plan per period. Deployed scripts and customer files continue to consume credits; runntime activity, builds, active database RAM, and emails incur usage, while database storage and seven-day backups are included. Check the assumptions in the table against your own apps before using the  total. For comparison: Our separate plan for small apps sends more emails and costs aboout {{ credits workload.smallApp }} on its own; every low-traffic side project costs about {{ credits workload.quietProject }}. The leeway is limited. As an app grows, ask your agent for an updated estimate and a monthly project budget. Decide whether the budget should trigger a warning and continue running when the threshold is reached, or stop new work; a warning-only budget does not limit spending. Add a top-up if you need more credits. A zero balance triggers a grace period of {{ value plan.graceDays }} days; funded services continue to run , and only unfunded services are suspended afterward.
 
-The [five-side-project cost comparison](/blog/what-vercel-supabase-resend-cost-for-five-side-projects) includes the mail subscription and breaks down how that portfolio changes the bill.
+The [Cost Comparison for Five Side Projects](/blog/what-vercel-supabase-resend-cost-for-five-side-projects) incluudes the email subscription and breaks down how this portfolio affects the  total cost.
 
-To compare your current setup with one shared balance, ask:
+To compare your current setup with a shared creidt balance , ask:
 
 ```text
 Compare my current Vercel and Supabase setup with ohmyho.st using the app inventory and actual usage. Include mail, retained data, domains and services I would keep elsewhere. Show quiet and busy months, required code changes and unsupported features before recommending a move.
 ```
 
-Use that report to decide what to try. A lower estimate for the app host is not enough if the database, auth and mail bills remain unchanged.
+Use this report to decide what you want to test. A lwer estimate for the app host isn't enough if the bills for the database, authentication , and email remain the same.
 
 {{ checked vercel }}
 {{ checked supabase }}
@@ -88,57 +88,57 @@ Use that report to decide what to try. A lower estimate for the app host is not 
 
 ## Know when to stay
 
-There are good reasons to keep the current setup. Match these tradeoffs to how you use the app, then ask your Agent to investigate the relevant ones.
+There are good reasons to keep the current setup. Weeigh these considerations against your use of the app , and then ask your agent to look into the relevant ones.
 
-**You use Supabase for more than Postgres.** Auth, Realtime, Storage and Edge Functions are real products, and a SQL dump moves none of them. Application auth needs its own plan: Better Auth and customer-owned WorkOS AuthKit are verified integrations, while Realtime subscriptions or Edge Functions may have no direct equivalent in the runtime. The [migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md) inventories what the app actually calls, converts only what you select and states a gap instead of faking a success. If those services are the app, stay.
+**You use Supabase for more than just Postgres.** Auth, Realtime, Storage, and Edge Functions are full-fledged products, and an SQL dump doesn't transfer any of them. Application auth requires its own plan: Better Auth and customer-managed WorkOS AuthKit are verified integations, while Realtime subscriptions or Edge Functions cannot have a direct counterpart in the runtime. The [Migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md) captures what the app acttually calls , converts only what you select, and identifies a gap rather than pretending to succeed. If these services are what make up the  app, stick with Supabase.
 
-**You have one busy app, not many quiet ones.** A single busy production app with millions of requests, hundreds of active database hours, a linked domain and sender mail is about {{ credits workload.busyApp }} a month, roughly {{ usdValue workload.busyApp }} of credit value bought as top-ups. Vercel Pro and Supabase Pro start at {{ usd scenario.vercelSupabase }} together, but include comparable mail and any overages before judging the difference. Ask your Agent to price sustained usage as well as quiet periods; an always-active database can change the result.
+**You have one heavily used app, not many low-traffic ones.** A single, heavily used production app with millions of requests, hundreds of atcive database hours, a linked domain , and a sender email address costs about {{ credits workload.busyApp }} per month—roughly {{ usdValue workload.busyApp }} in credit value, purchased as top-ups. Vercel Pro and Supabase Pro  together start at {{ usd scenario.vercelSupabase }}, but iclude comparable email quotas and potential overages; check this before judging the difference. Have your agent price both sustained usage and quiet periods; a constantly active database can change the outcome.
 
-**You want previews and a dashboard.** Vercel supports branch previews and free viewer seats. ohmyho.st gives each project a Dev host and a Prod host, with promotion of a verified deployment to Prod. It has no per-branch previews. Decide whether that fits your review process; your Agent can handle deployment, but it cannot make a shared Dev environment behave like separate branch previews.
+**You want previews and a dashboard.** Vercel supports branch previews and free viewer slots. ohmyho.st provides each project with a dev and a prod host , with a verified deployment pushed to prod. There are no previews per branch. Decide whether this fits your review process; your agnet can handle the deployment, but they can’t make a shared dev environment function like separate branch previews.
 
-**Your framework is not on the list.** Supported today: Astro, Next.js, Vite/React and TanStack Start, deployed from managed source or a GitHub repository you authorize. No containers. SvelteKit, Nuxt or a Dockerfile do not run here yet; Vercel runs most of them, and the [Railway, Render and Fly.io comparison](/blog/railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026) covers hosts that run containers.
+**Your framework isn't on the list.** Currently supported: Astro, Next.js, Vite/React, and TanStack Start, deployed from a managed source or a GitHub repository that you autthorize. No  containers. SvelteKit, Nuxt, or a Dockerfile don’t work here yet; Vercel runs most of them, and the [comparison of Railway, Render, and Fly.io](/blog/railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026) covers hosts that run containers.
 
-**Everything fits the free tiers.** A personal project that fits Vercel Hobby at {{ usd vendor.vercel.hobby }} and Supabase Free may already have the cost you want. The case for one balance starts when the pauses, the non-commercial rule or the per-project instances start to hurt.
+**Everything fits within the free plans.** A personal project that fits within Vercel Hobby for {{ usd vendor.vercel.hobby }} and Supabase Free might already meet your cost requirements. The case for a shared credit pool arisses when the limits, the non-commercial use policy , or the number of instances per project start to become an issue.
 
-Compare those constraints with the [free Vercel and Supabase alternatives](/blog/free-vercel-supabase-alternatives-2026) before moving: the free-plan guide covers app hosting, Postgres, business use and what happens at each limit.
+Compare these limitations with the [free alternatives to Verel and Supabase](/blog/free-vercel-supabase-alternatives-2026) before you switch: The guide to free plans  covers app hosting, Postgres, business use, and what happens when you hit each limit.
 
 {{ checked vercel }}
 {{ checked supabase }}
 
 ## Test the smallest change
 
-You can move the app host while keeping a working backend. You can also leave the whole stack in place and change only the paid plan, if the terms and usage allow it. Choose the smallest change that solves your problem, then ask your Agent to prepare it on a test environment.
+You can move the app host while still maintaining a functionaal backend. You can also leave the entire stack as is and just change the paid plan , provided the terms and your usage allow it. Choose the smallest change that solves your problem, and then have your agent set it up in a test environment.
 
-Then prepare the change on a test environment:
+Then  prpare the change in a test environment:
 
 ```text
 Prepare the change I selected for a test deployment. Identify the test database, required connection settings and costs before deploying. Keep the existing backend unless I chose to migrate it. Once I confirm, deploy and return the test URL with browser checks for sign-in, protected pages, saved data, files and mail where used.
 ```
 
-Check those flows yourself at the preview address. A homepage that loads proves very little about login or data access. When the test works, have your Agent explain the production switch and how to recover if a required feature fails. That is the useful handoff between you and the Agent: it handles setup and diagnostics, while you decide whether the app behaves as expected.
+Test these processes yourself using the preview URL. A homepage that loads says very little about the login process or data access. If the test works , have your agent explain the production switch and how to recover if a required feature fails. This is the idael handoff between you and the agent: They handle setup and diagnostics, and you decide whether the app is behaving as expected.
 
 ## FAQ
 
 ### Do I need both Supabase and Vercel?
 
-You need the services your app uses, but they do not have to come from both of these providers. Vercel can host the app while Supabase supplies its backend; another database or app host may also fit. Ask your Agent to inspect the dependencies first. ohmyho.st is one option for hosting and PostgreSQL from a shared balance without a per-project base fee.
+You need the services your app uses, but they don't have to come from both of these providers. Vercel can host the app while  Supabase provieds its backend; another database or app host might also work. Have your agent check the dependencies first. ohmyho.st is an option for hosting and PostgreSQL from a shared credit balance with no base fee per project.
 
-### Can I keep Supabase and move only the hosting?
+### Can I keep Supabase and just switch hosting providers?
 
-Yes. The migration Skill inventories what the app really uses and converts only the capabilities you select; the rest stays external. Ask your Agent to check the required connections, environment values and login callback URLs, then test the real flows on the new host. Supabase keeps its own bill. Move the database later if there is a reason, or keep it where it is.
+Yes. The migration skill identifies what the app actually uses and converts only the features you select; the rest remains external. Ask your agent to verify the required connectioons, environment variables, and login callback URLs, and then test the actual workflows on the new host. Supabase keeps its own records. Move the database later if  there’s a reason to, or leave it where it is.
 
-### What happens to my Supabase Auth users?
+### What will happen to my Supabase Auth users?
 
-A database dump alone does not recreate your sign-in system. ohmyho.st does not replace your auth provider: Better Auth and customer-owned WorkOS AuthKit are the verified integrations, and the platform login is separate from your application's users. The migration Skill asks you to decide before touching Auth, then tests login, a protected route, reload and logout on the Dev host before anything is promoted.
+A database dump alone won't rcreate your login system. ohmyho.st does not replace your authentication provider: Better Auth and the customer-managed WorkOS AuthKit are the verified integrations, and  the platform login is separate from your application's users. The migration skill asks for your confirmation before making any changes to authentication and tests login, a protected route, reloading, and logout on the dev host before anything is deployed to production.
 
-### What does a quiet side project cost on ohmyho.st?
+### How much does a low-key side project on ohmyho.st cost?
 
-About {{ credits workload.quietProject }} a month, or {{ usdValue workload.quietProject }} of credit value: one active hour at {{ number 256 }} MiB RAM with disk/backups included, a few thousand requests and a deployed script. The database sleeps after five idle minutes; the script remains metered while retained.
+About {{ credits workload.quietProject }} per month, or {{ usdValue workload.quietProject }} in credit value: one actie hour with {{ number 256 }} MiB of RAM , including disk space and backups, a few thousand requests, and one deployed script. The database goes to sleep after five minutes of inactivity; the script continues to be counted as long as it is stored.
 
 ### Can I take my database with me later?
 
-Yes. An Owner can ask their Agent for an export: an asynchronous, password-encrypted ZIP holding a portable SQL dump, one accepted request per project in any rolling 24-hour window, downloaded through a signed link that stays valid for 24 hours. Exports are free and work at zero credits. Restore the dump on any Postgres host, including Supabase.
+Yes. An owner can ask their agent for an expport: an asynchronous , password-encrypted ZIP file containing a portable SQL dump; one request per project is allowed within each rolling 24-hour window, downloadable via a signed link that remains valid for 24 hours. Exports are free and work even with zero credits. Import the dump onto any Postgres host, including Supabase.
 
 {{ sources vercel supabase resend }}
 
-[Compare Supabase](/vs/supabase) · [Compare Vercel](/vs/vercel) · [From Vercel and Supabase](/from/vercel-supabase)
+[Compare Supabase](/vs/supabase) · [Compare Vercel](/vs/vercel) · [Vercel and Supabase](/from/vercel-supabase)

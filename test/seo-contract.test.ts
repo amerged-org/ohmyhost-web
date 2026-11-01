@@ -224,8 +224,8 @@ it("publishes the SEO contract for every rendered page", async () => {
 it("links every article's existing byline to the author's LinkedIn in HTML and Markdown", () => {
   for (const [path, meta] of Object.entries(PAGE_META)) {
     if (meta.kind !== "article") continue;
-    expect(customerDocument(path)?.text, path).toContain(
-      'By <a href="https://www.linkedin.com/in/auto-mate/" rel="noopener">Sebastian Mertens</a> · ',
+    expect(customerDocument(path)?.text, path).toMatch(
+      /Updated <time datetime="\d{4}-\d{2}-\d{2}">[^<]+<\/time> by <a href="https:\/\/www\.linkedin\.com\/in\/auto-mate\/" rel="noopener">Sebastian Mertens<\/a>/u,
     );
     expect(customerDocument(`${path}.md`)?.text, path).toContain(
       "By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · ",

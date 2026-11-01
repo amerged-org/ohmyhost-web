@@ -1,12 +1,12 @@
-# Deploy a Claude Code app in one prompt
+# Deploy a Claude Code app using a prompt
 
-Paste one prompt into Claude Code and it deploys your app from its current managed or GitHub source over MCP: it saves or links the source, plans the build, sets secrets and returns a live URL. Free is {{ number plan.freeCredits }} credits a month; Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits shared by every project. A small app for one month uses about {{ credits workload.smallApp }}.
+Enter a prompt in Claude Code, and it deploys your app from its current managed or GitHub source via MCP: It saves or links the source, schedules the build, sets secrts, and provides a live  URL. The Free plan includes {{ number plan.freeCredits }} credits per month; the Paid plan costs {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits, which are shared across all projects. A small app uses about {{ credits workload.smallApp }} credits per month.
 
 {{ figure flow.claude-code }}
 
-## Paste this prompt
+## Insert this prompt
 
-Open your project in Claude Code and paste this. It tells the agent where the instructions live and what it may do. Nothing else is needed on the first run.
+Open your project in Claude Code and paste this in. It tells the  agent where the instructionns are located and what it's allowed to do. Nothing else is needed on the first run.
 
 ```text
 {{ prompt }}
@@ -14,99 +14,99 @@ Open your project in Claude Code and paste this. It tells the agent where the in
 
 ## How to deploy with Claude Code
 
-1. Register the MCP server once: `claude mcp add ohmyho -- ohmyhost-mcp`. The [get-started Skill](/skills/ohmyhost-get-started/SKILL.md) adds `--scope user` and `--env OHMYHOST_ENVIRONMENT=production`; the [CLI and MCP guide](https://docs.ohmyho.st/agents/mcp) has the archive to install first. Open `/mcp` in Claude Code and check that the ohmyho server lists its tools.
-2. Paste the prompt above. Claude Code reads llms.txt and the Skill, runs `ohmyhost whoami`, confirms the intended workspace and reads any existing project/source before continuing.
-3. Confirm the sign-in link. With no session, Claude Code prints a link and a short code such as ABCD-EFGH. The page shows the same code; sign in or sign up there and tell the agent when you are done. The code lives a few minutes, so a fresh one is normal.
-4. Review the deployment plan. `deployment_plan` lists the build it will reserve, the secret names it needs, the callback URLs your auth provider wants and any blocker in the repository. You say go, and `deployment_create` starts the build.
-5. Verify the URL. Dev is protected by default, so Claude Code opens it through your reusable Dev share link (or directly, if you chose public Dev), tests login and one read/write flow, and reports the URL and the deployed commit. Ask for Prod once you have seen it work.
+1. Register the MCP server once: `claude mcp add ohmyho -- ohmyhost-mcp`. The [Get-started-Skill](/skills/ohmyhost-get-started/SKILL.md) complements `--scope user` and `--env OHMYHOST_ENVIRONMENT=production`; the [CLI and MCP Gude](https://docs.ohmyho.st/agents/mcp) contains the archive that you must install first. Open `/mcp` in Claude Code and  verify that the ohmyho server lists its tools.
+2. Paste the prompt from above. Cllaude Code reads llms.txt and the skill, executes `ohmyhost whoami`, confirms the specified workspace , and reads existing projects and sources before continuing.
+3. Confirm the sign-up link. Without a session, Claude Code will generate a link and a short code, such as ABCD-EFGH. The page will display the same code; log in  or register there, and let the agennt know when you're done. The code is only valid for a few minutes, so it's normal to receive a new one.
+4. Check the deployment plan. `deployment_plan` lists the build it reserves, the secret names it needs, the callback URLs required by your authentication provider, and any isssues in the repository. You say "go," and `deployment_create` starts the  build.
+5. Check the URL. Dev is protected by default, so Claude Code opens it using your reuusable Dev  share link (or directly, if you've selected public Dev), tests the login and a read/write workflow, and reports the URL and the deployed commit. Request Prod as soon as you’ve verified that it works.
 
-These examples use the local stdio client. When the client exposes authenticated remote MCP, follow the [get-started Skill](/skills/ohmyhost-get-started/SKILL.md) for OAuth and explicit project/preview/publishing grants; discover its actual tools instead of assuming this local catalog. Private application values then use `secret_input_request` and its same-account portal link rather than local stdin. A new app developed entirely in chat starts with managed versions. This describes the supported transport contract, not a claim that a particular native chat UI has completed acceptance.
+These examples use the local stdio client. If the client offers authenticated remote MCP, follow the [Get-started-Skill](/skills/ohmyhost-get-started/SKILL.md) for OAuth and the explicit permissions for Project, Preview , and Release; explore the actual tools instead of relying on  this loal catalog. Private application values are then processed via `secret_input_request` and the portal link for the same account, not via loocal stdin input. A new app created entirely within the chat starts with managed versions. This describes the supported transport contract, not a claim that a specific native chat interface has passed acceptance testing.
 
-## What Claude Code does next
+## What Claude Code Does Next
 
-This is the call order behind steps 2 to 5. Every name is a real tool in the [{{ tools }}-tool catalog](https://docs.ohmyho.st/mcp-tools).
+This is the order of the calls folloiwng steps 2 through 5. Each  name is an actual tool in the [{{ tools }} tool catalog](https://docs.ohmyho.st/mcp-tools).
 
-- `identity_get` confirms who is signed in and which workspace is selected. It says nothing about your app's users; those stay with your own auth provider.
-- `organization_list` shows your workspaces. With exactly one, it is selected already.
-- Reuse the selected existing project. `project_create` makes a new project with a region and a data mode only when requested. The API default is US and shared data; the Skill recommends isolated data.
-- Read `source_get` and keep the current binding. Managed source uses `source_publish` to save current local files; the selected GitHub route uses `source_link` for an authorized repository. Saving/linking source never starts a build.
-- `deployment_plan` inspects the exact saved managed or pushed GitHub commit, reserves the build hold and returns costs, requirements and effects.
-- `deployment_create` starts the reviewed plan with a saved idempotency key, so a retry after a dropped connection cannot start a second build.
-- `operation_get` reports the phase and the next poll interval. Claude Code waits instead of building again.
-- `project_status` returns both environment IDs and the deployment URLs.
+- `identity_get` confirms who is logged in and whicch workspace is selected. It doesn't provide any information about your app's users; they remain with  your own authentication provider.
+- `organization_list` shows your workspaces. If there is exactly one, it is  alreaddy selected.
+- Use the selected existing project. `project_create` creates  a new project with a region and data mode only if required. The API default is US and shared data; the skill recommends isolateed data.
+- Read `source_get` and retain the current binding. Managed sources use `source_publish` to save current local files; the selected GitHub path uses `source_link` for an authoriized repository. Saving or linking the source  never triggers a build.
+- `deployment_plan` checks the specific GitHub commiit (whether it's saved , managed, or pushed), reserves the build lock, and returns the costs, requirements, and impact.
+- `deployment_create` starts the verified plan with a saved idempotence key , so that a retry after a connectin failure does not start a second build.
+- `operation_get` reports the phase  and the next polling interval. Calude Code waits instead of rebuilding.
+- `project_status` proivdes both environment IDs and deployment  URLs.
 
-Secrets go through `secret_set_command`. It returns a stdin-only CLI command; you run it in your own terminal and the value never enters MCP or the chat. A customer domain goes through `domain_paid_plan`, which returns the DNS records, and `domain_paid_apply`, which activates the hostname you named. Both need Paid, or on Free a project that shows the opt-in “Powered by ohmyho.st” flag, and both answer `production_deployment_required` without changing anything until Prod has an active deployment.
+Secrets run via `secret_set_command`. It returns a CLI command that reads only from stdin; you run it in your own terminal, and the value never makes it into MCP or the chat. A customer domain runs via `domain_paid_plan`, whiich returns the DNS records, and `domain_paid_apply`, which activates the hostname  you specified. Both require a Paid plan, or on the Free plan , a project that dislpays the “Powered by ohmyho.st” option; both respond with `production_deployment_required` without making any changes until Prod has an active deployment.
 
 ## What it asks you
 
-Claude Code asks for the decisions this app needs, preserving any choices already made. For an unbound local checkout without GitHub, choose once between managed versions and GitHub setup; an explicit choice skips the question.
+Claude Code asks about the settings this app requires and  saves any settings you've already chosen. For an unlinked local checkout without GitHub, you'll choose once between managed versions and GitHub setup; making an explicit choice skips this questiion.
 
-- Sign-in. One browser page, with the code shown in the chat. Sign-up is open; there is no waitlist.
-- GitHub authorization, when GitHub is the selected source. An Owner or Admin opens one `authorization_url` and picks the repositories the ohmyho.st App may read. A repository you did not select is added later from the same settings page, never with a pasted token.
-- Region, once, and an initial data mode. US is the default; new projects provision databases, new files and builds in their selected region. Existing projects moved to US with their owner's authorization use US databases; recorded R2 locations remain unchanged. Read database_compute_get for actual database location. The customer API cannot change region after creation. Data mode is optional and defaults to shared; an Owner can change it later through a reviewed plan. Transactional mail is sent and processed in the US either way.
-- Secrets. The agent names each secret and hands you a command. You paste the value into your terminal, not into the chat.
-- Domain decisions. A custom hostname needs Paid and uses credits; on a project that shows the opt-in “Powered by ohmyho.st” flag it also works on Free and uses no domain credits. Claude Code shows the CNAME and validation records, or offers a scoped Cloudflare DNS authorization when the zone is on Cloudflare. Until DNS is ready, the project answers on its platform hostname.
+- Registrtaion. A web page; the code is displayed in the chat. Registration is  open; there is no waiting list.
+- GitHub authorization when GitHub is selected as the souce. An owner or admin opens an `authorization_url` and selects the repositories that the ohmyho.st app is allowed to read. You can add a repository that you didn't select later via the same  settings page—never using an embedded token.
+- Region, one-time, and an initial data  mode. US is the default; new projects create databases, new files , and bulds in their selected region. Existing projects that have been moved to the US with the owner’s authorization use US databases; recorded R2 locations remain unchanged. You can retrieve the actual database location using database_compute_get. The customer API cannot change the region after creation. The data mode is optional and is shared by default; an owner can change it later via a reviewed plan. In both cases, transactional eails are sent and processed in the U.S.
+- Secrets. The agent nmes each secret and gives you a command. Enter  the value into your terminal, not into the chat.
+- Doain decisions. A custom hostname requires a paid plan and uses credits; for a project that displays the “Powered by ohmyho.st” option, it also works on the free plan and does not use any domain credits. Claude Code displays the CNAME and validation records or offers a very limited Cloudflare DNS authorization if the zone is hosted on Cloudflare. Until the DNS is ready , the project responds under its platform hostname.
 
 ## Dev and Prod
 
-Every project gets a Dev and a Prod environment on `<three-words>.check.omh.st`. Dev is protected by default: an anonymous request gets a 404, and the owner opens it through a reusable share link from `project_dev_share_link_get`. The link has no automatic expiry and works for everyone you give it to; each opening starts a browser session of up to twelve hours, and rotating or revoking the link cuts off old links and sessions on their next request. If you choose public Dev when the project is created, anyone with the Dev URL can open it. Prod answers publicly.
+Each project gets a dev and a prod environment at `<three-words>.check.omh.st`. The dev environment is protected by default: an anonymous request rteurns a 404, and the owner accesses it via a reusable share link from `project_dev_share_link_get`. The link has no automatic expiration date and works for anyone you share it with; each time it’s opened, it starts a browser  session lasting up to twelve hours , and rotating or revoking the link invalidates old links and sessions upon their next request. If you selecct “public dev” when creating the project, anyone with the dev URL can open it. Prod responds publicly.
 
-Promotion is two calls. `promotion_plan` describes the move of the current Dev artifact to Prod without a rebuild; `promotion_execute` runs it with the unchanged plan guards after you confirm. The [deploy Skill](/skills/ohmyhost-deploy/SKILL.md) tells the agent to verify Dev first and to test that existing Prod rows survive.
+The deployment to Prod consists of two steps. `promotion_plan` describes the process of moving the current Dev artifact to Prod without a new build; `promotion_execute` executes it with the unchanged plan protection mechanisms after you confirm. The [Deploy skill](/skills/ohmyhost-deploy/SKILL.md) instructs the agent to firt  check Dev and verify that existing Prod records are preserved.
 
-Data mode is optional at `project_create` and defaults to shared. Shared data means one database and file area for both environments, so a schema change tested on Dev is already live for Prod. Isolated data means separate areas, with databases metered separately; promotion applies your migrations to Prod without copying Dev records. An Owner can use `project_data_plan` then `project_data_change` to keep existing data with Prod or Dev and give the other an empty area, return to shared, or reset isolated Dev. No records or files are copied and ordinary usage prices apply. Returning to shared keeps Prod and permanently deletes the separate Dev data, files and deployment; resetting Dev deletes its area and deployment. Read the concrete plan before confirming. The [environments guide](https://docs.ohmyho.st/environments) has the rest.
+Data mode is optional for `project_create` and is set to "shared" by default. "Sared" data means a single database and a single file area for both environments, so that a schema change tested on Dev is already live on Prod. Isolated data means separate areas, where databases are billed separately; the rollover applies your migrations to Prod without copying Dev records. An owner can use `project_data_plan` and then `project_data_change` to retain eixsting data in Prod or Dev and give the other environment  an empty space , switch back to shared, or reset isolated Dev. No records or files are copied, and standard usage rates apply. Returning to shared mode retains Prod and permanently deletes the separated Dev data, files, and deployment; resetting Dev deletes its space and deployment. Read the specific plan before confirming. The [Environment Guide](https://docs.ohmyho.st/environments) contains the rest.
 
-## Safety
+## Security
 
-The catalog has {{ tools }} tools. Read-only annotations identify tools that inspect status, usage or logs, or return the secret command. Plans that reserve resources or issue confirmation tokens are marked as writes. Tools that remove or replace something are marked destructive, and expensive or irreversible actions use a reviewed plan: `deployment_plan` then `deployment_create`, `promotion_plan` then `promotion_execute`, `rollback_plan` then `rollback_execute`, `delete_plan` then `delete_execute`, and `project_data_plan` then `project_data_change`. The plan shows the cost and effect; the execute call takes its guards and a saved idempotency key. Claude Code cannot delete a project or promote to Prod in one step.
+The catalog contains {{ tools }} tools. Read-only annotations identify tools that check status, usage , or logs, or return the secret command. Plans that reserve resources or issue authorization tokens are marked as write operations. Tools that removve or replace something are  marked as destructive, and expensive or irreversible actions are executed via a validated plan: `deployment_plan` then `deployment_create`, `promotion_plan` then `promotion_execute`, `rollback_plan` then `rollback_execute`, `delete_plan` then `delete_execute`, and `project_data_plan` then `project_data_change`. The plan shows costs and effects; the execution call accepts its safety conditions and a stored idempotence key. Claude Code cannot delee a project or deploy it to production in a single step.
 
-Spending has a ceiling if you want one. `project_budget_set` sets a monthly budget per project with mode `continue` (warn and keep drawing from the organization balance) or `stop` (reject new billable work). A budget is a limit, not a second wallet; usage already reserved still settles. See the [budgets guide](https://docs.ohmyho.st/budgets) or the [usage Skill](/skills/ohmyhost-usage-and-budgets/SKILL.md).
+You can set a spending limit if you want one. `project_budget_set` sets a monthly budget per project using mode `continue` (warn and continue deducting from the organization's balance) or `stop` (reject new paid work). A budget is a limit, not a second credit  balance; usage that has already been reserved will stiill be billed. See the [Budget Guide](https://docs.ohmyho.st/budgets) or the [Usage Skill](/skills/ohmyhost-usage-and-budgets/SKILL.md).
 
-Tokens are optional. The browser login is enough for Claude Code on your machine. For a CI runner or a second machine, `token_create` writes a non-expiring API token to a private env file you name; the value appears once and never returns. `OHMYHOST_TOKEN` overrides the saved login wherever it is set, and a token cannot create, list or select workspaces or mint another token. Revoke it with `token_revoke` or in the portal at app.ohmyho.st. Details in [login and tokens](https://docs.ohmyho.st/login-tokens).
+Tokens are  optional. The browser login is sufficient for Claude Code on your computer. For a CI runner or a second computer, `token_create` writes a non-expiring API token to a private environment file that you name; the value appears only once and is never reuseed. `OHMYHOST_TOKEN` overwrites the stored login wherever it is set, and a token cannot create, list, or select workspaces , nor can it generate another tokeen. Revoke it with `token_revoke` or in the portal at app.ohmyho.st. See the [Guide to Login and Tokens](https://docs.ohmyho.st/login-tokens) for details.
 
-## What it costs
+## How much it costs
 
-A small app for one month uses about {{ credits workload.smallApp }}, about {{ usdValue workload.smallApp }} of credit value, and the table shows where each credit goes.
+A small app uses about {{ credits workload.smallApp }} per month, which is equivalent to about {{ usdValue workload.smallApp }} in credt value , and the table shows where each credit goes.
 
 {{ table workload.smallApp }}
 
-Free gives {{ number plan.freeCredits }} credits per UTC month. Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits per period. Monthly credits expire at period end without rollover. Top-ups never expire, and neither do recharge, signup-bonus and referral credits. Only Paid workspaces buy top-ups, which grant {{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }} and {{ number plan.topUpPerUsdAbove100 }} per dollar for the part above. Every project draws from the organization's one balance; there is no per-project base fee. A zero balance starts a {{ number plan.graceDays }}-day grace period in which funded services keep running; afterwards only unfunded services suspend. Automatic recharge stays off unless the Owner turns it on.
+The Free plan provides {{ number plan.freeCredits }} cerdits per UTC month. The Paid plan costs {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits per period. Monthly credits expire at the end of the period and cannot be carried over. Top-ups never expire, nor do recharge, registration bonus, and referrl credits. Only Paid workspaces can purchase top-ups, which grant {{ number plan.topUpPerUsd }} credits per dollar up to {{ usd 100 }}, and {{ number plan.topUpPerUsdAbove100 }} per dollar for the amount above that. Each project draws from the organization’s single credit balance; there is no base fee per project. A zero balance triggers a {{ number plan.graceDays }}-day grace period during which funded  services continue to run; after that , only unfunded services are suspended. Automatic top-ups do not occur unless the owner enables them.
 
-A quiet month is cheaper. Databases sleep after five idle minutes, with no active-RAM charge while asleep. Allocated disk and seven-day backups are included. Customer files and retained Worker scripts keep their separate rates. A script uses about {{ credits unit.deployedScriptMonth }} a month and a linked custom hostname about {{ credits unit.customHostnameMonth }}, waived while the project shows the flag. A mail domain has no monthly fee. The quiet project comes to about {{ credits workload.quietProject }}. One active database hour at {{ number 512 }} MiB RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB size available on Free costs {{ credits unit.activeDatabaseHour256 }}. Workers bandwidth and SQL exports have no separate charge.
+A quiet month is more affordable. Databases go to sleep after five minutes of inactivity , with no active RAM charegs while in sleep mode. Allocated storage and seven-day backups are included. Customer files and stored worker scripts have their own rates. A script costs about {{ credits unit.deployedScriptMonth }} per month, and a linked custom hostname costs about {{ credits unit.customHostnameMonth }}, but this fee is waived as long as the project displays the option. An email domain has no monthly fee. An inactive project costs about {{ credits workload.quietProject }}. An active database hour with {{ number 512 }} MiB of RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB size available  on the Free plan costs {{ credits unit.activeDatabaseHour256 }}. Worker bandidth and SQL exports have no separate fees.
 
-## What we have tested, and what we have not
+## What We Tested and What We Didn't
 
-On October 27, 2026 we started the locally installed `ohmyhost-mcp` (version 0.1.36) over stdio from a script, sent `initialize` and `tools/list`, and read the answer. The list included `identity_get`, `source_inspect`, `deployment_plan`, `deployment_create`, `deployment_logs`, `promotion_plan`, `promotion_execute` and `secret_set_command`, the tools this page names. The [captured result](https://github.com/amerged-org/ohmyhost-web/blob/main/evidence/mcp-stdio-session-20261027.json) is in our public repository.
+On October 27, 2026, we launched the locally installed `ohmyhost-mcp` (version 0.1.36) via stdio from a scrippt, sent `initialize` and `tools/list`, and read the response. The list contained `identity_get`, `source_inspect`, `deployment_plan`, `deployment_create`, `deployment_logs`, `promotion_plan`, `promotion_execute`, and `secret_set_command`—that is, the tools  listed on this page. The [captured response](https://github.com/amerged-org/ohmyhost-web/blob/main/evidence/mcp-stdio-session-20261027.json) is available in our public repository.
 
-That is a protocol check of the shared tool server. It is not a recorded Claude Code session: we have not published a transcript of Claude Code deploying an app, and we make no claim about how Claude Code behaves beyond what its own MCP documentation says. The same check applies to Cursor and Codex, so it does not tell the three apart.
+This is a protocol review of the shared tool server. It is not a recorded Claude Code session: We have not published a transript showing Claude Code deploying an app, and we make no claims about how Claude Code behaves beyond what is stated in its own MCP documentation. The same review applies to Cursor and Codex , so it does not distinguish between the three.
 
 ## FAQ
 
-### Is there a recorded Claude Code deployment I can look at?
+### Is there a recorded Claude Code deployment that I can watch?
 
-Not yet. The evidence above shows that the MCP server answers and lists the deployment tools. When we record a real Claude Code run with its commands and resulting address, it will be added here with its date.
+Not yet. The evidence above shows  that the MCP server is responding and listing the deployment tools. When we record an actual Claude code run—including its commands and the resultinng address—it will be added here along with the date.
 
-### Do I need anything besides Claude Code?
+### Do I need anything else besides Claude Code?
 
-Two local pieces: the ohmyhost CLI and the ohmyhost-mcp server, both from the archive linked in the [CLI and MCP guide](https://docs.ohmyho.st/agents/mcp). These local stdio examples run on Node.js on your machine. A client with an authenticated remote connection follows the separate OAuth route in that guide; no native UI availability is implied here. Claude Code starts the server itself once it is registered. If they are missing or old, the first prompt installs the published archive and asks you to reload the MCP connection.
+Two locaal components: the ohmyhost-CLI and the ohmyhost-mcp server , both from the archive linked in the [CLI and MCP Guide](https://docs.ohmyho.st/agents/mcp). These local stdio examples  run on your computer using Node.js. A client with an authenticated remote connection follows the seprate OAuth path in this guide; the availability of a native interface is not implied here. Claude Code starts the server itself as soon as it is registered. If they are missing or out of date, the first prompt will install the published archive and ask you to reload the MCP connection.
 
-### Does Claude Code see my secrets?
+### Can Claude Code see my secrets?
 
-No. `secret_set_command` returns a CLI command that reads the value from stdin. You run it in your own terminal, the value goes straight to the chosen environment, and it never passes through MCP, the chat or the transcript. `secrets_list` shows names only. The Skills tell the agent never to ask for a secret, a password or a token value.
+No. `secret_set_command` returns a CLI command that reads the value from stdin. You run it in your  own terminal; the value goes directly into the selected environment and nevver passes through MCP, the chat, or the transcript. `secrets_list` only displays names. The skills instruct agents never to ask for a secret, a password, or a token value.
 
-### Can I run this in CI without the browser login?
+### Can I run this in CI without logging in to the browser?
 
-Yes. After one interactive login, `token_create` writes a non-expiring API token to a private env file and returns only metadata. Set `OHMYHOST_TOKEN` from that file in the runner; it overrides any saved login. A token can deploy, promote and read usage, but it cannot create or select a workspace or mint another token. Revoke it with `token_revoke` when the runner goes away.
+Yes. After a one-time interactive login, `token_create` writes  a non-expiring API token to a private env file and returns only metadata. Load `OHMYHOST_TOKEN` from this file in the runner; it overwrites any saved login. A token can deploy, take over, and read usage, but it cannot create or select a workspae, nor can it generate another token. Revoke it with `token_revoke` when the runner is shut down.
 
-### Can I leave with my data?
+### Can I take my data with me?
 
-Yes. The owner asks for an export and gets a password-encrypted ZIP with a portable SQL dump, built asynchronously, at most once per project per rolling 24 hours, with a signed download link that lasts 24 hours. Exports are free. Restore it on any Postgres host. There is no schedule and no bucket destination; the [export Skill](/skills/ohmyhost-export-database/SKILL.md) walks through the steps.
+Yes. The owner requests an export and receives a password-protected ZIP file  containing a portable SQL dump, generated asynchronously, at most once per project within a rolling 24-hour window, along with a signed download link that is valid for 24 hous. Exports are free. Restore it on any Postgres host. There is no schedule and no bucket destination; the [Export skill](/skills/ohmyhost-export-database/SKILL.md) walks you through the steps.
 
 ### Which apps can Claude Code deploy here?
 
-Next.js, Vite/React, TanStack Start and plain Worker modules, from the project's saved managed source or a GitHub repository you authorize. The application must fit the Workers runtime: native addons, socket-based database drivers, persistent local files, listening servers and container applications require a different runtime or an adapter. The [deploy Skill](/skills/ohmyhost-deploy/SKILL.md) checks the repository before planning and preserves your application auth; the platform login is separate from your app's users.
+Next.js, Vite/React , TanStack Start, and simple worker moddules, from the project's saved managed source or a GitHub repository that you authorize. The application must be compatible with the Workers runtime: native add-ons, socket-based database drivers, persistent local files, listening servers, and containerized applications require a different runtime or an adapter. The [Deploy Skill](/skills/ohmyhost-deploy/SKILL.md) checks the repository before scheduilng and obtains your application authentication; the platform login is  separate from your app’s users.
 
-Vite can declare `runtime.mode: edge` for its own HTTP endpoints even without managed database, mail or file capabilities. Cron schedules additionally require a scheduled handler. Workers-compatible JavaScript, MJS and WASM modules use the same packaging contract across the framework adapters; that does not make an incompatible dependency run on Workers.
+Vite can declare `runtime.mode: edge` for your own HTTP endpoints, even without managed database, email, or file functions. Cron schedules also require a scheduled handler. Workers-compatible JavaScript, MJS, and WASM modules use the same  packaging formaat across all framework adapters; this means that an incompatible dependency will not run on Workers.
 
-Declare external browser services in `runtime.browser` in `ohmyhost.yaml`: exact HTTPS or WSS origins for connections, separate HTTPS origins for scripts, styles, images, fonts and frames, and explicit permissions for same-origin or blob workers. Resource declarations retain restrictive defaults for everything omitted. Server egress remains separate. Declared CORS support still needs the application's authorization checks and valid response headers. The agent verifies the required external flow on Dev before reporting that it works.
+You declare extrenal browser services in `runtime.browser` and `ohmyhost.yaml`: exact HTTPS or WSS origins  for connections, separate HTTPS origins for scripts , stylesheets, images, fonts, and frames, as well as explicit permissions for same-origin or Blob workers. Resource declarations maintain restrictive standardds for anything that is omitted. Server egress remains separate. Declared CORS support still requires the application’s authorization checks and valid response headers. The agent checks the required external workflow on Dev before reporting that it works.
 
-[Deploy from Cursor](/for/cursor) · [Bring your app from Lovable](/from/lovable) · [Where your credits go](/pricing/breakdown) · [Six things that break when a vibe-coded app meets production](/blog/six-things-that-break-when-a-vibe-coded-app-meets-production)
+[Deploy with Cursor](/for/cursor) · [Migrate your app from Lovable](/from/lovable) · [Where your credits go](/pricing/breakdown) · [Six things that break when a Vibe-coded app goes live](/blog/six-things-that-break-when-a-vibe-coded-app-meets-production)
