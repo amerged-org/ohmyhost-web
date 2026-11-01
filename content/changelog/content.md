@@ -1,5 +1,15 @@
 # Changelog
 
+## November 1, 2026
+
+Release 0.1.45 adds database table watches: `ohmyhost database watch create` publishes the inserts, updates and deletes of the columns you list as signed `data.<topic>` webhook events, and the matching MCP tools are available. See [table watches](https://docs.ohmyho.st/database#table-watches).
+
+Operation lookups work again for deployments, source changes and projects: `ohmyhost operation get`, every `--wait` and the MCP tool `operation_get` answered "not found" for them since the platform update of October 30. A project rename now ends as succeeded, and a rename to any valid handle publishes. Customer database dumps leave out the platform event schema, and a user token can be created again under the same idempotency key after a rejection.
+
+## October 31, 2026
+
+Release 0.1.42 adds database webhooks, schedules and execution counters, managed with `ohmyhost database webhook`, `database schedule` and `database executions` and the matching MCP tools. Release 0.1.43 makes `ohmyhost credits balance` return the organization balance only, and consumption moves to `ohmyhost credits usage`. Release 0.1.44 counts executions without a separate price, because the cost of a run is the time the database is awake, and turns a project's schedules off when it reaches its Stop budget.
+
 ## October 30, 2026
 
 Release 0.1.41 is a breaking client release: the credit account was rebuilt, and every customer database now runs on [PGCF](https://github.com/amerged-org/cloudflare-postgres), the open-source PostgreSQL platform. Neon is retired. Update the CLI and MCP server together to 0.1.41 or newer; clients older than 0.1.41 no longer match the credits and usage responses and must update.
