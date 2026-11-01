@@ -2,6 +2,8 @@
 
 ## November 1, 2026
 
+Release 0.1.46 adds table create: `ohmyhost database table create`, the local MCP tool `database_table_create` and `POST /v1/projects/{project_id}/database/tables` create a table in a Dev or Prod database from a list of columns, without a source migration. The table gets the same access as a migration table, a repeated identical request answers that it already exists, and a table watch can attach to it. See [create a table](https://docs.ohmyho.st/database#create-a-table).
+
 Release 0.1.45 adds database table watches: `ohmyhost database watch create` publishes the inserts, updates and deletes of the columns you list as signed `data.<topic>` webhook events, and the matching MCP tools are available. See [table watches](https://docs.ohmyho.st/database#table-watches).
 
 Operation lookups work again for deployments, source changes and projects: `ohmyhost operation get`, every `--wait` and the MCP tool `operation_get` answered "not found" for them since the platform update of October 30. A project rename now ends as succeeded, and a rename to any valid handle publishes. Customer database dumps leave out the platform event schema, and a user token can be created again under the same idempotency key after a rejection.
