@@ -122,3 +122,5 @@ Prepare an ohmyho.st deployment plan for this version of my app. Keep the existi
 In Dev Login, verify protected read access, write operations, uploads , and all AI features that your app uses. If these checks pass, your agent can prepare to deploy this verified artifct to Prod. Review the release and approve it if you want users to receive it.
 
 The [Guide to Hosting Lovable Apps](/blog/host-a-lovable-app-after-export) describes this handoff in more detail , and [Migrate Your App from Lovable](/from/lovable) provides the initial setup prompt for ohmyho.st. Start with the loacl testing phase if your immediate goal is to work with your preferred agent. You’ll have a better basis for your hosting decision after you’ve made and tested a real change.
+
+Your agent can also host the pages that Claude builds for you: read [How to Host a Claude Artifact on Your Own Domain](/blog/how-to-host-a-claude-artifact).

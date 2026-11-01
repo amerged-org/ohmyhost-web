@@ -1,38 +1,46 @@
 {
   "free-alternatives-catches": {
     "sourceSha256": "9ccadd92225911fbe94ba51d71fc2fb366f306946b1ec496e8e4f42b6ac8878c",
-    "renderedAt": "2026-09-28T22:00:13.463Z"
+    "renderedAt": "2026-11-01T19:26:33.921Z"
   },
   "free-alternatives-pick": {
     "sourceSha256": "2a0227b0f24024b03bbada785a1e976f67c28794fd7fb581f1de78eb9bca53f6",
-    "renderedAt": "2026-09-28T22:00:13.526Z"
+    "renderedAt": "2026-11-01T19:26:33.983Z"
   },
   "free-alternatives-two-accounts": {
     "sourceSha256": "5a3c7b8d2d78d0972fb8889157122f5569357e940f77a32287386e05ee95d9d9",
-    "renderedAt": "2026-09-28T22:00:13.593Z"
+    "renderedAt": "2026-11-01T19:26:34.049Z"
+  },
+  "claude-artifact-to-own-domain": {
+    "sourceSha256": "fd0c49a04e143a0df96bb10b63c8fb1d43f2e13508967b3882b32cf23b6b7287",
+    "renderedAt": "2026-11-01T19:26:34.110Z"
+  },
+  "claude-artifact-what-stays-behind": {
+    "sourceSha256": "afa522396b3b593d1215332117bc32b3976fe81c622816488c2d1af596ee710e",
+    "renderedAt": "2026-11-01T19:26:34.172Z"
   },
   "lovable-alternative-agent-session": {
     "sourceSha256": "6eb1ebbaaa293c67c57b31ffd2a2f1d05d18479e21a6716e20ea33e08d2f0793",
-    "renderedAt": "2026-09-25T18:25:21.118Z"
+    "renderedAt": "2026-11-01T19:26:34.232Z"
   },
   "lovable-alternative-flow": {
     "sourceSha256": "c8a4ce8592d47e2a77ccef86cd54b506f9d27c6d2fea144dde2960a2950f683c",
-    "renderedAt": "2026-09-25T18:25:21.184Z"
+    "renderedAt": "2026-11-01T19:26:34.295Z"
   },
   "lovable-alternative-github-export": {
     "sourceSha256": "a6d3914d02e1cb5f10bb589303b618ac7f48d83584b84c4194ba822a6e346c2b",
-    "renderedAt": "2026-09-25T18:25:21.250Z"
+    "renderedAt": "2026-11-01T19:26:34.363Z"
   },
   "lovable-alternative-two-meters": {
     "sourceSha256": "4bd399373b5f5e7ec31647cd544d2a08c3dbf268d86e83864c59b4cf48eb7d1c",
-    "renderedAt": "2026-09-25T18:25:21.310Z"
+    "renderedAt": "2026-11-01T19:26:34.433Z"
   },
   "lovable-cloud-export-bridge": {
     "sourceSha256": "8ea8221c22ee8551b7f0754de39c0ee52832edb32c9baeb22e2b9436530d5671",
-    "renderedAt": "2026-10-21T15:06:07.767Z"
+    "renderedAt": "2026-11-01T19:26:34.506Z"
   },
   "lovable-local-development-map": {
     "sourceSha256": "109f56788a6540795113d71dbf2701291c4098b6227381ec87d7207c4e7cd2a9",
-    "renderedAt": "2026-10-21T13:15:00.074Z"
+    "renderedAt": "2026-11-01T19:26:34.582Z"
   }
 }

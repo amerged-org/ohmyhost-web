@@ -165,3 +165,5 @@ The Free plan includes {{ number plan.freeCredits }} credits per UTC month. Buil
 {{ sources vercel supabase resend }}
 
 [Get your app from Lovable](/from/lovable) · [ohmyho.st vs Supabase](/vs/supabase) · [Cost breakdown](/pricing/breakdown)
+
+A Claude artifact can move to your own domain in the same way: read [How to Host a Claude Artifact on Your Own Domain](/blog/how-to-host-a-claude-artifact).

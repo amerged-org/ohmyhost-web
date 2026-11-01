@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="Stored data, Claude calls and the share link exist only inside claude.ai. On your own domain a project needs its own database, server routes with secrets and its own address.">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="#83878D" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="675" fill="#000"/>
+  <g fill="#0A0B0D" stroke="#26282C" stroke-width="2">
+    <rect x="70" y="140" width="460" height="395" rx="18"/>
+    <rect x="670" y="140" width="460" height="395" rx="18" stroke="#83878D"/>
+  </g>
+  <g font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="38" fill="#F0F1F2">
+    <text x="104" y="215">Only in claude.ai</text>
+    <text x="704" y="215">In your project</text>
+  </g>
+  <g font-family="'Space Grotesk', sans-serif" font-weight="500" font-size="32" fill="#F0F1F2">
+    <text x="104" y="305">Stored data</text>
+    <text x="104" y="375">Claude calls</text>
+    <text x="104" y="445">Share link</text>
+    <text x="704" y="305">Database</text>
+    <text x="704" y="375">Server routes + secrets</text>
+    <text x="704" y="445">Your own address</text>
+  </g>
+  <g fill="none" stroke="#83878D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M552 337 H648" marker-end="url(#arrow)"/>
+  </g>
+  <g font-family="'JetBrains Mono', monospace" font-size="24" fill="#83878D" text-anchor="middle">
+    <text x="600" y="310">replace</text>
+  </g>
+</svg>

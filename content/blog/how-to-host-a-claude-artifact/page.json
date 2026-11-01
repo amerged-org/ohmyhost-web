@@ -1,0 +1,17 @@
+{
+  "title": "How to Host a Claude Artifact on Your Own Domain",
+  "description": "Move a Claude artifact to your own domain: copy the code, split inline scripts and styles, test in Dev and publish. Plus what does not travel with it.",
+  "kind": "article",
+  "status": "published",
+  "crumb": "Host a Claude artifact",
+  "parent": "/blog",
+  "author": "Sebastian Mertens",
+  "published": "2026-11-01",
+  "modified": "2026-11-01",
+  "social": {
+    "image": "/og/blog-how-to-host-a-claude-artifact.png",
+    "alt": "How to host a Claude artifact on your own domain. A Claude artifact becomes a project, is checked in Dev and published in Prod.",
+    "title": "ohmyho.st — How to host a Claude artifact",
+    "description": "Copy the code, split inline scripts and styles, test in Dev and publish on your own domain."
+  }
+}
