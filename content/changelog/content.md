@@ -2,6 +2,8 @@
 
 ## November 3, 2026
 
+Release 0.1.48 adds a conditional fallback for answered chat and Responses calls without usable reported cost. Usable reported cost always takes priority, including zero or a cost below the fallback. Other AI modalities keep their existing cost rules. Read the [AI billing guide](https://docs.ohmyho.st/ai#credits-and-budgets) for the fallback and the active rate card calculation.
+
 Release 0.1.47 adds an AI gateway for Paid workspaces. Choose a jurisdiction and use the models orq.ai offers for chat, Responses, image generation and editing, speech-to-text, text-to-speech, classifiers and OCR through injected server credentials. Calls consume prepaid credit under the active AI rate card and contribute to project Stop budgets. Promotion and rollback follow the active revision's AI configuration. See [build AI features](https://docs.ohmyho.st/ai) and the current [pricing](/pricing).
 
 The server-side realtime voice route is implemented. Successful live voice acceptance remains pending after upstream sessions closed before voice exchange during verification. See [realtime voice](https://docs.ohmyho.st/ai#realtime-voice).
