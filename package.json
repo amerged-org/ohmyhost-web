@@ -24,7 +24,7 @@
     "coverage": "pnpm prepare:all && vitest run --coverage"
   },
   "dependencies": {
-    "@amerged/ohmyhost-sdk": "0.1.47",
+    "@amerged/ohmyhost-sdk": "0.1.48",
     "marked": "18.0.12"
   },
   "devDependencies": {

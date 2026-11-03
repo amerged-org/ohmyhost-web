@@ -18,6 +18,10 @@ Prices are identical in US and EU. Shared Dev/Prod uses one physical database; i
 
 Data mode is optional and defaults to shared. An Owner can later keep an existing data area with Dev or Prod, return to shared data, or reset isolated Dev. No records or files are copied and no special data-change price applies. Returning to shared keeps Prod and permanently deletes the separate Dev data, files and deployment; resetting Dev deletes that Dev area. Review the plan and keep any copies you need before confirming.
 
+## AI usage
+
+AI calls use the active AI rate card and the shared credit balance. For chat and Responses, usable reported cost takes priority, including zero or a cost below the fallback. Only an answered LLM call without usable reported cost uses the conditional fallback described in the [AI billing guide](https://docs.ohmyho.st/ai#credits-and-budgets). All other AI modalities keep their existing cost rules.
+
 ## Show the ohmyho.st flag
 
 Ask your agent to show a small “Powered by ohmyho.st” flag on the right edge of your production site. It loads nothing and sets no cookie; a visitor who clicks it lands on ohmyho.st. While it shows, a customer-owned domain uses no domain credits and also works on Free, and each paid Stripe billing period adds {{ number plan.flagPaidBonusCredits }} credits that expire with that period. A custom domain requires an active Prod deployment. On Free, keep the flag enabled while using that domain; remove the domain or upgrade before switching it off. You bring your own domain; we never buy one for you.
