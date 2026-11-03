@@ -1,5 +1,11 @@
 # Changelog
 
+## November 3, 2026
+
+Release 0.1.47 adds an AI gateway for Paid workspaces. Choose a jurisdiction and use the models orq.ai offers for chat, Responses, image generation and editing, speech-to-text, text-to-speech, classifiers and OCR through injected server credentials. Calls consume prepaid credit under the active AI rate card and contribute to project Stop budgets. Promotion and rollback follow the active revision's AI configuration. See [build AI features](https://docs.ohmyho.st/ai) and the current [pricing](/pricing).
+
+The server-side realtime voice route is implemented. Successful live voice acceptance remains pending after upstream sessions closed before voice exchange during verification. See [realtime voice](https://docs.ohmyho.st/ai#realtime-voice).
+
 ## November 1, 2026
 
 Release 0.1.46 adds table create: `ohmyhost database table create`, the local MCP tool `database_table_create` and `POST /v1/projects/{project_id}/database/tables` create a table in a Dev or Prod database from a list of columns, without a source migration. The table gets the same access as a migration table, a repeated identical request answers that it already exists, and a table watch can attach to it. See [create a table](https://docs.ohmyho.st/database#create-a-table).

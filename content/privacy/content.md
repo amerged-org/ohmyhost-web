@@ -1,6 +1,6 @@
 # Privacy notice
 
-Effective date: September 24, 2026. Infrastructure disclosure updated October 30, 2026.
+Effective date: September 24, 2026. Infrastructure disclosure updated October 30, 2026; AI service disclosure updated November 3, 2026.
 
 ## 1. Responsibility and contact
 
@@ -34,6 +34,8 @@ You choose the agent or harness used with the CLI, API or MCP. Data you provide 
 
 ## 4. Recipients
 
+AI requests made through the ohmyho.st gateway are processed as part of the hosted service under our [DPA](/dpa). We send request content to orq.ai and the provider serving the selected model, together with project identifiers and trace, usage and cost metadata. Content may include messages, images, audio, documents and generated results. Our gateway does not persist prompt or response bodies; orq and model providers may retain data under their applicable processing and retention terms. See the [provider register](/dpa/subprocessors).
+
 We limit access to authorised personnel and service providers whose access is needed for their role. Cloudflare provides website/edge delivery, security, application builds, execution, SQL export jobs and R2 storage including database backups; Contabo GmbH hosts active managed PGCF PostgreSQL infrastructure for customer applications. Our platform control databases for account, project, deployment and usage records run on Cloudflare D1 in the EU (moved from Neon on October 30, 2026; all Neon databases, including the retained pre-migration application databases, have been deleted). Resend (Plus Five Five, Inc.) sends and receives transactional mail for projects that configure a mail domain, and sends our account notices by email, such as credit-balance warnings to an organisation's Owners. We no longer use AWS directly; Resend runs parts of its service on AWS. WorkOS provides our account authentication and authorisation services. GitHub supplies repository access authorised by the customer and, when selected, account sign-in. Google provides Google sign-in when selected and Google Analytics for website and docs visits only after analytics consent. Login providers share identity, profile and email information with WorkOS to authenticate your account. Mintlify hosts our public documentation and its search functionality; documentation visits, searches and messages submitted to its assistant are processed for that purpose, so do not submit credentials or private customer records there. When payments are enabled, Stripe handles payments, subscriptions, invoices and tax calculation; payment credentials entered in Stripe’s checkout are handled by Stripe, not stored as full card details in the hosting account.
 
 The [provider register](/dpa/subprocessors) distinguishes workload subprocessors from providers used for our own account and business administration. Customer-selected authentication, agent and integration providers are governed by the customer's own arrangements. We do not sell personal data, and we do not use advertising pixels or cross-site marketing trackers on ohmyho.st or app.ohmyho.st. Documentation at docs.ohmyho.st is hosted by Mintlify; its own cookies and service telemetry are governed by its applicable privacy terms.
@@ -43,6 +45,8 @@ We disclose data where required by applicable law or a binding request, and asse
 ## 5. International processing
 
 Amerged B.V. is established in the Netherlands. New projects choose a US or EU region for their PGCF application database, new files and builds, with US as the default. Existing application databases moved with their owner's authorization use PGCF on Contabo infrastructure in the US. Cloudflare R2 stores files and backups, and existing objects retain their recorded physical locations through a database migration. Our platform control databases run on Cloudflare D1 with EU jurisdiction. Transactional mail is processed and stored in the US by Resend. Edge delivery, support and operational processing can have other locations; the service is not EU-only storage. See the [subprocessor list](/dpa/subprocessors) for the services used.
+
+For AI, the selected model determines the inference provider. The configured AI jurisdiction limits model selection using orq's current location metadata; it does not make Cloudflare edge execution, support or all other service processing EU-only.
 
 Restricted transfers require an applicable adequacy decision or another valid Chapter V safeguard, including the European Commission's Standard Contractual Clauses where needed. An adequacy mechanism, such as the EU–US Data Privacy Framework, is relied on only when the recipient's current certification and the particular transfer are covered. Our [transfer annex](/dpa/transfers) explains the applicable roles and safeguards. You can request information about the safeguards through the contact form.
 
@@ -57,6 +61,8 @@ Aggregate referral counts expire after thirty days without a new observation. At
 New API keys have no scheduled expiry: they remain usable until revoked, while access always depends on current membership and permissions. This is separate from the seven-day browser-session lifetime. Key identifiers, masked values, creation/last-use information and revocation/security records are retained as needed to administer access; the full issued token is shown once and is not retrievable from the portal.
 
 Account and operational records are retained while needed to provide and secure the account, reconcile usage and resolve outstanding matters. Billing records are retained for the applicable statutory accounting period. Retention of customer application data follows documented customer instructions and the DPA. On-demand encrypted SQL export archives have a seven-day retention period; issued download links are valid for 24 hours. A downloaded customer copy is under the customer's control. Mail received for a customer project is reachable through ohmyho.st for 72 hours after receipt, for webhook delivery, retries and recovery. Resend keeps email and log data, including our account notices, under its own terms, which it currently publishes as 30 days for the Scale plan we use. Deletion from active resources and expiry of restricted backup copies are distinct steps; backup copies expire under the retention lifecycle of the provider holding them.
+
+AI project, model, trace and measured-cost records are retained as needed for usage, billing and reconciliation. The gateway's prompt and response body handling does not determine orq's or the selected model provider's retention; those recipients apply their own terms, as described in the provider register.
 
 ## 7. Cookies and similar technologies
 
