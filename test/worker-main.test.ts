@@ -974,10 +974,10 @@ describe("public entry and unassigned Free-host fallback", () => {
         /matching local CLI\/MCP profile or private token source.*explicitly chooses remote/u,
       );
       expect(guidance).toMatch(
-        /remote tools or connection_request alone does not choose/u,
+        /remote tools alone does not choose/u,
       );
       expect(guidance).toMatch(
-        /verify.*identity and workspace.*grants.*stop.*mismatch/u,
+        /verify.*identity and workspace.*continuing.*stop.*mismatch/u,
       );
     }
     expect(rules).toContain("server's current source binding comes first");
