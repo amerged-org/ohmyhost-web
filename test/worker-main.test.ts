@@ -973,9 +973,7 @@ describe("public entry and unassigned Free-host fallback", () => {
       expect(guidance).toMatch(
         /matching local CLI\/MCP profile or private token source.*explicitly chooses remote/u,
       );
-      expect(guidance).toMatch(
-        /remote tools alone does not choose/u,
-      );
+      expect(guidance).toMatch(/remote tools alone does not choose/u);
       expect(guidance).toMatch(
         /verify.*identity and workspace.*continuing.*stop.*mismatch/u,
       );
