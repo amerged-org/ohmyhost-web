@@ -20,4 +20,4 @@ Your projects share an organizational credit balance. You can ask your agent whi
 
 The documentation describes the currently available stup methods. Start by using the app you already have, and then test  the deployment before sending people there.
 
-[Get started with your agent](https://docs.ohmyho.st/quickstart) · [Discover the skills](https://docs.ohmyho.st/skills) · [Home](/)
+[Get started with your agent](https://docs.ohmyho.st/quickstart) · [Discover the skills](https://docs.ohmyho.st/skills) · [Home](/) · [Use the ChatGPT plugin](/blog/ohmyhost-chatgpt-plugin)

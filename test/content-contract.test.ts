@@ -120,7 +120,10 @@ const MACHINE_PATHS = new Set([
   "/brand",
 ]);
 /** A dated announcement is not a search-targeted deep dive, so the post floor does not apply. */
-const ANNOUNCEMENTS = new Set(["/blog/introducing-ohmyho-st"]);
+const ANNOUNCEMENTS = new Set([
+  "/blog/introducing-ohmyho-st",
+  "/blog/ohmyhost-chatgpt-plugin",
+]);
 /** Legal documents use their own vocabulary and are outside the editorial contract. */
 const LEGAL = /^\/(?:terms|privacy|cookies|dpa|contact)/u;
 

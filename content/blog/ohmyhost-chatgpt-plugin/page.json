@@ -1,0 +1,17 @@
+{
+  "title": "ohmyho.st is now available as a ChatGPT plugin",
+  "description": "ohmyho.st is now available as a ChatGPT plugin. Build a web app right in the chat, preview it, and publish the tested version. Install it and give it a try.",
+  "kind": "article",
+  "status": "published",
+  "crumb": "ChatGPT Plugin",
+  "parent": "/blog",
+  "author": "Sebastian Mertens",
+  "published": "2026-11-04",
+  "modified": "2026-11-04",
+  "social": {
+    "image": "/shots/chatgpt-plugin-listing.png",
+    "alt": "The ohmyho.st ChatGPT plugin listing, with the Install plugin button and example prompts for creating and continuing an app.",
+    "title": "ohmyho.st — Now in ChatGPT",
+    "description": "Build a web app in ChatGPT, review a live preview and publish when you are ready."
+  }
+}
