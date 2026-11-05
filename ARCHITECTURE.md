@@ -138,6 +138,11 @@ Monthly subscription credits (Free and Paid) have no rollover and expire at the 
 
 ## Editorial links and founder attribution — 2026-09-30
 
+The existing homepage n8n logo tile links directly to the published
+`@amerged/n8n-nodes-ohmyhost` package on npm (owner-approved, 2026-11-05). Page preparation
+adds the link while preserving the immutable homepage template and the tile's existing layout.
+The link makes no claim of n8n Cloud verification.
+
 Existing article bylines and the homepage founder signature link directly to Sebastian Mertens's LinkedIn; author metadata and structured data retain their current structure. The approved homepage source remains immutable and page preparation adds the founder link.
 
 Every published article needs an incoming link from another published editorial body; a read-only audit checks this separately from the blog index and shared navigation. An independent editorial linking pass revisits older relevant pages before publishing and checks the links afterwards. New articles have an editorial limit of one per day, with no daily quota or scheduler; updates retain the original publication date.

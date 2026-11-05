@@ -307,6 +307,11 @@ await writeFile(
 
 /** P30: approved changes are applied without rewriting the supplied v97 source. */
 function applyApprovedHomepageChanges(html) {
+  // Owner-approved 2026-11-05: link the existing tile to the published community package.
+  html = html.replace(
+    /<span class="logo">(<span class="tile" data-c="#EA4B71">[\s\S]*?<\/span>n8n)<\/span>/u,
+    '<a href="https://www.npmjs.com/package/@amerged/n8n-nodes-ohmyhost" class="logo" aria-label="Install ohmyho.st for n8n from npm">$1</a>',
+  );
   // Owner-approved stack addition, 2026-10-17; keep the supplied template immutable.
   html = html
     .replace(
