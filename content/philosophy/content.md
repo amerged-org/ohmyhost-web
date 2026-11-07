@@ -18,7 +18,7 @@ Why a formula and not tiers: a plan has to guess your usage, and the guess is pr
 
 Hosting is usually priced per project, per seat or per service. That punishes the person with nine side projects and two live ones. Supabase Pro starts at {{ usd vendor.supabase.pro }} a month, and each additional project's Micro instance is {{ usd vendor.supabase.microProject }} a month. Vercel Pro is {{ usd vendor.vercel.pro }} a month, and each developer seat is {{ usd vendor.vercel.developerSeat }}. Put five side projects on Vercel Pro, Supabase Pro and Resend Pro and the list price is {{ usd scenario.fiveProjects }} a month before you serve one request.
 
-Here every project draws from the organization's one balance. There is no fixed project-count limit and no base fee per project. Every project gets a Dev and a Prod address on check.omh.st; a customer-owned hostname needs Paid or, on Free, a project that shows the “Powered by ohmyho.st” flag. It uses credits at {{ rate domain.custom_hostname }}, nothing while the flag shows. What a parked project keeps paying is exactly what it keeps: its deployed script and any customer files. A sleeping database stops charging for RAM, and its disk and seven-day backups are included. This is a quiet side project for one month:
+Here every project draws from the organization's one balance. There is no fixed project-count limit and no base fee per project. Free projects use Prod; Paid projects may also deploy Dev. Permanent deployments use check.omh.st addresses; a customer-owned hostname needs Paid or, on Free, a project that shows the “Powered by ohmyho.st” flag. It uses credits at {{ rate domain.custom_hostname }}, nothing while the flag shows. What a parked project keeps paying is exactly what it keeps: its deployed script and any customer files. A sleeping database stops charging for RAM, and its disk and seven-day backups are included. This is a quiet side project for one month:
 
 {{ table workload.quietProject }}
 
@@ -42,7 +42,7 @@ Ask your agent for an export (project_export_create, then project_export_get) an
 
 Restore the dump on any Postgres host. Nothing in it is ours: the schema is your migrations, applied from your GitHub repository, and the runtime binding is plain PostgreSQL. For a look without an export, database_access_create issues a time-bound, revocable Postgres login you can use with psql.
 
-Your users stay yours too. Application auth is customer-owned: Better Auth and your own WorkOS AuthKit are the verified integrations, and the platform login is a separate thing. Move the dump, point your app at the new host, and the user table moves with it because it was never in a proprietary store. When you are done, delete_plan then delete_execute removes the project and its archives.
+Your application users are separate from your platform login. Better Auth and your own WorkOS AuthKit are verified integrations you can retain. An optional managed Native Auth directory is being prepared for hosted qualification; choosing it does not migrate an existing provider. Check the [application auth guide](https://docs.ohmyho.st/application-auth) for its requirements and current availability. When you are done, delete_plan then delete_execute removes the project and its archives.
 
 ## Honest about where others win
 
@@ -50,7 +50,7 @@ A single busy production app with serious traffic may still belong on Vercel and
 
 Vercel Hobby is {{ usd vendor.vercel.hobby }} a month for one developer seat. If that is all your projects need, it beats any paid balance, and I will not pretend otherwise.
 
-Railway, Fly.io and Render run any container. ohmyho.st runs Astro, Next.js, Vite/React and TanStack Start on Workers, deployed from a GitHub repository, and nothing else. Resend Pro is {{ usd vendor.resend.pro }} for 50,000 emails a month; here mail is {{ rate mail.sent }}, counted per sent recipient, and it needs Paid plus a verified mail domain. Send more than about 10,000 recipients a month and Resend is the better price. Supabase gives you Auth, Storage, Realtime and Edge Functions in one console; here you bring Better Auth or WorkOS AuthKit and write plain SQL.
+Railway, Fly.io and Render run any container. ohmyho.st runs Astro, Next.js, Vite/React and TanStack Start on Workers, deployed from a GitHub repository, and nothing else. Resend Pro is {{ usd vendor.resend.pro }} for 50,000 emails a month; here mail is {{ rate mail.sent }}, counted per sent recipient, and it needs Paid plus a verified mail domain. Send more than about 10,000 recipients a month and Resend is the better price. Supabase gives you Auth, Storage, Realtime and Edge Functions in one console; here you can keep Better Auth or your own WorkOS AuthKit and write plain SQL. A managed Native Auth option is being prepared for hosted qualification.
 
 Every comparison page says where the other side wins, with list prices checked on a named date. {{ checked vercel }} {{ checked supabase }} {{ checked resend }}
 

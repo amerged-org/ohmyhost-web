@@ -62,7 +62,7 @@ Exports on ohmyho.st are on-demand, asynchronous , and free. project_export_crea
 
 ## You remain in control of authentication
 
-ohmyho.st does not replace Supabase Auth. It does not have its own user pool, its own catalog of social providers , or its own MFA service. Application users belong to the provider you choose, and two integrations have been verfiied:
+Your application can keep Supabase Auth or another customer-owned provider. Better Auth and customer-owned WorkOS are verified integrations. An optional managed Native Auth directory is being prepared for hosted qualification; its password-first candidate requires Paid access and your own authorized verified sender, and Google and GitHub sign-in are disabled server-side for this launch. Availability is not yet established. See [Application Authentication](https://docs.ohmyho.st/application-auth).
 
 - **Better Auth**, using the managed bridge, which is explicitly selected in your projet configuration. The bridge has its own `auth` schema and database sessions , and requires the managed database. Managed Mail is optional for the registration of verified users and  sessions; the bridge’s verification and reset emails require its configured platform sender, paid access, and a verified sender domain. Set up this sender via mail_setup and checck mail_status if you use these email actions. A self-hosted Better Auth implementation with its own sender is a common application dependency; simply installing Better Auth does not select the managed bridge.
 - **WorkOS AuthKit**, self-hosted. You provide your  WorkOS acconut; the agent configures callback URLs for each environment and sets the client secret using secret_set_command.
@@ -83,7 +83,7 @@ Your own login at ohmyho.st and your agent's  login run on WorkOS and are separa
 | Data Storage Media | {{ usd vendor.supabase.diskGb }} {{ text vendor.supabase.diskGb.unit }} | The total nominal volume depends on the amount of RAM; PostgreSQL/WAL uses a portion of it |
 | Egress | {{ usd vendor.supabase.egressGb }} {{ text vendor.supabase.egressGb.unit }} | Workers bandwidth is not calculated |
 | App Hosting | a personal account | Next.js, Vite/React, TanStack: Launch from GitHub |
-| Auth | Supabase Auth | Yours: Better Auth or WorkOS AuthKit |
+| Auth | Supabase Auth | Customer-owned providers; managed Native Auth candidate awaiting qualification |
 | Real-time | yes | no |
 | Retrieve data | in-house tools | Password-encrypted SQL ZIP file, once per project and rolling day, free of charge |
 
@@ -95,7 +95,7 @@ A heavily used app looks different from five less active ones. {{ text workload.
 
 - **Real-time.** Supbaase pushes Postgres changes  and presence to the browser. ohmyho.st does not have a managed real-time contract. An external real-time service requires its declared browser connection origins and a verified hosted subscription; switching to managed Postgres does not replace this capability with polling.
 - **Vector search.** Supabase documents pgevctor as a product path , including examples. ohmyho.st makes no mention of this.
-- **Scope of Authentication.** Social providers, phone loin , and MFA from a hosted user pool. ohmyho.st offers two integrations, and you manage them yourself.
+- **Scope of Authentication.** Social providers, phone loin , and MFA from a hosted user pool. The Native Auth candidate starts with passwords; Google and GitHub are disabled for this launch, and hosted qualification remains pending.
 - **Edge Functions Ecosystem.** A catalog of function templates and integrations alongside the database. ohmyho.st runs functions and cron jobs within the routes of your own framework, whih  is more streamlined.
 - **A database that neevr  sleeps.** {{ text workload.alwaysOnDatabase.name }} costs about {{ credits workload.alwaysOnDatabase }} on ohmyho.st, or roughly {{ usdValue workload.alwaysOnDatabase }} in credit value. Supabase Pro includes the same continuously running micro-instance in its base price. Constant traffic is part of Supabase.
 - **A dashboard.** Supabase has a table editor, an SQL editor, and logs right in the browser. On ohymho.st, your agent reads a hundred lines at a time via database_query, and the portal shows projects , credits, budgets, and tokens—not your tables.

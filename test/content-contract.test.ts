@@ -46,6 +46,7 @@ const DOCS_SLUGS = new Set([
   "application-auth",
   "secrets",
   "environments",
+  "previews",
   "migrations",
   "database",
   "files",
@@ -106,6 +107,12 @@ const FLOORS: Array<[RegExp, number]> = [
   [/^\/open-source$/u, 300],
 ];
 const CONTENT_PATHS = new Set(CONTENT_PAGE_LIST.map((page) => page.path));
+/** These authoring guides preserve the homepage CTA while asking for commit previews. */
+const PREVIEW_AUTHORING_PATHS = new Set([
+  "/for/codex",
+  "/for/claude-code",
+  "/for/cursor",
+]);
 /** Machine-readable endpoints the worker serves outside DOCUMENTATION. */
 const MACHINE_PATHS = new Set([
   "/llms.txt",
@@ -289,15 +296,25 @@ it("keeps every editorial page inside the words, numbers and sources contract", 
         `${path} prompt block`,
       ).toHaveLength(1);
     }
-    // Landing pages share the connection CTA. Articles carry their own task-specific
-    // prompts so readers can hand the actual work described in a post to an Agent.
+    // Most landing pages share the connection CTA. Authoring guides ask for previews;
+    // articles carry task-specific prompts for the work described in the post.
     if (meta?.kind !== "article") {
       expect(
         (markdown.match(/```text\n([^\n]*)\n```/gu) ?? []).length,
         `${path} prompt blocks`,
       ).toBeLessThanOrEqual(1);
-      for (const [, prompt] of markdown.matchAll(/```text\n([^\n]*)\n```/gu))
-        expect(prompt).toBe(CTA_PROMPT);
+      for (const [, prompt] of markdown.matchAll(/```text\n([^\n]*)\n```/gu)) {
+        if (PREVIEW_AUTHORING_PATHS.has(path)) {
+          expect(prompt).toContain(
+            "open a temporary preview of that exact commit",
+          );
+          expect(prompt).toContain(
+            "Deploy Dev or Prod only when I request that target.",
+          );
+        } else {
+          expect(prompt).toBe(CTA_PROMPT);
+        }
+      }
     }
     if (/^## FAQ$/mu.test(markdown)) {
       const faq = markdown.split(/^## FAQ$/mu)[1]?.split(/^## /mu)[0] ?? "";

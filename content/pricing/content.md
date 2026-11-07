@@ -6,17 +6,31 @@ Free credits expire at UTC month end. Paid monthly credits expire at billing-per
 
 An unpaid subscription renewal keeps Paid features for at most {{ number plan.renewalGraceDays }} days after the paid period ends. Payment within that window continues coverage; otherwise the workspace returns to Free and keeps its top-ups. Cancellation ends Paid at the stated period end. Previously expired monthly credits stay expired.
 
+## Preview first, deploy intentionally
+
+| Experience | Free | Paid |
+| --- | --- | --- |
+| Temporary commit preview | Available, uses real Prod data | Available, Dev by default or explicitly Prod |
+| Permanent Dev | Not included | Explicit deployment |
+| Permanent Prod | Explicit deployment from the selected commit | Explicit deployment or an existing verified Dev release |
+
+A preview lasts at most {{ number 60 }} minutes from acceptance. Reloads, status checks and open tabs never renew its deadline. After {{ number 5 }} minutes without application network activity, compute can sleep and wake only within that original deadline. The Git commit and successful data writes remain after the URL expires.
+
+Preview compute uses rolling credit reservations of at most {{ number 60 }} seconds. Read the server's `compute_quote` for its card, instance class and reserved interval. Settlement uses measured usage and returns the unused reservation. Existing workspace credits and Stop budgets apply; database, files, mail and AI retain their ordinary meters and service entitlements. Your own Better Auth or WorkOS integration can work on Free according to its configuration; Native Auth remains Paid.
+
+A new preview never applies app migration files automatically. An approved `preview_migrations_apply` action uses only the saved commit's validated migrations and its selected real data environment. It is separate from both preview creation and a permanent deployment. [How previews work](https://docs.ohmyho.st/previews).
+
 ## What uses credits
 
-Measured builds, Worker requests and CPU time, database RAM while active, customer file storage and operations, and enabled mail use their published rates.
+Measured preview compute, intentional deployment builds, Worker requests and CPU time, active database RAM, customer file operations and enabled services use their published rates.
 
 {{ table databaseSizes }}
 
 Active database time is prorated. Each size includes the total disk shown and seven-day backups, also while sleeping. Total disk includes PostgreSQL, WAL and filesystem overhead. There are no separate database CPU, network or connection charges. The database sleeps after five idle minutes and then has no active-RAM charge. Customer file storage and Worker usage retain their separate rates.
 
-Prices are identical in US and EU. Shared Dev/Prod uses one physical database; isolated data uses two independently metered databases. New projects provision databases, new files and builds in their selected region. Existing projects moved to US with their owner's authorization use US databases; recorded R2 locations remain unchanged. An increase preserves data; in-place disk shrink requires a separate authorized data migration.
+Prices are identical in US and EU. Free uses Prod and has no permanent Dev. Paid may use shared Dev/Prod data on one physical database or isolated data on independently metered databases. New projects provision databases, new files and builds in their selected region. Existing projects moved to US with their owner's authorization use US databases; recorded R2 locations remain unchanged. An increase preserves data; in-place disk shrink requires a separate authorized data migration.
 
-Data mode is optional and defaults to shared. An Owner can later keep an existing data area with Dev or Prod, return to shared data, or reset isolated Dev. No records or files are copied and no special data-change price applies. Returning to shared keeps Prod and permanently deletes the separate Dev data, files and deployment; resetting Dev deletes that Dev area. Review the plan and keep any copies you need before confirming.
+On Paid, an Owner can review shared or isolated Dev/Prod data and later keep an existing data area with Dev or Prod, return to shared data, or reset isolated Dev. No records or files are copied and no special data-change price applies. Returning to shared keeps Prod and permanently deletes the separate Dev data, files and deployment; resetting Dev deletes that Dev area. Review the plan and keep any copies you need before confirming.
 
 ## AI usage
 
