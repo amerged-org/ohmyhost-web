@@ -1,9 +1,9 @@
 {
-  "platformCommit": "82ae1b5e792a1e95cc2f507111395bca8a534293",
-  "generatedAt": "2026-11-08T19:24:53.174Z",
+  "platformCommit": "a230591bf440b557d321a0d2676f0b0fb8addbcc",
+  "generatedAt": "2026-11-09T07:49:15.886Z",
   "clientRelease": {
-    "version": "0.1.52",
-    "manifestUrl": "https://ohmyho.st/releases/0.1.52/manifest.json"
+    "version": "0.1.53",
+    "manifestUrl": "https://ohmyho.st/releases/0.1.53/manifest.json"
   },
   "creditPricingTable": "| Service meter | Measured quantity | Credits |\n| --- | --- | ---: |\n| `pgcf.memory.active` | 256 MiB for one awake hour | 10 |\n| `build.sandbox.standard-3` | 60 build seconds | 1.204938 |\n| `wfp.requests` | 1,000,000 requests | 98.571429 |\n| `wfp.cpu` | 1,000,000 CPU-ms | 6.571429 |\n| `r2.storage.standard` | 1 GB for 30 days (daily peak) | 4.928571 |\n| `r2.class_a` | 1,000,000 operations | 1478.571429 |\n| `r2.class_b` | 1,000,000 operations | 118.285714 |\n| `ai.cost` | 10,000 USD micro-units of recorded orq cost | 1.390895 |\n| `mail.sent` | 1 sent recipient | 0.18 |\n| `mail.received` | 1 received message | 0.18 |\n| `wfp.script` | 1 deployed script for a 744-hour month | 6.571429 |\n| `domain.custom_hostname` | 1 paid custom hostname for a 744-hour month | 32.857143 |",
   "creditRates": {
@@ -5824,7 +5824,7 @@
         },
         "annotations": {
           "readOnlyHint": false,
-          "destructiveHint": false,
+          "destructiveHint": true,
           "idempotentHint": true
         }
       },
