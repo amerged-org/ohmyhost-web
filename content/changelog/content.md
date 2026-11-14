@@ -2,6 +2,8 @@
 
 ## November 14, 2026
 
+Release 0.1.56 adds `ohmyhost github disconnect`, `ohmyhost organization mcp-connections list` and `revoke` and `ohmyhost mail webhook rotate`, with the matching MCP tools, so an agent can manage the GitHub connection, the connected MCP clients and the mail webhook secret without leaving the terminal. An owner can also rotate an installed AI, mail, storage or auth key in place, and a Paid custom hostname is now proven with its own `_omh-project` TXT record.
+
 Release 0.1.55 adds `ohmyhost export download-link` and the MCP tool `project_export_download_link_create`: reading an export reports its progress and never a download address, so you request a signed 24-hour link for a finished export separately. Custom hostnames on Paid projects now need the verified `_omh-project` TXT proof before they are served, and a workspace owner can list and revoke connected MCP clients and disconnect GitHub through the API. Several operations accept an `Idempotency-Key` so that a retried request returns the original result.
 
 ## November 13, 2026
