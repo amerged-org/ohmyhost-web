@@ -1,5 +1,9 @@
 # Changelog
 
+## November 13, 2026
+
+Release 0.1.54 updates the Skills that the CLI and MCP packages bundle for private application secrets in a connected chat. A `secret_input_request` link needs no sign-in, names the secret, can generate a random value and expires after one hour; its first save uses it up, even when the write fails. The Skills now tell an agent to confirm the name with `secrets_list` before it relies on `secret_submitted`, to ask for a fresh link when one expired, and to send a value of several lines, such as a PEM key, through the local stdin command instead. The command and tool lists and the API are unchanged.
+
 ## November 3, 2026
 
 Release 0.1.48 adds a conditional fallback for answered chat and Responses calls without usable reported cost. Usable reported cost always takes priority, including zero or a cost below the fallback. Other AI modalities keep their existing cost rules. Read the [AI billing guide](https://docs.ohmyho.st/ai#credits-and-budgets) for the fallback and the active rate card calculation.
