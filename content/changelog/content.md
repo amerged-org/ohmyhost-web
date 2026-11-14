@@ -1,5 +1,9 @@
 # Changelog
 
+## November 14, 2026
+
+Release 0.1.55 adds `ohmyhost export download-link` and the MCP tool `project_export_download_link_create`: reading an export reports its progress and never a download address, so you request a signed 24-hour link for a finished export separately. Custom hostnames on Paid projects now need the verified `_omh-project` TXT proof before they are served, and a workspace owner can list and revoke connected MCP clients and disconnect GitHub through the API. Several operations accept an `Idempotency-Key` so that a retried request returns the original result.
+
 ## November 13, 2026
 
 Release 0.1.54 updates the Skills that the CLI and MCP packages bundle for private application secrets in a connected chat. A `secret_input_request` link needs no sign-in, names the secret, can generate a random value and expires after one hour; its first save uses it up, even when the write fails. The Skills now tell an agent to confirm the name with `secrets_list` before it relies on `secret_submitted`, to ask for a fresh link when one expired, and to send a value of several lines, such as a PEM key, through the local stdin command instead. The command and tool lists and the API are unchanged.
