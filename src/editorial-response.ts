@@ -16,6 +16,9 @@ export async function editorialResponse(
   );
   const personalized =
     new URL(request.url).searchParams.has("r") ||
+    [...new URL(request.url).searchParams.keys()].some((key) =>
+      /^utm_[a-z0-9_]{1,60}$/u.test(key.toLowerCase()),
+    ) ||
     request.headers.has("cookie") ||
     request.headers.has("authorization") ||
     headers.has("set-cookie");

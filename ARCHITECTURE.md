@@ -89,8 +89,12 @@ Accept quality weights select the representation with HTML winning ties.
 returns 304 only for a matching representation. Browser HTML navigation is private and revalidated
 because the agent prompt can contain a region hint; other anonymous representations allow a
 five-minute shared freshness period. Vary covers Accept, Cookie, Authorization and fetch metadata.
-Any cookie, authorization header, referral query or Set-Cookie response keeps no-store and omits
+Any cookie, authorization header, referral or UTM query or Set-Cookie response keeps no-store and omits
 validators. Dynamic API, contact and login responses retain their existing policies.
+
+Valid, bounded `utm_*` entry parameters follow known internal navigation links and the login handoff
+without a website cookie. They are not added to external links, downloads or assets. The platform
+owns signup attribution; the website does not persist the associated account record.
 
 The small-app workload includes its deployed script and mail sender zone. The five-project example
 adds four quiet workloads to that complete workload; its prose states when the monthly credits

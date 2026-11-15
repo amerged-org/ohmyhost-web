@@ -1209,6 +1209,71 @@ class SiteAssetFixture {
 }
 
 describe("signup attribution", () => {
+  it("carries bounded campaign labels through internal navigation and login only", async () => {
+    const assets = new SiteAssetFixture();
+    const query = new URLSearchParams([
+      ["r", "partner-a"],
+      ["utm_source", "first"],
+      ["UTM_SOURCE", "chat & ☀"],
+      ["UTM_CUSTOM_CAMPAIGN", "launch=1"],
+      ["utm_oversized", "x".repeat(257)],
+      ["next", "https://foreign.example"],
+    ]);
+    const landing = await worker.fetch(
+      new Request(`https://ohmyho.st/?${query}`),
+      { ASSETS: assets },
+    );
+    const html = await landing.text();
+    expect(landing.headers.get("cache-control")).toBe("no-store");
+    expect(html).toContain(
+      'href="/pricing?utm_source=chat+%26+%E2%98%80&amp;utm_custom_campaign=launch%3D1"',
+    );
+    expect(html).toContain(
+      'href="/login?r=partner-a&amp;utm_source=chat+%26+%E2%98%80&amp;utm_custom_campaign=launch%3D1"',
+    );
+    expect(html).not.toContain("utm_oversized=");
+    expect(html).toContain('href="#price"');
+    expect(html).not.toMatch(
+      /href="https:\/\/docs\.ohmyho\.st[^" ]*utm_source=/u,
+    );
+    const pricing = await worker.fetch(
+      new Request(
+        "https://ohmyho.st/pricing?utm_source=chat+%26+%E2%98%80&utm_custom_campaign=launch%3D1",
+      ),
+    );
+    expect(pricing.headers.get("cache-control")).toBe("no-store");
+    expect(await pricing.text()).toContain(
+      "utm_source=chat+%26+%E2%98%80&amp;utm_custom_campaign=launch%3D1",
+    );
+    const login = await worker.fetch(
+      new Request(`https://ohmyho.st/login?${query}`),
+    );
+    const target = new URL(login.headers.get("location") ?? "");
+    expect(target.origin + target.pathname).toBe("https://app.ohmyho.st/login");
+    expect(Object.fromEntries(target.searchParams)).toEqual({
+      r: "partner-a",
+      utm_source: "chat & ☀",
+      utm_custom_campaign: "launch=1",
+    });
+    const limits = new URLSearchParams();
+    limits.set("utm_bytes", "☀".repeat(256));
+    for (let i = 0; i < 21; i++) limits.set(`utm_x${i}`, "a");
+    const limited = new URL(
+      (
+        await worker.fetch(new Request(`https://ohmyho.st/login?${limits}`))
+      ).headers.get("location") ?? "",
+    );
+    expect(limited.searchParams.has("utm_bytes")).toBe(true);
+    expect([...limited.searchParams].length).toBeLessThanOrEqual(20);
+    limits.set("utm_bytes", "😀".repeat(256));
+    const tooLarge = new URL(
+      (
+        await worker.fetch(new Request(`https://ohmyho.st/login?${limits}`))
+      ).headers.get("location") ?? "",
+    );
+    expect(tooLarge.searchParams.has("utm_bytes")).toBe(false);
+  });
+
   it("carries a link's source into the page without letting it write markup", async () => {
     const assets = new SiteAssetFixture();
     const home = await worker.fetch(
