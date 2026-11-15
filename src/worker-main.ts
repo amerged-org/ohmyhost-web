@@ -46,6 +46,86 @@ const ATTRIBUTE_ESCAPES: Record<string, string> = {
   "<": "&lt;",
   ">": "&gt;",
 };
+const UTM_KEY = /^utm_[a-z0-9_]{1,60}$/u;
+
+/** Keep campaign labels bounded and optional; malformed attribution never blocks navigation. */
+function campaignParameters(search: URLSearchParams): URLSearchParams {
+  const last = new Map<string, string>();
+  for (const [rawKey, value] of search) {
+    const key = rawKey.toLowerCase();
+    if (UTM_KEY.test(key)) last.set(key, value);
+  }
+  const accepted: Record<string, string> = {};
+  for (const [key, value] of last) {
+    if (Object.keys(accepted).length >= 20) break;
+    if (Array.from(value).length > 256) continue;
+    const candidate = { ...accepted, [key]: value };
+    if (new TextEncoder().encode(JSON.stringify(candidate)).length > 1024)
+      continue;
+    accepted[key] = value;
+  }
+  return new URLSearchParams(accepted);
+}
+
+/** Carry campaigns only through known website navigation, never into external links or assets. */
+function campaignLinks(
+  html: string,
+  campaign: URLSearchParams,
+  source?: string,
+): string {
+  if (!campaign.size) return html;
+  return html
+    .split(/(<script\b[^>]*>[\s\S]*?<\/script>)/giu)
+    .map((part) => {
+      if (/^<script\b/iu.test(part)) return part;
+      return part.replace(/<a\b[^>]*>/giu, (tag) =>
+        tag.replace(
+          /(\s)href=(['"])(.*?)\2/iu,
+          (attribute, whitespace: string, quote: string, raw: string) => {
+            const href = raw.replaceAll("&amp;", "&");
+            if (
+              href.startsWith("#") ||
+              (!href.startsWith("/") &&
+                !href.startsWith(HOME) &&
+                !href.startsWith("https://app.ohmyho.st/login"))
+            )
+              return attribute;
+            let target: URL;
+            try {
+              target = new URL(href, HOME);
+            } catch {
+              return attribute;
+            }
+            const portalLogin =
+              target.origin === "https://app.ohmyho.st" &&
+              target.pathname === "/login";
+            if (
+              !portalLogin &&
+              (target.origin !== new URL(HOME).origin ||
+                !(
+                  EDITORIAL_PATHS.has(target.pathname) ||
+                  ["/", "/login", "/brand", "/api"].includes(target.pathname)
+                ))
+            )
+              return attribute;
+            if (portalLogin && source && !target.searchParams.has("r"))
+              target.searchParams.set("r", source);
+            for (const [key, value] of campaign)
+              target.searchParams.set(key, value);
+            const updated = href.startsWith("/")
+              ? `${target.pathname}${target.search}${target.hash}`
+              : target.href;
+            const escaped = updated.replaceAll(
+              /["&'<>]/gu,
+              (character) => ATTRIBUTE_ESCAPES[character] ?? "",
+            );
+            return `${whitespace}href=${quote}${escaped}${quote}`;
+          },
+        ),
+      );
+    })
+    .join("");
+}
 function signupSourceMeta(source: string): string {
   const escaped = source.replaceAll(
     /["&'<>]/gu,
@@ -118,6 +198,7 @@ export default {
       return new Response(null, { status: 405, headers });
     }
     const sources = url.searchParams.getAll("r");
+    const campaign = campaignParameters(url.searchParams);
     const querySource =
       sources.length === 1 ? signupSource(sources[0]) : undefined;
     if (
@@ -296,10 +377,10 @@ export default {
       );
     }
     if (url.pathname === "/login") {
-      headers.set(
-        "location",
-        `https://app.ohmyho.st/login${source ? `?r=${encodeURIComponent(source)}` : ""}`,
-      );
+      const target = new URL("https://app.ohmyho.st/login");
+      if (source) target.searchParams.set("r", source);
+      for (const [key, value] of campaign) target.searchParams.set(key, value);
+      headers.set("location", target.href);
       return new Response(null, { status: 302, headers });
     }
     const wantsMarkdown = prefersMarkdown(request.headers.get("accept"));
@@ -322,6 +403,7 @@ export default {
           `href="${loginHref}"`,
         );
       if (document.type.startsWith("text/html")) {
+        documentText = campaignLinks(documentText, campaign, attribution);
         const hashes = [];
         for (const script of documentText.matchAll(
           /<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gu,
@@ -499,6 +581,7 @@ export default {
             `href="https://ohmyho.st${loginHref}"`,
           )
           .replaceAll('href="/login"', `href="${loginHref}"`);
+      body = campaignLinks(body, campaign, attribution);
       const hashes: string[] = [];
       for (const script of body.matchAll(
         /<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gu,
