@@ -7,7 +7,7 @@ function browser(host = "ohmyho.st", initialCookie = "") {
   const cookies = new Map(
     initialCookie ? [["omh_analytics", initialCookie]] : [],
   );
-  const listeners = new Map<string, (() => void)[]>();
+  const listeners = new Map<string, ((event?: unknown) => unknown)[]>();
   const scripts: Element[] = [];
   class Element {
     id = "";
@@ -59,7 +59,8 @@ function browser(host = "ohmyho.st", initialCookie = "") {
       return selector === "footer .fbot" ? footer : null;
     },
     getElementById: (id: string) => nodes.get(id),
-    addEventListener: (name: string, fn: () => void) =>
+    querySelectorAll: () => [],
+    addEventListener: (name: string, fn: (event?: unknown) => unknown) =>
       listeners.set(name, [...(listeners.get(name) ?? []), fn]),
     get cookie() {
       return [...cookies].map(([key, val]) => `${key}=${val}`).join("; ");
@@ -97,6 +98,10 @@ function browser(host = "ohmyho.st", initialCookie = "") {
     history,
     URL,
     Date,
+    navigator: { clipboard: { writeText: async () => {} } },
+    trackAcquisition: undefined as
+      | undefined
+      | ((name: string, context: Record<string, string>) => void),
     dataLayer: [] as unknown[][],
     addEventListener: document.addEventListener,
     setTimeout: (fn: () => void) => {
@@ -122,6 +127,22 @@ function browser(host = "ohmyho.st", initialCookie = "") {
   };
   return {
     run,
+    runRequests: () =>
+      runInNewContext(
+        readFileSync(
+          new URL("../site/site-requests.js", import.meta.url),
+          "utf8",
+        ),
+        context,
+      ),
+    clickTarget: async (target: unknown) => {
+      for (const fn of listeners.get("click") ?? [])
+        await fn({
+          target,
+          preventDefault() {},
+          stopImmediatePropagation() {},
+        });
+    },
     context,
     nodes,
     cookies,
@@ -140,10 +161,64 @@ function browser(host = "ohmyho.st", initialCookie = "") {
   };
 }
 
-it("loads no Google code until explicit consent and stops after withdrawal", () => {
+it("loads no Google code until explicit consent and stops after withdrawal", async () => {
   const b = browser();
   b.run();
+  b.runRequests();
+  const login = {
+    closest: (selector: string) =>
+      selector === "a[href]"
+        ? { href: "https://ohmyho.st/login?utm_source=private@example.com" }
+        : null,
+  };
+  const foreign = {
+    closest: (selector: string) =>
+      selector === "a[href]"
+        ? { href: "https://foreign.example/login?account=private" }
+        : null,
+  };
+  const label = { textContent: "" };
+  const button = {
+    dataset: {},
+    querySelector: () => label,
+    closest: () => null,
+    classList: { add() {}, remove() {} },
+  };
+  const prompt = {
+    closest: (selector: string) => (selector === "a[href]" ? null : button),
+  };
+  const block = { querySelector: () => ({ textContent: "private command" }) };
+  const commandButton = {
+    ...button,
+    closest: (selector: string) => (selector === ".copy-block" ? block : null),
+  };
+  const command = {
+    closest: (selector: string) =>
+      selector === "a[href]" ? null : commandButton,
+  };
+  const articleToolbar = {
+    classList: { remove() {}, add() {} },
+    querySelector: (selector: string) =>
+      selector === "[data-article-copy-status]"
+        ? { textContent: "" }
+        : { textContent: JSON.stringify("private article") },
+  };
+  const articleButton = {
+    ...button,
+    dataset: { copyArticle: "" },
+    closest: () => articleToolbar,
+    setAttribute() {},
+    removeAttribute() {},
+  };
+  const article = {
+    closest: (selector: string) =>
+      selector === "a[href]" ? null : articleButton,
+  };
+  await b.clickTarget(login);
+  await b.clickTarget(prompt);
   expect(b.scripts).toHaveLength(0);
+  b.context.trackAcquisition?.("cta_click", { cta: "login" });
+  expect(b.context.dataLayer).toHaveLength(0);
   expect(b.nodes.get("omh-analytics-accept")?.textContent).toBe("Accept");
   expect(b.nodes.get("omh-analytics-edit")?.textContent).toBe("Edit");
   expect(b.nodes.get("omh-analytics-settings")?.parentElement).toBe(b.footer());
@@ -163,6 +238,21 @@ it("loads no Google code until explicit consent and stops after withdrawal", () 
   expect(b.scripts[0]?.src).toContain("G-C1PWJM238R");
   const events = () => b.context.dataLayer.filter((row) => row[0] === "event");
   expect(events()).toHaveLength(1);
+  await b.clickTarget(login);
+  await b.clickTarget(foreign);
+  await b.clickTarget(command);
+  await b.clickTarget(article);
+  await b.clickTarget(prompt);
+  b.context.navigator.clipboard.writeText = async () => {
+    throw Error("denied");
+  };
+  await b.clickTarget(prompt);
+  expect(events().map((row) => row[1])).toEqual([
+    "page_view",
+    "cta_click",
+    "prompt_copy_success",
+    "prompt_copy_failure",
+  ]);
   expect(JSON.stringify(b.context.dataLayer)).not.toContain("private");
   b.cookies.set("_ga", "old");
   b.click("omh-analytics-settings");
@@ -171,7 +261,9 @@ it("loads no Google code until explicit consent and stops after withdrawal", () 
   expect(b.reloads()).toBe(1);
   b.history.pushState(null, "", "/pricing");
   b.flush();
-  expect(events()).toHaveLength(1);
+  await b.clickTarget(login);
+  await b.clickTarget(prompt);
+  expect(events()).toHaveLength(4);
 });
 
 it("uses shared consent on Docs and counts each route once including browser back", () => {
