@@ -1,5 +1,9 @@
 # Changelog
 
+## November 15, 2026
+
+Release 0.1.57 adds Prod-only project creation, adding Dev later, direct Prod deployment with shared data, custom domains in project status and generation-based database webhook subscriptions with private signing-secret output. After a confirmed PostgreSQL statement failure and rollback, migration diagnostics can include both the SQLSTATE and one-based statement index without SQL text. Managed Browser PDF and opt-in request-time Next.js path revalidation have explicit capability and limit contracts; read their guides before enabling them.
+
 ## November 14, 2026
 
 Release 0.1.56 adds `ohmyhost github disconnect`, `ohmyhost organization mcp-connections list` and `revoke` and `ohmyhost mail webhook rotate`, with the matching MCP tools, so an agent can manage the GitHub connection, the connected MCP clients and the mail webhook secret without leaving the terminal. An owner can also rotate an installed AI, mail, storage or auth key in place, and a Paid custom hostname is now proven with its own `_omh-project` TXT record.

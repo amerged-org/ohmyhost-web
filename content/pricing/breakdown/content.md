@@ -20,6 +20,8 @@ Every project draws from the organization's one balance. There is no per-project
 
 How to read it: the Credits column is what you pay for the measured quantity, rounded up to microcredits. Worker requests and CPU are separate meters; functions and crons use those same meters. Database RAM is multiplied by active time, with allocated disk and seven-day backups included. Database CPU, network and connections have no separate charge. The R2 rows meter customer-uploaded files: storage by daily peak, then writes and reads by operation. Sent mail is charged per sent recipient and received mail per message; webhook retries add no mail charge. A mail domain has no monthly fee.
 
+Browser PDF uses its own published rate and the provider's measured browser duration, including fractional milliseconds, with no flat document fee or additional general margin. Its admission rate stays with the call, including work that settles after a client timeout. Read the [Browser PDF guide](https://docs.ohmyho.st/browser-pdf) before enabling it.
+
 The build row deserves a closer look. It reads {{ rate build.sandbox.standard-3 }}, but the code does not store a per-second decimal. It stores the exact sandbox rational, {{ number unit.buildRateUnit dp=4 }} for every {{ number 175 }} build seconds, and prices each build from its measured seconds, rounded up to the full second. Sandbox start-up time is not billed. A deployment plan holds the build price before the build starts and releases what the build did not use. So 20 build minutes cost {{ credits unit.twentyBuildMinutes dp=6 }}, and the workloads below all use that figure.
 
 ## Where the credits go
