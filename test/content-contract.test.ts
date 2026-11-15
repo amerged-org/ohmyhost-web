@@ -48,6 +48,7 @@ const DOCS_SLUGS = new Set([
   "environments",
   "migrations",
   "database",
+  "browser-pdf",
   "files",
   "domains",
   "email",
