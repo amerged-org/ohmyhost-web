@@ -1,6 +1,8 @@
 {
-  "source": "W49 Growth retention contract, reviewed 2026-11-16",
+  "source": "W49 Growth and W50 usage retention contracts, reviewed 2026-11-16",
   "detailedEventDays": 30,
   "milestoneDays": 180,
-  "cohortCalendarMonths": 13
+  "cohortCalendarMonths": 13,
+  "usageBufferHours": 24,
+  "usageArchiveDays": 90
 }
