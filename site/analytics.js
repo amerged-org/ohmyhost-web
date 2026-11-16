@@ -13,6 +13,21 @@
   };
   globalThis['ga-disable-' + id] = !granted;
   function tag() { globalThis.dataLayer = globalThis.dataLayer || []; globalThis.dataLayer.push(arguments); }
+  // This closed interface never forwards caller-provided URLs, campaign values or identifiers.
+  globalThis.trackAcquisition = (name, context) => {
+    if (!loaded || consent() !== 'v1.granted') return;
+    if (!['cta_click', 'prompt_copy_success', 'prompt_copy_failure'].includes(name)) return;
+    const cta = context?.cta;
+    if (!['login', 'prompt_nav', 'prompt_page'].includes(cta)) return;
+    const fields = { send_to: id, cta, page_group: location.pathname === '/' ? 'home' : 'other' };
+    if (name === 'cta_click') {
+      // A tag callback confirms processing, not delivery. Give its transport one
+      // bounded turn before leaving; blocked or cold tags never hold sign-in.
+      tag('event', name, fields);
+      return new Promise(resolve => setTimeout(resolve, 150));
+    }
+    tag('event', name, fields);
+  };
   const page = () => {
     placeSettings();
     if (!loaded) return;

@@ -139,6 +139,16 @@ async function main() {
           );
         if (first.startsWith("unit."))
           return format.number(unitCredits(first) / 1_000_000, decimals);
+        if (first.startsWith("growthRetention.")) {
+          const value = lookup(
+            data.GROWTH_RETENTION,
+            first.split(".")[1],
+            "growth retention value",
+          );
+          if (typeof value !== "number")
+            throw new Error(`not a growth retention number: ${first}`);
+          return format.number(value, decimals);
+        }
         throw new Error(`number cannot read ${first}`);
       case "value": {
         if (first.startsWith("plan."))

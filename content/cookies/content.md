@@ -22,7 +22,7 @@ The account portal at app.ohmyho.st and development environments do not use this
 
 ## Documentation and separate provider pages
 
-Our documentation at docs.ohmyho.st is hosted by Mintlify, which may use its own cookies and service telemetry for that service. Its delivery, search and assistant receive the requests you submit and use their own service infrastructure. The table includes our Google Analytics integration on website and docs; it does not classify every cookie used by Mintlify as technical. See [Mintlify’s privacy notice](https://www.mintlify.com/legal/privacy) for its processing. Our Google Analytics integration follows the consent choice above; it measures page views, engagement, outbound links and downloads without enabling advertising features or Google Signals.
+Our documentation at docs.ohmyho.st is hosted by Mintlify, which may use its own cookies and service telemetry for that service. Its delivery, search and assistant receive the requests you submit and use their own service infrastructure. The table includes our Google Analytics integration on website and docs; it does not classify every cookie used by Mintlify as technical. See [Mintlify’s privacy notice](https://www.mintlify.com/legal/privacy) for its processing. Our Google Analytics integration follows the consent choice above; it measures sanitized page views on the website and docs, and website login-link clicks and prompt-copy success or failure, without enabling advertising features or Google Signals. Automatic outbound-click and file-download measurement is off.
 
 The hosting CLI's locally stored credentials are not website cookies. Application-auth cookies in a customer's own application are controlled by that customer. Likewise, a separately opened GitHub, identity-provider or payment-provider page operates under that provider's own cookie notice; this notice does not classify those independent sites' cookies.
 
@@ -31,3 +31,7 @@ The hosting CLI's locally stored credentials are not website cookies. Applicatio
 You can remove or block cookies in your browser and clear site storage. Blocking a login, security or private-access cookie can prevent the function you requested from working. Removing the analytics preference displays the choice again. Rejecting analytics does not affect your ability to read the website or docs. Blocking the roadmap cookie prevents votes from being saved; deleting it disconnects this browser from its earlier votes until those records expire. Google Analytics is not enabled in the account portal.
 
 [Privacy notice](/privacy) · [Contact form](/contact)
+
+Prompt-copy events contain fixed action labels, not the copied text, raw campaign values or an account identifier. A copied prompt used in a separate agent is not linked to a website visit.
+
+Server-side service improvement uses minimized account and operational milestones separately from the optional website and docs analytics described above. It does not use an analytics cookie in the account portal. The [Privacy notice](/privacy) explains the purposes, access and retention.

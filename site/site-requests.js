@@ -87,7 +87,23 @@
     "click",
     async (event) => {
       const button = event.target.closest?.(buttons);
-      if (!button) return;
+      if (!button) {
+        const link = event.target.closest?.("a[href]");
+        if (link) {
+          try {
+            const target = new globalThis.URL(link.href, location.href);
+            if ((target.origin === location.origin || target.origin === "https://ohmyho.st" || target.origin === "https://app.ohmyho.st") && target.pathname === "/login") {
+              const processing = globalThis.trackAcquisition?.("cta_click", { cta: "login" });
+              if (processing?.then && (event.button ?? 0) === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && !event.defaultPrevented && link.target !== "_blank" && !link.hasAttribute?.("download")) {
+                event.preventDefault();
+                try { await processing; } catch { /* Analytics cannot prevent sign-in. */ }
+                location.assign(target.href);
+              }
+            }
+          } catch { /* Invalid links are not acquisition events. */ }
+        }
+        return;
+      }
       event.preventDefault();
       event.stopImmediatePropagation();
       if (button.dataset?.copyArticle !== undefined) {
@@ -109,6 +125,7 @@
           field.remove();
           if (!copied) throw Error("copy");
         }
+        if (!block) globalThis.trackAcquisition?.("prompt_copy_success", { cta: button.closest("nav") ? "prompt_nav" : "prompt_page" });
         label.textContent = "Copied";
         if (block) button.title = "Copy text";
         button.classList.add("done");
@@ -124,6 +141,7 @@
           button.classList.remove("done");
         }, 2500);
       } catch {
+        if (!block) globalThis.trackAcquisition?.("prompt_copy_failure", { cta: button.closest("nav") ? "prompt_nav" : "prompt_page" });
         label.textContent = block ? "Copy failed — select the text" : button.closest("nav") ? "Copy failed" : "Copy failed — select the prompt";
         if (block) { button.classList.add("copy-error"); button.title = "Copy failed — select the text"; }
         else document.getElementById("next")?.classList.add("on");
