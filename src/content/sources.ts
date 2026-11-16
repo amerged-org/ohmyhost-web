@@ -1,4 +1,5 @@
 import checkedOn from "../../content/data/checked-on.json" with { type: "json" };
+import growthRetention from "../../content/data/growth-retention.json" with { type: "json" };
 import plans from "../../content/data/plans.json" with { type: "json" };
 import scenarioData from "../../content/data/scenarios.json" with { type: "json" };
 import units from "../../content/data/units.json" with { type: "json" };
@@ -22,6 +23,9 @@ export const VENDORS = vendors as unknown as TypedVendors;
 
 /** Competitor list prices were read on this date; every quoted price carries it. */
 export const LIST_PRICES_CHECKED_ON = checkedOn.listPricesCheckedOn;
+
+/** W49 Growth retention limits, reviewed against the platform contract. */
+export const GROWTH_RETENTION = growthRetention;
 
 /** Plans and purchase rules from PRICING.md; the rate card itself is generated. */
 export const PLANS = plans;
