@@ -265,10 +265,8 @@ it("loads no Google code until explicit consent and stops after withdrawal", asy
   const navigation = b.clickTarget(login);
   expect(b.prevented()).toBe(beforeCta + 1);
   expect(b.navigations).toEqual([]);
-  const callback = (events().at(-1)?.[2] as { event_callback?: () => void })
-    ?.event_callback;
-  expect(callback).toBeTypeOf("function");
-  callback?.();
+  expect(events().at(-1)?.[2]).not.toHaveProperty("event_callback");
+  b.flush();
   await navigation;
   expect(b.navigations).toEqual([
     "https://ohmyho.st/login?utm_source=private@example.com",

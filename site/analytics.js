@@ -21,11 +21,10 @@
     if (!['login', 'prompt_nav', 'prompt_page'].includes(cta)) return;
     const fields = { send_to: id, cta, page_group: location.pathname === '/' ? 'home' : 'other' };
     if (name === 'cta_click') {
-      return new Promise(resolve => {
-        const timer = setTimeout(resolve, 150);
-        const complete = () => { globalThis.clearTimeout(timer); resolve(); };
-        tag('event', name, { ...fields, event_callback: complete, event_timeout: 150 });
-      });
+      // A tag callback confirms processing, not delivery. Give its transport one
+      // bounded turn before leaving; blocked or cold tags never hold sign-in.
+      tag('event', name, fields);
+      return new Promise(resolve => setTimeout(resolve, 150));
     }
     tag('event', name, fields);
   };
