@@ -1,5 +1,6 @@
 import { PAGE_META, type PageMeta } from "./page-meta.js";
 import { attribute } from "./structured-data.js";
+import { SITE_NAME } from "./site-identity.js";
 
 /** One 1200×630 social card, derived from the page's metadata so it cannot drift from the head. */
 export interface OgCard {
@@ -33,7 +34,7 @@ function kicker(path: string): string {
 }
 
 function headline(meta: PageMeta): string {
-  return (meta.socialTitle ?? meta.title).replace(/^ohmyho\.st — /u, "");
+  return (meta.socialTitle ?? meta.title).replace(/^ohmyhost — /u, "");
 }
 
 /**
@@ -86,5 +87,5 @@ html,body{margin:0;background:#000}
 .pill{position:absolute;left:80px;bottom:64px;display:inline-flex;align-items:center;gap:12px;border:1px solid #26282C;border-radius:999px;padding:14px 24px;font-family:'JetBrains Mono',monospace;font-size:22px;color:#F0F1F2}
 .pill s{text-decoration:none;color:#3E4247}
 .mark{position:absolute;right:80px;top:64px;width:56px;height:56px}
-</style></head><body><div class="og"><div class="glow"></div><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><path d="${OMEGA}" fill="none" stroke="#F0F1F2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="k">${attribute(card.kicker)}</div><div class="h">${attribute(card.headline)}</div><div class="s">${attribute(card.subtitle)}</div><div class="pill"><s>ohmyho.st</s>${attribute(card.path)}</div><div class="wm">ohmyho<i>.st</i></div></div></body></html>`;
+</style></head><body><div class="og"><div class="glow"></div><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><path d="${OMEGA}" fill="none" stroke="#F0F1F2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="k">${attribute(card.kicker)}</div><div class="h">${attribute(card.headline)}</div><div class="s">${attribute(card.subtitle)}</div><div class="pill"><s>${attribute(SITE_NAME)}</s>${attribute(card.path)}</div><div class="wm">ohmyho<i>st</i></div></div></body></html>`;
 }

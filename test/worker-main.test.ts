@@ -39,7 +39,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(home.headers.get("content-type")).toContain("text/html");
     const html = await home.text();
     expect(html).toContain('</a></div>\n  </div>\n  <div class="fbot">');
-    expect(html).toContain("<span>© 2026 ohmyho.st — Made in Europe</span>");
+    expect(html).toContain("<span>© 2026 ohmyhost — Made in Europe</span>");
     expect(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/u)?.[1]).toBe(
       '<span class="thin">Vercel, Supabase &amp; Resend.</span><br>One alternative from $10/month.',
     );
@@ -48,20 +48,20 @@ describe("public entry and unassigned Free-host fallback", () => {
       ["name", "twitter:title"],
     ])
       expect(html).toContain(
-        `<meta ${attribute}="${name}" content="ohmyho.st — An alternative to Vercel, Supabase &amp; Resend">`,
+        `<meta ${attribute}="${name}" content="ohmyhost — An alternative to Vercel, Supabase &amp; Resend">`,
       );
     for (const [attribute, name] of [
       ["property", "og:description"],
       ["name", "twitter:description"],
     ])
       expect(html).toContain(
-        `<meta ${attribute}="${name}" content="ohmyho.st (ohmyhost): app hosting, Postgres and email from $10/month. Start deployment with one prompt in Codex, Claude Code or Cursor.">`,
+        `<meta ${attribute}="${name}" content="ohmyhost: app hosting, Postgres and email from $10/month. Start deployment with one prompt in Codex, Claude Code or Cursor.">`,
       );
     expect(html).toContain(
-      "Their three Pro plans total $65/month. ohmyho.st brings hosting, Postgres and email into one balance. Start with one prompt in your coding agent.",
+      "Their three Pro plans total $65/month. ohmyhost brings hosting, Postgres and email into one balance. Start with one prompt in your coding agent.",
     );
     expect(html).toContain(
-      "ohmyho.st (ohmyhost) is prepaid-credit hosting for apps built with",
+      "ohmyhost is prepaid-credit hosting for apps built with",
     );
     expect(html).toContain(
       "1,000 credits. Our small-app example uses ≈ 567, including 2,000 emails. Every project shares the balance. Higher usage needs more credits.",
@@ -75,11 +75,11 @@ describe("public entry and unassigned Free-host fallback", () => {
     )["@graph"] as Array<Record<string, unknown>>;
     for (const type of ["WebSite", "Organization"])
       expect(graph.find((node) => node["@type"] === type)).toMatchObject({
-        name: "ohmyho.st",
-        alternateName: "ohmyhost",
+        name: "ohmyhost",
+        alternateName: "ohmyho.st",
       });
     expect(html).toContain(
-      "<title>ohmyho.st — Vercel, Supabase &amp; Resend alternative, free plan</title>",
+      "<title>ohmyhost — Vercel, Supabase &amp; Resend alternative, free plan</title>",
     );
     expect(html).toContain(
       "Independent comparison; no affiliation or endorsement.",
@@ -150,7 +150,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html).toContain("Your database, exported &amp; connected.");
     expect(html).toContain('width="96" height="96" loading="lazy"');
     expect(html).toContain(
-      '<b><a href="https://www.linkedin.com/in/auto-mate/" rel="noopener">Sebastian</a></b> · founder, ohmyho.st',
+      '<b><a href="https://www.linkedin.com/in/auto-mate/" rel="noopener">Sebastian</a></b> · founder, ohmyhost',
     );
     expect(
       await readFile(
@@ -936,7 +936,7 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(text).toContain("https://docs.ohmyho.st/quickstart.md");
     expect(text).not.toContain("https://ohmyho.st/docs/");
     expect(text).toContain("https://ohmyho.st/mcp.json");
-    expect(text).toContain("Develop and save app versions with ohmyho.st");
+    expect(text).toContain("Develop and save app versions with ohmyhost");
     expect(text).toContain("https://app.ohmyho.st/mcp");
     expect(text).toContain("For clients that support authenticated remote MCP");
     expect(text).toContain("Connected chats use client-managed OAuth");

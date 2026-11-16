@@ -1,13 +1,13 @@
 {
-  "title": "Deploy your exported Lovable app on ohmyho.st",
-  "description": "Paste one prompt and your coding agent deploys your exported Lovable repository to ohmyho.st: Dev preview first, then Prod. Free plan, Supabase kept or moved.",
+  "title": "Deploy your exported Lovable app on ohmyhost",
+  "description": "Paste one prompt and your coding agent deploys your exported Lovable repository to ohmyhost: Dev preview first, then Prod. Free plan, Supabase kept or moved.",
   "kind": "howto",
   "status": "published",
   "crumb": "From Lovable",
   "social": {
     "image": "/og/from-lovable.png",
-    "alt": "ohmyho.st. An alternative home for your Lovable app. Export to GitHub and deploy supported apps with your coding agent.",
-    "title": "ohmyho.st — An alternative home for your Lovable app",
+    "alt": "ohmyhost. An alternative home for your Lovable app. Export to GitHub and deploy supported apps with your coding agent.",
+    "title": "ohmyhost — An alternative home for your Lovable app",
     "description": "Export to GitHub and deploy supported apps with your coding agent."
   },
   "modified": "2026-10-27"

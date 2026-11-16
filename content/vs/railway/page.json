@@ -1,14 +1,14 @@
 {
-  "title": "ohmyho.st vs Railway: a usage-billed Railway alternative",
-  "description": "Railway bills a $5 or $20 monthly minimum plus per-second compute. ohmyho.st bills requests, CPU-ms and database hours from one $10 balance for every project.",
+  "title": "ohmyhost vs Railway: a usage-billed Railway alternative",
+  "description": "Railway bills a $5 or $20 monthly minimum plus per-second compute. ohmyhost bills requests, CPU-ms and database hours from one $10 balance for every project.",
   "kind": "page",
   "status": "published",
   "crumb": "vs Railway",
   "social": {
     "image": "/og/vs-railway.png",
-    "alt": "ohmyho.st. An alternative to Railway for app hosting. Compare ohmyho.st’s agent workflow, billing model and supported features.",
-    "title": "ohmyho.st — An alternative to Railway for app hosting",
-    "description": "Compare ohmyho.st’s agent workflow, billing model and supported features."
+    "alt": "ohmyhost. An alternative to Railway for app hosting. Compare ohmyhost’s agent workflow, billing model and supported features.",
+    "title": "ohmyhost — An alternative to Railway for app hosting",
+    "description": "Compare ohmyhost’s agent workflow, billing model and supported features."
   },
   "modified": "2026-10-29"
 }

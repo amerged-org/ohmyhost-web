@@ -1,14 +1,14 @@
 {
-  "title": "Deploy an app built with Cursor to ohmyho.st",
+  "title": "Deploy an app built with Cursor to ohmyhost",
   "description": "Add one MCP server to Cursor, paste one prompt, and Cursor plans, deploys and verifies your GitHub app on Dev and Prod with Postgres and one credit balance.",
   "kind": "howto",
   "status": "published",
   "crumb": "Cursor",
   "social": {
     "image": "/og/for-cursor.png",
-    "alt": "ohmyho.st. Your Cursor hosting workflow. Connect Cursor to ohmyho.st and deploy a supported GitHub app.",
-    "title": "ohmyho.st — Your Cursor hosting workflow",
-    "description": "Connect Cursor to ohmyho.st and deploy a supported GitHub app."
+    "alt": "ohmyhost. Your Cursor hosting workflow. Connect Cursor to ohmyhost and deploy a supported GitHub app.",
+    "title": "ohmyhost — Your Cursor hosting workflow",
+    "description": "Connect Cursor to ohmyhost and deploy a supported GitHub app."
   },
   "modified": "2026-10-28"
 }

@@ -73,9 +73,11 @@ platform's immutable client downloads.
 
 The homepage and editorial JSON-LD graphs share the `WebSite` identity from
 `src/site-identity.ts`. Editorial metadata accepts ISO dates or explicit timestamps with timezones.
-The primary website and organization name remains `ohmyho.st`; `ohmyhost` is their shared
-`alternateName`. The homepage description and three visible passages (homepage FAQ, About and
-Philosophy) connect the unpunctuated spelling to that brand.
+The primary website and organization name is `ohmyhost`; `ohmyho.st` is their shared
+`alternateName` and remains the hosting address. The owner-approved rename on 2026-11-16 applies
+to search and social metadata, visible copy, wordmarks and downloadable social assets. The redundant
+`(ohmyhost)` alias is removed. The approved homepage and brand source templates stay immutable;
+`prepare-pages.mjs` applies the spelling change while preserving URLs and platform flag labels.
 Existing dates retain their original day and are serialized at the UTC day boundary for schema and
 Open Graph; midnight represents the stored day's precision, not a recovered publication clock time.
 Explicit timestamps retain their clock time. Build time never substitutes for publication time.

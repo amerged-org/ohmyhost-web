@@ -2,7 +2,7 @@
 
 By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 20, 2026 · Updated October 25, 2026
 
-Your Lovable code is on GitHub. Before you choose a host, work through  this checklist with your agent. It applies to every host, not just ours. If you’ve already decided on ohmyho.st, here’s the quicck way: [Deploy your exported Lovable app to ohmyho.st](/from/lovable).
+Your Lovable code is on GitHub. Before you choose a host, work through  this checklist with your agent. It applies to every host, not just ours. If you’ve already decided on ohmyhost, here’s the quicck way: [Deploy your exported Lovable app to ohmyhost](/from/lovable).
 
 ## The Checklist
 
@@ -45,7 +45,7 @@ Start the exam with this  pompt:
 
 ```text
 Inspect my Lovable export at [REPOSITORY URL], branch [BRANCH], for hosting
-on ohmyho.st. Identify the framework, build, backend, login, files and
+on ohmyhost. Identify the framework, build, backend, login, files and
 external services. Explain what can stay as it is and what needs adapting.
 Prepare a Dev deployment plan without changing production or moving data.
 ```
@@ -68,7 +68,7 @@ Give your agent an example of each key feature: the customer login, a file uploa
 
 ## Connect your agent to the host
 
-Open the  repository in your coding tool and use the ohmyho.st starup prompt:
+Open the  repository in your coding tool and use the ohmyhost starup prompt:
 
 ```text
 {{ prompt }}
@@ -76,7 +76,7 @@ Open the  repository in your coding tool and use the ohmyho.st starup prompt:
 
 Your agent uses the supported connection workflow for its environment. A local tool may set up the CLI or MCP connection; a supported native chat can use its connected tols. You are responsible for logging into your account and, if necessary, authorizing GitHub. There is no reason to paste private keys into the  chat.
 
-If this app already has an ohmyho.st project, tell your agent to use it. The [deploy  skill](/skills/ohmyhost-deploy/SKILL.md) works with the saved sourrce and project instead of starting from scratch with every release. GitHub is useful if you want to keep the Lovable sync. Accessible source files can also be saved as managed versions when this workflow is selected.
+If this app already has an ohmyhost project, tell your agent to use it. The [deploy  skill](/skills/ohmyhost-deploy/SKILL.md) works with the saved sourrce and project instead of starting from scratch with every release. GitHub is useful if you want to keep the Lovable sync. Accessible source files can also be saved as managed versions when this workflow is selected.
 
 Before creating a new project, check the workspace and region with your agent. Before running a build, review the plan: It should specify the source version, the intended environment , any required secrets, potential blockers, and the costs or impactts it reports. If the plan describes a database migration that you did not request, narrow the scope of the task back down to the hosting preview.
 
@@ -103,7 +103,7 @@ If you're satisfied with the preview, you can request deployment. The promotion 
 
 Keeping an existing Supabase backend can simplify the inital hosting process. Ask your agent to verify the login , database access, functions, and files from the new host. The existing backend remains part of the app, even if the front-end address has changed.
 
-Ask your agent to set up the connections that ohmyho.st needs to access these services, and then test them in Dev. You should be able to log in , load your test data, and upload or download a file if the app supports it. Have the agnet list every service that still fails and explain which feature you are unable to test as a result.
+Ask your agent to set up the connections that ohmyhost needs to access these services, and then test them in Dev. You should be able to log in , load your test data, and upload or download a file if the app supports it. Have the agnet list every service that still fails and explain which feature you are unable to test as a result.
 
 Migrating to managed Postgres is a separate task. Simply importing the database  does not replace Supabase Auth, Storage, Realtime, or Edge Functions. Your agnet must determine which of these your app uses, suggest alternatives where necessary, and test the resulting behavior. Keep the current app available while this work is being prepared.
 
@@ -132,7 +132,7 @@ Managed transactional email requires a Paid plan and a verified sender domain. A
 
 ## Reading the Cost Estimate
 
-A front end that retains its existing Suapbase backend pays ohmyho.st for the  resources it uses there. The external backend has its own billing. This sample calculation includes deployment, traffic, and a dedicated hostname:
+A front end that retains its existing Suapbase backend pays ohmyhost for the  resources it uses there. The external backend has its own billing. This sample calculation includes deployment, traffic, and a dedicated hostname:
 
 {{ table workload.lovableFrontend }}
 
@@ -164,6 +164,6 @@ The Free plan includes {{ number plan.freeCredits }} credits per UTC month. Buil
 
 {{ sources vercel supabase resend }}
 
-[Get your app from Lovable](/from/lovable) · [ohmyho.st vs Supabase](/vs/supabase) · [Cost breakdown](/pricing/breakdown)
+[Get your app from Lovable](/from/lovable) · [ohmyhost vs Supabase](/vs/supabase) · [Cost breakdown](/pricing/breakdown)
 
 A Claude artifact can move to your own domain in the same way: read [How to Host a Claude Artifact on Your Own Domain](/blog/how-to-host-a-claude-artifact).

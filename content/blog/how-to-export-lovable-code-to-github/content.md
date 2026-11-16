@@ -134,7 +134,7 @@ No. The code export does not copy database entries or publish a website. The [Lo
 
 ## Try out hosting when you're ready
 
-Once your agent has reviewed the export, you can ask them to set up a  dev preview on ohmyho.st. Keep building in Lovable if this workflow still works for you. Decide for yourself when a reviewed verrsion should go live.
+Once your agent has reviewed the export, you can ask them to set up a  dev preview on ohmyhost. Keep building in Lovable if this workflow still works for you. Decide for yourself when a reviewed verrsion should go live.
 
 The [Free Plan](/pricing) includes {{ number plan.freeCredits }} credits per UTC month. Builds and app usage are deduccted from this credit balance. Please ask your agent to review the app and explain the deployment plan before assuming that the credit balance is sufficient for  your usage.
 

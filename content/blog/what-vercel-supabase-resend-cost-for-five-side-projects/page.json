@@ -1,14 +1,14 @@
 {
   "title": "What Vercel, Supabase and Resend cost for 5 side projects",
-  "description": "Vercel Pro, Supabase Pro and Resend Pro cost $105 a month for five projects. Compare an itemized ohmyho.st workload with hosting, Postgres and mail usage.",
+  "description": "Vercel Pro, Supabase Pro and Resend Pro cost $105 a month for five projects. Compare an itemized ohmyhost workload with hosting, Postgres and mail usage.",
   "kind": "article",
   "status": "published",
   "crumb": "Five side projects, priced",
   "social": {
     "image": "/og/blog-what-vercel-supabase-resend-cost-for-five-side-projects.png",
-    "alt": "ohmyho.st. Five projects. What does your stack cost?. Vercel, Supabase and Resend compared with ohmyho.st under explicit usage assumptions.",
-    "title": "ohmyho.st — Five projects. What does your stack cost?",
-    "description": "Vercel, Supabase and Resend compared with ohmyho.st under explicit usage assumptions."
+    "alt": "ohmyhost. Five projects. What does your stack cost?. Vercel, Supabase and Resend compared with ohmyhost under explicit usage assumptions.",
+    "title": "ohmyhost — Five projects. What does your stack cost?",
+    "description": "Vercel, Supabase and Resend compared with ohmyhost under explicit usage assumptions."
   },
   "parent": "/blog",
   "author": "Sebastian Mertens",

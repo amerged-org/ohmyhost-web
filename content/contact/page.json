@@ -1,14 +1,14 @@
 {
-  "title": "Contact ohmyho.st: questions, privacy, billing",
-  "description": "Use the contact form for questions about ohmyho.st, privacy requests, billing and the DPA. For bugs, ask your agent. Amerged B.V., Venray, Netherlands.",
+  "title": "Contact ohmyhost: questions, privacy, billing",
+  "description": "Use the contact form for questions about ohmyhost, privacy requests, billing and the DPA. For bugs, ask your agent. Amerged B.V., Venray, Netherlands.",
   "kind": "page",
   "status": "published",
   "crumb": "Contact",
   "social": {
     "image": "/og/contact.png",
-    "alt": "ohmyho.st. Let’s talk about your app. Questions about ohmyho.st, billing or privacy.",
-    "title": "ohmyho.st — Let’s talk about your app",
-    "description": "Questions about ohmyho.st, billing or privacy."
+    "alt": "ohmyhost. Let’s talk about your app. Questions about ohmyhost, billing or privacy.",
+    "title": "ohmyhost — Let’s talk about your app",
+    "description": "Questions about ohmyhost, billing or privacy."
   },
   "modified": "2026-09-21"
 }

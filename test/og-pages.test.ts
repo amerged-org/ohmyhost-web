@@ -28,13 +28,13 @@ it("derives one social card per page and keeps the rendered PNGs in step with th
   expect(ogSlug("/pricing/breakdown")).toBe("pricing-breakdown");
   const vercel = cards.find((card) => card.path === "/vs/vercel");
   expect(vercel?.headline).toBe(
-    pageMeta("/vs/vercel").socialTitle?.replace(/^ohmyho\.st — /u, ""),
+    pageMeta("/vs/vercel").socialTitle?.replace(/^ohmyhost — /u, ""),
   );
   expect(vercel?.kicker).toContain("compare");
   if (!vercel) throw new Error("/vs/vercel card missing");
   const html = ogCardHtml(vercel);
   expect(html).toContain("url(/fonts/3e756954468ff1cb.ttf)");
-  expect(html).toContain('<div class="pill"><s>ohmyho.st</s>/vs/vercel</div>');
+  expect(html).toContain('<div class="pill"><s>ohmyhost</s>/vs/vercel</div>');
   const manifestFile = new URL("og/manifest.json", publicDir);
   const manifest = existsSync(manifestFile)
     ? (JSON.parse(await readFile(manifestFile, "utf8")) as Record<

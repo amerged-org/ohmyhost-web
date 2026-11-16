@@ -1,8 +1,8 @@
-# Vercel alternative with a database: ohmyho.st vs. Vercel
+# Vercel alternative with a database: ohmyhost vs. Vercel
 
 You host the app on Vercel, the database on Supabase, and emaills through Resend. That’s three dashboards, three invoices, and three pricing plans you have to keep track of—and those two side projects that nobody visited this month  cost you just as much as the one that did get traffic.
 
-ohmyho.st combines these four components into  a single prepaid balance. {{ usd plan.paidUsd }} per month buys {{ number plan.paidCredits }} credits; each project draws from the same balance , and an inactiive projeect uses up almost nothing. Vercel Pro alone costs {{ usd vendor.vercel.pro }} per month before you even have a database or the ability to send a password reset email; the standard stack of three subscriptions costs {{ usd scenario.threeSubscriptions }} per month. A small app here uses about {{ credits workload.smallApp }} per month.
+ohmyhost combines these four components into  a single prepaid balance. {{ usd plan.paidUsd }} per month buys {{ number plan.paidCredits }} credits; each project draws from the same balance , and an inactiive projeect uses up almost nothing. Vercel Pro alone costs {{ usd vendor.vercel.pro }} per month before you even have a database or the ability to send a password reset email; the standard stack of three subscriptions costs {{ usd scenario.threeSubscriptions }} per month. A small app here uses about {{ credits workload.smallApp }} per month.
 
 {{ figure bills.vercel }}
 
@@ -21,7 +21,7 @@ A developer with one project across all three accounts: {{ usd scenario.threeSub
 
 {{ checked vercel }} {{ checked supabase }} {{ checked resend }}
 
-## What ohmyho.st charges for the same little app
+## What ohmyhost charges for the same little app
 
 One credit balance, all projects, no sppace fee. {{ usd plan.paidUsd }} Purchase {{ number plan.paidCredits }} monthly credits, which expire at the end of the billing period and cannot be carried over. Free accounts receive {{ number plan.freeCredits }} credits per UTC month. Top-ups never expire, nor do recharge, sign-up bonus, and referral credits; only Paid Workspaces purchase top-ups, at {{ number plan.topUpPerUsd }} credits per dollar , and {{ number plan.topUpPerUsdAbove100 }} per dollar on the portion of a larger purchase. One credit has a face value of {{ usd plan.usdPerCredit }}. There is  no base fee per project and no per-space charge: An organization has a credit balace, each project draws from it, and a second person who deploys costs nothing extra.
 
@@ -39,22 +39,22 @@ Two things continue to consume credits while a project is inactive: each  script
 
 The card on the left represents one developer and one project. It costs {{ usd scenario.threeSubscriptions }} before usage exceeds the quotas and before a second developer slot is incurred. Add four more projects to the same account, and the card on the left becomes {{ usd scenario.fiveProjects }}, because each Supabase project costts {{ usd vendor.supabase.microProject }} per month ater the first one. The card on the right remains at {{ usd plan.paidUsd }} whether you run one or nine projects; what changes is how quickly the {{ number plan.paidCredits }} credits are used up. The small app at the top uses about {{ credits workload.smallApp }} of them , for  a credit value of {{ usdValue workload.smallApp }}.
 
-The downside is that bliling is based on usage, with no quota to fall back on. A heavily used production app with a database that’s up 200 hours a month, 5 million requests, and 20,000 email recipients consumes roughly {{ credits workload.busyApp }}: {{ usdValue workload.busyApp }} in credit value compared to {{ usd scenario.threeSubscriptions }} for the  three plans. Many low-traffic projects are a good fit for ohmyho.st; a high-traffic project is a good fit for Vercel and Supabase.
+The downside is that bliling is based on usage, with no quota to fall back on. A heavily used production app with a database that’s up 200 hours a month, 5 million requests, and 20,000 email recipients consumes roughly {{ credits workload.busyApp }}: {{ usdValue workload.busyApp }} in credit value compared to {{ usd scenario.threeSubscriptions }} for the  three plans. Many low-traffic projects are a good fit for ohmyhost; a high-traffic project is a good fit for Vercel and Supabase.
 
 {{ checked vercel }} {{ checked supabase }} {{ checked resend }}
 
 ## When Vercel is the better choice
 
 - One high-volume app instead of many low-volume ones. As soon as your database is active for most of the day, a fixed-price Supabase instance beats hourly billing: the heavy load mentiioned above amounts to {{ usdValue workload.busyApp }} in monthly credits , and it grows along with your traffic.
-- A framework that ohmyho.st does not run. The runtime environment is provided by Astro , Next.js, Vite with React, and TanStack Start from a GitHub repositroy; nothing else, and no containers. Astro, SvelteKit, Nuxt, and Remix are hosted on Vercel, not here.
-- The latest Next.js features. Next.js is Veercel's framework, and its Vercel-specific features are released there first. ohmyho.st builds Next.js using its own adapter for Cloudflare Workers, so be sure to test a feature  on Dev before relying on it.
-- A team that wants a dashboard. Vercel generates previews for each branch and provides the entire team  with a dashboard that includes free viewer slots. ohmyho.st has exactly two environments per project—Dev and Prod—and no deployment dashboard; a coding agent handles deployment via MCP, and the portal only displyas projects, credits, budgets, and tokens.
-- A non-commercial website without a database. Vercel Hobby for {{ usd vendor.vercel.hobby }} contains {{ text vendor.vercel.hobby.includes }}. ohmyho.st Free offers {{ number plan.freeCredits }} credits per month at the same rates as the paid plan, with requsets up to {{ rate wfp.requests }}. For a static portfolio without a database , both are free; compare the two credit limits with your actual traffic.
+- A framework that ohmyhost does not run. The runtime environment is provided by Astro , Next.js, Vite with React, and TanStack Start from a GitHub repositroy; nothing else, and no containers. Astro, SvelteKit, Nuxt, and Remix are hosted on Vercel, not here.
+- The latest Next.js features. Next.js is Veercel's framework, and its Vercel-specific features are released there first. ohmyhost builds Next.js using its own adapter for Cloudflare Workers, so be sure to test a feature  on Dev before relying on it.
+- A team that wants a dashboard. Vercel generates previews for each branch and provides the entire team  with a dashboard that includes free viewer slots. ohmyhost has exactly two environments per project—Dev and Prod—and no deployment dashboard; a coding agent handles deployment via MCP, and the portal only displyas projects, credits, budgets, and tokens.
+- A non-commercial website without a database. Vercel Hobby for {{ usd vendor.vercel.hobby }} contains {{ text vendor.vercel.hobby.includes }}. ohmyhost Free offers {{ number plan.freeCredits }} credits per month at the same rates as the paid plan, with requsets up to {{ rate wfp.requests }}. For a static portfolio without a database , both are free; compare the two credit limits with your actual traffic.
 - You're not working with a coding agent. There's no button to press here. If you want to push to "main" and then forget about it, Vecel's  Git integration takes care of it automatically.
 
 {{ checked vercel }} {{ checked supabase }}
 
-## When ohmyho.st is a good fit
+## When ohmyhost is a good fit
 
 - Several small projects, most of whiich are inactive. There is no base fee per project and no space charge. Five inactive projects together cost about {{ credits workload.fiveQuietProjects }} per  month, and a project that no one visits only incurs charges for its hosted script and any customer files; RAM, storage, and seven-day backups of a dormant database are included.
 - You want the database and email to be billed from the same credit balance as the hosting. Postgres, transactional email, and a custom domain are billed from the same {{ number plan.paidCredits }} credits, making the second and third accounts optional. Your [application authentication](https://docs.ohmyho.st/application-auth) remains yours: Better Auth and a customer-owned WorkOS AuthKit are the verified integrations , and platform login is seaprate from your app’s users.
@@ -83,7 +83,7 @@ Here's what happnes next, step  by step:
 
 ## FAQ
 
-### Is ohmyho.st cheaper than Vercel?
+### Is ohmyhost cheaper than Vercel?
 
 For a portfolio of small apps, usually yes. {{ usd plan.paidUsd }} per month buys {{ number plan.paidCredits }} credits, whicch are shared among all projects, and the small app at the  top uses about {{ credits workload.smallApp }} of them. Vercel Pro is billed per developer seat and still requires a database and an email provider on top of that. A heavily used app whose database runs 24/7 can cost more here, so check the high-load pricing before you decide.
 
@@ -111,4 +111,4 @@ A  zero balance triggers a {{ number plan.graceDays }}-day grace period during w
 
 [Cost Breakdown](/pricing/breakdown) · [From Vercel and Supabase](/from/vercel-supabase) · [vs. Supabase](/vs/supabase) · [How much Vercel, Supabase, and Resend cost for five side projects](/blog/what-vercel-supabase-resend-cost-for-five-side-projects) · [Free Vercel and Supabase Alternatives](/blog/free-vercel-supabase-alternatives-2026) · [Vercel and Supabase on a Single Platform](/blog/all-in-one-vercel-supabase-alternatives)
 
-ohmyho.st is an indeendent  service and is neither affiliated with nor supported by Vercel, Supabase, or Resend. All trademarks belong to their respective owners.
+ohmyhost is an indeendent  service and is neither affiliated with nor supported by Vercel, Supabase, or Resend. All trademarks belong to their respective owners.

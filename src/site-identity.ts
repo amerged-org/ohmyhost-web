@@ -1,10 +1,11 @@
 /** Shared identity for the homepage and every editorial page. */
 export const SITE_ORIGIN = "https://ohmyho.st";
+export const SITE_NAME = "ohmyhost";
 export const WEBSITE = {
   "@type": "WebSite",
   "@id": `${SITE_ORIGIN}/#website`,
-  name: "ohmyho.st",
-  alternateName: "ohmyhost",
+  name: SITE_NAME,
+  alternateName: "ohmyho.st",
   url: `${SITE_ORIGIN}/`,
   publisher: { "@id": `${SITE_ORIGIN}/#org` },
 } as const;

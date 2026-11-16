@@ -1,13 +1,13 @@
 {
-  "title": "ohmyho.st changelog: what shipped and when",
-  "description": "Release notes for ohmyho.st: client releases, hosting runtime changes, new MCP tools and Skills, pricing updates and the dates they went live, newest first.",
+  "title": "ohmyhost changelog: what shipped and when",
+  "description": "Release notes for ohmyhost: client releases, hosting runtime changes, new MCP tools and Skills, pricing updates and the dates they went live, newest first.",
   "kind": "page",
   "status": "published",
   "crumb": "Changelog",
   "social": {
     "image": "/og/changelog.png",
-    "alt": "ohmyho.st. What\u2019s new in ohmyho.st. Releases, improvements and platform changes.",
-    "title": "ohmyho.st \u2014 What\u2019s new in ohmyho.st",
+    "alt": "ohmyhost. What\u2019s new in ohmyhost. Releases, improvements and platform changes.",
+    "title": "ohmyhost \u2014 What\u2019s new in ohmyhost",
     "description": "Releases, improvements and platform changes."
   },
   "modified": "2026-11-16"

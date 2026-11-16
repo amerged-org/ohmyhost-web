@@ -1,13 +1,13 @@
 {
-  "title": "Move from Vercel and Supabase to one balance — ohmyho.st",
+  "title": "Move from Vercel and Supabase to one balance — ohmyhost",
   "description": "Two bills become one: keep Supabase as an external database or import a dump, move environment secrets and callback URLs, deploy with your agent and verify.",
   "kind": "howto",
   "status": "published",
   "crumb": "From Vercel and Supabase",
   "social": {
     "image": "/og/from-vercel-supabase.png",
-    "alt": "ohmyho.st. Explore an alternative to your Vercel + Supabase setup. Assess hosting, database and integration changes before migrating.",
-    "title": "ohmyho.st — Explore an alternative to your Vercel + Supabase setup",
+    "alt": "ohmyhost. Explore an alternative to your Vercel + Supabase setup. Assess hosting, database and integration changes before migrating.",
+    "title": "ohmyhost — Explore an alternative to your Vercel + Supabase setup",
     "description": "Assess hosting, database and integration changes before migrating."
   },
   "modified": "2026-10-29"

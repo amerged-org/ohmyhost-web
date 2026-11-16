@@ -1,13 +1,13 @@
 {
-  "title": "Introducing ohmyho.st: deploy with your agent",
+  "title": "Introducing ohmyhost: deploy with your agent",
   "description": "Signup is open: bring a GitHub app, ask your coding agent to deploy it, share one credit balance across projects and ask the agent for usage and status.",
   "kind": "article",
   "status": "published",
-  "crumb": "Introducing ohmyho.st",
+  "crumb": "Introducing ohmyhost",
   "social": {
     "image": "/og/blog-introducing-ohmyho-st.png",
-    "alt": "ohmyho.st. Meet your hosting alternative. App hosting, managed Postgres and transactional email, operated through your coding agent.",
-    "title": "ohmyho.st — Meet your hosting alternative",
+    "alt": "ohmyhost. Meet your hosting alternative. App hosting, managed Postgres and transactional email, operated through your coding agent.",
+    "title": "ohmyhost — Meet your hosting alternative",
     "description": "App hosting, managed Postgres and transactional email, operated through your coding agent."
   },
   "parent": "/blog",

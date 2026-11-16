@@ -105,7 +105,7 @@ it("compares the integrated platforms by capability and dated free-plan limits i
     "InsForge",
     "Firebase",
     "Nhost",
-    "ohmyho.st",
+    "ohmyhost",
   ])
     expect(article, name).toContain(name);
   expect(article).not.toMatch(

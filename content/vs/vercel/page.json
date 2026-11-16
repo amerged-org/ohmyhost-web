@@ -1,13 +1,13 @@
 {
-  "title": "Vercel alternative with a database: ohmyho.st vs Vercel",
-  "description": "ohmyho.st against Vercel for a portfolio of small apps: Vercel Pro, Supabase and Resend beside one prepaid balance that meters hosting, Postgres and mail.",
+  "title": "Vercel alternative with a database: ohmyhost vs Vercel",
+  "description": "ohmyhost against Vercel for a portfolio of small apps: Vercel Pro, Supabase and Resend beside one prepaid balance that meters hosting, Postgres and mail.",
   "kind": "page",
   "status": "published",
   "crumb": "vs Vercel",
   "social": {
     "image": "/og/vs-vercel.png",
-    "alt": "ohmyho.st. An alternative to Vercel for app hosting. Compare deployment workflows, supported features and usage pricing.",
-    "title": "ohmyho.st — An alternative to Vercel for app hosting",
+    "alt": "ohmyhost. An alternative to Vercel for app hosting. Compare deployment workflows, supported features and usage pricing.",
+    "title": "ohmyhost — An alternative to Vercel for app hosting",
     "description": "Compare deployment workflows, supported features and usage pricing."
   },
   "modified": "2026-10-27"

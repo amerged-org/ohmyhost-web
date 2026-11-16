@@ -1,14 +1,14 @@
 {
-  "title": "Codex deploy: hosting for vibe-coded apps — ohmyho.st",
-  "description": "Deploy from Codex with a saved ohmyho.st login and reviewed plans. Add an optional API token and stop budget for unattended runs, and see Dev versus Prod.",
+  "title": "Codex deploy: hosting for vibe-coded apps — ohmyhost",
+  "description": "Deploy from Codex with a saved ohmyhost login and reviewed plans. Add an optional API token and stop budget for unattended runs, and see Dev versus Prod.",
   "kind": "howto",
   "status": "published",
   "crumb": "Codex",
   "social": {
     "image": "/og/for-codex.png",
-    "alt": "ohmyho.st. Your Codex hosting workflow. Connect Codex to ohmyho.st and deploy a supported GitHub app.",
-    "title": "ohmyho.st — Your Codex hosting workflow",
-    "description": "Connect Codex to ohmyho.st and deploy a supported GitHub app."
+    "alt": "ohmyhost. Your Codex hosting workflow. Connect Codex to ohmyhost and deploy a supported GitHub app.",
+    "title": "ohmyhost — Your Codex hosting workflow",
+    "description": "Connect Codex to ohmyhost and deploy a supported GitHub app."
   },
   "modified": "2026-10-30"
 }

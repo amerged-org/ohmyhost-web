@@ -1,8 +1,8 @@
-# Connect Your ohmyho.st App to Zapier and Make
+# Connect Your ohmyhost App to Zapier and Make
 
 By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · November 16, 2026
 
-A customer submits a form in your app. You want your workflow to notice the new record, send the right information to another tool, and update the record when the next step is complete. The ohmyho.st integrations for Zapier and Make connect those workflows to your hosted application's database and project operations.
+A customer submits a form in your app. You want your workflow to notice the new record, send the right information to another tool, and update the record when the next step is complete. The ohmyhost integrations for Zapier and Make connect those workflows to your hosted application's database and project operations.
 
 The integrations are being prepared for wider access. The Zapier integration is in review, and the Make app is currently private to our organization. [Contact us](/contact) to ask about access. The examples below describe the integrations we have tested; they are not a promise that they are already available in the public app directories.
 
@@ -10,14 +10,14 @@ The integrations are being prepared for wider access. The Zapier integration is 
 
 A database webhook lets your workflow react when a row is inserted, updated, or deleted. For example, a booking app can send a new booking to an operations workflow, while a change to the booking status can trigger a follow-up. Choose the events and table that matter to the workflow rather than watching every change in the project.
 
-On ohmyho.st, database change delivery uses a watch and a webhook. The watch identifies the database changes; the webhook delivers the event to the workflow's endpoint. Our end-to-end tests covered insert, update, and delete events in both platforms. The Make test used the native ohmyho.st webhook module. The Zapier test received database events through a Catch Hook step.
+On ohmyhost, database change delivery uses a watch and a webhook. The watch identifies the database changes; the webhook delivers the event to the workflow's endpoint. Our end-to-end tests covered insert, update, and delete events in both platforms. The Make test used the native ohmyhost webhook module. The Zapier test received database events through a Catch Hook step.
 
 Before using a production table, test with a table and records created for the purpose. Check the actual payload in the workflow run: the trigger is only useful if the event contains the information the next step needs.
 
 Ask your coding agent to plan the setup:
 
 ```text
-Inspect my ohmyho.st project and identify the database and environment
+Inspect my ohmyhost project and identify the database and environment
 used by [APP]. I want a workflow to react when [TABLE] changes. Explain
 which events and fields it needs, how to set up the watch and webhook, and
 how to verify delivery with test records. Do not expose credentials or change
@@ -43,7 +43,7 @@ Use only the data the workflow needs. Avoid putting private customer information
 
 Start with a single outcome and map the data that travels between steps. For a booking app, the outcome might be to notify the team when a new booking arrives. Identify the booking table and the insert event, then decide which fields the notification actually needs. A record identifier and the relevant booking details may be enough; sending an entire customer record to every destination makes the workflow harder to review.
 
-Set up the trigger against a disposable table first. In Make, the tested path uses the ohmyho.st webhook module. In Zapier, the tested path uses a Catch Hook URL as the database webhook destination. In both cases, configure the associated database watch and inspect a real event before mapping fields. If the destination field names differ from the example you expected, use the payload you actually received and consult the API reference.
+Set up the trigger against a disposable table first. In Make, the tested path uses the ohmyhost webhook module. In Zapier, the tested path uses a Catch Hook URL as the database webhook destination. In both cases, configure the associated database watch and inspect a real event before mapping fields. If the destination field names differ from the example you expected, use the payload you actually received and consult the API reference.
 
 Next, add the destination step and send a test record. Check the destination as well as the platform's run history: a successful trigger alone does not establish that the downstream step produced the right result. Try an update and a delete if your workflow depends on them. An automation that changes the same table it watches can trigger itself, so choose filters and conditions deliberately and verify that a write does not cause an unintended loop.
 
@@ -51,11 +51,11 @@ Finally, consider what happens when a destination is unavailable or the workflow
 
 ## Connect the right project
 
-An ohmyho.st API key identifies the account and workspace available to the integration. Create and manage keys in [API tokens](https://app.ohmyho.st/tokens), then use the connection setup in the automation platform. Keep the key private; do not paste it into a chat or commit it to your repository. Check which project and environment the workflow will use before testing a write.
+An ohmyhost API key identifies the account and workspace available to the integration. Create and manage keys in [API tokens](https://app.ohmyho.st/tokens), then use the connection setup in the automation platform. Keep the key private; do not paste it into a chat or commit it to your repository. Check which project and environment the workflow will use before testing a write.
 
 The integrations also include project operations, including requesting project creation and checking the operation's status. Project creation is asynchronous: an accepted request is not the same as a ready project. Wait for the reported result before relying on the new project in a later workflow step.
 
-For the underlying operations and response fields, use the [ohmyho.st API reference](https://docs.ohmyho.st/api). If a field or available action differs from the example here, check the integration version and the API reference before changing a live workflow.
+For the underlying operations and response fields, use the [ohmyhost API reference](https://docs.ohmyho.st/api). If a field or available action differs from the example here, check the integration version and the API reference before changing a live workflow.
 
 ## Test the complete path
 
@@ -77,4 +77,4 @@ When the test succeeds, remove any temporary records and unused test watches or 
 
 ## Getting access
 
-The ohmyho.st Zapier integration is currently in review, while the Make app is private to our organization. If you would like to use either integration, [contact us](/contact) and tell us which platform and workflow you have in mind. You can also explore the [API reference](https://docs.ohmyho.st/api) and learn [how ohmyho.st works](/blog/introducing-ohmyho-st).
+The ohmyhost Zapier integration is currently in review, while the Make app is private to our organization. If you would like to use either integration, [contact us](/contact) and tell us which platform and workflow you have in mind. You can also explore the [API reference](https://docs.ohmyho.st/api) and learn [how ohmyhost works](/blog/introducing-ohmyho-st).
