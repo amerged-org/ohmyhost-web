@@ -1,5 +1,9 @@
 # Changelog
 
+## November 16, 2026
+
+Release 0.1.59 records that the AI gateway's realtime voice route passed a hosted session on Development and Production: a hosted application opened a session, received the model's audio and transcript events and closed cleanly, and the recorded cost was charged at the AI rate. A session ends after five minutes at most; the provider's keepalive events keep an idle session open until then, so close it from your server. The Skills for building a portable app say so, and CLI and MCP 0.1.59 carry the corrected text. No command, tool or API changed. See [realtime voice](https://docs.ohmyho.st/ai#realtime-voice).
+
 ## November 15, 2026
 
 Release 0.1.57 adds Prod-only project creation, adding Dev later, direct Prod deployment with shared data, custom domains in project status and generation-based database webhook subscriptions with private signing-secret output. After a confirmed PostgreSQL statement failure and rollback, migration diagnostics can include both the SQLSTATE and one-based statement index without SQL text. Managed Browser PDF and opt-in request-time Next.js path revalidation have explicit capability and limit contracts; read their guides before enabling them.
@@ -20,7 +24,7 @@ Release 0.1.48 adds a conditional fallback for answered chat and Responses calls
 
 Release 0.1.47 adds an AI gateway for Paid workspaces. Choose a jurisdiction and use the models orq.ai offers for chat, Responses, image generation and editing, speech-to-text, text-to-speech, classifiers and OCR through injected server credentials. Calls consume prepaid credit under the active AI rate card and contribute to project Stop budgets. Promotion and rollback follow the active revision's AI configuration. See [build AI features](https://docs.ohmyho.st/ai) and the current [pricing](/pricing).
 
-The server-side realtime voice route is implemented. Successful live voice acceptance remains pending after upstream sessions closed before voice exchange during verification. See [realtime voice](https://docs.ohmyho.st/ai#realtime-voice).
+The server-side realtime voice route is available; release 0.1.59 records its hosted acceptance. See [realtime voice](https://docs.ohmyho.st/ai#realtime-voice).
 
 ## November 1, 2026
 
