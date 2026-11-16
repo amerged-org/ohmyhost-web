@@ -1,14 +1,14 @@
 {
-  "title": "About ohmyho.st — Hosting for vibe-coded apps",
-  "description": "Hosting for apps built with coding agents: GitHub deployments, managed Postgres and one credit balance across projects. Learn how ohmyho.st works and why.",
+  "title": "About ohmyhost — Hosting for vibe-coded apps",
+  "description": "Hosting for apps built with coding agents: GitHub deployments, managed Postgres and one credit balance across projects. Learn how ohmyhost works and why.",
   "kind": "about",
   "status": "published",
   "crumb": "About",
   "social": {
     "image": "/og/about.png",
-    "alt": "ohmyho.st. A different way to host your apps. Meet ohmyho.st: hosting built around your coding agent.",
-    "title": "ohmyho.st — A different way to host your apps",
-    "description": "Meet ohmyho.st: hosting built around your coding agent."
+    "alt": "ohmyhost. A different way to host your apps. Meet ohmyhost: hosting built around your coding agent.",
+    "title": "ohmyhost — A different way to host your apps",
+    "description": "Meet ohmyhost: hosting built around your coding agent."
   },
   "modified": "2026-10-30"
 }

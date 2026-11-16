@@ -11,7 +11,7 @@
   "social": {
     "image": "/og/blog-run-lovable-project-locally.png",
     "alt": "Run a Lovable project locally. Your app code runs on your computer while connected backend services can remain hosted.",
-    "title": "ohmyho.st — How to run a Lovable project locally",
+    "title": "ohmyhost — How to run a Lovable project locally",
     "description": "Start the app on your computer, check its environment and understand which backend services still run elsewhere."
   }
 }

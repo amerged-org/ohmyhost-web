@@ -165,16 +165,16 @@ For this next step , use [How to Move Out of Lovable Cloud](/blog/move-out-of-lo
 
 ## Tell your agent where to go
 
-Your app is now running locally. If you want other people to use it, you'll also need a hosted version. Let your agent know whether you want to continue working locally or prepare for deplyment to  ohmyho.st.
+Your app is now running locally. If you want other people to use it, you'll also need a hosted version. Let your agent know whether you want to continue working locally or prepare for deplyment to  ohmyhost.
 
 When you're readdy to perform the deployment , use:
 
 ```text
-I want this app on ohmyho.st. Read https://docs.ohmyho.st/quickstart and follow the current deployment Skill.
+I want this app on ohmyhost. Read https://docs.ohmyho.st/quickstart and follow the current deployment Skill.
 Inspect this project, reuse its existing project connection if there is one and tell me what needs to change. Check which backend services stay where they are.
 Deploy to Dev and give me the URL so I can test the app. Show me the result and ask before publishing to Prod or switching my domain.
 ```
 
-We're building ohmyho.st. Your agent can prepare the deployment and provide you with a dev URL for testing. For the  next step, use our [Guuide to Hosting Lovable Apps](/blog/host-a-lovable-app-after-export).
+We're building ohmyhost. Your agent can prepare the deployment and provide you with a dev URL for testing. For the  next step, use our [Guuide to Hosting Lovable Apps](/blog/host-a-lovable-app-after-export).
 
 If you want to stay local for now, that's fine, too. Ask the agent to keep the project running on your computer and to save your changes to GitHub. Our [Gudie to  Using Your Own Coding Agent](/blog/lovable-alternative-bring-your-own-llm) describes this workflow.

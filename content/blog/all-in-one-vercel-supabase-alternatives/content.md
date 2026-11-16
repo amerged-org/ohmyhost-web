@@ -2,9 +2,9 @@
 
 By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published October 10, 2026 · Updated October 28, 2026
 
-Several platforms combiine app hosting and a backend into a single account: Appwrite, Netlify, InsForge, Firebase, Nhost, and ohmyho.st. This comparison shows what each one offers, what their free plans allow, and the key factor that matters most. There  is no ranking, because the right choice depends on which login system, files, and database your app already uses.
+Several platforms combiine app hosting and a backend into a single account: Appwrite, Netlify, InsForge, Firebase, Nhost, and ohmyhost. This comparison shows what each one offers, what their free plans allow, and the key factor that matters most. There  is no ranking, because the right choice depends on which login system, files, and database your app already uses.
 
-I'm building ohmyho.st, so the table below indicates where it's the less favorable choice. The figures for Appwrite, Netlify, and InsForge were taken from their own pricing pages on October 22, 2026, with dated screenshots. Firebase and Nhost are described based on their documentation , without figures for the free plan. Quotas change, so have your agent ceck the current page before you switch.
+I'm building ohmyhost, so the table below indicates where it's the less favorable choice. The figures for Appwrite, Netlify, and InsForge were taken from their own pricing pages on October 22, 2026, with dated screenshots. Firebase and Nhost are described based on their documentation , without figures for the free plan. Quotas change, so have your agent ceck the current page before you switch.
 
 ## What Each Free Plan Covers
 
@@ -12,7 +12,7 @@ I'm building ohmyho.st, so the table below indicates where it's the less favorab
 
 | Platform | App Hosting | Postgres | Registration | File Storage | Drawbacks of the free plan |
 | --- | --- | --- | --- | --- | --- |
-| ohmyho.st | Included | Included | Integration (Better Auth or WorkOS AuthKit) | Included, uses credits | Email is only available on the paid plan; real-time is not available |
+| ohmyhost | Included | Included | Integration (Better Auth or WorkOS AuthKit) | Included, uses credits | Email is only available on the paid plan; real-time is not available |
 | Appwrite | Included (Sites) | Dedicated databases only; Free uses TablesDB | Included | Included | Projects are paused after a quiet week; the only exception is the paid plan |
 | Netlify | Included | Included (Netlify Database) | Included (Identity) | Included (blob storage) | Projects are paused when the 300 credits are used up |
 | InsForge | Included, hosted on Vercel | Included | Included | Included | Projects are paused after 1 week of inactivity |
@@ -65,7 +65,7 @@ Check out Netlify if you want frontend hosting with Postgres, authentication, an
 
 The Free plan on Netlify's [Pricing page](https://www.netlify.com/pricing/) lists {{ text vendor.netlify.free.includes }}. Everything accesses the same pool, so a busy month with deploymnets, functions , and taffic competes for the same credits. Netlify’s own [plan comparison](https://www.netlify.com/pricing/personal-vs-free) states the consequence: “When you reach that limit, projects pause until the next billing cycle.” Make sure an app with  real users can handle this before you rely on it. Retrieved October 22, 2026.
 
-Netlify's free plan is better than ours in two ways. A custom domain with SSL is included in the Free plan, whereas ohmyho.st Free requires  a “Powered by” notice for your own domain. And Identity offers you hosted sign-in without integraation. Ask your agent which of these your app uses and how much each would cost in credits based on your actual traffic.
+Netlify's free plan is better than ours in two ways. A custom domain with SSL is included in the Free plan, whereas ohmyhost Free requires  a “Powered by” notice for your own domain. And Identity offers you hosted sign-in without integraation. Ask your agent which of these your app uses and how much each would cost in credits based on your actual traffic.
 
 {{ checked netlify }}
 
@@ -101,15 +101,15 @@ Your agent can evaluate the container setup for you. Ask if they can package the
 
 Nhosts' Postgres foundation and the [Self-Hosting Documentation](https://docs.nhost.io/platform/self-hosting) offer a ueful way forward. The work required after a database  export revolves around the following: Hasura metadata, permissions, authentication, and storage integration. Ask your agent to list these separately. An SQL dump is useful; however, it does not mean that your entire backend can be restored elsewhere without modifications.
 
-## ohmyho.st: What It's Good For—and What It's Not
+## ohmyhost: What It's Good For—and What It's Not
 
-ohmyho.st is a good fit if you provide your agent with a supported repository , want to use app hosting and standard Postgres via a shared credit balance, and run seevral small projects. Supported apps use Astro, Next.js, Vite/React, or TanStack Satrt. Your first task is to choose the repository and explain what you want to run; your agent will check if it’s a good fit. The [platform documentation](https://docs.ohmyho.st/) explains  the services and supported workflows.
+ohmyhost is a good fit if you provide your agent with a supported repository , want to use app hosting and standard Postgres via a shared credit balance, and run seevral small projects. Supported apps use Astro, Next.js, Vite/React, or TanStack Satrt. Your first task is to choose the repository and explain what you want to run; your agent will check if it’s a good fit. The [platform documentation](https://docs.ohmyho.st/) explains  the services and supported workflows.
 
 The Free plan provides {{ number plan.freeCredits }} credits each month without a credit card. The Paid plan starts at {{ usd plan.paidUsd }} for {{ number plan.paidCredits }} monthly credits, which are shared among projects, and there is no separate base fee per project. Builds, runtime, database processing power, stored data , and activated services consume this credit balance. There are no RAM costs for a dormant database; hard drive space and seven-day backups are included, while stored scripts and customeer files continue to cost credits. A credit balance of zero triggers a {{ number plan.graceDays }}-day grace period, after which uncovered services are suspended. This model is suited for a portfolio of low-traffic apps; it does not mean that every heeavily used workload costs less. The [comparison of free plans](/blog/free-vercel-supabase-alternatives-2026) calculates costs based on a low-traffic app  month by month.
 
 Know the pitfalls  beofre you make a decision:
 
-- **Sign-up is an integration.** ohmyho.st does not have its  own user base. Better Auth and WorkOS AuthKit are the verified integrations , and singing in to ohmyho.st is separate from your customers signing in to your app. Ask your agent what happns to existing accounts before you agree to an auth migration. The [Application Authentication Guide](https://docs.ohmyho.st/application-auth) covers integrations, and the [Supabase Migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md) lists the services that an existing app calls. Auth users, storage objects, and real-time behavior each require their own migration decisions.
+- **Sign-up is an integration.** ohmyhost does not have its  own user base. Better Auth and WorkOS AuthKit are the verified integrations , and singing in to ohmyhost is separate from your customers signing in to your app. Ask your agent what happns to existing accounts before you agree to an auth migration. The [Application Authentication Guide](https://docs.ohmyho.st/application-auth) covers integrations, and the [Supabase Migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md) lists the services that an existing app calls. Auth users, storage objects, and real-time behavior each require their own migration decisions.
 - **No managed Realtime.** If your app reliies on Supabase Realtime, keep this service or plan for  a replacement.
 - **Email and Your Own Domain.** Transactional email is only available on the paid plan. You can use your own domain on the free plan as long as the "Powered by ohhmyho.st" notice is displayed , and on the paid plan.
 - **Fixed Dev and Prod Environments.** Each project has Dev and Prod environments with configurable shared or isolated data. This differs  from the approach where each pull request gets its own frontend and backend. Check the [Environment Guide](https://docs.ohmyho.st/environments) againnst your team’s workflow.
@@ -134,10 +134,10 @@ Use the recommendation as a decision-making tool. If it indicates that a feature
 - **InsForge** is suitable for a backend-first project that  uses Vercel for the fronend.
 - **Firebase** is a good fit for apps that benefit from its client ecosystem , or for supported full-stack apps that are compatible with App Hosting and allw you to choose between Firestore and SQL Connect.
 - **Nhost** works well with  a PostgreSQL and GraphQL backend, paired with its own container depolyment.
-- **ohmyho.st** is compatible with  supported repositories hosted via a coding agent, usig standard PostgreSQL and a shared, usage-based credit balance.
+- **ohmyhost** is compatible with  supported repositories hosted via a coding agent, usig standard PostgreSQL and a shared, usage-based credit balance.
 - **Vercel with Supabase** remains a reasonable choice if  the previews, integrations, and backend serices already align with the product.
 
-Once you've made your decision, start with a test deployment. For ohmyho.st, your aent can follow the [Getting Started Guide](/skills/ohmyhost-get-started/SKILL.md). Check the results in your browser: log in, open a secure page , save a record, and use any file or real-time functions that are important.
+Once you've made your decision, start with a test deployment. For ohmyhost, your aent can follow the [Getting Started Guide](/skills/ohmyhost-get-started/SKILL.md). Check the results in your browser: log in, open a secure page , save a record, and use any file or real-time functions that are important.
 
 Once you've made your decision , please reqquest a test deployment:
 
@@ -151,11 +151,11 @@ This test gives you a better raeson to switch than a spreadsheet. If the app wor
 
 ### Which platform combines Vercel and Supabase into one?
 
-None of them repaces both for every app. Appwrite combines site  hosting with ready-made backend services. Netlify integrates its frontend host with Netlify Database, Identity, and blob storage. InsForge is a backend whose frontend hosting runs on Vercel. Firebase combines app hosting with its backend products, and Nhost integrates its Postgres stack with Run containers. ohmyho.st combines app hosting and managed Postgres, leaving authentication to an integration. Choose based on the services your repository uses.
+None of them repaces both for every app. Appwrite combines site  hosting with ready-made backend services. Netlify integrates its frontend host with Netlify Database, Identity, and blob storage. InsForge is a backend whose frontend hosting runs on Vercel. Firebase combines app hosting with its backend products, and Nhost integrates its Postgres stack with Run containers. ohmyhost combines app hosting and managed Postgres, leaving authentication to an integration. Choose based on the services your repository uses.
 
 ### Can you pause or stop these free plans?
 
-Yes, each in its own way. Appwrite pauses a free project after 7 days without development activity and deletes it after 90 days of being paused. InsForge pauses free projects after 1 week of inactivity. Netlify pauses projects when the 300 monthly credits are used up, until the next blling cycle. On ohmyho.st , the {{ number plan.freeCredits }} credits are refreshed every UTC month, and a zero balance triggers a {{ number plan.graceDays }}-day grace period before uncovered services are suspended.
+Yes, each in its own way. Appwrite pauses a free project after 7 days without development activity and deletes it after 90 days of being paused. InsForge pauses free projects after 1 week of inactivity. Netlify pauses projects when the 300 monthly credits are used up, until the next blling cycle. On ohmyhost , the {{ number plan.freeCredits }} credits are refreshed every UTC month, and a zero balance triggers a {{ number plan.graceDays }}-day grace period before uncovered services are suspended.
 
 ### Can Vercel and Supabase already share billing?
 
@@ -165,12 +165,12 @@ Yes. Projects created through the [Vercel Marketplace integration](https://supab
 
 A PostgreSQL migration moves database data. Authenticated users, uploaded files, real-time subscriptions, functions, and application permissions require separate decisinos. Check out the [Supabase Migration Skill](/skills/ohmyhost-migrate-supabase-postgres/SKILL.md) before  switching. Keep using an external service if the switch would remove functionality that your app needs.
 
-### Does ohmyho.st replace Supabase Auth?
+### Does ohmyhost replace Supabase Auth?
 
-No. ohmyho.st does not have its own user pool; your app retains its existing authentication provider, and Better Auth and WorkOS AuthKit are the verified integrations. If your app relies on Supabase Auth , keep using that sevrice or plan the authentication migration as a separate task.
+No. ohmyhost does not have its own user pool; your app retains its existing authentication provider, and Better Auth and WorkOS AuthKit are the verified integrations. If your app relies on Supabase Auth , keep using that sevrice or plan the authentication migration as a separate task.
 
 {{ sources appwrite netlify insforge }}
 
 Also accessed  on October 22, 2026: Appwrite’s [Pausing Policy](https://appwrite.io/changelog/entry/2026-02-20-1) and [Deletion Notice](https://appwrite.io/changelog/entry/2026-06-29), Netlifys’ [Staff Comparison](https://www.netlify.com/pricing/personal-vs-free), the [Identity Documentation](https://docs.netlify.com/manage/security/secure-access-to-sites/identity/overview/), and InsForges’ [Sites Documentation](https://docs.insforge.dev/core-concepts/deployments/overview). Firebase and Nohst documentation was reviewed on October 10, 2026. Published quotas and prices are subject to change.
 
-[Free Vercel and Supabase Alternatives](/blog/free-vercel-supabase-alternatives-2026) · [ohmyho.st vs. Supabase](/vs/supabase) · [Supabase vs. Vercel](/blog/supabase-vs-vercel-do-you-need-both) · [Pricing](/pricing)
+[Free Vercel and Supabase Alternatives](/blog/free-vercel-supabase-alternatives-2026) · [ohmyhost vs. Supabase](/vs/supabase) · [Supabase vs. Vercel](/blog/supabase-vs-vercel-do-you-need-both) · [Pricing](/pricing)

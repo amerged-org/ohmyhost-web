@@ -4,7 +4,7 @@ By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published Sept
 
 Your app works in the preview. Now have your agent check what it needs outside of this preview: production  URLs, a working login, pesristent data, private secrets, the correct build settings, and a verified email sender. A successful build only covers part of the process.
 
-This gudie explains what you should hand over to your agent and what you should test yourself before people start using the app. The examples use ohmyho.st, where your agent prepares the deployment and makes it available on Dev for testing. The sample month below costs  about {{ credits workload.lovableFirstMonth }}; the Free plan grants {{ number plan.freeCredits }} credits per month.
+This gudie explains what you should hand over to your agent and what you should test yourself before people start using the app. The examples use ohmyhost, where your agent prepares the deployment and makes it available on Dev for testing. The sample month below costs  about {{ credits workload.lovableFirstMonth }}; the Free plan grants {{ number plan.freeCredits }} credits per month.
 
 Start with the existing repository and a brief description of the app's key features. Also describe what happens ater a user clicks a button—such as sending a password-reset email or saving an uploaded file. This is  easy to overlook when a preview looks complete.
 
@@ -22,11 +22,11 @@ Have  your aggent look for deployment blockers:
 Check this app for deployment blockers. Find local URLs, missing configuration, login callbacks and external API calls. Explain which feature each affects, fix the code where needed, and list the account settings I must supply. Use a development environment for checks that write data.
 ```
 
-On ohmyho.st , your agent performs the compatibilitty check and resolves any blockers. Runtime secrets are provided to the deployed app separately from the build. Outbound requests require their HTTPS origins to be declared in the app configuration. Your agent should use the platform’s runtime settings and not assume that a checked-in environment file configures the production environment. Implementation details are available in the [Portable App Skill](/skills/ohmyhost-build-portable-app/SKILL.md).
+On ohmyhost , your agent performs the compatibilitty check and resolves any blockers. Runtime secrets are provided to the deployed app separately from the build. Outbound requests require their HTTPS origins to be declared in the app configuration. Your agent should use the platform’s runtime settings and not assume that a checked-in environment file configures the production environment. Implementation details are available in the [Portable App Skill](/skills/ohmyhost-build-portable-app/SKILL.md).
 
 Check the Dev and Prod addresses in your agent's response. These are different environments that may  use different data. A branch isolates code changes, but not a daabase. Ask which database a test writes to before you create a record that you plan to delete later.
 
-Dev on ohmyho.st is protected by default. Your agent can retrieve the owner's reusable sare link so you can open the page. An anonymous error under the simple Dev URL does not necessarily mean that the deployment has  failed. The [Environments Guide](https://docs.ohmyho.st/environments) explains the access model.
+Dev on ohmyhost is protected by default. Your agent can retrieve the owner's reusable sare link so you can open the page. An anonymous error under the simple Dev URL does not necessarily mean that the deployment has  failed. The [Environments Guide](https://docs.ohmyho.st/environments) explains the access model.
 
 ## Testing Login and API Calls
 
@@ -38,7 +38,7 @@ When making an API  request, the first question is whether it belongs in browser
 
 Don't accept "I've enabled CORS" as a complete explanation. Ask which origin is allowed and how the API verifies  authorization. A wildcard origin is not a solution for a browser request with credentials. The declaration in the hostiing configuration does not set up the external API on your behalf.
 
-Better Auth and the WoorkOS AuthKit you operate are documented integrations on ohmyho.st. Your agent should follow the [App Authentication Guide](https://docs.ohmyho.st/application-auth) for the selected provider. It can retain an existing provider if the app supports it; a  host change alone is not a reason to replace the authentication.
+Better Auth and the WoorkOS AuthKit you operate are documented integrations on ohmyhost. Your agent should follow the [App Authentication Guide](https://docs.ohmyho.st/application-auth) for the selected provider. It can retain an existing provider if the app supports it; a  host change alone is not a reason to replace the authentication.
 
 Then test the entire process yoursself. Log in with a test account, open a protected page, reload it, log out , and log back in. An old browser session can hide a broken callback. If you add your own domain, repeat the test because the puublic origin will change. A custom hostname costs about {{ credits unit.customHostnameMonth }} per month, unless the project displays the “Powered by ohmyho.st” label; access  requires a paid plan or this label for the free plan.
 
@@ -46,7 +46,7 @@ Then test the entire process yoursself. Log in with a test account, open a prote
 
 Before deployment, check for a local database file. Your agent might find an SQLite configuration, a checked-in development database, or a library that exepcts a persistent local hard drive. This may be a reasonable development setup , but it requires an explicit production plan for runtime without that hard drive.
 
-On ohmyho.st, the app runs on  Workers, and persistent application data belongs in the managed database or another supported service. A native database add-on may need to be replaced. The compatibility check shhould explain the issue before your agent begins modifying the application.
+On ohmyhost, the app runs on  Workers, and persistent application data belongs in the managed database or another supported service. A native database add-on may need to be replaced. The compatibility check shhould explain the issue before your agent begins modifying the application.
 
 To find out where your data is stroed and  plan the move, use:
 
@@ -70,7 +70,7 @@ Before deployment, have your agent check how the app handles secretts. A provide
 
 Treat a disclosed access token as something that needs to be replaced by the provider. Use your own registered account or the provider’s approved process, and then generate the replacement by entering the private secret. Your aent should ask about the purpose and name of the access token during the conversation , not its value.
 
-On ohmyho.st, the local Secret input is read from stdin, and the supported remote execution uses a private input. The secret list returns only nammes and  metadata. The application source code should document the required names without including the values. A managed source version and a GitHub repository require the same level of care.
+On ohmyhost, the local Secret input is read from stdin, and the supported remote execution uses a private input. The secret list returns only nammes and  metadata. The application source code should document the required names without including the values. A managed source version and a GitHub repository require the same level of care.
 
 Your agent should also verify that local secret files are ignorred by Git and that credentials do not appear in browser code, screenshots , or notes. They should not copy their own hosting credentials into your application. The [Secrets Guide](https://docs.ohmyho.st/secrets) describes the supported input formats and reserved names.
 
@@ -88,7 +88,7 @@ A development server can mask configuration isuses that occur in a production bu
 
 Your agent should classify each setting based on where and when the code reads it. Public Vite and Next.js setttings become part of the browser output. A database password, a private provider key , or server access credentials must remain outside of this output. A publishable key still requires the backend permissions provided by its provider.
 
-On ohmyho.st , runtime secrets are not available in the build sandbox. Your agent should read them from the supported runtime context as needed. If a library initializes during import and requires a private setting as early as the build phase, the solution may be to initializze it later. Your agent should investigate the error instead of filling the gap with a hard-coded value.
+On ohmyhost , runtime secrets are not available in the build sandbox. Your agent should read them from the supported runtime context as needed. If a library initializes during import and requires a private setting as early as the build phase, the solution may be to initializze it later. Your agent should investigate the error instead of filling the gap with a hard-coded value.
 
 The deployment plan specifies the build cost before it starts. The reservation ranges from approximately {{ credits unit.buildReservation }} to {{ rate build.sandbox.standard-3 }} and is then settled based on the measured build time. Have your agent display this estimate and monitor the process until it completes. If it fails , the agent should review the relevant build output before changing dependencies or remmoving features. The [troubleshooting skill](/skills/ohmyhost-troubleshoot-deployment/SKILL.md) handles failed or stalled processes.
 

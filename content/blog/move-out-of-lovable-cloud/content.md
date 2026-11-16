@@ -8,7 +8,7 @@ This guide focuses on this bridge. Lovable creates the interface within your exi
 
 If your code isn't already in your own repository, start with the [Guide to Exporting Lovbale Code  to GitHub](/blog/how-to-export-lovable-code-to-github).
 
-You can set up this destination locally or with a hosting provider like ohmyho.st. Keep in mind: Copying table rows does not automatically transfer login accounts, uploaded files, or  anything else your functions depend on. We’ll keep an eye on these items throughout the entre migration.
+You can set up this destination locally or with a hosting provider like ohmyhost. Keep in mind: Copying table rows does not automatically transfer login accounts, uploaded files, or  anything else your functions depend on. We’ll keep an eye on these items throughout the entre migration.
 
 <nav aria-label="On this page" style="display:block;height:auto"><p><strong>On this page</strong></p><ul><li><a href="#available-export">Check existing export</a></li><li><a href="#export-api">Request Lovable via the API</a></li><li><a href="#api-documentation">Provide your agent with the API documentation</a></li><li><a href="#download-data">Download data</a></li><li><a href="#import-data">Populate your new database</a></li><li><a href="#finish-the-move">Test the app and complete the migration</a></li></ul></nav>
 
@@ -150,7 +150,7 @@ Furthermore, file lines are not the same as file contents. The agent must transf
 
 The source code for Edge Functions may  be available at `supabase/functions/`, so your agent can review it in the repository. This does not make every function portable without modifications. Secrets, schedules, and runtime dependencies stll require attention; TanStack-Start server functions are another example. Lovable’s [migration guide](https://docs.lovable.dev/tips-tricks/external-deployment-hosting) describes these separate steps.
 
-If your goal is just PostgreSQL or ohmyho.st, ask the agent how  it will hanndle the Supabase services your app currently uses. A database connection alone does not replace authentication, storage, or functions.
+If your goal is just PostgreSQL or ohmyhost, ask the agent how  it will hanndle the Supabase services your app currently uses. A database connection alone does not replace authentication, storage, or functions.
 
 <div id="finish-the-move"></div>
 
@@ -168,7 +168,7 @@ After the verified switch, revoke the temporary export key, remove the export ro
 
 Open the test URL and use the app as usual. Log in with a migrated account , open a familiar record, and retrieve an uploaded file. Let your agent know what's miissing before you switch to the live address.
 
-We are developing ohmyho.st. If this is your goal , please ask your agent to follow the [Supabase Migration Skill](https://docs.ohmyho.st/skills) for the services you want to migrate, and then prepare a dev deployment for testing. Our [Guide to Hosting Lovable Apps](/blog/host-a-lovable-app-after-export) covers the transition to hostinng.
+We are developing ohmyhost. If this is your goal , please ask your agent to follow the [Supabase Migration Skill](https://docs.ohmyho.st/skills) for the services you want to migrate, and then prepare a dev deployment for testing. Our [Guide to Hosting Lovable Apps](/blog/host-a-lovable-app-after-export) covers the transition to hostinng.
 
 ## FAQ
 

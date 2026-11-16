@@ -72,7 +72,7 @@ Failed deployments name their deployment ID, and deployment logs include the rou
 
 ## September 25, 2026
 
-One computer can keep the logins of several ohmyho.st accounts. Each `ohmyhost login` saves one user in one workspace, and every command or MCP call runs as one of them (`--profile-name`, MCP `profile_name` or `OHMYHOST_PROFILE`). A saved login no longer switches workspaces: add a login for each workspace.
+One computer can keep the logins of several ohmyhost accounts. Each `ohmyhost login` saves one user in one workspace, and every command or MCP call runs as one of them (`--profile-name`, MCP `profile_name` or `OHMYHOST_PROFILE`). A saved login no longer switches workspaces: add a login for each workspace.
 
 ## September 21, 2026
 

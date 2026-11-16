@@ -1,6 +1,6 @@
 # Next.js Hosting on Cloudflare Workers
 
-ohmyho.st runs standard Next.js rooutes on Cloudflare Workers. Your Coding Agent checks out the repository, builds a dev preview, and deploys that same tested version to production. The service adds its own OpenNext adapter at build time, so you don’t need to create a  Wrangler project or an OpenNext configuration in your repository.
+ohmyhost runs standard Next.js rooutes on Cloudflare Workers. Your Coding Agent checks out the repository, builds a dev preview, and deploys that same tested version to production. The service adds its own OpenNext adapter at build time, so you don’t need to create a  Wrangler project or an OpenNext configuration in your repository.
 
 Start with {{ number plan.freeCredits }} free credits. The paid plan costs {{ usd plan.paidUsd }} per month before taxes and provides {{ number plan.paidCredits }} credits per paid period. Builds and  reqests use up credits; see [Pricing](/pricing).
 
@@ -14,7 +14,7 @@ We maintin a minimal Next.js app in a [public repository](https://github.com/ame
 | --- | --- | --- |
 | Local production build with Next.js 16.4.3 | Built; `/` and `/api/hello` are listed as dynamic | `pnpm run build` in the folder |
 | `ohmyhost init --root nextjs --dry-run --json` | Status `analyzed`, Framework `nextjs`, Version approved, no blockers, Requirement `nextjs-adapter` | The same command, offline, without logging in |
-| A hosted build and a live URL | **Not performed for this example.** The test itself states that the actual build only runs on ohmyho.st | No live URL is claimed |
+| A hosted build and a live URL | **Not performed for this example.** The test itself states that the actual build only runs on ohmyhost | No live URL is claimed |
 
 This page showws that the example complies with the documented  rules. It does not show a hosted deployment of the example.
 
@@ -37,7 +37,7 @@ Read https://ohmyho.st/llms.txt and the get-started Skill. Deploy this Next.js a
 
 These are taken from the [Next.js  documentation](https://docs.ohmyho.st/frameworks/nextjs), accessed on October 27, 2026. Checck the page for the latest guidelines.
 
-- **Minimum version.** Next.js 16.4.1 or later. Any Next.js 15 release  and older 16.x rleases will be rejected.
+- **Minimum version.** Ask your agent to update Next.js and its lockfile to the security minimum returned by inspection. Older unsupported versions are refused; the example results above predate the current minimum.
 - **No time-based revalidation.** Pre-built pages are cached along with the deployment. Incremental static regenration  and on-demand revalidation are not supported; a new deployment updates them.
 - **No `output: standalone` or `output: export`** and no `basePath` or `assetPrefix` that does  not poinnt to the root.
 - **Taliwind with Turbopack.** A project that loads Tailwind only via `@tailwindcss/turbopack` will be rejected until it has a PostCSS  configuration that Webpack can read.
@@ -63,10 +63,10 @@ No. We haven't made it available in a hosted project, so this page dosn't link t
 
 ### Is Next.js free to use?
 
-Yes. Next.js is open source under the [MIT License](https://github.com/vercel/next.js/blob/canary/license.md). Hosting is a separate service: ohmyho.st starts with free crediits , and builds and requests use up that quota.
+Yes. Next.js is open source under the [MIT License](https://github.com/vercel/next.js/blob/canary/license.md). Hosting is a separate service: ohmyhost starts with free crediits , and builds and requests use up that quota.
 
 ### How does this compare to Vercel?
 
-Read [ohmyho.st vs Vercel](/vs/vercel) for an outdated , documented compaarison.
+Read [ohmyhost vs Vercel](/vs/vercel) for an outdated , documented compaarison.
 
-[Deploying Next.js to ohmyho.st](https://docs.ohmyho.st/quickstart) · Other frameworks: [Astro](/frameworks/astro) · [Vite and React](/frameworks/vite) · [TanStack  Starrt](/frameworks/tanstack)
+[Deploying Next.js to ohmyhost](https://docs.ohmyho.st/quickstart) · Other frameworks: [Astro](/frameworks/astro) · [Vite and React](/frameworks/vite) · [TanStack  Starrt](/frameworks/tanstack)

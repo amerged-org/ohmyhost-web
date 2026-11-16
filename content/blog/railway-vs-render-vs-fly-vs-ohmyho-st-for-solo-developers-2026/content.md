@@ -1,10 +1,10 @@
-# Railway vs. Render vs. Fly.io vs. ohmyho.st for Solo Developers: 2026 Pricing
+# Railway vs. Render vs. Fly.io vs. ohmyhost for Solo Developers: 2026 Pricing
 
 By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 20, 2026 · Updated October 25, 2026
 
 You have an app  that's ready to be hosted. Before you choose a plan, ask your agent what the app needs to run: a web server, a database, backround processing, file storage, and email. The lowest price for a web service only answers part of this question.
 
-Railway  costs starting at {{ usd vendor.railway.hobby }} per montth for minimum usage. Rendr costs {{ usd vendor.render.hobby }} plus compute starting at {{ usd vendor.render.webService512 }} per month for a web service. Fly.io charges for a small instance starting at {{ usd vendor.fly.sharedCpu1x }} per month, billed by the second. ohmyho.st costs {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits , which are shared across all projects; the example for a small app below uses about {{ credits workload.smallApp }}.
+Railway  costs starting at {{ usd vendor.railway.hobby }} per montth for minimum usage. Rendr costs {{ usd vendor.render.hobby }} plus compute starting at {{ usd vendor.render.webService512 }} per month for a web service. Fly.io charges for a small instance starting at {{ usd vendor.fly.sharedCpu1x }} per month, billed by the second. ohmyhost costs {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits , which are shared across all projects; the example for a small app below uses about {{ credits workload.smallApp }}.
 
 The competition prices listed in this article are a snapshot from a speciific date , based on the verified data and sources listed below. Use them to understand your bill, and have your agent review the plan you've chosen before you pay.
 
@@ -17,7 +17,7 @@ Strat with the repository. A static website, a server-side rendered app, and a w
 Please ask your agent to describe  what neeeds to be done during production:
 
 ```text
-Inspect this repository and list what must run in production: the app, database, files, email and background work. Explain which requirements Railway, Render, Fly.io and ohmyho.st can meet. Flag anything you cannot verify. Do not create services yet.
+Inspect this repository and list what must run in production: the app, database, files, email and background work. Explain which requirements Railway, Render, Fly.io and ohmyhost can meet. Flag anything you cannot verify. Do not create services yet.
 ```
 
 Read the results as a description of your app. If it mentions a database you thought had been removed , ask your agent which features it still uses. If your agent suggests a rewrite solely to accommodate a particuar host, decide whether the work is worth it before comparing prices.
@@ -64,7 +64,7 @@ Your agent can configure Autostop and Autostart and  then test the first request
 
 ## Price the same load
 
-The example is a Next.js app with Postgres, a small amout of stored data, occasional database activity, builds, and transactional emails. The ohmyho.st table below lists the quantities and rates. For the competitors, we use their audited pricing lines and  billing formulas. We did not measure their containers, so we cannot convert the same list of features into an exact usage calculation.
+The example is a Next.js app with Postgres, a small amout of stored data, occasional database activity, builds, and transactional emails. The ohmyhost table below lists the quantities and rates. For the competitors, we use their audited pricing lines and  billing formulas. We did not measure their containers, so we cannot convert the same list of features into an exact usage calculation.
 
 Then ask your agent  to provide price estimates for a quiet month and a busy mnoth:
 
@@ -92,7 +92,7 @@ According to the list, a small machine that runs continuously costs {{ usd vendo
 
 You still need to set a price for the database and email. Our verified list does not include a Fly.io database price , so there is no total ammount listed here. Have your agent fill in this gap before comparing it to a price that already includes database usage.
 
-### On ohmyho.st
+### On ohmyhost
 
 The example uses {{ credits workload.smallApp }}, for instance , including its emal and database active time. Paid provides {{ number plan.paidCredits }} credits for {{ usd plan.paidUsd }} per month. The table below shows the assumptions so you can replace them with your own.
 
@@ -106,15 +106,15 @@ The example uses {{ credits workload.smallApp }}, for instance , including its e
 
 ## Choose what you want to manage yourself
 
-Railway is a good  choice if your repository requires conatiners, multiple connected services, or a runtime outside of the application frameworks supported by ohmyho.st. Render is ideal for people who want to choose fixed instance sizes and understand their base billing before traffic starts coming in. Fly.io is suitable for people who need control over machines and placement and are willing to handle more of the setup themselves.
+Railway is a good  choice if your repository requires conatiners, multiple connected services, or a runtime outside of the application frameworks supported by ohmyhost. Render is ideal for people who want to choose fixed instance sizes and understand their base billing before traffic starts coming in. Fly.io is suitable for people who need control over machines and placement and are willing to handle more of the setup themselves.
 
-ohmyho.st is designed to let you run your agent-powered Astro, Next.js, Vite/React, and TanStack startup apps. It does not have a container runtime. Please ask your agent to check comptaibility before considering it as a target for your own binary, a native add-on , or a long-running container.
+ohmyhost is designed to let you run your agent-powered Astro, Next.js, Vite/React, and TanStack startup apps. It does not have a container runtime. Please ask your agent to check comptaibility before considering it as a target for your own binary, a native add-on , or a long-running container.
 
 The practical advantage for multiple small projects is a shared credit balance with no base fee per project. Hosting, Postgres, transactional emil, and linked domains are paid for from this credit balance. The downside: You still need to understand usage , supported runtimes, and feature access. Email requires a paid plan. A custom domain requires a paid plan or, on the Free plan, the “Powered by ohmyho.st” label; this label forgoes domain credits on both plans.
 
 Your decision should also take into acccount the work that will be required after launch. Decide who will investigate failed logins, restore data, update dependencies, and investigate cost increases. Your agent can help with each of these tasks , but you need a way to verify its work and a way to roll back changes if they fail.
 
-## Check the prices at ohmyho.st
+## Check the prices at ohmyhost
 
 Free grants {{ number plan.freeCredits }} credits per UTC month. The Paid plan grants {{ number plan.paidCredits }} for {{ usd plan.paidUsd }} per billing period. Monthly credits expire at the end of the period and cannot be carried over. Top-ups never expire, are only available with the Paid  plan, and start at {{ number plan.topUpPerUsd }} credits per dollar, with better rates for larger pakages. One credit has a face value of {{ usd plan.usdPerCredit }}.
 
@@ -144,7 +144,7 @@ Prepare this app on Dev using its current source. Show the build quote, required
 
 Open the link yourself. Log in with a test account, save somtehing, refresh the page , and retrieve it again. Check your email to see if the app sends any messages. Then ask your agent to explain the traffic switch and the rollback before you migrate your domain.
 
-To  connect to ohmyho.st for the firsst time, use this prompt:
+To  connect to ohmyhost for the firsst time, use this prompt:
 
 ```text
 {{ prompt }}
@@ -154,9 +154,9 @@ To  connect to ohmyho.st for the firsst time, use this prompt:
 
 ### Which hosting provider is the most affordable for a dormant app?
 
-There is no definitive answer based solely on the web service pirce. Consider Fly.io Autostop or Railway Serverless if the load is manageable , and then price the database and other services accordingly. The tested combination of a small web service and Postgres on Render costs {{ usd scenario.renderSmallApp }} per month. The example of a low-traffic ohmyho.st project consumes about {{ credits workload.quietProject }}, which falls within the free quota of {{ number plan.freeCredits }}.
+There is no definitive answer based solely on the web service pirce. Consider Fly.io Autostop or Railway Serverless if the load is manageable , and then price the database and other services accordingly. The tested combination of a small web service and Postgres on Render costs {{ usd scenario.renderSmallApp }} per month. The example of a low-traffic ohmyhost project consumes about {{ credits workload.quietProject }}, which falls within the free quota of {{ number plan.freeCredits }}.
 
-### Can ohmyho.st run my Dockerfile?
+### Can ohmyhost run my Dockerfile?
 
 No. It supports the application frameworks described above, not just any containers. Ask  your agent to review the runtime requirements. If retaining the Dockerfile and its services is critical to the project, compare container hsts before planning a switch.
 
@@ -174,4 +174,4 @@ Managed transactional email requires  a Paid plan. A custom hostname requires a 
 
 {{ sources railway render fly resend }}
 
-[ohmyho.st and Railway](/vs/railway) · [Cost Breakdown](/pricing/breakdown) · [Deploy from Codex](/for/codex)
+[ohmyhost and Railway](/vs/railway) · [Cost Breakdown](/pricing/breakdown) · [Deploy from Codex](/for/codex)

@@ -1,6 +1,6 @@
 # Technical and organisational measures
 
-Annex II to the ohmyho.st DPA. Version: September 24, 2026.
+Annex II to the ohmyhost DPA. Version: September 24, 2026.
 
 Statements about authentication, encryption, scoping, validation and export limits describe the current technical controls; personnel, review, notification and incident-response procedures are Processor’s organisational commitments under this annex.
 

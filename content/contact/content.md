@@ -1,6 +1,6 @@
 # Contact us
 
-Use this form for questions about ohmyho.st, privacy, your rights or the Data Processing Agreement. Company is optional for individuals. Please do not include passwords, access tokens or unnecessary sensitive data.
+Use this form for questions about ohmyhost, privacy, your rights or the Data Processing Agreement. Company is optional for individuals. Please do not include passwords, access tokens or unnecessary sensitive data.
 
 For a bug, a failed deployment or a missing feature, ask your agent to report it instead; see [Support](https://docs.ohmyho.st/support).
 

@@ -1,6 +1,6 @@
 # Vite and React Hosting for Static Apps
 
-A public Vite and React app is deployed as static files. ohmyho.st builds them, serves the output through the Cloudflare network, and sends any path that  doesn't match a file with an HTTP 200 response to `index.html`. This is why reloadinng a client-side route works. If the app requires server-side code, an API companion with same-origin handles it.
+A public Vite and React app is deployed as static files. ohmyhost builds them, serves the output through the Cloudflare network, and sends any path that  doesn't match a file with an HTTP 200 response to `index.html`. This is why reloadinng a client-side route works. If the app requires server-side code, an API companion with same-origin handles it.
 
 Start with {{ number plan.freeCredits }} free credits. The paid plan costs {{ usd plan.paidUsd }} per  month before taxes and adds {{ number plan.paidCredits }} credits for each paid period. See [Priciing](/pricing).
 
@@ -14,7 +14,7 @@ The [public example](https://github.com/amerged-org/ohmyhost-framework-examples/
 | --- | --- | --- |
 | Local Production Build | Built based on `dist/`, using an HTML file and a script | `pnpm run build` in the folder |
 | `ohmyhost init --root vite-react --dry-run --json` | Status `analyzed`, Framework `vite`, Version approved, no blockers, Runtime `static` | The same command, offline, without logging in |
-| A hosted build and a live URL | **Not done for this example.** The test says that the real build only runs on ohmyho.st | No live URL is claimed |
+| A hosted build and a live URL | **Not done for this example.** The test says that the real build only runs on ohmyhost | No live URL is claimed |
 
 ## How to host a Vite and React app
 
@@ -62,4 +62,4 @@ No. We haven't deployed it in a hosted proejct , so this page doesn't link to a 
 
 Yes. Vite is open soure  under the [MIT License](https://github.com/vitejs/vite/blob/main/LICENSE).
 
-[Deploy a Vite app on  ohmyho.st](https://docs.ohmyho.st/quickstart) · Other frameworks: [Astro](/frameworks/astro) · [Next.js](/frameworks/nextjs) · [TanStak Start](/frameworks/tanstack)
+[Deploy a Vite app on  ohmyhost](https://docs.ohmyho.st/quickstart) · Other frameworks: [Astro](/frameworks/astro) · [Next.js](/frameworks/nextjs) · [TanStak Start](/frameworks/tanstack)

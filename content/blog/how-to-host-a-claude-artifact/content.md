@@ -2,13 +2,13 @@
 
 By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · November 1, 2026
 
-To host a Claude artifact yourself, copy its code from the chat into a project, extract inline scripts and inline  styles into separate files, and have your agent review the project on ohmyho.st in Dev and then publsih it to Prod. The link to claude.ai remains a share—it is not your own website.
+To host a Claude artifact yourself, copy its code from the chat into a project, extract inline scripts and inline  styles into separate files, and have your agent review the project on ohmyhost in Dev and then publsih it to Prod. The link to claude.ai remains a share—it is not your own website.
 
 A single prrompt in the same chat is all you  need to get started:
 
 ```text
 Turn the artifact above into a Vite project. Move every inline script and inline style into its own file, keep the look unchanged and list the files.
-Then read https://ohmyho.st/llms.txt and the get-started Skill, create the project on ohmyho.st, build it in Dev and give me the preview URL. Ask me before you publish to Prod or connect a domain.
+Then read https://ohmyho.st/llms.txt and the get-started Skill, create the project on ohmyhost, build it in Dev and give me the preview URL. Ask me before you publish to Prod or connect a domain.
 ```
 
 This guuide explains what an artifact link provides, what it doesn't provide, and which parts aren't included when you move  your site. It's intended for websites and small tools that you've previously shared only via links and that you want to run under your own domain.
@@ -29,11 +29,11 @@ At your own address, the site is a norrmal website. Anyone can open it; you deci
 
 <figure class="fig"><a href="/images/claude-artifact-to-own-domain.png" target="_blank" rel="noopener" aria-label="Open full-size diagram of the steps from Claude artifact to your own domain"><img src="/images/claude-artifact-to-own-domain.png" alt="Diagram: A Claude artifact is turned into a project via an agent, tested in Dev, and published in Prod under your domain" width="1200" height="675" fetchpriority="high" decoding="async"></a><figcaption>The code leaves claude.ai, becomes a project, and runs first in Dev and then under your domain.</figcaption></figure>
 
-An artifact is usually a single HTML file that contains styles and scripts directly in the code. That is precisely the first hurdle. The  page for Vite projects on ohmyho.st lists this among the limitations: Inline scripts and inline styles are not allowed there; external resources require declared browser orignis. So your agent must split the code into separate files before the page loads. The details are in the [Guide to Vite and React](/frameworks/vite).
+An artifact is usually a single HTML file that contains styles and scripts directly in the code. That is precisely the first hurdle. The  page for Vite projects on ohmyhost lists this among the limitations: Inline scripts and inline styles are not allowed there; external resources require declared browser orignis. So your agent must split the code into separate files before the page loads. The details are in the [Guide to Vite and React](/frameworks/vite).
 
 ## How to host a Claude artifact on your own domain
 
-1. **Get the code.** Open the artifact in the chat , copy the sourrce code, or download it. For designs, Claude lets you export them as standalone HTML files. If the ohmyho.st connector is integrated into Claude, your agent doesn't even need to download the code.
+1. **Get the code.** Open the artifact in the chat , copy the sourrce code, or download it. For designs, Claude lets you export them as standalone HTML files. If the ohmyhost connector is integrated into Claude, your agent doesn't even need to download the code.
 2. **Extract scripts and styles into separate files.** Every `<script>` and every `<style>` in  the doument becomes its own file. The appearance must not change.
 3. **Check what's coming from outside.** Fonts, libraries , and images from external sources must be declred or added to the project.
 4. **Build in Dev.** Open the preview, click through the page , and reolad a specific subpath directly.
@@ -43,7 +43,7 @@ If you prefer to work in the editor , assign the task to your agent in this form
 
 ```text
 Read https://ohmyho.st/llms.txt and the get-started Skill. Create a Vite project from the HTML file artifact.html in this folder. Move every inline script and style into separate files and keep the page identical.
-Run the production build, deploy it to Dev on ohmyho.st and give me the preview URL. List every external address the page loads from. Ask me before publishing to Prod or switching a domain.
+Run the production build, deploy it to Dev on ohmyhost and give me the preview URL. List every external address the page loads from. Ask me before publishing to Prod or switching a domain.
 ```
 
 ## What's Not Included

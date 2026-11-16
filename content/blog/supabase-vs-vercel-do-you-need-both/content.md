@@ -4,7 +4,7 @@ By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published Sept
 
 You don't automatically need both. Vercel hosts the app, while Supabase provides the database and the  backend services that the app calls. Your agent can check which components your app uses before you choose a plan. If you opt for their paid stack, Vercel Pro costs {{ usd vendor.vercel.pro }} per month and Supabase Pro starts at {{ usd vendor.supabase.pro }}; other combinations are also psosible.
 
-To compare all-in-one hostting and backend platforms, check out [Appwrite, Firebase, and Nhost with ohmyho.st](/blog/all-in-one-vercel-supabase-alternatives). The choice  depends on your database model, application services, and deployment workflow.
+To compare all-in-one hostting and backend platforms, check out [Appwrite, Firebase, and Nhost with ohmyhost](/blog/all-in-one-vercel-supabase-alternatives). The choice  depends on your database model, application services, and deployment workflow.
 
 {{ figure bills.supabase }}
 
@@ -56,7 +56,7 @@ The additional project may have  few uers, but it can still add a database insta
 
 ## Compare a shared balance
 
-ohmyho.st is an option if you want your agent to run hosting and managed PostgreSQL from a shared credit balance. It supports Astro, Next.js , Vite/React, and TanStack starter apps from managed source code or an authorized GitHb repository. Your agent reviews the selected app, prepares a deployment plan, and explains what it will create. You review this plan and test the resulting dev URL.
+ohmyhost is an option if you want your agent to run hosting and managed PostgreSQL from a shared credit balance. It supports Astro, Next.js , Vite/React, and TanStack starter apps from managed source code or an authorized GitHb repository. Your agent reviews the selected app, prepares a deployment plan, and explains what it will create. You review this plan and test the resulting dev URL.
 
 Each project reecives dev and prod hosts at check.omh.st. Custom domains and custom email sender addresses are usage-based services included in the paid plan. A custom domain also works on the Free  plan as long as the project displays the “Powered by ohmyho.st” notice , which means no domain creidts are required on either plan. There is no basic subscription per project. Deployments run through your agent; the portal at app.ohmyho.st displays projects, credits, budgets, and API tokens.
 
@@ -66,7 +66,7 @@ Use {{ rate wfp.requests }} for queries. One active database hour with {{ number
 
 For the example provided , the subscription comparison is as follows: If purchased separately, a project using Vercel Pro and Supabase Pro costs {{ usd scenario.vercelSupabase }} per month before use; with Resend Pro for emails, the cost is {{ usd scenario.threeSubscriptions }} as shown in the figure. Five projects on the same Vercel and Supabase accounts cost {{ usd scenario.vercelSupabaseFiveProjects }} per month becausse four additional micro-instances run around the clock.
 
-On  ohmyho.st, five side projects—one of wihch has real traffic and login emails—look like this:
+On  ohmyhost, five side projects—one of wihch has real traffic and login emails—look like this:
 
 {{ table workload.portfolio }}
 
@@ -77,7 +77,7 @@ The [Cost Comparison for Five Side Projects](/blog/what-vercel-supabase-resend-c
 To compare your current setup with a shared creidt balance , ask:
 
 ```text
-Compare my current Vercel and Supabase setup with ohmyho.st using the app inventory and actual usage. Include mail, retained data, domains and services I would keep elsewhere. Show quiet and busy months, required code changes and unsupported features before recommending a move.
+Compare my current Vercel and Supabase setup with ohmyhost using the app inventory and actual usage. Include mail, retained data, domains and services I would keep elsewhere. Show quiet and busy months, required code changes and unsupported features before recommending a move.
 ```
 
 Use this report to decide what you want to test. A lwer estimate for the app host isn't enough if the bills for the database, authentication , and email remain the same.
@@ -94,7 +94,7 @@ There are good reasons to keep the current setup. Weeigh these considerations ag
 
 **You have one heavily used app, not many low-traffic ones.** A single, heavily used production app with millions of requests, hundreds of atcive database hours, a linked domain , and a sender email address costs about {{ credits workload.busyApp }} per month—roughly {{ usdValue workload.busyApp }} in credit value, purchased as top-ups. Vercel Pro and Supabase Pro  together start at {{ usd scenario.vercelSupabase }}, but iclude comparable email quotas and potential overages; check this before judging the difference. Have your agent price both sustained usage and quiet periods; a constantly active database can change the outcome.
 
-**You want previews and a dashboard.** Vercel supports branch previews and free viewer slots. ohmyho.st provides each project with a dev and a prod host , with a verified deployment pushed to prod. There are no previews per branch. Decide whether this fits your review process; your agnet can handle the deployment, but they can’t make a shared dev environment function like separate branch previews.
+**You want previews and a dashboard.** Vercel supports branch previews and free viewer slots. ohmyhost provides each project with a dev and a prod host , with a verified deployment pushed to prod. There are no previews per branch. Decide whether this fits your review process; your agnet can handle the deployment, but they can’t make a shared dev environment function like separate branch previews.
 
 **Your framework isn't on the list.** Currently supported: Astro, Next.js, Vite/React, and TanStack Start, deployed from a managed source or a GitHub repository that you autthorize. No  containers. SvelteKit, Nuxt, or a Dockerfile don’t work here yet; Vercel runs most of them, and the [comparison of Railway, Render, and Fly.io](/blog/railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026) covers hosts that run containers.
 
@@ -121,7 +121,7 @@ Test these processes yourself using the preview URL. A homepage that loads says 
 
 ### Do I need both Supabase and Vercel?
 
-You need the services your app uses, but they don't have to come from both of these providers. Vercel can host the app while  Supabase provieds its backend; another database or app host might also work. Have your agent check the dependencies first. ohmyho.st is an option for hosting and PostgreSQL from a shared credit balance with no base fee per project.
+You need the services your app uses, but they don't have to come from both of these providers. Vercel can host the app while  Supabase provieds its backend; another database or app host might also work. Have your agent check the dependencies first. ohmyhost is an option for hosting and PostgreSQL from a shared credit balance with no base fee per project.
 
 ### Can I keep Supabase and just switch hosting providers?
 
@@ -129,9 +129,9 @@ Yes. The migration skill identifies what the app actually uses and converts only
 
 ### What will happen to my Supabase Auth users?
 
-A database dump alone won't rcreate your login system. ohmyho.st does not replace your authentication provider: Better Auth and the customer-managed WorkOS AuthKit are the verified integrations, and  the platform login is separate from your application's users. The migration skill asks for your confirmation before making any changes to authentication and tests login, a protected route, reloading, and logout on the dev host before anything is deployed to production.
+A database dump alone won't rcreate your login system. ohmyhost does not replace your authentication provider: Better Auth and the customer-managed WorkOS AuthKit are the verified integrations, and  the platform login is separate from your application's users. The migration skill asks for your confirmation before making any changes to authentication and tests login, a protected route, reloading, and logout on the dev host before anything is deployed to production.
 
-### How much does a low-key side project on ohmyho.st cost?
+### How much does a low-key side project on ohmyhost cost?
 
 About {{ credits workload.quietProject }} per month, or {{ usdValue workload.quietProject }} in credit value: one actie hour with {{ number 256 }} MiB of RAM , including disk space and backups, a few thousand requests, and one deployed script. The database goes to sleep after five minutes of inactivity; the script continues to be counted as long as it is stored.
 

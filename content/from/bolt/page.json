@@ -1,13 +1,13 @@
 {
-  "title": "Deploy a Bolt.new export: host your Bolt app — ohmyho.st",
-  "description": "Exported from Bolt.new? Connect GitHub or push the ZIP, paste one prompt, and your agent recreates the .env, deploys to Dev and promotes to Prod on ohmyho.st.",
+  "title": "Deploy a Bolt.new export: host your Bolt app — ohmyhost",
+  "description": "Exported from Bolt.new? Connect GitHub or push the ZIP, paste one prompt, and your agent recreates the .env, deploys to Dev and promotes to Prod on ohmyhost.",
   "kind": "howto",
   "status": "published",
   "crumb": "From Bolt",
   "social": {
     "image": "/og/from-bolt.png",
-    "alt": "ohmyho.st. An alternative home for your Bolt app. Bring your exported app and prepare it for deployment.",
-    "title": "ohmyho.st — An alternative home for your Bolt app",
+    "alt": "ohmyhost. An alternative home for your Bolt app. Bring your exported app and prepare it for deployment.",
+    "title": "ohmyhost — An alternative home for your Bolt app",
     "description": "Bring your exported app and prepare it for deployment."
   },
   "modified": "2026-10-25"

@@ -26,7 +26,7 @@ AI calls use the active AI rate card and the shared credit balance. For chat and
 
 Paid workspaces can render HTML and embedded assets through managed Browser PDF. It uses the shared credit balance and project Stop budget, billed from measured browser duration at its own published rate. There is no flat fee per document. Processing is global; the project region does not pin Browser processing. See the [runtime and pricing guide](https://docs.ohmyho.st/browser-pdf).
 
-## Show the ohmyho.st flag
+## Show the ohmyhost flag
 
 Ask your agent to show a small “Powered by ohmyho.st” flag on the right edge of your production site. It loads nothing and sets no cookie; a visitor who clicks it lands on ohmyho.st. While it shows, a customer-owned domain uses no domain credits and also works on Free, and each paid Stripe billing period adds {{ number plan.flagPaidBonusCredits }} credits that expire with that period. A custom domain requires an active Prod deployment. On Free, keep the flag enabled while using that domain; remove the domain or upgrade before switching it off. You bring your own domain; we never buy one for you.
 

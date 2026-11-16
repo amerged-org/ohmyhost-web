@@ -1,14 +1,14 @@
 # Hosting for the apps you build
 
-ohmyho.st (ohmyhost) brings app hosting, managed Postgres, transactional email and custom domain connections into one platform. It is built for people who create software with Claude Code, Cursor, Codex or other coding agents and want to take a GitHub project through deployment without assembling a separate hosting workflow for every app.
+ohmyhost brings app hosting, managed Postgres, transactional email and custom domain connections into one platform. It is built for people who create software with Claude Code, Cursor, Codex or other coding agents and want to take a GitHub project through deployment without assembling a separate hosting workflow for every app.
 
-## Why ohmyho.st exists
+## Why ohmyhost exists
 
 Building an app has become easier. Getting it into production still involves decisions about databases, environment variables, domains, authentication and billing. Those tasks repeat with each new project, even when most of the apps are small.
 
-ohmyho.st brings that work into the conversation you already have with your coding agent. The agent can inspect the project, prepare its deployment and work with the services the app needs. You keep the source in GitHub and use the same workflow as the project grows.
+ohmyhost brings that work into the conversation you already have with your coding agent. The agent can inspect the project, prepare its deployment and work with the services the app needs. You keep the source in GitHub and use the same workflow as the project grows.
 
-ohmyho.st was founded by [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/). He built it after getting tired of separate subscriptions for small projects, with the aim of making deployment and costs easier to manage.
+ohmyhost was founded by [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/). He built it after getting tired of separate subscriptions for small projects, with the aim of making deployment and costs easier to manage.
 
 ## Built for more than one project
 
@@ -18,7 +18,7 @@ The supported application frameworks are Astro, Next.js, Vite/React and TanStack
 
 ## Deploy through your coding agent
 
-Start with the prompt on the [homepage](/). Your agent reads the deployment instructions, connects to ohmyho.st and guides you through signing in. It then uses the project's GitHub source to prepare a deployment plan.
+Start with the prompt on the [homepage](/). Your agent reads the deployment instructions, connects to ohmyhost and guides you through signing in. It then uses the project's GitHub source to prepare a deployment plan.
 
 Dev and Prod give you separate deployment targets. Verify the application in Dev before promoting the tested artifact to Prod. Your agent can check deployment status, work with runtime secrets and help connect a custom domain. The portal provides a view of projects, credit usage and budgets alongside that agent workflow.
 

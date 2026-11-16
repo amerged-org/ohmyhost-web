@@ -1,8 +1,8 @@
 # Hosting not per project: why one balance
 
-ohmyho.st (ohmyhost) prices hosting per organization, not per project. One balance funds every project: Free gives {{ number plan.freeCredits }} credits a month, Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, and each project draws what it uses. No per-project base fee, no deploy dashboard, and an export that works without asking. Rates are the provider's cost plus a small margin.
+ohmyhost prices hosting per organization, not per project. One balance funds every project: Free gives {{ number plan.freeCredits }} credits a month, Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, and each project draws what it uses. No per-project base fee, no deploy dashboard, and an export that works without asking. Rates are the provider's cost plus a small margin.
 
-Short version: I got tired of paying five bills for two live projects and seven parked ones. ohmyho.st buys hosting, Postgres, domains and transactional mail from the providers underneath, adds a small margin, and meters what your projects actually use from one prepaid balance. This page is the reasoning, so you can decide whether it fits you before you connect an agent.
+Short version: I got tired of paying five bills for two live projects and seven parked ones. ohmyhost buys hosting, Postgres, domains and transactional mail from the providers underneath, adds a small margin, and meters what your projects actually use from one prepaid balance. This page is the reasoning, so you can decide whether it fits you before you connect an agent.
 
 ## Buy in bulk, sell at cost plus a little
 
@@ -50,7 +50,7 @@ A single busy production app with serious traffic may still belong on Vercel and
 
 Vercel Hobby is {{ usd vendor.vercel.hobby }} a month for one developer seat. If that is all your projects need, it beats any paid balance, and I will not pretend otherwise.
 
-Railway, Fly.io and Render run any container. ohmyho.st runs Astro, Next.js, Vite/React and TanStack Start on Workers, deployed from a GitHub repository, and nothing else. Resend Pro is {{ usd vendor.resend.pro }} for 50,000 emails a month; here mail is {{ rate mail.sent }}, counted per sent recipient, and it needs Paid plus a verified mail domain. Send more than about 10,000 recipients a month and Resend is the better price. Supabase gives you Auth, Storage, Realtime and Edge Functions in one console; here you bring Better Auth or WorkOS AuthKit and write plain SQL.
+Railway, Fly.io and Render run any container. ohmyhost runs Astro, Next.js, Vite/React and TanStack Start on Workers, deployed from a GitHub repository, and nothing else. Resend Pro is {{ usd vendor.resend.pro }} for 50,000 emails a month; here mail is {{ rate mail.sent }}, counted per sent recipient, and it needs Paid plus a verified mail domain. Send more than about 10,000 recipients a month and Resend is the better price. Supabase gives you Auth, Storage, Realtime and Edge Functions in one console; here you bring Better Auth or WorkOS AuthKit and write plain SQL.
 
 Every comparison page says where the other side wins, with list prices checked on a named date. {{ checked vercel }} {{ checked supabase }} {{ checked resend }}
 
@@ -66,7 +66,7 @@ Prices move. When a vendor changes a plan, the date on our page goes stale befor
 
 ## FAQ
 
-### Is there a per-project fee on ohmyho.st?
+### Is there a per-project fee on ohmyhost?
 
 No. Every project draws from the organization's one balance, and there is no fixed project-count limit. A project costs what it keeps and uses: customer files, a deployed script, requests, database active time, a linked hostname and the mail it sends. Mail needs Paid; a hostname needs Paid or the “Powered by ohmyho.st” flag and uses no domain credits while that flag shows. A parked project with a sleeping database keeps costing its scripts, any customer files and any metered hostname; database disk and seven-day backups are included.
 

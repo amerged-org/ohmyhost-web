@@ -1,4 +1,4 @@
-# Open source at ohmyho.st
+# Open source at ohmyhost
 
 Every client you run is open source. The command-line client, the MCP server, the TypeScript SDK, the application runtime and the Better Auth integration are published on npm under Apache-2.0, with their source and third-party notices inside the package. The website and documentation are MIT. The PostgreSQL platform under every database, PGCF, is Apache-2.0 too. The hosted platform that runs your projects is private, and this page says exactly which part is which.
 
@@ -28,7 +28,7 @@ The runtime and auth packages matter most for portability: they are the code you
 
 ## Apache-2.0: the PostgreSQL platform
 
-[amerged-org/cloudflare-postgres](https://github.com/amerged-org/cloudflare-postgres) (PGCF) is the open-source serverless PostgreSQL platform every ohmyho.st database runs on: real PostgreSQL on Contabo servers, reachable only through Cloudflare, backed up to R2 with point-in-time recovery. Its own code is Apache-2.0; the upstream components it runs keep their own licences.
+[amerged-org/cloudflare-postgres](https://github.com/amerged-org/cloudflare-postgres) (PGCF) is the open-source serverless PostgreSQL platform every ohmyhost database runs on: real PostgreSQL on Contabo servers, reachable only through Cloudflare, backed up to R2 with point-in-time recovery. Its own code is Apache-2.0; the upstream components it runs keep their own licences.
 
 ## MIT: the documentation
 
@@ -41,7 +41,7 @@ The runtime and auth packages matter most for portability: they are the code you
 ## Public: everything an agent reads
 
 - [llms.txt](https://ohmyho.st/llms.txt) — the index an agent reads first.
-- [AGENTS.md](https://ohmyho.st/AGENTS.md) — the five rules for an agent that operates ohmyho.st.
+- [AGENTS.md](https://ohmyho.st/AGENTS.md) — the five rules for an agent that operates ohmyhost.
 - [Skills](https://docs.ohmyho.st/skills) — task Skills served at `/skills/<name>/SKILL.md` and listed at `/.well-known/agent-skills/index.json`.
 - [MCP tool catalog](https://ohmyho.st/mcp-tools.json) — every tool with its description; `/mcp.json` holds the client configuration.
 - [OpenAPI 3.1 contract](https://ohmyho.st/api/openapi.json) — the REST `/v1` API the CLI, the MCP server and the SDK all call.
@@ -57,6 +57,6 @@ An agent cannot work against a product it has to guess at, so the interface is p
 
 ## How to contribute
 
-Open a pull request on the [website repository](https://github.com/amerged-org/ohmyhost-web) for website changes or the [docs repository](https://github.com/amerged-org/ohmyhost-docs) for documentation. Send product bugs and feature requests through your agent's `feedback_submit` tool, and read ohmyho.st's replies to your own report with `feedback_status`. Reports stay private; they are not published. Roadmap votes live on the [homepage](/).
+Open a pull request on the [website repository](https://github.com/amerged-org/ohmyhost-web) for website changes or the [docs repository](https://github.com/amerged-org/ohmyhost-docs) for documentation. Send product bugs and feature requests through your agent's `feedback_submit` tool, and read ohmyhost's replies to your own report with `feedback_status`. Reports stay private; they are not published. Roadmap votes live on the [homepage](/).
 
 [Documentation](https://docs.ohmyho.st/) · [Philosophy](/philosophy) · [About](/about) · [Contact](/contact)

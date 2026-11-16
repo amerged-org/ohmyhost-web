@@ -1,4 +1,4 @@
-# Cheaper than Vercel? The ohmyho.st cost breakdown
+# Cheaper than Vercel? The ohmyhost cost breakdown
 
 Yes for several small projects, no for one busy app. {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits shared by every project; a small app uses about {{ credits workload.smallApp }} of them, a quiet side project about {{ credits workload.quietProject }}. Vercel Pro, Supabase Pro and Resend Pro bought separately cost {{ usd scenario.threeSubscriptions }} a month before any usage.
 
@@ -56,7 +56,7 @@ Less traffic, half the database time and half the mail of the small app. The cus
 
 {{ table workload.busyApp }}
 
-Two hundred active database hours at four GiB RAM, including eight GiB total disk, dominate; mail and traffic follow. This is the workload where the {{ number plan.paidCredits }} monthly credits are a small fraction of the total and the rest is bought as top-ups, which is the honest way to say ohmyho.st is not the cheapest place for it.
+Two hundred active database hours at four GiB RAM, including eight GiB total disk, dominate; mail and traffic follow. This is the workload where the {{ number plan.paidCredits }} monthly credits are a small fraction of the total and the rest is bought as top-ups, which is the honest way to say ohmyhost is not the cheapest place for it.
 
 ## The three subscriptions, bought separately
 
@@ -68,7 +68,7 @@ The classic side-project stack is three accounts:
 
 For one developer and one project that is {{ usd scenario.threeSubscriptions }} a month before usage above the plans and before tax. Vercel Pro and Resend Pro are per account, so five projects do not multiply them; Supabase is per project, so the same stack for five projects is {{ usd scenario.fiveProjects }} a month.
 
-On ohmyho.st the same five projects share one {{ usd plan.paidUsd }} balance. Five quiet projects together use about {{ credits workload.fiveQuietProjects }}, inside the {{ number plan.paidCredits }} monthly credits with room left; the small app alone uses about {{ credits workload.smallApp }}. Two caveats. The free tiers on all three services narrow the gap for a single personal project, and the three plans buy capacity and features the credit tables do not replicate, so read the workload tables against your own numbers rather than the headline.
+On ohmyhost the same five projects share one {{ usd plan.paidUsd }} balance. Five quiet projects together use about {{ credits workload.fiveQuietProjects }}, inside the {{ number plan.paidCredits }} monthly credits with room left; the small app alone uses about {{ credits workload.smallApp }}. Two caveats. The free tiers on all three services narrow the gap for a single personal project, and the three plans buy capacity and features the credit tables do not replicate, so read the workload tables against your own numbers rather than the headline.
 
 {{ checked vercel }}
 
@@ -92,15 +92,15 @@ Three things keep using credits while nobody visits:
 
 Periodic SQL health checks keep idle compute awake. The agent reads database state through database_compute_get, which does not wake the database.
 
-## When ohmyho.st is dearer
+## When ohmyhost is dearer
 
 Three cases, with the numbers.
 
 The busy app. One busy production app uses about {{ credits workload.busyApp }} a month, {{ usdValue workload.busyApp }} of credit value, most of it in active database RAM and mail. At that scale Vercel Pro at {{ usd vendor.vercel.pro }} a month with its usage allowance and Supabase Pro from {{ usd vendor.supabase.pro }} a month with a fixed compute instance can come out cheaper, and a usage meter stops being an advantage. Compare a concrete quote before moving a busy app.
 
-Resend at high volume. Resend Pro is {{ usd vendor.resend.pro }} a month for 50,000 emails. The same 50,000 recipients on ohmyho.st cost about {{ credits workload.fiftyThousandRecipients }}, {{ usdValue workload.fiftyThousandRecipients }} of credit value, and Resend Scale is {{ usd vendor.resend.scale }} a month for 100,000. Up to about 10,000 recipients a month the per-recipient meter is cheaper than Resend Pro because there is no plan to buy; above that, Resend is.
+Resend at high volume. Resend Pro is {{ usd vendor.resend.pro }} a month for 50,000 emails. The same 50,000 recipients on ohmyhost cost about {{ credits workload.fiftyThousandRecipients }}, {{ usdValue workload.fiftyThousandRecipients }} of credit value, and Resend Scale is {{ usd vendor.resend.scale }} a month for 100,000. Up to about 10,000 recipients a month the per-recipient meter is cheaper than Resend Pro because there is no plan to buy; above that, Resend is.
 
-Railway for containers. Railway runs any container and bills CPU and memory by the second above a {{ usd vendor.railway.pro }} a month minimum on Pro. ohmyho.st runs no containers. It deploys Astro, Next.js, Vite/React and TanStack Start from a GitHub repository the customer authorizes, and nothing else. A long-running process, a websocket server you manage yourself or a binary dependency belongs on Railway, whatever the credits say.
+Railway for containers. Railway runs any container and bills CPU and memory by the second above a {{ usd vendor.railway.pro }} a month minimum on Pro. ohmyhost runs no containers. It deploys Astro, Next.js, Vite/React and TanStack Start from a GitHub repository the customer authorizes, and nothing else. A long-running process, a websocket server you manage yourself or a binary dependency belongs on Railway, whatever the credits say.
 
 {{ checked vercel }}
 
@@ -120,7 +120,7 @@ Read more in [Usage](https://docs.ohmyho.st/usage), [Budgets](https://docs.ohmyh
 
 ## FAQ
 
-### Is ohmyho.st cheaper than Vercel?
+### Is ohmyhost cheaper than Vercel?
 
 For several small projects, yes: {{ usd plan.paidUsd }} a month buys {{ number plan.paidCredits }} credits shared by every project, and five quiet projects use about {{ credits workload.fiveQuietProjects }}. Vercel Pro alone is {{ usd vendor.vercel.pro }} a month. For one busy production app with heavy database use the usage total can exceed the subscriptions, so price your own workload first.
 

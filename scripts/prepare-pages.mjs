@@ -5,7 +5,7 @@ import { createHash } from "node:crypto";
 import { mkdir, readdir, readFile, writeFile, rm } from "node:fs/promises";
 import { fileURLToPath, URL } from "node:url";
 import TurndownService from "turndown";
-import { WEBSITE } from "../src/site-identity.ts";
+import { SITE_NAME, WEBSITE } from "../src/site-identity.ts";
 import {
   clientRelease,
   creditPricingRates,
@@ -138,14 +138,6 @@ for (const [name, digest] of Object.entries(templates)) {
     );
     html = hardenHomepageMarkup(html);
     html = html.replace(
-      /(<script type="application\/ld\+json">)([\s\S]*?)(<\/script>)/u,
-      (_match, open, text, close) => {
-        const data = JSON.parse(text);
-        data["@graph"].push(WEBSITE);
-        return `${open}${JSON.stringify(data).replaceAll("<", "\\u003c")}${close}`;
-      },
-    );
-    html = html.replace(
       '<h2 class="up">Why one balance instead of five subscriptions.</h2>',
       '<h2 class="up" id="philosophy">Why one balance instead of five subscriptions.</h2>',
     );
@@ -174,7 +166,7 @@ for (const [name, digest] of Object.entries(templates)) {
       .replaceAll("omh deploy", "ohmyhost project status --help");
     html = html.replaceAll(
       "Read https://ohmyho.st/llms.txt and set up hosting for this repo on ohmyho.st: create the project, provision Postgres, add the domain and deploy. Ask me only if you need a decision.",
-      "Read https://ohmyho.st/llms.txt and https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md. Connect this agent to ohmyho.st and develop and deploy this application using only the capabilities it needs. Read the existing project source first and follow the get-started Skill to reuse GitHub or managed versions for this workspace. After signing in, use the user and organization that whoami reports; never guess an account, organization or project ID. Follow the deployment Skill, keep my existing project decisions and verify the app.",
+      "Read https://ohmyho.st/llms.txt and https://ohmyho.st/skills/ohmyhost-get-started/SKILL.md. Connect this agent to ohmyhost and develop and deploy this application using only the capabilities it needs. Read the existing project source first and follow the get-started Skill to reuse GitHub or managed versions for this workspace. After signing in, use the user and organization that whoami reports; never guess an account, organization or project ID. Follow the deployment Skill, keep my existing project decisions and verify the app.",
     );
     html = html.replace(
       "</body>",
@@ -256,6 +248,32 @@ for (const [name, digest] of Object.entries(templates)) {
     .replaceAll('href="/docs/mcp"', 'href="https://docs.ohmyho.st/agents/mcp"')
     .replaceAll('href="/docs/cli"', 'href="https://docs.ohmyho.st/cli"')
     .replaceAll('href="/docs"', 'href="https://docs.ohmyho.st/"');
+  // Owner-approved 2026-11-16: spell the website brand ohmyhost. Keep the supplied design
+  // templates immutable, real hostnames intact and the platform's existing flag label literal.
+  html = html
+    .replaceAll("ohmyho.st (ohmyhost)", SITE_NAME)
+    .replaceAll("ohmyho<i>.st</i>", "ohmyho<i>st</i>")
+    .replace(/ohmyho(<span\b[^>]*>)\.st(<\/span>)/gu, "ohmyho$1st$2")
+    .replaceAll("ohmyho&lt;i&gt;.st&lt;/i&gt;", SITE_NAME)
+    .replace(
+      /(?<![\w@:/.-])(?<!Powered by )ohmyho\.st(?![\w/.-])/gu,
+      SITE_NAME,
+    );
+  // The domain remains an alternate name, while every public schema uses the primary brand.
+  if (name === "home")
+    html = html.replace(
+      /(<script type="application\/ld\+json">)([\s\S]*?)(<\/script>)/u,
+      (_match, open, text, close) => {
+        const data = JSON.parse(text);
+        const organization = data["@graph"].find(
+          (node) => node["@type"] === "Organization",
+        );
+        organization.name = SITE_NAME;
+        organization.alternateName = WEBSITE.alternateName;
+        data["@graph"].push(WEBSITE);
+        return `${open}${JSON.stringify(data).replaceAll("<", "\\u003c")}${close}`;
+      },
+    );
   html = html.replace("</body>", `${privacyUi}</body>`);
   await writeFile(`${output}/${name}.html`, html);
   await writeFile(
@@ -331,12 +349,12 @@ function applyApprovedHomepageChanges(html) {
       '    <span class="st"><span class="tile" data-c="#FF5D01"><img src="logos/astro.svg" alt="Astro logo" loading="lazy"></span>Astro</span>\n    <span class="st"><span class="tile" data-c="#336791">',
     );
   const socialTitle =
-    "ohmyho.st — An alternative to Vercel, Supabase &amp; Resend";
-  const socialDescription = `ohmyho.st (ohmyhost): app hosting, Postgres and email from $${plans.paidUsd}/month. Start deployment with one prompt in Codex, Claude Code or Cursor.`;
+    "ohmyhost — An alternative to Vercel, Supabase &amp; Resend";
+  const socialDescription = `ohmyhost: app hosting, Postgres and email from $${plans.paidUsd}/month. Start deployment with one prompt in Codex, Claude Code or Cursor.`;
   // Owner-approved 2026-10-22: the free plan is part of the search title and description only;
   // the approved Open Graph and X copy above stays as it is.
   const seoTitle =
-    "ohmyho.st — Vercel, Supabase &amp; Resend alternative, free plan";
+    "ohmyhost — Vercel, Supabase &amp; Resend alternative, free plan";
   // Owner-approved 2026-10-28: the search description leads with the free Supabase, Vercel and
   // Resend alternative intent and spells the brand "ohmyhost" without a dot, as searchers type it.
   const seoDescription = `Free Supabase, Vercel and Resend alternative: ohmyhost puts hosting, Postgres and email on one balance. Start free with ${plans.freeCredits} credits a month and deploy with your coding agent.`;
@@ -388,8 +406,6 @@ function applyApprovedHomepageChanges(html) {
     "<title>Hosting for vibe-coded apps — $10/mo for all your projects, not per project | ohmyho.st</title>": `<title>${seoTitle}</title><meta name="description" content="${seoDescription}">`,
     '"logo": "https://ohmyho.st/logo.png",':
       '"logo": "https://ohmyho.st/logo.png", "alternateName": "ohmyhost", "legalName": "Amerged B.V.", "identifier": {"@type":"PropertyValue","propertyID":"KVK","value":"42154221"}, "contactPoint": {"@type":"ContactPoint","contactType":"Customer support","url":"https://ohmyho.st/contact"},',
-    "ohmyho.st is prepaid-credit hosting for apps built with":
-      "ohmyho.st (ohmyhost) is prepaid-credit hosting for apps built with",
     "second project <em>0 extra</em>": "second project: <em>usage only</em>",
     "Hosting, Postgres, email, domain, AI models and backups behind one command. Built for AI coding agents via MCP.":
       "Hosting, Postgres, domains, email and encrypted SQL exports for GitHub apps, operated through an agent, CLI or API.",

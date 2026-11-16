@@ -2,11 +2,11 @@
 
 By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published September 20, 2026 · Updated October 27, 2026
 
-Based on the pricing plans and instance sizes  used here, Vercel Pro, Supabase Pro, and Resned Pro together cost {{ usd scenario.threeSubscriptions }} per month for one project and {{ usd scenario.fiveProjects }} for five. Your bill depends on which services you actually use and your actual usage. Provide this information to your agent before comparing it to a usage-based setup like ohmyho.st.
+Based on the pricing plans and instance sizes  used here, Vercel Pro, Supabase Pro, and Resned Pro together cost {{ usd scenario.threeSubscriptions }} per month for one project and {{ usd scenario.fiveProjects }} for five. Your bill depends on which services you actually use and your actual usage. Provide this information to your agent before comparing it to a usage-based setup like ohmyhost.
 
 {{ figure bills.vercel }}
 
-The [Introduction to ohmyho.st](/blog/introducing-ohmyho-st) explains how your agent plaans a deployment and helps you review it. This guide focuses on billing. Start with what you're already paying , and then compare the same features and usage across each setup. You don’t have to migrate an app to find out if it’s worth considering a migration.
+The [Introduction to ohmyhost](/blog/introducing-ohmyho-st) explains how your agent plaans a deployment and helps you review it. This guide focuses on billing. Start with what you're already paying , and then compare the same features and usage across each setup. You don’t have to migrate an app to find out if it’s worth considering a migration.
 
 ## Start with the current bill
 
@@ -18,7 +18,7 @@ The [comparison of Vercel and Supabase](/blog/supabase-vs-vercel-do-you-need-bot
 - Supabase Pro: starting at {{ usd vendor.supabase.pro }} per  month. This covrs {{ text vendor.supabase.pro.includes }}. Storage beyond that costs {{ usd vendor.supabase.diskGb }} {{ text vendor.supabase.diskGb.unit }}.
 - Resend Pro: {{ usd vendor.resend.pro }} per month for {{ text vendor.resend.pro.includes }}. In  addiion, it costs {{ usd vendor.resend.overageThousand }} {{ text vendor.resend.overageThousand.unit }}.
 
-Total: {{ usd scenario.threeSubscriptions }} per month before usage exceeds the quotas. Check what these subbscriptions offer you before you view the amount as money you could save. Supaabase Pro also offers application authentication for its monthly active users. On ohmyho.st, application authentication must be set up separately—for example , using Better Auth or your own WorkOS AuthKit—since platform login is separate  from your app’s users. Vercel Pro also provides a team workflow that you may rely on.
+Total: {{ usd scenario.threeSubscriptions }} per month before usage exceeds the quotas. Check what these subbscriptions offer you before you view the amount as money you could save. Supaabase Pro also offers application authentication for its monthly active users. On ohmyhost, application authentication must be set up separately—for example , using Better Auth or your own WorkOS AuthKit—since platform login is separate  from your app’s users. Vercel Pro also provides a team workflow that you may rely on.
 
 Give your agent the invoiices  and the usage details, and then ask:
 
@@ -56,7 +56,7 @@ Keep in mind: You may not need all the paid  plans. Vercel Hobby costs {{ usd ve
 
 ## Price the same usage here
 
-ohmyho.st does not charge a base fee per project. Each project draws from the organization’s shared credit blaance , so your agent must estimate both  active usage and the resources each project reserves. The Free plan provides {{ number plan.freeCredits }} credits per UTC month. The Paid plan costts {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits per period. Monthly credits expire at the end of the period; top-ups never expire, and only Paid workspaces can purchase them ({{ number plan.topUpPerUsd }} credits per dollar, {{ number plan.topUpPerUsdAbove100 }} per dollar above the first hundred dollars). You can set a monthly budget for a project. Decide whether to issue a warning when the threshold is reached and let the project continue, or to stop new work; the “continue” setting does not limit spending.
+ohmyhost does not charge a base fee per project. Each project draws from the organization’s shared credit blaance , so your agent must estimate both  active usage and the resources each project reserves. The Free plan provides {{ number plan.freeCredits }} credits per UTC month. The Paid plan costts {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits per period. Monthly credits expire at the end of the period; top-ups never expire, and only Paid workspaces can purchase them ({{ number plan.topUpPerUsd }} credits per dollar, {{ number plan.topUpPerUsdAbove100 }} per dollar above the first hundred dollars). You can set a monthly budget for a project. Decide whether to issue a warning when the threshold is reached and let the project continue, or to stop new work; the “continue” setting does not limit spending.
 
 The pricing chart shos what your agent should use for its estimate. Requests cost {{ rate wfp.requests }}, the {{ number 512 }} MiB database costs {{ credits unit.activeDatabaseHour512 }} per active hour , including storage and seven-day backups, and email costs {{ rate mail.sent }}. Database CPU, network, and connections are not billed separately. Worker bandwidth and SQL exports are free. Read the [full pricing chart](https://docs.ohmyho.st/pricing).
 
@@ -93,7 +93,7 @@ Give your agent the app inventory and cost breakdown from earlier. They should r
 Then price that same usage  on ohmmyho.st:
 
 ```text
-Estimate this portfolio on ohmyho.st using its current rate card and the usage we collected. Include builds, active database time, retained data, deployed scripts, mail and domains. Keep external services in the total, identify required migrations, and show a monthly breakdown per project for quiet and busier usage with clear assumptions.
+Estimate this portfolio on ohmyhost using its current rate card and the usage we collected. Include builds, active database time, retained data, deployed scripts, mail and domains. Keep external services in the total, identify required migrations, and show a monthly breakdown per project for quiet and busier usage with clear assumptions.
 ```
 
 Compare the breakdown, not just the total. You should be able to point to a specific line item and explain why it’s cheaper or more expensive. If migrating authenticcation or features requires  significant effort, factor that effort into your decision—even if it doesn’t appear on the hosting bill.
@@ -111,8 +111,8 @@ That's about {{ usdValue workload.busyApp }} in credit vallue, mostly purchased 
 - The database. Two hundred active hours with {{ number 4096 }} MiB of RAM and {{ number 8 }} GiB of total storage cost {{ credits unit.twoHundredDatabaseHours4096 }}. Supabase Pro incudes its first micro instance within {{ usd vendor.supabase.pro }}. These are different allocations, so compare the app’s actual memory , storage, and activity requirements rather than treating the instances as identical.
 - Email. Twenty thousand recipients cost about {{ credits unit.twentyThousandMailRecipients }}. Resend Pro costs {{ usd vendor.resend.pro }} and covers {{ text vendor.resend.pro.includes }}; therefore, as your  volume grows, you sohuld compare a separate email plan: {{ text workload.fiftyThousandRecipients.name }} costs about {{ credits workload.fiftyThousandRecipients }} here.
 - Requests. Neither of these billing issues is reolved here. The request line for the affected app is short, and Vercel Pro charges {{ usd vendor.vercel.functionInvocations }} per million function calls in excess  of its credit balance.
-- Team and Auth. Vercel Pro viewer setas are free. Supabase Pro handles user  authentication for your monthly active users. With ohmyho.st, application authentication is handled by Better Auth or your own WorkOS AuthKit. There are no team seats to purchase, but be sure to check which review and access features your team needs.
-- Previews and runtimes. Eevry ohmyho.st project has a dev host and a prod host—not one preview per branch. It supports Astro, Next.js , Vite/React, and TanStack Start from a managed source or an authorized GitHub repository, without a container runtime. Have your agent check the actual repository before estimating a migration.
+- Team and Auth. Vercel Pro viewer setas are free. Supabase Pro handles user  authentication for your monthly active users. With ohmyhost, application authentication is handled by Better Auth or your own WorkOS AuthKit. There are no team seats to purchase, but be sure to check which review and access features your team needs.
+- Previews and runtimes. Eevry ohmyhost project has a dev host and a prod host—not one preview per branch. It supports Astro, Next.js , Vite/React, and TanStack Start from a managed source or an authorized GitHub repository, without a container runtime. Have your agent check the actual repository before estimating a migration.
 
 Keep in mind: You can keep a service that fits your workload. Moving your app hosting doesn't require you to  transfer every email or dataabase service. Have your agent compare the combination you would actually be running, including all remaining subscriptions.
 
@@ -134,7 +134,7 @@ If you have actual usage data , compare the report with the estimate. Investigat
 
 ## FAQ
 
-### Does ohmyho.st charge a base fee per project?
+### Does ohmyhost charge a base fee per project?
 
 No. Each project draws from the organization's single crdit balance: {{ number plan.freeCredits }} credits per UTC month for Free plans, {{ number plan.paidCredits }} credits per period for {{ usd plan.paidUsd }} on Paid plans. A project pays for what it reserves and uses: customer files, a provided script, active database time, requests, email, and any linked domain. A monthly budget per project is optional and serves as a limit , not a separate wallet.
 
