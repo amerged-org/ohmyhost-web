@@ -92,8 +92,14 @@
         if (link) {
           try {
             const target = new globalThis.URL(link.href, location.href);
-            if ((target.origin === location.origin || target.origin === "https://ohmyho.st" || target.origin === "https://app.ohmyho.st") && target.pathname === "/login")
-              globalThis.trackAcquisition?.("cta_click", { cta: "login" });
+            if ((target.origin === location.origin || target.origin === "https://ohmyho.st" || target.origin === "https://app.ohmyho.st") && target.pathname === "/login") {
+              const processing = globalThis.trackAcquisition?.("cta_click", { cta: "login" });
+              if (processing?.then && (event.button ?? 0) === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey && !event.defaultPrevented && link.target !== "_blank" && !link.hasAttribute?.("download")) {
+                event.preventDefault();
+                try { await processing; } catch { /* Analytics cannot prevent sign-in. */ }
+                location.assign(target.href);
+              }
+            }
           } catch { /* Invalid links are not acquisition events. */ }
         }
         return;

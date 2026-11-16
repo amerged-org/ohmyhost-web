@@ -19,7 +19,15 @@
     if (!['cta_click', 'prompt_copy_success', 'prompt_copy_failure'].includes(name)) return;
     const cta = context?.cta;
     if (!['login', 'prompt_nav', 'prompt_page'].includes(cta)) return;
-    tag('event', name, { send_to: id, cta, page_group: location.pathname === '/' ? 'home' : 'other' });
+    const fields = { send_to: id, cta, page_group: location.pathname === '/' ? 'home' : 'other' };
+    if (name === 'cta_click') {
+      return new Promise(resolve => {
+        const timer = setTimeout(resolve, 150);
+        const complete = () => { globalThis.clearTimeout(timer); resolve(); };
+        tag('event', name, { ...fields, event_callback: complete, event_timeout: 150 });
+      });
+    }
+    tag('event', name, fields);
   };
   const page = () => {
     placeSettings();

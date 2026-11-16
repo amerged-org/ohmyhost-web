@@ -73,11 +73,16 @@ function browser(host = "ohmyho.st", initialCookie = "") {
     },
   };
   let reloads = 0;
+  const navigations: string[] = [];
+  let prevented = 0;
   const location = {
     hostname: host,
     pathname: "/",
     origin: `https://${host}`,
     href: `https://${host}/?token=private`,
+    assign: (href: string) => {
+      navigations.push(href);
+    },
     reload: () => {
       reloads++;
     },
@@ -90,7 +95,8 @@ function browser(host = "ohmyho.st", initialCookie = "") {
       location.pathname = path;
     },
   };
-  const timers: (() => void)[] = [];
+  const timers = new Map<number, () => void>();
+  let timerId = 0;
   let tick = () => {};
   const context = {
     document,
@@ -101,11 +107,18 @@ function browser(host = "ohmyho.st", initialCookie = "") {
     navigator: { clipboard: { writeText: async () => {} } },
     trackAcquisition: undefined as
       | undefined
-      | ((name: string, context: Record<string, string>) => void),
+      | ((
+          name: string,
+          context: Record<string, string>,
+        ) => void | Promise<void>),
     dataLayer: [] as unknown[][],
     addEventListener: document.addEventListener,
     setTimeout: (fn: () => void) => {
-      timers.push(fn);
+      timers.set(++timerId, fn);
+      return timerId;
+    },
+    clearTimeout: (id: number) => {
+      timers.delete(id);
     },
     setInterval: (fn: () => void) => {
       tick = fn;
@@ -123,7 +136,12 @@ function browser(host = "ohmyho.st", initialCookie = "") {
     node?.callbacks.get("click")?.();
   };
   const flush = () => {
-    while (timers.length) timers.shift()?.();
+    while (timers.size) {
+      const [id, fn] = [...timers][0] ?? [];
+      if (id === undefined || !fn) break;
+      timers.delete(id);
+      fn();
+    }
   };
   return {
     run,
@@ -139,11 +157,16 @@ function browser(host = "ohmyho.st", initialCookie = "") {
       for (const fn of listeners.get("click") ?? [])
         await fn({
           target,
-          preventDefault() {},
+          button: 0,
+          preventDefault() {
+            prevented++;
+          },
           stopImmediatePropagation() {},
         });
     },
     context,
+    navigations,
+    prevented: () => prevented,
     nodes,
     cookies,
     scripts,
@@ -238,7 +261,23 @@ it("loads no Google code until explicit consent and stops after withdrawal", asy
   expect(b.scripts[0]?.src).toContain("G-C1PWJM238R");
   const events = () => b.context.dataLayer.filter((row) => row[0] === "event");
   expect(events()).toHaveLength(1);
-  await b.clickTarget(login);
+  const beforeCta = b.prevented();
+  const navigation = b.clickTarget(login);
+  expect(b.prevented()).toBe(beforeCta + 1);
+  expect(b.navigations).toEqual([]);
+  const callback = (events().at(-1)?.[2] as { event_callback?: () => void })
+    ?.event_callback;
+  expect(callback).toBeTypeOf("function");
+  callback?.();
+  await navigation;
+  expect(b.navigations).toEqual([
+    "https://ohmyho.st/login?utm_source=private@example.com",
+  ]);
+  // A blocked tag cannot hold sign-in navigation past the local timeout.
+  const blockedTagNavigation = b.clickTarget(login);
+  b.flush();
+  await blockedTagNavigation;
+  expect(b.navigations).toHaveLength(2);
   await b.clickTarget(foreign);
   await b.clickTarget(command);
   await b.clickTarget(article);
@@ -249,6 +288,7 @@ it("loads no Google code until explicit consent and stops after withdrawal", asy
   await b.clickTarget(prompt);
   expect(events().map((row) => row[1])).toEqual([
     "page_view",
+    "cta_click",
     "cta_click",
     "prompt_copy_success",
     "prompt_copy_failure",
@@ -263,7 +303,7 @@ it("loads no Google code until explicit consent and stops after withdrawal", asy
   b.flush();
   await b.clickTarget(login);
   await b.clickTarget(prompt);
-  expect(events()).toHaveLength(4);
+  expect(events()).toHaveLength(5);
 });
 
 it("uses shared consent on Docs and counts each route once including browser back", () => {
