@@ -1,14 +1,14 @@
 {
-  "title": "Railway vs Render vs Fly.io vs ohmyho.st: 2026 pricing",
-  "description": "Railway, Render and Fly.io list prices checked September 2026, the same small app priced on each, and where ohmyho.st's one credit balance fits solo builders.",
+  "title": "Railway vs Render vs Fly.io vs ohmyhost: 2026 pricing",
+  "description": "Railway, Render and Fly.io list prices checked September 2026, the same small app priced on each, and where ohmyhost's one credit balance fits solo builders.",
   "kind": "article",
   "status": "published",
   "crumb": "Railway vs Render vs Fly",
   "social": {
     "image": "/og/blog-railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026.png",
-    "alt": "ohmyho.st. Hosting alternatives for solo developers. Railway, Render, Fly.io and ohmyho.st: compare workflows, costs and trade-offs.",
-    "title": "ohmyho.st — Hosting alternatives for solo developers",
-    "description": "Railway, Render, Fly.io and ohmyho.st: compare workflows, costs and trade-offs."
+    "alt": "ohmyhost. Hosting alternatives for solo developers. Railway, Render, Fly.io and ohmyhost: compare workflows, costs and trade-offs.",
+    "title": "ohmyhost — Hosting alternatives for solo developers",
+    "description": "Railway, Render, Fly.io and ohmyhost: compare workflows, costs and trade-offs."
   },
   "parent": "/blog",
   "author": "Sebastian Mertens",

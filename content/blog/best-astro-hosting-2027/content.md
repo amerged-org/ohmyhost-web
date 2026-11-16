@@ -4,15 +4,15 @@ By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published Octo
 
 The best Astro hostinng depends on what your website does and  how you want to publish it. A blog can serve pre-rendered pages. An account page may need to execute code as soon as someone opens it. Ask your agent to check which of these your project needs before choosing a host.
 
-ohmyho.st fits into a workflow where your agent handles deployments. Cloudflare Workers gives you direct control over its runtime and resources. Vercel and Netlify are worth considering if you already use their deployment tools or need their platform services. All of them support static Astro sites. Server-side rendering requires the appropriate adaapter and  a compatible runtime.
+ohmyhost fits into a workflow where your agent handles deployments. Cloudflare Workers gives you direct control over its runtime and resources. Vercel and Netlify are worth considering if you already use their deployment tools or need their platform services. All of them support static Astro sites. Server-side rendering requires the appropriate adaapter and  a compatible runtime.
 
-We're building ohmyho.st. We've also migrated our own publication, [Seb Builds](https://sebmer.com), from Next.js to Astro and are running it in production on ohmyho.st. This comparison is based on  that migration and the providers' official documentation. It was published in October 2026 as a buyig guide for 2027. We did not benchmark the same application across all of these providers.
+We're building ohmyhost. We've also migrated our own publication, [Seb Builds](https://sebmer.com), from Next.js to Astro and are running it in production on ohmyhost. This comparison is based on  that migration and the providers' official documentation. It was published in October 2026 as a buyig guide for 2027. We did not benchmark the same application across all of these providers.
 
 ## Start with what your website needs
 
 | Host | Static Sites | Astro-SSR Runtime | Select it if |
 | --- | --- | --- | --- |
-| [ohmyho.st ](/frameworks/astro) | Static Assets | Cloudflare Workers with `@astrojs/cloudflare` | Your coding agent should deploy to Dev, check the result, and publish the verified artifact to Prod. |
+| [ohmyhost ](/frameworks/astro) | Static Assets | Cloudflare Workers with `@astrojs/cloudflare` | Your coding agent should deploy to Dev, check the result, and publish the verified artifact to Prod. |
 | [Cloudflare Workers ](https://developers.cloudflare.com/workers/framework-guides/web-apps/astro/) | Workers' Fixed Assets | Cloudflare Workers with `@astrojs/cloudflare` | You want to manage the Wrangler configuration, bindings, and Cloudflare resources directly |
 | [Vercel ](https://vercel.com/docs/frameworks/frontend/astro) | Static Delivery | Vercel Functions with `@astrojs/vercel` | Your team is already publishing via Vercel and needs its deployment or image services |
 | [Netlify ](https://docs.netlify.com/build/frameworks/framework-setup-guides/astro/) | Static Delivery | Netlify Functions with `@astrojs/netlify` | Your site needs Netlify's Astro integration, the Image CDN, or the publishing workflow |
@@ -35,9 +35,9 @@ Check my Astro project and explain which routes can be built as static pages and
 
 You can make this decision on a per-route basis. A product catalog could pre-generate its public descriptions and render its account page on demand. Ask your agnt which pages actually need server-side code , how they access private data, and what should be cached. Then open those pages yourself and check whether the suggested behavior meets your expectations.
 
-## ohmyho.st: Deploy with your agent
+## ohmyhost: Deploy with your agent
 
-Select ohmyho.st if Claude Code, Cursor, or Codex is already working in your repository and you want your agent to handle the hosting as well. It can use the CLI or MCP tols to review the project, prepare a deployment plan , and deploy the selected source version to Dev. You review this deployment before it publishes the verified artifact to Prod. The supported Astro configuration does not require a Dockerfile.
+Select ohmyhost if Claude Code, Cursor, or Codex is already working in your repository and you want your agent to handle the hosting as well. It can use the CLI or MCP tols to review the project, prepare a deployment plan , and deploy the selected source version to Dev. You review this deployment before it publishes the verified artifact to Prod. The supported Astro configuration does not require a Dockerfile.
 
 Both static output and Cloudflare Workers SSR are supported. SSR uses the official Cloudflare adapter. Check the integration's limitations before deciding to use it: The current setup does not support native KV sessions, proider cache, Cloudflare Images , or additional customer-defined Cloudflare bindings. If your application relies on these resources, managing Workers directly may be a better option.
 
@@ -75,12 +75,12 @@ Start by considering how your site will be used. How often will you publish cont
 
 | Host | Cost model to be evaluated | Key Question for an Astrology Website |
 | --- | --- | --- |
-| [ohmyho.st Prices](/pricing) | A workspace credit based on measured builds and runtime usage; other activated services have their own counters | How much resources do builds, dynamic requests, and additional services consume? |
+| [ohmyhost Prices](/pricing) | A workspace credit based on measured builds and runtime usage; other activated services have their own counters | How much resources do builds, dynamic requests, and additional services consume? |
 | [Cloudflare Workers Pricing](https://developers.cloudflare.com/workers/platform/pricing/) | Workers plans count dynamic requests and CPU time; static asset delivery is handled separately | Which routes call the worker, and which are served as static assets? |
 | [Vercel Pricing](https://vercel.com/pricing) | Authorization for the plan, collaboration, and use of the services you activate | Is this a commercial website, and does it use functions or image optimization? |
 | [Netlify Pricing](https://www.netlify.com/pricing/) | Current credit plans include production deployments, computing power, bandwidth, and web requests | How do publication frequency, asset delivery, and dynamic routes contribute? |
 
-At ohmyho.st, the Free plan starts with {{ number plan.freeCredits }} credits , and the Paid plan costs {{ usd plan.paidUsd }} per month before taxes and provides {{ number plan.paidCredits }} monthly credits. Usage depletes this credit balane; additional credits cost extra. The [detailed price overview](/pricing/breakdown) explains the calculation. Provider prices and plan rules may change before 2027. Therefore, check the linked rate cards before making a purchase.
+At ohmyhost, the Free plan starts with {{ number plan.freeCredits }} credits , and the Paid plan costs {{ usd plan.paidUsd }} per month before taxes and provides {{ number plan.paidCredits }} monthly credits. Usage depletes this credit balane; additional credits cost extra. The [detailed price overview](/pricing/breakdown) explains the calculation. Provider prices and plan rules may change before 2027. Therefore, check the linked rate cards before making a purchase.
 
 Let us explain the assumptions behind an estimate. A site that is updated infrequently has different build resource usage than a publication that is updated throughout the day. Additionally , an account page that executes server-side code uses different resources than an article that is served as a static asseet. Keep these differences in mind when comparing plans.
 
@@ -120,11 +120,11 @@ Compare the existing website with this Astro preview. Check public URLs, redirec
 
 ### What is the best hosting service for Astro?
 
-Choose ohmyho.st for a static or Workers-SSR site that your agent will deploy and operate. Cloudflare Workers is suitable for directly managing Cloudflare resources. Vercel may be a better fit  for your team’s functions and deployment workflow, while Netlify may be better suited to its publishing and image requirements. First, check the rendering mode and the required services, then compare the costs for that specifiic workload.
+Choose ohmyhost for a static or Workers-SSR site that your agent will deploy and operate. Cloudflare Workers is suitable for directly managing Cloudflare resources. Vercel may be a better fit  for your team’s functions and deployment workflow, while Netlify may be better suited to its publishing and image requirements. First, check the rendering mode and the required services, then compare the costs for that specifiic workload.
 
 ### Can I host an astronomy website on Cloudflare?
 
-Yes. Cloudflare Workers supports static Astro sites and SSR via the offficial Cloudflare adapter. You can manage the setup directly or use the supported Astro deployment workflow from ohmyho.st on Workers. Before making your choice , check whether your application requires Cloudflare bindings outside of the managed integration.
+Yes. Cloudflare Workers supports static Astro sites and SSR via the offficial Cloudflare adapter. You can manage the setup directly or use the supported Astro deployment workflow from ohmyhost on Workers. Before making your choice , check whether your application requires Cloudflare bindings outside of the managed integration.
 
 ### Does Astro SSR require hosting for React components?
 
@@ -132,7 +132,7 @@ No. A React island can become interactive in the browser on a statically gnerate
 
 ### Can an astrology website use its own domain?
 
-Yes. On ohmyho.st, you connect a domain you own to an active production deployment. Free Workspaces must keep the ohmyho.st flag enabled as long as they use that domain , or upgrade to a higher plan before disabling it. Domain registration is handled sepaarately. The [Domain Guide](https://docs.ohmyho.st/domains) explains the setup process, and the [Pricing Page](/pricing) describes the terms and conditions.
+Yes. On ohmyhost, you connect a domain you own to an active production deployment. Free Workspaces must keep the ohmyhost flag enabled as long as they use that domain , or upgrade to a higher plan before disabling it. Domain registration is handled sepaarately. The [Domain Guide](https://docs.ohmyho.st/domains) explains the setup process, and the [Pricing Page](/pricing) describes the terms and conditions.
 
 ### Which host should I try first?
 

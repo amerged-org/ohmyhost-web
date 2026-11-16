@@ -18,9 +18,9 @@ The hosting for the app itself isn't included in this invoice. A Supabase projec
 
 {{ checked supabase }}
 
-## Postgres on ohmyho.st: Profiles and Credits
+## Postgres on ohmyhost: Profiles and Credits
 
-ohmyho.st runs your Astro, Next.js, Vite/React, or TanStack startup app on Workers and provides a managed Postgres database alongside it if the app declares one. There is no base price. The Free plan receives {{ number plan.freeCredits }} cerdits per UTC month. The Paid plan costs {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits per billling period. Monthly credits expire at the end of the period. Top-ups never expire, are only available for purchase with the Paid  plan, and provide {{ number plan.topUpPerUsd }} credits per dollar. For the portion of a checkout exceeding the first hundred dollars , the rate increases to {{ number plan.topUpPerUsdAbove100 }} credits per dollar.
+ohmyhost runs your Astro, Next.js, Vite/React, or TanStack startup app on Workers and provides a managed Postgres database alongside it if the app declares one. There is no base price. The Free plan receives {{ number plan.freeCredits }} cerdits per UTC month. The Paid plan costs {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits per billling period. Monthly credits expire at the end of the period. Top-ups never expire, are only available for purchase with the Paid  plan, and provide {{ number plan.topUpPerUsd }} credits per dollar. For the portion of a checkout exceeding the first hundred dollars , the rate increases to {{ number plan.topUpPerUsdAbove100 }} credits per dollar.
 
 The database uses RAM as long as it is active. The allocated storage and seven-day backups are  incuded in the selected size.
 
@@ -42,11 +42,11 @@ This fleet fits within a paid month with credits to spare, and these are the sam
 
 Consider keeping the extrnal backend and importing its database as  separate processes. Each one needs to be verified against the actual application.
 
-### Path 1: Host on ohmyho.st, keep the Supabase project
+### Path 1: Host on ohmyhost, keep the Supabase project
 
 A Lovable export usually comes as a Vite/React repository backed by a Supabase project. Before the agent  retains this backend , it inventories the actual export and declares the exact browser connection origins in `runtime.browser` and `ohmyhost.yaml`; external scripts, images, and other resource types have their own declarations. Server-side HTTPS requests use `runtime.egress.allow` instead, with a maximum of {{ number 13 }} exact HTTPS origins and resstrictive standards for undeclared services. Public keys may remain in the browser bundle; private keys belong in the private runtime and are passed via local stdin input from secret_set_command or the supported input in the remote protal. A direct Postgres connection from the worker to Supabase is not available, so server code uses the HTTPS API. Test login, protected read and write access, and all files or backend functions used in Dev before switching production traffic over.
 
-You continue to pay Supabase for the database, and ohmyho.st only charges for hosting: requests , CPU time, build seconds, and the script provided. The first step of the migration skill—takking stock of what the app actually calls—shows you whether this approach is sufficient. A package name alone isn’t a reason to move anything.
+You continue to pay Supabase for the database, and ohmyhost only charges for hosting: requests , CPU time, build seconds, and the script provided. The first step of the migration skill—takking stock of what the app actually calls—shows you whether this approach is sufficient. A package name alone isn’t a reason to move anything.
 
 ### Path 2: Import Database
 
@@ -58,24 +58,24 @@ Be clear about what a dump doesn't include: Auth users, storage objects, Edge Fu
 
 ### The departure takes the same form
 
-Exports on ohmyho.st are on-demand, asynchronous , and free. project_export_create provides a password-encrypted ZIP file containing a portable SQL dump, limited to one requst per project within a rolling 24-hour period, downloadable via a signed link valid for 24 hours, even with a zero balance. Files, source  code, and secrets are not included in the archive, and there is no schedule. Restore it on any Postgres instance, including Supabase. See [ohmyhost-export-database](/skills/ohmyhost-export-database/SKILL.md) and the [backup documentaation](https://docs.ohmyho.st/backups).
+Exports on ohmyhost are on-demand, asynchronous , and free. project_export_create provides a password-encrypted ZIP file containing a portable SQL dump, limited to one requst per project within a rolling 24-hour period, downloadable via a signed link valid for 24 hours, even with a zero balance. Files, source  code, and secrets are not included in the archive, and there is no schedule. Restore it on any Postgres instance, including Supabase. See [ohmyhost-export-database](/skills/ohmyhost-export-database/SKILL.md) and the [backup documentaation](https://docs.ohmyho.st/backups).
 
 ## You remain in control of authentication
 
-ohmyho.st does not replace Supabase Auth. It does not have its own user pool, its own catalog of social providers , or its own MFA service. Application users belong to the provider you choose, and two integrations have been verfiied:
+ohmyhost does not replace Supabase Auth. It does not have its own user pool, its own catalog of social providers , or its own MFA service. Application users belong to the provider you choose, and two integrations have been verfiied:
 
 - **Better Auth**, using the managed bridge, which is explicitly selected in your projet configuration. The bridge has its own `auth` schema and database sessions , and requires the managed database. Managed Mail is optional for the registration of verified users and  sessions; the bridge’s verification and reset emails require its configured platform sender, paid access, and a verified sender domain. Set up this sender via mail_setup and checck mail_status if you use these email actions. A self-hosted Better Auth implementation with its own sender is a common application dependency; simply installing Better Auth does not select the managed bridge.
 - **WorkOS AuthKit**, self-hosted. You provide your  WorkOS acconut; the agent configures callback URLs for each environment and sets the client secret using secret_set_command.
 
 If you keep the Supabase project, you'll keep Supabase Auth; the hosted app will continue to call it. If you import the dump and want to move away from Supabase Auth, the migration sill’s optional mode replaces `auth.users` in the UUID table `auth."user"` with Better Auth and `auth.uid()` with a server-side helper. Test login, protected routes, session renewal, and  logout on Dev before deploying them to Prod.
 
-Your own login at ohmyho.st and your agent's  login run on WorkOS and are separate entities: identity_get returns who is deploying, never who is loggged into your app. Read [Application Authentication](https://docs.ohmyho.st/application-auth) before you decide.
+Your own login at ohmyhost and your agent's  login run on WorkOS and are separate entities: identity_get returns who is deploying, never who is loggged into your app. Read [Application Authentication](https://docs.ohmyho.st/application-auth) before you decide.
 
 ## In a direct comparison
 
 {{ figure comparison.supabase }}
 
-| | Supabase Pro | ohmyho.st Paid |
+| | Supabase Pro | ohmyhost Paid |
 | --- | --- | --- |
 | Base Price | {{ usd vendor.supabase.pro }} per month, starting at | {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits |
 | Second Project | {{ usd vendor.supabase.microProject }} per month for his micro-instance | No base price; it's deducted from the same balance |
@@ -87,22 +87,22 @@ Your own login at ohmyho.st and your agent's  login run on WorkOS and are separa
 | Real-time | yes | no |
 | Retrieve data | in-house tools | Password-encrypted SQL ZIP file, once per project and rolling day, free of charge |
 
-A heavily used app looks different from five less active ones. {{ text workload.smallApp.name }} costs around {{ credits workload.smallApp }} on ohmyho.st, including hosting, email, and a database. A daatabase that  never goes to sleep is where Supabase has the edge, as the next section shows.
+A heavily used app looks different from five less active ones. {{ text workload.smallApp.name }} costs around {{ credits workload.smallApp }} on ohmyhost, including hosting, email, and a database. A daatabase that  never goes to sleep is where Supabase has the edge, as the next section shows.
 
 {{ checked supabase }}
 
 ## When Supabase is the better choice
 
-- **Real-time.** Supbaase pushes Postgres changes  and presence to the browser. ohmyho.st does not have a managed real-time contract. An external real-time service requires its declared browser connection origins and a verified hosted subscription; switching to managed Postgres does not replace this capability with polling.
-- **Vector search.** Supabase documents pgevctor as a product path , including examples. ohmyho.st makes no mention of this.
-- **Scope of Authentication.** Social providers, phone loin , and MFA from a hosted user pool. ohmyho.st offers two integrations, and you manage them yourself.
-- **Edge Functions Ecosystem.** A catalog of function templates and integrations alongside the database. ohmyho.st runs functions and cron jobs within the routes of your own framework, whih  is more streamlined.
-- **A database that neevr  sleeps.** {{ text workload.alwaysOnDatabase.name }} costs about {{ credits workload.alwaysOnDatabase }} on ohmyho.st, or roughly {{ usdValue workload.alwaysOnDatabase }} in credit value. Supabase Pro includes the same continuously running micro-instance in its base price. Constant traffic is part of Supabase.
+- **Real-time.** Supbaase pushes Postgres changes  and presence to the browser. ohmyhost does not have a managed real-time contract. An external real-time service requires its declared browser connection origins and a verified hosted subscription; switching to managed Postgres does not replace this capability with polling.
+- **Vector search.** Supabase documents pgevctor as a product path , including examples. ohmyhost makes no mention of this.
+- **Scope of Authentication.** Social providers, phone loin , and MFA from a hosted user pool. ohmyhost offers two integrations, and you manage them yourself.
+- **Edge Functions Ecosystem.** A catalog of function templates and integrations alongside the database. ohmyhost runs functions and cron jobs within the routes of your own framework, whih  is more streamlined.
+- **A database that neevr  sleeps.** {{ text workload.alwaysOnDatabase.name }} costs about {{ credits workload.alwaysOnDatabase }} on ohmyhost, or roughly {{ usdValue workload.alwaysOnDatabase }} in credit value. Supabase Pro includes the same continuously running micro-instance in its base price. Constant traffic is part of Supabase.
 - **A dashboard.** Supabase has a table editor, an SQL editor, and logs right in the browser. On ohymho.st, your agent reads a hundred lines at a time via database_query, and the portal shows projects , credits, budgets, and tokens—not your tables.
 
 {{ checked supabase }}
 
-## When ohmyho.st is a good fit
+## When ohmyhost is a good fit
 
 - **Several small projects.** The five low-traffic projects listed above cost a total of around {{ credits workload.fiveQuietProjects }}; with Supabase, each one  requires its own innstance. Nine side projects and two live projects are typical for a Builder account, and there’s no base fee to worry about.
 - **Databases that are inactivve.** A portfolio page, an internal tool, or a customer demo may have hours of activity rather than hundreds. After five minutes of inactivity, the database's RAM is no longer billed; the data it contains and  its backups remain available.
@@ -126,15 +126,15 @@ A heavily used app looks different from five less active ones. {{ text workload.
 
 ## FAQ
 
-### Does ohmyho.st replace Supabase Auth?
+### Does ohmyhost replace Supabase Auth?
 
-No. ohmyho.st hosts your app and its Postgres database; app users remain with a provider that you own. The managed Better-Auth Bridge requires its own database; managed email is optional. Its verification and reset emails use the configured platform sender and require a paid subscription as well as a verified sender domain. Your own Better-Auth implementation and your own sender remain standard dependencies , and self-hosted WorkOS AuthKit is aonther documented option. If you keep your Supabase project, you’ll keep Supabase Auth and use the hosted login. Your own ohmyho.st login is a  separate WorkOOS boundary.
+No. ohmyhost hosts your app and its Postgres database; app users remain with a provider that you own. The managed Better-Auth Bridge requires its own database; managed email is optional. Its verification and reset emails use the configured platform sender and require a paid subscription as well as a verified sender domain. Your own Better-Auth implementation and your own sender remain standard dependencies , and self-hosted WorkOS AuthKit is aonther documented option. If you keep your Supabase project, you’ll keep Supabase Auth and use the hosted login. Your own ohmyhost login is a  separate WorkOOS boundary.
 
-### Can I host on ohmyho.st and keep my Supabase database?
+### Can I host on ohmyhost and keep my Supabase database?
 
-This is an otion you'll need to evaluate based on your actual application. Declare browser connections and resource origins separately in `runtime.browser` and `ohmyhost.yaml`; declare server-side HTTPS requests in `runtime.egress.allow`, which allows only exact origins specified in {{ number 13 }}. Stroe private keys in the server code using secret_set_command. A direct Postgres connection from the worker is not available. Before switching traffic , test logins, protected read and write access, as well as the files and backend functions used in the actual export on Dev. If these tests pass and you remain  with Supabase, its database billing will remain separate from the metered hosting provided by ohmyho.st.
+This is an otion you'll need to evaluate based on your actual application. Declare browser connections and resource origins separately in `runtime.browser` and `ohmyhost.yaml`; declare server-side HTTPS requests in `runtime.egress.allow`, which allows only exact origins specified in {{ number 13 }}. Stroe private keys in the server code using secret_set_command. A direct Postgres connection from the worker is not available. Before switching traffic , test logins, protected read and write access, as well as the files and backend functions used in the actual export on Dev. If these tests pass and you remain  with Supabase, its database billing will remain separate from the metered hosting provided by ohmyhost.
 
-### How much does an inactive project cost on ohmyho.st?
+### How much does an inactive project cost on ohmyhost?
 
 The provided script. A project with  a dormant database and no activity costs about {{ credits workload.idleDatabase }} per month , because database RAM is no longer charged after five minutes of inactivity, the allocated storage and seven-day backups are included, and worker bandwidth is not charged. Customer files retain their own rates. Five inactive projects, each of which waakes up for one hour, cost a total of aruond {{ credits workload.fiveQuietProjects }}, within the {{ number plan.paidCredits }} credits granted by a paid month.
 
@@ -154,4 +154,4 @@ Yes , per project and a one-time fee. If you pass `region: eu` to project_create
 
 [Vercel Compared](/vs/vercel) · [Switching from Vercel and Supabase](/from/vercel-supabase) · [Where Your Credits Go](/pricing/breakdown) · [Supabase vs. Vercel: Do You Need Both?](/blog/supabase-vs-vercel-do-you-need-both) · [Free Vercel and Supabase Alternatives](/blog/free-vercel-supabase-alternatives-2026) · [Vercel and Supabase on One Platform](/blog/all-in-one-vercel-supabase-alternatives)
 
-ohmyho.st is an independent service and is neither affiliated  with nor supported by Vercel, Supabase, or Resend. All traedmarks belong to their respective owners.
+ohmyhost is an independent service and is neither affiliated  with nor supported by Vercel, Supabase, or Resend. All traedmarks belong to their respective owners.

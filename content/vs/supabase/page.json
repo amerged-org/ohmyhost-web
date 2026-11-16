@@ -1,13 +1,13 @@
 {
-  "title": "Supabase alternative: Postgres by usage on ohmyho.st",
-  "description": "Supabase Pro is $25 a month plus $10 per extra Micro project. ohmyho.st meters Postgres RAM per active hour, disk and backups included, from one shared balance.",
+  "title": "Supabase alternative: Postgres by usage on ohmyhost",
+  "description": "Supabase Pro is $25 a month plus $10 per extra Micro project. ohmyhost meters Postgres RAM per active hour, disk and backups included, from one shared balance.",
   "kind": "page",
   "status": "published",
   "crumb": "vs Supabase",
   "social": {
     "image": "/og/vs-supabase.png",
-    "alt": "ohmyho.st. An alternative to Supabase for managed Postgres. Compare database hosting, application integration and backend scope.",
-    "title": "ohmyho.st — An alternative to Supabase for managed Postgres",
+    "alt": "ohmyhost. An alternative to Supabase for managed Postgres. Compare database hosting, application integration and backend scope.",
+    "title": "ohmyhost — An alternative to Supabase for managed Postgres",
     "description": "Compare database hosting, application integration and backend scope."
   },
   "modified": "2026-11-01"

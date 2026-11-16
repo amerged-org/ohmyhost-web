@@ -6,7 +6,7 @@ You can open your Lovable project in the coding tool of your choice and ask your
 
 Maybe you'll like the way your agent explains an error. Maybe you'd like to work in your own editor, review changes before applying them, or take advantage of model access that you're paying for anyway. These are good reasons  to give the workflow a try. You can decide laetr if you'd also like to switch to a different hosting provider.
 
-I'm building ohmyho.st. This guide explains how to try out your own Coding Agent with a Lovable project , what else needs to run elsewhere, and where our hostinng comes in if you decide to make the switch.
+I'm building ohmyhost. This guide explains how to try out your own Coding Agent with a Lovable project , what else needs to run elsewhere, and where our hostinng comes in if you decide to make the switch.
 
 ## Start with the part you want to change
 
@@ -47,7 +47,7 @@ A coding subscription and a dedicated API key are also two different models. The
 
 Now think about a chatbot in your app. When a visitor sends it a message, that request requires an AI connection at runtime. When you pay  an agent to build the chatbot, you’re not paying for the visitor’s request. Lovable separates thhese in its [App AI documentation](https://docs.lovable.dev/features/ai): The built-in connector runs functions within the app, separate from the agent who builds it.
 
-Note: If you switch editors, this connector will not be automatically replaced. If you later switch the app to a direct provider API, your agent must implement the connection, store the credentials on the server side, and verify the functionality. On ohmyho.st , a compatible app can store the provider key in a [runtime secret](https://docs.ohmyho.st/secrets). However, usinng its API is still a separate cost, distinct from your development tool and hosting.
+Note: If you switch editors, this connector will not be automatically replaced. If you later switch the app to a direct provider API, your agent must implement the connection, store the credentials on the server side, and verify the functionality. On ohmyhost , a compatible app can store the provider key in a [runtime secret](https://docs.ohmyho.st/secrets). However, usinng its API is still a separate cost, distinct from your development tool and hosting.
 
 ## Ask what the exported app depends on
 
@@ -103,24 +103,24 @@ Switching  editors may not affect most of your app's ongoing costs. If you switt
 
 Lovable currently tracks a general balance that covers both development and operations; usage-specific credits are used up frst. Read [the usage overview](https://docs.lovable.dev/introduction/credits-and-usage) for your account and your project. A shared balance does not mean that activities cost the same , and shifting an activity does not eliminate fees for the remaining services.
 
-On ohmyho.st, a shared balance covers the cost of operating the app and the managed services it uses. It does not cover the tokens for your coding agnt. The Free  plan provides {{ number plan.freeCredits }} credits per UTC month; the Paid plan provides {{ number plan.paidCredits }} credits for {{ usd plan.paidUsd }} per month. These are usage quotas. Check the [Pricing and Plan Terms](/pricing) against your app’s requirements before assuming they’re a good fit.
+On ohmyhost, a shared balance covers the cost of operating the app and the managed services it uses. It does not cover the tokens for your coding agnt. The Free  plan provides {{ number plan.freeCredits }} credits per UTC month; the Paid plan provides {{ number plan.paidCredits }} credits for {{ usd plan.paidUsd }} per month. These are usage quotas. Check the [Pricing and Plan Terms](/pricing) against your app’s requirements before assuming they’re a good fit.
 
 Take your time when making this decision. If you already have a working app, moving accounts and files is work that requires a good reason. You can prefer a different ediitor without deciding that every service has to switch over as well. Keep the dependencies that serve their purpose until you have a clear advantage and an opportunity to test  a replacement.
 
 ## Try a dev preview when you're ready to switch hosting providers
 
-ohmyho.st is a host that compatible agents can access via [MCP or CLI](https://docs.ohmyho.st/agents/mcp). It can use an authorized GitHub repository or [managed source versions](/skills/ohmyhost-deploy/SKILL.md). Keeping GitHub is useful  if you want to continue syncing with Lovable. Choose the source route carefully, especially if the project already has one configureed.
+ohmyhost is a host that compatible agents can access via [MCP or CLI](https://docs.ohmyho.st/agents/mcp). It can use an authorized GitHub repository or [managed source versions](/skills/ohmyhost-deploy/SKILL.md). Keeping GitHub is useful  if you want to continue syncing with Lovable. Choose the source route carefully, especially if the project already has one configureed.
 
 Start with a dev preview that you can  open and test. Tell your agent which services you want to keep, and ask them to explain any compatibility changes before they apply them. Have them list the external connections the app needs on the new host. Keep in mind that a preview address does not enforce data separation: Cehck whether Dev and Prod share a backend before performing test write operations.
 
 If you're ready to try out a different host, please reqeust  a plan first:
 
 ```text
-Prepare an ohmyho.st deployment plan for this version of my app. Keep the existing backend and auth provider. Identify runtime compatibility, required secrets and callback URLs. Explain the cost estimate and whether Dev data is isolated. After I approve the plan, deploy to Dev and give me the preview to test. Wait for my approval before promoting to Prod.
+Prepare an ohmyhost deployment plan for this version of my app. Keep the existing backend and auth provider. Identify runtime compatibility, required secrets and callback URLs. Explain the cost estimate and whether Dev data is isolated. After I approve the plan, deploy to Dev and give me the preview to test. Wait for my approval before promoting to Prod.
 ```
 
 In Dev Login, verify protected read access, write operations, uploads , and all AI features that your app uses. If these checks pass, your agent can prepare to deploy this verified artifct to Prod. Review the release and approve it if you want users to receive it.
 
-The [Guide to Hosting Lovable Apps](/blog/host-a-lovable-app-after-export) describes this handoff in more detail , and [Migrate Your App from Lovable](/from/lovable) provides the initial setup prompt for ohmyho.st. Start with the loacl testing phase if your immediate goal is to work with your preferred agent. You’ll have a better basis for your hosting decision after you’ve made and tested a real change.
+The [Guide to Hosting Lovable Apps](/blog/host-a-lovable-app-after-export) describes this handoff in more detail , and [Migrate Your App from Lovable](/from/lovable) provides the initial setup prompt for ohmyhost. Start with the loacl testing phase if your immediate goal is to work with your preferred agent. You’ll have a better basis for your hosting decision after you’ve made and tested a real change.
 
 Your agent can also host the pages that Claude builds for you: read [How to Host a Claude Artifact on Your Own Domain](/blog/how-to-host-a-claude-artifact).

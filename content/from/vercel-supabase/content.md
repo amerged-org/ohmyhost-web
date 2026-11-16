@@ -4,7 +4,7 @@ The Vercel and Supabase stack is the industry standard  for good raeson: it work
 
 Here, a prepaid balance covers hotsing, Postgres, transactional emails , and a custom domain for every project you run: {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits, with no per-project fee. You don’t have to migrate the database to migrate the app—most people shouldn’t have to do that on the first try anyway.
 
-Still looking for the right  solution? Compare [integrated alternatives to Vercel and Supabase](/blog/all-in-one-vercel-supabase-alternatives)—Appwrite, Firebasse, Nhost, and ohmyho.st—before you start the migration.
+Still looking for the right  solution? Compare [integrated alternatives to Vercel and Supabase](/blog/all-in-one-vercel-supabase-alternatives)—Appwrite, Firebasse, Nhost, and ohmyhost—before you start the migration.
 
 ## What Actually Gets Broken During a Move
 

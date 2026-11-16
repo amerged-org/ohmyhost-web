@@ -1,14 +1,14 @@
 {
-  "title": "Terms of Service and Master Services Agreement — ohmyho.st",
-  "description": "The terms under which Amerged B.V. provides ohmyho.st hosting, Postgres, domains and mail, including credits, acceptable use, liability and termination.",
+  "title": "Terms of Service and Master Services Agreement — ohmyhost",
+  "description": "The terms under which Amerged B.V. provides ohmyhost hosting, Postgres, domains and mail, including credits, acceptable use, liability and termination.",
   "kind": "page",
   "status": "published",
   "crumb": "Terms",
   "social": {
     "image": "/og/terms.png",
-    "alt": "ohmyho.st. Terms of service. The conditions for using ohmyho.st.",
-    "title": "ohmyho.st — Terms of service",
-    "description": "The conditions for using ohmyho.st."
+    "alt": "ohmyhost. Terms of service. The conditions for using ohmyhost.",
+    "title": "ohmyhost — Terms of service",
+    "description": "The conditions for using ohmyhost."
   },
   "modified": "2026-10-30"
 }

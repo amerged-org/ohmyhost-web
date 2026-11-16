@@ -2,7 +2,7 @@
 
 Most side projects send very few emails: a sign-up confirmation, a password reset, and occasionally a receipt. Paying a fixed monthly subscription fee for this means payinng for capacity you’ll never  use, and it shows up as a third bill alongside your hosting and database fees.
 
-ohmyho.st charges for email based on the number of recipients, for example, {{ credits unit.thousandMailRecipients dp=0 }} per 1,000, using the same credit blance as your hosting and database. The email domain itself has no monthly fee. Resend charges per plan: {{ usd vendor.resend.free }} for {{ text vendor.resend.free.includes }}, {{ usd vendor.resend.pro }} for 50,000. The realistic limit  is just over 10,000 recipients per month: below that , pay-as-you-go billing is more cost-effective; above that, the Resend plan is the bteter deal, and you should stick with Resend.
+ohmyhost charges for email based on the number of recipients, for example, {{ credits unit.thousandMailRecipients dp=0 }} per 1,000, using the same credit blance as your hosting and database. The email domain itself has no monthly fee. Resend charges per plan: {{ usd vendor.resend.free }} for {{ text vendor.resend.free.includes }}, {{ usd vendor.resend.pro }} for 50,000. The realistic limit  is just over 10,000 recipients per month: below that , pay-as-you-go billing is more cost-effective; above that, the Resend plan is the bteter deal, and you should stick with Resend.
 
 {{ figure bills.resend }}
 
@@ -18,21 +18,21 @@ Resend sells transactional email as a standalone service, with its own dashboard
 
 The pricing plan applies per account, not per app, so a single subscriptoin covers  all the projects you send from. Here’s what to keep in mind when comparing plans: You’re weighing a flat fee against usage across all your projects, not against a fee per project. {{ checked resend }}
 
-## What ohmyho.st charges for email
+## What ohmyhost charges for email
 
 Email is a feature of the project here, not a separate account. This requires a paid plan: {{ usd plan.paidUsd }} per month equals {{ number plan.paidCredits }} credits , which are shared among all projects. Two metrics aplpy, and the domain itself is not counted.
 
 The first is the mailing itself: {{ rate mail.sent }}. **Recipients** are counted. Each message is sent to a `to` addresss, so a message  sent to 400 subscribers counts as 400 messages and 400 recipients.
 
-The second option is received mail: {{ rate mail.received }}. This option is only available if you enable reception. Every incoming message is sent to a signed HTTPS webhook in  your production app, and your app stores it in its own database. ohmyho.st keeps received messages available for 72 hours—for webhook retries and recovery—not as a permanent inbox. An emal domain that neither sends nor receives messages costs nothing.
+The second option is received mail: {{ rate mail.received }}. This option is only available if you enable reception. Every incoming message is sent to a signed HTTPS webhook in  your production app, and your app stores it in its own database. ohmyhost keeps received messages available for 72 hours—for webhook retries and recovery—not as a permanent inbox. An emal domain that neither sends nor receives messages costs nothing.
 
 Everything else related to a project is covered by the same credit balance: hosting, Postgres , and a linked doamin. There is no second subscription and no email fee per project.
 
 ## Break-even by Volume
 
-The table compares one month of email sent from your own  sender domain to ohmyho.st with the most affordable Resend plan that covers the same vloume. Credit values use the standard rate, where {{ number 100 }} credits correspond to {{ usd 1 }}.
+The table compares one month of email sent from your own  sender domain to ohmyhost with the most affordable Resend plan that covers the same vloume. Credit values use the standard rate, where {{ number 100 }} credits correspond to {{ usd 1 }}.
 
-| Recipients per month | On ohmyho.st | Cheapest Resend Plan |
+| Recipients per month | On ohmyhost | Cheapest Resend Plan |
 | --- | ---: | --- |
 | 2,000 | {{ credits workload.senderTwoThousand }} ({{ usdValue workload.senderTwoThousand }}) | Free, {{ usd vendor.resend.free }} |
 | 10,000 | {{ credits workload.senderTenThousand }} ({{ usdValue workload.senderTenThousand }}) | Pro, {{ usd vendor.resend.pro }} |
@@ -62,9 +62,9 @@ The left-hand chart shows a separately purchased package with Resend Pro as the 
 
 ## When Resend is the better choice
 
-Starting at arond 10,000 recipients per month, Resend is simply more cost-effective, and the price difference increases as volume grows. It’s also the better choice when email is the product—not just a feature: Resend offers you your own dashboard, searchable logs for each message , webhooks for delivery events, management of suppression lists and broadcast sending, and  the team publishes deliverability guidelines—features a hosting product doeesn’t have. If you’re already using Resend and it’s working for you, sticking with it won’t cost you anything: Set up your app to use it, store the API key as a project secret, and use ohmyho.st only for hosting and Postgres. Email on ohmyho.st is intended for apps that need password resets and receipts, not for apps whose business is sending emails.
+Starting at arond 10,000 recipients per month, Resend is simply more cost-effective, and the price difference increases as volume grows. It’s also the better choice when email is the product—not just a feature: Resend offers you your own dashboard, searchable logs for each message , webhooks for delivery events, management of suppression lists and broadcast sending, and  the team publishes deliverability guidelines—features a hosting product doeesn’t have. If you’re already using Resend and it’s working for you, sticking with it won’t cost you anything: Set up your app to use it, store the API key as a project secret, and use ohmyhost only for hosting and Postgres. Email on ohmyhost is intended for apps that need password resets and receipts, not for apps whose business is sending emails.
 
-## When ohmyho.st is a good fit
+## When ohmyhost is a good fit
 
 If email is a small but necessary part of an app that you're alreaddy hosting here. You have one bill instead of two; the email domain is set up by the same agent who handles deployment; and a project that sends emails to 2,000 recipients per month uses  about {{ credits workload.senderTwoThousand }} of the {{ number plan.paidCredits }} credits included in the plan anyway. It also works well for freelancers: Each client project can have its own verified email domain without requiring a separate subsscription  for each project.
 
@@ -92,6 +92,6 @@ Not for email. The email domain has no monthly fee; credits are only deducted pe
 
 {{ sources resend }}
 
-[Cost Breakdown](/pricing/breakdown) · [ohmyho.st vs. Vercel](/vs/vercel) · [Deploying from Claude Code](/for/claude-code) · [How Much Five Side Projects Cost](/blog/what-vercel-supabase-resend-cost-for-five-side-projects)
+[Cost Breakdown](/pricing/breakdown) · [ohmyhost vs. Vercel](/vs/vercel) · [Deploying from Claude Code](/for/claude-code) · [How Much Five Side Projects Cost](/blog/what-vercel-supabase-resend-cost-for-five-side-projects)
 
-ohmyho.st is an independent service and is neither affiliated with nor supported by Vercel, Supabase, or  Resend. All trademars belong to their respective owners.
+ohmyhost is an independent service and is neither affiliated with nor supported by Vercel, Supabase, or  Resend. All trademars belong to their respective owners.

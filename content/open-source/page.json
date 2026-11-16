@@ -1,13 +1,13 @@
 {
-  "title": "Open source — ohmyho.st clients, website and docs",
-  "description": "Explore the Apache-2.0 client packages and the MIT-licensed website and documentation of ohmyho.st. The hosted platform remains private. See how to contribute.",
+  "title": "Open source — ohmyhost clients, website and docs",
+  "description": "Explore the Apache-2.0 client packages and the MIT-licensed website and documentation of ohmyhost. The hosted platform remains private. See how to contribute.",
   "kind": "page",
   "status": "published",
   "crumb": "Open source",
   "social": {
     "image": "/og/open-source.png",
-    "alt": "ohmyho.st. Open-source clients. Your workflow.. Apache-2.0 clients for CLI, MCP and application integrations.",
-    "title": "ohmyho.st — Open-source clients. Your workflow.",
+    "alt": "ohmyhost. Open-source clients. Your workflow.. Apache-2.0 clients for CLI, MCP and application integrations.",
+    "title": "ohmyhost — Open-source clients. Your workflow.",
     "description": "Apache-2.0 clients for CLI, MCP and application integrations."
   },
   "modified": "2026-10-30"

@@ -1,13 +1,13 @@
 {
-  "title": "Sub-processors ohmyho.st uses to run your projects",
-  "description": "The providers ohmyho.st relies on to host, store and send on your behalf, with the role each one plays, where it processes data and how changes are announced.",
+  "title": "Sub-processors ohmyhost uses to run your projects",
+  "description": "The providers ohmyhost relies on to host, store and send on your behalf, with the role each one plays, where it processes data and how changes are announced.",
   "kind": "page",
   "status": "published",
   "crumb": "Sub-processors",
   "social": {
     "image": "/og/dpa-subprocessors.png",
-    "alt": "ohmyho.st. The providers behind ohmyho.st. Provider roles and processing locations.",
-    "title": "ohmyho.st \u2014 The providers behind ohmyho.st",
+    "alt": "ohmyhost. The providers behind ohmyhost. Provider roles and processing locations.",
+    "title": "ohmyhost \u2014 The providers behind ohmyhost",
     "description": "Provider roles and processing locations."
   },
   "parent": "/dpa",

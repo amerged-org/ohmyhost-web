@@ -112,8 +112,8 @@ it("publishes the SEO contract for every rendered page", async () => {
         graph.find((node) => node["@type"] === type),
         `${path} ${type}`,
       ).toMatchObject({
-        name: "ohmyho.st",
-        alternateName: "ohmyhost",
+        name: "ohmyhost",
+        alternateName: "ohmyho.st",
       });
     const types = graph.map((node) => node["@type"]);
     expect(types, path).toContain("BreadcrumbList");
@@ -458,9 +458,16 @@ it("gives the homepage search description the free alternative intent and the un
   expect(description).toContain("ohmyhost");
   expect(description).not.toContain("ohmyho.st");
   expect(description).not.toMatch(/\$\d|\bTheir\b/u);
-  // Only the description moved: title, H1, canonical, robots and social copy keep their approved text.
+  expect(html).not.toContain("(ohmyhost)");
+  expect(attribute(html, 'property="og:site_name"')).toBe("ohmyhost");
+  for (const type of ["WebSite", "Organization"])
+    expect(jsonLd(html).find((node) => node["@type"] === type)).toMatchObject({
+      name: "ohmyhost",
+      url: "https://ohmyho.st/",
+    });
+  // The brand is consistent across search and social metadata; the hosting address stays canonical.
   expect(html).toContain(
-    "<title>ohmyho.st — Vercel, Supabase &amp; Resend alternative, free plan</title>",
+    "<title>ohmyhost — Vercel, Supabase &amp; Resend alternative, free plan</title>",
   );
   expect(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/u)?.[1]).toBe(
     '<span class="thin">Vercel, Supabase &amp; Resend.</span><br>One alternative from $10/month.',
@@ -468,6 +475,6 @@ it("gives the homepage search description the free alternative intent and the un
   expect(html).toContain('<link rel="canonical" href="https://ohmyho.st/">');
   expect(html).not.toMatch(/<meta name="robots" content="[^"]*noindex/u);
   expect(attribute(html, 'property="og:title"')).toBe(
-    "ohmyho.st — An alternative to Vercel, Supabase &amp; Resend",
+    "ohmyhost — An alternative to Vercel, Supabase &amp; Resend",
   );
 });

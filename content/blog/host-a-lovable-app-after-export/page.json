@@ -6,8 +6,8 @@
   "crumb": "Host a Lovable app",
   "social": {
     "image": "/og/blog-host-a-lovable-app-after-export.png",
-    "alt": "ohmyho.st. An alternative home for your Lovable app. Export to GitHub, check dependencies and deploy with your agent.",
-    "title": "ohmyho.st — An alternative home for your Lovable app",
+    "alt": "ohmyhost. An alternative home for your Lovable app. Export to GitHub, check dependencies and deploy with your agent.",
+    "title": "ohmyhost — An alternative home for your Lovable app",
     "description": "Export to GitHub, check dependencies and deploy with your agent."
   },
   "parent": "/blog",

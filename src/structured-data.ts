@@ -1,5 +1,5 @@
 import { marked, type Token } from "marked";
-import { WEBSITE, schemaDate } from "./site-identity.js";
+import { SITE_NAME, WEBSITE, schemaDate } from "./site-identity.js";
 
 import {
   FOUNDER,
@@ -125,8 +125,8 @@ export function jsonLdGraph(
     {
       "@type": "Organization",
       "@id": ORGANIZATION_ID,
-      name: "ohmyho.st",
-      alternateName: "ohmyhost",
+      name: SITE_NAME,
+      alternateName: WEBSITE.alternateName,
       url: `${SITE_ORIGIN}/`,
       logo: `${SITE_ORIGIN}/logo.png`,
       legalName: "Amerged B.V.",
@@ -195,7 +195,7 @@ export function jsonLdGraph(
         publisher: {
           "@type": "Organization",
           "@id": ORGANIZATION_ID,
-          name: "ohmyho.st",
+          name: SITE_NAME,
           logo: { "@type": "ImageObject", url: `${SITE_ORIGIN}/logo.png` },
         },
         image,
@@ -265,7 +265,7 @@ export function headTags(
     `<link rel="alternate" type="text/markdown" href="${path}.md">`,
     `<meta property="og:type" content="${meta.kind === "article" ? "article" : "website"}">`,
     `<meta property="og:url" content="${url}">`,
-    `<meta property="og:site_name" content="ohmyho.st">`,
+    `<meta property="og:site_name" content="${SITE_NAME}">`,
     `<meta property="og:title" content="${socialTitle}">`,
     `<meta property="og:description" content="${socialDescription}">`,
     `<meta property="og:image" content="${image}">`,

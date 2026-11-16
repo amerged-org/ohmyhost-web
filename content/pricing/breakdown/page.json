@@ -1,13 +1,13 @@
 {
-  "title": "Cheaper than Vercel? The ohmyho.st cost breakdown",
-  "description": "Every published credit rate, four worked workloads and the three subscriptions they replace, plus where ohmyho.st costs more than Vercel, Resend or Railway.",
+  "title": "Cheaper than Vercel? The ohmyhost cost breakdown",
+  "description": "Every published credit rate, four worked workloads and the three subscriptions they replace, plus where ohmyhost costs more than Vercel, Resend or Railway.",
   "kind": "page",
   "status": "published",
   "crumb": "Cost breakdown",
   "social": {
     "image": "/og/pricing-breakdown.png",
-    "alt": "ohmyho.st. Know what your credits buy. Usage units and credit rates for each service.",
-    "title": "ohmyho.st \u2014 Know what your credits buy",
+    "alt": "ohmyhost. Know what your credits buy. Usage units and credit rates for each service.",
+    "title": "ohmyhost \u2014 Know what your credits buy",
     "description": "Usage units and credit rates for each service."
   },
   "parent": "/pricing",

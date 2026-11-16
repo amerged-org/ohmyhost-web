@@ -1,170 +1,194 @@
 {
   "about": {
-    "templateSha256": "046fa35acbd8abc0835782aa643b001ca32eb1ce7701db5446a88e8a001b71db",
-    "renderedAt": "2026-09-25T18:22:15.094Z"
+    "templateSha256": "d30c8ba268d5ef89be61126449057c42acfe097a7326588e577e151a9e161f19",
+    "renderedAt": "2026-11-16T21:56:33.934Z"
   },
   "blog": {
-    "templateSha256": "74037ebe358f8b7874a712f938854cd2d0e1f7f64674b3d6fc5618b81b51a974",
-    "renderedAt": "2026-09-25T18:22:15.023Z"
+    "templateSha256": "dc6cd341953a8f4d7b989a745bbda8079204a50d80f4e82c62c46892b3dd3039",
+    "renderedAt": "2026-11-16T21:56:33.882Z"
   },
   "blog-all-in-one-vercel-supabase-alternatives": {
-    "templateSha256": "83cecb7d609de41652817c348539993810ffb1742316dfb37dbdf66fa65375cf",
-    "renderedAt": "2026-10-22T11:30:16.528Z"
+    "templateSha256": "6d7c7c652aab8f5995c8c1c477df09ff19299824540857808ae0348cce451fd2",
+    "renderedAt": "2026-11-16T21:56:33.986Z"
+  },
+  "blog-best-astro-hosting-2027": {
+    "templateSha256": "f05e864233ebef176972e4f93ff9d329116b9ee8ad63c944d585102fc6d0b90d",
+    "renderedAt": "2026-11-16T21:56:34.041Z"
   },
   "blog-connect-ohmyhost-to-zapier-and-make": {
-    "templateSha256": "12b55262fccb8d6d4f669d3193370bd312af390bcbf03091531334bdb2992196",
-    "renderedAt": "2026-11-16T13:51:27.126Z"
+    "templateSha256": "1ee23a547a3a8553334a3954d05434cce0909a636f8677ec786175385777112d",
+    "renderedAt": "2026-11-16T21:56:34.091Z"
   },
   "blog-free-vercel-supabase-alternatives-2026": {
-    "templateSha256": "f4dbce90b45000cd47c282d831467a8d66a3f00590a15668eab32e4f8fe3be49",
-    "renderedAt": "2026-10-22T11:30:16.038Z"
+    "templateSha256": "293e58260493a5bc92f720dcd70b6dc8da96d20b929f1a4b42e9feddde18aba9",
+    "renderedAt": "2026-11-16T21:56:34.144Z"
   },
   "blog-host-a-lovable-app-after-export": {
-    "templateSha256": "4783b5374942470d2250ffe5a49c3fdd26d9b84dbfed3319c9433c85e8ab9178",
-    "renderedAt": "2026-09-25T18:22:15.167Z"
+    "templateSha256": "fcae974844c6996ab96a22f173af0a9f9b9279b30e3dce3e7afb6a161a13a386",
+    "renderedAt": "2026-11-16T21:56:34.192Z"
   },
   "blog-how-to-export-lovable-code-to-github": {
-    "templateSha256": "cd2fd8732e966073377165332c6350da1c4b5e750ec911712dcc59cadad7b283",
-    "renderedAt": "2026-10-06T19:00:45.679Z"
+    "templateSha256": "673bea3b0e5ea59e54fb18cea5615cd641be07c25a456b92d78d9ad46020e3c5",
+    "renderedAt": "2026-11-16T21:56:34.243Z"
   },
   "blog-how-to-host-a-claude-artifact": {
-    "templateSha256": "32294a887f025e37a1d6ca927ecd93a1012b4d95a13ab1b1e3328dc2949305fd",
-    "renderedAt": "2026-11-01T19:26:43.857Z"
+    "templateSha256": "fc87e55fc05ae56c75d068e313db9213768cc302e161b7c4972d95fafd959308",
+    "renderedAt": "2026-11-16T21:56:34.297Z"
   },
   "blog-introducing-ohmyho-st": {
-    "templateSha256": "18505f0bb3ac7857159f6613870313289ef64368f577cd36f6731e67fb659e9c",
-    "renderedAt": "2026-09-25T18:22:15.239Z"
+    "templateSha256": "3e26f9248b79bd151410396bb14d30af08cb270d1729f721171b2352fd238468",
+    "renderedAt": "2026-11-16T21:56:34.349Z"
   },
   "blog-lovable-alternative-bring-your-own-llm": {
-    "templateSha256": "cf4bbef6968dce57f54d01936cc22bcc544f7e59acc52dfa5cc0ab97c3a08192",
-    "renderedAt": "2026-10-20T07:25:39.974Z"
+    "templateSha256": "99271c58e6e95f4eca0f8dd391e8e252c7abca060f9405e2ac0d86ad9e3675ce",
+    "renderedAt": "2026-11-16T21:56:34.403Z"
   },
   "blog-move-out-of-lovable-cloud": {
-    "templateSha256": "813032abda0e6b8601d96eee3346f6be06dd93d560f59199c3866dad54770ecd",
-    "renderedAt": "2026-10-21T15:06:07.975Z"
+    "templateSha256": "f53b020b1d7a83fb5e06485993deaabc8071daacd414d28ad5b3f9063fca8afb",
+    "renderedAt": "2026-11-16T21:56:34.458Z"
+  },
+  "blog-ohmyhost-chatgpt-plugin": {
+    "templateSha256": "322549447d6e641a817ffedb2bcad16e4e643b9313734f3f493ee3c1a48efec6",
+    "renderedAt": "2026-11-16T21:56:34.508Z"
   },
   "blog-railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026": {
-    "templateSha256": "d83210cc6e4dc0b91999a8f7164d383b8e685d7e8b4276501d2e3a4f25a3be0c",
-    "renderedAt": "2026-09-25T18:22:15.312Z"
+    "templateSha256": "b142b51c6dfeae85c5e3d417fff6fb879c7bc3fcfea2516a84c9806fe499b7d3",
+    "renderedAt": "2026-11-16T21:56:34.558Z"
   },
   "blog-run-lovable-project-locally": {
-    "templateSha256": "f9fbf0c90b4a98715c2a08373f9b1c1b8fb9fa6091a297feefa4ccf1886fbcd2",
-    "renderedAt": "2026-10-21T13:14:36.919Z"
+    "templateSha256": "1645cfe0f7cf395c26a7d46eaceae4664ee610bdb6625ac5d779ffdaf62ade53",
+    "renderedAt": "2026-11-16T21:56:34.608Z"
   },
   "blog-six-things-that-break-when-a-vibe-coded-app-meets-production": {
-    "templateSha256": "d11ac4319217e88861b34a62cff406b817879fcdcf0ee593625af4f7e63b5ac8",
-    "renderedAt": "2026-09-25T18:22:15.386Z"
+    "templateSha256": "e51630ea3bba008f1e841adc2893651f2f4c4b12d9220debd6a2a33531d5a01f",
+    "renderedAt": "2026-11-16T21:56:34.659Z"
   },
   "blog-supabase-vs-vercel-do-you-need-both": {
-    "templateSha256": "a9604bb69d4873ac46bf3fe7cb9fc253656dcff530a4488af60d4362207b90fb",
-    "renderedAt": "2026-09-25T18:22:15.451Z"
+    "templateSha256": "789bfc50939275bbe1b653a8ce032953bb89c964404755f761cd15e93ffd9c21",
+    "renderedAt": "2026-11-16T21:56:34.708Z"
   },
   "blog-what-vercel-supabase-resend-cost-for-five-side-projects": {
-    "templateSha256": "87837aacd0934349c39c596e81ebca45efd6c8766bec6485472cb65247a17af8",
-    "renderedAt": "2026-09-25T18:22:15.522Z"
+    "templateSha256": "409d8fcaba218d3010d5ef0bec19ed16fa887065fd9e3be9512794cd916d7ac3",
+    "renderedAt": "2026-11-16T21:56:34.760Z"
   },
   "changelog": {
-    "templateSha256": "8cad564d79bb65acb67811055471739f719163a290286616b7013acf4d9c3598",
-    "renderedAt": "2026-09-25T18:22:14.333Z"
+    "templateSha256": "73ead2d73eb1184a12733f26e193c67576160170744ee352f77f2dbeba4ea28c",
+    "renderedAt": "2026-11-16T21:56:33.382Z"
   },
   "contact": {
-    "templateSha256": "436a3dcdc5bd376387b97fd86e8955116696e365f745fc07126627a32b9f459a",
-    "renderedAt": "2026-09-25T18:22:14.950Z"
+    "templateSha256": "8fad66751f783938a24e3394f3fbd39031ed0e505e6d6e0680bdcce4b3696aa3",
+    "renderedAt": "2026-11-16T21:56:33.831Z"
   },
   "cookies": {
-    "templateSha256": "91484974eadedfebd32c83920082339b6099217e5fc333ac9b60de87516b9e8d",
-    "renderedAt": "2026-09-25T18:22:14.616Z"
+    "templateSha256": "9361d644d8234613a5886521fb057f72e42983b3a28c1924712bb3427d386a4b",
+    "renderedAt": "2026-11-16T21:56:33.582Z"
   },
   "dpa": {
-    "templateSha256": "7103fe5a4f992ab8af37208833ad1a40368153f447871464a8244cbbf14b4052",
-    "renderedAt": "2026-09-25T18:22:14.683Z"
+    "templateSha256": "d263fabafc89e4ceecff04a33f7847503a283b9941b612bf35d200d17d628dc3",
+    "renderedAt": "2026-11-16T21:56:33.632Z"
   },
   "dpa-subprocessors": {
-    "templateSha256": "c18da044f35c49be859ba028816e7ab67cc2b2ab6399da4b1ad99364596d536f",
-    "renderedAt": "2026-09-25T18:22:14.819Z"
+    "templateSha256": "f39ae6c035ee40cf7393bfe43c7442545b1726d7c02459da04dd652f36f02d2f",
+    "renderedAt": "2026-11-16T21:56:33.733Z"
   },
   "dpa-toms": {
-    "templateSha256": "a022e33b066fff04a1d05f2b1e66dbb57788627acaaa8a3bfb60733d8b7e4b75",
-    "renderedAt": "2026-09-25T18:22:14.749Z"
+    "templateSha256": "546681358acfb1c6736700f78920e06b5d1072111526172bb591a8f96e10a540",
+    "renderedAt": "2026-11-16T21:56:33.681Z"
   },
   "dpa-transfers": {
-    "templateSha256": "424efeba1753d0fda3332ee4dd54ebc01443cda573900d4d3207e0f54a9cc963",
-    "renderedAt": "2026-09-25T18:22:14.883Z"
+    "templateSha256": "4ef36c437da1beb71aeb46431e4205fb82c029056138cd1b1add5a575e63025e",
+    "renderedAt": "2026-11-16T21:56:33.782Z"
   },
   "for-claude-code": {
-    "templateSha256": "685ce42d74827d1adaeec71301098005600e5b2d65bea12e0ef1c7a3fbd5905b",
-    "renderedAt": "2026-09-25T18:22:15.593Z"
+    "templateSha256": "737dd8c217988d0765b9e222b152e61cec9e10f81a2d5eba183490bebdb41aa7",
+    "renderedAt": "2026-11-16T21:56:34.810Z"
   },
   "for-codex": {
-    "templateSha256": "917f6e26ff7049acc437a55806aaeff05084b24027f500c4732bcf19564e4942",
-    "renderedAt": "2026-09-25T18:22:15.662Z"
+    "templateSha256": "00e4ab2d4dc6b459eed2f272d9194d5ef062f405e623bc819a9f6761c71c67c5",
+    "renderedAt": "2026-11-16T21:56:34.860Z"
   },
   "for-cursor": {
-    "templateSha256": "7d2cc971493869ef848946df844e86e46ab0f338765e1f3034951c763bd9850d",
-    "renderedAt": "2026-09-25T18:22:15.735Z"
+    "templateSha256": "03ded852df2d7fe48c894c7e46999e8afc6b419455f288f55cb26257590a3591",
+    "renderedAt": "2026-11-16T21:56:34.909Z"
+  },
+  "frameworks-astro": {
+    "templateSha256": "f356edcfe8ce2dee38e10f9f27c17f94428d1e0b4e14d310d02c016374f3e37b",
+    "renderedAt": "2026-11-16T21:56:34.958Z"
+  },
+  "frameworks-nextjs": {
+    "templateSha256": "e438e672f8c47cfeda60f7e37854d1ca4e4e507fd2f02f6e9d500e1f0ce157ef",
+    "renderedAt": "2026-11-16T21:56:35.010Z"
+  },
+  "frameworks-tanstack": {
+    "templateSha256": "82cf8d751f5fa569de32da9a55699f7a4b00c078ba00a2ead36ec9f4be284a4c",
+    "renderedAt": "2026-11-16T21:56:35.060Z"
+  },
+  "frameworks-vite": {
+    "templateSha256": "ff4c19068ae5254a587ba53d37c21db1a23089909c18ca11a9b14f82f591d7fa",
+    "renderedAt": "2026-11-16T21:56:35.110Z"
   },
   "from-bolt": {
-    "templateSha256": "dc779b5f39a8cace1eae9b40f73468f6a40562f7ab548c19e3704519510ca1a6",
-    "renderedAt": "2026-09-25T18:22:15.801Z"
+    "templateSha256": "c5668c3e8278193d4827ff5ee94510048cdb4942845a44547a3b1fd68b3f2d7f",
+    "renderedAt": "2026-11-16T21:56:35.156Z"
   },
   "from-lovable": {
-    "templateSha256": "b4bec87df50ae91c9ad231ea1bf48df14270ffbb083cde70dcfe533288760d32",
-    "renderedAt": "2026-09-25T18:22:15.868Z"
+    "templateSha256": "4b9f11ce356d97ade79c40476dacf1c8cef202c175f94b2cb338882cc20e41f5",
+    "renderedAt": "2026-11-16T21:56:35.210Z"
   },
   "from-replit": {
-    "templateSha256": "6b27575399f1adb31161cd2edd67c605367f5b4a50ac0e69896f82e5085fc87e",
-    "renderedAt": "2026-09-25T18:22:14.401Z"
+    "templateSha256": "be63e92228e2800161876b60e1fb570b9abd94cb942605ca95a31a8b66a1de28",
+    "renderedAt": "2026-11-16T21:56:33.432Z"
   },
   "from-vercel-supabase": {
-    "templateSha256": "a4328e2c6b361cb93139e1e9e6f5f1e48f834687c5d6178b1704ec7971b6f556",
-    "renderedAt": "2026-09-25T18:22:14.476Z"
+    "templateSha256": "4476ca89ab84435b4cc04e2173fadc5503fcde612f512b1da25e1717e7ce5959",
+    "renderedAt": "2026-11-16T21:56:33.484Z"
   },
   "home": {
-    "templateSha256": "c942abb6e3efd93a8d2f43e9f81d6816bd8a1ed5320693f271fd026d4f705f2b",
-    "renderedAt": "2026-09-25T18:22:14.051Z"
+    "templateSha256": "85c37d44f15cc6f06672d5fe502e7acc87a5661f5ae826acc4d87714f945e097",
+    "renderedAt": "2026-11-16T21:56:33.175Z"
   },
   "open-source": {
-    "templateSha256": "d3dda79a53b4f10a55ac59a673d4154d2833507ab1d2a65b93f030d21a96cfb7",
-    "renderedAt": "2026-09-25T18:22:15.935Z"
+    "templateSha256": "828a58706561e557d94518f53e0876f9e1b2f0b2ceb728e385461a4f6713ecbd",
+    "renderedAt": "2026-11-16T21:56:35.259Z"
   },
   "philosophy": {
-    "templateSha256": "1511e536d0e79496f47875f95bea2ebdf3a666b9835fcf4fd931f920465a03f3",
-    "renderedAt": "2026-09-25T18:22:16.000Z"
+    "templateSha256": "0a2500c9e6d37a276f7ff970dfec1e3ec20b1749e81a9bda59e3d15bc825b49f",
+    "renderedAt": "2026-11-16T21:56:35.308Z"
   },
   "pricing": {
-    "templateSha256": "09115878d41764478594c2b2991cdb643386a710015486658e6638c35e67199f",
-    "renderedAt": "2026-09-25T18:22:14.194Z"
+    "templateSha256": "2cd4e0db1a826c554aeb692210f4df17fa3b1cf469da2af0d12b69ec1e9e5a3d",
+    "renderedAt": "2026-11-16T21:56:33.274Z"
   },
   "pricing-breakdown": {
-    "templateSha256": "4ff0eef65ec4b00ce7cf1e1a4e84272ec8260cb211f277ea66f2839c4c49419c",
-    "renderedAt": "2026-09-25T18:22:16.070Z"
+    "templateSha256": "4295952bde37a7d2c54c042486fbd41f1b1945e5c6472a5aeb65c226173cd223",
+    "renderedAt": "2026-11-16T21:56:35.359Z"
   },
   "privacy": {
-    "templateSha256": "0374fd4e7af1a4d76d77be6204026e6fd0dd3abf07d3bf978634ae0d5d43ed72",
-    "renderedAt": "2026-09-25T18:22:14.547Z"
+    "templateSha256": "bdd1992587c5beb7157f929477dbef1b1a55062b89eb99c02c24d7ecde566e82",
+    "renderedAt": "2026-11-16T21:56:33.532Z"
   },
   "status": {
-    "templateSha256": "220a7d7a9e35444d51fc439dd899604caba97c28f8fa2970151de508fdfff358",
-    "renderedAt": "2026-09-25T18:22:14.264Z"
+    "templateSha256": "761e4356b113b149354268a066f92886b3318cee806ebd62503ed52b7d0eabd4",
+    "renderedAt": "2026-11-16T21:56:33.331Z"
   },
   "terms": {
-    "templateSha256": "b5a423942da409da47e9e336196c5c3742b8ef5a8aae086e4cbb36a7c407866b",
-    "renderedAt": "2026-09-25T18:22:14.122Z"
+    "templateSha256": "c99816e6b7adfc9b00fc52dbb8a6e9073a757c5b989173da304f1eb8e64bf293",
+    "renderedAt": "2026-11-16T21:56:33.224Z"
   },
   "vs-railway": {
-    "templateSha256": "9a0057deaebecc2d74fcf1e705aa120edc2e0cc66d7dfc3897efdce6a383bb6e",
-    "renderedAt": "2026-09-25T18:22:16.142Z"
+    "templateSha256": "376c5c844bfe4631a7025a7c0ab33d8bf76223a9c05958fd043f8a361884a5e3",
+    "renderedAt": "2026-11-16T21:56:35.407Z"
   },
   "vs-resend": {
-    "templateSha256": "581601c6e516f50adda80bd11b82d46b5b2bcd3e7e7bd1042380aec4a317a02f",
-    "renderedAt": "2026-09-25T18:22:16.212Z"
+    "templateSha256": "81e16d148e7c7eaa9c4edcf802a2104a50222f30b40a75d2f1c9938750353768",
+    "renderedAt": "2026-11-16T21:56:35.459Z"
   },
   "vs-supabase": {
-    "templateSha256": "f3880a2802c5ff4d1dbf482438eaefce77bb25f143a44262db63394be8aed054",
-    "renderedAt": "2026-09-25T18:22:16.285Z"
+    "templateSha256": "f46b69366fceb79e32b51490e0d8b4c0943314cc986529a10799cc420f934bfb",
+    "renderedAt": "2026-11-16T21:56:35.508Z"
   },
   "vs-vercel": {
-    "templateSha256": "7eeee9331cae9cd1ec7fb691267066e362e11e15bda98b039c80093a03bc7256",
-    "renderedAt": "2026-09-25T18:22:16.351Z"
+    "templateSha256": "991d399212eee88c1112e6322c2f3701088efe17c84ea72da848fa64189b1437",
+    "renderedAt": "2026-11-16T21:56:35.563Z"
   }
 }

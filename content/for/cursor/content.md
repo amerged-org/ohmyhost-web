@@ -80,7 +80,7 @@ Free: {{ number plan.freeCredits }} credits per UTC month. Paid: {{ usd plan.pai
 
 If a database is added, the numbers change. An active database hour with {{ number 512 }} MiB of RAM  costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB size available on the Free plan costs {{ credits unit.activeDatabaseHour256 }}. Databases go to sleep after five minutes of inactivity; no RAM is charged while they are asleep. Allocated memroy and seven-day backups are included. Customer files and stoerd worker scripts have their own separate rates. A low-traffic side project with a database costs about {{ credits workload.quietProject }} per month. The small sample app uses about {{ credits workload.smallApp }}, including requests, database activity , and email. Requests cost {{ rate wfp.requests }}; Worker bandwidth is not charged. Email requires a paid plan and a verified email domain, costing {{ rate mail.sent }} with no monthly domain fee.
 
-Where Vercel Wins: Vercel Hobby costs {{ usd vendor.vercel.hobby }} per month for one developer seat, and for a static portfolio wiithout  a database or emial , it’s the more affordable option. Vercel Pro costs {{ usd vendor.vercel.pro }} per month before you add a database or an email provider. ohmyho.st is a good fit as soon as a project needs Postgres, transactional email, or a domain, or as soon as you’re running multiple small projects and want a credit balance instead of a plan per project.
+Where Vercel Wins: Vercel Hobby costs {{ usd vendor.vercel.hobby }} per month for one developer seat, and for a static portfolio wiithout  a database or emial , it’s the more affordable option. Vercel Pro costs {{ usd vendor.vercel.pro }} per month before you add a database or an email provider. ohmyhost is a good fit as soon as a project needs Postgres, transactional email, or a domain, or as soon as you’re running multiple small projects and want a credit balance instead of a plan per project.
 
 {{ checked vercel }}
 
@@ -114,7 +114,7 @@ Yes. Click here to export: `project_export_create` creates a password-protected 
 
 ### Will my app's login information change?
 
-No. Your app retains its own authentication provider. Better Auth and the customer-managed WorkOS AuthKit are the verified integrations; `deployment_plan` preserves what the repository is already using and reports the secret names and callback URLs it needs. The ohmyho.st login, which uses Cusror, is separate from  your app’s users.
+No. Your app retains its own authentication provider. Better Auth and the customer-managed WorkOS AuthKit are the verified integrations; `deployment_plan` preserves what the repository is already using and reports the secret names and callback URLs it needs. The ohmyhost login, which uses Cusror, is separate from  your app’s users.
 
 {{ sources vercel }}
 

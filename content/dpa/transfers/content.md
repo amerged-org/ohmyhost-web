@@ -1,6 +1,6 @@
 # International transfers and SCCs
 
-Annex IV to the ohmyho.st DPA. Version: September 24, 2026.
+Annex IV to the ohmyhost DPA. Version: September 24, 2026.
 
 ## When SCCs are needed
 

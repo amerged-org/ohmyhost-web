@@ -43,7 +43,7 @@ const FONTS = [
 const mark = (color, size, width = 12.5) =>
   `<svg width="${size}" height="${size}" viewBox="0 0 100 100" fill="none" stroke="${color}" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round"><path d="${OMEGA}"/></svg>`;
 const wordmark = (theme, size) =>
-  `<span style="font:400 ${size}px 'JetBrains Mono',monospace;letter-spacing:-.02em;color:${theme.fg}">ohmyho<span style="color:${theme.muted}">.st</span></span>`;
+  `<span style="font:400 ${size}px 'JetBrains Mono',monospace;letter-spacing:-.02em;color:${theme.fg}">ohmyhost</span>`;
 const page = (body, background) =>
   `<!doctype html><html><head><meta charset="utf-8"><style>${FONTS}html,body{margin:0;background:${background}}*{box-sizing:border-box}</style></head><body>${body}</body></html>`;
 const frame = (width, height, theme, content, extra = "") =>

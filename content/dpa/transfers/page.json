@@ -1,13 +1,13 @@
 {
-  "title": "International data transfers — ohmyho.st DPA annex",
-  "description": "How ohmyho.st handles transfers of personal data outside the EEA: adequacy decisions, Standard Contractual Clauses and the safeguards each provider relies on.",
+  "title": "International data transfers — ohmyhost DPA annex",
+  "description": "How ohmyhost handles transfers of personal data outside the EEA: adequacy decisions, Standard Contractual Clauses and the safeguards each provider relies on.",
   "kind": "page",
   "status": "published",
   "crumb": "Transfers",
   "social": {
     "image": "/og/dpa-transfers.png",
-    "alt": "ohmyho.st. International data transfers. Transfer arrangements and applicable safeguards.",
-    "title": "ohmyho.st — International data transfers",
+    "alt": "ohmyhost. International data transfers. Transfer arrangements and applicable safeguards.",
+    "title": "ohmyhost — International data transfers",
     "description": "Transfer arrangements and applicable safeguards."
   },
   "parent": "/dpa",

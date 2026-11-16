@@ -1,6 +1,6 @@
 # Hosting TanStack Start: Static Mode and Edge Mode
 
-ohmyho.st hosts TanStack Start apps in two mods. Static mode pre-renders your routes at build time and doesn't require a  server. Edge mode executes your server routes, loaders, and server functions on Cloudflare Workers. Your coding agent builds a dev preview and, once you approve it, deploys the same version to production.
+ohmyhost hosts TanStack Start apps in two mods. Static mode pre-renders your routes at build time and doesn't require a  server. Edge mode executes your server routes, loaders, and server functions on Cloudflare Workers. Your coding agent builds a dev preview and, once you approve it, deploys the same version to production.
 
 Start with {{ number plan.freeCredits }} free credits. The paid plan csts {{ usd plan.paidUsd }} per  month before taxes and provides {{ number plan.paidCredits }} credits per paid period. See [Pricing](/pricing).
 
@@ -15,7 +15,7 @@ The [public example](https://github.com/amerged-org/ohmyhost-framework-examples/
 | Local Production Build | Pre-rendered `/` and `/about` | `pnpm run build` in the folder |
 | `ohmyhost init --root tanstack-start --dry-run --json` | Status `analyzed`, Framework `tanstack-start`, Version approved, no blockers, Runtime `static`, Output `dist/client` | The same command, offline, without logging in |
 | Edge Mode | **Not tested.** This example uses only static mode. | The guide describes how to set up Edge |
-| A hosted build and a live URL | **Not completed for this example.** The test says that the actual build only runs on ohmyho.st | No live URL is claimed |
+| A hosted build and a live URL | **Not completed for this example.** The test says that the actual build only runs on ohmyhost | No live URL is claimed |
 
 ## Static Mode or Edge Mode
 
@@ -78,4 +78,4 @@ No. We haven't made it availablle, so this page doesn't link to a  live URL for 
 
 Yes. TanStack Start is open source under the MIT License. Hosting is billed sepaarately and  uses credits.
 
-[Deploy TanStack  Start on ohmyho.st](https://docs.ohmyho.st/quickstart) · Other frameworks: [Astrro](/frameworks/astro) · [Next.js](/frameworks/nextjs) · [Vite and React](/frameworks/vite)
+[Deploy TanStack  Start on ohmyhost](https://docs.ohmyho.st/quickstart) · Other frameworks: [Astrro](/frameworks/astro) · [Next.js](/frameworks/nextjs) · [Vite and React](/frameworks/vite)

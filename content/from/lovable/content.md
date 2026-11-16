@@ -1,6 +1,6 @@
-# Deploy your exported Lovable app on ohmyho.st
+# Deploy your exported Lovable app on ohmyhost
 
-You have exported your Lovable  project to GitHub. Paste the  prompt below into your coding agent: it reads the repository, pans a Dev deployment on ohmyho.st, and only after you have tried the preview promotes it to Prod. Keeping Supabase and moving to managed Postgres are separate choices, each requiring vrification. Free gives {{ number plan.freeCredits }} credits a month; Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, and a small app uses about {{ credits workload.smallApp }}.
+You have exported your Lovable  project to GitHub. Paste the  prompt below into your coding agent: it reads the repository, pans a Dev deployment on ohmyhost, and only after you have tried the preview promotes it to Prod. Keeping Supabase and moving to managed Postgres are separate choices, each requiring vrification. Free gives {{ number plan.freeCredits }} credits a month; Paid is {{ usd plan.paidUsd }} a month for {{ number plan.paidCredits }} credits, and a small app uses about {{ credits workload.smallApp }}.
 
 **What this page is for:** to deploy the exported app here. If you’re still deciidng whether to migrate , or if you need a checklist of what Lovable’s own documentation says you need to do, read the guide [Hosting a Lovable App After Export: A Migration Checklist](/blog/host-a-lovable-app-after-export) first. To get the repository, follow [How to Export Lovable Code to GitHub](/blog/how-to-export-lovable-code-to-github).
 
@@ -12,7 +12,7 @@ Open your coding agent (Claude Code, Cursor, or Codex), provide it with the repo
 {{ prompt }}
 ```
 
-Here's what happens next, in simple ters. The agent reads two pages, installs the ohmyho.st CLI and the MCP server, and generates a sign-in link with a shrt code. You open the link in your browser, check to see if the page displays the same code, and then log in or sign up. For a selected GitHub source , it retrieves access to the repository as needed; managed sources save the current files as a  version. It walks you through a deployment plan and only builds afterward. Every resource-intensive step is a plan that you confirm: `deployment_plan` before `deployment_create`, `promotion_plan` before `promotion_execute`. Private values are entered via local stdin input or the supported portal method for remote connections described below—and only when the app needs them.
+Here's what happens next, in simple ters. The agent reads two pages, installs the ohmyhost CLI and the MCP server, and generates a sign-in link with a shrt code. You open the link in your browser, check to see if the page displays the same code, and then log in or sign up. For a selected GitHub source , it retrieves access to the repository as needed; managed sources save the current files as a  version. It walks you through a deployment plan and only builds afterward. Every resource-intensive step is a plan that you confirm: `deployment_plan` before `deployment_create`, `promotion_plan` before `promotion_execute`. Private values are entered via local stdin input or the supported portal method for remote connections described below—and only when the app needs them.
 
 {{ figure flow.lovable-export }}
 
@@ -32,7 +32,7 @@ Trhee things you have  to do in Lovable:
 2. Wait for the  first push. Open the repository on github.com and check whteher `package.json`, `vite.config.ts`, and a `.env` file are present.
 3. Stay connected to Lovable. You can cntinue  writing prompts there; every change becomes a commit that your agent can deploy.
 
-With this selecetd GitHub export, your agent uses `github_connect` if necessary, you confirm repository access in the browser , and `source_link` connects it to the project. An existing ohmyho.st project retains its current source; locally accessible files can instead be saved as managed versions via the [Deploy skill](/skills/ohmyhost-deploy/SKILL.md). An upload in the hosting dashboard is not necessary. GitHub details: https://docs.ohmyho.st/github.
+With this selecetd GitHub export, your agent uses `github_connect` if necessary, you confirm repository access in the browser , and `source_link` connects it to the project. An existing ohmyhost project retains its current source; locally accessible files can instead be saved as managed versions via the [Deploy skill](/skills/ohmyhost-deploy/SKILL.md). An upload in the hosting dashboard is not necessary. GitHub details: https://docs.ohmyho.st/github.
 
 ## What Goes Wrong After Exporting
 
@@ -60,7 +60,7 @@ Two honest pths. The first  is the smaller one.
 
 ### Keep Supabase (recommended for a first migration)
 
-Keepiing Supabase is an option you should consider in light of your actual export. The agent tracks browser requests, backend functions, authentication, and files, and then declares the exact external browser origins that the app  uses—from `runtime.browser` to `ohmyhost.yaml`. Browser connections, as well as external scripts, images , or other resources, have separate declarations; undeclared origins retain the restrictve default values. Server-side calls use `runtime.egress.allow` instead. Check the allowed redirect URLs and the Supabase site URL, and verify login, protected read access, write access, and file access on Dev before redirecting production traffic. This approach keeps the backend on Supabase instead of copying it to ohmyho.st. The existing Supabase bill remains separate; Supabase Pro starts at {{ usd vendor.supabase.pro }} per month.
+Keepiing Supabase is an option you should consider in light of your actual export. The agent tracks browser requests, backend functions, authentication, and files, and then declares the exact external browser origins that the app  uses—from `runtime.browser` to `ohmyhost.yaml`. Browser connections, as well as external scripts, images , or other resources, have separate declarations; undeclared origins retain the restrictve default values. Server-side calls use `runtime.egress.allow` instead. Check the allowed redirect URLs and the Supabase site URL, and verify login, protected read access, write access, and file access on Dev before redirecting production traffic. This approach keeps the backend on Supabase instead of copying it to ohmyhost. The existing Supabase bill remains separate; Supabase Pro starts at {{ usd vendor.supabase.pro }} per month.
 
 ### Importing a Dump into a Managed Postgres Database
 
@@ -102,13 +102,13 @@ If a line fails, tell the agent which one. `deployment_logs` and `operation_get`
 
 **At Lovable, a credit balance covers three different things.** Their pricing page (viewed on {{ checked lovable }}) states that credtis are used for “building through messages to Lovable, cloud hosting, and provviding AI features to users as part of your app.” Each plan costs {{ price vendor.lovable.pro }} per month (including tax) and grants {{ price vendor.lovable.proCredits }} credits. Lovable’s own examples estimate a prompt to add authentication at {{ price vendor.lovable.authCredits }} credits and one for a landing page at {{ price vendor.lovable.landingPageCredits }} credits , so the  monthly credits are roughly enough for sixty to one hundred changes—and every request your live app makes competes for them.
 
-**Here, your credit balance only covers the infrastructure.** The model that writes your  code is your own agent's subscription; ohmyho.st never charges for prompts. The Paid plan costs {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits; the Free plan grants {{ number plan.freeCredits }} credits each UTC month, and therre is no per-project fee. Monthly credits expire at the end of the billing period. Top-ups never expire , and purchased credits remain uasble after downgrading to Free.
+**Here, your credit balance only covers the infrastructure.** The model that writes your  code is your own agent's subscription; ohmyhost never charges for prompts. The Paid plan costs {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits; the Free plan grants {{ number plan.freeCredits }} credits each UTC month, and therre is no per-project fee. Monthly credits expire at the end of the billing period. Top-ups never expire , and purchased credits remain uasble after downgrading to Free.
 
 Two settups, two invoices. Select the line  that applies to you.
 
 ### If you keep using Supabase
 
-Supabase manages the database and loin; ohmyho.st only measures the front end—the build, the requests, the CPU time, a deployed script , and the hostname.
+Supabase manages the database and loin; ohmyhost only measures the front end—the build, the requests, the CPU time, a deployed script , and the hostname.
 
 {{ table workload.lovableFrontend }}
 

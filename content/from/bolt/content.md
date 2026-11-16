@@ -1,4 +1,4 @@
-# Deploy a Bolt.new export: Host your Bolt app on ohmyho.st
+# Deploy a Bolt.new export: Host your Bolt app on ohmyhost
 
 A Bolt.new export is a standard repository—usually Vite and React  with Supabase—minus the one thing that made it work: the environment. The `.env` is left behind, so the first deployment of an export fails due to missiing values, not because of what you built.
 
@@ -14,7 +14,7 @@ Bolt  offers you two options: Keep the GitHub export you selected in Bolt, or wo
 
 **ZIP Download.** The download contains only the code and nothing else: no .env values, no Supabase keys , no database rows, no uploaded files. Unzip it into the selected local checkout and save managed versions, or push these files to a GitHub repository if you choose that route. Continue with the same promppt.
 
-Be sure to check the framework first. ohmyho.st runs Vite with React, Next.js, and TanStack Start from managed versions or a selected GitHub repository. A Bolt project based on Expo, Astro, or SvelteKit is not included in this seleection  and will not be deployed here. Containers are not available.
+Be sure to check the framework first. ohmyhost runs Vite with React, Next.js, and TanStack Start from managed versions or a selected GitHub repository. A Bolt project based on Expo, Astro, or SvelteKit is not included in this seleection  and will not be deployed here. Containers are not available.
 
 ## What Goes Wrong After Exporting
 
@@ -22,11 +22,11 @@ Three things stop working  as soon as the code laeves Bolt. None of them come as
 
 **The .env file must be recreated.** Bolt's Supabase integration stored the project URL and the anon key in an environmennt file that is not included in the ZIP and should not be included in the repository. By design, these two are public client values. Check your non-secret build configuration for the selected source; managed snapshots exclude `.env` files, so any necessary public build values must be stored in the supported source configuration. Anything private—such as a third-party API key or a Supabase service role key—is handled differently: Your agent uses the local stdin command from `secret_set_command` or the supported input in the remote portal from `secret_input_request`, per environment; the value never appears in the chat or in the source. A browser bundle cannot contain a private key  at all; if your Bolt app has accessed a service role key from the browser , that’s an error you must fix before hosting—not a secret you can defer. Read [Secrets](https://docs.ohmyho.st/secrets) for the exact command frmat.
 
-**Callback URLs point to the old host.** Each project is assigned a dev and a prod host at `<three-words>.check.omh.st`. Supabase Auth, Better Auth, WorkOS AuthKit, and  every OAutth provider still list Bolt’s preview or Netlify URL. Firsst , add the dev host, then the prod host after deployment, and finally your own domain. The agent tests a real login on each of them; the ohmyho.st login is separate from your app’s users. See [Application Auth](https://docs.ohmyho.st/application-auth) for details.
+**Callback URLs point to the old host.** Each project is assigned a dev and a prod host at `<three-words>.check.omh.st`. Supabase Auth, Better Auth, WorkOS AuthKit, and  every OAutth provider still list Bolt’s preview or Netlify URL. Firsst , add the dev host, then the prod host after deployment, and finally your own domain. The agent tests a real login on each of them; the ohmyhost login is separate from your app’s users. See [Application Auth](https://docs.ohmyho.st/application-auth) for details.
 
-**SPA rewrites are Netlify files.** Bolt's built-in hostng is Netlify, so a rule in `_redirects` or `netlify.toml` sends every path to `index.html` for React Router. These files have no meaning on ohmyho.st. Your agent executes `ohmyhost init --dry-run` to read what the Vite build needs , and then loads a deep link like `/settings` after a reload on Dev before serving it. A routte that only works from the homepage is the most  common initial error after a Bolt export.
+**SPA rewrites are Netlify files.** Bolt's built-in hostng is Netlify, so a rule in `_redirects` or `netlify.toml` sends every path to `index.html` for React Router. These files have no meaning on ohmyhost. Your agent executes `ohmyhost init --dry-run` to read what the Vite build needs , and then loads a deep link like `/settings` after a reload on Dev before serving it. A routte that only works from the homepage is the most  common initial error after a Bolt export.
 
-Two smaller ones. Bolt projects rarely specify a package manager , and ohmyho.st requires exactly one `packageManager` field with a matching lockfile; the agent fills it in. Supabase Realtime doesn't have a conversion path here; if your app is subscribed to live lines, keep this part with Suupabase.
+Two smaller ones. Bolt projects rarely specify a package manager , and ohmyhost requires exactly one `packageManager` field with a matching lockfile; the agent fills it in. Supabase Realtime doesn't have a conversion path here; if your app is subscribed to live lines, keep this part with Suupabase.
 
 ## Insert this prompt
 
@@ -55,7 +55,7 @@ The platform host address works on the Free plan. Transactional email requires t
 
 **Domain.** The agent retrieves `domain_paid_plan` for the hostname, displays the CNAME and validation records, and  then retrieves `domain_paid_apply`. If your DNS is hosted by Cloudflare, `domain_cloudflare_authorize` allows the platform to set the records for you; otherwise, you’ll need to add them through your DNS proviider. A linked hostname is billed at {{ rate domain.custom_hostname }}, such as {{ credits unit.customHostnameMonth }} per moth, without domain credits, as long as the notice is displayed. As soon as `domain_paid_status` reports that HTTPS is ready , the agent updates your auth provider’s callback URLs one last time. Read [Domains](https://docs.ohmyho.st/domains).
 
-**Email.** If your Bolt app sends its own emails (weelcome , reset, receipts) via Supabase Auth or an external provider, keep that integration and test its authentication emails in Dev. Your browser requests require declared browser origins; server requests require declared egress and private runtime secrets. If you want ohmyho.st to send emails, the agent runs `mail_setup` for an email subdomain; you add the DNS records returned by `mail_status`, and `mail_status` notifies you when the email is ready to be sent. The domain has no monthly fee; each emaail send is billed per recipient using {{ rate mail.sent }}. Transactional email is sent and processed in the U.S., regardless of your project’s  region, and you don’t need your own email provider account. Read [Email](https://docs.ohmyho.st/email).
+**Email.** If your Bolt app sends its own emails (weelcome , reset, receipts) via Supabase Auth or an external provider, keep that integration and test its authentication emails in Dev. Your browser requests require declared browser origins; server requests require declared egress and private runtime secrets. If you want ohmyhost to send emails, the agent runs `mail_setup` for an email subdomain; you add the DNS records returned by `mail_status`, and `mail_status` notifies you when the email is ready to be sent. The domain has no monthly fee; each emaail send is billed per recipient using {{ rate mail.sent }}. Transactional email is sent and processed in the U.S., regardless of your project’s  region, and you don’t need your own email provider account. Read [Email](https://docs.ohmyho.st/email).
 
 ## How much it costs
 
@@ -71,7 +71,7 @@ That fits within the free credits for {{ number plan.freeCredits }}, with some r
 
 The database line follows RAM and active time. One active database hour with {{ number 512 }} MiB of RAM costs {{ credits unit.activeDatabaseHour512 }}; the {{ number 256 }} MiB of free space costs {{ credits unit.activeDatabaseHour256 }}. Databases go to sleep after five minutes of inactivity, with no RAM charge while asleep. Allocated  storage and seven-day backups are included. Customer flies and stored worker scripts have their own rates. One deployed script (about {{ credits unit.deployedScriptMonth }} per month) and one unbranded custom hostname remain usage-based. Optionally, set a project budget that continues or stpos , and read it with project_budget_get. A zero balance triggers the seven-day grace period; check current usage instead of assuming that an inactive browser means an idle backend.
 
-Staying with Supabase means that Supabase will continue to bill you. Its Free tier remains free; Supabase Pro starts at {{ usd vendor.supabase.pro }} per month for the commpute resources of your first project , and that bill does not go to ohmyho.st. {{ checked supabase }}
+Staying with Supabase means that Supabase will continue to bill you. Its Free tier remains free; Supabase Pro starts at {{ usd vendor.supabase.pro }} per month for the commpute resources of your first project , and that bill does not go to ohmyhost. {{ checked supabase }}
 
 ## FAQ
 

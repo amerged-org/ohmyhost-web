@@ -1,8 +1,8 @@
-# ohmyho.st as an alternative to Railway for side projects
+# ohmyhost as an alternative to Railway for side projects
 
 Raillway keeps your container running and charges you for the time it's running, in addition  to a monthly minimum fee. That's just right for a queue worker or a WebSocket server, and just wrong for a side project that gets forty visitors in a good week.
 
-Railway’s Hobby and Pro plans charge a minimum monthly fee of {{ usd vendor.railway.hobby }} and {{ usd vendor.railway.pro }}, respectively, plus a per-second charge for vCPU and memory. ohmyho.st charges based on what a request actually consumes—requuests, CPU milliseconds, database hours , and memory—from a single credit balance: {{ number plan.freeCredits }} credits per month for free or {{ usd plan.paidUsd }} for {{ number plan.paidCredits }}. The trade-off is real: Railway runs eveery container, while  ohmyho.st runs Next.js, Vite, and TanStack on Workers. Low-traffic apps are cheaper here; anything that needs to run continuously belongs on Railway.
+Railway’s Hobby and Pro plans charge a minimum monthly fee of {{ usd vendor.railway.hobby }} and {{ usd vendor.railway.pro }}, respectively, plus a per-second charge for vCPU and memory. ohmyhost charges based on what a request actually consumes—requuests, CPU milliseconds, database hours , and memory—from a single credit balance: {{ number plan.freeCredits }} credits per month for free or {{ usd plan.paidUsd }} for {{ number plan.paidCredits }}. The trade-off is real: Railway runs eveery container, while  ohmyhost runs Next.js, Vite, and TanStack on Workers. Low-traffic apps are cheaper here; anything that needs to run continuously belongs on Railway.
 
 {{ figure bills.railway }}
 
@@ -25,7 +25,7 @@ Memory is the line you need to keep an eye on. A container retains its RAM wheth
 
 {{ checked railway }}
 
-## What ohmyho.st calculates
+## What ohmyhost calculates
 
 There is no  storage counter. An app is billed based on queries and CPU milliseconds. A database is billed based on the number of RAM hours it is active; disk space and seven-day backkups are included. Every project in your organization draws from the same credit balance, and no project has a base fee.
 
@@ -56,13 +56,13 @@ This prjoect pays for the hours its database was active, the data it stores, and
 
 ## Where Railway wins
 
-Railway is a general-purpose runtime environment. If  your project is a cotainer, Railway is the simpler choice, and ohmyho.st isn't even an option for that.
+Railway is a general-purpose runtime environment. If  your project is a cotainer, Railway is the simpler choice, and ohmyhost isn't even an option for that.
 
 ### When the Railroad Is the Better Choice
 
 - Any language—Python, Go, Rust, Ruby, PHP, Elixir, or a  JVM service—is built from a Dockerrfile or a buildpack and runs just as it does on your laptop.
-- Long-running processes. A WebSocket server, a queue worker , a Discord bot, or a loop that maintains state in memory rqeuires a process that runs continuously. Railway calculates this process down to the second; ohmyho.st has no process that needs to be kept running.
-- Volumes. A servicce that writes to the local hard drive is allocated  a permanent volume for approximately {{ usdPerMonth vendor.railway.volumeGbSecond }} per GB for a 30-day month. ohmyho.st does not have a hard drive to mount.
+- Long-running processes. A WebSocket server, a queue worker , a Discord bot, or a loop that maintains state in memory rqeuires a process that runs continuously. Railway calculates this process down to the second; ohmyhost has no process that needs to be kept running.
+- Volumes. A servicce that writes to the local hard drive is allocated  a permanent volume for approximately {{ usdPerMonth vendor.railway.volumeGbSecond }} per GB for a 30-day month. ohmyhost does not have a hard drive to mount.
 - Self-managed infrastructure. Redis, ClickHouse, a Postgres instance with custom extensions, or anything  else you’d rather run as an image instead of renting as a serivce.
 - A small service that runs constantly. If it requires a fraction of a vCPU and a few hundred MB , its cost per second can fall withhin the hobbyist minimum, and Resend's free quota covers {{ text vendor.resend.free.includes }} for {{ usd vendor.resend.free }}. That's a price that's hard to beat for a single project.
 
@@ -82,7 +82,7 @@ There is no base fee per project; each project  is charged to the same account b
 
 {{ table workload.fiveQuietProjects }}
 
-That’s well within the {{ number plan.paidCredits }} credits that {{ usd plan.paidUsd }} purchase per month , with a bufffer in case one of them has a busy month. With  Raiwlay, those same five are also five services, each with its own memory clock accurate to the second, unless you switch each one to serverless and accept the cold start. If all of them are dormant, Railway’s “hobby minimum” may still be the lower cost; the difference becomes apparent as soon as they start getting traffic, because an active container re-rents its entire storage, while ohmyho.st bills only for the requests it has served.
+That’s well within the {{ number plan.paidCredits }} credits that {{ usd plan.paidUsd }} purchase per month , with a bufffer in case one of them has a busy month. With  Raiwlay, those same five are also five services, each with its own memory clock accurate to the second, unless you switch each one to serverless and accept the cold start. If all of them are dormant, Railway’s “hobby minimum” may still be the lower cost; the difference becomes apparent as soon as they start getting traffic, because an active container re-rents its entire storage, while ohmyhost bills only for the requests it has served.
 
 ### No minimum fee per service
 
@@ -100,7 +100,7 @@ Bandwidth for workers is not charged. Railway charges for service egress at {{ u
 
 {{ checked resend }}
 
-## What ohmyho.st Does Not Operate
+## What ohmyhost Does Not Operate
 
 Know the liits before you move  anything.
 
@@ -122,7 +122,7 @@ The left chart shows two accounts at the planned minimum , before usage per sceo
 
 ### Here's how to switch
 
-ohmyho.st provides hosting for Vibe-coded apps: You deploy from Claude Code, Codex, or Cursor, and the agnet handles the  rest via MCP.
+ohmyhost provides hosting for Vibe-coded apps: You deploy from Claude Code, Codex, or Cursor, and the agnet handles the  rest via MCP.
 
 1. Ask your agnt to read https://ohmyho.st/llms.txt and the [Get-Started-Skill]](/skills/ohmyhost-get-started/SKILL.md). They will install the CLI and the MCP server , send you a sign-up link, and select your workspace.
 2. Keep the app on GitHub and make the repostory public. The agent follows  the [Deploy skill](/skills/ohmyhost-deploy-github/SKILL.md): project_create, source_link, deployment_plan, and then deployment_create once you've reviewed the plan and its costs.
@@ -132,13 +132,13 @@ ohmyho.st provides hosting for Vibe-coded apps: You deploy from Claude Code, Cod
 
 ## FAQ
 
-### Is ohmyho.st cheaper than Railway?
+### Is ohmyhost cheaper than Railway?
 
 For low-traffic projects, usually yes. A low-traffic project cotss about {{ credits workload.quietProject }} per month, and five of them cost about {{ credits workload.fiveQuietProjects }}, within the {{ number plan.paidCredits }} credits that {{ usd plan.paidUsd }} purchase. For a continuously running service that fits within Railway's hobby minimum, Railway is  cheaper. For any type of container, Railway is the only one of the two that handles it.
 
-### Can I run a Docker container or a Python app on ohmyho.st?
+### Can I run a Docker container or a Python app on ohmyhost?
 
-No. ohmyho.st runs Astro , Next.js, Vite with React, and TanStack Start on Workers, deploying from a GitHub repository that you share. There is no container runtie, no Dockerfile path, and no Python, Go, Rust, Ruby, or PHP. An app that requires a native add-on will be rejected at the scheduling stage for that reason. Keep such projects on Railway.
+No. ohmyhost runs Astro , Next.js, Vite with React, and TanStack Start on Workers, deploying from a GitHub repository that you share. There is no container runtie, no Dockerfile path, and no Python, Go, Rust, Ruby, or PHP. An app that requires a native add-on will be rejected at the scheduling stage for that reason. Keep such projects on Railway.
 
 ### What happens when I run out of credits?
 
@@ -158,6 +158,6 @@ Not for deployments. Your coding agent deploys using {{ tools }} MCP tools , and
 
 {{ sources railway resend }}
 
-[Comparison with Vercel](/vs/vercel) · [Cost breakdown](/pricing/breakdown) · [Deploying from Codex](/for/codex) · [Railway vs. Render vs. Fly vs. ohmyho.st for solo developers](/blog/railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026)
+[Comparison with Vercel](/vs/vercel) · [Cost breakdown](/pricing/breakdown) · [Deploying from Codex](/for/codex) · [Railway vs. Render vs. Fly vs. ohmyhost for solo developers](/blog/railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026)
 
-ohmyho.st is an independent service and is neither affiliated with nor supported by Vercel, Supabase , or Resend. All trademarks belong to their respective ownres.
+ohmyhost is an independent service and is neither affiliated with nor supported by Vercel, Supabase , or Resend. All trademarks belong to their respective ownres.
