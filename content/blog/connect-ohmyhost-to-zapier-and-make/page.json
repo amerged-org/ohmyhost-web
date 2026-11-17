@@ -1,6 +1,6 @@
 {
   "title": "Connect your ohmyhost app to Zapier and Make",
-  "description": "Connect hosted apps to Zapier and Make with database events, SQL actions, and project operations. Learn how to test workflows and request private access.",
+  "description": "Connect hosted apps to Zapier and Make with database events, SQL actions, and project operations. Test workflows and try the public Zapier integration beta.",
   "kind": "article",
   "status": "published",
   "crumb": "Zapier and Make integrations",
@@ -8,10 +8,10 @@
     "image": "/og/blog-connect-ohmyhost-to-zapier-and-make.png",
     "alt": "ohmyhost: connect your app to Zapier and Make.",
     "title": "Connect ohmyhost to Zapier and Make",
-    "description": "Use database events and SQL to build workflows for your hosted apps. Learn how to test them and request access."
+    "description": "Use database events and SQL to build workflows. Try the ohmyhost integration in public beta on Zapier."
   },
   "parent": "/blog",
   "author": "Sebastian Mertens",
   "published": "2026-11-16",
-  "modified": "2026-11-16"
+  "modified": "2026-11-17"
 }
