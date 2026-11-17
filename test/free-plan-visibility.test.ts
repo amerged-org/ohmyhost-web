@@ -75,7 +75,7 @@ it("puts the free plan in the homepage title and description without dropping th
   const description =
     home.match(/<meta name="description" content="([^"]*)"/u)?.[1] ?? "";
   expect(description).toMatch(/free with 200 credits a month/iu);
-  expect(description.length).toBeLessThanOrEqual(180);
+  expect(description.length).toBeLessThanOrEqual(160);
 });
 
 it("says every month on the pricing page and links both comparisons from the pages people compare on", () => {

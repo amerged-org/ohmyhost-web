@@ -25,7 +25,7 @@ export interface PageMeta {
 
 export { SITE_ORIGIN } from "./site-identity.js";
 /** Last change of the static home and brand pages. */
-export const SITE_MODIFIED = "2026-11-16";
+export const SITE_MODIFIED = "2026-11-17";
 export const FOUNDER = {
   name: "Sebastian Mertens",
   path: "/about",
