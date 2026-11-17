@@ -1,10 +1,10 @@
 # Connect Your ohmyhost App to Zapier and Make
 
-By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · November 16, 2026
+By [Sebastian Mertens](https://www.linkedin.com/in/auto-mate/) · Published November 16, 2026 · Updated November 17, 2026
 
 A customer submits a form in your app. You want your workflow to notice the new record, send the right information to another tool, and update the record when the next step is complete. The ohmyhost integrations for Zapier and Make connect those workflows to your hosted application's database and project operations.
 
-The integrations are being prepared for wider access. The Zapier integration is in review, and the Make app is currently private to our organization. [Contact us](/contact) to ask about access. The examples below describe the integrations we have tested; they are not a promise that they are already available in the public app directories.
+The Zapier integration is available in public beta. [Open ohmyhost in the Zapier directory](https://zapier.com/apps/ohmyhost/integrations) to see the available actions and start a Zap. The Make app is private to our organization. [Contact us](/contact) to ask about Make access.
 
 ## Choose what should start the workflow
 
@@ -77,4 +77,4 @@ When the test succeeds, remove any temporary records and unused test watches or 
 
 ## Getting access
 
-The ohmyhost Zapier integration is currently in review, while the Make app is private to our organization. If you would like to use either integration, [contact us](/contact) and tell us which platform and workflow you have in mind. You can also explore the [API reference](https://docs.ohmyho.st/api) and learn [how ohmyhost works](/blog/introducing-ohmyho-st).
+To get started in Zapier, open the [ohmyhost public beta listing](https://zapier.com/apps/ohmyhost/integrations) and connect your account. For Make access, [contact us](/contact) and tell us which workflow you have in mind. You can also explore the [API reference](https://docs.ohmyho.st/api) and learn [how ohmyhost works](/blog/introducing-ohmyho-st).
