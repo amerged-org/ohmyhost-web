@@ -259,6 +259,12 @@ for (const [name, digest] of Object.entries(templates)) {
       /(?<![\w@:/.-])(?<!Powered by )ohmyho\.st(?![\w/.-])/gu,
       SITE_NAME,
     );
+  if (name === "home") {
+    // Owner-requested homepage lead keeps the website's domain spelling.
+    const lead = `Their three Pro plans total $${stackPrice}/month. ohmyhost brings hosting, Postgres and email into one balance. Start with one prompt in your coding agent.`;
+    if (!html.includes(lead)) throw new Error("Homepage lead boundary missing");
+    html = html.replace(lead, () => lead.replace("ohmyhost", "ohmyho.st"));
+  }
   // The domain remains an alternate name, while every public schema uses the primary brand.
   if (name === "home")
     html = html.replace(
