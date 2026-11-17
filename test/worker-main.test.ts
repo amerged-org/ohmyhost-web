@@ -58,7 +58,7 @@ describe("public entry and unassigned Free-host fallback", () => {
         `<meta ${attribute}="${name}" content="ohmyhost: app hosting, Postgres and email from $10/month. Start deployment with one prompt in Codex, Claude Code or Cursor.">`,
       );
     expect(html).toContain(
-      "Their three Pro plans total $65/month. ohmyhost brings hosting, Postgres and email into one balance. Start with one prompt in your coding agent.",
+      "Their three Pro plans total $65/month. ohmyho.st brings hosting, Postgres and email into one balance. Start with one prompt in your coding agent.",
     );
     expect(html).toContain(
       "ohmyhost is prepaid-credit hosting for apps built with",

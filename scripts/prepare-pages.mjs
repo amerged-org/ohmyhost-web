@@ -259,6 +259,12 @@ for (const [name, digest] of Object.entries(templates)) {
       /(?<![\w@:/.-])(?<!Powered by )ohmyho\.st(?![\w/.-])/gu,
       SITE_NAME,
     );
+  if (name === "home") {
+    // Owner-requested homepage lead keeps the website's domain spelling.
+    const lead = `Their three Pro plans total $${stackPrice}/month. ohmyhost brings hosting, Postgres and email into one balance. Start with one prompt in your coding agent.`;
+    if (!html.includes(lead)) throw new Error("Homepage lead boundary missing");
+    html = html.replace(lead, () => lead.replace("ohmyhost", "ohmyho.st"));
+  }
   // The domain remains an alternate name, while every public schema uses the primary brand.
   if (name === "home")
     html = html.replace(
@@ -355,9 +361,8 @@ function applyApprovedHomepageChanges(html) {
   // the approved Open Graph and X copy above stays as it is.
   const seoTitle =
     "ohmyhost — Vercel, Supabase &amp; Resend alternative, free plan";
-  // Owner-approved 2026-10-28: the search description leads with the free Supabase, Vercel and
-  // Resend alternative intent and spells the brand "ohmyhost" without a dot, as searchers type it.
-  const seoDescription = `Free Supabase, Vercel and Resend alternative: ohmyhost puts hosting, Postgres and email on one balance. Start free with ${plans.freeCredits} credits a month and deploy with your coding agent.`;
+  // Keep the free-plan and alternative intent in the search description within 160 characters.
+  const seoDescription = `Vercel, Supabase and Resend alternative: ohmyhost combines hosting, Postgres and email. Start free with ${plans.freeCredits} credits a month; deploy with your coding agent.`;
   html = html
     .replace(
       /(<meta (?:property="og:title"|name="twitter:title") content=")[^"]*(">)/gu,
