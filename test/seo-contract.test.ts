@@ -450,10 +450,10 @@ it("gives the homepage search description the free alternative intent and the un
   const html = await response.text();
   const description = attribute(html, 'name="description"');
   expect(description).toBe(
-    "Free Supabase, Vercel and Resend alternative: ohmyhost puts hosting, Postgres and email on one balance. Start free with 200 credits a month and deploy with your coding agent.",
+    "Vercel, Supabase and Resend alternative: ohmyhost combines hosting, Postgres and email. Start free with 200 credits a month; deploy with your coding agent.",
   );
   expect(description.length).toBeGreaterThanOrEqual(150);
-  expect(description.length).toBeLessThanOrEqual(180);
+  expect(description.length).toBeLessThanOrEqual(160);
   expect(description.match(/[.!?](?:\s|$)/gu)).toHaveLength(2);
   expect(description).toContain("ohmyhost");
   expect(description).not.toContain("ohmyho.st");

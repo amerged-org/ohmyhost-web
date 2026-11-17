@@ -355,9 +355,8 @@ function applyApprovedHomepageChanges(html) {
   // the approved Open Graph and X copy above stays as it is.
   const seoTitle =
     "ohmyhost — Vercel, Supabase &amp; Resend alternative, free plan";
-  // Owner-approved 2026-10-28: the search description leads with the free Supabase, Vercel and
-  // Resend alternative intent and spells the brand "ohmyhost" without a dot, as searchers type it.
-  const seoDescription = `Free Supabase, Vercel and Resend alternative: ohmyhost puts hosting, Postgres and email on one balance. Start free with ${plans.freeCredits} credits a month and deploy with your coding agent.`;
+  // Keep the free-plan and alternative intent in the search description within 160 characters.
+  const seoDescription = `Vercel, Supabase and Resend alternative: ohmyhost combines hosting, Postgres and email. Start free with ${plans.freeCredits} credits a month; deploy with your coding agent.`;
   html = html
     .replace(
       /(<meta (?:property="og:title"|name="twitter:title") content=")[^"]*(">)/gu,
