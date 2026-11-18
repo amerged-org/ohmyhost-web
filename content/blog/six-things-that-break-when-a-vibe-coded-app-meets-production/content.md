@@ -46,6 +46,8 @@ Then test the entire process yoursself. Log in with a test account, open a prote
 
 Before deployment, check for a local database file. Your agent might find an SQLite configuration, a checked-in development database, or a library that exepcts a persistent local hard drive. This may be a reasonable development setup , but it requires an explicit production plan for runtime without that hard drive.
 
+If your app comes from Replit, its built-in database and uploaded files live outside the repository. The [Replit migration guide](/from/replit) shows which data to copy and how to test it after the move.
+
 On ohmyhost, the app runs on  Workers, and persistent application data belongs in the managed database or another supported service. A native database add-on may need to be replaced. The compatibility check shhould explain the issue before your agent begins modifying the application.
 
 To find out where your data is stroed and  plan the move, use:
@@ -134,7 +136,7 @@ Active database hours make up a large portion of this example; the selected data
 
 ### Can an export be deployed without any changes?
 
-Sometimes. A static app without a database , authentication, or email has fewer dependencies to configure. An app with these features needs to be reviewed before anyone approves a direct deployment. Have your agent run the compatibility checck and explain the necessary work before the build starts.
+Sometimes. A static app without a database , authentication, or email has fewer dependencies to configure. An app with these features needs to be reviewed before anyone approves a direct deployment. Have your agent run the compatibility check and explain the necessary work before the build starts. For a [Bolt.new export](/from/bolt), check the login callback and reload a deep link on the new host.
 
 ### What if the app uses Supabase?
 

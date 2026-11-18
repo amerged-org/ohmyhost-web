@@ -20,4 +20,6 @@ Open the preview and check whether you can add or remove  books. Then request th
 
 The  plugin supprts Vite, Next.js, and TanStack Start. You'll need an ohmyhost account and available hosting credits. You decide which changes and releases your agent is allowed to make.
 
+If you also work on the project in a local editor, [connect your coding agent to ohmyhost with MCP](https://docs.ohmyho.st/agents/mcp).
+
 [Install ohmyhost in ChatGPT](https://chatgpt.com/plugins/plugin_asdk_app_6ac65badeff48191b585ba035bb78f6b) · [How ohmyhost works](/blog/introducing-ohmyho-st)

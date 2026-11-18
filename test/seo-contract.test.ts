@@ -264,22 +264,47 @@ it("serves crawler, cache and transport metadata", async () => {
   ];
   expect(urls.length).toBe(xml.match(/<url>/gu)?.length);
   const listed = urls.map((entry) => entry[1] ?? "");
-  for (const path of [
-    "/",
-    "/brand",
-    "/philosophy",
-    "/open-source",
-    "/blog",
-    ...htmlPages(),
-  ])
-    expect(listed, path).toContain(path);
-  expect(listed).not.toContain("/login");
-  expect(listed.some((path) => path.endsWith(".md"))).toBe(false);
-  for (const [path, meta] of Object.entries(PAGE_META))
-    if (path !== "/login")
-      expect(urls.find((entry) => entry[1] === path)?.[2], path).toBe(
-        meta.modified,
-      );
+  expect([...listed].sort()).toEqual(
+    [
+      "/",
+      "/blog",
+      ...htmlPages().filter((path) => /^(?:\/blog\/|\/vs\/)/u.test(path)),
+      "/for/claude-code",
+      "/for/codex",
+      "/for/cursor",
+      "/from/bolt",
+      "/from/lovable",
+      "/from/replit",
+      "/from/vercel-supabase",
+      "/frameworks/astro",
+      "/frameworks/nextjs",
+      "/frameworks/tanstack",
+      "/frameworks/vite",
+    ].sort(),
+  );
+  for (const [, path, lastmod] of urls) {
+    if (path && path !== "/")
+      expect(lastmod, path).toBe(PAGE_META[path]?.modified.slice(0, 10));
+  }
+  for (const path of ["/brand", ...htmlPages()].filter(
+    (path) => !listed.includes(path),
+  )) {
+    const response = await worker.fetch(
+      new Request(`https://ohmyho.st${path}`),
+      {
+        ASSETS: assets,
+      },
+    );
+    expect(response.status, path).toBe(200);
+    expect(response.headers.get("x-robots-tag"), path).toBe("noindex, follow");
+  }
+  for (const path of ["/blog.md", "/auth.md", "/AGENTS.md"]) {
+    const document = await worker.fetch(
+      new Request(`https://ohmyho.st${path}`),
+    );
+    expect(document.status, path).toBe(200);
+    expect(document.headers.get("x-robots-tag"), path).toBe("noindex, follow");
+  }
   for (const url of [
     "https://ohmyho.st/",
     "https://ohmyho.st/about",

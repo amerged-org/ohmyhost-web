@@ -39,7 +39,7 @@ If you'd also like to use a  different editor, [Using Your Own Coding Agent as a
 
 Sart with [How to Export Lovable Code to GitHub](/blog/how-to-export-lovable-code-to-github) if you don't already have the repository. Check the owner, active branch , and sync status, and then share the repository URL with your agent. If you want to test the app on your computer before choosing a host, [run the Lovable project locally](/blog/run-lovable-project-locally) first.
 
-Keep in mind that a Lovable export isn't always a static front end. Its [guide to external hosting](https://docs.lovable.dev/tips-tricks/external-deployment-hosting) distinguishes older React + Vite apps from TanStack Start apps , which run server-side code. Your agent should identify the actual framework and the build output before selecting the depolyment type.
+Keep in mind that a Lovable export isn't always a static front end. Its [guide to external hosting](https://docs.lovable.dev/tips-tricks/external-deployment-hosting) distinguishes older [React + Vite apps](/frameworks/vite) from [TanStack Start apps](/frameworks/tanstack), which run server-side code. Your agent should identify the actual framework and the build output before selecting the depolyment type.
 
 Start the exam with this  pompt:
 

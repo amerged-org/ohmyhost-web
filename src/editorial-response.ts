@@ -1,3 +1,4 @@
+import { isIndexablePage } from "./page-meta.js";
 import { SITE_ORIGIN } from "./site-identity.js";
 
 /** Cache only anonymous editorial representations; a region hint stays in the browser cache. */
@@ -7,6 +8,11 @@ export async function editorialResponse(
   headers: Headers,
   canonicalPath: string,
 ): Promise<Response> {
+  const url = new URL(request.url);
+  headers.set(
+    "x-robots-tag",
+    isIndexablePage(url.pathname) ? "index, follow" : "noindex, follow",
+  );
   const markdown = headers.get("content-type")?.startsWith("text/markdown");
   if (markdown)
     headers.set("link", `<${SITE_ORIGIN}${canonicalPath}>; rel="canonical"`);
@@ -15,8 +21,8 @@ export async function editorialResponse(
     "Accept, Cookie, Authorization, Sec-Fetch-Mode, Sec-Fetch-Dest",
   );
   const personalized =
-    new URL(request.url).searchParams.has("r") ||
-    [...new URL(request.url).searchParams.keys()].some((key) =>
+    url.searchParams.has("r") ||
+    [...url.searchParams.keys()].some((key) =>
       /^utm_[a-z0-9_]{1,60}$/u.test(key.toLowerCase()),
     ) ||
     request.headers.has("cookie") ||

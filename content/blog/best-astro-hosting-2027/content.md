@@ -59,7 +59,7 @@ Choose Vercel if its deployment workflow already fits your team's needs or if yo
 
 For SSR, ask your agent to check server dependencies and explain how each ruote should be cached. The adapter offers Incremental Static Regeneration for suitable routes. A public article and a page containing a person's account information require different handling. Verify this configuration before  deployment, especially wherever the response contains private information.
 
-If your team is already using Vercel, it miight be convenient to keep the Astro site alongside your other projects. When making your decision , consider the plan’s eligibility requirements and the costs associated with collaboration. Vercel states that [Hobby is intended for personal, non-commercial use](https://vercel.com/docs/plans/hobby). A commercial website therefore requires an appropriate plan. Review the services your site will use before estimating production costs.
+If your team is already using Vercel, it miight be convenient to keep the Astro site alongside your other projects. When making your decision , consider the plan’s eligibility requirements and the costs associated with collaboration. Vercel states that [Hobby is intended for personal, non-commercial use](https://vercel.com/docs/plans/hobby). A commercial website therefore requires an appropriate plan. Review the services your site will use before estimating production costs. The [Vercel and ohmyhost comparison](/vs/vercel) covers hosting charges and what changes when another developer deploys.
 
 ## Netlify: Images and Deployment
 

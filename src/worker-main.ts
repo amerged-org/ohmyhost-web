@@ -10,10 +10,9 @@ import {
 } from "./customer-entry.js";
 import { BRAND_ASSET_FILES } from "./brand-assets.js";
 import { SITE_ICON } from "./generated-site-frame.js";
-import { sitemapEntries } from "./page-meta.js";
+import { sitemapEntries, WEBSITE_PAGE_PATHS } from "./page-meta.js";
 import { editorialResponse, prefersMarkdown } from "./editorial-response.js";
 import { websiteIndexNowKey } from "./indexnow.js";
-const EDITORIAL_PATHS = new Set(sitemapEntries().map((page) => page.path));
 // A shell-single-quoted assignment carries this value into the installer script.
 const SHELL_SAFE_SOURCE = /^[a-z0-9][a-z0-9_-]{0,63}$/u;
 const HOME = "https://ohmyho.st/";
@@ -103,7 +102,7 @@ function campaignLinks(
               !portalLogin &&
               (target.origin !== new URL(HOME).origin ||
                 !(
-                  EDITORIAL_PATHS.has(target.pathname) ||
+                  WEBSITE_PAGE_PATHS.has(target.pathname) ||
                   ["/", "/login", "/brand", "/api"].includes(target.pathname)
                 ))
             )
@@ -216,7 +215,7 @@ export default {
       host === "ohmyho.st" &&
       withoutSlash &&
       withoutSlash !== url.pathname &&
-      EDITORIAL_PATHS.has(withoutSlash)
+      WEBSITE_PAGE_PATHS.has(withoutSlash)
     ) {
       const target = new URL(url);
       target.pathname = withoutSlash;
@@ -391,7 +390,7 @@ export default {
       return new Response(null, { status: 308, headers });
     }
     const documentPath =
-      wantsMarkdown && EDITORIAL_PATHS.has(url.pathname)
+      wantsMarkdown && WEBSITE_PAGE_PATHS.has(url.pathname)
         ? `${url.pathname}.md`
         : url.pathname;
     const document = customerDocument(documentPath);
@@ -438,8 +437,10 @@ export default {
       const canonicalPath = documentPath.endsWith(".md")
         ? documentPath.slice(0, -3)
         : documentPath;
-      if (EDITORIAL_PATHS.has(canonicalPath))
+      if (WEBSITE_PAGE_PATHS.has(canonicalPath))
         return editorialResponse(request, documentText, headers, canonicalPath);
+      if (document.type.startsWith("text/markdown"))
+        headers.set("x-robots-tag", "noindex, follow");
       return new Response(request.method === "HEAD" ? null : documentText, {
         headers,
       });
@@ -614,7 +615,7 @@ export default {
     headers.set("vary", "Accept");
     const canonicalPath =
       selected === "/index.md" ? "/" : selected.replace(/\.md$/u, "");
-    if (EDITORIAL_PATHS.has(canonicalPath))
+    if (WEBSITE_PAGE_PATHS.has(canonicalPath))
       return editorialResponse(request, body, headers, canonicalPath);
     return new Response(request.method === "HEAD" ? null : body, { headers });
   },

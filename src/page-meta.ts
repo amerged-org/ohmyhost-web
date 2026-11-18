@@ -198,12 +198,42 @@ export function crumbLabel(meta: PageMeta): string {
   return meta.crumb ?? meta.title.split(/ — |: /u)[0] ?? meta.title;
 }
 
+const WEBSITE_PAGES = [
+  { path: "/", lastmod: SITE_MODIFIED },
+  { path: "/brand", lastmod: SITE_MODIFIED },
+  ...Object.entries(PAGE_META)
+    .filter(([path]) => path !== "/login")
+    .map(([path, meta]) => ({ path, lastmod: meta.modified.slice(0, 10) })),
+];
+
+export const WEBSITE_PAGE_PATHS: ReadonlySet<string> = new Set(
+  WEBSITE_PAGES.map(({ path }) => path),
+);
+
+const INDEXABLE_PATHS = new Set([
+  "/",
+  "/blog",
+  "/for/claude-code",
+  "/for/codex",
+  "/for/cursor",
+  "/from/bolt",
+  "/from/lovable",
+  "/from/replit",
+  "/from/vercel-supabase",
+  "/frameworks/astro",
+  "/frameworks/nextjs",
+  "/frameworks/tanstack",
+  "/frameworks/vite",
+  ...BLOG_POSTS.map(({ path }) => path),
+  ...CONTENT_PAGE_LIST.filter(({ path }) => path.startsWith("/vs/")).map(
+    ({ path }) => path,
+  ),
+]);
+
+export function isIndexablePage(path: string): boolean {
+  return INDEXABLE_PATHS.has(path);
+}
+
 export function sitemapEntries(): Array<{ path: string; lastmod: string }> {
-  return [
-    { path: "/", lastmod: SITE_MODIFIED },
-    { path: "/brand", lastmod: SITE_MODIFIED },
-    ...Object.entries(PAGE_META)
-      .filter(([path]) => path !== "/login")
-      .map(([path, meta]) => ({ path, lastmod: meta.modified.slice(0, 10) })),
-  ];
+  return WEBSITE_PAGES.filter(({ path }) => isIndexablePage(path));
 }
