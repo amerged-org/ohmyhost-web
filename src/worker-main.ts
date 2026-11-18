@@ -439,6 +439,8 @@ export default {
         : documentPath;
       if (WEBSITE_PAGE_PATHS.has(canonicalPath))
         return editorialResponse(request, documentText, headers, canonicalPath);
+      if (document.type.startsWith("text/markdown"))
+        headers.set("x-robots-tag", "noindex, follow");
       return new Response(request.method === "HEAD" ? null : documentText, {
         headers,
       });

@@ -298,9 +298,13 @@ it("serves crawler, cache and transport metadata", async () => {
     expect(response.status, path).toBe(200);
     expect(response.headers.get("x-robots-tag"), path).toBe("noindex, follow");
   }
-  const mirror = await worker.fetch(new Request("https://ohmyho.st/blog.md"));
-  expect(mirror.status).toBe(200);
-  expect(mirror.headers.get("x-robots-tag")).toBe("noindex, follow");
+  for (const path of ["/blog.md", "/auth.md", "/AGENTS.md"]) {
+    const document = await worker.fetch(
+      new Request(`https://ohmyho.st${path}`),
+    );
+    expect(document.status, path).toBe(200);
+    expect(document.headers.get("x-robots-tag"), path).toBe("noindex, follow");
+  }
   for (const url of [
     "https://ohmyho.st/",
     "https://ohmyho.st/about",
