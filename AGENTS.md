@@ -28,4 +28,7 @@
   Change them only through the documented approval path.
 - Run `pnpm test` before committing; the content truth gate covers structure, links, traceable
   numbers and word floors.
+- Every published blog article is indexable and automatically included in the website sitemap.
+  Published comparison pages, the homepage and the blog index are also included. Approve any
+  additions to the other indexable landing pages explicitly.
 - The service is not called a beta. A future feature preview may be.

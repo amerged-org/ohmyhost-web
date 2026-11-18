@@ -36,7 +36,7 @@ An artifact is usually a single HTML file that contains styles and scripts direc
 1. **Get the code.** Open the artifact in the chat , copy the sourrce code, or download it. For designs, Claude lets you export them as standalone HTML files. If the ohmyhost connector is integrated into Claude, your agent doesn't even need to download the code.
 2. **Extract scripts and styles into separate files.** Every `<script>` and every `<style>` in  the doument becomes its own file. The appearance must not change.
 3. **Check what's coming from outside.** Fonts, libraries , and images from external sources must be declred or added to the project.
-4. **Build in Dev.** Open the preview, click through the page , and reolad a specific subpath directly.
+4. **Build in Dev.** Follow the [first deployment guide](https://docs.ohmyho.st/quickstart) to open the preview, then click through the page and reload a specific subpath directly.
 5. **Publish and connect the domain.** Only once the preview looks  right shoulld the same tested version be deployed to production.
 
 If you prefer to work in the editor , assign the task to your agent in this formaat:

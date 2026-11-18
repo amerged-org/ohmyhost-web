@@ -111,7 +111,7 @@ Take your time when making this decision. If you already have a working app, mov
 
 ohmyhost is a host that compatible agents can access via [MCP or CLI](https://docs.ohmyho.st/agents/mcp). It can use an authorized GitHub repository or [managed source versions](/skills/ohmyhost-deploy/SKILL.md). Keeping GitHub is useful  if you want to continue syncing with Lovable. Choose the source route carefully, especially if the project already has one configureed.
 
-Start with a dev preview that you can  open and test. Tell your agent which services you want to keep, and ask them to explain any compatibility changes before they apply them. Have them list the external connections the app needs on the new host. Keep in mind that a preview address does not enforce data separation: Cehck whether Dev and Prod share a backend before performing test write operations.
+Start with a dev preview you can open and test. If you use Cursor, [connect Cursor to ohmyhost](/for/cursor) from the editor where you opened the export. Tell your agent which services you want to keep, and ask them to explain any compatibility changes before they apply them. Have them list the external connections the app needs on the new host. Keep in mind that a preview address does not enforce data separation: Cehck whether Dev and Prod share a backend before performing test write operations.
 
 If you're ready to try out a different host, please reqeust  a plan first:
 

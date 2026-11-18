@@ -87,6 +87,12 @@ trailing-slash routes redirect to their slashless page; unknown paths still retu
 mirrors and negotiated Markdown advertise the HTML canonical through the HTTP Link header, and
 Accept quality weights select the representation with HTML winning ties.
 
+The XML sitemap includes the homepage, the blog index, every published article and comparison, and
+the approved agent, migration and framework pages. The Worker applies the same policy through
+`X-Robots-Tag`. Other editorial pages and separate Markdown URLs stay crawlable and serve
+`noindex, follow`. The full route registry continues to drive redirects, caching and content
+negotiation.
+
 `src/editorial-response.ts` generates weak body validators for anonymous editorial responses and
 returns 304 only for a matching representation. Browser HTML navigation is private and revalidated
 because the agent prompt can contain a region hint; other anonymous representations allow a

@@ -64,7 +64,7 @@ Your agent can configure Autostop and Autostart and  then test the first request
 
 ## Price the same load
 
-The example is a Next.js app with Postgres, a small amout of stored data, occasional database activity, builds, and transactional emails. The ohmyhost table below lists the quantities and rates. For the competitors, we use their audited pricing lines and  billing formulas. We did not measure their containers, so we cannot convert the same list of features into an exact usage calculation.
+The example is a [Next.js app](/frameworks/nextjs) with Postgres, a small amount of stored data, occasional database activity, builds, and transactional emails. The ohmyhost table below lists the quantities and rates. For the competitors, we use their audited pricing lines and  billing formulas. We did not measure their containers, so we cannot convert the same list of features into an exact usage calculation.
 
 Then ask your agent  to provide price estimates for a quiet month and a busy mnoth:
 
