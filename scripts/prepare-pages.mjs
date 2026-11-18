@@ -477,8 +477,10 @@ function applyApprovedHomepageChanges(html) {
       "Off. A zero balance starts a seven-day grace period. Refill to keep funded services running.",
     "ohmyho.st bills nothing while a project is idle, and email and domain are in the $10 base price.":
       "Database RAM stops charging after five idle minutes, with disk and seven-day backups included; customer files and retained Worker resources keep their own rates. Paid access enables email and custom domains; their usage is metered.",
+    "Bring your own auth provider.":
+      "Bring your own auth provider or use ours.",
     'WorkOS, Better Auth, Auth0 or anything else that speaks OAuth or SAML — wire it in, we don\'t lock you into ours.</p>\n  <div class="cells logos stag" style="grid-template-columns:repeat(4,1fr)">':
-      'Better Auth, WorkOS or anything else that speaks OAuth, OIDC or SAML — wire it in, we don\'t lock you into ours.</p>\n  <div class="cells logos stag" id="auth-logos" style="grid-template-columns:repeat(3,1fr)">',
+      'Use Omh Native Auth for email and password sign-in on approved projects, or connect Better Auth, WorkOS, or another compatible OAuth, OIDC, or SAML integration. <a href="https://docs.ohmyho.st/application-auth">Set up application auth</a>.</p>\n  <div class="cells logos stag" id="auth-logos" style="grid-template-columns:repeat(3,1fr)">',
     '<span class="avatar" aria-hidden="true"></span>':
       '<img src="/brand/assets/founder.png" width="96" height="96" loading="lazy" alt="Founder of ohmyho.st" style="border-radius:50%;flex:0 0 96px;object-fit:cover">',
     "<b>Sebastian</b> · founder, ohmyho.st":
