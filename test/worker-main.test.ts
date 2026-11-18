@@ -286,8 +286,13 @@ describe("public entry and unassigned Free-host fallback", () => {
       );
     }
     expect(html).not.toContain("logos/auth0.svg");
+    expect(html).toContain("Bring your own auth provider or use ours.");
+    expect(html).toContain("email and password sign-in on approved projects");
     expect(html).toContain(
-      "Better Auth, WorkOS or anything else that speaks OAuth, OIDC or SAML",
+      "Better Auth, WorkOS, or another compatible OAuth, OIDC, or SAML integration",
+    );
+    expect(html).toMatch(
+      /<a href="https:\/\/docs\.ohmyho\.st\/application-auth"[^>]*>Set up application auth<\/a>/u,
     );
     expect(html).toContain(
       'id="auth-logos" style="grid-template-columns:repeat(3,1fr)"',
