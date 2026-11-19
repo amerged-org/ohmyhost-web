@@ -43,13 +43,18 @@
   let promptOpener;
   let promptCopyPending = false;
   promptDialog?.addEventListener("close", () => {
-    promptOpener?.focus({ preventScroll: true });
+    if (!promptDialog.open) promptOpener?.focus({ preventScroll: true });
   });
 
   async function copyStartPrompt(button) {
+    promptStatus.textContent = "Copying to clipboard…";
+    if (button.matches("[data-start-prompt]") && !promptDialog.open) {
+      promptOpener = button;
+      promptDialog.showModal();
+    }
     if (promptCopyPending) return;
     promptCopyPending = true;
-    const opensDialog = button.matches("[data-start-prompt]");
+    const cta = promptOpener?.closest("nav") ? "prompt_nav" : "prompt_page";
     let copied = false;
     try {
       await writeClipboard(prompt);
@@ -60,14 +65,10 @@
       promptCopyPending = false;
     }
     promptStatus.textContent = copied
-      ? "Prompt copied. Open your project in Codex, Claude Code or Cursor and paste it into the chat."
-      : "Couldn’t copy automatically. Select and copy the prompt below, then paste it into your coding agent.";
-    if (opensDialog && !promptDialog.open) {
-      promptOpener = button;
-      promptDialog.showModal();
-    }
+      ? "Copied to clipboard. Paste it into Codex, Claude Code or Cursor."
+      : "Couldn’t copy automatically. Select and copy the prompt below.";
     globalThis.trackAcquisition?.(copied ? "prompt_copy_success" : "prompt_copy_failure", {
-      cta: promptOpener?.closest("nav") ? "prompt_nav" : "prompt_page",
+      cta,
     });
   }
 

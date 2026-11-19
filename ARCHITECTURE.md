@@ -127,10 +127,11 @@ The homepage omits the extra credit-balance paragraph beneath its lead to keep t
 
 The homepage hero renders its text, complete diagram and primary action immediately, without an
 entry sequence or waiting for the diagram. Header-scoped overrides preserve the ambient dots and
-halo and scroll animations (owner-approved, 2026-10-16). The “Start in 1 click” actions copy the
-agent prompt and open a viewport-bounded dialog in the current tab. The dialog explains where to
-paste and keeps the prompt available for manual copying. Dismissing it restores focus to the action
-that opened it. Page preparation adds the dialog to the supplied homepage template.
+halo and scroll animations (owner-approved, 2026-10-16). The “Start in 1 click” actions open a
+viewport-bounded dialog in the current tab and start the clipboard write on the same click. The
+dialog reports the clipboard result and uses the homepage terminal styles for the selectable prompt
+and copy control. Dismissing it restores focus to the action that opened it. Page preparation adds
+the dialog to the supplied homepage template.
 
 The homepage preserves the original comparison heading/lead/cards hierarchy: attribution is a
 single short line below the cards, pricing has one concise metering/reset note linking to usage

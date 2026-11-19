@@ -695,7 +695,7 @@ function applyApprovedHomepageChanges(html) {
 
 function addHomepageStartDialog(html) {
   const panel =
-    /<div class="next" id="next">[\s\S]*?(<div class="body prompt">[^<]+<\/div>)[\s\S]*?<\/p>\s*<\/div>/u;
+    /<div class="next" id="next">[\s\S]*?<div class="body prompt">([^<]+)<\/div>[\s\S]*?<\/p>\s*<\/div>/u;
   const legacyHandler =
     / {2}\/\* every Start free \/ Send to your agent button copies the prompt \*\/[\s\S]*?(?= {2}var termLines)/u;
   const actions =
@@ -716,27 +716,71 @@ function addHomepageStartDialog(html) {
     .replace(
       panel,
       `<dialog id="start-prompt" aria-labelledby="start-prompt-title" aria-describedby="start-prompt-status">
-    <form method="dialog">
+    <div class="start-prompt-head">
       <h2 id="start-prompt-title">Paste into your coding agent</h2>
-      <button class="btn g" type="submit" autofocus>Close</button>
-    </form>
+      <form method="dialog">
+        <button class="themer" type="submit" aria-label="Close" autofocus>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </form>
+    </div>
     <p id="start-prompt-status" role="status"></p>
-    $1
-    <button class="btn nochev" type="button" data-copy-prompt-again><span>Copy prompt</span></button>
+    <div class="term">
+      <div class="bar2">
+        <span id="start-prompt-label">Setup prompt</span>
+        <button class="shcopy" type="button" data-copy-prompt-again>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"/></svg>
+          <span>Copy prompt</span>
+        </button>
+      </div>
+      <textarea class="body prompt" aria-labelledby="start-prompt-label" readonly>$1</textarea>
+    </div>
   </dialog>`,
     )
     .replace(
       "</head>",
       `<style>
-#start-prompt{box-sizing:border-box;width:min(34rem,calc(100% - 2rem));max-height:calc(100dvh - 2rem);margin:auto;padding:clamp(16px,4vw,28px);border:1px solid var(--border-strong);border-radius:16px;background:var(--background);color:var(--foreground);text-align:left;overflow:auto;overscroll-behavior:contain}
-#start-prompt::backdrop{background:rgba(0,0,0,.65)}
-#start-prompt h2{font-size:clamp(20px,5vw,26px);margin:0}
-#start-prompt p{color:var(--muted-foreground);margin:0 0 16px}
-#start-prompt .prompt{border:1px solid var(--border);border-radius:10px;background:var(--muted);padding:14px;font-size:14px;line-height:1.55;overflow-wrap:anywhere}
-#start-prompt form{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
-#start-prompt button{min-height:44px;margin:0}
-#start-prompt button::after{content:none}
-#start-prompt [data-copy-prompt-again]{margin-top:16px}
+#start-prompt {
+  box-sizing:border-box;
+  width:min(32rem,calc(100% - 2rem));
+  max-height:calc(100dvh - 2rem);
+  margin:auto;
+  padding:clamp(14px,4vw,22px);
+  border:1px solid var(--border-strong);
+  border-radius:var(--r);
+  background:var(--background);
+  color:var(--foreground);
+  box-shadow:0 16px 64px #0003;
+  text-align:left;
+  overflow:auto;
+  overscroll-behavior:contain;
+}
+#start-prompt::backdrop{background:#0008}
+#start-prompt .start-prompt-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+#start-prompt h2{font-size:clamp(18px,4.6vw,22px);line-height:1.2;margin:0;text-align:left}
+#start-prompt .themer{width:44px;height:44px;border-color:transparent}
+#start-prompt .themer:hover{border-color:var(--border)}
+#start-prompt .themer svg{width:18px;height:18px}
+#start-prompt-status{min-height:1.45em;color:var(--muted-foreground);margin:4px 0 12px;font-size:14px;line-height:1.45}
+#start-prompt .term{margin:0;max-width:none}
+#start-prompt .bar2{align-items:center;justify-content:space-between;padding:0 6px 0 12px;color:var(--muted-foreground);font-size:11px}
+#start-prompt .shcopy{min-height:44px;padding:0 8px;color:var(--muted-foreground);white-space:nowrap}
+#start-prompt .shcopy:hover{background:var(--background);color:var(--foreground)}
+#start-prompt .prompt {
+  display:block;
+  width:100%;
+  height:clamp(6rem,24dvh,9rem);
+  padding:12px;
+  border:0;
+  background:transparent;
+  color:var(--foreground);
+  font:12px/1.65 var(--mono);
+  resize:none;
+  overflow-wrap:anywhere;
+  overscroll-behavior:contain;
+}
+#start-prompt :focus-visible{outline-offset:-3px}
+@media(max-width:480px){#start-prompt-status{min-height:2.9em}}
 @media(max-width:380px){#navcopy{white-space:normal;line-height:1.15;text-align:center}#navcopy .ohm{display:none}}
 </style></head>`,
     );

@@ -130,6 +130,8 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html).not.toContain('href="#stack"');
     expect(html).toContain('<span id="btnlabel">Start in 1 click</span>');
     expect(html).toContain('<dialog id="start-prompt"');
+    expect(html).toMatch(/aria-label="Close" autofocus>\s*<svg/u);
+    expect(html).toMatch(/data-copy-prompt-again>\s*<svg/u);
     expect(html).toContain("<span>Copy prompt</span>");
     // A visitor's prompt cannot know an account: it has the agent verify one after sign-in, in the
     // static fallback and in the prompt the copy button builds alike.
@@ -240,6 +242,10 @@ describe("public entry and unassigned Free-host fallback", () => {
         .find((text) => text.includes('meta[name="ohmyhost-region-hint"]'));
       expect(script).toBeDefined();
       let copied = "";
+      let finishWrite!: () => void;
+      const clipboardWrite = new Promise<void>((resolve) => {
+        finishWrite = resolve;
+      });
       let click: ((event: unknown) => Promise<void>) | undefined;
       const label = { textContent: "" };
       const status = { textContent: "" };
@@ -277,19 +283,24 @@ describe("public entry and unassigned Free-host fallback", () => {
           clipboard: {
             writeText: async (text: string) => {
               copied = text;
+              await clipboardWrite;
             },
           },
         },
         setTimeout: () => undefined,
       });
       if (!click) throw Error("Homepage copy handler missing");
-      await click({
+      const opening = click({
         target: { closest: () => button },
         preventDefault() {},
         stopImmediatePropagation() {},
       });
       expect(dialog.open).toBe(true);
-      expect(status.textContent).toMatch(/^Prompt copied\./u);
+      expect(status.textContent).toBe("Copying to clipboard…");
+      expect(copied).not.toBe("");
+      finishWrite();
+      await opening;
+      expect(status.textContent).toMatch(/^Copied to clipboard\./u);
       expect(label.textContent).toBe("");
       expect(copied).toContain(
         expectedRegion
