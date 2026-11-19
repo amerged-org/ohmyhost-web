@@ -79,7 +79,15 @@ const markdown = new TurndownService({
   headingStyle: "atx",
   codeBlockStyle: "fenced",
 });
-markdown.remove(["script", "style", "svg", "head", "button", "input"]);
+markdown.remove([
+  "script",
+  "style",
+  "svg",
+  "head",
+  "button",
+  "input",
+  "dialog",
+]);
 const templates = {
   home: "99c3d2701c82c3ae9936ffa6c142169fd6fc136caa5ae33fbdacf36f6d93a2ac",
   brand: "d2a49d8a4b9d979c72958eebb2f2db4b7637405ccacd27100ce77e405a01bebe",
@@ -132,11 +140,9 @@ for (const [name, digest] of Object.entries(templates)) {
       `<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style>${fontCss}${navigationCss}${contrastCss}</style></head>`,
     );
   if (name === "home") {
-    html = applyApprovedHomepageChanges(html).replace(
-      /(<button[^>]*id="navcopy"[^>]*>[\s\S]*?<span>)Start free/u,
-      "$1Copy prompt",
+    html = addHomepageStartDialog(
+      hardenHomepageMarkup(applyApprovedHomepageChanges(html)),
     );
-    html = hardenHomepageMarkup(html);
     html = html.replace(
       '<h2 class="up">Why one balance instead of five subscriptions.</h2>',
       '<h2 class="up" id="philosophy">Why one balance instead of five subscriptions.</h2>',
@@ -684,6 +690,55 @@ function applyApprovedHomepageChanges(html) {
     .replace(
       "</header>",
       '<noscript><p class="under"><a href="/docs/quickstart">Read the getting-started guide for your agent →</a></p></noscript></header>',
+    );
+}
+
+function addHomepageStartDialog(html) {
+  const panel =
+    /<div class="next" id="next">[\s\S]*?(<div class="body prompt">[^<]+<\/div>)[\s\S]*?<\/p>\s*<\/div>/u;
+  const legacyHandler =
+    / {2}\/\* every Start free \/ Send to your agent button copies the prompt \*\/[\s\S]*?(?= {2}var termLines)/u;
+  const actions =
+    /(<button\b[^>]*(?:\bdata-copy(?=[\s>])|\bid="copy")[^>]*)(>\s*<svg[\s\S]*?<\/svg>\s*<span(?: id="btnlabel")?>)[^<]*(<\/span>)/gu;
+  if (
+    !panel.test(html) ||
+    !legacyHandler.test(html) ||
+    !html.match(actions)?.length
+  )
+    throw new Error("Homepage start prompt boundary missing");
+
+  return html
+    .replace(
+      actions,
+      '$1 data-start-prompt aria-haspopup="dialog" aria-controls="start-prompt"$2Start in 1 click$3',
+    )
+    .replace(legacyHandler, "")
+    .replace(
+      panel,
+      `<dialog id="start-prompt" aria-labelledby="start-prompt-title" aria-describedby="start-prompt-status">
+    <form method="dialog">
+      <h2 id="start-prompt-title">Paste into your coding agent</h2>
+      <button class="btn g" type="submit" autofocus>Close</button>
+    </form>
+    <p id="start-prompt-status" role="status"></p>
+    $1
+    <button class="btn nochev" type="button" data-copy-prompt-again><span>Copy prompt</span></button>
+  </dialog>`,
+    )
+    .replace(
+      "</head>",
+      `<style>
+#start-prompt{box-sizing:border-box;width:min(34rem,calc(100% - 2rem));max-height:calc(100dvh - 2rem);margin:auto;padding:clamp(16px,4vw,28px);border:1px solid var(--border-strong);border-radius:16px;background:var(--background);color:var(--foreground);text-align:left;overflow:auto;overscroll-behavior:contain}
+#start-prompt::backdrop{background:rgba(0,0,0,.65)}
+#start-prompt h2{font-size:clamp(20px,5vw,26px);margin:0}
+#start-prompt p{color:var(--muted-foreground);margin:0 0 16px}
+#start-prompt .prompt{border:1px solid var(--border);border-radius:10px;background:var(--muted);padding:14px;font-size:14px;line-height:1.55;overflow-wrap:anywhere}
+#start-prompt form{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+#start-prompt button{min-height:44px;margin:0}
+#start-prompt button::after{content:none}
+#start-prompt [data-copy-prompt-again]{margin-top:16px}
+@media(max-width:380px){#navcopy{white-space:normal;line-height:1.15;text-align:center}#navcopy .ohm{display:none}}
+</style></head>`,
     );
 }
 

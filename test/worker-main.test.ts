@@ -128,7 +128,8 @@ describe("public entry and unassigned Free-host fallback", () => {
       '<a href="https://docs.ohmyho.st/support" rel="noopener">Support</a>',
     );
     expect(html).not.toContain('href="#stack"');
-    expect(html).toContain("Copy prompt for your agent");
+    expect(html).toContain('<span id="btnlabel">Start in 1 click</span>');
+    expect(html).toContain('<dialog id="start-prompt"');
     expect(html).toContain("<span>Copy prompt</span>");
     // A visitor's prompt cannot know an account: it has the agent verify one after sign-in, in the
     // static fallback and in the prompt the copy button builds alike.
@@ -241,10 +242,20 @@ describe("public entry and unassigned Free-host fallback", () => {
       let copied = "";
       let click: ((event: unknown) => Promise<void>) | undefined;
       const label = { textContent: "" };
+      const status = { textContent: "" };
       const button = {
         querySelector: () => label,
         closest: () => null,
+        matches: (selector: string) => selector.includes("[data-start-prompt]"),
         classList: { add() {} },
+      };
+      const dialog = {
+        open: false,
+        addEventListener() {},
+        querySelector: () => status,
+        showModal() {
+          this.open = true;
+        },
       };
       runInNewContext(script ?? "", {
         document: {
@@ -253,7 +264,8 @@ describe("public entry and unassigned Free-host fallback", () => {
               ? { content: expectedRegion }
               : null,
           querySelectorAll: () => [],
-          getElementById: () => null,
+          getElementById: (id: string) =>
+            id === "start-prompt" ? dialog : null,
           addEventListener: (
             _name: string,
             handler: (event: unknown) => Promise<void>,
@@ -276,6 +288,9 @@ describe("public entry and unassigned Free-host fallback", () => {
         preventDefault() {},
         stopImmediatePropagation() {},
       });
+      expect(dialog.open).toBe(true);
+      expect(status.textContent).toMatch(/^Prompt copied\./u);
+      expect(label.textContent).toBe("");
       expect(copied).toContain(
         expectedRegion
           ? `use ${expectedRegion.toUpperCase()} based on this browser's region unless I specify another region`

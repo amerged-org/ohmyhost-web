@@ -8,7 +8,7 @@ it("defers initial scroll measurement and updates progress without layout writes
     "utf8",
   );
   const script = home.match(
-    /\/\* sticky header \+ scroll progress \*\/([\s\S]*?)\/\* every Start free/u,
+    /\/\* sticky header \+ scroll progress \*\/([\s\S]*?)var termLines/u,
   )?.[1];
   expect(script).toBeDefined();
   let scrollTop = 0;

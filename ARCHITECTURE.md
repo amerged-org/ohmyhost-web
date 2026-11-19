@@ -123,11 +123,14 @@ approval notice; this editorial decision is not evidence of SES production readi
 
 The homepage social card uses the owner-selected migration motif, adding Resend to the Vercel and Supabase headline while retaining the shared ohmyho.st branding.
 
-The homepage omits the extra credit-balance paragraph beneath its lead to keep the primary Copy prompt action higher in the initial viewport (owner correction, 2026-09-21).
+The homepage omits the extra credit-balance paragraph beneath its lead to keep the primary start action higher in the initial viewport (owner correction, 2026-09-21).
 
 The homepage hero renders its text, complete diagram and primary action immediately, without an
 entry sequence or waiting for the diagram. Header-scoped overrides preserve the ambient dots and
-halo, scroll animations and post-copy feedback (owner-approved, 2026-10-16).
+halo and scroll animations (owner-approved, 2026-10-16). The “Start in 1 click” actions copy the
+agent prompt and open a viewport-bounded dialog in the current tab. The dialog explains where to
+paste and keeps the prompt available for manual copying. Dismissing it restores focus to the action
+that opened it. Page preparation adds the dialog to the supplied homepage template.
 
 The homepage preserves the original comparison heading/lead/cards hierarchy: attribution is a
 single short line below the cards, pricing has one concise metering/reset note linking to usage

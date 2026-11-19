@@ -12,6 +12,65 @@
     "Keep existing projects in their current region. " +
     "Follow the deployment Skill, keep my existing project decisions and verify the app.";
 
+  const promptDialog = document.getElementById("start-prompt");
+  const promptStatus = promptDialog?.querySelector('[role="status"]');
+  async function writeClipboard(value) {
+    if (navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(value);
+        return;
+      } catch {
+        // Local previews and denied clipboard permissions can need the fallback.
+      }
+    }
+    const previousFocus = document.activeElement;
+    const field = document.createElement("textarea");
+    field.value = value;
+    field.readOnly = true;
+    field.style.cssText = "position:fixed;left:-9999px;top:0;font-size:16px";
+    field.setAttribute("aria-hidden", "true");
+    const container = promptDialog?.open ? promptDialog : document.body;
+    container.append(field);
+    try {
+      field.select();
+      if (!document.execCommand("copy")) throw Error("Copy failed");
+    } finally {
+      field.remove();
+      previousFocus?.focus?.({ preventScroll: true });
+    }
+  }
+
+  let promptOpener;
+  let promptCopyPending = false;
+  promptDialog?.addEventListener("close", () => {
+    promptOpener?.focus({ preventScroll: true });
+  });
+
+  async function copyStartPrompt(button) {
+    if (promptCopyPending) return;
+    promptCopyPending = true;
+    const opensDialog = button.matches("[data-start-prompt]");
+    let copied = false;
+    try {
+      await writeClipboard(prompt);
+      copied = true;
+    } catch {
+      // The dialog also provides the text for manual copying.
+    } finally {
+      promptCopyPending = false;
+    }
+    promptStatus.textContent = copied
+      ? "Prompt copied. Open your project in Codex, Claude Code or Cursor and paste it into the chat."
+      : "Couldn’t copy automatically. Select and copy the prompt below, then paste it into your coding agent.";
+    if (opensDialog && !promptDialog.open) {
+      promptOpener = button;
+      promptDialog.showModal();
+    }
+    globalThis.trackAcquisition?.(copied ? "prompt_copy_success" : "prompt_copy_failure", {
+      cta: promptOpener?.closest("nav") ? "prompt_nav" : "prompt_page",
+    });
+  }
+
   let articleCopyAttempt = 0;
   let articleCopyPending = false;
   async function copyArticle(button) {
@@ -30,32 +89,7 @@
     try {
       const value = JSON.parse(toolbar.querySelector("[data-article-markdown]")?.textContent ?? "null");
       if (typeof value !== "string") throw Error("Missing article Markdown");
-      let copied = false;
-      if (navigator.clipboard?.writeText) {
-        try {
-          await navigator.clipboard.writeText(value);
-          copied = true;
-        } catch {
-          // Local file previews and denied clipboard permissions can need the fallback.
-        }
-      }
-      if (!copied) {
-        const previousFocus = document.activeElement;
-        const field = document.createElement("textarea");
-        field.value = value;
-        field.readOnly = true;
-        field.style.cssText = "position:fixed;left:-9999px;top:0;font-size:16px";
-        field.setAttribute("aria-hidden", "true");
-        document.body.append(field);
-        try {
-          field.select();
-          copied = document.execCommand("copy");
-        } finally {
-          field.remove();
-          previousFocus?.focus?.({ preventScroll: true });
-        }
-      }
-      if (!copied) throw Error("Copy failed");
+      await writeClipboard(value);
       label.textContent = "Copied";
       feedback.textContent = "Article Markdown copied. Paste it into your agent.";
       setTimeout(() => {
@@ -74,9 +108,10 @@
     }
   }
 
-  const buttons = "[data-copy], #copy, #shcopy2, #shcopy, [data-wincopy], [data-copy-prompt], [data-copy-code], [data-copy-article]";
+  const startPromptButtons = "[data-start-prompt], [data-copy-prompt-again]";
+  const buttons = `[data-copy], #copy, #shcopy, [data-wincopy], [data-copy-prompt], [data-copy-code], [data-copy-article], ${startPromptButtons}`;
   document.querySelectorAll(buttons).forEach((button) => {
-    if (button.matches("[data-copy-code], [data-copy-article]")) return;
+    if (button.matches(`[data-copy-code], [data-copy-article], ${startPromptButtons}`)) return;
     const label = button.querySelector("span");
     const text = button.closest("nav") ? "Copy prompt" : "Copy prompt for your agent";
     if (label) label.textContent = text;
@@ -110,32 +145,20 @@
         await copyArticle(button);
         return;
       }
+      if (promptDialog && button.matches(startPromptButtons)) {
+        await copyStartPrompt(button);
+        return;
+      }
       const label = button.querySelector("span") || button;
       const block = button.closest(".copy-block");
       const value = block ? block.querySelector("pre code").textContent : prompt;
       if (block) button.classList.remove("copy-error", "done");
       try {
-        if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(value);
-        else {
-          const field = document.createElement("textarea");
-          field.value = value;
-          document.body.append(field);
-          field.select();
-          const copied = document.execCommand("copy");
-          field.remove();
-          if (!copied) throw Error("copy");
-        }
+        await writeClipboard(value);
         if (!block) globalThis.trackAcquisition?.("prompt_copy_success", { cta: button.closest("nav") ? "prompt_nav" : "prompt_page" });
         label.textContent = "Copied";
         if (block) button.title = "Copy text";
         button.classList.add("done");
-        if (!block) {
-          document.getElementById("next")?.classList.add("on");
-          const hero = document.getElementById("hero-cta");
-          if (hero) hero.style.display = "none";
-          const under = document.getElementById("under");
-          if (under) under.style.display = "none";
-        }
         setTimeout(() => {
           label.textContent = block ? "" : button.closest("nav") ? "Copy prompt" : "Copy prompt for your agent";
           button.classList.remove("done");
@@ -144,7 +167,6 @@
         if (!block) globalThis.trackAcquisition?.("prompt_copy_failure", { cta: button.closest("nav") ? "prompt_nav" : "prompt_page" });
         label.textContent = block ? "Copy failed — select the text" : button.closest("nav") ? "Copy failed" : "Copy failed — select the prompt";
         if (block) { button.classList.add("copy-error"); button.title = "Copy failed — select the text"; }
-        else document.getElementById("next")?.classList.add("on");
       }
     },
     true,
