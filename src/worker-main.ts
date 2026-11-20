@@ -378,6 +378,10 @@ export default {
     if (url.pathname === "/login") {
       const target = new URL("https://app.ohmyho.st/login");
       if (source) target.searchParams.set("r", source);
+      // The sign-up hint is the only other value this redirect forwards besides the campaign.
+      const intents = url.searchParams.getAll("intent");
+      if (intents.length === 1 && intents[0] === "signup")
+        target.searchParams.set("intent", "signup");
       for (const [key, value] of campaign) target.searchParams.set(key, value);
       headers.set("location", target.href);
       return new Response(null, { status: 302, headers });

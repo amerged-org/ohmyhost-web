@@ -118,8 +118,10 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html).toContain(
       '<meta property="og:image" content="https://ohmyho.st/og/home.png">',
     );
-    // The header offers signing in next to the prompt, and Docs sits with the section links.
-    expect(html).toContain('href="/login" aria-label="Log in or sign up"');
+    // The header names both actions in words next to the prompt, and Docs sits with the section links.
+    expect(html).toContain('<a class="navlogin" href="/login">Log in</a>');
+    expect(html).toContain('href="/login?intent=signup"><span>Sign up</span></a>');
+    expect(html).not.toContain("Log in or sign up");
     expect(html).toContain(
       '<a href="https://docs.ohmyho.st/" rel="noopener">Docs</a>',
     );
@@ -1315,6 +1317,20 @@ describe("signup attribution", () => {
       utm_source: "chat & ☀",
       utm_custom_campaign: "launch=1",
     });
+    // The sign-up hint travels with the source; any other or repeated value is dropped.
+    for (const [intent, forwarded] of [
+      ["intent=signup", "signup"],
+      ["intent=other", undefined],
+      ["intent=signup&intent=signup", undefined],
+    ] as const) {
+      const hinted = new URL(
+        (await worker.fetch(new Request(`https://ohmyho.st/login?r=partner-a&${intent}`))).headers.get(
+          "location",
+        ) ?? "",
+      );
+      expect(hinted.searchParams.get("intent")).toBe(forwarded ?? null);
+      expect(hinted.searchParams.get("r")).toBe("partner-a");
+    }
     const limits = new URLSearchParams();
     limits.set("utm_bytes", "☀".repeat(256));
     for (let i = 0; i < 21; i++) limits.set(`utm_x${i}`, "a");

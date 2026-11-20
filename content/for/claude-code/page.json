@@ -1,6 +1,6 @@
 {
   "title": "Deploy a Claude Code app in one prompt — ohmyhost",
-  "description": "Paste one prompt into Claude Code: it connects to ohmyhost over MCP, links your GitHub repo, plans the deployment, sets secrets and verifies the live app.",
+  "description": "Paste one prompt into Claude Code, locally or in a cloud session: sign in with one link, publish your app as it is, set secrets and verify the live app.",
   "kind": "howto",
   "status": "published",
   "crumb": "Claude Code",
