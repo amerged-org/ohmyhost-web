@@ -53,7 +53,7 @@ The [ohmyho.st platform repository](https://github.com/amerged-org/ohmyhost) con
 
 ## How agents discover the code
 
-The index, Skills, tool catalog and API contract describe the supported interfaces. The Get-started and Build Skills and the `api_reference` tool point to both repositories.
+The index, Skills, tool catalog and API contract describe the supported interfaces.
 
 See [amerged-org/ohmyhost](https://github.com/amerged-org/ohmyhost) for the ohmyho.st hosting platform (OMH) and [amerged-org/cloudflare-postgres](https://github.com/amerged-org/cloudflare-postgres) for its PostgreSQL infrastructure (PGCF).
 
