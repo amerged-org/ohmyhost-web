@@ -247,8 +247,19 @@ describe("public entry and unassigned Free-host fallback", () => {
         finishWrite = resolve;
       });
       let click: ((event: unknown) => Promise<void>) | undefined;
+      let resetCopyIcon: (() => void) | undefined;
+      let clipboardBlocked = false;
       const label = { textContent: "" };
       const status = { textContent: "" };
+      const copyButtonClasses = new Set<string>();
+      const copyButton = {
+        matches: (selector: string) =>
+          selector.includes("[data-copy-prompt-again]"),
+        classList: {
+          add: (name: string) => copyButtonClasses.add(name),
+          remove: (name: string) => copyButtonClasses.delete(name),
+        },
+      };
       const button = {
         querySelector: () => label,
         closest: () => null,
@@ -258,7 +269,8 @@ describe("public entry and unassigned Free-host fallback", () => {
       const dialog = {
         open: false,
         addEventListener() {},
-        querySelector: () => status,
+        querySelector: (selector: string) =>
+          selector === "[data-copy-prompt-again]" ? copyButton : status,
         showModal() {
           this.open = true;
         },
@@ -282,19 +294,27 @@ describe("public entry and unassigned Free-host fallback", () => {
         navigator: {
           clipboard: {
             writeText: async (text: string) => {
+              if (clipboardBlocked) throw Error("Clipboard denied");
               copied = text;
               await clipboardWrite;
             },
           },
         },
-        setTimeout: () => undefined,
+        setTimeout: (callback: () => void) => {
+          resetCopyIcon = callback;
+          return 1;
+        },
+        clearTimeout: () => {
+          resetCopyIcon = undefined;
+        },
       });
       if (!click) throw Error("Homepage copy handler missing");
-      const opening = click({
-        target: { closest: () => button },
+      const clickEvent = (trigger: unknown) => ({
+        target: { closest: () => trigger },
         preventDefault() {},
         stopImmediatePropagation() {},
       });
+      const opening = click(clickEvent(button));
       expect(dialog.open).toBe(true);
       expect(status.textContent).toBe("Copying to clipboard…");
       expect(copied).not.toBe("");
@@ -310,6 +330,15 @@ describe("public entry and unassigned Free-host fallback", () => {
       expect(copied).toContain(
         "Keep existing projects in their current region.",
       );
+      expect(copyButtonClasses.has("done")).toBe(false);
+      await click(clickEvent(copyButton));
+      expect(copyButtonClasses.has("done")).toBe(true);
+      resetCopyIcon?.();
+      expect(copyButtonClasses.has("done")).toBe(false);
+      await click(clickEvent(copyButton));
+      clipboardBlocked = true;
+      await click(clickEvent(copyButton));
+      expect(copyButtonClasses.has("done")).toBe(false);
     }
     expect(html).not.toContain("logos/auth0.svg");
     expect(html).toContain("Bring your own auth provider or use ours.");

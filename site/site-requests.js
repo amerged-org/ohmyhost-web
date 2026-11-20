@@ -14,6 +14,7 @@
 
   const promptDialog = document.getElementById("start-prompt");
   const promptStatus = promptDialog?.querySelector('[role="status"]');
+  const promptCopyButton = promptDialog?.querySelector("[data-copy-prompt-again]");
   async function writeClipboard(value) {
     if (navigator.clipboard?.writeText) {
       try {
@@ -42,6 +43,7 @@
 
   let promptOpener;
   let promptCopyPending = false;
+  let promptCopyFeedbackTimer;
   promptDialog?.addEventListener("close", () => {
     if (!promptDialog.open) promptOpener?.focus({ preventScroll: true });
   });
@@ -54,6 +56,8 @@
     }
     if (promptCopyPending) return;
     promptCopyPending = true;
+    globalThis.clearTimeout(promptCopyFeedbackTimer);
+    promptCopyButton.classList.remove("done");
     const cta = promptOpener?.closest("nav") ? "prompt_nav" : "prompt_page";
     let copied = false;
     try {
@@ -67,6 +71,10 @@
     promptStatus.textContent = copied
       ? "Copied to clipboard. Paste it into Codex, Claude Code or Cursor."
       : "Couldn’t copy automatically. Select and copy the prompt below.";
+    if (copied && button === promptCopyButton && promptDialog.open) {
+      button.classList.add("done");
+      promptCopyFeedbackTimer = setTimeout(() => button.classList.remove("done"), 2500);
+    }
     globalThis.trackAcquisition?.(copied ? "prompt_copy_success" : "prompt_copy_failure", {
       cta,
     });

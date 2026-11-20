@@ -729,7 +729,8 @@ function addHomepageStartDialog(html) {
       <div class="bar2">
         <span id="start-prompt-label">Setup prompt</span>
         <button class="shcopy" type="button" data-copy-prompt-again>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"/></svg>
+          <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15H4.5A1.5 1.5 0 0 1 3 13.5v-9A1.5 1.5 0 0 1 4.5 3h9A1.5 1.5 0 0 1 15 4.5V5"/></svg>
+          <svg class="copy-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4 10-10"/></svg>
           <span>Copy prompt</span>
         </button>
       </div>
@@ -766,6 +767,9 @@ function addHomepageStartDialog(html) {
 #start-prompt .bar2{align-items:center;justify-content:space-between;padding:0 6px 0 12px;color:var(--muted-foreground);font-size:11px}
 #start-prompt .shcopy{min-height:44px;padding:0 8px;color:var(--muted-foreground);white-space:nowrap}
 #start-prompt .shcopy:hover{background:var(--background);color:var(--foreground)}
+#start-prompt .copy-check,#start-prompt .shcopy.done .copy-icon{display:none}
+#start-prompt .shcopy.done .copy-check{display:block;color:#4ade80}
+:root[data-theme="light"] #start-prompt .shcopy.done .copy-check{color:#15803d}
 #start-prompt .prompt {
   display:block;
   width:100%;

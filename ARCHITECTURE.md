@@ -130,8 +130,9 @@ entry sequence or waiting for the diagram. Header-scoped overrides preserve the 
 halo and scroll animations (owner-approved, 2026-10-16). The “Start in 1 click” actions open a
 viewport-bounded dialog in the current tab and start the clipboard write on the same click. The
 dialog reports the clipboard result and uses the homepage terminal styles for the selectable prompt
-and copy control. Dismissing it restores focus to the action that opened it. Page preparation adds
-the dialog to the supplied homepage template.
+and copy control. The copy button briefly replaces its icon with a green checkmark after a successful
+write. Dismissing the dialog restores focus to the action that opened it. Page preparation adds the
+dialog to the supplied homepage template.
 
 The homepage preserves the original comparison heading/lead/cards hierarchy: attribution is a
 single short line below the cards, pricing has one concise metering/reset note linking to usage
