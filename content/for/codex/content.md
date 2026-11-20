@@ -97,7 +97,7 @@ A project budget. `project_budget_set`, in `stop` mode, rejects new paid work wi
 
 ### Can Codex deploy anything other than a GitHub repository?
 
-Yes. The current project binding can use managed versions or a GitHub repository of your choice. For an unbound checkout without GitHuub, you choose once whether you want to keep versions on ohmyhost or set up GitHub; an explicit choice is sufficient. The app  must still be compatible with a supported runtime: Astro, Next.js, Vite/React, or TanStack Start; Containers are not supported. `ohmyhost init --dry-run --json` reports blockers befre credits are reserved , and the [Portable App Skill](/skills/ohmyhost-build-portable-app/SKILL.md) handles the source code changes that a blocker usually requires.
+Yes. The current project binding can use managed versions or a GitHub repository of your choice. An unbound checkout is published as it is, with or without a GitHub remote, and GitHub is the later step for deployment on every push; an explicit request for GitHub is followed. The app  must still be compatible with a supported runtime: Astro, Next.js, Vite/React, or TanStack Start; Containers are not supported. `ohmyhost init --dry-run --json` reports blockers befre credits are reserved , and the [Portable App Skill](/skills/ohmyhost-build-portable-app/SKILL.md) handles the source code changes that a blocker usually requires.
 
 ### Does this also work with the Codex IDE extension?
 

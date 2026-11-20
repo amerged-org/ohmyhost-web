@@ -32,7 +32,7 @@ These  examples use the local stdio client. If the client provides authenticated
 The steps for an initial deployment, in ordeer (MCP tools , unless marked as CLI):
 
 1. `identity_get` indicates who is logged in and which organization is selected. If there are multiple workspaces , Cursor uses `organization_list` and `organization_use`; if neither is seelcted, it prompts for a name and calls `organization_create`.
-2. Read `project_context_get` and `source_get` for an existing project and continue its current link. For an unlinked  checkout, follow your source selection: A selected GitHub repository remains on GittHub; otherwise, choose once between managed versions and GitHub setup.
+2. Read `project_context_get` and `source_get` for an existing project and continue its current link. For an unlinked  checkout, follow your source selection: A selected GitHub repository remains on GittHub; otherwise the working directory is published as it is, and GitHub is the later step.
 3. If you want a new app, reuse the projet or call `project_create` with  your region and data mode.
 4. Save current files using `source_publish` for managed versions. For a selected GitHub source, use `github_status`/`github_connect` from the workspace as needed , and then `source_link` for the authorized repository. Confirm `source_get` before schedulinng.
 5. `deployment_plan` for the GitHub commit that  was saved, managed, or pusshed exactly as specified, followed by your confirmation.

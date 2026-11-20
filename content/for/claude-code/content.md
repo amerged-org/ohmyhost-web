@@ -95,7 +95,7 @@ No. `secret_set_command` returns a CLI command that reads the value from stdin. 
 
 ### Can I run this in CI without logging in to the browser?
 
-Yes. After a one-time interactive login, `token_create` writes  a non-expiring API token to a private env file and returns only metadata. Load `OHMYHOST_TOKEN` from this file in the runner; it overwrites any saved login. A token can deploy, take over, and read usage, but it cannot create or select a workspae, nor can it generate another token. Revoke it with `token_revoke` when the runner is shut down.
+Yes. For a runner where no person is present, create the token on the API Tokens page of the portal, or run `token_create` after an interactive login on a computer that has one: it writes  a non-expiring API token to a private env file and returns only metadata. Load `OHMYHOST_TOKEN` from this file in the runner; it overwrites any saved login. A token can deploy, take over, and read usage, but it cannot create or select a workspae, nor can it generate another token. Revoke it with `token_revoke` when the runner is shut down.
 
 ### Can I take my data with me?
 
