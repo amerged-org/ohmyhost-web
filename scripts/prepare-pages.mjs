@@ -347,6 +347,10 @@ await writeFile(
 
 /** P30: approved changes are applied without rewriting the supplied v97 source. */
 function applyApprovedHomepageChanges(html) {
+  html = html.replace(
+    /<span class="logo">(<span class="tile"[^>]*><img src="logos\/zapier\.svg"[^>]*><\/span>Zapier)<\/span>/u,
+    '<a href="https://zapier.com/apps/ohmyhost/integrations" class="logo" aria-label="ohmyhost on Zapier">$1</a>',
+  );
   // Owner-approved 2026-11-05: link the existing tile to the published community package.
   html = html.replace(
     /<span class="logo">(<span class="tile" data-c="#EA4B71">[\s\S]*?<\/span>n8n)<\/span>/u,

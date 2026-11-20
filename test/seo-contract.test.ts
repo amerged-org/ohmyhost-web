@@ -382,6 +382,19 @@ it("hardens the approved homepage markup for search and social", async () => {
     "Next.js, Astro, Vite, TanStack and React on Postgres",
   );
   expect(home).toContain('src="logos/astro.svg" alt="Astro logo"');
+  const integrations = home.match(
+    /<p class="rowlbl up">through<\/p>\s*<div class="cells logos stag"[^>]*>([\s\S]*?)<\/div>/u,
+  )?.[1];
+  expect(integrations).toMatch(
+    /<a href="https:\/\/zapier\.com\/apps\/ohmyhost\/integrations" rel="noopener" class="logo"[^>]*><span class="tile"[^>]*><img src="logos\/zapier\.svg"/u,
+  );
+  const unlinkedLogos = Array.from(
+    (integrations ?? "").matchAll(
+      /<span class="logo"><span class="tile"[^>]*><img src="logos\/([^"]+)\.svg"/gu,
+    ),
+    ([, logo]) => logo,
+  );
+  expect(unlinkedLogos).toEqual(expect.arrayContaining(["make", "composio"]));
   for (const [, source] of home.matchAll(/<img src="(logos\/[^"]+)"/gu)) {
     const response = await worker.fetch(
       new Request(`https://ohmyho.st/${source}`),
