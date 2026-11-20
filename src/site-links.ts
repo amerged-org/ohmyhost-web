@@ -4,6 +4,9 @@ export type SiteLinkGroup = {
   readonly links: ReadonlyArray<readonly [label: string, href: string]>;
 };
 
+export const FOOTER_GITHUB_LINK =
+  '<a class="footer-github" href="https://github.com/amerged-org/ohmyhost" rel="noopener"><img src="/logos/github.svg" alt="ohmyhost on GitHub" width="18" height="18" loading="lazy"></a>';
+
 export const SITE_LINKS: readonly SiteLinkGroup[] = [
   {
     heading: "product",

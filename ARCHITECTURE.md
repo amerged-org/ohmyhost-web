@@ -143,6 +143,9 @@ The homepage EU answer states that transactional mail is processed in the US by 
 
 The footer bottom row is a sibling of the link grid, spanning its full width with “© 2026 ohmyho.st — Made in Europe” at the left and the existing cookie-settings button at the right, without wrapping (2026-09-21).
 
+The shared footer shows a GitHub icon below Status in the brand block and links directly to the
+public ohmyho.st platform repository.
+
 Every editorial fenced prompt or command has a keyboard-accessible copy icon which copies that block’s full text, with success/error feedback and the existing clipboard fallback. Text prompts wrap for narrow screens; Markdown content and metadata remain unchanged.
 
 The About page explains the product, intended builders, agent deployment, credits and portability, with a short founder paragraph linking Sebastian Mertens to LinkedIn (owner revision, 2026-09-30); founder photos, registration detail, the obsolete “Not yet” inventory and About-page Person markup remain absent. Operator disclosures remain on legal pages, and the client/site/documentation licences are described accurately.

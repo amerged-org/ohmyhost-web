@@ -16,7 +16,11 @@ import {
   openapiYaml,
   skillResources,
 } from "./platform-inputs.mjs";
-import { externalLinkRel, footerColumnsHtml } from "../src/site-links.ts";
+import {
+  externalLinkRel,
+  FOOTER_GITHUB_LINK,
+  footerColumnsHtml,
+} from "../src/site-links.ts";
 
 const directory = fileURLToPath(new URL("../", import.meta.url));
 const output = `${directory}public/pages`;
@@ -108,12 +112,18 @@ const contrastCss =
   ".mark i,.eyebrow,.fcol .fh,.fbot{color:var(--muted-foreground)}footer .fslogan{opacity:1!important}";
 const navigationCss =
   '@media(max-width:760px){nav{gap:10px}nav .r{gap:8px}nav .btn.nochev{min-width:0;padding:9px 10px;font-size:13px}}@media(max-width:360px){nav a[href="https://docs.ohmyho.st/"]{display:none}}footer .fbot{align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:12px}footer .fbot>span{white-space:nowrap}';
+const footerCss =
+  ".fbrand .footer-github{display:flex;align-items:center;width:44px;height:44px}" +
+  ".footer-github img{display:block;opacity:.75}" +
+  ".footer-github:is(:hover,:focus-visible) img{opacity:1}" +
+  ':root[data-theme="light"] .footer-github img{filter:brightness(0)}';
+const frameOverrides = navigationCss + contrastCss + footerCss;
 if (!sharedCss) throw new Error("The approved design stylesheet is missing");
 await writeFile(
   `${directory}src/generated-site-frame.ts`,
   await format(
     "// Generated from the approved template and site request assets.\n" +
-      `export const SITE_CSS = ${JSON.stringify(fontCss + sharedCss + navigationCss + contrastCss)};\n` +
+      `export const SITE_CSS = ${JSON.stringify(fontCss + sharedCss + frameOverrides)};\n` +
       `export const SITE_ICON = ${JSON.stringify(await readFile(`${brandAssets}/favicon.svg`, "utf8"))};\n` +
       `export const PRIVACY_UI = ${JSON.stringify(privacyUi)};\n` +
       `export const SITE_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/site-requests.js`, "utf8"))};\n` +
@@ -137,7 +147,7 @@ for (const [name, digest] of Object.entries(templates)) {
     )
     .replace(
       "</head>",
-      `<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style>${fontCss}${navigationCss}${contrastCss}</style></head>`,
+      `<link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="alternate icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><style>${fontCss}${frameOverrides}</style></head>`,
     );
   if (name === "home") {
     html = addHomepageStartDialog(
@@ -820,6 +830,7 @@ function hardenHomepageMarkup(html) {
     "There is no web console to learn.": "",
     '<a href="/docs/quickstart">Read the getting-started guide for your agent →</a>':
       '<a href="https://docs.ohmyho.st/quickstart">Read the getting-started guide for your agent →</a>',
+    '<span id="statustext">Status</span></a>': `<span id="statustext">Status</span></a>\n      ${FOOTER_GITHUB_LINK}`,
     ".fcol h4{": ".fcol h4,.fcol .fh{",
   })) {
     if (!html.includes(before))

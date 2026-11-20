@@ -343,6 +343,25 @@ it("serves crawler, cache and transport metadata", async () => {
   expect(favicon.headers.get("cache-control")).toBe("public, max-age=86400");
 });
 
+it("links to the public platform repository directly below footer Status", async () => {
+  const assets = new PagesFixture();
+  for (const path of ["/", "/about"]) {
+    const response = await worker.fetch(
+      new Request("https://ohmyho.st" + path),
+      {
+        ASSETS: assets,
+      },
+    );
+    const html = await response.text();
+    const brand = html.match(
+      /<div class="fbrand">[\s\S]*?<\/a>\s*<\/div>/u,
+    )?.[0];
+    expect(brand, path).toMatch(
+      /Status(?:<\/span>)?<\/a>\s*<a class="footer-github" href="https:\/\/github\.com\/amerged-org\/ohmyhost" rel="noopener"><img src="\/logos\/github\.svg" alt="ohmyhost on GitHub"/u,
+    );
+  }
+});
+
 it("hardens the approved homepage markup for search and social", async () => {
   const assets = new PagesFixture();
   const home = await (
