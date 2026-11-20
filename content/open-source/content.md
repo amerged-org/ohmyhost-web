@@ -1,6 +1,6 @@
 # Open source at ohmyhost
 
-Every client you run is open source. The command-line client, the MCP server, the TypeScript SDK, the application runtime and the Better Auth integration are published on npm under Apache-2.0, with their source and third-party notices inside the package. The website and documentation are MIT. The PostgreSQL platform under every database, PGCF, is Apache-2.0 too. The hosted platform that runs your projects is private, and this page says exactly which part is which.
+Every client you run is open source. The command-line client, the MCP server, the TypeScript SDK, the application runtime and the Better Auth integration are published on npm under Apache-2.0, with their source and third-party notices inside the package. The website and documentation are MIT. The PostgreSQL platform under every database, PGCF, is Apache-2.0 too. The hosted platform source is available under the Elastic License 2.0.
 
 ## Apache-2.0: the client packages
 
@@ -36,7 +36,7 @@ The runtime and auth packages matter most for portability: they are the code you
 
 ## MIT: the website
 
-[amerged-org/ohmyhost-web](https://github.com/amerged-org/ohmyhost-web) holds the public website, page content and design assets under MIT. Website changes are reviewed and released independently of the private hosting platform. Contributions to page content or the website belong in this repository.
+[amerged-org/ohmyhost-web](https://github.com/amerged-org/ohmyhost-web) holds the public website, page content and design assets under MIT. Website changes have their own review and release process. Contributions to page content or the website belong in this repository.
 
 ## Public: everything an agent reads
 
@@ -47,16 +47,18 @@ The runtime and auth packages matter most for portability: they are the code you
 - [OpenAPI 3.1 contract](https://ohmyho.st/api/openapi.json) — the REST `/v1` API the CLI, the MCP server and the SDK all call.
 - [auth.md](https://ohmyho.st/auth.md) — how an agent authenticates.
 
-## Private: the platform
+## The hosting platform under Elastic License 2.0
 
-The service that places your databases on PGCF, runs your Workers, sends your mail and keeps the credit ledger is a private repository. It holds provider credentials and the isolation between tenants, and it is a small team's product rather than a community project. Saying that plainly is better than a half-open repository nobody can run.
+The [ohmyho.st platform repository](https://github.com/amerged-org/ohmyhost) contains the code for application deployment, database provisioning, mail and the credit ledger. Read its [license](https://github.com/amerged-org/ohmyhost/blob/main/LICENSE) for the terms that cover the platform source. Customer data and deployment credentials stay in the managed installation.
 
-## Why the split is here and not elsewhere
+## How agents discover the code
 
-An agent cannot work against a product it has to guess at, so the interface is published: the index, the Skills, the tool catalog and the contract are served from this site and versioned with the clients. The code that runs inside your application is licensed to you, because you should not need our permission to keep your app working. What stays private is the part that holds other people's data.
+The index, Skills, tool catalog and API contract describe the supported interfaces. The Get-started and Build Skills and the `api_reference` tool point to both repositories.
+
+See [amerged-org/ohmyhost](https://github.com/amerged-org/ohmyhost) for the ohmyho.st hosting platform (OMH) and [amerged-org/cloudflare-postgres](https://github.com/amerged-org/cloudflare-postgres) for its PostgreSQL infrastructure (PGCF).
 
 ## How to contribute
 
-Open a pull request on the [website repository](https://github.com/amerged-org/ohmyhost-web) for website changes or the [docs repository](https://github.com/amerged-org/ohmyhost-docs) for documentation. Send product bugs and feature requests through your agent's `feedback_submit` tool, and read ohmyhost's replies to your own report with `feedback_status`. Reports stay private; they are not published. Roadmap votes live on the [homepage](/).
+Use the [platform contribution guide](https://github.com/amerged-org/ohmyhost/blob/main/CONTRIBUTING.md) to propose a platform change. Open a pull request on the [website repository](https://github.com/amerged-org/ohmyhost-web) for website changes or the [docs repository](https://github.com/amerged-org/ohmyhost-docs) for documentation. Send product bugs and feature requests through your agent's `feedback_submit` tool, and read ohmyhost's replies to your own report with `feedback_status`. Reports stay private; they are not published. Roadmap votes live on the [homepage](/).
 
 [Documentation](https://docs.ohmyho.st/) · [Philosophy](/philosophy) · [About](/about) · [Contact](/contact)

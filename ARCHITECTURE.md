@@ -40,7 +40,7 @@ only that committed file, so a build is deterministic and offline.
 
 | ID   | State       | Decision                                                                                                                                           |
 | ---- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| W001 | Implemented | The website is its own public MIT repository; the platform stays private.                                                                          |
+| W001 | Implemented | The website is its own public MIT repository. The platform publishes a source-available export under Elastic License 2.0.                          |
 | W002 | Implemented | The folder path under `content/` is the URL, and every page carries `page.json` and `content.md`.                                                  |
 | W003 | Implemented | Published numbers reach a page only through build-time tokens resolved from the rate card and dated competitor data.                               |
 | W004 | Implemented | The agent surface (`llms.txt`, `AGENTS.md`, the Skill pages and the MCP catalog) is served by this repository, generated from the platform inputs. |

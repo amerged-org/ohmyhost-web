@@ -1,8 +1,8 @@
 # Working in this repository
 
 - This repository is the **website** of ohmyho.st: pages, the Worker that renders them and the
-  brand templates. The platform (API, CLI, MCP server, build, runtime, database) lives in the
-  private `amerged-org/ohmyho` repository. Nothing here holds a credential or a customer record.
+  brand templates. The [platform source](https://github.com/amerged-org/ohmyhost) is published
+  under Elastic License 2.0. The website and its release pipeline are maintained here.
 - A page change never needs a platform release, and a platform change never needs a page change —
   except through `platform-inputs.json`, described below.
 - Read `ARCHITECTURE.md` before moving a boundary.
