@@ -1,12 +1,12 @@
 # Deploy a Claude Code app using a prompt
 
-Enter a prompt in Claude Code, and it deploys your app from its current managed or GitHub source via MCP: It saves or links the source, schedules the build, sets secrts, and provides a live  URL. The Free plan includes {{ number plan.freeCredits }} credits per month; the Paid plan costs {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits, which are shared across all projects. A small app uses about {{ credits workload.smallApp }} credits per month.
+Paste the prompt into Claude Code on your computer or in a cloud session. Claude Code checks your workspace, saves the app, deploys it and opens a live preview. The Free plan includes {{ number plan.freeCredits }} credits per month; the Paid plan costs {{ usd plan.paidUsd }} per month for {{ number plan.paidCredits }} credits, which are shared across all projects. A small app uses about {{ credits workload.smallApp }} credits per month.
 
 {{ figure flow.claude-code }}
 
 ## Insert this prompt
 
-Open your project in Claude Code and paste this in. It tells the  agent where the instructionns are located and what it's allowed to do. Nothing else is needed on the first run.
+Open your project in Claude Code and paste this prompt.
 
 ```text
 {{ prompt }}
@@ -14,36 +14,35 @@ Open your project in Claude Code and paste this in. It tells the  agent where th
 
 ## How to deploy with Claude Code
 
-1. Register the MCP server once: `claude mcp add ohmyho -- ohmyhost-mcp`. The [Get-started-Skill](/skills/ohmyhost-get-started/SKILL.md) complements `--scope user` and `--env OHMYHOST_ENVIRONMENT=production`; the [CLI and MCP Gude](https://docs.ohmyho.st/agents/mcp) contains the archive that you must install first. Open `/mcp` in Claude Code and  verify that the ohmyho server lists its tools.
-2. Paste the prompt from above. Cllaude Code reads llms.txt and the skill, executes `ohmyhost whoami`, confirms the specified workspace , and reads existing projects and sources before continuing.
-3. Confirm the sign-up link. Without a session, Claude Code will generate a link and a short code, such as ABCD-EFGH. The page will display the same code; log in  or register there, and let the agennt know when you're done. The code is only valid for a few minutes, so it's normal to receive a new one.
-4. Check the deployment plan. `deployment_plan` lists the build it reserves, the secret names it needs, the callback URLs required by your authentication provider, and any isssues in the repository. You say "go," and `deployment_create` starts the  build.
-5. Check the URL. Dev is protected by default, so Claude Code opens it using your reuusable Dev  share link (or directly, if you've selected public Dev), tests the login and a read/write workflow, and reports the URL and the deployed commit. Request Prod as soon as you’ve verified that it works.
+1. Paste the prompt. The [get-started Skill](/skills/ohmyhost-get-started/SKILL.md) directs an agent with a shell to check `ohmyhost whoami --json` and install or upgrade the clients if needed. Local MCP registration is optional. See the [CLI and MCP guide](https://docs.ohmyho.st/agents/mcp) for setup.
+2. If you are signed out, open the link Claude Code gives you, confirm the code and sign in or create your account. This works on a desktop and in a Linux cloud session or container. Linux stores the login in owner-only files under your home directory.
+3. Claude Code verifies the account and workspace and reuses the saved project and source binding. For an unbound checkout, it publishes the current files as managed source unless you ask for GitHub.
+4. For a new project, choose EU or US. The first deployment uses protected Dev and shared data by default. After deployment, Claude Code opens [Live Preview](https://docs.ohmyho.st/quickstart#5-verify-the-app) and shares it when the saved version is ready. Ask for the deployed Dev site if you need its share link.
 
-These examples use the local stdio client. If the client offers authenticated remote MCP, follow the [Get-started-Skill](/skills/ohmyhost-get-started/SKILL.md) for OAuth and the explicit permissions for Project, Preview , and Release; explore the actual tools instead of relying on  this loal catalog. Private application values are then processed via `secret_input_request` and the portal link for the same account, not via loocal stdin input. A new app created entirely within the chat starts with managed versions. This describes the supported transport contract, not a claim that a specific native chat interface has passed acceptance testing.
+A connected chat without a shell uses managed OAuth and `identity_get`. It can use the private portal link from `secret_input_request` for application secrets. Unattended automation uses a private `OHMYHOST_TOKEN` in the runner's environment. [Login and API tokens](https://docs.ohmyho.st/login-tokens).
 
 ## What Claude Code Does Next
 
-This is the order of the calls folloiwng steps 2 through 5. Each  name is an actual tool in the [{{ tools }} tool catalog](https://docs.ohmyho.st/mcp-tools).
+The CLI can complete the workflow. When MCP is connected, the [{{ tools }} tool catalog](https://docs.ohmyho.st/mcp-tools) describes these operations.
 
 - `identity_get` confirms who is logged in and whicch workspace is selected. It doesn't provide any information about your app's users; they remain with  your own authentication provider.
 - `organization_list` shows your workspaces. If there is exactly one, it is  alreaddy selected.
-- Use the selected existing project. `project_create` creates  a new project with a region and data mode only if required. The API default is US and shared data; the skill recommends isolateed data.
+- Use the selected existing project. `project_create` creates  a new project with a region and data mode only if required. The agent uses the selected region and shared data by default.
 - Read `source_get` and retain the current binding. Managed sources use `source_publish` to save current local files; the selected GitHub path uses `source_link` for an authoriized repository. Saving or linking the source  never triggers a build.
 - `deployment_plan` checks the specific GitHub commiit (whether it's saved , managed, or pushed), reserves the build lock, and returns the costs, requirements, and impact.
 - `deployment_create` starts the verified plan with a saved idempotence key , so that a retry after a connectin failure does not start a second build.
 - `operation_get` reports the phase  and the next polling interval. Calude Code waits instead of rebuilding.
-- `project_status` proivdes both environment IDs and deployment  URLs.
+- `project_status` provides the environment IDs and deployment URLs. The agent opens Live Preview to show the app after deployment.
 
 Secrets run via `secret_set_command`. It returns a CLI command that reads only from stdin; you run it in your own terminal, and the value never makes it into MCP or the chat. A customer domain runs via `domain_paid_plan`, whiich returns the DNS records, and `domain_paid_apply`, which activates the hostname  you specified. Both require a Paid plan, or on the Free plan , a project that dislpays the “Powered by ohmyho.st” option; both respond with `production_deployment_required` without making any changes until Prod has an active deployment.
 
 ## What it asks you
 
-Claude Code asks about the settings this app requires and  saves any settings you've already chosen. For an unlinked local checkout without GitHub, you'll choose once between managed versions and GitHub setup; making an explicit choice skips this questiion.
+Claude Code asks for the decisions the app needs and reuses settings you have already chosen.
 
 - Registrtaion. A web page; the code is displayed in the chat. Registration is  open; there is no waiting list.
 - GitHub authorization when GitHub is selected as the souce. An owner or admin opens an `authorization_url` and selects the repositories that the ohmyhost app is allowed to read. You can add a repository that you didn't select later via the same  settings page—never using an embedded token.
-- Region, one-time, and an initial data  mode. US is the default; new projects create databases, new files , and bulds in their selected region. Existing projects that have been moved to the US with the owner’s authorization use US databases; recorded R2 locations remain unchanged. You can retrieve the actual database location using database_compute_get. The customer API cannot change the region after creation. The data mode is optional and is shared by default; an owner can change it later via a reviewed plan. In both cases, transactional eails are sent and processed in the U.S.
+- Region, once for a new project. US is the default; new projects create databases, new files , and bulds in their selected region. Existing projects that have been moved to the US with the owner’s authorization use US databases; recorded R2 locations remain unchanged. You can retrieve the actual database location using database_compute_get. The customer API cannot change the region after creation. The data mode is optional and is shared by default; an owner can change it later via a reviewed plan. In both cases, transactional eails are sent and processed in the U.S.
 - Secrets. The agent nmes each secret and gives you a command. Enter  the value into your terminal, not into the chat.
 - Doain decisions. A custom hostname requires a paid plan and uses credits; for a project that displays the “Powered by ohmyho.st” option, it also works on the free plan and does not use any domain credits. Claude Code displays the CNAME and validation records or offers a very limited Cloudflare DNS authorization if the zone is hosted on Cloudflare. Until the DNS is ready , the project responds under its platform hostname.
 
@@ -61,7 +60,7 @@ The catalog contains {{ tools }} tools. Read-only annotations identify tools tha
 
 You can set a spending limit if you want one. `project_budget_set` sets a monthly budget per project using mode `continue` (warn and continue deducting from the organization's balance) or `stop` (reject new paid work). A budget is a limit, not a second credit  balance; usage that has already been reserved will stiill be billed. See the [Budget Guide](https://docs.ohmyho.st/budgets) or the [Usage Skill](/skills/ohmyhost-usage-and-budgets/SKILL.md).
 
-Tokens are  optional. The browser login is sufficient for Claude Code on your computer. For a CI runner or a second computer, `token_create` writes a non-expiring API token to a private environment file that you name; the value appears only once and is never reuseed. `OHMYHOST_TOKEN` overwrites the stored login wherever it is set, and a token cannot create, list, or select workspaces , nor can it generate another tokeen. Revoke it with `token_revoke` or in the portal at app.ohmyho.st. See the [Guide to Login and Tokens](https://docs.ohmyho.st/login-tokens) for details.
+The device-flow login works on your computer and in a Linux container. For unattended automation, `token_create` writes a non-expiring API token to a private environment file that you name; the value appears only once and is never reuseed. `OHMYHOST_TOKEN` overwrites the stored login wherever it is set, and a token cannot create, list, or select workspaces , nor can it generate another tokeen. Revoke it with `token_revoke` or in the portal at app.ohmyho.st. See the [Guide to Login and Tokens](https://docs.ohmyho.st/login-tokens) for details.
 
 ## How much it costs
 
@@ -87,7 +86,7 @@ Not yet. The evidence above shows  that the MCP server is responding and listing
 
 ### Do I need anything else besides Claude Code?
 
-Two locaal components: the ohmyhost-CLI and the ohmyhost-mcp server , both from the archive linked in the [CLI and MCP Guide](https://docs.ohmyho.st/agents/mcp). These local stdio examples  run on your computer using Node.js. A client with an authenticated remote connection follows the seprate OAuth path in this guide; the availability of a native interface is not implied here. Claude Code starts the server itself as soon as it is registered. If they are missing or out of date, the first prompt will install the published archive and ask you to reload the MCP connection.
+An agent with a shell uses the ohmyhost CLI to sign in and deploy. It can register the local MCP server for tool access. A connected chat without a shell uses managed OAuth. The [get-started Skill](/skills/ohmyhost-get-started/SKILL.md) selects the route.
 
 ### Can Claude Code see my secrets?
 

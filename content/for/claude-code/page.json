@@ -1,14 +1,14 @@
 {
   "title": "Deploy a Claude Code app in one prompt — ohmyhost",
-  "description": "Paste one prompt into Claude Code: it connects to ohmyhost over MCP, links your GitHub repo, plans the deployment, sets secrets and verifies the live app.",
+  "description": "Deploy a local or cloud Claude Code project with ohmyho.st. Sign in with a browser link and code, save your source and verify the deployed app in Live Preview.",
   "kind": "howto",
   "status": "published",
   "crumb": "Claude Code",
   "social": {
     "image": "/og/for-claude-code.png",
-    "alt": "ohmyhost. Your Claude Code hosting workflow. Connect Claude Code to ohmyhost and deploy a supported GitHub app.",
+    "alt": "ohmyhost. Your Claude Code hosting workflow. Sign in, deploy and open a live preview.",
     "title": "ohmyhost — Your Claude Code hosting workflow",
-    "description": "Connect Claude Code to ohmyhost and deploy a supported GitHub app."
+    "description": "Sign in from your computer or cloud session, deploy a supported app and open a live preview."
   },
-  "modified": "2026-10-27"
+  "modified": "2026-11-22"
 }
