@@ -119,9 +119,15 @@ describe("public entry and unassigned Free-host fallback", () => {
       '<meta property="og:image" content="https://ohmyho.st/og/home.png">',
     );
     const header = html.match(/<nav>[\s\S]*?<\/nav>/u)?.[0];
-    expect(header).toContain('class="btn g nochev" href="/login">Log in</a>');
-    expect(header).toContain(
-      'class="btn" aria-label="Sign up" href="/login?intent=signup">Sign up</a>',
+    // One door-entry icon at the right edge replaces the two text buttons; the middle holds the start button.
+    expect(header).not.toContain(">Log in<");
+    expect(header).not.toContain(">Sign up<");
+    expect(header).toMatch(
+      /<a class="themer nav-door" href="\/login" aria-label="Log in or sign up"[^>]*><svg[^>]*aria-hidden="true">[\s\S]*?<\/svg><\/a>\s*<\/div>\s*<\/nav>$/u,
+    );
+    expect(header).not.toContain("intent=signup");
+    expect(header?.indexOf('id="navcopy"')).toBeLessThan(
+      header?.indexOf("nav-door") ?? 0,
     );
     expect(html).toContain(
       '<a href="https://docs.ohmyho.st/" rel="noopener">Docs</a>',
@@ -1294,9 +1300,7 @@ describe("signup attribution", () => {
     expect(html).toContain(
       'href="/login?r=partner-a&amp;utm_source=chat+%26+%E2%98%80&amp;utm_custom_campaign=launch%3D1"',
     );
-    expect(html).toContain(
-      'href="/login?r=partner-a&amp;intent=signup&amp;utm_source=chat+%26+%E2%98%80&amp;utm_custom_campaign=launch%3D1">Sign up</a>',
-    );
+    expect(html).not.toContain("intent=signup");
     expect(html).not.toContain("utm_oversized=");
     expect(html).toContain('href="#price"');
     expect(html).not.toMatch(
@@ -1307,7 +1311,7 @@ describe("signup attribution", () => {
     );
     expect(pricing.headers.get("cache-control")).toBe("no-store");
     expect(await pricing.text()).toContain(
-      'href="/login?r=partner-a&amp;intent=signup&amp;utm_source=chat+%26+%E2%98%80&amp;utm_custom_campaign=launch%3D1">Sign up</a>',
+      'href="/login?r=partner-a&amp;utm_source=chat+%26+%E2%98%80&amp;utm_custom_campaign=launch%3D1" aria-label="Log in or sign up"',
     );
     const limits = new URLSearchParams();
     limits.set("utm_bytes", "☀".repeat(256));

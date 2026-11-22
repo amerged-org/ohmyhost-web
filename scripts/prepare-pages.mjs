@@ -110,20 +110,26 @@ const approvedHome = await readFile(`${directory}site/home.html`, "utf8");
 const sharedCss = approvedHome.match(/<style>([\s\S]*?)<\/style>/u)?.[1];
 const contrastCss =
   ".mark i,.eyebrow,.fcol .fh,.fbot{color:var(--muted-foreground)}footer .fslogan{opacity:1!important}";
-const accountLinks =
-  '<span class="account-links"><a class="btn g nochev" href="/login">Log in</a>' +
-  '<a class="btn" aria-label="Sign up" href="/login?intent=signup">Sign up</a></span>';
+const accountLink =
+  '<a class="themer nav-door" href="/login" aria-label="Log in or sign up" title="Log in or sign up">' +
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+  '<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="m10 17 5-5-5-5"/><path d="M15 12H3"/></svg></a>';
 const navigationCss = `
-nav .account-links{display:flex;align-items:center;gap:8px;white-space:nowrap}
-nav .account-links .btn,nav .r>button.btn{min-width:0;min-height:36px;padding:8px 12px;font-size:13px}
-nav .r>.themer{flex-shrink:0}
-@media(max-width:760px){nav{gap:10px}nav .r{gap:8px}}
+nav .themer,nav .nav-door{flex:0 0 44px;width:44px;height:44px}
+nav .themer svg,nav .nav-door svg{width:18px;height:18px}
+nav .nav-door{color:var(--foreground)}
+nav .nav-door:focus-visible{outline:2px solid var(--foreground);outline-offset:2px}
+nav .r{gap:8px}
+nav .r>.btn{min-width:0;min-height:44px;padding:9px 16px;font-size:13.5px}
+nav:has(#navcopy){position:relative}
+nav .r>#navcopy{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);white-space:nowrap}
 @media(max-width:480px){
-  :root{--nav:84px}
-  nav:has(.account-links){height:auto;flex-wrap:wrap;row-gap:6px;padding-block:8px}
-  nav:has(.account-links) .r{width:100%;justify-content:space-between;flex-wrap:wrap;gap:6px}
-  nav .account-links{gap:6px}
-  nav .account-links .btn,nav .r>button.btn{padding-inline:8px}
+  nav:has(.nav-door){height:auto;flex-wrap:wrap;row-gap:4px;padding-block:6px}
+  nav:has(#navcopy) .r{width:100%;margin-left:0;display:grid;grid-template-columns:1fr auto 1fr;gap:6px}
+  nav .r>#navcopy{position:static;transform:none}
+  nav .r>.themer{justify-self:start}
+  nav .r>.nav-door{justify-self:end}
+  nav .r>.btn{padding-inline:12px}
 }
 @media(max-width:360px){nav a[href="https://docs.ohmyho.st/"]{display:none}}
 `;
@@ -140,7 +146,7 @@ await writeFile(
   await format(
     "// Generated from the approved template and site request assets.\n" +
       `export const SITE_CSS = ${JSON.stringify(fontCss + sharedCss + frameOverrides)};\n` +
-      `export const ACCOUNT_LINKS = ${JSON.stringify(accountLinks)};\n` +
+      `export const ACCOUNT_LINK = ${JSON.stringify(accountLink)};\n` +
       `export const SITE_ICON = ${JSON.stringify(await readFile(`${brandAssets}/favicon.svg`, "utf8"))};\n` +
       `export const PRIVACY_UI = ${JSON.stringify(privacyUi)};\n` +
       `export const SITE_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/site-requests.js`, "utf8"))};\n` +
@@ -835,10 +841,8 @@ function hardenHomepageMarkup(html) {
     '        <a href="#stack">Stack</a>\n': "",
     '        <a href="#faq">FAQ</a>\n':
       '        <a href="#faq">FAQ</a>\n        <a href="https://docs.ohmyho.st/">Docs</a>\n',
-    // The header links use the same approved button styles as the editorial navigation.
-    '        <button class="btn nochev startfree navcopy" id="navcopy" data-copy>\n':
-      `        ${accountLinks}\n` +
-      '        <button class="btn g nochev navcopy" id="navcopy" data-copy>\n',
+    // Sign-in is one icon at the right edge of the header; it opens the portal, which offers sign-in and sign-up.
+    "    </button>\n      </div>\n    </nav>": `    </button>\n        ${accountLink}\n      </div>\n    </nav>`,
     "It includes hosting, a Postgres database and a you.ohmyho.st subdomain. Custom domains, email and database exports come with the $10 plan.":
       "It includes hosting, a Postgres database and a Dev and a Prod host, each on a generated three-word address such as humble-kiwis-find.check.omh.st. Your own domain works on Free while the Powered by ohmyho.st flag shows, and on Paid. Email needs Paid. Encrypted SQL exports are on every plan; linking your own domain and sending mail use credits.",
     "<li>you.ohmyho.st</li>": "",

@@ -104,6 +104,11 @@ Valid, bounded `utm_*` entry parameters follow known internal navigation links w
 cookie. The local `/login` redirect forwards only a valid referral source and the literal
 `intent=signup` hint to the portal. The platform owns signup attribution.
 
+The header holds the theme toggle, the “Start in 1 click” button centered on the homepage, and one
+44 px door-entry icon at the right edge named “Log in or sign up”. The icon links to the local `/login`
+redirect, whose portal page offers sign-in and account creation; the header carries no text login or
+sign-up buttons. Editorial pages keep “Copy prompt” and the same icon at the right.
+
 The small-app workload includes its deployed script and mail sender zone. The five-project example
 adds four quiet workloads to that complete workload; its prose states when the monthly credits
 need a top-up. The homepage links to the generated breakdown and derives its rounded small-app
