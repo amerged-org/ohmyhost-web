@@ -118,8 +118,11 @@ describe("public entry and unassigned Free-host fallback", () => {
     expect(html).toContain(
       '<meta property="og:image" content="https://ohmyho.st/og/home.png">',
     );
-    // The header offers signing in next to the prompt, and Docs sits with the section links.
-    expect(html).toContain('href="/login" aria-label="Log in or sign up"');
+    const header = html.match(/<nav>[\s\S]*?<\/nav>/u)?.[0];
+    expect(header).toContain('class="btn g nochev" href="/login">Log in</a>');
+    expect(header).toContain(
+      'class="btn" aria-label="Sign up" href="/login?intent=signup">Sign up</a>',
+    );
     expect(html).toContain(
       '<a href="https://docs.ohmyho.st/" rel="noopener">Docs</a>',
     );
@@ -1269,7 +1272,7 @@ class SiteAssetFixture {
 }
 
 describe("signup attribution", () => {
-  it("carries bounded campaign labels through internal navigation and login only", async () => {
+  it("keeps referral and campaign labels on the website's account links", async () => {
     const assets = new SiteAssetFixture();
     const query = new URLSearchParams([
       ["r", "partner-a"],
@@ -1291,48 +1294,66 @@ describe("signup attribution", () => {
     expect(html).toContain(
       'href="/login?r=partner-a&amp;utm_source=chat+%26+%E2%98%80&amp;utm_custom_campaign=launch%3D1"',
     );
+    expect(html).toContain(
+      'href="/login?r=partner-a&amp;intent=signup&amp;utm_source=chat+%26+%E2%98%80&amp;utm_custom_campaign=launch%3D1">Sign up</a>',
+    );
     expect(html).not.toContain("utm_oversized=");
     expect(html).toContain('href="#price"');
     expect(html).not.toMatch(
       /href="https:\/\/docs\.ohmyho\.st[^" ]*utm_source=/u,
     );
     const pricing = await worker.fetch(
-      new Request(
-        "https://ohmyho.st/pricing?utm_source=chat+%26+%E2%98%80&utm_custom_campaign=launch%3D1",
-      ),
+      new Request(`https://ohmyho.st/pricing?${query}`),
     );
     expect(pricing.headers.get("cache-control")).toBe("no-store");
     expect(await pricing.text()).toContain(
-      "utm_source=chat+%26+%E2%98%80&amp;utm_custom_campaign=launch%3D1",
+      'href="/login?r=partner-a&amp;intent=signup&amp;utm_source=chat+%26+%E2%98%80&amp;utm_custom_campaign=launch%3D1">Sign up</a>',
     );
-    const login = await worker.fetch(
-      new Request(`https://ohmyho.st/login?${query}`),
-    );
-    const target = new URL(login.headers.get("location") ?? "");
-    expect(target.origin + target.pathname).toBe("https://app.ohmyho.st/login");
-    expect(Object.fromEntries(target.searchParams)).toEqual({
-      r: "partner-a",
-      utm_source: "chat & ☀",
-      utm_custom_campaign: "launch=1",
-    });
     const limits = new URLSearchParams();
     limits.set("utm_bytes", "☀".repeat(256));
     for (let i = 0; i < 21; i++) limits.set(`utm_x${i}`, "a");
-    const limited = new URL(
-      (
-        await worker.fetch(new Request(`https://ohmyho.st/login?${limits}`))
-      ).headers.get("location") ?? "",
-    );
-    expect(limited.searchParams.has("utm_bytes")).toBe(true);
-    expect([...limited.searchParams].length).toBeLessThanOrEqual(20);
+    const renderedLoginSearch = async () => {
+      const response = await worker.fetch(
+        new Request(`https://ohmyho.st/?${limits}`),
+        {
+          ASSETS: assets,
+        },
+      );
+      const href = (await response.text()).match(
+        /href="(\/login\?[^"]+)">Log in<\/a>/u,
+      )?.[1];
+      if (!href) throw new Error("Missing account link with campaign labels");
+      return new URL(href.replaceAll("&amp;", "&"), "https://ohmyho.st")
+        .searchParams;
+    };
+    const limited = await renderedLoginSearch();
+    expect(limited.has("utm_bytes")).toBe(true);
+    expect(limited.size).toBeLessThanOrEqual(20);
     limits.set("utm_bytes", "😀".repeat(256));
-    const tooLarge = new URL(
-      (
-        await worker.fetch(new Request(`https://ohmyho.st/login?${limits}`))
-      ).headers.get("location") ?? "",
-    );
-    expect(tooLarge.searchParams.has("utm_bytes")).toBe(false);
+    expect((await renderedLoginSearch()).has("utm_bytes")).toBe(false);
   });
+
+  it.each([
+    ["?intent=signup", "?intent=signup"],
+    [
+      "?r=partner-a&intent=signup&utm_source=chat&view=tokens",
+      "?r=partner-a&intent=signup",
+    ],
+    ["?r=partner-a&intent=sign-in", "?r=partner-a"],
+    ["?intent=signup&intent=signup", ""],
+    ["?r=invalid%20source&intent=SIGNUP", ""],
+  ])(
+    "allows only the referral and one literal signup intent on /login%s",
+    async (query, expected) => {
+      const response = await worker.fetch(
+        new Request(`https://ohmyho.st/login${query}`),
+      );
+      expect(response.status).toBe(302);
+      expect(response.headers.get("location")).toBe(
+        `https://app.ohmyho.st/login${expected}`,
+      );
+    },
+  );
 
   it("carries a link's source into the page without letting it write markup", async () => {
     const assets = new SiteAssetFixture();

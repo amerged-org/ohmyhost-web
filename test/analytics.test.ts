@@ -194,6 +194,12 @@ it("loads no Google code until explicit consent and stops after withdrawal", asy
         ? { href: "https://ohmyho.st/login?utm_source=private@example.com" }
         : null,
   };
+  const signup = {
+    closest: (selector: string) =>
+      selector === "a[href]"
+        ? { href: "https://ohmyho.st/login?intent=signup" }
+        : null,
+  };
   const foreign = {
     closest: (selector: string) =>
       selector === "a[href]"
@@ -272,10 +278,12 @@ it("loads no Google code until explicit consent and stops after withdrawal", asy
     "https://ohmyho.st/login?utm_source=private@example.com",
   ]);
   // A blocked tag cannot hold sign-in navigation past the local timeout.
-  const blockedTagNavigation = b.clickTarget(login);
+  const blockedTagNavigation = b.clickTarget(signup);
   b.flush();
   await blockedTagNavigation;
-  expect(b.navigations).toHaveLength(2);
+  expect(b.navigations.at(-1)).toBe("https://ohmyho.st/login?intent=signup");
+  expect(events().at(-1)?.[1]).toBe("cta_click");
+  expect(events().at(-1)?.[2]).toMatchObject({ cta: "login" });
   await b.clickTarget(foreign);
   await b.clickTarget(command);
   await b.clickTarget(article);

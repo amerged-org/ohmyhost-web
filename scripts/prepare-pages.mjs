@@ -110,9 +110,25 @@ const approvedHome = await readFile(`${directory}site/home.html`, "utf8");
 const sharedCss = approvedHome.match(/<style>([\s\S]*?)<\/style>/u)?.[1];
 const contrastCss =
   ".mark i,.eyebrow,.fcol .fh,.fbot{color:var(--muted-foreground)}footer .fslogan{opacity:1!important}";
-const navigationCss =
-  '@media(max-width:760px){nav{gap:10px}nav .r{gap:8px}nav .btn.nochev{min-width:0;padding:9px 10px;font-size:13px}}@media(max-width:360px){nav a[href="https://docs.ohmyho.st/"]{display:none}}footer .fbot{align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:12px}footer .fbot>span{white-space:nowrap}';
+const accountLinks =
+  '<span class="account-links"><a class="btn g nochev" href="/login">Log in</a>' +
+  '<a class="btn" aria-label="Sign up" href="/login?intent=signup">Sign up</a></span>';
+const navigationCss = `
+nav .account-links{display:flex;align-items:center;gap:8px;white-space:nowrap}
+nav .account-links .btn,nav .r>button.btn{min-width:0;min-height:36px;padding:8px 12px;font-size:13px}
+nav .r>.themer{flex-shrink:0}
+@media(max-width:760px){nav{gap:10px}nav .r{gap:8px}}
+@media(max-width:480px){
+  :root{--nav:84px}
+  nav:has(.account-links){height:auto;flex-wrap:wrap;row-gap:6px;padding-block:8px}
+  nav:has(.account-links) .r{width:100%;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  nav .account-links{gap:6px}
+  nav .account-links .btn,nav .r>button.btn{padding-inline:8px}
+}
+@media(max-width:360px){nav a[href="https://docs.ohmyho.st/"]{display:none}}
+`;
 const footerCss =
+  "footer .fbot{align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:12px}footer .fbot>span{white-space:nowrap}" +
   ".fbrand .footer-github{display:flex;align-items:center;width:44px;height:44px}" +
   ".footer-github img{display:block;opacity:.75}" +
   ".footer-github:is(:hover,:focus-visible) img{opacity:1}" +
@@ -124,6 +140,7 @@ await writeFile(
   await format(
     "// Generated from the approved template and site request assets.\n" +
       `export const SITE_CSS = ${JSON.stringify(fontCss + sharedCss + frameOverrides)};\n` +
+      `export const ACCOUNT_LINKS = ${JSON.stringify(accountLinks)};\n` +
       `export const SITE_ICON = ${JSON.stringify(await readFile(`${brandAssets}/favicon.svg`, "utf8"))};\n` +
       `export const PRIVACY_UI = ${JSON.stringify(privacyUi)};\n` +
       `export const SITE_SCRIPT = ${JSON.stringify(await readFile(`${directory}site/site-requests.js`, "utf8"))};\n` +
@@ -818,12 +835,10 @@ function hardenHomepageMarkup(html) {
     '        <a href="#stack">Stack</a>\n': "",
     '        <a href="#faq">FAQ</a>\n':
       '        <a href="#faq">FAQ</a>\n        <a href="https://docs.ohmyho.st/">Docs</a>\n',
-    // Signing in is one click from the header, left of the prompt button.
+    // The header links use the same approved button styles as the editorial navigation.
     '        <button class="btn nochev startfree navcopy" id="navcopy" data-copy>\n':
-      '        <a class="themer" href="/login" aria-label="Log in or sign up" title="Log in or sign up">' +
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-      '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>\n' +
-      '        <button class="btn nochev startfree navcopy" id="navcopy" data-copy>\n',
+      `        ${accountLinks}\n` +
+      '        <button class="btn g nochev navcopy" id="navcopy" data-copy>\n',
     "It includes hosting, a Postgres database and a you.ohmyho.st subdomain. Custom domains, email and database exports come with the $10 plan.":
       "It includes hosting, a Postgres database and a Dev and a Prod host, each on a generated three-word address such as humble-kiwis-find.check.omh.st. Your own domain works on Free while the Powered by ohmyho.st flag shows, and on Paid. Email needs Paid. Encrypted SQL exports are on every plan; linking your own domain and sending mail use credits.",
     "<li>you.ohmyho.st</li>": "",

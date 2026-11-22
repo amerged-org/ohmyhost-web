@@ -125,6 +125,15 @@ function campaignLinks(
     })
     .join("");
 }
+
+function loginLinks(html: string, attribution: string): string {
+  return html.replaceAll(
+    /href="(https:\/\/ohmyho\.st)?\/login(\?intent=signup)?"/gu,
+    (_, origin: string | undefined, signup: string | undefined) =>
+      `href="${origin ?? ""}/login?r=${attribution}${signup ? "&amp;intent=signup" : ""}"`,
+  );
+}
+
 function signupSourceMeta(source: string): string {
   const escaped = source.replaceAll(
     /["&'<>]/gu,
@@ -242,8 +251,6 @@ export default {
       source !== undefined && SHELL_SAFE_SOURCE.test(source)
         ? source
         : undefined;
-    const loginHref =
-      attribution === undefined ? "/login" : `/login?r=${attribution}`;
     const contentPage =
       ["/", "/brand", "/api", "/login"].includes(url.pathname) ||
       url.pathname === "/docs.md" ||
@@ -377,8 +384,10 @@ export default {
     }
     if (url.pathname === "/login") {
       const target = new URL("https://app.ohmyho.st/login");
-      if (source) target.searchParams.set("r", source);
-      for (const [key, value] of campaign) target.searchParams.set(key, value);
+      if (attribution) target.searchParams.set("r", attribution);
+      const intents = url.searchParams.getAll("intent");
+      if (intents.length === 1 && intents[0] === "signup")
+        target.searchParams.set("intent", "signup");
       headers.set("location", target.href);
       return new Response(null, { status: 302, headers });
     }
@@ -396,11 +405,7 @@ export default {
     const document = customerDocument(documentPath);
     if (document) {
       let documentText = document.text;
-      if (attribution)
-        documentText = documentText.replaceAll(
-          'href="/login"',
-          `href="${loginHref}"`,
-        );
+      if (attribution) documentText = loginLinks(documentText, attribution);
       if (document.type.startsWith("text/html")) {
         documentText = campaignLinks(documentText, campaign, attribution);
         const hashes = [];
@@ -575,13 +580,7 @@ export default {
     if (type === "image/svg+xml")
       headers.set("cache-control", "public, max-age=86400");
     if (type.startsWith("text/html")) {
-      if (attribution)
-        body = body
-          .replaceAll(
-            'href="https://ohmyho.st/login"',
-            `href="https://ohmyho.st${loginHref}"`,
-          )
-          .replaceAll('href="/login"', `href="${loginHref}"`);
+      if (attribution) body = loginLinks(body, attribution);
       body = campaignLinks(body, campaign, attribution);
       const hashes: string[] = [];
       for (const script of body.matchAll(
