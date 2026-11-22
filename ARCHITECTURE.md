@@ -100,9 +100,9 @@ five-minute shared freshness period. Vary covers Accept, Cookie, Authorization a
 Any cookie, authorization header, referral or UTM query or Set-Cookie response keeps no-store and omits
 validators. Dynamic API, contact and login responses retain their existing policies.
 
-Valid, bounded `utm_*` entry parameters follow known internal navigation links and the login handoff
-without a website cookie. They are not added to external links, downloads or assets. The platform
-owns signup attribution; the website does not persist the associated account record.
+Valid, bounded `utm_*` entry parameters follow known internal navigation links without a website
+cookie. The local `/login` redirect forwards only a valid referral source and the literal
+`intent=signup` hint to the portal. The platform owns signup attribution.
 
 The small-app workload includes its deployed script and mail sender zone. The five-project example
 adds four quiet workloads to that complete workload; its prose states when the monthly credits
