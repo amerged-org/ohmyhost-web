@@ -213,7 +213,7 @@ ${skills
 
 - [About](https://ohmyho.st/about.md): Amerged B.V., Venray, Netherlands; founder Sebastian Mertens; how the service runs.
 - [Philosophy](https://ohmyho.st/philosophy.md): Buy in bulk, add a small margin, one balance for every project, take your database and go.
-- [Open source](https://ohmyho.st/open-source.md): [OMH platform source](https://github.com/amerged-org/ohmyhost) under Elastic License 2.0, [PGCF PostgreSQL](https://github.com/amerged-org/cloudflare-postgres) and the clients under Apache-2.0, and the MIT-licensed docs and website.
+- Read the [ohmyho.st hosting platform](https://github.com/amerged-org/ohmyhost) under Elastic License 2.0 to trace builds and deployments, and [managed PostgreSQL](https://github.com/amerged-org/cloudflare-postgres) under Apache-2.0 to trace database infrastructure. Both repositories are public. Your application source stays in your project. [Licenses](https://ohmyho.st/open-source.md).
 - [Blog](https://ohmyho.st/blog.md): Notes from the build with dated, priced comparisons and migration guides.
 - [Brand](https://ohmyho.st/brand.md)
 - [Privacy](https://ohmyho.st/privacy.md)
