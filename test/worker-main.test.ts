@@ -275,8 +275,14 @@ describe("public entry and unassigned Free-host fallback", () => {
         matches: (selector: string) => selector.includes("[data-start-prompt]"),
         classList: { add() {} },
       };
+      const dialogClasses = new Set<string>();
       const dialog = {
         open: false,
+        classList: {
+          remove: (name: string) => dialogClasses.delete(name),
+          toggle: (name: string, force?: boolean) =>
+            force ? dialogClasses.add(name) : dialogClasses.delete(name),
+        },
         addEventListener() {},
         querySelector: (selector: string) =>
           selector === "[data-copy-prompt-again]" ? copyButton : status,
@@ -339,7 +345,11 @@ describe("public entry and unassigned Free-host fallback", () => {
       expect(copied).toContain(
         "Keep existing projects in their current region.",
       );
+      expect(dialogClasses.has("copied")).toBe(true);
+      expect(copyButtonClasses.has("done")).toBe(true);
+      resetCopyIcon?.();
       expect(copyButtonClasses.has("done")).toBe(false);
+      expect(dialogClasses.has("copied")).toBe(true);
       await click(clickEvent(copyButton));
       expect(copyButtonClasses.has("done")).toBe(true);
       resetCopyIcon?.();
@@ -348,6 +358,7 @@ describe("public entry and unassigned Free-host fallback", () => {
       clipboardBlocked = true;
       await click(clickEvent(copyButton));
       expect(copyButtonClasses.has("done")).toBe(false);
+      expect(dialogClasses.has("copied")).toBe(false);
     }
     expect(html).not.toContain("logos/auth0.svg");
     expect(html).toContain("Bring your own auth provider or use ours.");

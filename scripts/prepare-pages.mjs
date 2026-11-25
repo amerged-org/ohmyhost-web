@@ -800,13 +800,20 @@ function addHomepageStartDialog(html) {
 #start-prompt .themer:hover{border-color:var(--border)}
 #start-prompt .themer svg{width:18px;height:18px}
 #start-prompt-status{min-height:1.45em;color:var(--muted-foreground);margin:4px 0 12px;font-size:14px;line-height:1.45}
-#start-prompt .term{margin:0;max-width:none}
+#start-prompt.copied #start-prompt-status{color:#4ade80}
+:root[data-theme="light"] #start-prompt.copied #start-prompt-status{color:#15803d}
+#start-prompt .term{margin:0;max-width:none;transition:border-color .2s,box-shadow .2s}
+#start-prompt.copied .term{border-color:#4ade80;box-shadow:0 0 0 1px #4ade8033}
+:root[data-theme="light"] #start-prompt.copied .term{border-color:#15803d;box-shadow:0 0 0 1px #15803d33}
 #start-prompt .bar2{align-items:center;justify-content:space-between;padding:0 6px 0 12px;color:var(--muted-foreground);font-size:11px}
 #start-prompt .shcopy{min-height:44px;padding:0 8px;color:var(--muted-foreground);white-space:nowrap}
 #start-prompt .shcopy:hover{background:var(--background);color:var(--foreground)}
 #start-prompt .copy-check,#start-prompt .shcopy.done .copy-icon{display:none}
+#start-prompt .shcopy.done{color:#4ade80;animation:startCopyPop .45s cubic-bezier(.2,1.2,.4,1)}
 #start-prompt .shcopy.done .copy-check{display:block;color:#4ade80}
-:root[data-theme="light"] #start-prompt .shcopy.done .copy-check{color:#15803d}
+:root[data-theme="light"] #start-prompt .shcopy.done,:root[data-theme="light"] #start-prompt .shcopy.done .copy-check{color:#15803d}
+@keyframes startCopyPop{0%{transform:scale(.92)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){#start-prompt .term{transition:none}#start-prompt .shcopy.done{animation:none}}
 #start-prompt .prompt {
   display:block;
   width:100%;

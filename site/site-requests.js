@@ -57,6 +57,7 @@
     if (promptCopyPending) return;
     promptCopyPending = true;
     globalThis.clearTimeout(promptCopyFeedbackTimer);
+    promptDialog.classList?.remove("copied");
     promptCopyButton.classList.remove("done");
     const cta = promptOpener?.closest("nav") ? "prompt_nav" : "prompt_page";
     let copied = false;
@@ -71,9 +72,10 @@
     promptStatus.textContent = copied
       ? "Copied to clipboard. Paste it into Codex, Claude Code or Cursor."
       : "Couldn’t copy automatically. Select and copy the prompt below.";
-    if (copied && button === promptCopyButton && promptDialog.open) {
-      button.classList.add("done");
-      promptCopyFeedbackTimer = setTimeout(() => button.classList.remove("done"), 2500);
+    promptDialog.classList?.toggle("copied", copied);
+    if (copied && promptDialog.open) {
+      promptCopyButton.classList.add("done");
+      promptCopyFeedbackTimer = setTimeout(() => promptCopyButton.classList.remove("done"), 2500);
     }
     globalThis.trackAcquisition?.(copied ? "prompt_copy_success" : "prompt_copy_failure", {
       cta,
