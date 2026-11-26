@@ -1,0 +1,17 @@
+{
+  "title": "Run Your Own Container Jobs for PDFs and Image Processing",
+  "description": "Build a Dockerfile from your saved project revision and run finite offline Linux jobs for photo-to-PDF conversion, image optimization, and document pipelines.",
+  "kind": "article",
+  "status": "published",
+  "crumb": "Project-owned container jobs",
+  "social": {
+    "image": "/og/blog-run-your-own-container-jobs.png",
+    "alt": "ohmyhost: run your own container jobs for PDFs and image optimization.",
+    "title": "Run Your Own Container Jobs on ohmyho.st",
+    "description": "Ship a Dockerfile alongside your web app for photo-to-PDF conversion, image optimization, and bounded Linux file processing without a second host."
+  },
+  "parent": "/blog",
+  "author": "Sebastian Mertens",
+  "published": "2026-11-26",
+  "modified": "2026-11-26"
+}
