@@ -59,6 +59,10 @@
     "templateSha256": "1645cfe0f7cf395c26a7d46eaceae4664ee610bdb6625ac5d779ffdaf62ade53",
     "renderedAt": "2026-11-16T21:56:34.608Z"
   },
+  "blog-run-your-own-container-jobs": {
+    "templateSha256": "c1ccfabcdf67887f61646175df282e6f8ff3737b4fe9cffc87507c83d662e581",
+    "renderedAt": "2026-11-26T19:28:17.646Z"
+  },
   "blog-six-things-that-break-when-a-vibe-coded-app-meets-production": {
     "templateSha256": "e51630ea3bba008f1e841adc2893651f2f4c4b12d9220debd6a2a33531d5a01f",
     "renderedAt": "2026-11-16T21:56:34.659Z"

@@ -27,6 +27,7 @@ export const OG_IMAGES: readonly string[] = [
   "blog-ohmyhost-chatgpt-plugin",
   "blog-railway-vs-render-vs-fly-vs-ohmyho-st-for-solo-developers-2026",
   "blog-run-lovable-project-locally",
+  "blog-run-your-own-container-jobs",
   "blog-six-things-that-break-when-a-vibe-coded-app-meets-production",
   "blog-supabase-vs-vercel-do-you-need-both",
   "blog-what-vercel-supabase-resend-cost-for-five-side-projects",
