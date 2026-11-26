@@ -55,7 +55,7 @@ The [ohmyho.st platform repository](https://github.com/amerged-org/ohmyhost) con
 
 The index, Skills, tool catalog and API contract describe the supported interfaces.
 
-See [amerged-org/ohmyhost](https://github.com/amerged-org/ohmyhost) for the ohmyho.st hosting platform (OMH) and [amerged-org/cloudflare-postgres](https://github.com/amerged-org/cloudflare-postgres) for its PostgreSQL infrastructure (PGCF).
+Anyone can read the [ohmyho.st platform source](https://github.com/amerged-org/ohmyhost) to trace a build or deployment, and the [managed PostgreSQL source](https://github.com/amerged-org/cloudflare-postgres) to trace a database change. Your app’s code stays in your project.
 
 ## How to contribute
 
