@@ -276,6 +276,7 @@ describe("public entry and unassigned Free-host fallback", () => {
         classList: { add() {} },
       };
       const dialogClasses = new Set<string>();
+      let dialogClick: ((event: unknown) => void) | undefined;
       const dialog = {
         open: false,
         classList: {
@@ -283,11 +284,22 @@ describe("public entry and unassigned Free-host fallback", () => {
           toggle: (name: string, force?: boolean) =>
             force ? dialogClasses.add(name) : dialogClasses.delete(name),
         },
-        addEventListener() {},
+        addEventListener(name: string, handler: (event: unknown) => void) {
+          if (name === "click") dialogClick = handler;
+        },
+        getBoundingClientRect: () => ({
+          left: 100,
+          right: 500,
+          top: 100,
+          bottom: 400,
+        }),
         querySelector: (selector: string) =>
           selector === "[data-copy-prompt-again]" ? copyButton : status,
         showModal() {
           this.open = true;
+        },
+        close() {
+          this.open = false;
         },
       };
       runInNewContext(script ?? "", {
@@ -359,6 +371,10 @@ describe("public entry and unassigned Free-host fallback", () => {
       await click(clickEvent(copyButton));
       expect(copyButtonClasses.has("done")).toBe(false);
       expect(dialogClasses.has("copied")).toBe(false);
+      dialogClick?.({ target: dialog, clientX: 250, clientY: 250 });
+      expect(dialog.open).toBe(true);
+      dialogClick?.({ target: dialog, clientX: 20, clientY: 20 });
+      expect(dialog.open).toBe(false);
     }
     expect(html).not.toContain("logos/auth0.svg");
     expect(html).toContain("Bring your own auth provider or use ours.");

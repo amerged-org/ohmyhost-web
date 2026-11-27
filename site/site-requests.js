@@ -47,6 +47,18 @@
   promptDialog?.addEventListener("close", () => {
     if (!promptDialog.open) promptOpener?.focus({ preventScroll: true });
   });
+  promptDialog?.addEventListener("click", (event) => {
+    if (event.target !== promptDialog) return;
+    const rect = promptDialog.getBoundingClientRect();
+    if (
+      event.clientX < rect.left ||
+      event.clientX > rect.right ||
+      event.clientY < rect.top ||
+      event.clientY > rect.bottom
+    ) {
+      promptDialog.close();
+    }
+  });
 
   async function copyStartPrompt(button) {
     promptStatus.textContent = "Copying to clipboard…";
